@@ -23,8 +23,13 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="home">
-        <Stack.Screen name="home" component={Home} />
-        <Stack.Screen name="login" component={Login} />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="home"
+          component={Home}
+        />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Section" component={BodyHome} />
       </Stack.Navigator>
     </NavigationContainer>
   )
