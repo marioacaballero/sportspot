@@ -7,16 +7,15 @@ import {
   ScrollView,
   StyleSheet
 } from 'react-native'
-// import { SafeAreaView, ScrollView } from "react-native-web";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function SignIn({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-      // style={{
-      //   flex: 1,
-      //   paddingVertical: 200
-      // }}
+      <ScrollView>
+              <LinearGradient
+        colors={["#F25910", "#F6B99C", "#FFF", "#FEF8F5", "#652794", "#40036F"]}
+        style={styles.linearGradient}
       >
         <Image
           style={styles.image}
@@ -45,14 +44,14 @@ export default function SignIn({ navigation }) {
           {'Bienvenido/a'}
         </Text>
         <View
-style={{
-  alignItems: 'center',
-  backgroundColor: '#E2DCEC',
-  borderRadius: 50,
-  paddingVertical: 20,
-  marginBottom: 10,
-  marginHorizontal: 21
-}}
+  style={{
+    alignItems: 'center',
+    backgroundColor: '#E2DCEC',
+    borderRadius: 50,
+    paddingVertical: 20,
+    marginBottom: 10,
+    marginHorizontal: 21
+  }}
         >
           <Text
             style={{
@@ -64,14 +63,14 @@ style={{
           </Text>
         </View>
         <View
-style={{
-  alignItems: 'center',
-  backgroundColor: '#E2DCEC',
-  borderRadius: 50,
-  paddingVertical: 20,
-  marginBottom: 10,
-  marginHorizontal: 21
-}}
+      style={{
+        alignItems: 'center',
+        backgroundColor: '#E2DCEC',
+        borderRadius: 50,
+        paddingVertical: 20,
+        marginBottom: 10,
+        marginHorizontal: 21
+      }}
         >
           <Text
             style={{
@@ -83,14 +82,14 @@ style={{
           </Text>
         </View>
         <View
-style={{
-  alignItems: 'center',
-  backgroundColor: '#E2DCEC',
-  borderRadius: 50,
-  paddingVertical: 20,
-  marginBottom: 10,
-  marginHorizontal: 21
-}}
+  style={{
+    alignItems: 'center',
+    backgroundColor: '#E2DCEC',
+    borderRadius: 50,
+    paddingVertical: 20,
+    marginBottom: 10,
+    marginHorizontal: 21
+  }}
         >
           <Text
             style={{
@@ -103,24 +102,27 @@ style={{
           </Text>
         </View>
         <View
-style={{
-  alignItems: 'center',
-  backgroundColor: '#E2DCEC',
-  borderRadius: 50,
-  paddingVertical: 20,
-  marginBottom: 10,
-  marginHorizontal: 21
-}}
+  style={{
+    alignItems: 'center',
+    backgroundColor: '#E2DCEC',
+    borderRadius: 50,
+    paddingVertical: 20,
+    marginBottom: 10,
+    marginHorizontal: 21
+  }}
         >
           <Text
             style={{
               color: '#40036F',
               fontSize: 18
             }}
+            onPress={() => navigation.navigate('SignUp')}
           >
+           
             {'Registrarse'}
           </Text>
         </View>
+        </LinearGradient>
       </ScrollView>
     </SafeAreaView>
   )
@@ -130,7 +132,7 @@ const styles = StyleSheet.create({
   image: {
     width: 262,
     height: 69,
-    marginVertical: 100,
+    marginVertical: 60,
     marginBottom: 11,
     marginHorizontal: 49
   },
@@ -138,7 +140,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:
-      'linear-gradient(162deg, red 0%, green 13.24%, black 37.75%, yellow 66.25%, blue 91%, white 103.14%)'
-  }
+  },
+  linearGradient: {
+    flex: 1,
+    width: "100%",
+  },
 })

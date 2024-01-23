@@ -3,36 +3,27 @@ import {
   Image,
   Text,
   View,
-  SafeAreaView,
   ScrollView,
   StyleSheet
 } from 'react-native'
-// import { SafeAreaView, ScrollView } from "react-native-web";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Login({ navigation }) {
   return (
-    <ScrollView
-      style={
-        {
-          // paddingTop: 200,
-          // paddingBottom: 172
-        }
-      }
-    >
-      <Image
-        source={{ uri: 'https://i.imgur.com/1tMFzp8.png' }}
-        resizeMode={'stretch'}
-        style={{
-          height: 69,
-          marginBottom: 11,
-          marginHorizontal: 49
-        }}
-      />
+    <ScrollView>
+      <LinearGradient colors={["#F25910", "#F6B99C", "#FFF", "#FEF8F5", "#652794", "#40036F"]}
+        style={styles.linearGradient}>
+        <Image
+          style={styles.image}
+          source={{
+            uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/ki44nk1ipb-1419%3A26538?alt=media&token=5e9d2fb3-e41f-4332-b494-10f6bdae5394",
+          }}
+        />
       <Text
         style={{
           color: '#F25910',
           fontSize: 22,
-          marginBottom: 114,
+          marginBottom: 96,
           marginHorizontal: 47
         }}
       >
@@ -105,14 +96,21 @@ export default function Login({ navigation }) {
       >
         {'¿Has olvidado tu contraseña?'}
       </Text>
+      </LinearGradient>
     </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
-  image: {
-    width: 262,
-    height: 69,
-    marginVertical: 100
-  }
+	image: {
+		width: 262,
+		height: 69,
+		marginVertical: 60,
+		marginBottom: 11,
+		marginHorizontal: 49
+	  },
+  linearGradient: {
+    flex: 1,
+    width: "100%",
+  },
 })

@@ -1,33 +1,23 @@
-import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View } from 'react-native'
-import { LinearGradient } from 'expo-linear-gradient'
+import LoadingScreen from './src/screens/home/LoadingScreen'
 import SignIn from './src/screens/signup/SignIn'
 import Login from './src/screens/signup/Login'
 import Home from './src/screens/home/Home'
-import Map from './src/components/popup/Map'
-import PopUpSportman from './src/screens/bodyHome/component/PopUpSportman'
+import Signup from './src/screens/signup/SignUp' 
 import Profile from './src/screens/profile/Profile'
-import ManageAccount from './src/screens/profile/components/manageAccount/ManageAccount'
-import EditProfile from './src/screens/profile/components/manageAccount/components/EditProfile'
-import Security from './src/screens/profile/components/manageAccount/components/Security'
-import PaymentDetails from './src/screens/profile/components/manageAccount/components/PaymentDetails'
-import AddCard from './src/screens/profile/components/manageAccount/components/AddCard'
-import WorkWithUs from './src/screens/profile/components/manageAccount/components/WorkWithUs'
+import FooterNav from './src/components/FooterNav'  
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
-import FooterNav from './src/components/FooterNav'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 const Stack = createNativeStackNavigator()
 
 export default function App() {
   const [isFooterShown, setIsFooterShown] = useState(true)
 
-  console.log(isFooterShown)
-
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="SignIn"
+        initialRouteName="LoadingScreen"
         screenOptions={({ route }) => ({
           headerShown: false,
           footerShown: setIsFooterShown(
@@ -37,6 +27,7 @@ export default function App() {
           )
         })}
       >
+        <Stack.Screen name='LoadingScreen' component={LoadingScreen} options={{ headerShown: false }} />
         <Stack.Screen
           screenOptions={{
             headerShown: false
@@ -46,6 +37,7 @@ export default function App() {
         />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name='SignUp' component={Signup} />
         <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
       {isFooterShown && <FooterNav />}

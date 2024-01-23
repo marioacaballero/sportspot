@@ -20,9 +20,8 @@ export default function Home({ navigation }) {
       <ScrollView
         style={{
           flex: 1,
-          backgroundColor: '#FFFFFF',
-          paddingTop: 70,
-          paddingBottom: -38
+          backgroundColor: "#FFFFFF",
+          paddingTop: 20,
         }}
       >
         <View
@@ -44,14 +43,11 @@ export default function Home({ navigation }) {
             {'INICIO'}
           </Text>
           <Image
-            source={{ uri: 'https://i.imgur.com/1tMFzp8.png' }}
-            resizeMode={'stretch'}
-            style={{
-              width: 29,
-              height: 21,
-              marginRight: 10
-            }}
-          />
+      style={styles.crown}
+      source={{
+        uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/6dugyuvkp9r-1419%3A28898?alt=media&token=3f9561df-7ea2-4913-b4c8-4d9756fe4799",
+      }}
+    />
           <View
             style={{
               width: 19
@@ -599,3 +595,10 @@ export default function Home({ navigation }) {
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  crown: {
+    width: 29,
+    height: 21.5,
+  }
+})
