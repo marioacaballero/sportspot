@@ -6,7 +6,6 @@ import {
   ScrollView,
   View,
   Text,
-  ImageBackground,
   TouchableOpacity,
 } from "react-native";
 import PopUpSportman from "../bodyHome/component/PopUpSportman";

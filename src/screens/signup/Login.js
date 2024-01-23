@@ -4,11 +4,11 @@ import { LinearGradient } from "expo-linear-gradient";
 
 export default function Login({ navigation }) {
   return (
-    <ScrollView>
-      <LinearGradient
-        colors={["#F25910", "#F6B99C", "#FFF", "#FEF8F5", "#652794", "#40036F"]}
-        style={styles.linearGradient}
-      >
+    <LinearGradient
+      colors={["#F25910", "#F6B99C", "#FFF", "#FEF8F5", "#652794", "#40036F"]}
+      style={styles.linearGradient}
+    >
+      <ScrollView>
         <Image
           style={styles.image}
           source={{
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 49,
   },
   linearGradient: {
-    flex: 1,
+    height: "100%",
     width: "100%",
   },
 });

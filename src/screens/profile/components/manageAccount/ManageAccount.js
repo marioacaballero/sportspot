@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, SafeAreaView, ScrollView, Text, View } from "react-native";
 
-export default function ManageAccount() {
+export default function ManageAccount({ navigation }) {
   return (
     <SafeAreaView
       style={{
@@ -69,6 +69,7 @@ export default function ManageAccount() {
                 fontSize: 14,
                 marginBottom: 7,
               }}
+              onPress={() => navigation.navigate("Edit")}
             >
               {"Editar perfil"}
             </Text>
@@ -131,6 +132,7 @@ export default function ManageAccount() {
                 fontSize: 14,
                 marginBottom: 7,
               }}
+              onPress={() => navigation.navigate("Security")}
             >
               {"Seguirdad"}
             </Text>
@@ -194,6 +196,7 @@ export default function ManageAccount() {
                 fontSize: 14,
                 marginBottom: 7,
               }}
+              onPress={() => navigation.navigate("Payment")}
             >
               {"Datos de pago"}
             </Text>

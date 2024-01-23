@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, SafeAreaView, ScrollView, Text, View } from "react-native";
 
-export default function PaymentDetails() {
+export default function PaymentDetails({ navigation }) {
   return (
     <SafeAreaView
       style={{
@@ -113,6 +113,7 @@ export default function PaymentDetails() {
                 color: "#FFFFFF",
                 fontSize: 16,
               }}
+              onPress={() => navigation.navigate("AddCard")}
             >
               {"Añadir tarjeta"}
             </Text>

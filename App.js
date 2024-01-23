@@ -3,8 +3,13 @@ import LoadingScreen from "./src/screens/home/LoadingScreen";
 import SignIn from "./src/screens/signup/SignIn";
 import Login from "./src/screens/signup/Login";
 import Home from "./src/screens/home/Home";
-import SignUp from "./src/screens/signup/SignUp";
+import Signup from "./src/screens/signup/SignUp";
 import Profile from "./src/screens/profile/Profile";
+import ManageAccount from "./src/screens/profile/components/manageAccount/ManageAccount";
+import EditProfile from "./src/screens/profile/components/manageAccount/components/EditProfile";
+import Security from "./src/screens/profile/components/manageAccount/components/EditProfile";
+import PaymentDetails from "./src/screens/profile/components/manageAccount/components/PaymentDetails";
+import AddCard from "./src/screens/profile/components/manageAccount/components/AddCard";
 import FooterNav from "./src/components/FooterNav";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -42,8 +47,39 @@ export default function App() {
         />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="SignUp" component={Signup} />
+
+        {/*----------- Navagacion en Perfil --------*/}
+        <Stack.Screen
+          options={{ headerShown: true }}
+          name="Profile"
+          component={Profile}
+        />
+        <Stack.Screen
+          options={{ headerShown: true }}
+          name="ManageAccount"
+          component={ManageAccount}
+        />
+        <Stack.Screen
+          options={{ headerShown: true }}
+          name="Edit"
+          component={EditProfile}
+        />
+        <Stack.Screen
+          options={{ headerShown: true }}
+          name="Security"
+          component={Security}
+        />
+        <Stack.Screen
+          options={{ headerShown: true }}
+          name="Payment"
+          component={PaymentDetails}
+        />
+        <Stack.Screen
+          options={{ headerShown: true }}
+          name="AddCard"
+          component={AddCard}
+        />
       </Stack.Navigator>
       {isFooterShown && <FooterNav />}
     </NavigationContainer>

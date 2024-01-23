@@ -143,12 +143,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 49,
   },
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    height: "100vh",
+    // flex: 1,
+    // alignItems: "center",
+    // justifyContent: "center",
   },
   linearGradient: {
-    flex: 1,
+    // flex: 1,
     width: "100%",
+    height: "100%",
   },
 });
