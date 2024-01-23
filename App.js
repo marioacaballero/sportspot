@@ -1,10 +1,9 @@
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import Signup from './src/screens/signup/Signup'
-import Home from './src/screens/home/Home'
+import SignIn from './src/screens/signup/SignIn'
 import Login from './src/screens/signup/Login'
-import BodyHome from './src/screens/bodyHome/BodyHome'
+import Home from './src/screens/home/Home'
 import Map from './src/components/popup/Map'
 import PopUpSportman from './src/screens/bodyHome/component/PopUpSportman'
 import Profile from './src/screens/profile/Profile'
@@ -14,7 +13,6 @@ import Security from './src/screens/profile/components/manageAccount/components/
 import PaymentDetails from './src/screens/profile/components/manageAccount/components/PaymentDetails'
 import AddCard from './src/screens/profile/components/manageAccount/components/AddCard'
 import WorkWithUs from './src/screens/profile/components/manageAccount/components/WorkWithUs'
-import Navigation from './src/navigation/Navigation'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 const Stack = createNativeStackNavigator()
@@ -22,14 +20,14 @@ const Stack = createNativeStackNavigator()
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="home">
+      <Stack.Navigator initialRouteName="SignIn">
         <Stack.Screen
           options={{ headerShown: false }}
-          name="home"
-          component={Home}
+          name="signin"
+          component={SignIn}
         />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Section" component={BodyHome} />
+        <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
   )

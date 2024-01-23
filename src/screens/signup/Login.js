@@ -91,7 +91,7 @@ export default function Login({ navigation }) {
             color: '#F2F1F8',
             fontSize: 18
           }}
-          onPress={() => navigation.navigate('Section')}
+          onPress={() => navigation.navigate('Home')}
         >
           {'Entrar'}
         </Text>
