@@ -1,18 +1,18 @@
-import { StyleSheet, Text, View } from 'react-native'
-import LoadingScreen from './src/screens/home/LoadingScreen'
-import SignIn from './src/screens/signup/SignIn'
-import Login from './src/screens/signup/Login'
-import Home from './src/screens/home/Home'
-import SignUp from './src/screens/signup/SignUp'
-import Profile from './src/screens/profile/Profile'
-import FooterNav from './src/components/FooterNav'  
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { NavigationContainer } from '@react-navigation/native'
-import { useState } from 'react'
-const Stack = createNativeStackNavigator()
+import { StyleSheet, Text, View } from "react-native";
+import LoadingScreen from "./src/screens/home/LoadingScreen";
+import SignIn from "./src/screens/signup/SignIn";
+import Login from "./src/screens/signup/Login";
+import Home from "./src/screens/home/Home";
+import SignUp from "./src/screens/signup/SignUp";
+import Profile from "./src/screens/profile/Profile";
+import FooterNav from "./src/components/FooterNav";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import { useState } from "react";
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [isFooterShown, setIsFooterShown] = useState(true)
+  const [isFooterShown, setIsFooterShown] = useState(true);
 
   return (
     <NavigationContainer fallback={<LoadingScreen />}>
@@ -21,17 +21,21 @@ export default function App() {
         screenOptions={({ route }) => ({
           headerShown: false,
           footerShown: setIsFooterShown(
-            route.name !== 'SignIn' &&
-              route.name !== 'Login' &&
-              route.name !== 'Register' &&
-              route.name !== 'LoadingScreen'
-          )
+            route.name !== "SignIn" &&
+              route.name !== "Login" &&
+              route.name !== "Register" &&
+              route.name !== "LoadingScreen",
+          ),
         })}
       >
-        <Stack.Screen name='LoadingScreen' component={LoadingScreen} options={{ headerShown: false }} />
+        <Stack.Screen
+          name="LoadingScreen"
+          component={LoadingScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           screenOptions={{
-            headerShown: false
+            headerShown: false,
           }}
           name="SignIn"
           component={SignIn}
@@ -43,21 +47,21 @@ export default function App() {
       </Stack.Navigator>
       {isFooterShown && <FooterNav />}
     </NavigationContainer>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor:
-      'linear-gradient(162deg, red 0%, green 13.24%, black 37.75%, yellow 66.25%, blue 91%, white 103.14%)'
+      "linear-gradient(162deg, red 0%, green 13.24%, black 37.75%, yellow 66.25%, blue 91%, white 103.14%)",
   },
   linearGradient: {
     flex: 1,
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-})
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

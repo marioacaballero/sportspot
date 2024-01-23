@@ -1,4 +1,10 @@
-import { Image, ImageBackground, ScrollView, Text, View,StyleSheet } from "react-native";
+import {
+  Image,
+  ScrollView,
+  Text,
+  View,
+  StyleSheet,
+} from "react-native";
 
 export default function PopUpSportman() {
   return (
@@ -21,13 +27,12 @@ export default function PopUpSportman() {
           marginHorizontal: 20,
         }}
       >
-
-     <Image
-      style={styles.Localizacion}
-      source={{
-        uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/bdseh7d8e6l-1419%3A29419?alt=media&token=e152bd53-e415-4b1e-8f2d-3b0bf183e035",
-      }}
-    />
+        <Image
+          style={styles.Localizacion}
+          source={{
+            uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/bdseh7d8e6l-1419%3A29419?alt=media&token=e152bd53-e415-4b1e-8f2d-3b0bf183e035",
+          }}
+        />
 
         <Text
           style={{
@@ -50,12 +55,12 @@ export default function PopUpSportman() {
           marginHorizontal: 20,
         }}
       >
-    <Image
-      style={styles.Deporte}
-      source={{
-        uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/3bhmeq2xiix-1419%3A29425?alt=media&token=2e97a416-f60d-4673-a5a7-0fa8d13c205d",
-      }}
-    />
+        <Image
+          style={styles.Deporte}
+          source={{
+            uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/3bhmeq2xiix-1419%3A29425?alt=media&token=2e97a416-f60d-4673-a5a7-0fa8d13c205d",
+          }}
+        />
         <Text
           style={{
             color: "#40036F",
@@ -77,13 +82,12 @@ export default function PopUpSportman() {
           marginHorizontal: 20,
         }}
       >
-
-              <Image
-      style={styles.Fecha}
-      source={{
-        uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/72olmmulnzg-1419%3A29432?alt=media&token=4383a584-09f6-4790-8cf8-209076d74729",
-      }}
-    />
+        <Image
+          style={styles.Fecha}
+          source={{
+            uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/72olmmulnzg-1419%3A29432?alt=media&token=4383a584-09f6-4790-8cf8-209076d74729",
+          }}
+        />
 
         <Text
           style={{
@@ -131,16 +135,16 @@ const styles = StyleSheet.create({
   Localizacion: {
     width: 24,
     height: 24,
-    marginRight: 10
+    marginRight: 10,
   },
   Deporte: {
     width: 24,
     height: 24,
-    marginRight: 10
+    marginRight: 10,
   },
   Fecha: {
     width: 24,
     height: 24,
-    marginRight: 10
-  }
-})
+    marginRight: 10,
+  },
+});
