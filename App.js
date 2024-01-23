@@ -15,19 +15,18 @@ import PaymentDetails from './src/screens/profile/components/manageAccount/compo
 import AddCard from './src/screens/profile/components/manageAccount/components/AddCard'
 import WorkWithUs from './src/screens/profile/components/manageAccount/components/WorkWithUs'
 import Navigation from './src/navigation/Navigation'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { NavigationContainer } from '@react-navigation/native'
+const Stack = createNativeStackNavigator()
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      {/* <LinearGradient
-        colors={['#F25910', '#F6B99C', '#FFF', '#FEF8F5', '#652794', '#40036F']}
-        style={styles.linearGradient}
-      > */}
-      {/* <Home2 /> */}
-      {/* <Login /> */}
-      <Navigation />
-      {/* </LinearGradient> */}
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="home">
+        <Stack.Screen name="home" component={Home} />
+        <Stack.Screen name="login" component={Login} />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
 
