@@ -19,12 +19,14 @@ export default function FooterNav() {
           uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/l2a0xrqm878-1421%3A26612?alt=media&token=fa86477b-c8f9-4eab-8818-7bc24b45e105",
         }}
       />
-      <Image
-        style={styles.Frame1547756027}
-        source={{
-          uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/ividk8s9rl-1421%3A26613?alt=media&token=d17e4fbe-27a0-47f3-a5a9-e134f826505c",
-        }}
-      />
+      <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+        <Image
+          style={styles.Frame1547756027}
+          source={{
+            uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/ividk8s9rl-1421%3A26613?alt=media&token=d17e4fbe-27a0-47f3-a5a9-e134f826505c",
+          }}
+        />
+      </TouchableOpacity>
       <Image
         style={styles.Frame1547756027}
         source={{

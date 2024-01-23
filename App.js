@@ -20,7 +20,7 @@ export default function App() {
   const [isFooterShown, setIsFooterShown] = useState(true);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer fallback={<LoadingScreen />}>
       <Stack.Navigator
         initialRouteName="LoadingScreen"
         screenOptions={({ route }) => ({
@@ -28,7 +28,8 @@ export default function App() {
           footerShown: setIsFooterShown(
             route.name !== "SignIn" &&
               route.name !== "Login" &&
-              route.name !== "Register"
+              route.name !== "Register" &&
+              route.name !== "LoadingScreen",
           ),
         })}
       >

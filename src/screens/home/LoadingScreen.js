@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import React, { useEffect } from "react";
+import { View, Image, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
 function LoadingScreen() {
   const navigation = useNavigation();
 
   useEffect(() => {
     const loadingTimeout = setTimeout(() => {
-      navigation.navigate('SignIn');
+      navigation.navigate("SignIn");
     }, 3000);
     return () => clearTimeout(loadingTimeout);
   }, [navigation]);
