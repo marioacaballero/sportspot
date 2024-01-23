@@ -29,7 +29,7 @@ export default function App() {
             route.name !== "SignIn" &&
               route.name !== "Login" &&
               route.name !== "Register" &&
-              route.name !== "LoadingScreen",
+              route.name !== "LoadingScreen"
           ),
         })}
       >
