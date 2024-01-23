@@ -3,7 +3,7 @@ import LoadingScreen from "./src/screens/home/LoadingScreen";
 import SignIn from "./src/screens/signup/SignIn";
 import Login from "./src/screens/signup/Login";
 import Home from "./src/screens/home/Home";
-import Signup from "./src/screens/signup/SignUp";
+import SignUp from "./src/screens/signup/SignUp";
 import Profile from "./src/screens/profile/Profile";
 import ManageAccount from "./src/screens/profile/components/manageAccount/ManageAccount";
 import EditProfile from "./src/screens/profile/components/manageAccount/components/EditProfile";
@@ -19,6 +19,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const [isFooterShown, setIsFooterShown] = useState(true);
 
+  
   return (
     <NavigationContainer fallback={<LoadingScreen />}>
       <Stack.Navigator
@@ -47,7 +48,7 @@ export default function App() {
         />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="SignUp" component={Signup} />
+        <Stack.Screen name="SignUp" component={SignUp} />
 
         {/*----------- Navagacion en Perfil --------*/}
         <Stack.Screen
