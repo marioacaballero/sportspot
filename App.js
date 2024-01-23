@@ -7,7 +7,7 @@ import SignUp from "./src/screens/signup/SignUp";
 import Profile from "./src/screens/profile/Profile";
 import ManageAccount from "./src/screens/profile/components/manageAccount/ManageAccount";
 import EditProfile from "./src/screens/profile/components/manageAccount/components/EditProfile";
-import Security from "./src/screens/profile/components/manageAccount/components/EditProfile";
+import Security from "./src/screens/profile/components/manageAccount/components/Security";
 import PaymentDetails from "./src/screens/profile/components/manageAccount/components/PaymentDetails";
 import AddCard from "./src/screens/profile/components/manageAccount/components/AddCard";
 import FooterNav from "./src/components/FooterNav";
@@ -30,7 +30,7 @@ export default function App() {
             route.name !== "SignIn" &&
               route.name !== "Login" &&
               route.name !== "Register" &&
-              route.name !== "LoadingScreen",
+              route.name !== "LoadingScreen"
           ),
         })}
       >
