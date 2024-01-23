@@ -12,18 +12,11 @@ import { LinearGradient } from "expo-linear-gradient";
 export default function SignIn({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <LinearGradient
-          colors={[
-            "#F25910",
-            "#F6B99C",
-            "#FFF",
-            "#FEF8F5",
-            "#652794",
-            "#40036F",
-          ]}
-          style={styles.linearGradient}
-        >
+      <LinearGradient
+        colors={["#F25910", "#F6B99C", "#FFF", "#FEF8F5", "#652794", "#40036F"]}
+        style={styles.linearGradient}
+      >
+        <ScrollView>
           <Image
             style={styles.image}
             source={{
@@ -128,8 +121,8 @@ export default function SignIn({ navigation }) {
               {"Registrarse"}
             </Text>
           </View>
-        </LinearGradient>
-      </ScrollView>
+        </ScrollView>
+      </LinearGradient>
     </SafeAreaView>
   );
 }
