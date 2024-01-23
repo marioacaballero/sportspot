@@ -59,7 +59,6 @@ export default function Home({ navigation }) {
               color: '#40036F',
               fontSize: 18
             }}
-            onPress={() => navigation.navigate('login')}
           >
             {'Iniciar sesión con Google'}
           </Text>
@@ -97,6 +96,7 @@ export default function Home({ navigation }) {
               color: '#40036F',
               fontSize: 18
             }}
+            onPress={() => navigation.navigate('Login')}
           >
             {'Iniciar sesión sin registro'}
           </Text>
