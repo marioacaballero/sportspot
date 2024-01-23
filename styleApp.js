@@ -1,8 +1,5 @@
 const styleApp = {
   container: {
-    //   flex: 1,
-    //   justifyContent: 'center',
-    //   alignItems: 'center',
     color: "blue",
   },
   linearGradient: {

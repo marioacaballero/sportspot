@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet, Image, Text, View } from "react-native";
-import stylee from "../../styleApp";
 
 const Signup = () => {
   return (

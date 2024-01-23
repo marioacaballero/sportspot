@@ -1,23 +1,21 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import Home from "./home/Home";
-import Signup from "./signup/component/Signup";
-import stylee from "./styleApp";
+import Signup from "./src/screens/signup/Signup";
+import Home from "./src/screens/home/Home";
+import Login from "./src/screens/signup/Login";
+import BodyHome from "./src/screens/bodyHome/BodyHome";
 
 export default function App() {
   return (
     <View style={styles.container}>
       <LinearGradient
         colors={["#F25910", "#F6B99C", "#FFF", "#FEF8F5", "#652794", "#40036F"]}
-        locations={[0, 0.1324, 0.3775, 0.6625, 0.91, 1.0314]} // Ajusta las posiciones
-        start={{ x: 45, y: 0 }} // Controla la dirección del gradiente
-        end={{ x: 1, y: 1 }} // Controla la dirección del gradiente
         style={styles.linearGradient}
       >
-        <Home />
-        <StatusBar /* style="auto"*/ />
-        <Signup />
+        {/* <Home2 /> */}
+        {/* <Login /> */}
+        <BodyHome />
       </LinearGradient>
     </View>
   );
