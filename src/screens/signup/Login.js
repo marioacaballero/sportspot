@@ -92,8 +92,8 @@ export default function Login({ navigation }) {
         >
           {"¿Has olvidado tu contraseña?"}
         </Text>
-      </LinearGradient>
-    </ScrollView>
+      </ScrollView>
+    </LinearGradient>
   );
 }
 
