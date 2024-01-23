@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, SafeAreaView, ScrollView, Text, View } from "react-native";
 
-export default function Profile() {
+export default function Profile({ navigation }) {
   return (
     <SafeAreaView
       style={{
@@ -100,6 +100,7 @@ export default function Profile() {
             />
           </View>
           <Text
+            onPress={() => navigation.navigate("ManageAccount")}
             style={{
               color: "#40036F",
               fontSize: 16,
