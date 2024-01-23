@@ -443,15 +443,6 @@ export default function Home() {
               elevation: 10,
             }}
           >
-            <ImageBackground
-              source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-              resizeMode={"stretch"}
-              imageStyle={{ borderTopLeftRadius: 6, borderTopRightRadius: 6 }}
-              style={{
-                paddingLeft: 149,
-                paddingRight: 1,
-              }}
-            >
               <Image
                 source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
                 resizeMode={"stretch"}
@@ -461,7 +452,6 @@ export default function Home() {
                   marginTop: 49,
                 }}
               />
-            </ImageBackground>
           </View>
           <View
             style={{
