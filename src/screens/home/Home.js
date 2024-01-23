@@ -1,124 +1,601 @@
-import React from 'react'
+import React from "react";
 import {
+  StyleSheet,
   Image,
-  Text,
-  View,
   SafeAreaView,
   ScrollView,
-  StyleSheet
-} from 'react-native'
-// import { SafeAreaView, ScrollView } from "react-native-web";
+  View,
+  Text,
+  ImageBackground,
+} from "react-native";
 
-export default function Home({ navigation }) {
+export default function Home() {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: "#FFFFFF",
+      }}
+    >
       <ScrollView
-      // style={{
-      //   flex: 1,
-      //   paddingVertical: 200
-      // }}
+        style={{
+          flex: 1,
+          backgroundColor: "#FFFFFF",
+          paddingTop: 70,
+          paddingBottom: -38,
+        }}
       >
-        <Image
-          style={styles.image}
-          source={{
-            uri: 'https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/ki44nk1ipb-1419%3A26538?alt=media&token=5e9d2fb3-e41f-4332-b494-10f6bdae5394'
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginBottom: 19,
+            marginHorizontal: 22,
           }}
-        />
+        >
+          <Text
+            style={{
+              color: "#40036F",
+              fontSize: 24,
+              marginRight: 4,
+              flex: 1,
+            }}
+          >
+            {"INICIO"}
+          </Text>
+          <Image
+            source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+            resizeMode={"stretch"}
+            style={{
+              width: 29,
+              height: 21,
+              marginRight: 10,
+            }}
+          />
+          <View
+            style={{
+              width: 19,
+            }}
+          >
+            <Image
+              source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+              resizeMode={"stretch"}
+              style={{
+                height: 22,
+              }}
+            />
+            <Image
+              source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+              resizeMode={"stretch"}
+              style={{
+                position: "absolute",
+                top: -1,
+                right: -1,
+                width: 5,
+                height: 5,
+              }}
+            />
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            backgroundColor: "#FCECE7",
+            borderRadius: 50,
+            paddingVertical: 10,
+            paddingHorizontal: 12,
+            marginBottom: 21,
+            marginHorizontal: 20,
+          }}
+        >
+          <Image
+            source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+            resizeMode={"stretch"}
+            style={{
+              width: 21,
+              height: 21,
+              marginRight: 19,
+            }}
+          />
+          <Text
+            style={{
+              color: "#F25910",
+              fontSize: 16,
+              flex: 1,
+            }}
+          >
+            {"Buscar"}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: 6,
+            marginHorizontal: 71,
+          }}
+        >
+          <Text
+            style={{
+              color: "#40036F",
+              fontSize: 16,
+            }}
+          >
+            {"Deportista"}
+          </Text>
+          <Text
+            style={{
+              color: "#E2DCEC",
+              fontSize: 16,
+            }}
+          >
+            {"Organizador"}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: 19,
+            marginHorizontal: 109,
+          }}
+        >
+          <Image
+            source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+            resizeMode={"stretch"}
+            style={{
+              width: 6,
+              height: 6,
+            }}
+          />
+          <Image
+            source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+            resizeMode={"stretch"}
+            style={{
+              width: 6,
+              height: 6,
+            }}
+          />
+        </View>
         <Text
           style={{
-            color: '#F25910',
-            fontSize: 22,
-            marginBottom: 63,
-            marginHorizontal: 47
+            color: "#40036F",
+            fontSize: 16,
+            marginBottom: 13,
+            marginHorizontal: 18,
           }}
         >
-          {'ENCUENTRA TU PRUEBA'}
+          {"Últimas horas de inscripción"}
         </Text>
+        <ScrollView
+          horizontal
+          style={{
+            flexDirection: "row",
+            marginBottom: 18,
+            marginHorizontal: 16,
+          }}
+        >
+          <View
+            style={{
+              width: 187,
+              alignSelf: "flex-start",
+              backgroundColor: "#FFFFFF",
+              borderRadius: 14,
+              paddingBottom: 21,
+              paddingHorizontal: 6,
+              marginRight: 15,
+              shadowColor: "#27272733",
+              shadowOpacity: 0.2,
+              shadowOffset: {
+                width: 2,
+                height: 4,
+              },
+              shadowRadius: 10,
+              elevation: 10,
+            }}
+          >
+            <Image
+              source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+              resizeMode={"stretch"}
+              style={{
+                borderTopLeftRadius: 6,
+                borderTopRightRadius: 6,
+                height: 95,
+                marginBottom: 8,
+              }}
+            />
+            <Text
+              style={{
+                color: "#F25910",
+                fontSize: 12,
+                marginBottom: 4,
+              }}
+            >
+              {"Torneo de baloncesto"}
+            </Text>
+            <Text
+              style={{
+                color: "#2A2749",
+                fontSize: 10,
+                marginBottom: 2,
+              }}
+            >
+              {"Lorem ipsum dolor sit amet. "}
+            </Text>
+            <Text
+              style={{
+                color: "#40036F",
+                fontSize: 10,
+              }}
+            >
+              {"¡La inscripción acaba en 10 horas!"}
+            </Text>
+          </View>
+          <View
+            style={{
+              width: 187,
+              alignSelf: "flex-start",
+              backgroundColor: "#FFFFFF",
+              borderRadius: 14,
+              paddingBottom: 21,
+              paddingHorizontal: 6,
+              shadowColor: "#27272733",
+              shadowOpacity: 0.2,
+              shadowOffset: {
+                width: 2,
+                height: 4,
+              },
+              shadowRadius: 10,
+              elevation: 10,
+            }}
+          >
+            <Image
+              source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+              resizeMode={"stretch"}
+              style={{
+                borderTopLeftRadius: 6,
+                borderTopRightRadius: 6,
+                height: 95,
+                marginBottom: 7,
+              }}
+            />
+            <Text
+              style={{
+                color: "#F25910",
+                fontSize: 12,
+                marginBottom: 5,
+              }}
+            >
+              {"Ciclismo"}
+            </Text>
+            <Text
+              style={{
+                color: "#2A2749",
+                fontSize: 10,
+                marginBottom: 2,
+              }}
+            >
+              {"Lorem ipsum dolor sit amet. "}
+            </Text>
+            <Text
+              style={{
+                color: "#40036F",
+                fontSize: 10,
+              }}
+            >
+              {"¡La inscripción acaba en 10 horas!"}
+            </Text>
+          </View>
+        </ScrollView>
         <Text
           style={{
-            color: '#F25910',
-            fontSize: 40,
-            marginBottom: 9,
-            marginHorizontal: 45
+            color: "#40036F",
+            fontSize: 16,
+            marginBottom: 14,
+            marginHorizontal: 18,
           }}
         >
-          {'Bienvenido/a'}
+          {"Últimas pruebas añadidas"}
         </Text>
-        <View
+        <ScrollView
+          horizontal
           style={{
-            alignItems: 'center',
-            backgroundColor: '#E2DCEC',
-            borderRadius: 50,
-            paddingVertical: 20,
-            marginBottom: 10,
-            marginHorizontal: 21
+            flexDirection: "row",
+            marginBottom: 21,
+            marginHorizontal: 16,
           }}
         >
-          <Text
+          <View
             style={{
-              color: '#40036F',
-              fontSize: 18
+              width: 187,
+              alignSelf: "flex-start",
+              backgroundColor: "#FFFFFF",
+              borderRadius: 14,
+              paddingBottom: 21,
+              paddingHorizontal: 6,
+              marginRight: 15,
+              shadowColor: "#27272733",
+              shadowOpacity: 0.2,
+              shadowOffset: {
+                width: 2,
+                height: 4,
+              },
+              shadowRadius: 10,
+              elevation: 10,
             }}
           >
-            {'Iniciar sesión con Google'}
-          </Text>
-        </View>
-        <View
+            <Image
+              source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+              resizeMode={"stretch"}
+              style={{
+                borderTopLeftRadius: 6,
+                borderTopRightRadius: 6,
+                height: 95,
+                marginBottom: 7,
+              }}
+            />
+            <Text
+              style={{
+                color: "#F25910",
+                fontSize: 12,
+                marginBottom: 5,
+              }}
+            >
+              {"Lorem ipsum"}
+            </Text>
+            <Text
+              style={{
+                color: "#2A2749",
+                fontSize: 10,
+                marginBottom: 2,
+              }}
+            >
+              {"Lorem ipsum dolor sit amet. "}
+            </Text>
+            <Text
+              style={{
+                color: "#2A2749",
+                fontSize: 10,
+              }}
+            >
+              {"Lorem ipsum dolor sit amet. "}
+            </Text>
+          </View>
+          <View
+            style={{
+              width: 187,
+              alignSelf: "flex-start",
+              backgroundColor: "#FFFFFF",
+              borderRadius: 14,
+              paddingBottom: 21,
+              paddingHorizontal: 6,
+              shadowColor: "#27272733",
+              shadowOpacity: 0.2,
+              shadowOffset: {
+                width: 2,
+                height: 4,
+              },
+              shadowRadius: 10,
+              elevation: 10,
+            }}
+          >
+            <Image
+              source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+              resizeMode={"stretch"}
+              style={{
+                borderTopLeftRadius: 6,
+                borderTopRightRadius: 6,
+                height: 95,
+                marginBottom: 7,
+              }}
+            />
+            <Text
+              style={{
+                color: "#F25910",
+                fontSize: 12,
+                marginBottom: 5,
+              }}
+            >
+              {"Lorem ipsum"}
+            </Text>
+            <Text
+              style={{
+                color: "#2A2749",
+                fontSize: 10,
+                marginBottom: 2,
+              }}
+            >
+              {"Lorem ipsum dolor sit amet. "}
+            </Text>
+            <Text
+              style={{
+                color: "#2A2749",
+                fontSize: 10,
+              }}
+            >
+              {"Lorem ipsum dolor sit amet. "}
+            </Text>
+          </View>
+        </ScrollView>
+        <Text
           style={{
-            alignItems: 'center',
-            backgroundColor: '#E2DCEC',
-            borderRadius: 50,
-            paddingVertical: 20,
-            marginBottom: 10,
-            marginHorizontal: 21
+            color: "#40036F",
+            fontSize: 16,
+            marginBottom: 11,
+            marginHorizontal: 18,
           }}
         >
-          <Text
-            style={{
-              color: '#40036F',
-              fontSize: 18
-            }}
-          >
-            {'Iniciar sesión con Apple'}
-          </Text>
-        </View>
-        <View
+          {"Resultados de las útlimas pruebas"}
+        </Text>
+        <ScrollView
+          horizontal
           style={{
-            alignItems: 'center',
-            backgroundColor: '#E2DCEC',
-            borderRadius: 50,
-            paddingVertical: 20,
-            marginHorizontal: 21
+            flexDirection: "row",
           }}
         >
-          <Text
+          <View
             style={{
-              color: '#40036F',
-              fontSize: 18
+              width: 187,
+              alignSelf: "flex-start",
+              backgroundColor: "#FFFFFF",
+              borderRadius: 14,
+              marginLeft: 16,
+              marginRight: 15,
+              shadowColor: "#27272733",
+              shadowOpacity: 0.2,
+              shadowOffset: {
+                width: 2,
+                height: 4,
+              },
+              shadowRadius: 10,
+              elevation: 10,
             }}
-            onPress={() => navigation.navigate('Login')}
           >
-            {'Iniciar sesión sin registro'}
-          </Text>
-        </View>
+            <ImageBackground
+              source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+              resizeMode={"stretch"}
+              imageStyle={{ borderTopLeftRadius: 6, borderTopRightRadius: 6 }}
+              style={{
+                paddingLeft: 149,
+                paddingRight: 1,
+              }}
+            >
+              <Image
+                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                resizeMode={"stretch"}
+                style={{
+                  width: 37,
+                  height: 24,
+                  marginTop: 49,
+                }}
+              />
+            </ImageBackground>
+          </View>
+          <View
+            style={{
+              width: 187,
+              alignSelf: "flex-start",
+              backgroundColor: "#FFFFFF",
+              borderRadius: 14,
+              shadowColor: "#27272733",
+              shadowOpacity: 0.2,
+              shadowOffset: {
+                width: 2,
+                height: 4,
+              },
+              shadowRadius: 10,
+              elevation: 10,
+            }}
+          >
+            <Image
+              source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+              resizeMode={"stretch"}
+              style={{
+                borderTopLeftRadius: 6,
+                borderTopRightRadius: 6,
+                height: 95,
+              }}
+            />
+          </View>
+          <View
+            style={{
+              position: "absolute",
+              bottom: 38,
+              left: 0,
+              width: 360,
+              height: 65,
+              backgroundColor: "#F2F1F8",
+              paddingHorizontal: 28,
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                marginTop: 16,
+              }}
+            >
+              <Image
+                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                resizeMode={"stretch"}
+                style={{
+                  width: 16,
+                  height: 16,
+                  marginTop: 12,
+                }}
+              />
+              <View
+                style={{
+                  flex: 1,
+                }}
+              ></View>
+              <Image
+                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                resizeMode={"stretch"}
+                style={{
+                  width: 33,
+                  height: 33,
+                }}
+              />
+              <View style={{}}>
+                <Image
+                  source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                  resizeMode={"stretch"}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: 6,
+                    height: 8,
+                  }}
+                />
+                <Image
+                  source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                  resizeMode={"stretch"}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: 11,
+                    height: 14,
+                  }}
+                />
+              </View>
+              <Image
+                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                resizeMode={"stretch"}
+                style={{
+                  width: 22,
+                  height: 20,
+                  marginTop: 6,
+                  marginRight: 128,
+                }}
+              />
+              <Image
+                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                resizeMode={"stretch"}
+                style={{
+                  width: 20,
+                  height: 20,
+                  marginTop: 6,
+                  marginRight: 47,
+                }}
+              />
+              <Image
+                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+                resizeMode={"stretch"}
+                style={{
+                  width: 19,
+                  height: 20,
+                  marginTop: 6,
+                }}
+              />
+            </View>
+          </View>
+        </ScrollView>
       </ScrollView>
     </SafeAreaView>
-  )
+  );
 }
-
-const styles = StyleSheet.create({
-  image: {
-    width: 262,
-    height: 69,
-    marginVertical: 100,
-    marginBottom: 11,
-    marginHorizontal: 49
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor:
-      'linear-gradient(162deg, red 0%, green 13.24%, black 37.75%, yellow 66.25%, blue 91%, white 103.14%)'
-  }
-})
