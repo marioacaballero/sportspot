@@ -19,6 +19,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const [isFooterShown, setIsFooterShown] = useState(true);
 
+  
   return (
     <NavigationContainer fallback={<LoadingScreen />}>
       <Stack.Navigator
