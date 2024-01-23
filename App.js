@@ -14,18 +14,19 @@ import Security from './src/screens/profile/components/manageAccount/components/
 import PaymentDetails from './src/screens/profile/components/manageAccount/components/PaymentDetails'
 import AddCard from './src/screens/profile/components/manageAccount/components/AddCard'
 import WorkWithUs from './src/screens/profile/components/manageAccount/components/WorkWithUs'
+import Navigation from './src/navigation/Navigation'
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <LinearGradient
+      {/* <LinearGradient
         colors={['#F25910', '#F6B99C', '#FFF', '#FEF8F5', '#652794', '#40036F']}
         style={styles.linearGradient}
-      >
-        {/* <Home2 /> */}
-        {/* <Login /> */}
-        <BodyHome />
-      </LinearGradient>
+      > */}
+      {/* <Home2 /> */}
+      {/* <Login /> */}
+      <Navigation />
+      {/* </LinearGradient> */}
     </View>
   )
 }
