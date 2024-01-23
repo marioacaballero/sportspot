@@ -443,15 +443,15 @@ export default function Home() {
               elevation: 10,
             }}
           >
-              <Image
-                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                resizeMode={"stretch"}
-                style={{
-                  width: 37,
-                  height: 24,
-                  marginTop: 49,
-                }}
-              />
+            <Image
+              source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+              resizeMode={"stretch"}
+              style={{
+                width: 37,
+                height: 24,
+                marginTop: 49,
+              }}
+            />
           </View>
           <View
             style={{
