@@ -7,21 +7,28 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Modal,
 } from "react-native";
 import PopUpSportman from "../bodyHome/component/PopUpSportman";
+import Premium from "../home/components/popup-premium/Premium";
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [showSearch, setShowSearch] = useState(false);
+  const [showPremium, setShowPremium] = useState(false);
 
   const handleSearchPress = () => {
     setShowSearch(true);
+  };
+
+  const handlePremium = () => {
+    setShowPremium(true);
   };
 
   return (
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: "#FFFFFF",
+        // backgroundColor: "#FFFFFF",
       }}
     >
       <ScrollView
@@ -49,23 +56,29 @@ export default function Home() {
           >
             {"INICIO"}
           </Text>
-          <Image
-            style={styles.crown}
-            source={{
-              uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/6dugyuvkp9r-1419%3A28898?alt=media&token=3f9561df-7ea2-4913-b4c8-4d9756fe4799",
-            }}
-          />
+          <TouchableOpacity onPress={handlePremium}>
+            <Image
+              style={styles.crown}
+              source={{
+                uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/6dugyuvkp9r-1419%3A28898?alt=media&token=3f9561df-7ea2-4913-b4c8-4d9756fe4799",
+              }}
+            />
+          </TouchableOpacity>
           <View
             style={{
               width: 19,
             }}
           >
-            <Image
-              style={styles.Notifications}
-              source={{
-                uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/u3swydel8-1419%3A28904?alt=media&token=13b9176e-837d-4d05-81b5-241133450d7f",
-              }}
-            />
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Notifications")}
+            >
+              <Image
+                style={styles.Notifications}
+                source={{
+                  uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/u3swydel8-1419%3A28904?alt=media&token=13b9176e-837d-4d05-81b5-241133450d7f",
+                }}
+              />
+            </TouchableOpacity>
             <Image
               source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
               resizeMode={"stretch"}
@@ -79,9 +92,10 @@ export default function Home() {
             />
           </View>
         </View>
+        {showPremium && <Premium setShowPremium={setShowPremium} />}
         <View>
           {showSearch ? (
-            <PopUpSportman />
+            <PopUpSportman setShowSearch={setShowSearch} />
           ) : (
             <TouchableOpacity
               style={{
@@ -92,6 +106,7 @@ export default function Home() {
                 paddingVertical: 10,
                 paddingHorizontal: 12,
                 marginBottom: 21,
+                marginTop: 21,
                 marginHorizontal: 20,
               }}
               onPress={handleSearchPress}
@@ -419,10 +434,13 @@ export default function Home() {
         >
           {"Resultados de las útlimas pruebas"}
         </Text>
+
         <ScrollView
           horizontal
           style={{
             flexDirection: "row",
+            marginBottom: 21,
+            marginHorizontal: 16,
           }}
         >
           <View
@@ -431,34 +449,9 @@ export default function Home() {
               alignSelf: "flex-start",
               backgroundColor: "#FFFFFF",
               borderRadius: 14,
-              marginLeft: 16,
+              paddingBottom: 21,
+              paddingHorizontal: 6,
               marginRight: 15,
-              shadowColor: "#27272733",
-              shadowOpacity: 0.2,
-              shadowOffset: {
-                width: 2,
-                height: 4,
-              },
-              shadowRadius: 10,
-              elevation: 10,
-            }}
-          >
-            <Image
-              source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-              resizeMode={"stretch"}
-              style={{
-                width: 37,
-                height: 24,
-                marginTop: 49,
-              }}
-            />
-          </View>
-          <View
-            style={{
-              width: 187,
-              alignSelf: "flex-start",
-              backgroundColor: "#FFFFFF",
-              borderRadius: 14,
               shadowColor: "#27272733",
               shadowOpacity: 0.2,
               shadowOffset: {
@@ -476,102 +469,90 @@ export default function Home() {
                 borderTopLeftRadius: 6,
                 borderTopRightRadius: 6,
                 height: 95,
+                marginBottom: 7,
               }}
             />
+            <Text
+              style={{
+                color: "#F25910",
+                fontSize: 12,
+                marginBottom: 5,
+              }}
+            >
+              {"Lorem ipsum"}
+            </Text>
+            <Text
+              style={{
+                color: "#2A2749",
+                fontSize: 10,
+                marginBottom: 2,
+              }}
+            >
+              {"Lorem ipsum dolor sit amet. "}
+            </Text>
+            <Text
+              style={{
+                color: "#2A2749",
+                fontSize: 10,
+              }}
+            >
+              {"Lorem ipsum dolor sit amet. "}
+            </Text>
           </View>
           <View
             style={{
-              position: "absolute",
-              bottom: 38,
-              left: 0,
-              width: 360,
-              height: 65,
-              backgroundColor: "#F2F1F8",
-              paddingHorizontal: 28,
+              width: 187,
+              alignSelf: "flex-start",
+              backgroundColor: "#FFFFFF",
+              borderRadius: 14,
+              paddingBottom: 21,
+              paddingHorizontal: 6,
+              shadowColor: "#27272733",
+              shadowOpacity: 0.2,
+              shadowOffset: {
+                width: 2,
+                height: 4,
+              },
+              shadowRadius: 10,
+              elevation: 10,
             }}
           >
-            <View
+            <Image
+              source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
+              resizeMode={"stretch"}
               style={{
-                flexDirection: "row",
-                marginTop: 16,
+                borderTopLeftRadius: 6,
+                borderTopRightRadius: 6,
+                height: 95,
+                marginBottom: 7,
+              }}
+            />
+            <Text
+              style={{
+                color: "#F25910",
+                fontSize: 12,
+                marginBottom: 5,
               }}
             >
-              <Image
-                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                resizeMode={"stretch"}
-                style={{
-                  width: 16,
-                  height: 16,
-                  marginTop: 12,
-                }}
-              />
-              <View
-                style={{
-                  flex: 1,
-                }}
-              ></View>
-              <Image
-                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                resizeMode={"stretch"}
-                style={{
-                  width: 33,
-                  height: 33,
-                }}
-              />
-              <View style={{}}>
-                <Image
-                  source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                  resizeMode={"stretch"}
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: 6,
-                    height: 8,
-                  }}
-                />
-                <Image
-                  source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                  resizeMode={"stretch"}
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: 11,
-                    height: 14,
-                  }}
-                />
-              </View>
-              <Image
-                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                resizeMode={"stretch"}
-                style={{
-                  width: 22,
-                  height: 20,
-                  marginTop: 6,
-                  marginRight: 128,
-                }}
-              />
-              <Image
-                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                resizeMode={"stretch"}
-                style={{
-                  width: 20,
-                  height: 20,
-                  marginTop: 6,
-                  marginRight: 47,
-                }}
-              />
-              <Image
-                source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-                resizeMode={"stretch"}
-                style={{
-                  width: 19,
-                  height: 20,
-                  marginTop: 6,
-                }}
-              />
-            </View>
+              {"Lorem ipsum"}
+            </Text>
+            <Text
+              style={{
+                color: "#2A2749",
+                fontSize: 10,
+                marginBottom: 2,
+              }}
+            >
+              {"Lorem ipsum dolor sit amet. "}
+            </Text>
+            <Text
+              style={{
+                color: "#2A2749",
+                fontSize: 10,
+              }}
+            >
+              {"Lorem ipsum dolor sit amet. "}
+            </Text>
           </View>
         </ScrollView>
       </ScrollView>
