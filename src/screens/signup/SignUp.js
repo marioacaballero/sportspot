@@ -17,21 +17,14 @@ export default function Signup({ navigation }) {
         backgroundColor: "#FFFFFF",
       }}
     >
-      <ScrollView
-        style={{
-          flex: 1,
-        }}
+      <LinearGradient
+        colors={["#F25910", "#F6B99C", "#FFF", "#FEF8F5", "#652794", "#40036F"]}
+        style={styles.linearGradient}
       >
-        <LinearGradient
-          colors={[
-            "#F25910",
-            "#F6B99C",
-            "#FFF",
-            "#FEF8F5",
-            "#652794",
-            "#40036F",
-          ]}
-          style={styles.linearGradient}
+        <ScrollView
+          style={{
+            flex: 1,
+          }}
         >
           <Image
             style={styles.image}
@@ -135,8 +128,8 @@ export default function Signup({ navigation }) {
           >
             {"¿Has olvidado tu contraseña?"}
           </Text>
-        </LinearGradient>
-      </ScrollView>
+        </ScrollView>
+      </LinearGradient>
     </SafeAreaView>
   );
 }

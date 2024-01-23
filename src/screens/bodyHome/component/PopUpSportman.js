@@ -1,12 +1,6 @@
-import {
-  Image,
-  ScrollView,
-  Text,
-  View,
-  StyleSheet,
-} from "react-native";
+import { Image, ScrollView, Text, View, StyleSheet } from "react-native";
 
-export default function PopUpSportman() {
+export default function PopUpSportman({ setShowSearch }) {
   return (
     <ScrollView
       style={{
@@ -15,6 +9,12 @@ export default function PopUpSportman() {
         paddingBottom: -151,
       }}
     >
+      <Text
+        onPress={() => setShowSearch(false)}
+        style={{ textAlign: "right", marginRight: 20 }}
+      >
+        X
+      </Text>
       <View
         style={{
           flexDirection: "row",
