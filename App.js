@@ -15,20 +15,40 @@ import AddCard from './src/screens/profile/components/manageAccount/components/A
 import WorkWithUs from './src/screens/profile/components/manageAccount/components/WorkWithUs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
+import FooterNav from './src/components/FooterNav'
+import { useEffect, useState } from 'react'
 const Stack = createNativeStackNavigator()
 
 export default function App() {
+  const [isFooterShown, setIsFooterShown] = useState(true)
+
+  console.log(isFooterShown)
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="SignIn">
+      <Stack.Navigator
+        initialRouteName="SignIn"
+        screenOptions={({ route }) => ({
+          headerShown: false,
+          footerShown: setIsFooterShown(
+            route.name !== 'SignIn' &&
+              route.name !== 'Login' &&
+              route.name !== 'Register'
+          )
+        })}
+      >
         <Stack.Screen
-          options={{ headerShown: false }}
-          name="signin"
+          screenOptions={{
+            headerShown: false
+          }}
+          name="SignIn"
           component={SignIn}
         />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
+      {isFooterShown && <FooterNav />}
     </NavigationContainer>
   )
 }
