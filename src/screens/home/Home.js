@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   StyleSheet,
   Image,
@@ -6,10 +6,19 @@ import {
   ScrollView,
   View,
   Text,
-  ImageBackground
+  ImageBackground,
+  TouchableOpacity
 } from 'react-native'
+import PopUpSportman from '../bodyHome/component/PopUpSportman'
 
-export default function Home({ navigation }) {
+export default function Home( ) {
+
+  const [showSearch, setShowSearch] = useState(false)
+
+  const handleSearchPress = () => {
+    setShowSearch(true);
+  };
+
   return (
     <SafeAreaView
       style={{
@@ -21,7 +30,7 @@ export default function Home({ navigation }) {
         style={{
           flex: 1,
           backgroundColor: "#FFFFFF",
-          paddingTop: 20,
+          paddingTop: 30,
         }}
       >
         <View
@@ -53,13 +62,12 @@ export default function Home({ navigation }) {
               width: 19
             }}
           >
-            <Image
-              source={{ uri: 'https://i.imgur.com/1tMFzp8.png' }}
-              resizeMode={'stretch'}
-              style={{
-                height: 22
-              }}
-            />
+    <Image
+      style={styles.Notifications}
+      source={{
+        uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/u3swydel8-1419%3A28904?alt=media&token=13b9176e-837d-4d05-81b5-241133450d7f",
+      }}
+    />
             <Image
               source={{ uri: 'https://i.imgur.com/1tMFzp8.png' }}
               resizeMode={'stretch'}
@@ -73,7 +81,11 @@ export default function Home({ navigation }) {
             />
           </View>
         </View>
-        <View
+        <View>
+      {showSearch ? (
+        <PopUpSportman />
+      ) : (
+        <TouchableOpacity
           style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -82,28 +94,28 @@ export default function Home({ navigation }) {
             paddingVertical: 10,
             paddingHorizontal: 12,
             marginBottom: 21,
-            marginHorizontal: 20
+            marginHorizontal: 20,
           }}
+          onPress={handleSearchPress}
         >
           <Image
-            source={{ uri: 'https://i.imgur.com/1tMFzp8.png' }}
-            resizeMode={'stretch'}
-            style={{
-              width: 21,
-              height: 21,
-              marginRight: 19
+            style={{ width: 20, height: 20 }} // Ajusta el estilo según tus necesidades
+            source={{
+              uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/bzymlkrnmz-1557%3A26470?alt=media&token=efca5697-3fe6-41df-862c-fab2226119ae",
             }}
           />
           <Text
             style={{
               color: '#F25910',
               fontSize: 16,
-              flex: 1
+              marginLeft: 8, // Ajusta según tus necesidades
             }}
           >
             {'Buscar'}
           </Text>
-        </View>
+        </TouchableOpacity>
+      )}
+    </View>
         <View
           style={{
             flexDirection: 'row',
@@ -139,22 +151,7 @@ export default function Home({ navigation }) {
             marginHorizontal: 109
           }}
         >
-          <Image
-            source={{ uri: 'https://i.imgur.com/1tMFzp8.png' }}
-            resizeMode={'stretch'}
-            style={{
-              width: 6,
-              height: 6
-            }}
-          />
-          <Image
-            source={{ uri: 'https://i.imgur.com/1tMFzp8.png' }}
-            resizeMode={'stretch'}
-            style={{
-              width: 6,
-              height: 6
-            }}
-          />
+
         </View>
         <Text
           style={{
@@ -600,5 +597,15 @@ const styles = StyleSheet.create({
   crown: {
     width: 29,
     height: 21.5,
-  }
+    marginRight: 5
+  },
+  Notifications: {
+      width: 19,
+      height: 21.5,
+      marginTop: 2
+    },
+    Search: {
+      width: 29,
+      height: 29,
+    },
 })

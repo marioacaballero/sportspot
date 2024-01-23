@@ -1,11 +1,11 @@
-import { Image, ImageBackground, ScrollView, Text, View } from "react-native";
+import { Image, ImageBackground, ScrollView, Text, View,StyleSheet } from "react-native";
 
 export default function PopUpSportman() {
   return (
     <ScrollView
       style={{
         width: "100%",
-        paddingTop: 70,
+        paddingTop: 20,
         paddingBottom: -151,
       }}
     >
@@ -21,24 +21,14 @@ export default function PopUpSportman() {
           marginHorizontal: 20,
         }}
       >
-        <ImageBackground
-          source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-          resizeMode={"stretch"}
-          style={{
-            width: 24,
-            paddingHorizontal: 7,
-            marginRight: 13,
-          }}
-        >
-          <Image
-            source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-            resizeMode={"stretch"}
-            style={{
-              height: 14,
-              marginTop: 5,
-            }}
-          />
-        </ImageBackground>
+
+     <Image
+      style={styles.Localizacion}
+      source={{
+        uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/bdseh7d8e6l-1419%3A29419?alt=media&token=e152bd53-e415-4b1e-8f2d-3b0bf183e035",
+      }}
+    />
+
         <Text
           style={{
             color: "#40036F",
@@ -60,24 +50,12 @@ export default function PopUpSportman() {
           marginHorizontal: 20,
         }}
       >
-        <ImageBackground
-          source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-          resizeMode={"stretch"}
-          style={{
-            width: 24,
-            paddingHorizontal: 6,
-            marginRight: 13,
-          }}
-        >
-          <Image
-            source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-            resizeMode={"stretch"}
-            style={{
-              height: 10,
-              marginTop: 7,
-            }}
-          />
-        </ImageBackground>
+    <Image
+      style={styles.Deporte}
+      source={{
+        uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/3bhmeq2xiix-1419%3A29425?alt=media&token=2e97a416-f60d-4673-a5a7-0fa8d13c205d",
+      }}
+    />
         <Text
           style={{
             color: "#40036F",
@@ -99,24 +77,14 @@ export default function PopUpSportman() {
           marginHorizontal: 20,
         }}
       >
-        <ImageBackground
-          source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-          resizeMode={"stretch"}
-          style={{
-            width: 24,
-            paddingHorizontal: 6,
-            marginRight: 13,
-          }}
-        >
-          <ImageBackground
-            source={{ uri: "https://i.imgur.com/1tMFzp8.png" }}
-            resizeMode={"stretch"}
-            style={{
-              height: 12,
-              marginTop: 6,
-            }}
-          ></ImageBackground>
-        </ImageBackground>
+
+              <Image
+      style={styles.Fecha}
+      source={{
+        uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/72olmmulnzg-1419%3A29432?alt=media&token=4383a584-09f6-4790-8cf8-209076d74729",
+      }}
+    />
+
         <Text
           style={{
             color: "#40036F",
@@ -158,3 +126,21 @@ export default function PopUpSportman() {
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  Localizacion: {
+    width: 24,
+    height: 24,
+    marginRight: 10
+  },
+  Deporte: {
+    width: 24,
+    height: 24,
+    marginRight: 10
+  },
+  Fecha: {
+    width: 24,
+    height: 24,
+    marginRight: 10
+  }
+})

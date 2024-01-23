@@ -3,7 +3,7 @@ import LoadingScreen from './src/screens/home/LoadingScreen'
 import SignIn from './src/screens/signup/SignIn'
 import Login from './src/screens/signup/Login'
 import Home from './src/screens/home/Home'
-import Signup from './src/screens/signup/SignUp' 
+import SignUp from './src/screens/signup/SignUp'
 import Profile from './src/screens/profile/Profile'
 import FooterNav from './src/components/FooterNav'  
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -15,7 +15,7 @@ export default function App() {
   const [isFooterShown, setIsFooterShown] = useState(true)
 
   return (
-    <NavigationContainer>
+    <NavigationContainer fallback={<LoadingScreen />}>
       <Stack.Navigator
         initialRouteName="LoadingScreen"
         screenOptions={({ route }) => ({
@@ -23,7 +23,8 @@ export default function App() {
           footerShown: setIsFooterShown(
             route.name !== 'SignIn' &&
               route.name !== 'Login' &&
-              route.name !== 'Register'
+              route.name !== 'Register' &&
+              route.name !== 'LoadingScreen'
           )
         })}
       >
@@ -37,7 +38,7 @@ export default function App() {
         />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name='SignUp' component={Signup} />
+        <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
       {isFooterShown && <FooterNav />}
