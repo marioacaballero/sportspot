@@ -220,60 +220,6 @@ Fecha de la prueba: `}</Text>
             </View>
           </View>
         </View>
-        <View style={[styles.menInferior, styles.menInferiorLayout7]}>
-          <View style={[styles.groupParent, styles.menInferiorLayout7]}>
-            <Pressable
-              style={styles.wrapper}
-              onPress={() => navigation.navigate('UltimasConsultas')}
-            >
-              <Image
-                style={styles.icon}
-                contentFit="cover"
-                source={require('../assets/group-1171276700.png')}
-              />
-            </Pressable>
-            <Pressable
-              style={[styles.vector, styles.frameLayout9]}
-              onPress={() => navigation.navigate('Favoritos1')}
-            >
-              <Image
-                style={styles.icon}
-                contentFit="cover"
-                source={require('../assets/vector.png')}
-              />
-            </Pressable>
-            <Image
-              style={styles.capturaDePantalla20231124}
-              contentFit="cover"
-              source={require('../assets/captura-de-pantalla-20231124-114115-1.png')}
-            />
-            <Pressable
-              style={[styles.container, styles.frameLayout9]}
-              onPress={() => navigation.navigate('HistorialDePruebas')}
-            >
-              <Image
-                style={styles.icon}
-                contentFit="cover"
-                source={require('../assets/frame-15477560221.png')}
-              />
-            </Pressable>
-            <Pressable
-              style={[styles.frame, styles.frameLayout9]}
-              onPress={() => navigation.navigate('TuPerfil')}
-            >
-              <Image
-                style={styles.icon}
-                contentFit="cover"
-                source={require('../assets/group-1171276701.png')}
-              />
-            </Pressable>
-          </View>
-          <Image
-            style={[styles.menInferiorChild, styles.frameParentPosition6]}
-            contentFit="cover"
-            source={require('../assets/ellipse-7194.png')}
-          />
-        </View>
       </View>
 
       <Modal animationType="fade" transparent visible={frameContainer7Visible}>

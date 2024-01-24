@@ -149,60 +149,6 @@ organizadores`}</Text>
           />
         </View>
       </View>
-      <View style={[styles.menInferior, styles.menInferiorPosition]}>
-        <View style={[styles.groupContainer, styles.menInferiorPosition]}>
-          <Pressable
-            style={styles.wrapper}
-            onPress={() => navigation.navigate('UltimasConsultas')}
-          >
-            <Image
-              style={styles.icon}
-              contentFit="cover"
-              source={require('../assets/group-11712767002.png')}
-            />
-          </Pressable>
-          <Pressable
-            style={[styles.vector, styles.frameLayout]}
-            onPress={() => navigation.navigate('Favoritos1')}
-          >
-            <Image
-              style={styles.icon}
-              contentFit="cover"
-              source={require('../assets/vector8.png')}
-            />
-          </Pressable>
-          <Image
-            style={styles.capturaDePantalla20231124}
-            contentFit="cover"
-            source={require('../assets/captura-de-pantalla-20231124-114115-11.png')}
-          />
-          <Pressable
-            style={[styles.container, styles.frameLayout]}
-            onPress={() => navigation.navigate('HistorialDePruebas')}
-          >
-            <Image
-              style={styles.icon}
-              contentFit="cover"
-              source={require('../assets/frame-15477560222.png')}
-            />
-          </Pressable>
-          <Pressable
-            style={[styles.frame, styles.frameLayout]}
-            onPress={() => navigation.navigate('TuPerfil')}
-          >
-            <Image
-              style={styles.icon}
-              contentFit="cover"
-              source={require('../assets/group-11712767013.png')}
-            />
-          </Pressable>
-        </View>
-        <Image
-          style={styles.menInferiorChild}
-          contentFit="cover"
-          source={require('../assets/ellipse-71941.png')}
-        />
-      </View>
     </View>
   )
 }
@@ -439,18 +385,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: Padding.p_xl,
     alignItems: 'center'
-  },
-  menInferiorChild: {
-    top: 0,
-    left: 165,
-    width: 37,
-    position: 'absolute',
-    height: 24
-  },
-  menInferior: {
-    top: 726,
-    height: 75,
-    zIndex: 3
   },
   inicioOrganizador: {
     backgroundColor: Color.blanco,
