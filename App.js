@@ -1,5 +1,4 @@
-const Stack = createNativeStackNavigator()
-import * as React from 'react'
+import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import PruebasEncontradasDetalle from './screens/PruebasEncontradasDetalle'
 import Calendar from './components/Calendar'
@@ -18,7 +17,6 @@ import HistorialDePruebas from './screens/HistorialDePruebas'
 import TuPerfil from './screens/TuPerfil'
 import IniciarSesin from './screens/IniciarSesin'
 import Registrarse from './screens/Registrarse'
-import InicioPREMIUM from './screens/InicioPREMIUM'
 import InicioNotificaciones from './screens/InicioNotificaciones'
 import InicioDeportista from './screens/InicioDeportista'
 import InicioOrganizador from './screens/InicioOrganizador'
@@ -34,11 +32,10 @@ import PruebasEncontradasDetalle1 from './screens/PruebasEncontradasDetalle1'
 import PruebasEncontradasOrdenar from './screens/PruebasEncontradasOrdenar'
 import Group from './screens/Group'
 import SignIn from './screens/SignIn'
-
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { View, Text, Pressable, TouchableOpacity } from 'react-native'
 
 export default function App() {
+  const Stack = createNativeStackNavigator()
   return (
     <>
       <NavigationContainer>
@@ -135,11 +132,6 @@ export default function App() {
             name="Registrarse"
             component={Registrarse}
             options={{ headerShown: true, title: 'Atrás' }}
-          />
-          <Stack.Screen
-            name="InicioPREMIUM"
-            component={InicioPREMIUM}
-            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="InicioNotificaciones"

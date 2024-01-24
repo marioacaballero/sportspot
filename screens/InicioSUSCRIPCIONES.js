@@ -1,5 +1,12 @@
-import * as React from 'react'
-import { Text, StyleSheet, View, Pressable, Image } from 'react-native'
+import React from 'react'
+import {
+  Text,
+  StyleSheet,
+  View,
+  Pressable,
+  Image,
+  ScrollView
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Color, FontFamily, FontSize, Border, Padding } from '../GlobalStyles'
 
@@ -7,10 +14,12 @@ const InicioSUSCRIPCIONES = () => {
   const navigation = useNavigation()
 
   return (
-    <View style={styles.inicioSuscripciones2}>
+    <ScrollView style={styles.inicioSuscripciones2}>
       <View style={styles.helloAshfakParent}>
-        <Text style={[styles.helloAshfak, styles.helloClr]}>{`PLANES DE
-SUSCRIPCIÓN`}</Text>
+        <Text style={[styles.helloAshfak, styles.helloClr]}>
+          {`PLANES DE
+SUSCRIPCIÓN`}
+        </Text>
         <View style={styles.groupParent}>
           <Image
             style={styles.frameChild}
@@ -59,9 +68,11 @@ SUSCRIPCIÓN`}</Text>
                       source={require('../assets/warning.png')}
                     />
                     <View style={styles.helloAshfakWrapper}>
-                      <Text
-                        style={[styles.helloAshfak1, styles.helloClr]}
-                      >{`Alertas personalizadas en tiempo real que te informarán sobre eventos importantes. `}</Text>
+                      <Text style={[styles.helloAshfak1, styles.helloClr]}>
+                        {
+                          'Alertas personalizadas en tiempo real que te informarán sobre eventos importantes.'
+                        }
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -104,9 +115,11 @@ SUSCRIPCIÓN`}</Text>
                       source={require('../assets/star.png')}
                     />
                     <View style={styles.helloAshfakWrapper}>
-                      <Text
-                        style={[styles.helloAshfak1, styles.helloClr]}
-                      >{`Nos preocupamos por la autenticidad de tu experiencia, contarás con la capacidad de validar reseñas, asegurando la calidad de la información. `}</Text>
+                      <Text style={[styles.helloAshfak1, styles.helloClr]}>
+                        {
+                          'Nos preocupamos por la autenticidad de tu experiencia, contarás con la capacidad de validar reseñas, asegurando la calidad de la información.'
+                        }
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -118,9 +131,11 @@ SUSCRIPCIÓN`}</Text>
                       source={require('../assets/percent.png')}
                     />
                     <View style={styles.helloAshfakWrapper}>
-                      <Text
-                        style={[styles.helloAshfak1, styles.helloClr]}
-                      >{`Hemos establecido colaboraciones exclusivas que te brindarán descuentos especiales con nuestros colaboradores. `}</Text>
+                      <Text style={[styles.helloAshfak1, styles.helloClr]}>
+                        {
+                          'Hemos establecido colaboraciones exclusivas que te brindarán descuentos especiales con nuestros colaboradores.'
+                        }
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -255,7 +270,7 @@ objetivos deportivos con Spotsport Premium!`}</Text>
           source={require('../assets/ellipse-71941.png')}
         />
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
