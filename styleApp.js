@@ -1,13 +1,13 @@
 const styleApp = {
   container: {
-    color: "blue",
+    color: 'blue'
   },
   linearGradient: {
     flex: 1,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-};
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+}
 
-export default styleApp;
+export default styleApp
