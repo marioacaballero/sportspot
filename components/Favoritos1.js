@@ -50,60 +50,6 @@ const Favoritos1 = () => {
           </View>
         </View>
       </View>
-      <View style={styles.menInferior}>
-        <View style={[styles.groupParent, styles.groupParentFlexBox5]}>
-          <Pressable
-            style={styles.wrapper}
-            onPress={() => navigation.navigate('UltimasConsultas')}
-          >
-            <Image
-              style={styles.icon}
-              contentFit="cover"
-              source={require('../assets/group-1171276700.png')}
-            />
-          </Pressable>
-          <Pressable
-            style={[styles.vector, styles.frameLayout8]}
-            onPress={() => navigation.navigate('Favoritos1')}
-          >
-            <Image
-              style={styles.icon}
-              contentFit="cover"
-              source={require('../assets/vector1.png')}
-            />
-          </Pressable>
-          <Image
-            style={styles.capturaDePantalla20231124}
-            contentFit="cover"
-            source={require('../assets/captura-de-pantalla-20231124-114115-1.png')}
-          />
-          <Pressable
-            style={[styles.container, styles.frameLayout8]}
-            onPress={() => navigation.navigate('HistorialDePruebas')}
-          >
-            <Image
-              style={styles.icon}
-              contentFit="cover"
-              source={require('../assets/frame-1547756022.png')}
-            />
-          </Pressable>
-          <Pressable
-            style={[styles.frame, styles.frameLayout8]}
-            onPress={() => navigation.navigate('TuPerfil')}
-          >
-            <Image
-              style={styles.icon}
-              contentFit="cover"
-              source={require('../assets/group-1171276701.png')}
-            />
-          </Pressable>
-        </View>
-        <Image
-          style={styles.menInferiorChild}
-          contentFit="cover"
-          source={require('../assets/ellipse-7194.png')}
-        />
-      </View>
     </View>
   )
 }
@@ -219,21 +165,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: Padding.p_xl,
     width: 360,
-    position: 'absolute'
-  },
-  menInferiorChild: {
-    left: 165,
-    width: 37,
-    height: 24,
-    top: 0,
-    position: 'absolute'
-  },
-  menInferior: {
-    bottom: 0,
-    height: 75,
-    width: 360,
-    left: '50%',
-    marginLeft: -180,
     position: 'absolute'
   },
   favoritos: {

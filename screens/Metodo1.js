@@ -30,60 +30,6 @@ const Metodo1 = () => {
         >{`TRABAJA CON
 NOSOTROS`}</Text>
       </View>
-      <View style={styles.menInferior}>
-        <View style={[styles.groupParent, styles.groupParentFlexBox]}>
-          <Pressable
-            style={styles.wrapper}
-            onPress={() => navigation.navigate('UltimasConsultas')}
-          >
-            <Image
-              style={styles.icon}
-              contentFit="cover"
-              source={require('../assets/group-1171276700.png')}
-            />
-          </Pressable>
-          <Pressable
-            style={[styles.vector, styles.frameLayout]}
-            onPress={() => navigation.navigate('Favoritos1')}
-          >
-            <Image
-              style={styles.icon}
-              contentFit="cover"
-              source={require('../assets/vector1.png')}
-            />
-          </Pressable>
-          <Image
-            style={styles.capturaDePantalla20231124}
-            contentFit="cover"
-            source={require('../assets/captura-de-pantalla-20231124-114115-1.png')}
-          />
-          <Pressable
-            style={[styles.container, styles.frameLayout]}
-            onPress={() => navigation.navigate('HistorialDePruebas')}
-          >
-            <Image
-              style={styles.icon}
-              contentFit="cover"
-              source={require('../assets/frame-1547756022.png')}
-            />
-          </Pressable>
-          <Pressable
-            style={[styles.frame, styles.frameLayout]}
-            onPress={() => navigation.navigate('TuPerfil')}
-          >
-            <Image
-              style={styles.icon}
-              contentFit="cover"
-              source={require('../assets/group-1171276701.png')}
-            />
-          </Pressable>
-        </View>
-        <Image
-          style={styles.menInferiorChild}
-          contentFit="cover"
-          source={require('../assets/ellipse-7194.png')}
-        />
-      </View>
       <Text style={styles.trabajaConNosotrosContainer}>
         {`Trabaja con nosotros y vive la emoción de
 formar parte de una plataforma deportiva
@@ -218,21 +164,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_xl,
     paddingVertical: Padding.p_3xs,
     width: 360
-  },
-  menInferiorChild: {
-    top: 0,
-    left: 165,
-    width: 37,
-    height: 24,
-    position: 'absolute'
-  },
-  menInferior: {
-    marginLeft: -180,
-    bottom: 0,
-    left: '50%',
-    height: 75,
-    width: 360,
-    position: 'absolute'
   },
   trabajaConNosotrosContainer: {
     top: 239,
