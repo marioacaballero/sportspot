@@ -216,7 +216,7 @@ objetivos deportivos con Spotsport Premium!`}</Text>
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
