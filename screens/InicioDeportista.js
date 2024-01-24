@@ -1,17 +1,25 @@
-import * as React from 'react'
+import React, { useState } from 'react'
 import {
   Text,
   StyleSheet,
   Pressable,
   View,
   ScrollView,
-  Image
+  Image,
+  Modal
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Padding, FontFamily, FontSize, Color, Border } from '../GlobalStyles'
+import InicioPREMIUM from './InicioPREMIUM'
 
 const InicioDeportista = () => {
   const navigation = useNavigation()
+
+  const [modalVisible, setModalVisible] = useState(false)
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible)
+  }
 
   return (
     <ScrollView style={[styles.inicioDeportista, styles.image94IconLayout]}>
@@ -19,16 +27,21 @@ const InicioDeportista = () => {
         <View style={[styles.helloAshfakParent, styles.frameGroupFlexBox]}>
           <Text style={[styles.helloAshfak, styles.imGoingToTypo]}>INICIO</Text>
           <View style={styles.groupParent}>
-            <Pressable
-              style={styles.wrapper}
-              onPress={() => navigation.navigate('InicioPREMIUM')}
-            >
+            <Pressable style={styles.wrapper} onPress={toggleModal}>
               <Image
                 style={styles.iconLayout}
                 contentFit="cover"
                 source={require('../assets/group-11712766982.png')}
               />
+              <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+              >
+                <InicioPREMIUM setModalVisible={setModalVisible} />
+              </Modal>
             </Pressable>
+
             <Pressable
               style={styles.materialSymbolsnotifications}
               onPress={() => navigation.navigate('InicioNotificaciones')}
@@ -94,9 +107,9 @@ const InicioDeportista = () => {
                     Torneo de baloncesto
                   </Text>
                   <View style={styles.minParent}>
-                    <Text
-                      style={[styles.min, styles.minClr]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
+                    <Text style={[styles.min, styles.minClr]}>
+                      {'Lorem ipsum dolor sit amet.'}
+                    </Text>
                     <Text style={[styles.min1, styles.minTypo1]}>
                       ¡La inscripción acaba en 10 horas!
                     </Text>
@@ -119,9 +132,9 @@ const InicioDeportista = () => {
                     Ciclismo
                   </Text>
                   <View style={styles.minParent}>
-                    <Text
-                      style={[styles.min, styles.minClr]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
+                    <Text style={[styles.min, styles.minClr]}>
+                      Lorem ipsum dolor sit amet.{' '}
+                    </Text>
                     <Text style={[styles.min1, styles.minTypo1]}>
                       ¡La inscripción acaba en 10 horas!
                     </Text>
@@ -144,9 +157,9 @@ const InicioDeportista = () => {
                     Ciclismo
                   </Text>
                   <View style={styles.minParent}>
-                    <Text
-                      style={[styles.min4, styles.minTypo]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
+                    <Text style={[styles.min4, styles.minTypo]}>
+                      Lorem ipsum dolor sit amet.{' '}
+                    </Text>
                     <Text style={[styles.min4, styles.minTypo]}>
                       ¡La inscripción acaba en 10 horas!
                     </Text>
@@ -176,12 +189,12 @@ const InicioDeportista = () => {
                     Lorem ipsum
                   </Text>
                   <View style={styles.minParent}>
-                    <Text
-                      style={[styles.min, styles.minClr]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
-                    <Text
-                      style={[styles.min, styles.minClr]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
+                    <Text style={[styles.min, styles.minClr]}>
+                      Lorem ipsum dolor sit amet.{' '}
+                    </Text>
+                    <Text style={[styles.min, styles.minClr]}>
+                      Lorem ipsum dolor sit amet.{' '}
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -201,12 +214,12 @@ const InicioDeportista = () => {
                     Lorem ipsum
                   </Text>
                   <View style={styles.minParent}>
-                    <Text
-                      style={[styles.min, styles.minClr]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
-                    <Text
-                      style={[styles.min, styles.minClr]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
+                    <Text style={[styles.min, styles.minClr]}>
+                      Lorem ipsum dolor sit amet.{' '}
+                    </Text>
+                    <Text style={[styles.min, styles.minClr]}>
+                      Lorem ipsum dolor sit amet.{' '}
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -226,12 +239,12 @@ const InicioDeportista = () => {
                     Lorem ipsum
                   </Text>
                   <View style={styles.minParent}>
-                    <Text
-                      style={[styles.min10, styles.minTypo]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
-                    <Text
-                      style={[styles.min10, styles.minTypo]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
+                    <Text style={[styles.min10, styles.minTypo]}>
+                      Lorem ipsum dolor sit amet.{' '}
+                    </Text>
+                    <Text style={[styles.min10, styles.minTypo]}>
+                      Lorem ipsum dolor sit amet.{' '}
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -258,12 +271,12 @@ const InicioDeportista = () => {
                     Lorem ipsum
                   </Text>
                   <View style={styles.minParent}>
-                    <Text
-                      style={[styles.min10, styles.minTypo]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
-                    <Text
-                      style={[styles.min10, styles.minTypo]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
+                    <Text style={[styles.min10, styles.minTypo]}>
+                      Lorem ipsum dolor sit amet.{' '}
+                    </Text>
+                    <Text style={[styles.min10, styles.minTypo]}>
+                      Lorem ipsum dolor sit amet.{' '}
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -283,12 +296,12 @@ const InicioDeportista = () => {
                     Lorem ipsum
                   </Text>
                   <View style={styles.minParent}>
-                    <Text
-                      style={[styles.min10, styles.minTypo]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
-                    <Text
-                      style={[styles.min10, styles.minTypo]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
+                    <Text style={[styles.min10, styles.minTypo]}>
+                      Lorem ipsum dolor sit amet.{' '}
+                    </Text>
+                    <Text style={[styles.min10, styles.minTypo]}>
+                      Lorem ipsum dolor sit amet.{' '}
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -308,12 +321,12 @@ const InicioDeportista = () => {
                     Lorem ipsum
                   </Text>
                   <View style={styles.minParent}>
-                    <Text
-                      style={[styles.min10, styles.minTypo]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
-                    <Text
-                      style={[styles.min10, styles.minTypo]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
+                    <Text style={[styles.min10, styles.minTypo]}>
+                      Lorem ipsum dolor sit amet
+                    </Text>
+                    <Text style={[styles.min10, styles.minTypo]}>
+                      Lorem ipsum dolor sit amet.{' '}
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -590,7 +603,8 @@ const styles = StyleSheet.create({
     height: 800,
     overflow: 'hidden',
     backgroundColor: Color.blanco,
-    width: '100%'
+    width: '100%',
+    zIndex: 0
   }
 })
 
