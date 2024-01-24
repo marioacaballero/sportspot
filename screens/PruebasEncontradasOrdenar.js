@@ -322,60 +322,6 @@ Fecha de la prueba: `}</Text>
             </View>
           </View>
         </View>
-        <View style={[styles.menInferior, styles.menInferiorPosition]}>
-          <View style={[styles.groupParent, styles.menInferiorPosition]}>
-            <Pressable
-              style={styles.wrapper}
-              onPress={() => navigation.navigate('UltimasConsultas')}
-            >
-              <Image
-                style={styles.icon}
-                contentFit="cover"
-                source={require('../assets/group-1171276700.png')}
-              />
-            </Pressable>
-            <Pressable
-              style={styles.vector}
-              onPress={() => navigation.navigate('Favoritos1')}
-            >
-              <Image
-                style={styles.icon}
-                contentFit="cover"
-                source={require('../assets/vector.png')}
-              />
-            </Pressable>
-            <Image
-              style={styles.capturaDePantalla20231124}
-              contentFit="cover"
-              source={require('../assets/captura-de-pantalla-20231124-114115-1.png')}
-            />
-            <Pressable
-              style={[styles.container, styles.containerLayout]}
-              onPress={() => navigation.navigate('HistorialDePruebas')}
-            >
-              <Image
-                style={styles.icon}
-                contentFit="cover"
-                source={require('../assets/frame-1547756022.png')}
-              />
-            </Pressable>
-            <Pressable
-              style={styles.frame}
-              onPress={() => navigation.navigate('TuPerfil')}
-            >
-              <Image
-                style={styles.icon}
-                contentFit="cover"
-                source={require('../assets/group-1171276701.png')}
-              />
-            </Pressable>
-          </View>
-          <Image
-            style={styles.menInferiorChild}
-            contentFit="cover"
-            source={require('../assets/ellipse-7194.png')}
-          />
-        </View>
       </View>
 
       <Modal animationType="fade" transparent visible={frameContainer2Visible}>
@@ -603,17 +549,6 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_3xs,
     alignItems: 'center',
     flexDirection: 'row'
-  },
-  menInferiorChild: {
-    top: 0,
-    left: 165,
-    width: 37,
-    height: 24,
-    position: 'absolute'
-  },
-  menInferior: {
-    top: 725,
-    height: 75
   },
   pruebasEncontradasOrdenar: {
     backgroundColor: Color.blanco,

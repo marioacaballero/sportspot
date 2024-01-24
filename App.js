@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import PruebasEncontradasDetalle from './screens/PruebasEncontradasDetalle'
 import Calendar from './components/Calendar'
@@ -33,15 +33,27 @@ import PruebasEncontradasOrdenar from './screens/PruebasEncontradasOrdenar'
 import Group from './screens/Group'
 import SignIn from './screens/SignIn'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { View } from 'react-native'
+import MenuInferior from './components/MenuInferior'
 
 export default function App() {
+  const [isFooterShow, setIsFooterShow] = useState(true)
+
   const Stack = createNativeStackNavigator()
   return (
-    <>
+    <View style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Bienvenida"
-          screenOptions={{ headerShown: false }}
+          screenOptions={({ route }) => ({
+            // headerShown: false,
+            headerShown: false,
+            footerShown: setIsFooterShow(
+              route.name !== 'Bienvenida' &&
+                route.name !== 'IniciarSesin' &&
+                route.name !== 'SignIn'
+            )
+          })}
         >
           <Stack.Screen
             name="PruebasEncontradasDetalle"
@@ -204,7 +216,8 @@ export default function App() {
             options={{ headerShown: true }}
           />
         </Stack.Navigator>
+        {isFooterShow && <MenuInferior />}
       </NavigationContainer>
-    </>
+    </View>
   )
 }

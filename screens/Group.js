@@ -491,62 +491,6 @@ const Group = () => {
               </View>
             </View>
           </View>
-          <View style={[styles.menInferior, styles.menLayout]}>
-            <View
-              style={[styles.groupContainer, styles.groupContainerSpaceBlock]}
-            >
-              <Pressable
-                style={styles.wrapper}
-                onPress={() => navigation.navigate('UltimasConsultas')}
-              >
-                <Image
-                  style={styles.iconLayout}
-                  contentFit="cover"
-                  source={require('../assets/group-11712767002.png')}
-                />
-              </Pressable>
-              <Pressable
-                style={styles.vector}
-                onPress={() => navigation.navigate('Favoritos1')}
-              >
-                <Image
-                  style={styles.iconLayout}
-                  contentFit="cover"
-                  source={require('../assets/vector8.png')}
-                />
-              </Pressable>
-              <Image
-                style={styles.capturaDePantalla20231124}
-                contentFit="cover"
-                source={require('../assets/captura-de-pantalla-20231124-114115-11.png')}
-              />
-              <Pressable
-                style={[styles.container, styles.frameItemLayout]}
-                onPress={() => navigation.navigate('HistorialDePruebas')}
-              >
-                <Image
-                  style={styles.iconLayout}
-                  contentFit="cover"
-                  source={require('../assets/frame-15477560222.png')}
-                />
-              </Pressable>
-              <Pressable
-                style={styles.frame}
-                onPress={() => navigation.navigate('TuPerfil')}
-              >
-                <Image
-                  style={styles.iconLayout}
-                  contentFit="cover"
-                  source={require('../assets/group-11712767013.png')}
-                />
-              </Pressable>
-            </View>
-            <Image
-              style={styles.menInferiorChild}
-              contentFit="cover"
-              source={require('../assets/ellipse-71941.png')}
-            />
-          </View>
         </View>
         <InicioSUSCRIPCIONES />
         <UltimasConsultas />
@@ -1456,18 +1400,6 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_3xs,
     flexDirection: 'row',
     justifyContent: 'center',
-    left: 0
-  },
-  menInferiorChild: {
-    left: 165,
-    width: 37,
-    height: 24,
-    top: 0,
-    position: 'absolute'
-  },
-  menInferior: {
-    top: 726,
-    zIndex: 3,
     left: 0
   },
   inicioSuscripciones: {
