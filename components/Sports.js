@@ -3,6 +3,9 @@ import { View, StyleSheet, Text, Image } from 'react-native'
 import { FontSize, Color, FontFamily, Border, Padding } from '../GlobalStyles'
 
 const Sports = ({ onClose }) => {
+  const handleClose = () => {
+    onClose()
+  }
   return (
     <View style={styles.sports}>
       <View style={styles.groupParent}>
@@ -72,7 +75,9 @@ const Sports = ({ onClose }) => {
       <View
         style={[styles.helloAshfakWrapper, styles.groupContainerSpaceBlock1]}
       >
-        <Text style={styles.helloAshfak}>Listo</Text>
+        <Text style={styles.helloAshfak} onPress={handleClose}>
+          Listo
+        </Text>
       </View>
     </View>
   )
@@ -91,11 +96,10 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_sm,
     lineHeight: 23,
     fontWeight: '100',
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholder,
     color: Color.colorGray_200,
     textAlign: 'center',
-    marginTop: 11,
-    fontFamily: FontFamily.inputPlaceholder
+    marginTop: 11
   },
   groupParent: {
     alignItems: 'center'
@@ -103,10 +107,9 @@ const styles = StyleSheet.create({
   helloAshfak: {
     fontSize: FontSize.inputPlaceholder_size,
     fontWeight: '700',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     color: Color.blanco,
-    textAlign: 'left',
-    fontFamily: FontFamily.inputPlaceholder
+    textAlign: 'left'
   },
   helloAshfakWrapper: {
     borderRadius: Border.br_31xl,

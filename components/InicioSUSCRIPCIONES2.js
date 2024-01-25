@@ -59,9 +59,11 @@ SUSCRIPCIÓN`}</Text>
                       source={require('../assets/warning.png')}
                     />
                     <View style={styles.helloAshfakWrapper}>
-                      <Text
-                        style={[styles.helloAshfak1, styles.helloClr]}
-                      >{`Alertas personalizadas en tiempo real que te informarán sobre eventos importantes. `}</Text>
+                      <Text style={[styles.helloAshfak1, styles.helloClr]}>
+                        {
+                          'Alertas personalizadas en tiempo real que te informarán sobre eventos importantes. '
+                        }
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -104,9 +106,11 @@ SUSCRIPCIÓN`}</Text>
                       source={require('../assets/star.png')}
                     />
                     <View style={styles.helloAshfakWrapper}>
-                      <Text
-                        style={[styles.helloAshfak1, styles.helloClr]}
-                      >{`Nos preocupamos por la autenticidad de tu experiencia, contarás con la capacidad de validar reseñas, asegurando la calidad de la información. `}</Text>
+                      <Text style={[styles.helloAshfak1, styles.helloClr]}>
+                        {
+                          'Nos preocupamos por la autenticidad de tu experiencia, contarás con la capacidad de validar reseñas, asegurando la calidad de la información. '
+                        }
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -118,9 +122,11 @@ SUSCRIPCIÓN`}</Text>
                       source={require('../assets/percent.png')}
                     />
                     <View style={styles.helloAshfakWrapper}>
-                      <Text
-                        style={[styles.helloAshfak1, styles.helloClr]}
-                      >{`Hemos establecido colaboraciones exclusivas que te brindarán descuentos especiales con nuestros colaboradores. `}</Text>
+                      <Text style={[styles.helloAshfak1, styles.helloClr]}>
+                        {
+                          'Hemos establecido colaboraciones exclusivas que te brindarán descuentos especiales con nuestros colaboradores. '
+                        }
+                      </Text>
                     </View>
                   </View>
                 </View>

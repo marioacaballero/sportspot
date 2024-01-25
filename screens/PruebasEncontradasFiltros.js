@@ -1,5 +1,12 @@
 import * as React from 'react'
-import { Text, StyleSheet, View, Pressable, Image } from 'react-native'
+import {
+  Text,
+  StyleSheet,
+  View,
+  Pressable,
+  Image,
+  ScrollView
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Color, FontFamily, FontSize, Border, Padding } from '../GlobalStyles'
 
@@ -7,7 +14,7 @@ const PruebasEncontradasFiltros = () => {
   const navigation = useNavigation()
 
   return (
-    <View style={styles.pruebasEncontradasFiltros}>
+    <ScrollView style={styles.pruebasEncontradasFiltros}>
       <View style={styles.pruebasEncontradasParent}>
         <Text style={[styles.pruebasEncontradas, styles.ciclsmoTypo]}>{`PRUEBAS
 ENCONTRADAS`}</Text>
@@ -17,7 +24,10 @@ ENCONTRADAS`}</Text>
             contentFit="cover"
             source={require('../assets/cilarrowtop1.png')}
           />
-          <Text style={[styles.badajozCilcismo22, styles.filtrosTypo]}>
+          <Text
+            style={[styles.badajozCilcismo22, styles.filtrosTypo]}
+            onPress={() => navigation.navigate('PruebasEncontradas')}
+          >
             Badajoz, cilcismo, 22 ene.
           </Text>
         </View>
@@ -31,10 +41,7 @@ ENCONTRADAS`}</Text>
                 source={require('../assets/ellipse-71891.png')}
               />
             </View>
-            <Pressable
-              style={styles.ordenarPorParent}
-              onPress={() => navigation.navigate('PruebasEncontradasOrdenar')}
-            >
+            <Pressable style={styles.ordenarPorParent}>
               <Text style={[styles.filtros, styles.filtrosTypo]}>
                 Ordenar por
               </Text>
@@ -299,7 +306,7 @@ ENCONTRADAS`}</Text>
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
@@ -307,7 +314,7 @@ const styles = StyleSheet.create({
   ciclsmoTypo: {
     textAlign: 'left',
     color: Color.sportsVioleta,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   parentSpaceBlock: {
@@ -344,7 +351,7 @@ const styles = StyleSheet.create({
     letterSpacing: -1,
     fontSize: FontSize.size_sm,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   ellipseIconLayout: {
@@ -392,7 +399,7 @@ const styles = StyleSheet.create({
   },
   badajozCilcismo22: {
     marginLeft: 13,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     fontSize: FontSize.inputPlaceholder_size
   },
@@ -403,7 +410,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   filtros: {
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     fontSize: FontSize.inputPlaceholder_size
   },
@@ -427,7 +434,7 @@ const styles = StyleSheet.create({
   },
   tuPresupuesto: {
     alignSelf: 'stretch',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     fontSize: FontSize.inputPlaceholder_size,
     flex: 1
@@ -507,7 +514,7 @@ const styles = StyleSheet.create({
   },
   carretera: {
     fontWeight: '100',
-    fontFamily: FontFamily.interThin
+    fontFamily: FontFamily.inputPlaceholderThin
   },
   toggleInner: {
     backgroundColor: Color.gris

@@ -31,7 +31,7 @@ const DatosDePago = () => {
       </View>
       <View style={styles.gestionaTuCuentaWrapper}>
         <Text style={[styles.gestionaTuCuentaContainer, styles.datosTypo1]}>
-          {`GESTIONA TU `}CUENTA
+          {'GESTIONA TU '}CUENTA
         </Text>
       </View>
       <View style={[styles.datosDePagoInner, styles.pencillineParentPosition]}>

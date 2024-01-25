@@ -8,7 +8,7 @@ import Bienvenida from './Bienvenida'
 import PruebasEncontradasFiltros from './PruebasEncontradasFiltros'
 import PruebasEncontradasOrdenar from './PruebasEncontradasOrdenar'
 import PruebasEncontradas from './PruebasEncontradas'
-import Popupfiltros from '../components/Popupfiltros'
+import Popupfiltros from '../components/PopupOrdenarPor'
 import PruebasEncontradasDetalle1 from './PruebasEncontradasDetalle1'
 import PruebasEncontradasDetalle from './PruebasEncontradasDetalle'
 import IniciarSesin from './IniciarSesin'
@@ -506,7 +506,7 @@ const Group = () => {
             <Text
               style={[styles.gestionaTuCuentaContainer, styles.helloAshfakTypo]}
             >
-              {`GESTIONA TU `}CUENTA
+              {'GESTIONA TU '}CUENTA
             </Text>
           </View>
           <View style={[styles.seguridadInner, styles.seguridadInnerPosition]}>
@@ -966,7 +966,7 @@ const styles = StyleSheet.create({
   },
   planEspecialParaSpaceBlock: {
     marginTop: 6,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   mesTypo: {
@@ -1006,7 +1006,6 @@ const styles = StyleSheet.create({
   },
   enTypo: {
     color: Color.colorDimgray_100,
-    fontFamily: FontFamily.interMedium,
     fontWeight: '500',
     fontFamily: FontFamily.inputPlaceholder
   },
@@ -1084,7 +1083,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid'
   },
   esTypo1: {
-    fontFamily: FontFamily.interMedium,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '500'
   },
   groupChild: {
@@ -1158,7 +1157,6 @@ const styles = StyleSheet.create({
   },
   es: {
     color: Color.rojoUbiqum,
-    fontFamily: FontFamily.interMedium,
     fontWeight: '500',
     fontFamily: FontFamily.inputPlaceholder
   },
@@ -1442,7 +1440,6 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputLabel_size,
     textTransform: 'capitalize',
     display: 'flex',
-    fontFamily: FontFamily.interMedium,
     fontWeight: '500',
     color: Color.sportsVioleta,
     textAlign: 'left',
@@ -1458,7 +1455,6 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: FontSize.size_5xs,
-    fontFamily: FontFamily.inputPlaceholder,
     color: Color.sportsVioleta,
     alignSelf: 'stretch',
     textAlign: 'left',
@@ -1639,7 +1635,7 @@ const styles = StyleSheet.create({
     top: 266,
     left: 168,
     fontSize: FontSize.size_mini,
-    fontFamily: FontFamily.poppins,
+    fontFamily: FontFamily.inputPlaceholder,
 
     width: 94,
     height: 31,

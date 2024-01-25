@@ -47,20 +47,18 @@ const styles = StyleSheet.create({
   },
   oops: {
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     color: Color.sportsVioleta,
-    fontFamily: FontFamily.inputPlaceholder,
 
     fontSize: FontSize.inputPlaceholder_size
   },
   debesSerPremium: {
     fontWeight: '100',
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholder,
     textAlign: 'center',
     marginTop: 14,
     color: Color.sportsVioleta,
-    fontFamily: FontFamily.inputPlaceholder,
 
     fontSize: FontSize.inputPlaceholder_size
   },

@@ -1,349 +1,202 @@
 import * as React from 'react'
-import { Text, StyleSheet, Pressable, View, Image } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { Text, StyleSheet, View, Image } from 'react-native'
+// import { useNavigation } from '@react-navigation/native'
 import { Padding, Color, FontFamily, FontSize, Border } from '../GlobalStyles'
 
 const InicioNotificaciones = () => {
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
 
   return (
-    <View style={styles.inicioNotificaciones}>
-      <View style={[styles.frameParent, styles.frameParentPosition]}>
-        <View style={[styles.helloAshfakParent, styles.frameGroupFlexBox]}>
-          <Text style={[styles.helloAshfak, styles.helloTypo4]}>INICIO</Text>
-          <View style={styles.groupParent}>
-            <Image
-              style={styles.frameChild}
-              contentFit="cover"
-              source={require('../assets/group-11712766982.png')}
-            />
-            <Pressable
-              style={[
-                styles.materialSymbolsnotifications,
-                styles.materialLayout
-              ]}
-              onPress={() => navigation.navigate('InicioBUSCADOR')}
-            >
-              <Image
-                style={[styles.icon, styles.iconLayout]}
-                contentFit="cover"
-                source={require('../assets/materialsymbolsnotifications1.png')}
-              />
-            </Pressable>
-          </View>
-        </View>
-        <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
-          <View style={styles.helloAshfakGroup}>
-            <Text style={[styles.helloAshfak1, styles.helloTypo2]}>
-              Deportista
-            </Text>
-            <Image
-              style={styles.frameItem}
-              contentFit="cover"
-              source={require('../assets/ellipse-47.png')}
-            />
-          </View>
-          <View style={styles.helloAshfakGroup}>
-            <Text style={[styles.helloAshfak1, styles.helloTypo2]}>
-              Organizador
-            </Text>
-            <Image
-              style={styles.frameItem}
-              contentFit="cover"
-              source={require('../assets/ellipse-47.png')}
-            />
-          </View>
-        </View>
-        <View style={styles.frameView}>
-          <Text style={[styles.helloAshfak3, styles.helloTypo2]}>
-            Últimas horas de inscripción
-          </Text>
-          <View style={styles.frameWrapper}>
-            <View style={styles.image94ShadowBox}>
-              <Image
-                style={styles.image94Icon}
-                contentFit="cover"
-                source={require('../assets/image-941.png')}
-              />
-              <View
-                style={[
-                  styles.imGoingToShakeYParent,
-                  styles.frameGroupSpaceBlock
-                ]}
-              >
-                <Text style={[styles.imGoingTo, styles.imGoingToClr]}>
-                  Torneo de baloncesto
-                </Text>
-                <View style={styles.minParent}>
-                  <Text
-                    style={[styles.min, styles.minTypo]}
-                  >{`Lorem ipsum dolor sit amet. `}</Text>
-                  <Text style={[styles.min, styles.minTypo]}>
-                    ¡La inscripción acaba en 10 horas!
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View style={styles.frameView}>
-          <Text style={[styles.helloAshfak3, styles.helloTypo2]}>
-            Últimas pruebas añadidas
-          </Text>
-          <View style={styles.frameWrapper}>
-            <View style={styles.image94ShadowBox}>
-              <Image
-                style={styles.image94Icon}
-                contentFit="cover"
-                source={require('../assets/image-944.png')}
-              />
-              <View
-                style={[
-                  styles.imGoingToShakeYParent,
-                  styles.frameGroupSpaceBlock
-                ]}
-              >
-                <Text style={[styles.imGoingTo, styles.imGoingToClr]}>
-                  Lorem ipsum
-                </Text>
-                <View style={styles.minParent}>
-                  <Text
-                    style={[styles.min2, styles.minTypo]}
-                  >{`Lorem ipsum dolor sit amet. `}</Text>
-                  <Text
-                    style={[styles.min2, styles.minTypo]}
-                  >{`Lorem ipsum dolor sit amet. `}</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View style={styles.frameView}>
-          <Text style={[styles.helloAshfak3, styles.helloTypo2]}>
-            Resultados de las útlimas pruebas
-          </Text>
-          <View style={styles.frameWrapper}>
-            <View style={styles.image94ShadowBox}>
-              <Image
-                style={styles.image94Icon}
-                contentFit="cover"
-                source={require('../assets/image-943.png')}
-              />
-              <View
-                style={[
-                  styles.imGoingToShakeYParent,
-                  styles.frameGroupSpaceBlock
-                ]}
-              >
-                <Text style={[styles.imGoingTo, styles.imGoingToClr]}>
-                  Lorem ipsum
-                </Text>
-                <View style={styles.minParent}>
-                  <Text
-                    style={[styles.min2, styles.minTypo]}
-                  >{`Lorem ipsum dolor sit amet. `}</Text>
-                  <Text
-                    style={[styles.min2, styles.minTypo]}
-                  >{`Lorem ipsum dolor sit amet. `}</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
+    <View style={styles.frameParent1}>
+      <View style={styles.materialSymbolsnotificationsParent}>
+        <Image
+          style={[
+            styles.materialSymbolsnotificationsIcon,
+            styles.materialLayout
+          ]}
+          contentFit="cover"
+          source={require('../assets/materialsymbolsnotifications2.png')}
+        />
+        <Text style={[styles.helloAshfak6, styles.imGoingToClr]}>
+          Notificaciones
+        </Text>
       </View>
-      <View style={[styles.menInferiorParent, styles.menPosition]}>
-        <View style={styles.frameParent1}>
-          <View style={styles.materialSymbolsnotificationsParent}>
-            <Image
-              style={[
-                styles.materialSymbolsnotificationsIcon,
-                styles.materialLayout
-              ]}
-              contentFit="cover"
-              source={require('../assets/materialsymbolsnotifications2.png')}
-            />
-            <Text style={[styles.helloAshfak6, styles.imGoingToClr]}>
-              Notificaciones
-            </Text>
-          </View>
-          <View style={[styles.lineView, styles.frameChildBorder]} />
-          <View style={styles.frameParent2}>
-            <View style={styles.frameParent3}>
-              <View style={styles.frameParent4}>
-                <View style={styles.vectorWrapper}>
-                  <Image
-                    style={styles.vectorIcon}
-                    contentFit="cover"
-                    source={require('../assets/vector6.png')}
-                  />
-                </View>
-                <View style={styles.helloAshfakParent3}>
-                  <Text style={[styles.helloAshfak7, styles.helloTypo4]}>
-                    ¡Nueva prueba cerca de ti!
-                  </Text>
-                  <Text style={[styles.helloAshfak8, styles.helloTypo1]}>
-                    Échale un vistazo
-                  </Text>
-                </View>
-              </View>
-              <Text style={[styles.helloAshfak9, styles.helloTypo]}>
-                1 nov, a las 20:05
+      <View style={[styles.lineView, styles.frameChildBorder]} />
+      <View style={styles.frameParent2}>
+        <View style={styles.frameParent3}>
+          <View style={styles.frameParent4}>
+            <View style={styles.vectorWrapper}>
+              <Image
+                style={styles.vectorIcon}
+                contentFit="cover"
+                source={require('../assets/vector6.png')}
+              />
+            </View>
+            <View style={styles.helloAshfakParent3}>
+              <Text style={[styles.helloAshfak7, styles.helloTypo4]}>
+                ¡Nueva prueba cerca de ti!
+              </Text>
+              <Text style={[styles.helloAshfak8, styles.helloTypo1]}>
+                Échale un vistazo
               </Text>
             </View>
-            <View style={[styles.frameChild1, styles.frameChildBorder]} />
           </View>
-          <View style={styles.frameParent5}>
-            <View>
-              <View style={styles.frameParent7}>
-                <View style={styles.vectorWrapper}>
-                  <Image
-                    style={[styles.mdibankIcon, styles.iconPosition]}
-                    contentFit="cover"
-                    source={require('../assets/mdibank.png')}
-                  />
-                </View>
-                <View style={styles.helloAshfakWrapper}>
-                  <Text
-                    style={[styles.helloAshfak10, styles.helloTypo4]}
-                  >{`¡El Club Lorem Ipsum acaba de
-publicar una nueva prueba!`}</Text>
-                </View>
-              </View>
-              <Text style={styles.helloTypo}>1 nov, a las 20:05</Text>
-            </View>
-            <View style={[styles.frameChild2, styles.frameChildBorder]} />
-          </View>
-          <View style={styles.frameParent5}>
-            <View>
-              <View style={styles.frameParent7}>
-                <View style={styles.vectorWrapper}>
-                  <Image
-                    style={[styles.mdibankIcon, styles.iconPosition]}
-                    contentFit="cover"
-                    source={require('../assets/mdibank.png')}
-                  />
-                </View>
-                <View style={styles.helloAshfakWrapper}>
-                  <Text
-                    style={[styles.helloAshfak10, styles.helloTypo4]}
-                  >{`¡El Club Lorem Ipsum acaba de
-publicar una nueva prueba!`}</Text>
-                </View>
-              </View>
-              <Text style={styles.helloTypo}>25 oct, a las 15:16</Text>
-            </View>
-            <View style={[styles.frameChild2, styles.frameChildBorder]} />
-          </View>
-          <View style={styles.frameParent5}>
-            <View>
-              <View style={styles.frameParent7}>
-                <View style={styles.vectorWrapper}>
-                  <Image
-                    style={styles.vectorIcon}
-                    contentFit="cover"
-                    source={require('../assets/vector6.png')}
-                  />
-                </View>
-                <View style={styles.helloAshfakWrapper}>
-                  <Text style={[styles.helloAshfak14, styles.helloTypo5]}>
-                    ¡Nueva prueba cerca de ti!
-                  </Text>
-                  <Text style={styles.helloTypo1}>Échale un vistazo</Text>
-                </View>
-              </View>
-              <Text style={styles.helloTypo}>20 oct, a las 21:06</Text>
-            </View>
-            <View style={[styles.frameChild2, styles.frameChildBorder]} />
-          </View>
-          <View style={styles.frameParent5}>
-            <View>
-              <View style={styles.frameParent7}>
-                <View style={styles.vectorWrapper}>
-                  <Image
-                    style={[styles.ionbicycleIcon, styles.iconPosition]}
-                    contentFit="cover"
-                    source={require('../assets/ionbicycle.png')}
-                  />
-                </View>
-                <View style={styles.helloAshfakWrapper}>
-                  <Text style={[styles.helloAshfak14, styles.helloTypo5]}>
-                    Prueba de ciclismo añadida recientemente
-                  </Text>
-                  <Text style={styles.helloTypo1}>¡No te la pierdas!</Text>
-                </View>
-              </View>
-              <Text style={styles.helloTypo}>16 oct, a las 18:07</Text>
-            </View>
-            <View style={[styles.frameChild2, styles.frameChildBorder]} />
-          </View>
-          <View style={styles.frameParent5}>
-            <View>
-              <View style={styles.frameParent7}>
-                <View style={styles.vectorWrapper}>
-                  <Image
-                    style={styles.vectorIcon}
-                    contentFit="cover"
-                    source={require('../assets/vector6.png')}
-                  />
-                </View>
-                <View style={styles.helloAshfakWrapper}>
-                  <Text style={[styles.helloAshfak14, styles.helloTypo5]}>
-                    ¡Nueva prueba cerca de ti!
-                  </Text>
-                  <Text style={styles.helloTypo1}>Échale un vistazo</Text>
-                </View>
-              </View>
-              <Text style={styles.helloTypo}>13 oct, a las 10:53</Text>
-            </View>
-            <View style={[styles.frameChild2, styles.frameChildBorder]} />
-          </View>
-          <View style={styles.frameParent5}>
-            <View>
-              <View style={styles.frameParent7}>
-                <View style={styles.vectorWrapper}>
-                  <Image
-                    style={[
-                      styles.materialSymbolshikingSharpIcon,
-                      styles.iconPosition
-                    ]}
-                    contentFit="cover"
-                    source={require('../assets/materialsymbolshikingsharp.png')}
-                  />
-                </View>
-                <View style={styles.helloAshfakWrapper}>
-                  <Text
-                    style={[styles.helloAshfak10, styles.helloTypo4]}
-                  >{`Prueba de senderismo añadida
-recientemente`}</Text>
-                  <Text style={styles.helloTypo1}>¡No te la pierdas!</Text>
-                </View>
-              </View>
-              <Text style={styles.helloTypo}>9 oct, a las 13:39</Text>
-            </View>
-            <View style={[styles.frameChild2, styles.frameChildBorder]} />
-          </View>
-          <View style={styles.frameParent5}>
-            <View>
-              <View style={styles.frameParent7}>
-                <View style={styles.vectorWrapper}>
-                  <Image
-                    style={[styles.mdibankIcon, styles.iconPosition]}
-                    contentFit="cover"
-                    source={require('../assets/mdibank.png')}
-                  />
-                </View>
-                <View style={styles.helloAshfakWrapper}>
-                  <Text
-                    style={[styles.helloAshfak10, styles.helloTypo4]}
-                  >{`¡El Club Lorem Ipsum acaba de
-publicar una nueva prueba!`}</Text>
-                </View>
-              </View>
-              <Text style={styles.helloTypo}>3 oct, a las 09:45</Text>
-            </View>
-            <View style={[styles.frameChild2, styles.frameChildBorder]} />
-          </View>
+          <Text style={[styles.helloAshfak9, styles.helloTypo]}>
+            1 nov, a las 20:05
+          </Text>
         </View>
+        <View style={[styles.frameChild1, styles.frameChildBorder]} />
+      </View>
+      <View style={styles.frameParent5}>
+        <View>
+          <View style={styles.frameParent7}>
+            <View style={styles.vectorWrapper}>
+              <Image
+                style={[styles.mdibankIcon, styles.iconPosition]}
+                contentFit="cover"
+                source={require('../assets/mdibank.png')}
+              />
+            </View>
+            <View style={styles.helloAshfakWrapper}>
+              <Text
+                style={[styles.helloAshfak10, styles.helloTypo4]}
+              >{`¡El Club Lorem Ipsum acaba de
+                  publicar una nueva prueba!`}</Text>
+            </View>
+          </View>
+          <Text style={styles.helloTypo}>1 nov, a las 20:05</Text>
+        </View>
+        <View style={[styles.frameChild2, styles.frameChildBorder]} />
+      </View>
+      <View style={styles.frameParent5}>
+        <View>
+          <View style={styles.frameParent7}>
+            <View style={styles.vectorWrapper}>
+              <Image
+                style={[styles.mdibankIcon, styles.iconPosition]}
+                contentFit="cover"
+                source={require('../assets/mdibank.png')}
+              />
+            </View>
+            <View style={styles.helloAshfakWrapper}>
+              <Text
+                style={[styles.helloAshfak10, styles.helloTypo4]}
+              >{`¡El Club Lorem Ipsum acaba de
+                  publicar una nueva prueba!`}</Text>
+            </View>
+          </View>
+          <Text style={styles.helloTypo}>25 oct, a las 15:16</Text>
+        </View>
+        <View style={[styles.frameChild2, styles.frameChildBorder]} />
+      </View>
+      <View style={styles.frameParent5}>
+        <View>
+          <View style={styles.frameParent7}>
+            <View style={styles.vectorWrapper}>
+              <Image
+                style={styles.vectorIcon}
+                contentFit="cover"
+                source={require('../assets/vector6.png')}
+              />
+            </View>
+            <View style={styles.helloAshfakWrapper}>
+              <Text style={[styles.helloAshfak14, styles.helloTypo5]}>
+                ¡Nueva prueba cerca de ti!
+              </Text>
+              <Text style={styles.helloTypo1}>Échale un vistazo</Text>
+            </View>
+          </View>
+          <Text style={styles.helloTypo}>20 oct, a las 21:06</Text>
+        </View>
+        <View style={[styles.frameChild2, styles.frameChildBorder]} />
+      </View>
+      <View style={styles.frameParent5}>
+        <View>
+          <View style={styles.frameParent7}>
+            <View style={styles.vectorWrapper}>
+              <Image
+                style={[styles.ionbicycleIcon, styles.iconPosition]}
+                contentFit="cover"
+                source={require('../assets/ionbicycle.png')}
+              />
+            </View>
+            <View style={styles.helloAshfakWrapper}>
+              <Text style={[styles.helloAshfak14, styles.helloTypo5]}>
+                Prueba de ciclismo añadida recientemente
+              </Text>
+              <Text style={styles.helloTypo1}>¡No te la pierdas!</Text>
+            </View>
+          </View>
+          <Text style={styles.helloTypo}>16 oct, a las 18:07</Text>
+        </View>
+        <View style={[styles.frameChild2, styles.frameChildBorder]} />
+      </View>
+      <View style={styles.frameParent5}>
+        <View>
+          <View style={styles.frameParent7}>
+            <View style={styles.vectorWrapper}>
+              <Image
+                style={styles.vectorIcon}
+                contentFit="cover"
+                source={require('../assets/vector6.png')}
+              />
+            </View>
+            <View style={styles.helloAshfakWrapper}>
+              <Text style={[styles.helloAshfak14, styles.helloTypo5]}>
+                ¡Nueva prueba cerca de ti!
+              </Text>
+              <Text style={styles.helloTypo1}>Échale un vistazo</Text>
+            </View>
+          </View>
+          <Text style={styles.helloTypo}>13 oct, a las 10:53</Text>
+        </View>
+        <View style={[styles.frameChild2, styles.frameChildBorder]} />
+      </View>
+      <View style={styles.frameParent5}>
+        <View>
+          <View style={styles.frameParent7}>
+            <View style={styles.vectorWrapper}>
+              <Image
+                style={[
+                  styles.materialSymbolshikingSharpIcon,
+                  styles.iconPosition
+                ]}
+                contentFit="cover"
+                source={require('../assets/materialsymbolshikingsharp.png')}
+              />
+            </View>
+            <View style={styles.helloAshfakWrapper}>
+              <Text
+                style={[styles.helloAshfak10, styles.helloTypo4]}
+              >{`Prueba de senderismo añadida
+                  recientemente`}</Text>
+              <Text style={styles.helloTypo1}>¡No te la pierdas!</Text>
+            </View>
+          </View>
+          <Text style={styles.helloTypo}>9 oct, a las 13:39</Text>
+        </View>
+        <View style={[styles.frameChild2, styles.frameChildBorder]} />
+      </View>
+      <View style={styles.frameParent5}>
+        <View>
+          <View style={styles.frameParent7}>
+            <View style={styles.vectorWrapper}>
+              <Image
+                style={[styles.mdibankIcon, styles.iconPosition]}
+                contentFit="cover"
+                source={require('../assets/mdibank.png')}
+              />
+            </View>
+            <View style={styles.helloAshfakWrapper}>
+              <Text
+                style={[styles.helloAshfak10, styles.helloTypo4]}
+              >{`¡El Club Lorem Ipsum acaba de
+                  publicar una nueva prueba!`}</Text>
+            </View>
+          </View>
+          <Text style={styles.helloTypo}>3 oct, a las 09:45</Text>
+        </View>
+        <View style={[styles.frameChild2, styles.frameChildBorder]} />
       </View>
     </View>
   )
@@ -364,7 +217,7 @@ const styles = StyleSheet.create({
   helloTypo4: {
     textAlign: 'left',
     color: Color.sportsVioleta,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   materialLayout: {
@@ -380,7 +233,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   helloTypo2: {
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100'
   },
   imGoingToClr: {
@@ -389,7 +242,7 @@ const styles = StyleSheet.create({
   },
   minTypo: {
     fontSize: FontSize.size_3xs,
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100',
     textAlign: 'left',
     alignSelf: 'stretch'
@@ -420,7 +273,7 @@ const styles = StyleSheet.create({
     color: Color.colorThistle,
     fontSize: FontSize.size_3xs,
     marginTop: 5,
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100',
     textAlign: 'left'
   },
@@ -433,7 +286,7 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   helloTypo5: {
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   helloAshfak: {
@@ -495,7 +348,7 @@ const styles = StyleSheet.create({
   },
   imGoingTo: {
     fontSize: FontSize.inputLabel_size,
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100',
     alignSelf: 'stretch'
   },
@@ -581,7 +434,7 @@ const styles = StyleSheet.create({
   helloAshfak6: {
     fontSize: FontSize.size_lg,
     marginLeft: 13,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     flex: 1
   },
@@ -677,22 +530,23 @@ const styles = StyleSheet.create({
     width: 22
   },
   frameParent1: {
-    top: -623,
-    left: 20,
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 100,
+    right: 20,
     borderRadius: Border.br_3xs,
     shadowColor: 'rgba(69, 68, 68, 0.47)',
     width: 320,
-    padding: Padding.p_xl,
+    paddingHorizontal: Padding.p_lgi,
+    paddingVertical: Padding.p_xl,
     shadowOpacity: 1,
-    elevation: 10,
     shadowRadius: 10,
     shadowOffset: {
       width: 2,
       height: 4
     },
-    overflow: 'hidden',
-    position: 'absolute',
-    backgroundColor: Color.blanco
+    backgroundColor: Color.blanco,
+    zIndex: 10
   },
   menInferiorParent: {
     top: 708,

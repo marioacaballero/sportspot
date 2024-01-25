@@ -1,8 +1,8 @@
-import * as React from 'react'
+import React from 'react'
 import { View, StyleSheet, Text, Image } from 'react-native'
 import { Color, FontFamily, FontSize, Border, Padding } from '../GlobalStyles'
 
-const Popupfiltros = ({ onClose }) => {
+const PopupOrdenarPor = ({ onClose }) => {
   return (
     <View style={styles.popupfiltros}>
       <View style={styles.charmcrossWrapper}>
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   fecha: {
     fontWeight: '700',
-    fontFamily: FontFamily.interBold
+    fontFamily: FontFamily.inputPlaceholder
   },
   toggleChild: {
     backgroundColor: Color.sportsNaranja
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   },
   precio: {
     fontWeight: '500',
-    fontFamily: FontFamily.interMedium
+    fontFamily: FontFamily.inputPlaceholder
   },
   toggleInner: {
     backgroundColor: Color.gris
@@ -226,8 +226,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_xl,
     paddingVertical: Padding.p_3xs,
     maxHeight: '100%',
-    maxWidth: '100%'
+    maxWidth: '100%',
+    position: 'absolute',
+    top: 250,
+    right: 8
   }
 })
 
-export default Popupfiltros
+export default PopupOrdenarPor

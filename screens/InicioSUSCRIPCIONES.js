@@ -145,8 +145,8 @@ SUSCRIPCIÓN`}
                       <Text
                         style={[styles.helloAshfak6, styles.helloTypo]}
                       >{`¡Actúa ahora y experimenta una forma
-completamente nueva de abordar tus
-objetivos deportivos con Spotsport Premium!`}</Text>
+                            completamente nueva de abordar tus
+                            objetivos deportivos con Spotsport Premium!`}</Text>
                     </View>
                   </View>
                 </View>
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     textAlign: 'left'
   },
   helloTypo: {
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   groupContainerFlexBox: {
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
   helloAshfak: {
     fontSize: FontSize.size_5xl,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   frameChild: {
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
   helloAshfak1: {
     fontSize: FontSize.inputLabel_size,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     alignSelf: 'stretch'
   },
@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
     width: 246,
     fontSize: FontSize.inputLabel_size,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   frameContainer: {
@@ -366,11 +366,11 @@ const styles = StyleSheet.create({
     padding: Padding.p_xl
   },
   div2Cards: {
-    height: 602,
+    height: 400,
     backgroundColor: Color.blanco
   },
   div2CardsWrapper: {
-    height: 876,
+    height: 730,
     zIndex: 1,
     marginTop: 20
   },
@@ -410,11 +410,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_xl
   },
   inicioSuscripciones2: {
-    height: 800,
+    height: 700,
     paddingTop: Padding.p_48xl,
     paddingBottom: Padding.p_5xl,
     paddingHorizontal: Padding.p_xl,
-    alignItems: 'center',
     overflow: 'hidden',
     width: '100%',
     flex: 1,

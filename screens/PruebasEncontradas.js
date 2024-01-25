@@ -1,23 +1,42 @@
-import * as React from 'react'
-import { Text, StyleSheet, View, Pressable, Image } from 'react-native'
+import React, { useState } from 'react'
+import {
+  Text,
+  StyleSheet,
+  View,
+  Pressable,
+  Image,
+  ScrollView,
+  Modal
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { FontFamily, FontSize, Color, Border, Padding } from '../GlobalStyles'
+import PopupOrdenarPor from '../components/PopupOrdenarPor'
 
 const PruebasEncontradas = () => {
   const navigation = useNavigation()
 
+  const [modalOrder, setModalOrder] = useState(false)
+
+  const toggleModalOrder = () => {
+    setModalOrder(!modalOrder)
+  }
+
   return (
-    <View style={styles.pruebasEncontradas}>
+    <ScrollView style={styles.pruebasEncontradas}>
       <View style={styles.pruebasEncontradasParent}>
-        <Text style={[styles.pruebasEncontradas1, styles.ene2024Typo]}>{`PRUEBAS
-ENCONTRADAS`}</Text>
+        <Text style={[styles.pruebasEncontradas1, styles.ene2024Typo]}>
+          {'PRUEBAS ENCONTRADAS'}
+        </Text>
         <View style={[styles.cilarrowTopParent, styles.parentSpaceBlock]}>
           <Image
             style={styles.cilarrowTopIcon}
             contentFit="cover"
             source={require('../assets/cilarrowtop1.png')}
           />
-          <Text style={[styles.badajozCilcismo22, styles.filtrosTypo]}>
+          <Text
+            style={[styles.badajozCilcismo22, styles.filtrosTypo]}
+            onPress={() => navigation.navigate('InicioDeportista')}
+          >
             Badajoz, cilcismo, 22 ene.
           </Text>
         </View>
@@ -35,9 +54,14 @@ ENCONTRADAS`}</Text>
               />
             </Pressable>
             <View style={styles.filtrosParent}>
-              <Pressable
-                onPress={() => navigation.navigate('PruebasEncontradasOrdenar')}
-              >
+              <Pressable onPress={toggleModalOrder}>
+                <Modal
+                  animationType="fade"
+                  transparent={true}
+                  visible={modalOrder}
+                >
+                  <PopupOrdenarPor setModalVisible={setModalOrder} />
+                </Modal>
                 <Text style={styles.filtrosTypo}>Ordenar por</Text>
               </Pressable>
               <Image
@@ -73,14 +97,20 @@ ENCONTRADAS`}</Text>
                 >
                   <Text
                     style={styles.modalidadPistaLocalizacin}
-                  >{`Modalidad: Pista
-Localización: Mérida, Badajor.
-Fecha de la prueba: `}</Text>
-                  <Text style={styles.ene2024Typo}>{`25 ene 2024
-`}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                    onPress={() =>
+                      navigation.navigate('PruebasEncontradasDetalle')
+                    }
+                  >
+                    {
+                      'Modalidad: Pista                               Localización: Mérida, Badajor.                                                        Fecha de la prueba: '
+                    }
+                  </Text>
+                  <Text style={styles.ene2024Typo}>
+                    {'25 ene 2024                    '}
+                  </Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción: '}
+                  </Text>
                   <Text style={styles.ene2024Typo}>22 ene 2024</Text>
                 </Text>
                 <Text
@@ -89,9 +119,9 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN: '}
+                  </Text>
                   <Text style={styles.textTypo}>22€</Text>
                 </Text>
               </View>
@@ -109,7 +139,12 @@ Fecha de la prueba: `}</Text>
               />
               <View style={styles.frameView}>
                 <View style={styles.frameGroupFlexBox}>
-                  <Text style={[styles.senderismo, styles.textTypo]}>
+                  <Text
+                    style={[styles.senderismo, styles.textTypo]}
+                    onPress={() =>
+                      navigation.navigate('PruebasEncontradasDetalle')
+                    }
+                  >
                     Ciclismo
                   </Text>
                   <Image
@@ -126,14 +161,20 @@ Fecha de la prueba: `}</Text>
                 >
                   <Text
                     style={styles.modalidadPistaLocalizacin}
-                  >{`Modalidad: Pista
-Localización: Mérida, Badajor.
-Fecha de la prueba: `}</Text>
-                  <Text style={styles.ene2024Typo}>{`25 ene 2024
-`}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                    onPress={() =>
+                      navigation.navigate('PruebasEncontradasDetalle')
+                    }
+                  >
+                    {
+                      'Modalidad: Pista                               Localización: Mérida, Badajor.                                                        Fecha de la prueba: '
+                    }
+                  </Text>
+                  <Text style={styles.ene2024Typo}>
+                    {'25 ene 2024                    '}
+                  </Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción: '}
+                  </Text>
                   <Text style={styles.ene2024Typo}>22 ene 2024</Text>
                 </Text>
                 <Text
@@ -142,9 +183,9 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN: '}
+                  </Text>
                   <Text style={styles.textTypo}>22€</Text>
                 </Text>
               </View>
@@ -179,14 +220,20 @@ Fecha de la prueba: `}</Text>
                 >
                   <Text
                     style={styles.modalidadPistaLocalizacin}
-                  >{`Modalidad: Pista
-Localización: Mérida, Badajor.
-Fecha de la prueba: `}</Text>
-                  <Text style={styles.ene2024Typo}>{`25 ene 2024
-`}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                    onPress={() =>
+                      navigation.navigate('PruebasEncontradasDetalle')
+                    }
+                  >
+                    {
+                      'Modalidad: Pista                               Localización: Mérida, Badajor.                                                        Fecha de la prueba: '
+                    }
+                  </Text>
+                  <Text style={styles.ene2024Typo}>
+                    {'25 ene 2024                    '}
+                  </Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción: '}
+                  </Text>
                   <Text style={styles.ene2024Typo}>22 ene 2024</Text>
                 </Text>
                 <Text
@@ -195,9 +242,9 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN: '}
+                  </Text>
                   <Text style={styles.textTypo}>22€</Text>
                 </Text>
               </View>
@@ -215,7 +262,12 @@ Fecha de la prueba: `}</Text>
               />
               <View style={styles.frameView}>
                 <View style={styles.frameGroupFlexBox}>
-                  <Text style={[styles.senderismo, styles.textTypo]}>
+                  <Text
+                    style={[styles.senderismo, styles.textTypo]}
+                    onPress={() =>
+                      navigation.navigate('PruebasEncontradasDetalle')
+                    }
+                  >
                     Ciclismo
                   </Text>
                   <Image
@@ -232,14 +284,20 @@ Fecha de la prueba: `}</Text>
                 >
                   <Text
                     style={styles.modalidadPistaLocalizacin}
-                  >{`Modalidad: Pista
-Localización: Mérida, Badajor.
-Fecha de la prueba: `}</Text>
-                  <Text style={styles.ene2024Typo}>{`25 ene 2024
-`}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                    onPress={() =>
+                      navigation.navigate('PruebasEncontradasDetalle')
+                    }
+                  >
+                    {
+                      'Modalidad: Pista                               Localización: Mérida, Badajor.                                                        Fecha de la prueba: '
+                    }
+                  </Text>
+                  <Text style={styles.ene2024Typo}>
+                    {'25 ene 2024                    '}
+                  </Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción: '}
+                  </Text>
                   <Text style={styles.ene2024Typo}>22 ene 2024</Text>
                 </Text>
                 <Text
@@ -248,9 +306,9 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN: '}
+                  </Text>
                   <Text style={styles.textTypo}>22€</Text>
                 </Text>
               </View>
@@ -258,13 +316,13 @@ Fecha de la prueba: `}</Text>
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   ene2024Typo: {
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   parentSpaceBlock: {
@@ -275,7 +333,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputPlaceholder_size,
     textAlign: 'left',
     color: Color.sportsVioleta,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   frameGroupFlexBox: {
@@ -285,7 +343,7 @@ const styles = StyleSheet.create({
   },
   textTypo: {
     color: Color.sportsNaranja,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   containerLayout: {
@@ -321,7 +379,8 @@ const styles = StyleSheet.create({
   pruebasEncontradas1: {
     fontSize: FontSize.size_5xl,
     textAlign: 'left',
-    color: Color.sportsVioleta
+    color: Color.sportsVioleta,
+    width: 180
   },
   cilarrowTopIcon: {
     width: 25,
@@ -353,12 +412,11 @@ const styles = StyleSheet.create({
   unsplashon4qwhhjcemIcon: {
     borderTopLeftRadius: Border.br_5xs,
     borderBottomLeftRadius: Border.br_5xs,
-    maxWidth: '100%',
-    maxHeight: '100%',
     alignSelf: 'stretch',
     overflow: 'hidden',
     width: '100%',
-    flex: 1
+    flex: 1,
+    height: 132
   },
   senderismo: {
     fontSize: FontSize.size_sm,
@@ -400,7 +458,6 @@ const styles = StyleSheet.create({
     marginTop: 8
   },
   frameContainer: {
-    height: 546,
     marginTop: 8,
     alignItems: 'center',
     alignSelf: 'stretch'

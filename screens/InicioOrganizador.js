@@ -1,32 +1,77 @@
-import * as React from 'react'
-import { Text, StyleSheet, View, Pressable, Image } from 'react-native'
+import React, { useState } from 'react'
+import {
+  Text,
+  StyleSheet,
+  View,
+  Pressable,
+  Image,
+  Modal,
+  ScrollView
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Padding, FontSize, FontFamily, Color, Border } from '../GlobalStyles'
+import InicioPREMIUM from './InicioPREMIUM'
+import InicioNotificaciones from './InicioNotificaciones'
 
 const InicioOrganizador = () => {
   const navigation = useNavigation()
 
+  const [modalPremium, setModalPremium] = useState(false)
+  const [modalNotifications, setModalNotifications] = useState(false)
+
+  const toggleModalPremium = () => {
+    setModalPremium(!modalPremium)
+  }
+
+  const toggleModalNotifications = () => {
+    setModalNotifications(!modalNotifications)
+  }
+
   return (
-    <View style={[styles.inicioOrganizador, styles.groupContainerSpaceBlock]}>
+    <ScrollView
+      style={[styles.inicioOrganizador, styles.groupContainerSpaceBlock]}
+    >
       <View style={styles.helloAshfakParent}>
         <Text style={styles.helloAshfak}>INICIO</Text>
         <View style={styles.groupParent}>
-          <Image
-            style={styles.frameChild}
-            contentFit="cover"
-            source={require('../assets/group-11712766982.png')}
-          />
-          <Image
-            style={styles.materialSymbolsnotificationsIcon}
-            contentFit="cover"
-            source={require('../assets/materialsymbolsnotifications.png')}
-          />
+          <Pressable style={styles.wrapper} onPress={toggleModalPremium}>
+            <Image
+              style={styles.iconLayout}
+              contentFit="cover"
+              source={require('../assets/group-11712766982.png')}
+            />
+            <Modal
+              animationType="fade"
+              transparent={true}
+              visible={modalPremium}
+            >
+              <InicioPREMIUM setModalVisible={setModalPremium} />
+            </Modal>
+          </Pressable>
+
+          <Pressable
+            style={styles.materialSymbolsnotifications}
+            onPress={toggleModalNotifications}
+          >
+            <Image
+              style={[styles.icon1, styles.iconLayout]}
+              contentFit="cover"
+              source={require('../assets/materialsymbolsnotifications.png')}
+            />
+            <Modal
+              animationType="fade"
+              transparent={true}
+              visible={modalNotifications}
+            >
+              <InicioNotificaciones setModalVisible={setModalNotifications} />
+            </Modal>
+          </Pressable>
         </View>
       </View>
       <View style={[styles.frameParent, styles.frameParentSpaceBlock]}>
         <Pressable
           style={styles.helloAshfakGroup}
-          onPress={() => navigation.navigate('InicioBUSCADOR')}
+          onPress={() => navigation.navigate('InicioDeportista')}
         >
           <Text style={[styles.helloAshfak1, styles.helloTypo2]}>
             Deportista
@@ -50,7 +95,7 @@ const InicioOrganizador = () => {
       </View>
       <View style={[styles.frameView, styles.frameParentSpaceBlock]}>
         <Text style={styles.helloAshfak3}>{`Breve descripción del servicio a
-organizadores`}</Text>
+        organizadores`}</Text>
         <View
           style={[
             styles.healthiconsmegaphoneParent,
@@ -66,7 +111,7 @@ organizadores`}</Text>
             <Text
               style={[styles.helloAshfak4, styles.helloTypo1]}
             >{`NUEVO PUNTO DE 
-CONTACTO`}</Text>
+            CONTACTO`}</Text>
             <Text style={[styles.helloAshfak5, styles.helloTypo]}>
               Entre deportistas y organizadores.
             </Text>
@@ -81,7 +126,7 @@ CONTACTO`}</Text>
         >
           <View style={styles.helloAshfakParent2}>
             <Text style={[styles.helloAshfak6, styles.helloLayout]}>{`AUMENTO DE
-INSCRIPCIONES`}</Text>
+            INSCRIPCIONES`}</Text>
             <Text style={[styles.helloAshfak7, styles.helloLayout]}>
               En las competiciones ofrecidas por los organizadores
             </Text>
@@ -118,7 +163,7 @@ INSCRIPCIONES`}</Text>
           />
           <View style={styles.helloAshfakParent3}>
             <Text style={[styles.helloAshfak4, styles.helloTypo1]}>{`AUMENTO DE
-INGRESOS`}</Text>
+            INGRESOS`}</Text>
             <Text style={[styles.helloAshfak9, styles.helloTypo]}>
               Para los organizadores de los eventos deportivos
             </Text>
@@ -138,9 +183,9 @@ INGRESOS`}</Text>
             <Text
               style={[styles.helloAshfak9, styles.helloTypo]}
             >{`Por parte de los deportistas,
-generando renombre en
-competiciones de los
-organizadores`}</Text>
+              generando renombre en
+              competiciones de los
+              organizadores`}</Text>
           </View>
           <Image
             style={styles.fluentMdl2medalSolidIcon}
@@ -149,14 +194,13 @@ organizadores`}</Text>
           />
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   groupContainerSpaceBlock: {
-    paddingHorizontal: Padding.p_xl,
-    alignItems: 'center'
+    paddingHorizontal: Padding.p_xl
   },
   frameParentSpaceBlock: {
     marginTop: 20,
@@ -165,19 +209,19 @@ const styles = StyleSheet.create({
   helloTypo2: {
     fontSize: FontSize.inputPlaceholder_size,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   helloTypo1: {
     color: Color.sportsNaranja,
     fontSize: FontSize.size_sm,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   helloTypo: {
     marginTop: 2,
     color: Color.violeta2,
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholderThin,
     fontWeight: '100',
     fontSize: FontSize.inputLabel_size
   },
@@ -211,7 +255,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_5xl,
     textAlign: 'left',
     color: Color.sportsVioleta,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   frameChild: {
@@ -225,6 +269,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   },
   groupParent: {
+    width: 63,
     flexDirection: 'row',
     alignItems: 'center'
   },
@@ -256,13 +301,16 @@ const styles = StyleSheet.create({
   frameParent: {
     zIndex: 1,
     justifyContent: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    paddingTop: Padding.p_48xl,
+    paddingBottom: Padding.p_6xl,
+    top: 0
   },
   helloAshfak3: {
     textAlign: 'center',
     fontSize: FontSize.size_sm,
     color: Color.sportsVioleta,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     alignSelf: 'stretch'
   },
@@ -290,13 +338,13 @@ const styles = StyleSheet.create({
   helloAshfak6: {
     color: Color.sportsNaranja,
     fontSize: FontSize.size_sm,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   helloAshfak7: {
     marginTop: 2,
     color: Color.violeta2,
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholderThin,
     fontWeight: '100',
     fontSize: FontSize.inputLabel_size
   },
@@ -356,8 +404,8 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   wrapper: {
-    width: 22,
-    height: 25
+    width: 29,
+    height: 22
   },
   vector: {
     width: 23,
@@ -391,9 +439,28 @@ const styles = StyleSheet.create({
     height: 800,
     paddingTop: Padding.p_48xl,
     paddingBottom: Padding.p_5xl,
-    overflow: 'hidden',
     width: '100%',
     flex: 1
+  },
+  materialSymbolsnotifications: {
+    width: 27,
+    marginLeft: 7,
+    height: 24
+  },
+  icon1: {
+    overflow: 'hidden'
+  },
+  frameParentFlexBox: {
+    paddingHorizontal: Padding.p_xl,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 360,
+    left: 0,
+    position: 'absolute'
+  },
+  iconLayout: {
+    height: '100%',
+    width: '100%'
   }
 })
 

@@ -125,14 +125,14 @@ Blanco Carrrilho`}</Text>
 const styles = StyleSheet.create({
   tuPerfil1Typo: {
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   cerrarSesinTypo: {
     marginLeft: 10,
     fontSize: FontSize.inputPlaceholder_size,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   solarsettingsSpaceBlock: {

@@ -103,13 +103,13 @@ const styles = StyleSheet.create({
     color: Color.sportsNaranja,
     fontSize: FontSize.size_3xl,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   ciclismoTypo: {
     color: Color.sportsVioleta,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   containerLayout: {
@@ -186,14 +186,14 @@ const styles = StyleSheet.create({
   },
   loremIpsumDolor: {
     fontWeight: '300',
-    fontFamily: FontFamily.interLight,
+    fontFamily: FontFamily.inputPlaceholderLight,
     marginTop: 20,
     textAlign: 'left'
   },
   laInscripcinDe: {
     textAlign: 'justify',
     marginTop: 20,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     color: Color.violeta2,
     fontSize: FontSize.inputPlaceholder_size
