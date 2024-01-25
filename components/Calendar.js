@@ -1,8 +1,12 @@
-import * as React from 'react'
+import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
 
 const Calendar = ({ onClose }) => {
+  const handleClose = () => {
+    onClose()
+  }
+
   return (
     <View style={styles.calendar}>
       <View style={[styles.calendar1, styles.captionFlexBox]}>
@@ -184,7 +188,12 @@ const Calendar = ({ onClose }) => {
         </View>
       </View>
       <View style={[styles.helloAshfakWrapper, styles.captionFlexBox]}>
-        <Text style={[styles.helloAshfak, styles.digit27Clr]}>Listo</Text>
+        <Text
+          style={[styles.helloAshfak, styles.digit27Clr]}
+          onPress={handleClose}
+        >
+          Listo
+        </Text>
       </View>
     </View>
   )
@@ -243,12 +252,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  digitTypo: {
-    fontFamily: FontFamily.inputPlaceholder,
-    lineHeight: 24,
-    fontSize: FontSize.size_lg,
-    textAlign: 'center'
-  },
   dayLayout: {
     borderRadius: Border.br_5xl,
     height: 48,
@@ -270,8 +273,7 @@ const styles = StyleSheet.create({
     color: Color.sportsVioleta,
     fontFamily: FontFamily.inputPlaceholder,
 
-    fontWeight: '600',
-    color: Color.sportsVioleta
+    fontWeight: '600'
   },
   month: {
     paddingHorizontal: Padding.p_5xs

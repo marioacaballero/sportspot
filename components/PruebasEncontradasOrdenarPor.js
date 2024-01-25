@@ -19,17 +19,20 @@ const PruebasEncontradasOrdenar = () => {
   return (
     <>
       <View style={styles.pruebasEncontradasOrdenar}>
-        <Text style={[styles.pruebasEncontradas, styles.ene2024Typo1]}>{`PRUEBAS
-ENCONTRADAS`}</Text>
+        <Text style={[styles.pruebasEncontradas, styles.ene2024Typo1]}>
+          {'PRUEBAS ENCONTRADAS'}
+        </Text>
         <View style={[styles.cilarrowTopParent, styles.parentPosition2]}>
-          <Image
-            style={styles.cilarrowTopIcon}
-            contentFit="cover"
-            source={require('../assets/cilarrowtop1.png')}
-          />
-          <Text style={[styles.badajozCilcismo22, styles.filtrosTypo3]}>
-            Badajoz, cilcismo, 22 ene.
-          </Text>
+          <Pressable onPress={() => navigation.navigate('InicioDeportista')}>
+            <Image
+              style={styles.cilarrowTopIcon}
+              contentFit="cover"
+              source={require('../assets/cilarrowtop1.png')}
+            />
+            <Text style={[styles.badajozCilcismo22, styles.filtrosTypo3]}>
+              Badajoz, cilcismo, 22 ene.
+            </Text>
+          </Pressable>
         </View>
         <View style={[styles.frameParent, styles.parentPosition2]}>
           <View style={styles.frameGroup}>
@@ -92,9 +95,9 @@ Fecha de la prueba: `}</Text>
                     style={[styles.ene2024, styles.ene2024Typo1]}
                   >{`25 ene 2024
 `}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción: '}
+                  </Text>
                   <Text style={[styles.ene2024, styles.ene2024Typo1]}>
                     22 ene 2024
                   </Text>
@@ -105,9 +108,9 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox1
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN: '}
+                  </Text>
                   <Text style={styles.textTypo5}>22€</Text>
                 </Text>
               </View>
@@ -149,9 +152,9 @@ Fecha de la prueba: `}</Text>
                     style={[styles.ene2024, styles.ene2024Typo1]}
                   >{`25 ene 2024
 `}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción: '}
+                  </Text>
                   <Text style={[styles.ene2024, styles.ene2024Typo1]}>
                     22 ene 2024
                   </Text>
@@ -162,9 +165,9 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox1
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN: '}
+                  </Text>
                   <Text style={styles.textTypo5}>22€</Text>
                 </Text>
               </View>
@@ -206,9 +209,9 @@ Fecha de la prueba: `}</Text>
                     style={[styles.ene2024, styles.ene2024Typo1]}
                   >{`25 ene 2024
 `}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción: '}
+                  </Text>
                   <Text style={[styles.ene2024, styles.ene2024Typo1]}>
                     22 ene 2024
                   </Text>
@@ -219,9 +222,9 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox1
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN: '}
+                  </Text>
                   <Text style={styles.textTypo5}>22€</Text>
                 </Text>
               </View>
@@ -263,9 +266,9 @@ Fecha de la prueba: `}</Text>
                     style={[styles.ene2024, styles.ene2024Typo1]}
                   >{`25 ene 2024
 `}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción: '}
+                  </Text>
                   <Text style={[styles.ene2024, styles.ene2024Typo1]}>
                     22 ene 2024
                   </Text>
@@ -276,9 +279,9 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox1
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN: '}
+                  </Text>
                   <Text style={styles.textTypo5}>22€</Text>
                 </Text>
               </View>
@@ -320,9 +323,9 @@ Fecha de la prueba: `}</Text>
                     style={[styles.ene2024, styles.ene2024Typo1]}
                   >{`25 ene 2024
 `}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción:'}
+                  </Text>
                   <Text style={[styles.ene2024, styles.ene2024Typo1]}>
                     22 ene 2024
                   </Text>
@@ -333,9 +336,9 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox1
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN:'}
+                  </Text>
                   <Text style={styles.textTypo5}>22€</Text>
                 </Text>
               </View>

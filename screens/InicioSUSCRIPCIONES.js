@@ -145,8 +145,8 @@ SUSCRIPCIÓN`}
                       <Text
                         style={[styles.helloAshfak6, styles.helloTypo]}
                       >{`¡Actúa ahora y experimenta una forma
-completamente nueva de abordar tus
-objetivos deportivos con Spotsport Premium!`}</Text>
+                            completamente nueva de abordar tus
+                            objetivos deportivos con Spotsport Premium!`}</Text>
                     </View>
                   </View>
                 </View>
@@ -366,11 +366,11 @@ const styles = StyleSheet.create({
     padding: Padding.p_xl
   },
   div2Cards: {
-    height: 602,
+    height: 400,
     backgroundColor: Color.blanco
   },
   div2CardsWrapper: {
-    height: 876,
+    height: 800,
     zIndex: 1,
     marginTop: 20
   },
@@ -414,7 +414,6 @@ const styles = StyleSheet.create({
     paddingTop: Padding.p_48xl,
     paddingBottom: Padding.p_5xl,
     paddingHorizontal: Padding.p_xl,
-    alignItems: 'center',
     overflow: 'hidden',
     width: '100%',
     flex: 1,

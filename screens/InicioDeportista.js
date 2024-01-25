@@ -11,14 +11,27 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { Padding, FontFamily, FontSize, Color, Border } from '../GlobalStyles'
 import InicioPREMIUM from './InicioPREMIUM'
+import InicioNotificaciones from './InicioNotificaciones'
+import InicioBUSCADOR from './InicioBUSCADOR'
 
 const InicioDeportista = () => {
   const navigation = useNavigation()
 
-  const [modalVisible, setModalVisible] = useState(false)
+  const [modalPremium, setModalPremium] = useState(false)
+  const [modalNotifications, setModalNotifications] = useState(false)
 
-  const toggleModal = () => {
-    setModalVisible(!modalVisible)
+  const [mostrarInicioBuscador, setMostrarInicioBuscador] = useState(false)
+
+  const handleBuscarPress = () => {
+    setMostrarInicioBuscador(true)
+  }
+
+  const toggleModalPremium = () => {
+    setModalPremium(!modalPremium)
+  }
+
+  const toggleModalNotifications = () => {
+    setModalNotifications(!modalNotifications)
   }
 
   return (
@@ -27,7 +40,7 @@ const InicioDeportista = () => {
         <View style={[styles.helloAshfakParent, styles.frameGroupFlexBox]}>
           <Text style={[styles.helloAshfak, styles.imGoingToTypo]}>INICIO</Text>
           <View style={styles.groupParent}>
-            <Pressable style={styles.wrapper} onPress={toggleModal}>
+            <Pressable style={styles.wrapper} onPress={toggleModalPremium}>
               <Image
                 style={styles.iconLayout}
                 contentFit="cover"
@@ -36,31 +49,46 @@ const InicioDeportista = () => {
               <Modal
                 animationType="fade"
                 transparent={true}
-                visible={modalVisible}
+                visible={modalPremium}
               >
-                <InicioPREMIUM setModalVisible={setModalVisible} />
+                <InicioPREMIUM setModalVisible={setModalPremium} />
               </Modal>
             </Pressable>
 
             <Pressable
               style={styles.materialSymbolsnotifications}
-              onPress={() => navigation.navigate('InicioNotificaciones')}
+              onPress={toggleModalNotifications}
             >
               <Image
                 style={[styles.icon1, styles.iconLayout]}
                 contentFit="cover"
                 source={require('../assets/materialsymbolsnotifications.png')}
               />
+              <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalNotifications}
+              >
+                <InicioNotificaciones setModalVisible={setModalNotifications} />
+              </Modal>
             </Pressable>
           </View>
         </View>
-        <View style={styles.buscarWrapper}>
-          <Text style={styles.buscar}>Buscar</Text>
-        </View>
+
+        {mostrarInicioBuscador ? (
+          <InicioBUSCADOR setMostrarInicioBuscador={setMostrarInicioBuscador} />
+        ) : (
+          <View style={styles.buscarWrapper}>
+            <Pressable onPress={handleBuscarPress}>
+              <Text style={styles.buscar}>Buscar</Text>
+            </Pressable>
+          </View>
+        )}
+
         <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
           <Pressable
             style={styles.helloAshfakGroup}
-            onPress={() => navigation.navigate('InicioBUSCADOR')}
+            onPress={() => navigation.navigate('InicioDeportista')}
           >
             <Text style={[styles.helloAshfak1, styles.helloTypo]}>
               Deportista

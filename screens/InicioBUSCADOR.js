@@ -6,7 +6,7 @@ import Sports from '../components/Sports'
 import Calendar from '../components/Calendar'
 import { Padding, FontFamily, Border, FontSize, Color } from '../GlobalStyles'
 
-const InicioBUSCADOR = () => {
+const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
   const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
   const [frameContainer8Visible, setFrameContainer8Visible] = useState(false)
   const [frameContainer10Visible, setFrameContainer10Visible] = useState(false)
@@ -38,361 +38,57 @@ const InicioBUSCADOR = () => {
 
   return (
     <>
-      <View style={[styles.inicioBuscador, styles.image94IconLayout]}>
-        <View style={[styles.frameParent, styles.frameParentPosition]}>
-          <View style={[styles.helloAshfakParent, styles.frameGroupFlexBox]}>
-            <Text style={[styles.helloAshfak, styles.helloTypo1]}>INICIO</Text>
-            <View style={styles.groupParent}>
-              <Pressable
-                style={styles.wrapper}
-                onPress={() => navigation.navigate('InicioPREMIUM')}
-              >
-                <Image
-                  style={styles.iconLayout}
-                  contentFit="cover"
-                  source={require('../assets/group-11712766982.png')}
-                />
-              </Pressable>
-              <Pressable
-                style={styles.materialSymbolsnotifications}
-                onPress={() => navigation.navigate('InicioNotificaciones')}
-              >
-                <Image
-                  style={[styles.icon1, styles.iconLayout]}
-                  contentFit="cover"
-                  source={require('../assets/materialsymbolsnotifications.png')}
-                />
-              </Pressable>
-            </View>
-          </View>
-          <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
-            <Pressable
-              style={styles.helloAshfakGroup}
-              onPress={() => navigation.navigate('InicioDeportista')}
-            >
-              <Text style={[styles.helloAshfak1, styles.helloTypo1]}>
-                Deportista
-              </Text>
-              <Image
-                style={styles.frameChild}
-                contentFit="cover"
-                source={require('../assets/ellipse-471.png')}
-              />
-            </Pressable>
-            <Pressable
-              style={styles.helloAshfakGroup}
-              onPress={() => navigation.navigate('InicioOrganizador')}
-            >
-              <Text style={[styles.helloAshfak2, styles.helloTypo1]}>
-                Organizador
-              </Text>
-              <Image
-                style={styles.frameChild}
-                contentFit="cover"
-                source={require('../assets/ellipse-48.png')}
-              />
-            </Pressable>
-          </View>
-          <View style={styles.frameContainer}>
-            <Pressable
-              style={[styles.frameWrapper, styles.frameWrapperSpaceBlock]}
-              onPress={openFrameContainer6}
-            >
-              <View style={styles.frameView}>
-                <Image
-                  style={styles.frameLayout1}
-                  contentFit="cover"
-                  source={require('../assets/frame-1547755976.png')}
-                />
-                <Text style={[styles.helloAshfak3, styles.helloTypo]}>
-                  Localización
-                </Text>
-              </View>
-            </Pressable>
-            <Pressable
-              style={[styles.framePressable, styles.frameWrapperSpaceBlock]}
-              onPress={openFrameContainer8}
-            >
-              <View style={styles.frameView}>
-                <Image
-                  style={styles.frameLayout1}
-                  contentFit="cover"
-                  source={require('../assets/frame-1547755977.png')}
-                />
-                <Text style={styles.helloTypo}>Deporte</Text>
-              </View>
-            </Pressable>
-            <Pressable
-              style={[styles.framePressable, styles.frameWrapperSpaceBlock]}
-              onPress={openFrameContainer10}
-            >
-              <View style={styles.frameView}>
-                <Image
-                  style={styles.frameLayout1}
-                  contentFit="cover"
-                  source={require('../assets/frame-1547755978.png')}
-                />
-                <Text style={styles.helloTypo}>Fecha</Text>
-              </View>
-            </Pressable>
-            <Pressable
-              style={[styles.helloAshfakWrapper, styles.groupContainerFlexBox]}
-              onPress={() => navigation.navigate('PruebasEncontradas')}
-            >
-              <Text style={[styles.helloAshfak6, styles.helloTypo1]}>
-                Buscar
-              </Text>
-            </Pressable>
-          </View>
-          <View style={styles.frameParent3}>
-            <View>
-              <Text style={[styles.helloAshfak1, styles.helloTypo1]}>
-                Últimas horas de inscripción
-              </Text>
-              <View style={styles.frameParent4}>
-                <View style={styles.image94ParentShadowBox1}>
-                  <Image
-                    style={[styles.image94Icon, styles.image94IconLayout]}
-                    contentFit="cover"
-                    source={require('../assets/image-941.png')}
-                  />
-                  <View
-                    style={[
-                      styles.imGoingToShakeYParent,
-                      styles.frameGroupSpaceBlock
-                    ]}
-                  >
-                    <Text style={[styles.imGoingTo, styles.goingClr]}>
-                      Torneo de baloncesto
-                    </Text>
-                    <View style={styles.minParent}>
-                      <Text
-                        style={[styles.min, styles.minClr]}
-                      >{`Lorem ipsum dolor sit amet. `}</Text>
-                      <Text
-                        style={[styles.min, styles.minClr]}
-                      >{`Lorem ipsum dolor sit amet. `}</Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={styles.image94ParentShadowBox}>
-                  <Image
-                    style={[styles.image94Icon, styles.image94IconLayout]}
-                    contentFit="cover"
-                    source={require('../assets/image-942.png')}
-                  />
-                  <View
-                    style={[
-                      styles.imGoingToShakeYParent,
-                      styles.frameGroupSpaceBlock
-                    ]}
-                  >
-                    <Text style={[styles.imGoingTo, styles.goingClr]}>
-                      Ciclismo
-                    </Text>
-                    <View style={styles.minParent}>
-                      <Text
-                        style={[styles.min, styles.minClr]}
-                      >{`Lorem ipsum dolor sit amet. `}</Text>
-                      <Text
-                        style={[styles.min, styles.minClr]}
-                      >{`Lorem ipsum dolor sit amet. `}</Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={styles.image94ParentShadowBox}>
-                  <Image
-                    style={[styles.image94Icon, styles.image94IconLayout]}
-                    contentFit="cover"
-                    source={require('../assets/image-943.png')}
-                  />
-                  <View
-                    style={[
-                      styles.imGoingToShakeYParent,
-                      styles.frameGroupSpaceBlock
-                    ]}
-                  >
-                    <Text style={[styles.imGoingTo2, styles.minTypo]}>
-                      Ciclismo
-                    </Text>
-                    <View style={styles.minParent}>
-                      <Text
-                        style={[styles.min4, styles.minTypo]}
-                      >{`Lorem ipsum dolor sit amet. `}</Text>
-                      <Text style={[styles.min4, styles.minTypo]}>
-                        ¡La inscripción acaba en 10 horas!
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
-            <View style={styles.helloAshfakParent2}>
-              <Text style={[styles.helloAshfak1, styles.helloTypo1]}>
-                Últimas pruebas añadidas
-              </Text>
-              <View style={styles.frameParent4}>
-                <View style={styles.image94ParentShadowBox1}>
-                  <Image
-                    style={[styles.image94Icon, styles.image94IconLayout]}
-                    contentFit="cover"
-                    source={require('../assets/image-944.png')}
-                  />
-                  <View
-                    style={[
-                      styles.imGoingToShakeYParent,
-                      styles.frameGroupSpaceBlock
-                    ]}
-                  >
-                    <Text style={[styles.imGoingTo, styles.goingClr]}>
-                      Lorem ipsum
-                    </Text>
-                    <View style={styles.minParent}>
-                      <Text
-                        style={[styles.min6, styles.minTypo]}
-                      >{`Lorem ipsum dolor sit amet. `}</Text>
-                      <Text
-                        style={[styles.min6, styles.minTypo]}
-                      >{`Lorem ipsum dolor sit amet. `}</Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={styles.image94ParentShadowBox}>
-                  <Image
-                    style={[styles.image94Icon, styles.image94IconLayout]}
-                    contentFit="cover"
-                    source={require('../assets/image-945.png')}
-                  />
-                  <View
-                    style={[
-                      styles.imGoingToShakeYParent,
-                      styles.frameGroupSpaceBlock
-                    ]}
-                  >
-                    <Text style={[styles.imGoingTo2, styles.minTypo]}>
-                      Lorem ipsum
-                    </Text>
-                    <View style={styles.minParent}>
-                      <Text
-                        style={[styles.min6, styles.minTypo]}
-                      >{`Lorem ipsum dolor sit amet. `}</Text>
-                      <Text
-                        style={[styles.min6, styles.minTypo]}
-                      >{`Lorem ipsum dolor sit amet. `}</Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={styles.image94ParentShadowBox}>
-                  <Image
-                    style={[styles.image94Icon, styles.image94IconLayout]}
-                    contentFit="cover"
-                    source={require('../assets/image-943.png')}
-                  />
-                  <View
-                    style={[
-                      styles.imGoingToShakeYParent,
-                      styles.frameGroupSpaceBlock
-                    ]}
-                  >
-                    <Text style={[styles.imGoingTo2, styles.minTypo]}>
-                      Lorem ipsum
-                    </Text>
-                    <View style={styles.minParent}>
-                      <Text
-                        style={[styles.min6, styles.minTypo]}
-                      >{`Lorem ipsum dolor sit amet. `}</Text>
-                      <Text
-                        style={[styles.min6, styles.minTypo]}
-                      >{`Lorem ipsum dolor sit amet. `}</Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-          <View style={styles.helloAshfakParent2}>
-            <Text style={[styles.helloAshfak9, styles.minTypo]}>
-              Resultados de las útlimas pruebas
+      <View style={styles.frameContainer}>
+        <Pressable
+          style={[styles.frameWrapper, styles.frameWrapperSpaceBlock]}
+          onPress={openFrameContainer6}
+        >
+          <View style={styles.frameView}>
+            <Image
+              style={styles.frameLayout1}
+              contentFit="cover"
+              source={require('../assets/frame-1547755976.png')}
+            />
+            <Text style={[styles.helloAshfak3, styles.helloTypo]}>
+              Localización
             </Text>
-            <View style={styles.frameParent4}>
-              <View style={styles.image94ParentShadowBox1}>
-                <Image
-                  style={[styles.image94Icon, styles.image94IconLayout]}
-                  contentFit="cover"
-                  source={require('../assets/image-943.png')}
-                />
-                <View
-                  style={[
-                    styles.imGoingToShakeYParent,
-                    styles.frameGroupSpaceBlock
-                  ]}
-                >
-                  <Text style={[styles.imGoingTo2, styles.minTypo]}>
-                    Lorem ipsum
-                  </Text>
-                  <View style={styles.minParent}>
-                    <Text
-                      style={[styles.min6, styles.minTypo]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
-                    <Text
-                      style={[styles.min6, styles.minTypo]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
-                  </View>
-                </View>
-              </View>
-              <View style={styles.image94ParentShadowBox}>
-                <Image
-                  style={[styles.image94Icon, styles.image94IconLayout]}
-                  contentFit="cover"
-                  source={require('../assets/image-944.png')}
-                />
-                <View
-                  style={[
-                    styles.imGoingToShakeYParent,
-                    styles.frameGroupSpaceBlock
-                  ]}
-                >
-                  <Text style={[styles.imGoingTo2, styles.minTypo]}>
-                    Lorem ipsum
-                  </Text>
-                  <View style={styles.minParent}>
-                    <Text
-                      style={[styles.min6, styles.minTypo]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
-                    <Text
-                      style={[styles.min6, styles.minTypo]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
-                  </View>
-                </View>
-              </View>
-              <View style={styles.image94ParentShadowBox}>
-                <Image
-                  style={[styles.image94Icon, styles.image94IconLayout]}
-                  contentFit="cover"
-                  source={require('../assets/image-945.png')}
-                />
-                <View
-                  style={[
-                    styles.imGoingToShakeYParent,
-                    styles.frameGroupSpaceBlock
-                  ]}
-                >
-                  <Text style={[styles.imGoingTo2, styles.minTypo]}>
-                    Lorem ipsum
-                  </Text>
-                  <View style={styles.minParent}>
-                    <Text
-                      style={[styles.min6, styles.minTypo]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
-                    <Text
-                      style={[styles.min6, styles.minTypo]}
-                    >{`Lorem ipsum dolor sit amet. `}</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
           </View>
-        </View>
+        </Pressable>
+        <Pressable
+          style={[styles.framePressable, styles.frameWrapperSpaceBlock]}
+          onPress={openFrameContainer8}
+        >
+          <View style={styles.frameView}>
+            <Image
+              style={styles.frameLayout1}
+              contentFit="cover"
+              source={require('../assets/frame-1547755977.png')}
+            />
+            <Text style={styles.helloTypo}>Deporte</Text>
+          </View>
+        </Pressable>
+        <Pressable
+          style={[styles.framePressable, styles.frameWrapperSpaceBlock]}
+          onPress={openFrameContainer10}
+        >
+          <View style={styles.frameView}>
+            <Image
+              style={styles.frameLayout1}
+              contentFit="cover"
+              source={require('../assets/frame-1547755978.png')}
+            />
+            <Text style={styles.helloTypo}>Fecha</Text>
+          </View>
+        </Pressable>
+        <Pressable
+          style={[styles.helloAshfakWrapper, styles.groupContainerFlexBox]}
+          onPress={() => {
+            navigation.navigate('PruebasEncontradas')
+            setMostrarInicioBuscador(false)
+          }}
+        >
+          <Text style={[styles.helloAshfak6, styles.helloTypo1]}>Buscar</Text>
+        </Pressable>
       </View>
 
       <Modal animationType="fade" transparent visible={frameContainer6Visible}>

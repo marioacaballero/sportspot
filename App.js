@@ -1,7 +1,6 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import PruebasEncontradasDetalle from './screens/PruebasEncontradasDetalle'
-import Calendar from './components/Calendar'
 import EditarPerfil from './screens/EditarPerfil'
 import Seguridad from './screens/Seguridad'
 import Metodo from './screens/Metodo'
@@ -20,8 +19,6 @@ import Registrarse from './screens/Registrarse'
 import InicioNotificaciones from './screens/InicioNotificaciones'
 import InicioDeportista from './screens/InicioDeportista'
 import InicioOrganizador from './screens/InicioOrganizador'
-import Maps from './components/Maps'
-import Sports from './components/Sports'
 import PruebasEncontradas from './screens/PruebasEncontradas'
 import InicioBUSCADOR from './screens/InicioBUSCADOR'
 import PruebasEncontradasFiltros from './screens/PruebasEncontradasFiltros'
@@ -46,42 +43,37 @@ export default function App() {
           <Stack.Screen
             name="PruebasEncontradasDetalle"
             component={PruebasEncontradasDetalle}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="Calendar"
-            component={Calendar}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="EditarPerfil"
             component={EditarPerfil}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Seguridad"
             component={Seguridad}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Metodo"
             component={Metodo}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="DatosDePago"
             component={DatosDePago}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Cuenta"
             component={Cuenta}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Metodo1"
             component={Metodo1}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Bienvenida"
@@ -96,42 +88,42 @@ export default function App() {
           <Stack.Screen
             name="EscribirResea"
             component={EscribirResea}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Favoritos"
             component={Favoritos}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="UltimasConsultas"
             component={UltimasConsultas}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Favoritos1"
             component={Favoritos1}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="HistorialDePruebas"
             component={HistorialDePruebas}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="TuPerfil"
             component={TuPerfil}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="IniciarSesin"
             component={IniciarSesin}
-            options={{ headerShown: true, title: 'Atrás' }}
+            options={{ headerShown: false, title: 'Atrás' }}
           />
           <Stack.Screen
             name="Registrarse"
             component={Registrarse}
-            options={{ headerShown: true, title: 'Atrás' }}
+            options={{ headerShown: false, title: 'Atrás' }}
           />
           <Stack.Screen
             name="InicioNotificaciones"
@@ -146,62 +138,52 @@ export default function App() {
           <Stack.Screen
             name="InicioOrganizador"
             component={InicioOrganizador}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="Maps"
-            component={Maps}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="Sports"
-            component={Sports}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="PruebasEncontradas"
             component={PruebasEncontradas}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="InicioBUSCADOR"
             component={InicioBUSCADOR}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="PruebasEncontradasFiltros"
             component={PruebasEncontradasFiltros}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Popupfiltros"
             component={Popupfiltros}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="InicioSUSCRIPCIONES"
             component={InicioSUSCRIPCIONES}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="PopupAlerta"
             component={PopupAlerta}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="PruebasEncontradasDetalle1"
             component={PruebasEncontradasDetalle1}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="PruebasEncontradasOrdenar"
             component={PruebasEncontradasOrdenar}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Group"
             component={Group}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>

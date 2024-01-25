@@ -1,5 +1,12 @@
 import * as React from 'react'
-import { Text, StyleSheet, View, Pressable, Image } from 'react-native'
+import {
+  Text,
+  StyleSheet,
+  View,
+  Pressable,
+  Image,
+  ScrollView
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Color, FontFamily, FontSize, Border, Padding } from '../GlobalStyles'
 
@@ -7,7 +14,7 @@ const PruebasEncontradasFiltros = () => {
   const navigation = useNavigation()
 
   return (
-    <View style={styles.pruebasEncontradasFiltros}>
+    <ScrollView style={styles.pruebasEncontradasFiltros}>
       <View style={styles.pruebasEncontradasParent}>
         <Text style={[styles.pruebasEncontradas, styles.ciclsmoTypo]}>{`PRUEBAS
 ENCONTRADAS`}</Text>
@@ -17,7 +24,10 @@ ENCONTRADAS`}</Text>
             contentFit="cover"
             source={require('../assets/cilarrowtop1.png')}
           />
-          <Text style={[styles.badajozCilcismo22, styles.filtrosTypo]}>
+          <Text
+            style={[styles.badajozCilcismo22, styles.filtrosTypo]}
+            onPress={() => navigation.navigate('PruebasEncontradas')}
+          >
             Badajoz, cilcismo, 22 ene.
           </Text>
         </View>
@@ -299,7 +309,7 @@ ENCONTRADAS`}</Text>
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 

@@ -1,5 +1,13 @@
 import React, { useState, useCallback } from 'react'
-import { Text, StyleSheet, View, Pressable, Modal, Image } from 'react-native'
+import {
+  Text,
+  StyleSheet,
+  View,
+  Pressable,
+  Modal,
+  Image,
+  ScrollView
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import Popupfiltros from '../components/Popupfiltros'
 import { FontFamily, FontSize, Color, Border, Padding } from '../GlobalStyles'
@@ -18,7 +26,7 @@ const PruebasEncontradasOrdenar = () => {
 
   return (
     <>
-      <View style={styles.pruebasEncontradasOrdenar}>
+      <ScrollView style={styles.pruebasEncontradasOrdenar}>
         <Text style={[styles.pruebasEncontradas, styles.ene2024Typo]}>{`PRUEBAS
 ENCONTRADAS`}</Text>
         <View style={[styles.cilarrowTopParent, styles.parentPosition]}>
@@ -27,7 +35,10 @@ ENCONTRADAS`}</Text>
             contentFit="cover"
             source={require('../assets/cilarrowtop1.png')}
           />
-          <Text style={[styles.badajozCilcismo22, styles.filtrosTypo]}>
+          <Text
+            style={[styles.badajozCilcismo22, styles.filtrosTypo]}
+            onPress={() => navigation.navigate('PruebasEncontradas')}
+          >
             Badajoz, cilcismo, 22 ene.
           </Text>
         </View>
@@ -90,9 +101,9 @@ Localización: Mérida, Badajor.
 Fecha de la prueba: `}</Text>
                   <Text style={styles.ene2024Typo}>{`25 ene 2024
 `}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción: '}
+                  </Text>
                   <Text style={styles.ene2024Typo}>22 ene 2024</Text>
                 </Text>
                 <Text
@@ -101,9 +112,9 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN: '}
+                  </Text>
                   <Text style={styles.textTypo}>22€</Text>
                 </Text>
               </View>
@@ -143,9 +154,9 @@ Localización: Mérida, Badajor.
 Fecha de la prueba: `}</Text>
                   <Text style={styles.ene2024Typo}>{`25 ene 2024
 `}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción: '}
+                  </Text>
                   <Text style={styles.ene2024Typo}>22 ene 2024</Text>
                 </Text>
                 <Text
@@ -154,9 +165,9 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN: '}
+                  </Text>
                   <Text style={styles.textTypo}>22€</Text>
                 </Text>
               </View>
@@ -196,9 +207,9 @@ Localización: Mérida, Badajor.
 Fecha de la prueba: `}</Text>
                   <Text style={styles.ene2024Typo}>{`25 ene 2024
 `}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción: '}
+                  </Text>
                   <Text style={styles.ene2024Typo}>22 ene 2024</Text>
                 </Text>
                 <Text
@@ -207,9 +218,9 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN: '}
+                  </Text>
                   <Text style={styles.textTypo}>22€</Text>
                 </Text>
               </View>
@@ -249,9 +260,9 @@ Localización: Mérida, Badajor.
 Fecha de la prueba: `}</Text>
                   <Text style={styles.ene2024Typo}>{`25 ene 2024
 `}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción: '}
+                  </Text>
                   <Text style={styles.ene2024Typo}>22 ene 2024</Text>
                 </Text>
                 <Text
@@ -260,9 +271,9 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN: '}
+                  </Text>
                   <Text style={styles.textTypo}>22€</Text>
                 </Text>
               </View>
@@ -302,9 +313,9 @@ Localización: Mérida, Badajor.
 Fecha de la prueba: `}</Text>
                   <Text style={styles.ene2024Typo}>{`25 ene 2024
 `}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción: '}
+                  </Text>
                   <Text style={styles.ene2024Typo}>22 ene 2024</Text>
                 </Text>
                 <Text
@@ -313,16 +324,16 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN: '}
+                  </Text>
                   <Text style={styles.textTypo}>22€</Text>
                 </Text>
               </View>
             </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
 
       <Modal animationType="fade" transparent visible={frameContainer2Visible}>
         <View style={styles.frameContainer2Overlay}>

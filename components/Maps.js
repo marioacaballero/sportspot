@@ -1,8 +1,12 @@
-import * as React from 'react'
+import React from 'react'
 import { View, StyleSheet, Text, Image } from 'react-native'
 import { Border, FontSize, FontFamily, Color, Padding } from '../GlobalStyles'
 
 const Maps = ({ onClose }) => {
+  const handleClose = () => {
+    onClose()
+  }
+
   return (
     <View style={[styles.maps, styles.mapsLayout]}>
       <View style={styles.mapsInner}>
@@ -26,7 +30,12 @@ const Maps = ({ onClose }) => {
             />
           </View>
           <View style={styles.helloAshfakWrapper}>
-            <Text style={[styles.helloAshfak, styles.kmTypo]}>Listo</Text>
+            <Text
+              style={[styles.helloAshfak, styles.kmTypo]}
+              onPress={handleClose}
+            >
+              Listo
+            </Text>
           </View>
         </View>
       </View>
@@ -45,8 +54,7 @@ const styles = StyleSheet.create({
   },
   kmTypo: {
     fontFamily: FontFamily.interBold,
-    fontWeight: '700',
-    fontFamily: FontFamily.inputPlaceholder
+    fontWeight: '700'
   },
   mapViewIcon: {
     overflow: 'hidden',
@@ -59,7 +67,6 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.interMedium,
     color: Color.sportsVioleta,
     lineHeight: 34,
-    fontFamily: FontFamily.inputPlaceholder,
     textAlign: 'left',
     fontSize: FontSize.inputPlaceholder_size
   },

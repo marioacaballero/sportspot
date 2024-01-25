@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { Text, StyleSheet, View, Pressable, Image } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { Text, StyleSheet, View, Image } from 'react-native'
+// import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
 
 const Seguridad = () => {
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
 
   return (
     <View style={styles.seguridad}>
@@ -12,7 +12,7 @@ const Seguridad = () => {
         style={[styles.gestionaTuCuentaWrapper, styles.seguridadInnerPosition]}
       >
         <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
-          {`GESTIONA TU `}CUENTA
+          {'GESTIONA TU '}CUENTA
         </Text>
       </View>
       <View style={[styles.seguridadInner, styles.seguridadInnerPosition]}>
