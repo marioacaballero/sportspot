@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
   entrarTypo: {
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   capturaDePantalla20231024Icon: {
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     color: Color.sportsNaranja,
     textAlign: 'center',
     marginTop: 6,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   capturaDePantalla20231024Parent: {

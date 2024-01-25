@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from 'react'
 import { Text, StyleSheet, View, Pressable, Modal, Image } from 'react-native'
 import Calendar from '../components/Calendar'
-import { useNavigation } from '@react-navigation/native'
+// import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
 
 const EditarPerfil = () => {
   const [topContainerVisible, setTopContainerVisible] = useState(false)
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
 
   const openTopContainer = useCallback(() => {
     setTopContainerVisible(true)
@@ -21,7 +21,7 @@ const EditarPerfil = () => {
       <View style={styles.editarPerfil}>
         <View style={[styles.gestionaTuCuentaWrapper, styles.wrapperPosition]}>
           <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
-            {`GESTIONA TU `}CUENTA
+            {'GESTIONA TU '}CUENTA
           </Text>
         </View>
         <View style={[styles.editarPerfilInner, styles.wrapperPosition]}>
@@ -98,15 +98,13 @@ const EditarPerfil = () => {
                   </View>
                 </View>
                 <Pressable
-                  style={[styles.top, styles.inputBorder]}
+                  style={[styles.top, styles.inputBorderDate]}
                   onPress={openTopContainer}
                 >
                   <View
                     style={[styles.inputContent3, styles.groupParentFlexBox]}
                   >
-                    <View
-                      style={[styles.inputContent, styles.inputContentFlexBox]}
-                    >
+                    <View style={[styles.inputContentDate]}>
                       <Text style={[styles.label, styles.labelFlexBox]}>
                         Fecha de nacimiento
                       </Text>
@@ -154,7 +152,7 @@ const EditarPerfil = () => {
                   </Text>
                 </View>
               </View>
-              <View style={styles.input1}>
+              <View style={styles.inputCel}>
                 <View style={[styles.inputContent, styles.inputContentFlexBox]}>
                   <Text style={[styles.label, styles.labelFlexBox]}>
                     Teléfono
@@ -164,7 +162,7 @@ const EditarPerfil = () => {
                   </Text>
                 </View>
               </View>
-              <View style={[styles.input5, styles.inputBorder]}>
+              <View style={[styles.inputAdress, styles.inputBorder]}>
                 <View style={[styles.inputContent, styles.inputContentFlexBox]}>
                   <Text style={[styles.label, styles.labelFlexBox]}>
                     Dirección
@@ -208,7 +206,7 @@ const styles = StyleSheet.create({
   placehoderTypo: {
     fontSize: FontSize.size_sm,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   card1ChildPosition: {
@@ -230,13 +228,22 @@ const styles = StyleSheet.create({
   },
   inputBorder: {
     height: 47,
-    marginLeft: 15,
     paddingHorizontal: Padding.p_base,
     borderWidth: 1,
     borderColor: Color.sportsVioleta,
     borderStyle: 'solid',
     borderRadius: Border.br_xl,
     paddingVertical: Padding.p_5xs
+  },
+  inputBorderDate: {
+    height: 47,
+    paddingHorizontal: Padding.p_base,
+    borderWidth: 1,
+    borderColor: Color.sportsVioleta,
+    borderStyle: 'solid',
+    borderRadius: Border.br_xl,
+    paddingVertical: Padding.p_5xs,
+    marginLeft: 15
   },
   iconLayout: {
     maxHeight: '100%',
@@ -254,7 +261,7 @@ const styles = StyleSheet.create({
   },
   gestionaTuCuentaContainer: {
     fontSize: FontSize.size_5xl,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     textAlign: 'left',
     alignSelf: 'stretch'
@@ -292,14 +299,14 @@ const styles = StyleSheet.create({
   },
   userIcon: {
     height: 22,
-    marginLeft: 11,
+    marginLeft: 4,
     width: 22
   },
   datosPersonales: {
     fontSize: FontSize.inputLabel_size,
     textTransform: 'capitalize',
     fontWeight: '500',
-    fontFamily: FontFamily.interMedium,
+    fontFamily: FontFamily.inputPlaceholder,
     display: 'flex',
     alignItems: 'center',
     textAlign: 'left',
@@ -324,6 +331,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignSelf: 'stretch'
   },
+  inputContentDate: {
+    justifyContent: 'space-between',
+    alignSelf: 'stretch',
+    marginLeft: 15,
+    flex: 1
+  },
   input: {
     paddingHorizontal: Padding.p_base,
     height: 46,
@@ -334,8 +347,29 @@ const styles = StyleSheet.create({
     width: 295,
     paddingVertical: Padding.p_5xs
   },
+  inputCel: {
+    paddingHorizontal: Padding.p_base,
+    height: 46,
+    borderWidth: 1,
+    borderColor: Color.sportsVioleta,
+    borderStyle: 'solid',
+    borderRadius: Border.br_xl,
+    width: 295,
+    paddingVertical: Padding.p_5xs,
+    top: 10
+  },
+  inputAdress: {
+    paddingHorizontal: Padding.p_base,
+    height: 46,
+    borderWidth: 1,
+    borderColor: Color.sportsVioleta,
+    borderStyle: 'solid',
+    borderRadius: Border.br_xl,
+    width: 295,
+    paddingVertical: Padding.p_5xs,
+    top: 20
+  },
   input1: {
-    marginLeft: 15,
     paddingHorizontal: Padding.p_base,
     height: 46,
     width: 295,
@@ -375,8 +409,7 @@ const styles = StyleSheet.create({
     width: 197
   },
   inputParent: {
-    height: 167,
-    marginLeft: 11
+    height: 167
   },
   card1: {
     width: 324,
@@ -384,7 +417,6 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_5xs,
     flexWrap: 'wrap',
     shadowOpacity: 1,
-    elevation: 25,
     shadowRadius: 25,
     shadowOffset: {
       width: 0,

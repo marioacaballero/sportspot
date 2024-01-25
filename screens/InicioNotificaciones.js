@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
   helloTypo4: {
     textAlign: 'left',
     color: Color.sportsVioleta,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   materialLayout: {
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   helloTypo2: {
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100'
   },
   imGoingToClr: {
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
   },
   minTypo: {
     fontSize: FontSize.size_3xs,
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100',
     textAlign: 'left',
     alignSelf: 'stretch'
@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
     color: Color.colorThistle,
     fontSize: FontSize.size_3xs,
     marginTop: 5,
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100',
     textAlign: 'left'
   },
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   helloTypo5: {
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   helloAshfak: {
@@ -348,7 +348,7 @@ const styles = StyleSheet.create({
   },
   imGoingTo: {
     fontSize: FontSize.inputLabel_size,
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100',
     alignSelf: 'stretch'
   },
@@ -434,7 +434,7 @@ const styles = StyleSheet.create({
   helloAshfak6: {
     fontSize: FontSize.size_lg,
     marginLeft: 13,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     flex: 1
   },

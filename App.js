@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import PruebasEncontradasDetalle from './screens/PruebasEncontradasDetalle'
 import EditarPerfil from './screens/EditarPerfil'
@@ -22,7 +22,7 @@ import InicioOrganizador from './screens/InicioOrganizador'
 import PruebasEncontradas from './screens/PruebasEncontradas'
 import InicioBUSCADOR from './screens/InicioBUSCADOR'
 import PruebasEncontradasFiltros from './screens/PruebasEncontradasFiltros'
-import Popupfiltros from './components/Popupfiltros'
+import Popupfiltros from './components/PopupOrdenarPor'
 import InicioSUSCRIPCIONES from './screens/InicioSUSCRIPCIONES'
 import PopupAlerta from './components/PopupAlerta'
 import PruebasEncontradasDetalle1 from './screens/PruebasEncontradasDetalle1'
@@ -30,9 +30,15 @@ import PruebasEncontradasOrdenar from './screens/PruebasEncontradasOrdenar'
 import Group from './screens/Group'
 import SignIn from './screens/SignIn'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { loadFonts } from './GlobalStyles'
 
 export default function App() {
+  useEffect(() => {
+    loadFonts()
+  }, [])
+
   const Stack = createNativeStackNavigator()
+
   return (
     <>
       <NavigationContainer>

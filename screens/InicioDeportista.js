@@ -118,7 +118,7 @@ const InicioDeportista = () => {
             <Text style={[styles.helloAshfak1, styles.helloTypo]}>
               Últimas horas de inscripción
             </Text>
-            <View style={styles.frameParent1}>
+            <ScrollView style={styles.frameParent1} horizontal={true}>
               <View style={styles.image94ParentShadowBox1}>
                 <Image
                   style={[styles.image94Icon, styles.image94IconLayout]}
@@ -194,13 +194,13 @@ const InicioDeportista = () => {
                   </View>
                 </View>
               </View>
-            </View>
+            </ScrollView>
           </View>
           <View style={styles.helloAshfakParent1}>
             <Text style={[styles.helloAshfak1, styles.helloTypo]}>
               Últimas pruebas añadidas
             </Text>
-            <View style={styles.frameParent1}>
+            <ScrollView style={styles.frameParent1} horizontal={true}>
               <View style={styles.image94ParentShadowBox1}>
                 <Image
                   style={[styles.image94Icon, styles.image94IconLayout]}
@@ -276,13 +276,13 @@ const InicioDeportista = () => {
                   </View>
                 </View>
               </View>
-            </View>
+            </ScrollView>
           </View>
           <View style={styles.helloAshfakParent1}>
             <Text style={[styles.helloAshfak1, styles.helloTypo]}>
               Resultados de las útlimas pruebas
             </Text>
-            <View style={styles.frameParent1}>
+            <ScrollView style={styles.frameParent1} horizontal={true}>
               <View style={styles.image94ParentShadowBox1}>
                 <Image
                   style={[styles.image94Icon, styles.image94IconLayout]}
@@ -358,7 +358,7 @@ const InicioDeportista = () => {
                   </View>
                 </View>
               </View>
-            </View>
+            </ScrollView>
           </View>
         </View>
       </View>
@@ -391,7 +391,7 @@ const styles = StyleSheet.create({
   },
   imGoingToTypo: {
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   iconLayout: {
@@ -405,7 +405,7 @@ const styles = StyleSheet.create({
   helloTypo: {
     fontSize: FontSize.inputPlaceholder_size,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   goingTypo: {
@@ -421,7 +421,7 @@ const styles = StyleSheet.create({
     color: Color.sportsVioleta
   },
   minTypo: {
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100',
     textAlign: 'left',
     alignSelf: 'stretch'
@@ -504,7 +504,7 @@ const styles = StyleSheet.create({
   },
   imGoingTo: {
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     alignSelf: 'stretch'
   },

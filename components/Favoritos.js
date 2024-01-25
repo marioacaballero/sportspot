@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { Text, StyleSheet, View, Pressable, Image } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { Text, StyleSheet, View, Image } from 'react-native'
+// import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Padding, FontSize, Color, Border } from '../GlobalStyles'
 
 const Favoritos = () => {
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
 
   return (
     <View style={styles.favoritos}>
@@ -54,15 +54,15 @@ Localización: Hornachos, Badajoz
 Fecha de la prueba: `}</Text>
                 <Text style={styles.textTypo}>{`01 feb 2024
 `}</Text>
-                <Text
-                  style={styles.modalidadMontaaLocalizaci}
-                >{`Fecha límite de inscripción: `}</Text>
+                <Text style={styles.modalidadMontaaLocalizaci}>
+                  {'Fecha límite de inscripción: '}
+                </Text>
                 <Text style={styles.textTypo}>22 ene 2024</Text>
               </Text>
               <Text style={styles.imGoingToContainer1}>
-                <Text
-                  style={styles.precioDeInscripcin}
-                >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                <Text style={styles.precioDeInscripcin}>
+                  {'PRECIO DE INSCRIPCIÓN: '}
+                </Text>
                 <Text style={[styles.text, styles.textTypo]}>22€</Text>
               </Text>
             </View>
@@ -104,15 +104,15 @@ Localización: Mérida, Badajoz
 Fecha de la prueba: `}</Text>
                 <Text style={styles.textTypo}>{`18 ene 2024
 `}</Text>
-                <Text
-                  style={styles.modalidadMontaaLocalizaci}
-                >{`Fecha límite de inscripción: `}</Text>
+                <Text style={styles.modalidadMontaaLocalizaci}>
+                  {'Fecha límite de inscripción: '}
+                </Text>
                 <Text style={styles.textTypo}>10 ene 2024</Text>
               </Text>
               <Text style={styles.imGoingToContainer1}>
-                <Text
-                  style={styles.precioDeInscripcin}
-                >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                <Text style={styles.precioDeInscripcin}>
+                  {'PRECIO DE INSCRIPCIÓN: '}
+                </Text>
                 <Text style={[styles.text, styles.textTypo]}>35€</Text>
               </Text>
             </View>

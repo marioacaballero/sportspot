@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from 'react'
 import { Text, StyleSheet, View, Pressable, Modal, Image } from 'react-native'
 import Calendar from '../components/Calendar'
-import { useNavigation } from '@react-navigation/native'
+// import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Color, FontSize, Padding, Border } from '../GlobalStyles'
 
 const EditarPerfil = () => {
   const [topContainerVisible, setTopContainerVisible] = useState(false)
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
 
   const openTopContainer = useCallback(() => {
     setTopContainerVisible(true)
@@ -21,7 +21,7 @@ const EditarPerfil = () => {
       <View style={styles.editarPerfil}>
         <View style={[styles.gestionaTuCuentaWrapper, styles.wrapperPosition]}>
           <Text style={[styles.gestionaTuCuentaContainer, styles.labelTypo]}>
-            {`GESTIONA TU `}CUENTA
+            {'GESTIONA TU '}CUENTA
           </Text>
         </View>
         <View style={[styles.editarPerfilInner, styles.wrapperPosition]}>
@@ -301,8 +301,7 @@ const styles = StyleSheet.create({
   },
   datosPersonalesWrapper: {
     width: 195,
-    height: 24,
-    marginLeft: 11
+    height: 24
   },
   label: {
     fontSize: FontSize.size_5xs,
@@ -369,7 +368,8 @@ const styles = StyleSheet.create({
   },
   inputParent: {
     height: 167,
-    marginLeft: 11
+    flex: 1,
+    alignItems: 'left'
   },
   card1: {
     width: 324,

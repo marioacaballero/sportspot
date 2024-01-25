@@ -80,9 +80,9 @@ Fecha de la prueba: `}</Text>
                     style={[styles.ene2024, styles.ene2024Typo]}
                   >{`25 ene 2024
 `}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción: '}
+                  </Text>
                   <Text style={[styles.ene2024, styles.ene2024Typo]}>
                     22 ene 2024
                   </Text>
@@ -93,9 +93,9 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN: '}
+                  </Text>
                   <Text style={styles.textTypo3}>22€</Text>
                 </Text>
               </View>
@@ -137,9 +137,9 @@ Fecha de la prueba: `}</Text>
                     style={[styles.ene2024, styles.ene2024Typo]}
                   >{`25 ene 2024
 `}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción: '}
+                  </Text>
                   <Text style={[styles.ene2024, styles.ene2024Typo]}>
                     22 ene 2024
                   </Text>
@@ -150,9 +150,9 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN: '}
+                  </Text>
                   <Text style={styles.textTypo3}>22€</Text>
                 </Text>
               </View>
@@ -194,9 +194,9 @@ Fecha de la prueba: `}</Text>
                     style={[styles.ene2024, styles.ene2024Typo]}
                   >{`25 ene 2024
 `}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción: '}
+                  </Text>
                   <Text style={[styles.ene2024, styles.ene2024Typo]}>
                     22 ene 2024
                   </Text>
@@ -207,9 +207,9 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN: '}
+                  </Text>
                   <Text style={styles.textTypo3}>22€</Text>
                 </Text>
               </View>
@@ -251,9 +251,9 @@ Fecha de la prueba: `}</Text>
                     style={[styles.ene2024, styles.ene2024Typo]}
                   >{`25 ene 2024
 `}</Text>
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                  >{`Plazo límite de inscripción: `}</Text>
+                  <Text style={styles.modalidadPistaLocalizacin}>
+                    {'Plazo límite de inscripción: '}
+                  </Text>
                   <Text style={[styles.ene2024, styles.ene2024Typo]}>
                     22 ene 2024
                   </Text>
@@ -264,9 +264,9 @@ Fecha de la prueba: `}</Text>
                     styles.goingContainerFlexBox
                   ]}
                 >
-                  <Text
-                    style={styles.precioDeInscripcin}
-                  >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+                  <Text style={styles.precioDeInscripcin}>
+                    {'PRECIO DE INSCRIPCIÓN: '}
+                  </Text>
                   <Text style={styles.textTypo3}>22€</Text>
                 </Text>
               </View>

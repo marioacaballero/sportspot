@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     marginLeft: -180
   },
   ciclismoTypo: {
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     textAlign: 'left'
   },
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   },
   ltimaSemanaTypo: {
-    fontFamily: FontFamily.interMedium,
+    fontFamily: FontFamily.inputPlaceholderMedium,
     fontWeight: '500',
     lineHeight: 19,
     letterSpacing: 0,
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   textTypo: {
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholderThin,
     fontWeight: '100'
   },
   menInferiorLayout: {

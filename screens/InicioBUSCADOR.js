@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   helloTypo1: {
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   iconLayout: {
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
   },
   helloTypo: {
     marginLeft: 11,
-    fontFamily: FontFamily.interMedium,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '500',
     fontSize: FontSize.size_sm,
     textAlign: 'left',
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   minTypo: {
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100',
     textAlign: 'left'
   },
@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
   },
   imGoingTo: {
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   min: {

@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_sm,
     lineHeight: 23,
     fontWeight: '100',
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholder,
     color: Color.colorGray_200,
     textAlign: 'center',
     marginTop: 11
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   helloAshfak: {
     fontSize: FontSize.inputPlaceholder_size,
     fontWeight: '700',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     color: Color.blanco,
     textAlign: 'left'
   },

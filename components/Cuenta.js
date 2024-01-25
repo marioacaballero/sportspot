@@ -14,7 +14,7 @@ const Cuenta = () => {
         <Text
           style={[styles.gestionaTuCuentaContainer, styles.editarPerfilTypo]}
         >
-          {`GESTIONA TU `}CUENTA
+          {'GESTIONA TU '}CUENTA
         </Text>
       </View>
       <View style={[styles.menInferior, styles.menInferiorLayout4]}>

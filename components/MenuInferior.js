@@ -29,11 +29,13 @@ const MenuInferior = () => {
             source={require('../assets/vector.png')}
           />
         </Pressable>
-        <Image
-          style={styles.capturaDePantalla20231124}
-          contentFit="cover"
-          source={require('../assets/captura-de-pantalla-20231124-114115-1.png')}
-        />
+        <Pressable onPress={() => navigation.navigate('InicioDeportista')}>
+          <Image
+            style={styles.capturaDePantalla20231124}
+            contentFit="cover"
+            source={require('../assets/captura-de-pantalla-20231124-114115-1.png')}
+          />
+        </Pressable>
         <Pressable
           style={[styles.frame, styles.frameLayout]}
           onPress={() => navigation.navigate('HistorialDePruebas')}

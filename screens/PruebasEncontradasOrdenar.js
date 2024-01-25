@@ -9,7 +9,7 @@ import {
   ScrollView
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import Popupfiltros from '../components/Popupfiltros'
+import PopupOrdenarPor from '../components/PopupOrdenarPor'
 import { FontFamily, FontSize, Color, Border, Padding } from '../GlobalStyles'
 
 const PruebasEncontradasOrdenar = () => {
@@ -97,10 +97,10 @@ ENCONTRADAS`}</Text>
                   <Text
                     style={styles.modalidadPistaLocalizacin}
                   >{`Modalidad: Pista
-Localización: Mérida, Badajor.
-Fecha de la prueba: `}</Text>
+                    Localización: Mérida, Badajor.
+                    Fecha de la prueba: `}</Text>
                   <Text style={styles.ene2024Typo}>{`25 ene 2024
-`}</Text>
+                    `}</Text>
                   <Text style={styles.modalidadPistaLocalizacin}>
                     {'Plazo límite de inscripción: '}
                   </Text>
@@ -150,10 +150,10 @@ Fecha de la prueba: `}</Text>
                   <Text
                     style={styles.modalidadPistaLocalizacin}
                   >{`Modalidad: Pista
-Localización: Mérida, Badajor.
-Fecha de la prueba: `}</Text>
+                  Localización: Mérida, Badajor.
+                  Fecha de la prueba: `}</Text>
                   <Text style={styles.ene2024Typo}>{`25 ene 2024
-`}</Text>
+                  `}</Text>
                   <Text style={styles.modalidadPistaLocalizacin}>
                     {'Plazo límite de inscripción: '}
                   </Text>
@@ -203,10 +203,10 @@ Fecha de la prueba: `}</Text>
                   <Text
                     style={styles.modalidadPistaLocalizacin}
                   >{`Modalidad: Pista
-Localización: Mérida, Badajor.
-Fecha de la prueba: `}</Text>
+                    Localización: Mérida, Badajor.
+                    Fecha de la prueba: `}</Text>
                   <Text style={styles.ene2024Typo}>{`25 ene 2024
-`}</Text>
+                    `}</Text>
                   <Text style={styles.modalidadPistaLocalizacin}>
                     {'Plazo límite de inscripción: '}
                   </Text>
@@ -256,10 +256,10 @@ Fecha de la prueba: `}</Text>
                   <Text
                     style={styles.modalidadPistaLocalizacin}
                   >{`Modalidad: Pista
-Localización: Mérida, Badajor.
-Fecha de la prueba: `}</Text>
+                    Localización: Mérida, Badajor.
+                    Fecha de la prueba: `}</Text>
                   <Text style={styles.ene2024Typo}>{`25 ene 2024
-`}</Text>
+                    `}</Text>
                   <Text style={styles.modalidadPistaLocalizacin}>
                     {'Plazo límite de inscripción: '}
                   </Text>
@@ -309,10 +309,10 @@ Fecha de la prueba: `}</Text>
                   <Text
                     style={styles.modalidadPistaLocalizacin}
                   >{`Modalidad: Pista
-Localización: Mérida, Badajor.
-Fecha de la prueba: `}</Text>
+                    Localización: Mérida, Badajor.
+                    Fecha de la prueba: `}</Text>
                   <Text style={styles.ene2024Typo}>{`25 ene 2024
-`}</Text>
+                    `}</Text>
                   <Text style={styles.modalidadPistaLocalizacin}>
                     {'Plazo límite de inscripción: '}
                   </Text>
@@ -341,7 +341,7 @@ Fecha de la prueba: `}</Text>
             style={styles.frameContainer2Bg}
             onPress={closeFrameContainer2}
           />
-          <Popupfiltros onClose={closeFrameContainer2} />
+          <PopupOrdenarPor onClose={closeFrameContainer2} />
         </View>
       </Modal>
     </>
@@ -350,7 +350,7 @@ Fecha de la prueba: `}</Text>
 
 const styles = StyleSheet.create({
   ene2024Typo: {
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   parentPosition: {
@@ -363,12 +363,12 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputPlaceholder_size,
     textAlign: 'left',
     color: Color.sportsVioleta,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   textTypo: {
     color: Color.sportsNaranja,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   containerLayout: {

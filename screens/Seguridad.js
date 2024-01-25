@@ -49,7 +49,7 @@ const Seguridad = () => {
                   </Text>
                 </View>
               </View>
-              <View style={[styles.input1, styles.inputLayout]}>
+              <View style={[styles.inputLayout]}>
                 <View style={styles.inputContent}>
                   <Text style={[styles.label, styles.labelFlexBox]}>
                     Contraseña
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   seguridad1Typo: {
     fontSize: FontSize.size_sm,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   passwordIconLayout: {
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   },
   gestionaTuCuentaContainer: {
     fontSize: FontSize.size_5xl,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     alignSelf: 'stretch'
   },
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputLabel_size,
     textTransform: 'capitalize',
     fontWeight: '500',
-    fontFamily: FontFamily.interMedium,
+    fontFamily: FontFamily.inputPlaceholderMedium,
     display: 'flex',
     alignItems: 'center',
     textAlign: 'left',
@@ -181,8 +181,7 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   contraseaWrapper: {
-    width: 195,
-    marginLeft: 11
+    width: 195
   },
   label: {
     fontSize: FontSize.size_5xs,
@@ -198,9 +197,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignSelf: 'stretch',
     flex: 1
-  },
-  input1: {
-    marginLeft: 15
   },
   inputParent: {
     width: 298,
@@ -221,7 +217,6 @@ const styles = StyleSheet.create({
     elevation: 25,
     shadowOpacity: 1,
     width: 324,
-    height: 221,
     paddingHorizontal: Padding.p_smi,
     paddingVertical: Padding.p_5xs,
     flexWrap: 'wrap',
@@ -239,7 +234,7 @@ const styles = StyleSheet.create({
   },
   cambiarContrasea: {
     color: Color.violeta3,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   cambiarContraseaWrapper: {
@@ -248,7 +243,7 @@ const styles = StyleSheet.create({
   },
   eliminarCuenta: {
     fontWeight: '600',
-    fontFamily: FontFamily.interSemiBold,
+    fontFamily: FontFamily.inputPlaceholderSemiBold,
     color: Color.rojoUbiqum
   },
   eliminarCuentaWrapper: {

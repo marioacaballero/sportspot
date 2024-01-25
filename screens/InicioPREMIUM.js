@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   helloTypo: {
     fontSize: FontSize.size_sm,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   frameChild: {
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 14,
     color: Color.sportsVioleta,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   helloAshfak8: {

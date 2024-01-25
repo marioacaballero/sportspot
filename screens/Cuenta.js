@@ -14,7 +14,7 @@ const Cuenta = () => {
         <Text
           style={[styles.gestionaTuCuentaContainer, styles.editarPerfilTypo]}
         >
-          {`GESTIONA TU `}CUENTA
+          {'GESTIONA TU '}CUENTA
         </Text>
       </View>
       <View style={[styles.frameParent, styles.frameParentPosition]}>
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   editarPerfilTypo: {
     textAlign: 'left',
     color: Color.sportsVioleta,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     alignSelf: 'stretch'
   },

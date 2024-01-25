@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     fontSize: FontSize.size_lg,
     textAlign: 'center',
-    fontFamily: FontFamily.interSemiBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '600'
   },
   weekdaySpaceBlock: {
@@ -368,7 +368,7 @@ const styles = StyleSheet.create({
   helloAshfak: {
     fontSize: FontSize.inputPlaceholder_size,
     fontWeight: '700',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     textAlign: 'left',
     color: Color.blanco
   },

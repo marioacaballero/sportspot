@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { StyleSheet, View, Text, Pressable, Image } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { StyleSheet, View, Text, Image } from 'react-native'
+// import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Padding, FontSize, Color, Border } from '../GlobalStyles'
 
 const Metodo1 = () => {
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
 
   return (
     <View style={styles.metodo}>
@@ -51,7 +51,7 @@ innovadora!`}{' '}
 const styles = StyleSheet.create({
   trabajaTypo: {
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   groupParentFlexBox: {
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     color: Color.sportsVioleta,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     alignSelf: 'stretch',
     alignItems: 'center',
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_5xl,
     color: Color.sportsVioleta,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     alignSelf: 'stretch'
   },
@@ -166,8 +166,9 @@ const styles = StyleSheet.create({
     width: 360
   },
   trabajaConNosotrosContainer: {
-    top: 239,
-    left: 50,
+    top: 244,
+    left: 22,
+    width: '90%',
     fontSize: FontSize.inputLabel_size,
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.colorBlack,
@@ -178,7 +179,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputPlaceholder_size,
     color: Color.blanco,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   trabajaConNosotrosFrame: {

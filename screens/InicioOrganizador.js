@@ -209,19 +209,19 @@ const styles = StyleSheet.create({
   helloTypo2: {
     fontSize: FontSize.inputPlaceholder_size,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   helloTypo1: {
     color: Color.sportsNaranja,
     fontSize: FontSize.size_sm,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   helloTypo: {
     marginTop: 2,
     color: Color.violeta2,
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholderThin,
     fontWeight: '100',
     fontSize: FontSize.inputLabel_size
   },
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_5xl,
     textAlign: 'left',
     color: Color.sportsVioleta,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   frameChild: {
@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: FontSize.size_sm,
     color: Color.sportsVioleta,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     alignSelf: 'stretch'
   },
@@ -338,13 +338,13 @@ const styles = StyleSheet.create({
   helloAshfak6: {
     color: Color.sportsNaranja,
     fontSize: FontSize.size_sm,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   helloAshfak7: {
     marginTop: 2,
     color: Color.violeta2,
-    fontFamily: FontFamily.interThin,
+    fontFamily: FontFamily.inputPlaceholderThin,
     fontWeight: '100',
     fontSize: FontSize.inputLabel_size
   },

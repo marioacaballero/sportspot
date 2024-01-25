@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     textAlign: 'left'
   },
   helloTypo: {
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   groupContainerFlexBox: {
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
   helloAshfak: {
     fontSize: FontSize.size_5xl,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   frameChild: {
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
   helloAshfak1: {
     fontSize: FontSize.inputLabel_size,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     alignSelf: 'stretch'
   },
@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
     width: 246,
     fontSize: FontSize.inputLabel_size,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   frameContainer: {
@@ -370,7 +370,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.blanco
   },
   div2CardsWrapper: {
-    height: 800,
+    height: 730,
     zIndex: 1,
     marginTop: 20
   },
@@ -410,7 +410,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_xl
   },
   inicioSuscripciones2: {
-    height: 800,
+    height: 700,
     paddingTop: Padding.p_48xl,
     paddingBottom: Padding.p_5xl,
     paddingHorizontal: Padding.p_xl,

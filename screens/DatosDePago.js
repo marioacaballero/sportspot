@@ -33,7 +33,7 @@ const DatosDePago = () => {
         <Text
           style={[styles.gestionaTuCuentaContainer, styles.imGoingToFlexBox]}
         >
-          {`GESTIONA TU `}CUENTA
+          {'GESTIONA TU '}CUENTA
         </Text>
       </View>
       <View style={[styles.datosDePagoInner, styles.pencillineParentPosition]}>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   datosTypo: {
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   menInferiorLayout: {
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   datosDePago1: {
     display: 'flex',
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     fontSize: FontSize.size_sm,
     alignItems: 'center',
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   gestionaTuCuentaContainer: {
     fontSize: FontSize.size_5xl,
     textAlign: 'left',
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   gestionaTuCuentaWrapper: {

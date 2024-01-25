@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputPlaceholder_size
   },
   kmTypo: {
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   mapViewIcon: {
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   rangoDeDistancia: {
     fontWeight: '500',
-    fontFamily: FontFamily.interMedium,
+    fontFamily: FontFamily.inputPlaceholder,
     color: Color.sportsVioleta,
     lineHeight: 34,
     textAlign: 'left',

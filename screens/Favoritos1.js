@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Text, StyleSheet, View, Pressable, Image } from 'react-native'
+import { Text, StyleSheet, View, Pressable } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
 
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_sm,
     textAlign: 'left',
     color: Color.sportsVioleta,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   groupParentFlexBox: {
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   tusFavoritos: {
     fontSize: FontSize.size_5xl,
     color: Color.sportsVioleta,
-    fontFamily: FontFamily.interBold,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     textAlign: 'left'
   },
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   imGoingTo: {
     fontSize: FontSize.size_3xs,
     fontWeight: '500',
-    fontFamily: FontFamily.interMedium,
+    fontFamily: FontFamily.inputPlaceholder,
     color: Color.sportsNaranja,
     marginTop: 5
   },
