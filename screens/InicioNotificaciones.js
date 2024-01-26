@@ -3,7 +3,7 @@ import { Text, StyleSheet, View, Image } from 'react-native'
 // import { useNavigation } from '@react-navigation/native'
 import { Padding, Color, FontFamily, FontSize, Border } from '../GlobalStyles'
 
-const InicioNotificaciones = () => {
+const InicioNotificaciones = ({ setModalVisible }) => {
   // const navigation = useNavigation()
 
   return (
@@ -19,6 +19,12 @@ const InicioNotificaciones = () => {
         />
         <Text style={[styles.helloAshfak6, styles.imGoingToClr]}>
           Notificaciones
+        </Text>
+        <Text
+          style={{ fontSize: 20, width: 20 }}
+          onPress={() => setModalVisible(false)}
+        >
+          X
         </Text>
       </View>
       <View style={[styles.lineView, styles.frameChildBorder]} />
@@ -440,7 +446,7 @@ const styles = StyleSheet.create({
   },
   materialSymbolsnotificationsParent: {
     alignItems: 'flex-end',
-    height: 22,
+    height: 30,
     flexDirection: 'row',
     alignSelf: 'stretch'
   },

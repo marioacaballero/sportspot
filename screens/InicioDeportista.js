@@ -42,7 +42,7 @@ const InicioDeportista = () => {
           <View style={styles.groupParent}>
             <Pressable style={styles.wrapper} onPress={toggleModalPremium}>
               <Image
-                style={styles.icbaselineSearchIcon}
+                style={styles.iconLayout}
                 contentFit="cover"
                 source={require('../assets/group-11712766982.png')}
               />
@@ -50,6 +50,9 @@ const InicioDeportista = () => {
                 animationType="fade"
                 transparent={true}
                 visible={modalPremium}
+                onBackdropPress={() => {
+                  setModalPremium(false)
+                }}
               >
                 <InicioPREMIUM setModalVisible={setModalPremium} />
               </Modal>
