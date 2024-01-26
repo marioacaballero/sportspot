@@ -26,7 +26,10 @@ const PruebasEncontradasOrdenar = () => {
 
   return (
     <>
-      <ScrollView style={styles.pruebasEncontradasOrdenar}>
+      <ScrollView
+        style={styles.pruebasEncontradasOrdenar}
+        contentContainerStyle={{ paddingBottom: 150 }}
+      >
         <Text style={[styles.pruebasEncontradas, styles.ene2024Typo]}>{`PRUEBAS
 ENCONTRADAS`}</Text>
         <View style={[styles.cilarrowTopParent, styles.parentPosition]}>

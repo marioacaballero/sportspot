@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   },
   ltimaSemanaTypo: {
-    fontFamily: FontFamily.inputPlaceholderMedium,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '500',
     lineHeight: 19,
     letterSpacing: 0,
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   textTypo: {
-    fontFamily: FontFamily.inputPlaceholderThin,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100'
   },
   menInferiorLayout: {
@@ -286,6 +286,7 @@ const styles = StyleSheet.create({
   },
   ltimaSemanaParent: {
     width: 258,
+    height: 25,
     marginTop: 10
   },
   xMarkParent: {
@@ -298,13 +299,10 @@ const styles = StyleSheet.create({
     elevation: 5,
     shadowOpacity: 1,
     width: 322,
-    // alignItems: 'flex-end',
     paddingHorizontal: Padding.p_16xl,
     paddingTop: Padding.p_6xs,
     paddingBottom: Padding.p_mini,
-    // marginTop: 10,
-    // backgroundColor: 'red',
-    flex: 1,
+    marginTop: 10,
     justifyContent: 'space-between',
     alignSelf: 'flex-end'
   },

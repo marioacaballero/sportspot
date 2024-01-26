@@ -30,6 +30,7 @@ const InicioOrganizador = () => {
   return (
     <ScrollView
       style={[styles.inicioOrganizador, styles.groupContainerSpaceBlock]}
+      contentContainerStyle={{ paddingBottom: 100 }}
     >
       <View style={styles.helloAshfakParent}>
         <Text style={styles.helloAshfak}>INICIO</Text>

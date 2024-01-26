@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text, Image } from 'react-native'
+import { View, StyleSheet, Text, Image, ScrollView } from 'react-native'
 import { Border, FontSize, FontFamily, Color, Padding } from '../GlobalStyles'
 
 const Maps = ({ onClose }) => {
@@ -8,7 +8,10 @@ const Maps = ({ onClose }) => {
   }
 
   return (
-    <View style={[styles.maps, styles.mapsLayout]}>
+    <ScrollView
+      style={[styles.maps, styles.mapsLayout]}
+      contentContainerStyle={{ paddingBottom: 50 }}
+    >
       <View style={styles.mapsInner}>
         <View style={styles.mapViewParent}>
           <Image
@@ -39,13 +42,14 @@ const Maps = ({ onClose }) => {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   mapsLayout: {
-    maxWidth: '100%',
+    maxWidth: '90%',
+    maxHeight: '90%',
     borderRadius: Border.br_5xs
   },
   helloAshfakTypo1: {
@@ -57,7 +61,6 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   mapViewIcon: {
-    overflow: 'hidden',
     height: 405,
     width: '100%',
     alignSelf: 'stretch'

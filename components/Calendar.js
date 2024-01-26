@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
   },
   digitTypo: {
     lineHeight: 24,
-    fontSize: FontSize.size_lg,
+    fontSize: FontSize.size_3xs,
     textAlign: 'center',
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '600'
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
   satTypo: {
     color: Color.sportsNaranja,
     lineHeight: 24,
-    fontSize: FontSize.size_lg,
+    fontSize: FontSize.size_3xs,
     textAlign: 'center',
     fontFamily: FontFamily.inputPlaceholder
   },
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
   mon: {
     color: Color.sportsVioleta,
     lineHeight: 24,
-    fontSize: FontSize.size_lg,
+    fontSize: FontSize.size_3xs,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '600'
   },
@@ -319,7 +319,7 @@ const styles = StyleSheet.create({
     color: Color.colorTomato_100,
     fontFamily: FontFamily.inputPlaceholder,
     lineHeight: 24,
-    fontSize: FontSize.size_lg
+    fontSize: FontSize.size_3xs
   },
   day: {
     display: 'none'
@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
   digit7: {
     color: Color.sportsVioleta,
     lineHeight: 24,
-    fontSize: FontSize.size_lg,
+    fontSize: FontSize.size_3xs,
     fontFamily: FontFamily.inputPlaceholder
   },
   week1: {
@@ -356,7 +356,7 @@ const styles = StyleSheet.create({
     color: Color.colorGray_300,
     fontFamily: FontFamily.inputPlaceholder,
     lineHeight: 24,
-    fontSize: FontSize.size_lg
+    fontSize: FontSize.size_3xs
   },
   calendar1: {
     borderRadius: Border.br_base,

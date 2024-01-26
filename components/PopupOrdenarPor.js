@@ -28,7 +28,10 @@ const PopupOrdenarPor = ({ setModalVisible }) => {
   }
 
   return (
-    <ScrollView style={styles.popupfiltros}>
+    <ScrollView
+      style={styles.popupfiltros}
+      contentContainerStyle={{ paddingBottom: 150 }}
+    >
       <View style={styles.charmcrossWrapper}>
         <Pressable onPress={() => setModalVisible(false)}>
           <Image
@@ -144,8 +147,8 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     color: Color.sportsVioleta,
     fontFamily: FontFamily.inputPlaceholder,
-
-    fontSize: FontSize.inputPlaceholder_size
+    fontSize: FontSize.inputPlaceholder_size,
+    alignItems: 'center'
   },
   togglePosition2: {
     borderRadius: Border.br_xl,
@@ -154,29 +157,25 @@ const styles = StyleSheet.create({
     right: '0%',
     top: '0%',
     width: '100%',
-    height: '100%',
-    position: 'absolute'
+    height: '100%'
   },
   toggleItemLayout1: {
     bottom: '8.19%',
     top: '8.19%',
     width: '47.67%',
     height: '83.63%',
-    position: 'absolute',
-    overflow: 'hidden',
     maxHeight: '100%',
     maxWidth: '100%'
   },
   parentFlexBox2: {
-    marginTop: 8,
     justifyContent: 'space-between',
     flexDirection: 'row',
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    flex: 1
   },
   charmcrossIcon: {
     width: 21,
-    height: 21,
-    overflow: 'hidden'
+    height: 21
   },
   charmcrossWrapper: {
     justifyContent: 'flex-end',
@@ -216,9 +215,7 @@ const styles = StyleSheet.create({
     right: '44.67%',
     left: '7.67%'
   },
-  circuitoHomologadoParent: {
-    alignItems: 'flex-end'
-  },
+
   proximidadParent: {
     alignItems: 'center'
   },
@@ -246,9 +243,8 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_3xs,
     maxHeight: '100%',
     maxWidth: '100%',
-    position: 'absolute',
-    top: 250,
-    right: 8
+    top: 210,
+    left: 20
   },
   switch: {
     transform: [{ scale: 0.8 }]
