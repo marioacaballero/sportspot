@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Border, FontSize, FontFamily, Color, Padding } from '../GlobalStyles'
 
-const PopupAlerta = ({ onClose }) => {
+const PopupAlerta = ({ setModalVisible }) => {
   const navigation = useNavigation()
 
   return (
@@ -14,12 +14,22 @@ const PopupAlerta = ({ onClose }) => {
 guardar una alerta`}</Text>
       </View>
       <View style={styles.frameParent}>
-        <View style={[styles.helloAshfakWrapper, styles.helloFlexBox2]}>
-          <Text style={[styles.helloAshfak, styles.helloTypo16]}>Cancelar</Text>
-        </View>
+        <Pressable
+          style={[styles.helloAshfakWrapper, styles.helloFlexBox2]}
+          onPress={() => setModalVisible(false)}
+        >
+          <View>
+            <Text style={[styles.helloAshfak, styles.helloTypo16]}>
+              Cancelar
+            </Text>
+          </View>
+        </Pressable>
         <Pressable
           style={[styles.helloAshfakContainer, styles.helloFlexBox2]}
-          onPress={() => navigation.navigate('InicioSUSCRIPCIONES')}
+          onPress={() => {
+            navigation.navigate('InicioSUSCRIPCIONES')
+            setModalVisible(false)
+          }}
         >
           <Text style={[styles.helloAshfak1, styles.helloTypo16]}>
             Hacerme Premium
@@ -92,7 +102,8 @@ const styles = StyleSheet.create({
     padding: Padding.p_xl,
     maxWidth: '100%',
     maxHeight: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
+    top: 120
   }
 })
 

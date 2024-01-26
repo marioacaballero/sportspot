@@ -45,14 +45,15 @@ export default function App() {
     <View style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="PruebasEncontradas"
+          initialRouteName="Bienvenida"
           screenOptions={({ route }) => ({
             // headerShown: false,
             headerShown: false,
             footerShown: setIsFooterShow(
               route.name !== 'Bienvenida' &&
                 route.name !== 'IniciarSesin' &&
-                route.name !== 'SignIn'
+                route.name !== 'SignIn' &&
+                route.name !== 'Registrarse'
             )
           })}
         >
