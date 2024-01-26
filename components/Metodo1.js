@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { StyleSheet, View, Text, Pressable, Image } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { StyleSheet, View, Text, Image } from 'react-native'
+// import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Padding, FontSize, Color, Border } from '../GlobalStyles'
 
 const Metodo1 = () => {
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
 
   return (
     <View style={styles.metodo}>

@@ -531,9 +531,10 @@ const styles = StyleSheet.create({
   },
   frameParent1: {
     justifyContent: 'center',
+    alignSelf: 'center',
     position: 'absolute',
     top: 100,
-    right: 20,
+    // right: 20,
     borderRadius: Border.br_3xs,
     shadowColor: 'rgba(69, 68, 68, 0.47)',
     width: 320,
@@ -547,16 +548,6 @@ const styles = StyleSheet.create({
     },
     backgroundColor: Color.blanco,
     zIndex: 10
-  },
-  menInferiorParent: {
-    top: 708,
-    height: 92
-  },
-  inicioNotificaciones: {
-    height: 800,
-    width: '100%',
-    flex: 1,
-    backgroundColor: Color.blanco
   }
 })
 

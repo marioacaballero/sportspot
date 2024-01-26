@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { StyleSheet, View, Text, Pressable, Image } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { StyleSheet, View, Text, Image } from 'react-native'
+// import { useNavigation } from '@react-navigation/native'
 import { Color, FontFamily, Padding, Border, FontSize } from '../GlobalStyles'
 
 const Metodo = () => {
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
 
   return (
     <View style={styles.metodo}>
@@ -26,7 +26,7 @@ const Metodo = () => {
       </View>
       <View style={styles.gestionaTuCuentaWrapper}>
         <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
-          {`GESTIONA TU `}CUENTA
+          GESTIONA TU CUENTA
         </Text>
       </View>
       <View style={[styles.metodoInner, styles.metodoInnerPosition]}>
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
   inputBorder: {
     height: 47,
-    marginLeft: 15,
+
     paddingVertical: Padding.p_5xs,
     paddingHorizontal: Padding.p_base,
     borderColor: Color.sportsVioleta,
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid'
   },
   input1: {
-    marginLeft: 15,
+    // marginLeft: 15,
     paddingVertical: Padding.p_5xs,
     paddingHorizontal: Padding.p_base,
     height: 46,
@@ -261,7 +261,8 @@ const styles = StyleSheet.create({
     width: 82
   },
   input3: {
-    width: 118
+    width: 118,
+    marginLeft: 15
   },
   inputParent: {
     top: 240,
