@@ -11,14 +11,20 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { FontFamily, FontSize, Color, Border, Padding } from '../GlobalStyles'
 import PopupOrdenarPor from '../components/PopupOrdenarPor'
+import PruebasEncontradasFiltros from './PruebasEncontradasFiltros'
 
 const PruebasEncontradas = () => {
   const navigation = useNavigation()
 
   const [modalOrder, setModalOrder] = useState(false)
+  const [modalFilter, setModalFilter] = useState(false)
 
   const toggleModalOrder = () => {
-    setModalOrder(!modalOrder)
+    setModalOrder(true)
+  }
+
+  const toggleModalFilter = () => {
+    setModalFilter(true)
   }
 
   return (
@@ -42,10 +48,14 @@ const PruebasEncontradas = () => {
         </View>
         <View style={[styles.frameParent, styles.parentSpaceBlock]}>
           <View style={[styles.frameGroup, styles.frameGroupFlexBox]}>
-            <Pressable
-              style={styles.filtrosParent}
-              onPress={() => navigation.navigate('PruebasEncontradasFiltros')}
-            >
+            <Pressable style={styles.filtrosParent} onPress={toggleModalFilter}>
+              <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalFilter}
+              >
+                <PruebasEncontradasFiltros setModalVisible={setModalFilter} />
+              </Modal>
               <Text style={styles.filtrosTypo}>Filtros</Text>
               <Image
                 style={styles.frameChild}

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { StyleSheet, Text, View, Pressable, Image } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation } from '@react-navigation/native'
@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
   nombreDeUsuario: {
     color: Color.sportsVioleta,
     textAlign: 'left',
-    fontSize: FontSize.size_lg
+    fontSize: FontSize.size_lg,
+    fontFamily: FontFamily.inputPlaceholder
   },
   nombreDeUsuarioWrapper: {
     paddingHorizontal: Padding.p_xl,

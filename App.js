@@ -16,7 +16,6 @@ import HistorialDePruebas from './screens/HistorialDePruebas'
 import TuPerfil from './screens/TuPerfil'
 import IniciarSesin from './screens/IniciarSesin'
 import Registrarse from './screens/Registrarse'
-import InicioNotificaciones from './screens/InicioNotificaciones'
 import InicioDeportista from './screens/InicioDeportista'
 import InicioOrganizador from './screens/InicioOrganizador'
 import PruebasEncontradas from './screens/PruebasEncontradas'
@@ -26,7 +25,6 @@ import Popupfiltros from './components/PopupOrdenarPor'
 import InicioSUSCRIPCIONES from './screens/InicioSUSCRIPCIONES'
 import PopupAlerta from './components/PopupAlerta'
 import PruebasEncontradasDetalle1 from './screens/PruebasEncontradasDetalle1'
-import PruebasEncontradasOrdenar from './screens/PruebasEncontradasOrdenar'
 import Group from './screens/Group'
 import SignIn from './screens/SignIn'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -47,7 +45,7 @@ export default function App() {
     <View style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Bienvenida"
+          initialRouteName="PruebasEncontradas"
           screenOptions={({ route }) => ({
             // headerShown: false,
             headerShown: false,
@@ -144,11 +142,6 @@ export default function App() {
             options={{ headerShown: false, title: 'Atrás' }}
           />
           <Stack.Screen
-            name="InicioNotificaciones"
-            component={InicioNotificaciones}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
             name="InicioDeportista"
             component={InicioDeportista}
             options={{ headerShown: false }}
@@ -191,11 +184,6 @@ export default function App() {
           <Stack.Screen
             name="PruebasEncontradasDetalle1"
             component={PruebasEncontradasDetalle1}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="PruebasEncontradasOrdenar"
-            component={PruebasEncontradasOrdenar}
             options={{ headerShown: false }}
           />
           <Stack.Screen

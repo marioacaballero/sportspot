@@ -1,43 +1,59 @@
-import React from 'react'
-import { View, StyleSheet, Text, Image } from 'react-native'
+import React, { useState } from 'react'
+import { View, StyleSheet, Text, Image, Switch, Pressable } from 'react-native'
 import { Color, FontFamily, FontSize, Border, Padding } from '../GlobalStyles'
 
-const PopupOrdenarPor = ({ onClose }) => {
+const PopupOrdenarPor = ({ setModalVisible }) => {
+  const [switchStates, setSwitchStates] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ])
+
+  const toggleSwitch = (index) => {
+    const newSwitchStates = [...switchStates]
+    newSwitchStates[index] = !newSwitchStates[index]
+    setSwitchStates(newSwitchStates)
+  }
+
   return (
     <View style={styles.popupfiltros}>
       <View style={styles.charmcrossWrapper}>
-        <Image
-          style={styles.charmcrossIcon}
-          contentFit="cover"
-          source={require('../assets/charmcross.png')}
-        />
+        <Pressable onPress={() => setModalVisible(false)}>
+          <Image
+            style={styles.charmcrossIcon}
+            contentFit="cover"
+            source={require('../assets/charmcross.png')}
+          />
+        </Pressable>
       </View>
       <View style={styles.popupfiltrosInner}>
         <View style={styles.frameFlexBox}>
           <View style={[styles.frameParent, styles.frameFlexBox]}>
             <View style={styles.fechaParent}>
               <Text style={[styles.fecha, styles.fechaTypo]}>Fecha</Text>
-              <View style={styles.toggle}>
-                <View style={[styles.toggleChild, styles.togglePosition2]} />
-
-                <Image
-                  style={[styles.toggleItem, styles.toggleItemLayout1]}
-                  contentFit="cover"
-                  source={require('../assets/ellipse-210.png')}
-                />
-              </View>
+              <Switch
+                trackColor={{ false: '#767577', true: '#F25910' }}
+                thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={() => toggleSwitch(0)}
+                value={switchStates[0]}
+                style={styles.switch}
+              />
             </View>
             <View style={styles.parentFlexBox2}>
               <Text style={[styles.precio, styles.fechaTypo]}>Precio</Text>
-              <View style={styles.toggle}>
-                <View style={[styles.toggleInner, styles.togglePosition2]} />
-
-                <Image
-                  style={[styles.ellipseIcon, styles.toggleItemLayout1]}
-                  contentFit="cover"
-                  source={require('../assets/ellipse-2102.png')}
-                />
-              </View>
+              <Switch
+                trackColor={{ false: '#767577', true: '#F25910' }}
+                thumbColor={switchStates[1] ? '#FFFFFF' : '#FFFFFF'}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={() => toggleSwitch(1)}
+                value={switchStates[1]}
+                style={styles.switch}
+              />
             </View>
             <View
               style={[styles.circuitoHomologadoParent, styles.parentFlexBox2]}
@@ -45,69 +61,64 @@ const PopupOrdenarPor = ({ onClose }) => {
               <Text style={[styles.precio, styles.fechaTypo]}>
                 Circuito homologado
               </Text>
-              <View style={styles.toggle}>
-                <View style={[styles.toggleInner, styles.togglePosition2]} />
-
-                <Image
-                  style={[styles.ellipseIcon, styles.toggleItemLayout1]}
-                  contentFit="cover"
-                  source={require('../assets/ellipse-2103.png')}
-                />
-              </View>
+              <Switch
+                trackColor={{ false: '#767577', true: '#F25910' }}
+                thumbColor={switchStates[2] ? '#FFFFFF' : '#FFFFFF'}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={() => toggleSwitch(2)}
+                value={switchStates[2]}
+                style={styles.switch}
+              />
             </View>
             <View
               style={[styles.circuitoHomologadoParent, styles.parentFlexBox2]}
             >
               <Text style={[styles.precio, styles.fechaTypo]}>Distancia</Text>
-              <View style={styles.toggle}>
-                <View style={[styles.toggleInner, styles.togglePosition2]} />
-
-                <Image
-                  style={[styles.ellipseIcon, styles.toggleItemLayout1]}
-                  contentFit="cover"
-                  source={require('../assets/ellipse-2103.png')}
-                />
-              </View>
+              <Switch
+                trackColor={{ false: '#767577', true: '#F25910' }}
+                thumbColor={switchStates[3] ? '#FFFFFF' : '#FFFFFF'}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={() => toggleSwitch(3)}
+                value={switchStates[3]}
+                style={styles.switch}
+              />
             </View>
             <View
               style={[styles.circuitoHomologadoParent, styles.parentFlexBox2]}
             >
               <Text style={[styles.precio, styles.fechaTypo]}>Popularidad</Text>
-              <View style={styles.toggle}>
-                <View style={[styles.toggleInner, styles.togglePosition2]} />
-
-                <Image
-                  style={[styles.ellipseIcon, styles.toggleItemLayout1]}
-                  contentFit="cover"
-                  source={require('../assets/ellipse-2103.png')}
-                />
-              </View>
+              <Switch
+                trackColor={{ false: '#767577', true: '#F25910' }}
+                thumbColor={switchStates[4] ? '#FFFFFF' : '#FFFFFF'}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={() => toggleSwitch(4)}
+                value={switchStates[4]}
+                style={styles.switch}
+              />
             </View>
             <View
               style={[styles.circuitoHomologadoParent, styles.parentFlexBox2]}
             >
               <Text style={[styles.precio, styles.fechaTypo]}>Federada</Text>
-              <View style={styles.toggle}>
-                <View style={[styles.toggleInner, styles.togglePosition2]} />
-
-                <Image
-                  style={[styles.ellipseIcon, styles.toggleItemLayout1]}
-                  contentFit="cover"
-                  source={require('../assets/ellipse-2103.png')}
-                />
-              </View>
+              <Switch
+                trackColor={{ false: '#767577', true: '#F25910' }}
+                thumbColor={switchStates[5] ? '#FFFFFF' : '#FFFFFF'}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={() => toggleSwitch(5)}
+                value={switchStates[5]}
+                style={styles.switch}
+              />
             </View>
             <View style={[styles.proximidadParent, styles.parentFlexBox2]}>
               <Text style={[styles.precio, styles.fechaTypo]}>Proximidad</Text>
-              <View style={styles.toggle}>
-                <View style={[styles.toggleInner, styles.togglePosition2]} />
-
-                <Image
-                  style={[styles.ellipseIcon, styles.toggleItemLayout1]}
-                  contentFit="cover"
-                  source={require('../assets/ellipse-210.png')}
-                />
-              </View>
+              <Switch
+                trackColor={{ false: '#767577', true: '#F25910' }}
+                thumbColor={switchStates[6] ? '#FFFFFF' : '#FFFFFF'}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={() => toggleSwitch(6)}
+                value={switchStates[6]}
+                style={styles.switch}
+              />
             </View>
           </View>
         </View>
@@ -230,6 +241,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 250,
     right: 8
+  },
+  switch: {
+    transform: [{ scale: 0.8 }]
   }
 })
 

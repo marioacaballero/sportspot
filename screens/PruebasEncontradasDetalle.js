@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { StyleSheet, Text, View, Pressable, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
@@ -168,7 +168,8 @@ const styles = StyleSheet.create({
     backgroundColor: Color.naranja3,
     padding: Padding.p_xl,
     zIndex: 1,
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    height: 420
   },
   cilarrowTopIcon: {
     width: 21,
@@ -191,7 +192,8 @@ const styles = StyleSheet.create({
     backgroundColor: Color.blanco
   },
   unsplashon4qwhhjcemParent: {
-    top: 0
+    top: 0,
+    width: '100%'
   },
   icon: {
     height: '100%',
