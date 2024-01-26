@@ -45,7 +45,7 @@ export default function App() {
     <View style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="PruebasEncontradas"
+          initialRouteName="Bienvenida"
           screenOptions={({ route }) => ({
             headerShown: false,
             footerShown: setIsFooterShow(
