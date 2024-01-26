@@ -222,8 +222,8 @@ SUSCRIPCIÓN`}
 
 const styles = StyleSheet.create({
   helloClr: {
-    color: Color.sportsVioleta,
-    textAlign: 'left'
+    color: Color.sportsVioleta
+    // textAlign: 'left'
   },
   helloTypo: {
     fontFamily: FontFamily.inputPlaceholder,
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
   },
   helloAshfak: {
     fontSize: FontSize.size_5xl,
-    textAlign: 'left',
+    // textAlign: 'left',
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     zIndex: 0,
     flexDirection: 'row',
-    alignSelf: 'stretch',
+    // alignSelf: 'center',
     alignItems: 'center'
   },
   estasSonLasVentajasQueObt: {
@@ -280,8 +280,8 @@ const styles = StyleSheet.create({
   },
   estasSonLasContainer: {
     height: 44,
-    width: 296,
-    textAlign: 'left'
+    width: 296
+    // textAlign: 'left'
   },
   warningIcon: {
     width: 32,
@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
   },
   helloAshfak1: {
     fontSize: FontSize.inputLabel_size,
-    textAlign: 'left',
+    // textAlign: 'left',
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     alignSelf: 'stretch'
@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
   helloAshfak2: {
     width: 246,
     fontSize: FontSize.inputLabel_size,
-    textAlign: 'left',
+    // textAlign: 'left',
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
@@ -334,15 +334,17 @@ const styles = StyleSheet.create({
   },
   helloAshfak7: {
     fontSize: FontSize.size_sm,
-    color: Color.blanco,
-    textAlign: 'left'
+    color: Color.blanco
+    // textAlign: 'left'
   },
   helloAshfakWrapper4: {
     borderRadius: Border.br_31xl,
     backgroundColor: Color.sportsNaranja,
     height: 38,
     padding: Padding.p_3xs,
-    flex: 1
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   contentInner: {
     width: 282,
@@ -361,6 +363,9 @@ const styles = StyleSheet.create({
     width: 296
   },
   card: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: Border.br_3xs,
     backgroundColor: Color.colorMistyrose,
     padding: Padding.p_xl
