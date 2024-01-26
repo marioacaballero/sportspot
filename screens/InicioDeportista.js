@@ -42,9 +42,14 @@ const InicioDeportista = () => {
           <View style={styles.groupParent}>
             <Pressable style={styles.wrapper} onPress={toggleModalPremium}>
               <Image
-                style={styles.iconLayout}
+                style={styles.icbaselineSearchIcon}
                 contentFit="cover"
                 source={require('../assets/group-11712766982.png')}
+              />
+              <Image
+                style={styles.icbaselineSearchIcon}
+                contentFit="cover"
+                source={require('../assets/icbaselinesearch.png')}
               />
               <Modal
                 animationType="fade"
@@ -362,12 +367,6 @@ const InicioDeportista = () => {
           </View>
         </View>
       </View>
-
-      <Image
-        style={styles.icbaselineSearchIcon}
-        contentFit="cover"
-        source={require('../assets/icbaselinesearch.png')}
-      />
     </ScrollView>
   )
 }
