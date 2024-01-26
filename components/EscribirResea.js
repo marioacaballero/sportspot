@@ -1,5 +1,12 @@
 import * as React from 'react'
-import { View, StyleSheet, Text, Image } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  TextInput,
+  Pressable
+} from 'react-native'
 import { FontFamily, FontSize, Color, Border, Padding } from '../GlobalStyles'
 
 const EscribirResea = ({ onClose }) => {
@@ -17,19 +24,30 @@ const EscribirResea = ({ onClose }) => {
           </Text>
         </View>
         <View style={[styles.frameWrapper, styles.frameSpaceBlock1]}>
-          <View style={styles.frameChild} />
+          {/* <View style={styles.frameChild} /> */}
+          <TextInput
+            style={styles.frameChild}
+            placeholder="Escribe una reseña aquí"
+            // value={reseña}
+            // onChangeText={(text) => setReseña(text)}
+            multiline={true}
+            numberOfLines={4}
+          />
         </View>
         <View style={[styles.frameGroup, styles.frameSpaceBlock1]}>
-          <View style={[styles.helloAshfakWrapper, styles.helloFlexBox]}>
+          <Pressable
+            style={[styles.helloAshfakWrapper, styles.helloFlexBox]}
+            onPress={onClose}
+          >
             <Text style={[styles.helloAshfak, styles.helloAshfakTypo]}>
               Cancelar
             </Text>
-          </View>
-          <View style={[styles.helloAshfakContainer, styles.helloFlexBox]}>
+          </Pressable>
+          <Pressable style={[styles.helloAshfakContainer, styles.helloFlexBox]}>
             <Text style={[styles.helloAshfak, styles.helloAshfakTypo]}>
               Publicar
             </Text>
-          </View>
+          </Pressable>
         </View>
       </View>
     </View>
@@ -75,7 +93,8 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_xs,
     backgroundColor: Color.naranja3,
     height: 100,
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    padding: 15
   },
   frameWrapper: {
     height: 100
