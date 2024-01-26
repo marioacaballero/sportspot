@@ -6,7 +6,8 @@ import {
   // Pressable,
   Image,
   Switch,
-  Pressable
+  Pressable,
+  ScrollView
 } from 'react-native'
 // import { useNavigation } from '@react-navigation/native'
 import { Color, FontFamily, FontSize, Border, Padding } from '../GlobalStyles'
@@ -33,7 +34,7 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
   }
 
   return (
-    <View style={styles.frameContainer}>
+    <ScrollView style={styles.frameContainer}>
       <View style={[styles.tuPresupuestoParent, styles.parentFrameFlexBox]}>
         <Text style={[styles.tuPresupuesto, styles.filtrosTypo]}>
           Tu presupuesto:
@@ -254,7 +255,7 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
           />
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 

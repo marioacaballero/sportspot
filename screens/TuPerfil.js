@@ -1,5 +1,12 @@
 import * as React from 'react'
-import { StyleSheet, View, Text, Pressable, Image } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  Image,
+  ScrollView
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { FontFamily, FontSize, Padding, Border, Color } from '../GlobalStyles'
 
@@ -7,7 +14,10 @@ const TuPerfil = () => {
   const navigation = useNavigation()
 
   return (
-    <View style={styles.tuPerfil}>
+    <ScrollView
+      style={styles.tuPerfil}
+      contentContainerStyle={{ paddingBottom: 20 }}
+    >
       <View style={styles.pajamaswork} />
       <View style={styles.tuPerfilParent}>
         <Text style={[styles.tuPerfil1, styles.tuPerfil1Typo]}>TU PERFIL</Text>
@@ -118,7 +128,7 @@ Blanco Carrrilho`}</Text>
           </Pressable>
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
@@ -147,8 +157,7 @@ const styles = StyleSheet.create({
   },
   menInferiorPosition: {
     left: 0,
-    width: 360,
-    position: 'absolute'
+    width: 360
   },
   frameLayout: {
     height: 20,
@@ -159,7 +168,6 @@ const styles = StyleSheet.create({
     left: 150,
     width: 16,
     height: 16,
-    position: 'absolute',
     overflow: 'hidden'
   },
   tuPerfil1: {
@@ -230,8 +238,7 @@ const styles = StyleSheet.create({
     paddingTop: Padding.p_48xl,
     paddingHorizontal: Padding.p_xl,
     width: 360,
-    top: 0,
-    position: 'absolute'
+    top: 0
   },
   icon: {
     height: '100%',

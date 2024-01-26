@@ -14,7 +14,7 @@ const MenuInferior = () => {
           onPress={() => navigation.navigate('UltimasConsultas')}
         >
           <Image
-            style={styles.iconLayout}
+            style={styles.iconLayout2}
             contentFit="cover"
             source={require('../assets/group-1171276700.png')}
           />
@@ -76,6 +76,11 @@ const styles = StyleSheet.create({
   iconLayout: {
     height: '100%',
     width: '100%'
+  },
+  iconLayout2: {
+    height: '100%',
+    width: '100%',
+    bottom: 5
   },
   vector: {
     width: 23

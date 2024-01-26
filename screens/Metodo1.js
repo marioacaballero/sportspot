@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   frameWrapper: {
     width: 154,
-    height: 39,
+    height: 69,
     paddingTop: Padding.p_4xl,
     paddingBottom: Padding.p_3xs,
     paddingRight: Padding.p_3xs
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   trabajaConNosotrosContainer: {
     top: 244,
-    left: 22,
+    left: 25,
     width: '85%',
     fontSize: FontSize.inputLabel_size,
     fontFamily: FontFamily.inputPlaceholder,

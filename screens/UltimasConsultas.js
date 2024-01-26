@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, StyleSheet, View, Image, Switch } from 'react-native'
+import { Text, StyleSheet, View, Image, Switch, ScrollView } from 'react-native'
 // import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Color, Border, FontSize, Padding } from '../GlobalStyles'
 
@@ -15,7 +15,7 @@ const UltimasConsultas = () => {
   }
 
   return (
-    <View style={styles.ultimasConsultas}>
+    <ScrollView style={styles.ultimasConsultas}>
       <View style={[styles.frameParent, styles.frameParentPosition]}>
         <View style={styles.ltimasConsultasParent}>
           <Text style={[styles.ltimasConsultas, styles.ciclismoTypo]}>
@@ -156,7 +156,7 @@ Fecha de la prueba: `}</Text>
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
@@ -196,7 +196,6 @@ const styles = StyleSheet.create({
     right: '0%',
     top: '0%',
     height: '100%',
-    position: 'absolute',
     width: '100%'
   },
   toggleItemLayout: {
@@ -206,7 +205,6 @@ const styles = StyleSheet.create({
     top: '8.19%',
     width: '47.67%',
     height: '83.63%',
-    position: 'absolute',
     overflow: 'hidden'
   },
   ltimaSemanaTypo: {
@@ -228,16 +226,14 @@ const styles = StyleSheet.create({
     fontWeight: '100'
   },
   menInferiorLayout: {
-    width: 360,
-    position: 'absolute'
+    width: 360
   },
   frameLayout: {
     height: 20,
     marginLeft: 47
   },
   frameParentPosition1: {
-    top: 0,
-    position: 'absolute'
+    top: 0
   },
   ltimasConsultas: {
     fontSize: FontSize.size_5xl,
@@ -310,8 +306,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
     flex: 1,
     justifyContent: 'space-between',
-    alignSelf: 'flex-end',
-    borderRadius: '10px'
+    alignSelf: 'flex-end'
   },
   frameGroup: {
     marginTop: 25
@@ -374,8 +369,7 @@ const styles = StyleSheet.create({
   frameParent: {
     paddingTop: Padding.p_48xl,
     paddingHorizontal: Padding.p_xl,
-    top: 0,
-    position: 'absolute'
+    top: 0
   },
   icon: {
     height: '100%',

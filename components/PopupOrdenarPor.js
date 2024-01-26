@@ -1,5 +1,13 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Text, Image, Switch, Pressable } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  Switch,
+  Pressable,
+  ScrollView
+} from 'react-native'
 import { Color, FontFamily, FontSize, Border, Padding } from '../GlobalStyles'
 
 const PopupOrdenarPor = ({ setModalVisible }) => {
@@ -20,7 +28,7 @@ const PopupOrdenarPor = ({ setModalVisible }) => {
   }
 
   return (
-    <View style={styles.popupfiltros}>
+    <ScrollView style={styles.popupfiltros}>
       <View style={styles.charmcrossWrapper}>
         <Pressable onPress={() => setModalVisible(false)}>
           <Image
@@ -123,7 +131,7 @@ const PopupOrdenarPor = ({ setModalVisible }) => {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 

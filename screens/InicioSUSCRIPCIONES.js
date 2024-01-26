@@ -14,7 +14,10 @@ const InicioSUSCRIPCIONES = () => {
   // const navigation = useNavigation()
 
   return (
-    <ScrollView style={styles.inicioSuscripciones2}>
+    <ScrollView
+      style={styles.inicioSuscripciones2}
+      contentContainerStyle={{ paddingBottom: 120 }}
+    >
       <View style={styles.helloAshfakParent}>
         <Text style={[styles.helloAshfak, styles.helloClr]}>
           {`PLANES DE
@@ -39,22 +42,9 @@ SUSCRIPCIÓN`}
             <View style={styles.content}>
               <View>
                 <Text style={[styles.estasSonLasContainer, styles.helloClr]}>
-                  <Text>
-                    <Text style={styles.estasSonLasVentajasQueObt}>
-                      <Text style={styles.helloTypo}>
-                        ¡Estas son las ventajas que obtendrías al hacerte
-                        Premium!
-                      </Text>
-                    </Text>
-                  </Text>
-                  <Text>
-                    <Text style={styles.estasSonLasVentajasQueObt}>
-                      <Text style={styles.blankLine1}> </Text>
-                    </Text>
-                  </Text>
-                  <Text>
-                    <Text style={styles.blankLine1}>
-                      <Text style={styles.blankLine3}> </Text>
+                  <Text style={styles.estasSonLasVentajasQueObt}>
+                    <Text style={styles.helloTypo}>
+                      ¡Estas son las ventajas que obtendrías al hacerte Premium!
                     </Text>
                   </Text>
                 </Text>
@@ -142,11 +132,11 @@ SUSCRIPCIÓN`}
                 <View style={styles.frameContainer}>
                   <View style={styles.warningParent}>
                     <View style={styles.helloAshfakWrapper3}>
-                      <Text
-                        style={[styles.helloAshfak6, styles.helloTypo]}
-                      >{`¡Actúa ahora y experimenta una forma
-                            completamente nueva de abordar tus
-                            objetivos deportivos con Spotsport Premium!`}</Text>
+                      <Text style={[styles.helloAshfak6, styles.helloTypo]}>
+                        ¡Actúa ahora y experimenta una forma completamente nueva
+                        de abordar tus objetivos deportivos con Spotsport
+                        Premium!
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -223,8 +213,7 @@ const styles = StyleSheet.create({
   },
   menInferiorPosition: {
     width: 360,
-    left: 0,
-    position: 'absolute'
+    left: 0
   },
   frameLayout: {
     height: 20,
@@ -255,7 +244,8 @@ const styles = StyleSheet.create({
     zIndex: 0,
     flexDirection: 'row',
     // alignSelf: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    flex: 1
   },
   estasSonLasVentajasQueObt: {
     fontSize: FontSize.inputPlaceholder_size
@@ -267,9 +257,8 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputLabel_size
   },
   estasSonLasContainer: {
-    height: 44,
+    height: 80,
     width: 296
-    // textAlign: 'left'
   },
   warningIcon: {
     width: 32,
@@ -277,18 +266,15 @@ const styles = StyleSheet.create({
   },
   helloAshfak1: {
     fontSize: FontSize.inputLabel_size,
-    // textAlign: 'left',
     fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '700',
-    alignSelf: 'stretch'
+    fontWeight: '700'
   },
   helloAshfakWrapper: {
     marginLeft: 10,
     flex: 1
   },
   warningParent: {
-    flexDirection: 'row',
-    alignSelf: 'stretch'
+    flexDirection: 'row'
   },
   frameWrapper: {
     width: 297
@@ -359,7 +345,7 @@ const styles = StyleSheet.create({
     padding: Padding.p_xl
   },
   div2Cards: {
-    height: 400,
+    height: 800,
     backgroundColor: Color.blanco
   },
   div2CardsWrapper: {
@@ -403,11 +389,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_xl
   },
   inicioSuscripciones2: {
-    height: 700,
+    height: 900,
     paddingTop: Padding.p_48xl,
     paddingBottom: Padding.p_5xl,
     paddingHorizontal: Padding.p_xl,
-    overflow: 'hidden',
     width: '100%',
     flex: 1,
     backgroundColor: Color.blanco

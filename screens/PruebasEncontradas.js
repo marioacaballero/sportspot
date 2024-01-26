@@ -383,8 +383,7 @@ const styles = StyleSheet.create({
   },
   menInferiorPosition: {
     width: 360,
-    left: 0,
-    position: 'absolute'
+    left: 0
   },
   pruebasEncontradas1: {
     fontSize: FontSize.size_5xl,
@@ -479,8 +478,7 @@ const styles = StyleSheet.create({
     paddingTop: Padding.p_48xl,
     paddingHorizontal: Padding.p_xl,
     left: 0,
-    top: 0,
-    position: 'absolute'
+    top: 0
   },
   icon: {
     height: '100%',

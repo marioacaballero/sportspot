@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import PruebasEncontradasDetalle from './screens/PruebasEncontradasDetalle'
 import EditarPerfil from './screens/EditarPerfil'
@@ -29,11 +29,11 @@ import Group from './screens/Group'
 import SignIn from './screens/SignIn'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { loadFonts } from './GlobalStyles'
-// import MenuInferior from './components/MenuInferior'
+import MenuInferior from './components/MenuInferior'
 import { View } from 'react-native'
 
 export default function App() {
-  // const [isFooterShow, setIsFooterShow] = useState(null)
+  const [isFooterShow, setIsFooterShow] = useState(null)
 
   useEffect(() => {
     loadFonts()
@@ -45,17 +45,16 @@ export default function App() {
     <View style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Bienvenida"
-          // screenOptions={({ route }) => ({
-          //   // headerShown: false,
-          //   headerShown: false,
-          //   footerShown: setIsFooterShow(
-          //     route.name !== 'Bienvenida' &&
-          //       route.name !== 'IniciarSesin' &&
-          //       route.name !== 'SignIn' &&
-          //       route.name !== 'Registrarse'
-          //   )
-          // })}
+          initialRouteName="PruebasEncontradas"
+          screenOptions={({ route }) => ({
+            headerShown: false,
+            footerShown: setIsFooterShow(
+              route.name !== 'Bienvenida' &&
+                route.name !== 'IniciarSesin' &&
+                route.name !== 'SignIn' &&
+                route.name !== 'Registrarse'
+            )
+          })}
         >
           <Stack.Screen
             name="PruebasEncontradasDetalle"
@@ -193,7 +192,7 @@ export default function App() {
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
-        {/* {isFooterShow && <MenuInferior />} */}
+        {isFooterShow && <MenuInferior />}
       </NavigationContainer>
     </View>
   )

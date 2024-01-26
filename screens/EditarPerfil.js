@@ -1,5 +1,13 @@
 import React, { useState, useCallback } from 'react'
-import { Text, StyleSheet, View, Pressable, Modal, Image } from 'react-native'
+import {
+  Text,
+  StyleSheet,
+  View,
+  Pressable,
+  Modal,
+  Image,
+  ScrollView
+} from 'react-native'
 import Calendar from '../components/Calendar'
 // import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
@@ -17,7 +25,7 @@ const EditarPerfil = () => {
   }, [])
 
   return (
-    <>
+    <ScrollView>
       <View style={styles.editarPerfil}>
         <View style={[styles.gestionaTuCuentaWrapper, styles.wrapperPosition]}>
           <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
@@ -186,7 +194,7 @@ const EditarPerfil = () => {
           <Calendar onClose={closeTopContainer} />
         </View>
       </Modal>
-    </>
+    </ScrollView>
   )
 }
 
@@ -416,13 +424,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_smi,
     paddingVertical: Padding.p_5xs,
     flexWrap: 'wrap',
-    shadowOpacity: 1,
-    shadowRadius: 25,
-    shadowOffset: {
-      width: 0,
-      height: 8
-    },
-    shadowColor: 'rgba(83, 89, 144, 0.07)',
+
     borderRadius: Border.br_base,
     height: 234,
     flexDirection: 'row',
@@ -435,14 +437,7 @@ const styles = StyleSheet.create({
   card1Child: {
     right: '0%',
     bottom: '0%',
-    shadowOpacity: 1,
-    elevation: 25,
-    shadowRadius: 25,
-    shadowOffset: {
-      width: 0,
-      height: 8
-    },
-    shadowColor: 'rgba(83, 89, 144, 0.07)',
+
     borderRadius: Border.br_base,
     top: '0%',
     backgroundColor: Color.blanco

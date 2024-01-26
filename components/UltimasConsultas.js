@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Text, StyleSheet, View, Image } from 'react-native'
 // import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Color, Border, FontSize, Padding } from '../GlobalStyles'
@@ -6,13 +6,13 @@ import { FontFamily, Color, Border, FontSize, Padding } from '../GlobalStyles'
 const UltimasConsultas = () => {
   // const navigation = useNavigation()
 
-  const [switchStates, setSwitchStates] = useState([false, false, false])
+  // const [switchStates, setSwitchStates] = useState([false, false, false])
 
-  const toggleSwitch = (index) => {
-    const newSwitchStates = [...switchStates]
-    newSwitchStates[index] = !newSwitchStates[index]
-    setSwitchStates(newSwitchStates)
-  }
+  // const toggleSwitch = (index) => {
+  //   const newSwitchStates = [...switchStates]
+  //   newSwitchStates[index] = !newSwitchStates[index]
+  //   setSwitchStates(newSwitchStates)
+  // }
 
   return (
     <View style={styles.ultimasConsultas}>
