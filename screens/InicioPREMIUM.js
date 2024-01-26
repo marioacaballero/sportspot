@@ -14,7 +14,13 @@ const InicioPREMIUM = ({ setModalVisible }) => {
           contentFit="cover"
           source={require('../assets/group-11712766981.png')}
         />
-        <Text style={[styles.helloAshfak6, styles.helloTypo2]}>Premium</Text>
+        <Text style={styles.helloAshfak6}>Premium</Text>
+        <Text
+          style={{ fontSize: 20, width: 20 }}
+          onPress={() => setModalVisible(false)}
+        >
+          X
+        </Text>
       </View>
       <Text style={[styles.helloAshfak7, styles.helloSpaceBlock]}>
         Pásate al siguiente nivel y desbloquea un sin fin de beneficios
@@ -70,14 +76,15 @@ const styles = StyleSheet.create({
   helloAshfak6: {
     fontSize: FontSize.size_lg,
     width: 90,
-    height: 19,
+    height: 25,
     marginLeft: 13,
     color: Color.sportsNaranja,
     textAlign: 'left'
   },
   groupParent1: {
+    justifyContent: 'space-between',
     alignItems: 'flex-end',
-    height: 22,
+    height: 30,
     flexDirection: 'row',
     alignSelf: 'stretch'
   },
@@ -119,7 +126,7 @@ const styles = StyleSheet.create({
   premium: {
     justifyContent: 'center',
     alignSelf: 'center',
-    position: 'absolute',
+    // position: 'absolute',
     top: 100,
     // right: 20,
     borderRadius: Border.br_3xs,

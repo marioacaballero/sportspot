@@ -79,7 +79,7 @@ const Seguridad = () => {
 
 const styles = StyleSheet.create({
   seguridadInnerPosition: {
-    left: 20,
+    // left: 20,
     position: 'absolute'
   },
   labelFlexBox: {
@@ -97,8 +97,8 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   passwordIconLayout: {
-    height: 32,
-    marginLeft: 11
+    height: 32
+    // marginLeft: 11
   },
   iconLayout: {
     height: '100%',
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     height: 43,
     width: 281,
     borderRadius: Border.br_31xl,
-    left: 31,
+    // left: 31,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -135,8 +135,8 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   frameLayout: {
-    height: 20,
-    marginLeft: 47
+    height: 20
+    // marginLeft: 47
   },
   gestionaTuCuentaContainer: {
     fontSize: FontSize.size_5xl,
@@ -164,12 +164,12 @@ const styles = StyleSheet.create({
     display: 'none'
   },
   passwordIcon: {
-    width: 32,
-    marginLeft: 11
+    width: 32
+    // marginLeft: 11
   },
   contrasea: {
-    top: '0%',
-    left: '0%',
+    // top: '0%',
+    // left: '0%',
     fontSize: FontSize.inputLabel_size,
     textTransform: 'capitalize',
     fontWeight: '500',
@@ -177,8 +177,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     textAlign: 'left',
-    color: Color.sportsVioleta,
-    position: 'absolute'
+    color: Color.sportsVioleta
+    // position: 'absolute'
   },
   contraseaWrapper: {
     width: 195
@@ -194,15 +194,15 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   inputContent: {
-    justifyContent: 'space-between',
-    alignSelf: 'stretch',
+    // justifyContent: 'space-between',
+    // alignSelf: 'stretch',
     flex: 1
   },
   inputParent: {
     width: 298,
     height: 107,
     alignItems: 'flex-end',
-    marginLeft: 11,
+    // marginLeft: 11,
     flexWrap: 'wrap',
     flexDirection: 'row'
   },
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
   },
   seguridadChild: {
     top: 173,
-    left: 13,
+    // left: 13,
     position: 'absolute'
   },
   cambiarContrasea: {
@@ -254,47 +254,49 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     height: 43,
     width: 281,
-    borderRadius: Border.br_31xl,
-    left: 31
+    borderRadius: Border.br_31xl
+    // left: 31
   },
   wrapper: {
     width: 22,
     height: 25
   },
   vector: {
-    width: 23,
-    marginLeft: 47
+    width: 23
+    // marginLeft: 47
   },
   capturaDePantalla20231124: {
     width: 33,
-    height: 33,
-    marginLeft: 47
+    height: 33
+    // marginLeft: 47
   },
   container: {
-    width: 20,
-    marginLeft: 47
+    width: 20
+    // marginLeft: 47
   },
   frame: {
-    width: 19,
-    marginLeft: 47
+    width: 19
+    // marginLeft: 47
   },
   groupParent: {
     top: 10,
-    left: 0,
+    // left: 0,
     backgroundColor: Color.gris,
     height: 65,
-    paddingHorizontal: Padding.p_xl,
-    paddingVertical: Padding.p_3xs,
+    // paddingHorizontal: Padding.p_xl,
+    // paddingVertical: Padding.p_3xs,
     alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center'
+    flexDirection: 'row'
+    // justifyContent: 'center'
   },
   seguridad: {
     height: 800,
     overflow: 'hidden',
     width: '100%',
     backgroundColor: Color.blanco,
-    flex: 1
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
 

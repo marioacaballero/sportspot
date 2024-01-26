@@ -32,7 +32,7 @@ const UltimasConsultas = () => {
                 Últimas 24 horas
               </Text>
             </View>
-            <View style={styles.xMarkParent}>
+            <View>
               <View
                 style={[styles.ltimaSemanaParent, styles.groupParentFlexBox]}
               >
