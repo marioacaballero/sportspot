@@ -1,11 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text, View, Pressable, Image } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { useNavigation } from '@react-navigation/native'
+// import { useNavigation } from '@react-navigation/native'
 import { Padding, Border, FontFamily, FontSize, Color } from '../GlobalStyles'
 
-const IniciarSesin = () => {
-  const navigation = useNavigation()
+const IniciarSesin = ({ navigation }) => {
+  // const navigation = useNavigation()
 
   return (
     <LinearGradient
