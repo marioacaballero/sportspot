@@ -52,7 +52,8 @@ export default function App() {
             footerShown: setIsFooterShow(
               route.name !== 'Bienvenida' &&
                 route.name !== 'IniciarSesin' &&
-                route.name !== 'SignIn'
+                route.name !== 'SignIn' &&
+                route.name !== 'Registrarse'
             )
           })}
         >

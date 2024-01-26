@@ -1,10 +1,17 @@
-import * as React from 'react'
-import { Text, StyleSheet, View, Image } from 'react-native'
-// import { useNavigation } from '@react-navigation/native'
+import React, { useState } from 'react'
+import { Text, StyleSheet, View, Image, Pressable, Modal } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Padding, FontSize, Color, Border } from '../GlobalStyles'
+import PopupAlerta from '../components/PopupAlerta'
 
 const Favoritos = () => {
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
+
+  const [modalVisible, setModalVisible] = useState(false)
+
+  const toggleModal = () => {
+    setModalVisible(true)
+  }
 
   return (
     <View style={styles.favoritos}>
@@ -15,11 +22,16 @@ const Favoritos = () => {
           </Text>
         </View>
         <View style={[styles.backParent, styles.backParentSpaceBlock]}>
-          <Image
-            style={styles.backIcon}
-            contentFit="cover"
-            source={require('../assets/back.png')}
-          />
+          <Pressable
+            style={styles.backParent}
+            onPress={() => navigation.goBack()}
+          >
+            <Image
+              style={styles.backIcon}
+              contentFit="cover"
+              source={require('../assets/back.png')}
+            />
+          </Pressable>
           <View style={styles.frameWrapper}>
             <View style={styles.groupParentFlexBox}>
               <Text style={[styles.pruebasDeCiclismo, styles.ciclismoTypo]}>
@@ -67,16 +79,28 @@ Fecha de la prueba: `}</Text>
               </Text>
             </View>
           </View>
-          <View style={[styles.vectorParent, styles.parentFlexBox]}>
-            <Image
-              style={styles.vectorIcon}
-              contentFit="cover"
-              source={require('../assets/vector5.png')}
-            />
-            <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
-              Crear alerta
-            </Text>
-          </View>
+          <Pressable onPress={toggleModal}>
+            <View style={[styles.vectorParent, styles.parentFlexBox]}>
+              <Image
+                style={styles.vectorIcon}
+                contentFit="cover"
+                source={require('../assets/vector5.png')}
+              />
+              <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
+                Crear alerta
+              </Text>
+              <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+              >
+                <PopupAlerta
+                  onClose={toggleModal}
+                  setModalVisible={setModalVisible}
+                />
+              </Modal>
+            </View>
+          </Pressable>
         </View>
         <View style={[styles.frameGroup, styles.backParentSpaceBlock]}>
           <View style={[styles.image84Parent, styles.parentFlexBox]}>
@@ -117,16 +141,28 @@ Fecha de la prueba: `}</Text>
               </Text>
             </View>
           </View>
-          <View style={[styles.vectorParent, styles.parentFlexBox]}>
-            <Image
-              style={styles.vectorIcon}
-              contentFit="cover"
-              source={require('../assets/vector5.png')}
-            />
-            <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
-              Crear alerta
-            </Text>
-          </View>
+          <Pressable onPress={toggleModal}>
+            <View style={[styles.vectorParent, styles.parentFlexBox]}>
+              <Image
+                style={styles.vectorIcon}
+                contentFit="cover"
+                source={require('../assets/vector5.png')}
+              />
+              <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
+                Crear alerta
+              </Text>
+              <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+              >
+                <PopupAlerta
+                  onClose={toggleModal}
+                  setModalVisible={setModalVisible}
+                />
+              </Modal>
+            </View>
+          </Pressable>
         </View>
       </View>
     </View>

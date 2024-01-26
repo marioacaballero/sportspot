@@ -7,11 +7,11 @@ import {
   Image,
   ScrollView
 } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+// import { useNavigation } from '@react-navigation/native'
 import { Color, FontFamily, FontSize, Border, Padding } from '../GlobalStyles'
 
 const InicioSUSCRIPCIONES = () => {
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
 
   return (
     <ScrollView style={styles.inicioSuscripciones2}>
@@ -151,10 +151,7 @@ SUSCRIPCIÓN`}
                   </View>
                 </View>
               </View>
-              <Pressable
-                style={styles.contentInner}
-                onPress={() => navigation.navigate('PruebasEncontradasDetalle')}
-              >
+              <Pressable style={styles.contentInner}>
                 <View
                   style={[
                     styles.helloAshfakWrapper4,
@@ -166,10 +163,7 @@ SUSCRIPCIÓN`}
                   </Text>
                 </View>
               </Pressable>
-              <Pressable
-                style={styles.contentInner}
-                onPress={() => navigation.navigate('PruebasEncontradasDetalle')}
-              >
+              <Pressable style={styles.contentInner}>
                 <View
                   style={[
                     styles.helloAshfakWrapper4,
@@ -181,10 +175,7 @@ SUSCRIPCIÓN`}
                   </Text>
                 </View>
               </Pressable>
-              <Pressable
-                style={styles.contentInner}
-                onPress={() => navigation.navigate('PruebasEncontradasDetalle')}
-              >
+              <Pressable style={styles.contentInner}>
                 <View
                   style={[
                     styles.helloAshfakWrapper4,
@@ -196,10 +187,7 @@ SUSCRIPCIÓN`}
                   </Text>
                 </View>
               </Pressable>
-              <Pressable
-                style={styles.contentInner}
-                onPress={() => navigation.navigate('PruebasEncontradasDetalle')}
-              >
+              <Pressable style={styles.contentInner}>
                 <View
                   style={[
                     styles.helloAshfakWrapper4,
