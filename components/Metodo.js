@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { StyleSheet, View, Text, Pressable, Image } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { StyleSheet, View, Text, Image } from 'react-native'
+// import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Padding, Color, Border, FontSize } from '../GlobalStyles'
 
 const Metodo = () => {
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
 
   return (
     <View style={styles.metodo}>
@@ -28,7 +28,7 @@ const Metodo = () => {
       </View>
       <View style={styles.gestionaTuCuentaWrapper}>
         <Text style={[styles.gestionaTuCuentaContainer, styles.datosTypo]}>
-          {`GESTIONA TU `}CUENTA
+          GESTIONA TU CUENTA
         </Text>
       </View>
       <View style={[styles.metodoInner, styles.metodoInnerPosition]}>
@@ -280,9 +280,9 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   metodo: {
-    backgroundColor: Color.blanco,
-    height: 800,
-    overflow: 'hidden',
+    backgroundColor: 'red',
+    // height: 800,
+    // overflow: 'hidden',
     width: '100%',
     flex: 1
   }
