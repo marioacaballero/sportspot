@@ -117,7 +117,11 @@ const InicioOrganizador = () => {
             </Text>
           </View>
         </View>
-        <View style={styles.connectorLayout} />
+        <Image
+          style={{ marginTop: 15 }}
+          source={require('../assets/right-organization.png')}
+        />
+        {/* <View style={styles.connectorLayout} /> */}
         <View
           style={[
             styles.healthiconsmegaphoneParent,
@@ -149,7 +153,11 @@ const InicioOrganizador = () => {
             />
           </View>
         </View>
-        <View style={[styles.connectorLine1, styles.connectorLayout]} />
+        <Image
+          style={{ marginTop: 15 }}
+          source={require('../assets/left-organization.png')}
+        />
+        {/* <View style={[styles.connectorLine1, styles.connectorLayout]} /> */}
         <View
           style={[
             styles.healthiconsmegaphoneParent,
@@ -169,7 +177,13 @@ const InicioOrganizador = () => {
             </Text>
           </View>
         </View>
-        <View style={styles.connectorLayout} />
+        <View style={{ width: '100%' }}>
+          <Image
+            style={{ marginTop: 15 }}
+            source={require('../assets/right-organization.png')}
+          />
+        </View>
+        {/* <View style={styles.connectorLayout} /> */}
         <View
           style={[
             styles.healthiconsmegaphoneParent,
