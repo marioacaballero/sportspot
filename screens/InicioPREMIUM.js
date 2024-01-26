@@ -118,9 +118,10 @@ const styles = StyleSheet.create({
   },
   premium: {
     justifyContent: 'center',
+    alignSelf: 'center',
     position: 'absolute',
     top: 100,
-    right: 20,
+    // right: 20,
     borderRadius: Border.br_3xs,
     shadowColor: 'rgba(69, 68, 68, 0.47)',
     width: 320,
