@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   trabajaConNosotrosContainer: {
     top: 244,
     left: 22,
-    width: '90%',
+    width: '85%',
     fontSize: FontSize.inputLabel_size,
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.colorBlack,
