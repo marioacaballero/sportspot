@@ -135,7 +135,8 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_xl,
     maxWidth: '100%',
     maxHeight: '100%',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    bottom: 280
   }
 })
 

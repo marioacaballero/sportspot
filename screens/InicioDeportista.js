@@ -46,11 +46,6 @@ const InicioDeportista = () => {
                 contentFit="cover"
                 source={require('../assets/group-11712766982.png')}
               />
-              <Image
-                style={styles.icbaselineSearchIcon}
-                contentFit="cover"
-                source={require('../assets/icbaselinesearch.png')}
-              />
               <Modal
                 animationType="fade"
                 transparent={true}

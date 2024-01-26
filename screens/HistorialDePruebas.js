@@ -26,7 +26,10 @@ const HistorialDePruebas = () => {
 
   return (
     <>
-      <ScrollView style={styles.historialDePruebas}>
+      <ScrollView
+        style={styles.historialDePruebas}
+        contentContainerStyle={{ paddingBottom: 150 }}
+      >
         <View style={[styles.frameParent, styles.frameParentPosition]}>
           <View>
             <Text style={[styles.tuHistorialDe, styles.ciclismoTypo]}>
@@ -245,10 +248,7 @@ Fecha de la prueba: `}</Text>
 }
 
 const styles = StyleSheet.create({
-  frameParentPosition: {
-    left: '50%',
-    marginLeft: -180
-  },
+  frameParentPosition: {},
   ciclismoTypo: {
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
@@ -277,16 +277,14 @@ const styles = StyleSheet.create({
     fontWeight: '100'
   },
   menInferiorLayout: {
-    width: 360,
-    position: 'absolute'
+    width: 360
   },
   frameLayout: {
     height: 20,
     marginLeft: 47
   },
   frameParentPosition1: {
-    top: 0,
-    position: 'absolute'
+    top: 0
   },
   tuHistorialDe: {
     fontSize: FontSize.size_5xl,
@@ -363,7 +361,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(113, 113, 113, 0.3)'
   },
   frameContainer7Bg: {
-    position: 'absolute',
     width: '100%',
     height: '100%',
     left: 0,
@@ -397,8 +394,7 @@ const styles = StyleSheet.create({
     height: 685,
     paddingTop: Padding.p_48xl,
     paddingHorizontal: Padding.p_xl,
-    top: 0,
-    position: 'absolute'
+    top: 0
   },
   icon: {
     height: '100%',
