@@ -35,7 +35,7 @@ const InicioDeportista = () => {
   }
 
   return (
-    <ScrollView style={[styles.inicioDeportista, styles.image94IconLayout]}>
+    <ScrollView style={styles.inicioDeportista}>
       <View style={[styles.frameParent, styles.frameParentFlexBox]}>
         <View style={[styles.helloAshfakParent, styles.frameGroupFlexBox]}>
           <Text style={[styles.helloAshfak, styles.imGoingToTypo]}>INICIO</Text>
@@ -373,15 +373,16 @@ const InicioDeportista = () => {
 }
 
 const styles = StyleSheet.create({
-  image94IconLayout: {
-    width: '100%',
-    overflow: 'hidden'
-  },
+  // image94IconLayout: {
+  //   width: '100%',
+  //   overflow: 'hidden'
+  // },
   frameParentFlexBox: {
     paddingHorizontal: Padding.p_xl,
     justifyContent: 'center',
     alignItems: 'center',
-    width: 360,
+    // width: 360,
+    width: '100%',
     left: 0,
     position: 'absolute'
   },
@@ -464,7 +465,8 @@ const styles = StyleSheet.create({
   buscarWrapper: {
     borderRadius: Border.br_31xl,
     backgroundColor: Color.naranja3,
-    width: 320,
+    // width: 320,
+    width: '100%',
     paddingLeft: Padding.p_31xl,
     paddingTop: Padding.p_3xs,
     paddingRight: Padding.p_3xs,
@@ -580,6 +582,7 @@ const styles = StyleSheet.create({
   },
   frameContainer: {
     height: 549,
+    // width: '100%',
     marginTop: 19,
     alignItems: 'center'
   },
@@ -628,7 +631,6 @@ const styles = StyleSheet.create({
   },
   inicioDeportista: {
     flex: 1,
-    height: 800,
     overflow: 'hidden',
     backgroundColor: Color.blanco,
     width: '100%',

@@ -1,5 +1,13 @@
 import React, { useState, useCallback } from 'react'
-import { Text, StyleSheet, View, Pressable, Modal, Image } from 'react-native'
+import {
+  Text,
+  StyleSheet,
+  View,
+  Pressable,
+  Modal,
+  Image,
+  ScrollView
+} from 'react-native'
 import EscribirResea from '../components/EscribirResea'
 // import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Padding, FontSize, Color, Border } from '../GlobalStyles'
@@ -18,7 +26,7 @@ const HistorialDePruebas = () => {
 
   return (
     <>
-      <View style={styles.historialDePruebas}>
+      <ScrollView style={styles.historialDePruebas}>
         <View style={[styles.frameParent, styles.frameParentPosition]}>
           <View>
             <Text style={[styles.tuHistorialDe, styles.ciclismoTypo]}>
@@ -126,7 +134,10 @@ Fecha de la prueba: `}</Text>
                 </Text>
               </View>
             </View>
-            <View style={[styles.clarityeditSolidParent, styles.parentFlexBox]}>
+            <Pressable
+              onPress={openFrameContainer7}
+              style={[styles.clarityeditSolidParent, styles.parentFlexBox]}
+            >
               <Image
                 style={[styles.clarityeditSolidIcon, styles.iconLayout]}
                 contentFit="cover"
@@ -135,7 +146,7 @@ Fecha de la prueba: `}</Text>
               <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
                 Escribe una reseña
               </Text>
-            </View>
+            </Pressable>
           </View>
           <View style={[styles.frameGroup, styles.frameSpaceBlock1]}>
             <View style={[styles.image84Parent, styles.parentFlexBox]}>
@@ -218,7 +229,7 @@ Fecha de la prueba: `}</Text>
             </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
 
       <Modal animationType="fade" transparent visible={frameContainer7Visible}>
         <View style={styles.frameContainer7Overlay}>
