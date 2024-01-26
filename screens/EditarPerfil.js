@@ -200,8 +200,8 @@ const EditarPerfil = () => {
 
 const styles = StyleSheet.create({
   wrapperPosition: {
-    left: 20,
-    position: 'absolute'
+    // left: 20
+    // position: 'absolute'
   },
   labelFlexBox: {
     textAlign: 'left',
@@ -295,8 +295,8 @@ const styles = StyleSheet.create({
   },
   unsplashn6gnca77urcWrapper: {
     top: 172,
-    paddingLeft: Padding.p_83xl,
-    paddingRight: Padding.p_3xs,
+    // paddingLeft: Padding.p_83xl,
+    // paddingRight: Padding.p_3xs,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -487,9 +487,9 @@ const styles = StyleSheet.create({
     marginTop: 21
   },
   frameParent: {
-    top: 320,
-    left: 17,
-    position: 'absolute'
+    top: 200
+    // left: 17
+    // position: 'absolute'
   },
   icon: {
     height: '100%',
@@ -517,8 +517,8 @@ const styles = StyleSheet.create({
     marginLeft: 47
   },
   groupParent: {
-    top: 10,
-    left: 0,
+    // top: 10,
+    // left: 0,
     backgroundColor: Color.gris,
     height: 65,
     paddingHorizontal: Padding.p_xl,
@@ -528,11 +528,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   editarPerfil: {
-    height: 800,
-    overflow: 'hidden',
+    height: 900,
+    // overflow: 'hidden',
     width: '100%',
     backgroundColor: Color.blanco,
-    flex: 1
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start'
   }
 })
 
