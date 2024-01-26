@@ -315,7 +315,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   frameContainer: {
-    width: 320,
+    width: '100%',
+    padding: 20,
     marginTop: 19
   },
   image94Icon: {
