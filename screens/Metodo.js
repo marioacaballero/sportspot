@@ -47,7 +47,7 @@ const Metodo = () => {
             </Text>
           </View>
         </View>
-        <View style={styles.input1}>
+        <View style={styles.input}>
           <View style={[styles.inputContent, styles.inputContentFlexBox]}>
             <Text style={[styles.label, styles.labelFlexBox]}>
               Número de tarjeta
@@ -57,18 +57,30 @@ const Metodo = () => {
             </Text>
           </View>
         </View>
-        <View style={[styles.input2, styles.inputBorder]}>
-          <View style={[styles.inputContent, styles.inputContentFlexBox]}>
-            <Text style={[styles.label, styles.labelFlexBox]}>Tipo</Text>
-            <Text style={[styles.placehoder, styles.labelFlexBox]}>Visa</Text>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            marginTop: 20,
+            // backgroundColor: 'red',
+            width: 298
+          }}
+        >
+          <View style={styles.inputBorder}>
+            <View style={[styles.inputContent, styles.inputContentFlexBox]}>
+              <Text style={[styles.label, styles.labelFlexBox]}>Tipo</Text>
+              <Text style={[styles.placehoder, styles.labelFlexBox]}>Visa</Text>
+            </View>
           </View>
-        </View>
-        <View style={[styles.input3, styles.inputBorder]}>
-          <View style={[styles.inputContent, styles.inputContentFlexBox]}>
-            <Text style={[styles.label, styles.labelFlexBox]}>
-              Fecha de caducidad
-            </Text>
-            <Text style={[styles.placehoder, styles.labelFlexBox]}>30/27</Text>
+          <View style={[styles.input3, styles.inputBorder]}>
+            <View style={[styles.inputContent, styles.inputContentFlexBox]}>
+              <Text style={[styles.label, styles.labelFlexBox]}>
+                Fecha de caducidad
+              </Text>
+              <Text style={[styles.placehoder, styles.labelFlexBox]}>
+                30/27
+              </Text>
+            </View>
           </View>
         </View>
       </View>
@@ -78,18 +90,18 @@ const Metodo = () => {
 
 const styles = StyleSheet.create({
   metodoInnerPosition: {
-    width: 320,
-    left: 20,
+    width: 350,
+    // left: 20,
     position: 'absolute'
   },
   inputContentFlexBox: {
-    justifyContent: 'space-between',
-    alignSelf: 'stretch'
+    // justifyContent: 'space-between',
+    // alignSelf: 'stretch'
   },
   labelFlexBox: {
     color: Color.sportsVioleta,
     textAlign: 'left',
-    alignSelf: 'stretch'
+    alignSelf: 'flex-start'
   },
   datosTypo: {
     fontFamily: FontFamily.inputPlaceholder,
@@ -100,8 +112,8 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   frameLayout: {
-    height: 20,
-    marginLeft: 47
+    height: 20
+    // marginLeft: 47
   },
   inputBorder: {
     height: 47,
@@ -244,7 +256,8 @@ const styles = StyleSheet.create({
     borderColor: Color.sportsVioleta,
     borderRadius: Border.br_xl,
     borderWidth: 1,
-    borderStyle: 'solid'
+    borderStyle: 'solid',
+    marginTop: 20
   },
   input1: {
     // marginLeft: 15,
@@ -261,25 +274,30 @@ const styles = StyleSheet.create({
     width: 82
   },
   input3: {
-    width: 118,
-    marginLeft: 15
+    // width: 118,
+    marginLeft: 15,
+    alignSelf: 'flex-start'
   },
   inputParent: {
     top: 240,
-    left: 31,
+    // left: 31,
     width: 298,
     height: 167,
     flexWrap: 'wrap',
-    alignItems: 'flex-end',
+    justifyContent: 'center',
+    // alignItems: 'flex-start',
     flexDirection: 'row',
-    position: 'absolute'
+    position: 'absolute',
+    padding: 15
   },
   metodo: {
     backgroundColor: Color.blanco,
     height: 800,
     overflow: 'hidden',
     width: '100%',
-    flex: 1
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
 

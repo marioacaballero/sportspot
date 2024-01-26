@@ -58,7 +58,7 @@ const DatosDePago = () => {
 const styles = StyleSheet.create({
   pencillineParentPosition: {
     width: 320,
-    left: 20,
+    // left: 20
     position: 'absolute'
   },
   imGoingToFlexBox: {
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   },
   aadirTarjetaWrapper: {
     top: 257,
-    left: 40,
+    // left: 40,
     borderRadius: Border.br_31xl,
     backgroundColor: Color.sportsVioleta,
     width: 281,
@@ -216,9 +216,11 @@ const styles = StyleSheet.create({
   datosDePago: {
     backgroundColor: Color.blanco,
     height: 800,
-    overflow: 'hidden',
+    // overflow: 'hidden',
     width: '100%',
-    flex: 1
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
 
