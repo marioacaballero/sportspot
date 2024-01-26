@@ -84,7 +84,20 @@ const InicioDeportista = () => {
           <InicioBUSCADOR setMostrarInicioBuscador={setMostrarInicioBuscador} />
         ) : (
           <View style={styles.buscarWrapper}>
-            <Pressable onPress={handleBuscarPress}>
+            <Pressable
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+              onPress={handleBuscarPress}
+            >
+              <Image
+                style={styles.icbaselineSearchIcon}
+                contentFit="cover"
+                source={require('../assets/icbaselinesearch.png')}
+              />
               <Text style={styles.buscar}>Buscar</Text>
             </Pressable>
           </View>
@@ -119,7 +132,7 @@ const InicioDeportista = () => {
           </Pressable>
         </View>
         <View style={styles.frameContainer}>
-          <View>
+          <View style={{ alignItems: 'center' }}>
             <Text style={[styles.helloAshfak1, styles.helloTypo]}>
               Últimas horas de inscripción
             </Text>
@@ -201,7 +214,7 @@ const InicioDeportista = () => {
               </View>
             </ScrollView>
           </View>
-          <View style={styles.helloAshfakParent1}>
+          <View style={{ alignItems: 'center' }}>
             <Text style={[styles.helloAshfak1, styles.helloTypo]}>
               Últimas pruebas añadidas
             </Text>
@@ -283,7 +296,7 @@ const InicioDeportista = () => {
               </View>
             </ScrollView>
           </View>
-          <View style={styles.helloAshfakParent1}>
+          <View style={{ alignItems: 'center' }}>
             <Text style={[styles.helloAshfak1, styles.helloTypo]}>
               Resultados de las útlimas pruebas
             </Text>
@@ -377,13 +390,13 @@ const styles = StyleSheet.create({
   //   overflow: 'hidden'
   // },
   frameParentFlexBox: {
-    paddingHorizontal: Padding.p_xl,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // width: 360,
-    width: '100%',
-    left: 0,
-    position: 'absolute'
+    // paddingHorizontal: Padding.p_xl,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // // width: 360,
+    // width: '100%',
+    // left: 0,
+    // position: 'absolute'
   },
   frameGroupFlexBox: {
     justifyContent: 'space-between',
@@ -462,15 +475,15 @@ const styles = StyleSheet.create({
     textAlign: 'left'
   },
   buscarWrapper: {
-    borderRadius: Border.br_31xl,
+    // borderRadius: Border.br_31xl,
     backgroundColor: Color.naranja3,
-    // width: 320,
+    // // width: 320,
     width: '100%',
-    paddingLeft: Padding.p_31xl,
-    paddingTop: Padding.p_3xs,
-    paddingRight: Padding.p_3xs,
-    paddingBottom: Padding.p_3xs,
-    marginTop: 19,
+    // paddingLeft: Padding.p_31xl,
+    // paddingTop: Padding.p_3xs,
+    // paddingRight: Padding.p_3xs,
+    // paddingBottom: Padding.p_3xs,
+    // marginTop: 19,
     height: 44,
     flexDirection: 'row',
     alignItems: 'center'
@@ -580,15 +593,18 @@ const styles = StyleSheet.create({
     marginTop: 19
   },
   frameContainer: {
-    height: 549,
-    // width: '100%',
+    // height: 549,
+    display: 'flex',
+    width: '100%',
+
     marginTop: 19,
-    alignItems: 'center'
+    justifyContent: 'center'
   },
   frameParent: {
     paddingTop: Padding.p_48xl,
     paddingBottom: Padding.p_6xl,
-    top: 0
+    top: 0,
+    height: '100%'
   },
   container: {
     width: 22,
@@ -619,18 +635,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   icbaselineSearchIcon: {
-    marginTop: -278,
-    marginLeft: -152,
-    top: '50%',
-    left: '50%',
+    // marginTop: -278,
+    // marginLeft: -152,
+    // top: '50%',
+    // left: '50%',
     height: 29,
-    width: 29,
-    position: 'absolute',
-    overflow: 'hidden'
+    width: 29
+    // position: 'absolute',
+    // overflow: 'hidden'
   },
   inicioDeportista: {
     flex: 1,
-    overflow: 'hidden',
+
     backgroundColor: Color.blanco,
     width: '100%',
     zIndex: 0
