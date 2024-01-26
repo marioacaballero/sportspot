@@ -1,10 +1,18 @@
-import * as React from 'react'
-import { Text, StyleSheet, View, Pressable, Image } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import React, { useState } from 'react'
+import { Text, StyleSheet, View, Image, Switch } from 'react-native'
+// import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Color, Border, FontSize, Padding } from '../GlobalStyles'
 
 const UltimasConsultas = () => {
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
+
+  const [switchStates, setSwitchStates] = useState([false, false, false])
+
+  const toggleSwitch = (index) => {
+    const newSwitchStates = [...switchStates]
+    newSwitchStates[index] = !newSwitchStates[index]
+    setSwitchStates(newSwitchStates)
+  }
 
   return (
     <View style={styles.ultimasConsultas}>
@@ -14,7 +22,7 @@ const UltimasConsultas = () => {
             ÚLTIMAS CONSULTAS
           </Text>
           <View style={styles.frameGroup}>
-            <View style={[styles.path3391Parent, styles.groupParentFlexBox]}>
+            <View style={[styles.path3391Parent, styles.groupParentFlexBox1]}>
               <Image
                 style={styles.path3391Icon}
                 contentFit="cover"
@@ -24,24 +32,19 @@ const UltimasConsultas = () => {
                 Últimas 24 horas
               </Text>
             </View>
-            <View style={[styles.xMarkParent, styles.parentBorder]}>
-              <Image
-                style={[styles.xMarkIcon, styles.iconLayout]}
-                contentFit="cover"
-                source={require('../assets/xmark.png')}
-              />
+            <View style={styles.xMarkParent}>
               <View
-                style={[styles.ltimas24HorasParent, styles.groupParentFlexBox]}
+                style={[styles.ltimaSemanaParent, styles.groupParentFlexBox]}
               >
                 <Text style={styles.ltimaSemanaTypo}>Últimas 24 horas</Text>
-                <View style={styles.toggle}>
-                  <View style={[styles.toggleChild, styles.togglePosition]} />
-                  <Image
-                    style={[styles.toggleItem, styles.toggleItemLayout]}
-                    contentFit="cover"
-                    source={require('../assets/ellipse-210.png')}
-                  />
-                </View>
+                <Switch
+                  trackColor={{ false: '#767577', true: '#F25910' }}
+                  thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
+                  ios_backgroundColor="#3e3e3e"
+                  onValueChange={() => toggleSwitch(0)}
+                  value={switchStates[0]}
+                  style={styles.switch}
+                />
               </View>
               <View
                 style={[styles.ltimaSemanaParent, styles.groupParentFlexBox]}
@@ -49,14 +52,14 @@ const UltimasConsultas = () => {
                 <Text style={[styles.ltimaSemana, styles.ltimaSemanaTypo]}>
                   Última semana
                 </Text>
-                <View style={styles.toggle}>
-                  <View style={[styles.toggleInner, styles.togglePosition]} />
-                  <Image
-                    style={[styles.ellipseIcon, styles.toggleItemLayout]}
-                    contentFit="cover"
-                    source={require('../assets/ellipse-210.png')}
-                  />
-                </View>
+                <Switch
+                  trackColor={{ false: '#767577', true: '#F25910' }}
+                  thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
+                  ios_backgroundColor="#3e3e3e"
+                  onValueChange={() => toggleSwitch(1)}
+                  value={switchStates[1]}
+                  style={styles.switch}
+                />
               </View>
               <View
                 style={[styles.ltimaSemanaParent, styles.groupParentFlexBox]}
@@ -64,14 +67,14 @@ const UltimasConsultas = () => {
                 <Text style={[styles.ltimaSemana, styles.ltimaSemanaTypo]}>
                   Último mes
                 </Text>
-                <View style={styles.toggle}>
-                  <View style={[styles.toggleInner, styles.togglePosition]} />
-                  <Image
-                    style={[styles.ellipseIcon, styles.toggleItemLayout]}
-                    contentFit="cover"
-                    source={require('../assets/ellipse-210.png')}
-                  />
-                </View>
+                <Switch
+                  trackColor={{ false: '#767577', true: '#F25910' }}
+                  thumbColor={switchStates[2] ? '#FFFFFF' : '#FFFFFF'}
+                  ios_backgroundColor="#3e3e3e"
+                  onValueChange={() => toggleSwitch(2)}
+                  value={switchStates[2]}
+                  style={styles.switch}
+                />
               </View>
             </View>
           </View>
@@ -101,15 +104,15 @@ Localización: Hornachos, Badajoz
 Fecha de la prueba: `}</Text>
               <Text style={styles.textTypo}>{`01 feb 2024
 `}</Text>
-              <Text
-                style={styles.modalidadMontaaLocalizaci}
-              >{`Fecha límite de inscripción: `}</Text>
+              <Text style={styles.modalidadMontaaLocalizaci}>
+                Fecha límite de inscripción:
+              </Text>
               <Text style={styles.textTypo}>22 ene 2024</Text>
             </Text>
             <Text style={styles.imGoingToContainer1}>
-              <Text
-                style={styles.precioDeInscripcin}
-              >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+              <Text style={styles.precioDeInscripcin}>
+                PRECIO DE INSCRIPCIÓN:
+              </Text>
               <Text style={[styles.text, styles.textTypo]}>22€</Text>
             </Text>
           </View>
@@ -139,15 +142,15 @@ Localización: Aceuchal, Badajoz
 Fecha de la prueba: `}</Text>
               <Text style={styles.textTypo}>{`03 feb 2024
 `}</Text>
-              <Text
-                style={styles.modalidadMontaaLocalizaci}
-              >{`Fecha límite de inscripción: `}</Text>
+              <Text style={styles.modalidadMontaaLocalizaci}>
+                Fecha límite de inscripción:
+              </Text>
               <Text style={styles.textTypo}>25 ene 2024</Text>
             </Text>
             <Text style={styles.imGoingToContainer1}>
-              <Text
-                style={styles.precioDeInscripcin}
-              >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+              <Text style={styles.precioDeInscripcin}>
+                PRECIO DE INSCRIPCIÓN:
+              </Text>
               <Text style={[styles.text, styles.textTypo]}>18€</Text>
             </Text>
           </View>
@@ -168,6 +171,11 @@ const styles = StyleSheet.create({
     textAlign: 'left'
   },
   groupParentFlexBox: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  groupParentFlexBox1: {
     alignItems: 'center',
     flexDirection: 'row'
   },
@@ -294,11 +302,16 @@ const styles = StyleSheet.create({
     elevation: 5,
     shadowOpacity: 1,
     width: 322,
-    alignItems: 'flex-end',
+    // alignItems: 'flex-end',
     paddingHorizontal: Padding.p_16xl,
     paddingTop: Padding.p_6xs,
     paddingBottom: Padding.p_mini,
-    marginTop: 10
+    // marginTop: 10,
+    // backgroundColor: 'red',
+    flex: 1,
+    justifyContent: 'space-between',
+    alignSelf: 'flex-end',
+    borderRadius: '10px'
   },
   frameGroup: {
     marginTop: 25

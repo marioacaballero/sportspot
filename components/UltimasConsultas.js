@@ -1,10 +1,18 @@
-import * as React from 'react'
-import { Text, StyleSheet, View, Pressable, Image } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import React, { useState } from 'react'
+import { Text, StyleSheet, View, Image } from 'react-native'
+// import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Color, Border, FontSize, Padding } from '../GlobalStyles'
 
 const UltimasConsultas = () => {
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
+
+  const [switchStates, setSwitchStates] = useState([false, false, false])
+
+  const toggleSwitch = (index) => {
+    const newSwitchStates = [...switchStates]
+    newSwitchStates[index] = !newSwitchStates[index]
+    setSwitchStates(newSwitchStates)
+  }
 
   return (
     <View style={styles.ultimasConsultas}>
@@ -101,15 +109,15 @@ Localización: Hornachos, Badajoz
 Fecha de la prueba: `}</Text>
               <Text style={styles.textTypo1}>{`01 feb 2024
 `}</Text>
-              <Text
-                style={styles.modalidadMontaaLocalizaci}
-              >{`Fecha límite de inscripción: `}</Text>
+              <Text style={styles.modalidadMontaaLocalizaci}>
+                Fecha límite de inscripción:{' '}
+              </Text>
               <Text style={styles.textTypo1}>22 ene 2024</Text>
             </Text>
             <Text style={styles.imGoingToContainer1}>
-              <Text
-                style={styles.precioDeInscripcin}
-              >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+              <Text style={styles.precioDeInscripcin}>
+                PRECIO DE INSCRIPCIÓN:
+              </Text>
               <Text style={[styles.text, styles.textTypo1]}>22€</Text>
             </Text>
           </View>
@@ -139,15 +147,15 @@ Localización: Aceuchal, Badajoz
 Fecha de la prueba: `}</Text>
               <Text style={styles.textTypo1}>{`03 feb 2024
 `}</Text>
-              <Text
-                style={styles.modalidadMontaaLocalizaci}
-              >{`Fecha límite de inscripción: `}</Text>
+              <Text style={styles.modalidadMontaaLocalizaci}>
+                Fecha límite de inscripción:{' '}
+              </Text>
               <Text style={styles.textTypo1}>25 ene 2024</Text>
             </Text>
             <Text style={styles.imGoingToContainer1}>
-              <Text
-                style={styles.precioDeInscripcin}
-              >{`PRECIO DE INSCRIPCIÓN: `}</Text>
+              <Text style={styles.precioDeInscripcin}>
+                PRECIO DE INSCRIPCIÓN:
+              </Text>
               <Text style={[styles.text, styles.textTypo1]}>18€</Text>
             </Text>
           </View>
