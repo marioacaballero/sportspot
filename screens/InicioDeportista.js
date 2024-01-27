@@ -6,19 +6,22 @@ import {
   View,
   ScrollView,
   Image,
-  Modal
+  Modal,
+  TouchableWithoutFeedback
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Padding, FontFamily, FontSize, Color, Border } from '../GlobalStyles'
 import InicioPREMIUM from './InicioPREMIUM'
 import InicioNotificaciones from './InicioNotificaciones'
 import InicioBUSCADOR from './InicioBUSCADOR'
+import InicioOrganizador from './InicioOrganizador'
 
 const InicioDeportista = () => {
   const navigation = useNavigation()
 
   const [modalPremium, setModalPremium] = useState(false)
   const [modalNotifications, setModalNotifications] = useState(false)
+  const [modalOrganizador, setModalOrganizador] = useState(false)
 
   const [mostrarInicioBuscador, setMostrarInicioBuscador] = useState(false)
 
@@ -32,6 +35,10 @@ const InicioDeportista = () => {
 
   const toggleModalNotifications = () => {
     setModalNotifications(!modalNotifications)
+  }
+
+  const toggleModalOrganizador = () => {
+    setModalOrganizador(!modalOrganizador)
   }
 
   return (
@@ -50,11 +57,14 @@ const InicioDeportista = () => {
                 animationType="fade"
                 transparent={true}
                 visible={modalPremium}
-                onBackdropPress={() => {
-                  setModalPremium(false)
-                }}
               >
-                <InicioPREMIUM setModalVisible={setModalPremium} />
+                <TouchableWithoutFeedback onPress={toggleModalPremium}>
+                  <View style={styles.modalOverlay}>
+                    <View>
+                      <InicioPREMIUM setModalVisible={setModalPremium} />
+                    </View>
+                  </View>
+                </TouchableWithoutFeedback>
               </Modal>
             </Pressable>
 
@@ -72,7 +82,13 @@ const InicioDeportista = () => {
                 transparent={true}
                 visible={modalNotifications}
               >
-                <InicioNotificaciones setModalVisible={setModalNotifications} />
+                <TouchableWithoutFeedback onPress={toggleModalNotifications}>
+                  <View style={styles.modalOverlay}>
+                    <View>
+                      <InicioNotificaciones />
+                    </View>
+                  </View>
+                </TouchableWithoutFeedback>
               </Modal>
             </Pressable>
           </View>
@@ -81,24 +97,24 @@ const InicioDeportista = () => {
         {mostrarInicioBuscador ? (
           <InicioBUSCADOR setMostrarInicioBuscador={setMostrarInicioBuscador} />
         ) : (
-          <View style={styles.buscarWrapper}>
-            <Pressable
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}
-              onPress={handleBuscarPress}
-            >
+          <Pressable
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+            onPress={handleBuscarPress}
+          >
+            <View style={styles.buscarWrapper}>
               <Image
                 style={styles.icbaselineSearchIcon}
                 contentFit="cover"
                 source={require('../assets/icbaselinesearch.png')}
               />
               <Text style={styles.buscar}>Buscar</Text>
-            </Pressable>
-          </View>
+            </View>
+          </Pressable>
         )}
 
         <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
@@ -109,31 +125,62 @@ const InicioDeportista = () => {
             <Text style={[styles.helloAshfak1, styles.helloTypo]}>
               Deportista
             </Text>
-            <Image
-              style={styles.frameChild}
-              contentFit="cover"
-              source={require('../assets/ellipse-471.png')}
-            />
+            <Text
+              style={{
+                fontSize: 50,
+                color: 'white',
+                backgroundColor: !modalOrganizador
+                  ? Color.sportsNaranja
+                  : Color.naranja3,
+                width: 6,
+                height: 6,
+                textAlign: 'center',
+                lineHeight: 100,
+                borderRadius: 50,
+                overflow: 'hidden'
+              }}
+            ></Text>
           </Pressable>
           <Pressable
             style={styles.helloAshfakGroup}
-            onPress={() => navigation.navigate('InicioOrganizador')}
+            onPress={() => toggleModalOrganizador()}
           >
             <Text style={[styles.helloAshfak2, styles.helloTypo]}>
               Organizador
             </Text>
-            <Image
-              style={styles.frameChild}
-              contentFit="cover"
-              source={require('../assets/ellipse-48.png')}
-            />
+            <Text
+              style={{
+                fontSize: 50,
+                color: 'white',
+                backgroundColor: modalOrganizador
+                  ? Color.sportsNaranja
+                  : Color.naranja3,
+                width: 6,
+                height: 6,
+                textAlign: 'center',
+                lineHeight: 100,
+                borderRadius: 50,
+                overflow: 'hidden'
+              }}
+            ></Text>
           </Pressable>
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={modalOrganizador}
+          >
+            <TouchableWithoutFeedback onPress={toggleModalOrganizador}>
+              <View style={styles.modalOverlay}>
+                <View>
+                  <InicioOrganizador />
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
+          </Modal>
         </View>
         <View style={styles.frameContainer}>
           <View style={{ alignItems: 'center' }}>
-            <Text style={[styles.helloAshfak1, styles.helloTypo]}>
-              Últimas horas de inscripción
-            </Text>
+            <Text style={styles.helloTypo}>Últimas horas de inscripción</Text>
             <ScrollView style={styles.frameParent1} horizontal={true}>
               <View style={styles.image94ParentShadowBox1}>
                 <Image
@@ -213,9 +260,7 @@ const InicioDeportista = () => {
             </ScrollView>
           </View>
           <View style={{ alignItems: 'center' }}>
-            <Text style={[styles.helloAshfak1, styles.helloTypo]}>
-              Últimas pruebas añadidas
-            </Text>
+            <Text style={styles.helloTypo}>Últimas pruebas añadidas</Text>
             <ScrollView style={styles.frameParent1} horizontal={true}>
               <View style={styles.image94ParentShadowBox1}>
                 <Image
@@ -295,7 +340,7 @@ const InicioDeportista = () => {
             </ScrollView>
           </View>
           <View style={{ alignItems: 'center' }}>
-            <Text style={[styles.helloAshfak1, styles.helloTypo]}>
+            <Text style={styles.helloTypo}>
               Resultados de las útlimas pruebas
             </Text>
             <ScrollView style={styles.frameParent1} horizontal={true}>
@@ -349,7 +394,7 @@ const InicioDeportista = () => {
                   </View>
                 </View>
               </View>
-              <View style={styles.image94ParentShadowBox}>
+              <View style={[styles.image94ParentShadowBox, styles.marginCard]}>
                 <Image
                   style={[styles.image94Icon, styles.image94IconLayout]}
                   contentFit="cover"
@@ -417,7 +462,9 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputPlaceholder_size,
     textAlign: 'left',
     fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '700'
+    fontWeight: '700',
+    color: Color.sportsVioleta,
+    marginTop: 10
   },
   goingTypo: {
     fontSize: FontSize.inputLabel_size,
@@ -473,22 +520,19 @@ const styles = StyleSheet.create({
     textAlign: 'left'
   },
   buscarWrapper: {
-    // borderRadius: Border.br_31xl,
+    borderRadius: Border.br_31xl,
     backgroundColor: Color.naranja3,
-    // // width: 320,
     width: '100%',
-    // paddingLeft: Padding.p_31xl,
-    // paddingTop: Padding.p_3xs,
-    // paddingRight: Padding.p_3xs,
-    // paddingBottom: Padding.p_3xs,
-    // marginTop: 19,
-    height: 44,
+    paddingLeft: Padding.p_31xl,
+    paddingTop: Padding.p_3xs,
+    paddingRight: Padding.p_3xs,
+    paddingBottom: Padding.p_3xs,
+    marginTop: 19,
+    height: 50,
     flexDirection: 'row',
     alignItems: 'center'
   },
-  helloAshfak1: {
-    color: Color.sportsVioleta
-  },
+
   frameChild: {
     width: 6,
     height: 6,
@@ -539,36 +583,39 @@ const styles = StyleSheet.create({
     marginTop: 5,
     height: 44
   },
+  marginCard: {
+    marginBottom: 10
+  },
   image94ParentShadowBox1: {
     height: 162,
     width: 187,
-    shadowOpacity: 1,
-    elevation: 10,
+    shadowOpacity: 0.9,
+    elevation: 20,
     shadowRadius: 10,
     shadowOffset: {
-      width: 2,
+      width: 0,
       height: 4
     },
-    shadowColor: 'rgba(39, 39, 39, 0.2)',
-    borderRadius: Border.br_sm,
+    shadowColor: 'rgba(39, 39, 39, 0.8)',
+    borderRadius: 15,
     alignItems: 'center',
-    backgroundColor: Color.blanco
+    backgroundColor: 'white'
   },
   image94ParentShadowBox: {
-    marginLeft: 15,
     height: 162,
     width: 187,
-    shadowOpacity: 1,
-    elevation: 10,
+    shadowOpacity: 0.9,
+    elevation: 20,
     shadowRadius: 10,
     shadowOffset: {
-      width: 2,
+      width: 0,
       height: 4
     },
-    shadowColor: 'rgba(39, 39, 39, 0.2)',
-    borderRadius: Border.br_sm,
+    shadowColor: 'rgba(39, 39, 39, 0.8)',
+    borderRadius: 15,
     alignItems: 'center',
-    backgroundColor: Color.blanco
+    backgroundColor: 'white',
+    marginLeft: 10
   },
   imGoingTo2: {
     fontSize: FontSize.inputLabel_size,
@@ -580,7 +627,7 @@ const styles = StyleSheet.create({
   },
   frameParent1: {
     width: 328,
-    marginTop: 10,
+    marginTop: 25,
     flexDirection: 'row'
   },
   min10: {
@@ -599,8 +646,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   frameParent: {
-    paddingTop: Padding.p_48xl,
-    paddingBottom: Padding.p_6xl,
+    paddingTop: 30,
+    paddingLeft: 15,
+    paddingRight: 15,
+    // paddingBottom: Padding.p_6xl,
     top: 0,
     height: '100%'
   },
@@ -644,10 +693,17 @@ const styles = StyleSheet.create({
   },
   inicioDeportista: {
     flex: 1,
-
     backgroundColor: Color.blanco,
     width: '100%',
     zIndex: 0
+  },
+  modalOverlay: {
+    // flex: 1,
+    // top: -100,
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
 

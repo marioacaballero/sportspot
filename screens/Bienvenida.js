@@ -16,21 +16,23 @@ const Bienvenida = () => {
   }, [navigation])
 
   return (
-    <LinearGradient
-      style={styles.bienvenida}
-      locations={[0, 0.13, 0.37, 0.64, 0.88, 1]}
-      colors={['#f25910', '#f7b99c', '#fff', '#fef8f5', '#642794', '#40036f']}
-    >
-      <View style={styles.bienvenidaInner}>
-        <View style={styles.capturaDePantalla20231024Wrapper}>
-          <Image
-            style={styles.capturaDePantalla20231024Icon}
-            contentFit="cover"
-            source={require('../assets/captura-de-pantalla-20231024-103636transformed-1.png')}
-          />
+    <>
+      <LinearGradient
+        style={styles.bienvenida}
+        locations={[0, 0.13, 0.37, 0.64, 0.88, 1]}
+        colors={['#f25910', '#f7b99c', '#fff', '#fef8f5', '#642794', '#40036f']}
+      >
+        <View style={styles.bienvenidaInner}>
+          <View style={styles.capturaDePantalla20231024Wrapper}>
+            <Image
+              style={styles.capturaDePantalla20231024Icon}
+              contentFit="cover"
+              source={require('../assets/captura-de-pantalla-20231024-103636transformed-1.png')}
+            />
+          </View>
         </View>
-      </View>
-    </LinearGradient>
+      </LinearGradient>
+    </>
   )
 }
 
