@@ -14,7 +14,7 @@ const Cuenta = () => {
         <Text
           style={[styles.gestionaTuCuentaContainer, styles.editarPerfilTypo]}
         >
-          {'GESTIONA TU '}CUENTA
+          GESTIONA TU CUENTA
         </Text>
       </View>
       <View style={[styles.frameParent, styles.frameParentPosition]}>
@@ -112,8 +112,9 @@ const Cuenta = () => {
 
 const styles = StyleSheet.create({
   frameParentPosition: {
-    left: 20,
-    position: 'absolute'
+    paddingTop: 30,
+    paddingLeft: 15,
+    paddingRight: 15
   },
   editarPerfilTypo: {
     textAlign: 'left',
@@ -127,8 +128,8 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   frameLayout: {
-    height: 20,
-    marginLeft: 47
+    height: 20
+    // marginLeft: 47
   },
   pencillineSpaceBlock: {
     paddingBottom: Padding.p_mini,
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_5xl
   },
   gestionaTuCuentaWrapper: {
-    top: 67
+    // top: 67
   },
   icon: {
     height: '100%',
@@ -163,25 +164,19 @@ const styles = StyleSheet.create({
     height: 25
   },
   vector: {
-    width: 23,
-    marginLeft: 47
+    width: 23
   },
   capturaDePantalla20231124: {
     width: 33,
-    height: 33,
-    marginLeft: 47
+    height: 33
   },
   container: {
-    width: 20,
-    marginLeft: 47
+    width: 20
   },
   frame: {
-    width: 19,
-    marginLeft: 47
+    width: 19
   },
   groupParent: {
-    top: 10,
-    left: 0,
     backgroundColor: Color.gris,
     height: 65,
     justifyContent: 'center',
@@ -189,19 +184,6 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_3xs,
     alignItems: 'center',
     flexDirection: 'row'
-  },
-  menInferiorChild: {
-    top: 0,
-    left: 165,
-    width: 37,
-    height: 24,
-    position: 'absolute'
-  },
-  menInferior: {
-    marginLeft: -180,
-    bottom: 0,
-    left: '50%',
-    height: 75
   },
   vectorIcon: {
     width: 25,
@@ -249,7 +231,7 @@ const styles = StyleSheet.create({
   },
   pencillineParent: {
     height: 62,
-    width: 320,
+    // width: 320,
     borderWidth: 1,
     borderColor: Color.colorGainsboro_100,
     borderStyle: 'solid',
@@ -280,7 +262,7 @@ const styles = StyleSheet.create({
   },
   pencillineShadowBox: {
     marginTop: 15,
-    width: 320,
+    // width: 320,
     borderWidth: 1,
     borderColor: Color.colorGainsboro_100,
     borderStyle: 'solid',
@@ -301,7 +283,7 @@ const styles = StyleSheet.create({
     width: 201
   },
   frameParent: {
-    top: 145
+    // top: 145
   },
   cuenta: {
     backgroundColor: Color.blanco,

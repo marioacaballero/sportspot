@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { Border, FontSize, FontFamily, Color, Padding } from '../GlobalStyles'
+import { Border, FontSize, FontFamily, Color } from '../GlobalStyles'
 
 const PopupAlerta = ({ setModalVisible }) => {
   const navigation = useNavigation()
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   helloAshfakContainer: {
     backgroundColor: Color.sportsNaranja,
-    padding: Padding.p_3xs,
+    padding: 5,
     marginLeft: 10
   },
   frameParent: {
@@ -97,13 +97,18 @@ const styles = StyleSheet.create({
     marginTop: 30
   },
   popupAlerta: {
-    borderRadius: Border.br_5xs,
-    backgroundColor: Color.blanco,
-    padding: Padding.p_xl,
-    maxWidth: '100%',
-    maxHeight: '100%',
-    alignItems: 'center',
-    top: 120
+    borderRadius: 5,
+    backgroundColor: 'white',
+    padding: 20,
+    width: '90%',
+    shadowOpacity: 1,
+    elevation: 30,
+    shadowRadius: 20,
+    shadowOffset: {
+      width: 0,
+      height: 4
+    },
+    shadowColor: 'rgba(39, 39, 39, 0.8)'
   }
 })
 

@@ -11,6 +11,7 @@ import {
 import Calendar from '../components/Calendar'
 // import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
+import { LinearGradient } from 'expo-linear-gradient'
 
 const EditarPerfil = () => {
   const [topContainerVisible, setTopContainerVisible] = useState(false)
@@ -47,6 +48,36 @@ const EditarPerfil = () => {
             contentFit="cover"
             source={require('../assets/unsplashn6gnca77urc.png')}
           />
+          <View
+            style={{
+              borderBottomLeftRadius: 5,
+              borderBottomRightRadius: 5,
+              width: 132,
+              height: 30,
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              overflow: 'hidden'
+            }}
+          >
+            <LinearGradient
+              colors={['#BA08F9', 'transparent']}
+              start={{ x: 0.5, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={{ flex: 1 }}
+            >
+              <Text
+                style={{
+                  color: 'white',
+                  alignSelf: 'center',
+                  fontFamily: FontFamily.inputPlaceholder,
+                  marginTop: 5
+                }}
+              >
+                Editar
+              </Text>
+            </LinearGradient>
+          </View>
         </View>
         <View style={styles.frameParent}>
           <View style={styles.card1Wrapper}>
@@ -201,7 +232,7 @@ const EditarPerfil = () => {
 const styles = StyleSheet.create({
   wrapperPosition: {
     // left: 20
-    // position: 'absolute'
+    position: 'relative'
   },
   labelFlexBox: {
     textAlign: 'left',
@@ -291,7 +322,8 @@ const styles = StyleSheet.create({
   unsplashn6gnca77urcIcon: {
     borderRadius: Border.br_5xs,
     width: 132,
-    height: 122
+    height: 122,
+    position: 'relative'
   },
   unsplashn6gnca77urcWrapper: {
     top: 172,

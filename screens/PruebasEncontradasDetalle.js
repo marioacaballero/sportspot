@@ -1,10 +1,10 @@
 import React from 'react'
 import { StyleSheet, Text, View, Pressable, Image } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+// import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
 
-const PruebasEncontradasDetalle = () => {
-  const navigation = useNavigation()
+const PruebasEncontradasDetalle = ({ navigation }) => {
+  // const navigation = useNavigation()
 
   return (
     <View style={styles.pruebasEncontradasDetalle}>

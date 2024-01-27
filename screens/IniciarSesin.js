@@ -130,11 +130,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   frameParent: {
-    position: 'absolute',
-    marginTop: -400,
-    marginLeft: -180,
-    top: '50%',
-    left: '50%',
+    // position: 'absolute',
+    // marginTop: -400,
+    // marginLeft: -180,
+    // top: '50%',
+    // left: '50%',
     justifyContent: 'space-between',
     paddingHorizontal: Padding.p_2xl,
     paddingTop: Padding.p_181xl,
