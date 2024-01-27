@@ -19,16 +19,16 @@ export default function SignIn({ navigation }) {
         <ScrollView>
           <Image
             style={styles.image}
-            source={{
-              uri: 'https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/ki44nk1ipb-1419%3A26538?alt=media&token=5e9d2fb3-e41f-4332-b494-10f6bdae5394'
-            }}
+            contentFit="cover"
+            source={require('../assets/captura-de-pantalla-20231024-103636transformed-1.png')}
           />
           <Text
             style={{
               color: '#F25910',
               fontSize: 22,
               marginBottom: 63,
-              marginHorizontal: 47
+              alignSelf: 'center'
+              // marginHorizontal: 47
             }}
           >
             {'ENCUENTRA TU PRUEBA'}
@@ -38,88 +38,91 @@ export default function SignIn({ navigation }) {
               color: '#F25910',
               fontSize: 40,
               marginBottom: 9,
-              marginHorizontal: 45
+              alignSelf: 'center'
+              // marginHorizontal: 45
             }}
           >
             {'Bienvenido/a'}
           </Text>
-          <View
-            style={{
-              alignItems: 'center',
-              backgroundColor: '#E2DCEC',
-              borderRadius: 50,
-              paddingVertical: 20,
-              marginBottom: 10,
-              marginHorizontal: 21
-            }}
-          >
-            <Text
+          <View style={{ marginTop: 40 }}>
+            <View
               style={{
-                color: '#40036F',
-                fontSize: 18
+                alignItems: 'center',
+                backgroundColor: '#E2DCEC',
+                borderRadius: 50,
+                paddingVertical: 20,
+                marginBottom: 10,
+                marginHorizontal: 21
               }}
             >
-              {'Iniciar sesión con Google'}
-            </Text>
-          </View>
-          <View
-            style={{
-              alignItems: 'center',
-              backgroundColor: '#E2DCEC',
-              borderRadius: 50,
-              paddingVertical: 20,
-              marginBottom: 10,
-              marginHorizontal: 21
-            }}
-          >
-            <Text
+              <Text
+                style={{
+                  color: '#40036F',
+                  fontSize: 18
+                }}
+              >
+                {'Iniciar sesión con Google'}
+              </Text>
+            </View>
+            <View
               style={{
-                color: '#40036F',
-                fontSize: 18
+                alignItems: 'center',
+                backgroundColor: '#E2DCEC',
+                borderRadius: 50,
+                paddingVertical: 20,
+                marginBottom: 10,
+                marginHorizontal: 21
               }}
             >
-              {'Iniciar sesión con Apple'}
-            </Text>
-          </View>
-          <View
-            style={{
-              alignItems: 'center',
-              backgroundColor: '#E2DCEC',
-              borderRadius: 50,
-              paddingVertical: 20,
-              marginBottom: 10,
-              marginHorizontal: 21
-            }}
-          >
-            <Text
+              <Text
+                style={{
+                  color: '#40036F',
+                  fontSize: 18
+                }}
+              >
+                {'Iniciar sesión con Apple'}
+              </Text>
+            </View>
+            <View
               style={{
-                color: '#40036F',
-                fontSize: 18
+                alignItems: 'center',
+                backgroundColor: '#E2DCEC',
+                borderRadius: 50,
+                paddingVertical: 20,
+                marginBottom: 10,
+                marginHorizontal: 21
               }}
-              onPress={() => navigation.navigate('IniciarSesin')}
             >
-              {'Iniciar sesión sin registro'}
-            </Text>
-          </View>
-          <View
-            style={{
-              alignItems: 'center',
-              backgroundColor: '#E2DCEC',
-              borderRadius: 50,
-              paddingVertical: 20,
-              marginBottom: 10,
-              marginHorizontal: 21
-            }}
-          >
-            <Text
+              <Text
+                style={{
+                  color: '#40036F',
+                  fontSize: 18
+                }}
+                onPress={() => navigation.navigate('IniciarSesin')}
+              >
+                {'Iniciar sesión sin registro'}
+              </Text>
+            </View>
+            <View
               style={{
-                color: '#40036F',
-                fontSize: 18
+                alignItems: 'center',
+                backgroundColor: '#E2DCEC',
+                borderRadius: 50,
+                paddingVertical: 20,
+                marginBottom: 10,
+                marginHorizontal: 21
               }}
-              onPress={() => navigation.navigate('Registrarse')}
             >
-              {'Registrarse'}
-            </Text>
+              <Text
+                style={{
+                  color: '#40036F',
+                  fontSize: 18
+                }}
+                onPress={() => navigation.navigate('Registrarse')}
+              >
+                {'Registrarse'}
+              </Text>
+            </View>
           </View>
         </ScrollView>
       </LinearGradient>
@@ -133,17 +136,17 @@ const styles = StyleSheet.create({
     height: 69,
     marginVertical: 60,
     marginBottom: 11,
-    marginHorizontal: 49
+    alignSelf: 'center'
   },
   container: {
-    height: '100vh'
-    // flex: 1,
-    // alignItems: "center",
-    // justifyContent: "center",
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: '100%'
   },
   linearGradient: {
-    // flex: 1,
+    flex: 1,
     width: '100%',
-    height: '100%'
+    alignContent: 'center'
   }
 })

@@ -32,14 +32,14 @@ import { loadFonts } from './GlobalStyles'
 import MenuInferior from './components/MenuInferior'
 import { View } from 'react-native'
 
+const Stack = createNativeStackNavigator()
+
 export default function App() {
   const [isFooterShow, setIsFooterShow] = useState(null)
 
   useEffect(() => {
     loadFonts()
   }, [])
-
-  const Stack = createNativeStackNavigator()
 
   return (
     <View style={{ flex: 1 }}>

@@ -1,7 +1,8 @@
 {
   "expo": {
+    "runtimeVersion": "1.0.0",
     "name": "Aythen-Sport",
-    "slug": "Aythen-Sport",
+    "slug": "pruebaapk",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,7 +23,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.mauriidg.AythenSport"
+      "package": "com.crisper1988.pruebaapk"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -32,7 +33,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "ac124ba8-62c5-44ac-ab0e-8da7a8b8e646"
+        "projectId": "eb1bc1b8-9cfe-4242-a8ed-974f7e366c4c"
       }
     }
   }

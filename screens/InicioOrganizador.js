@@ -1,98 +1,13 @@
-import React, { useState } from 'react'
-import {
-  Text,
-  StyleSheet,
-  View,
-  Pressable,
-  Image,
-  Modal,
-  ScrollView
-} from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import React from 'react'
+import { Text, StyleSheet, View, Image, ScrollView } from 'react-native'
+
 import { Padding, FontSize, FontFamily, Color, Border } from '../GlobalStyles'
-import InicioPREMIUM from './InicioPREMIUM'
-import InicioNotificaciones from './InicioNotificaciones'
 
 const InicioOrganizador = () => {
-  const navigation = useNavigation()
-
-  const [modalPremium, setModalPremium] = useState(false)
-  const [modalNotifications, setModalNotifications] = useState(false)
-
-  const toggleModalPremium = () => {
-    setModalPremium(!modalPremium)
-  }
-
-  const toggleModalNotifications = () => {
-    setModalNotifications(!modalNotifications)
-  }
-
   return (
     <ScrollView
       style={[styles.inicioOrganizador, styles.groupContainerSpaceBlock]}
     >
-      <View style={styles.helloAshfakParent}>
-        <Text style={styles.helloAshfak}>INICIO</Text>
-        <View style={styles.groupParent}>
-          <Pressable style={styles.wrapper} onPress={toggleModalPremium}>
-            <Image
-              style={styles.iconLayout}
-              contentFit="cover"
-              source={require('../assets/group-11712766982.png')}
-            />
-            <Modal
-              animationType="fade"
-              transparent={true}
-              visible={modalPremium}
-            >
-              <InicioPREMIUM setModalVisible={setModalPremium} />
-            </Modal>
-          </Pressable>
-
-          <Pressable
-            style={styles.materialSymbolsnotifications}
-            onPress={toggleModalNotifications}
-          >
-            <Image
-              style={[styles.icon1, styles.iconLayout]}
-              contentFit="cover"
-              source={require('../assets/materialsymbolsnotifications.png')}
-            />
-            <Modal
-              animationType="fade"
-              transparent={true}
-              visible={modalNotifications}
-            >
-              <InicioNotificaciones setModalVisible={setModalNotifications} />
-            </Modal>
-          </Pressable>
-        </View>
-      </View>
-      <View style={[styles.frameParent, styles.frameParentSpaceBlock]}>
-        <Pressable
-          style={styles.helloAshfakGroup}
-          onPress={() => navigation.navigate('InicioDeportista')}
-        >
-          <Text style={[styles.helloAshfak1, styles.helloTypo2]}>
-            Deportista
-          </Text>
-          <Image
-            style={styles.frameItem}
-            contentFit="cover"
-            source={require('../assets/ellipse-48.png')}
-          />
-        </Pressable>
-        <View style={styles.helloAshfakContainer}>
-          <Text style={[styles.helloAshfak2, styles.helloTypo2]}>
-            Organizador
-          </Text>
-          <Image
-            style={styles.frameItem}
-            contentFit="cover"
-            source={require('../assets/ellipse-471.png')}
-          />
-        </View>
-      </View>
       <View style={[styles.frameView, styles.frameParentSpaceBlock]}>
         <Text style={styles.helloAshfak3}>{`Breve descripción del servicio a
         organizadores`}</Text>
@@ -217,7 +132,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_xl
   },
   frameParentSpaceBlock: {
-    marginTop: 20,
+    // marginTop: 20,
     alignSelf: 'stretch'
   },
   helloTypo2: {
@@ -253,14 +168,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: Color.sportsVioleta,
     borderStyle: 'solid',
-    borderRadius: Border.br_5xl,
-    marginTop: 20
+    borderRadius: Border.br_5xl
+    // marginTop: 20
   },
-  menInferiorPosition: {
-    width: 360,
-    left: 0,
-    position: 'absolute'
-  },
+
   frameLayout: {
     height: 20,
     marginLeft: 47
@@ -316,7 +227,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
     justifyContent: 'center',
     flexDirection: 'row',
-    paddingTop: Padding.p_48xl,
+    paddingTop: 20,
     paddingBottom: Padding.p_6xl,
     top: 0
   },
@@ -449,11 +360,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   inicioOrganizador: {
-    backgroundColor: Color.blanco,
+    // backgroundColor: Color.blanco,
     height: 800,
-    paddingTop: Padding.p_48xl,
+    paddingTop: 180,
     paddingBottom: Padding.p_5xl,
-    width: '100%',
+    // width: '100%',
     flex: 1
   },
   materialSymbolsnotifications: {

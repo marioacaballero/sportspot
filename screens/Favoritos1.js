@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Text, StyleSheet, View, Pressable } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
@@ -57,15 +57,15 @@ const Favoritos1 = () => {
 const styles = StyleSheet.create({
   parentSpaceBlock: {
     paddingHorizontal: Padding.p_xl,
-    width: 360,
-    position: 'absolute'
+    width: '100%'
+    // position: 'absolute'
   },
   imGoingToFlexBox: {
     textAlign: 'left',
     alignSelf: 'stretch'
   },
   frameSpaceBlock: {
-    marginTop: 25,
+    marginTop: 20,
     alignSelf: 'stretch'
   },
   tusListasTypo: {
@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   frameLayout: {
-    height: 20,
-    marginLeft: 47
+    height: 20
+    // marginLeft: 47
   },
   tusFavoritos: {
     fontSize: FontSize.size_5xl,
@@ -123,9 +123,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   frameParent: {
-    paddingTop: Padding.p_48xl,
-    left: '50%',
-    marginLeft: -180,
+    paddingTop: 30,
+    // left: '50%',
+    // marginLeft: -180,
     paddingHorizontal: Padding.p_xl,
     top: 0
   },
@@ -138,32 +138,32 @@ const styles = StyleSheet.create({
     height: 25
   },
   vector: {
-    width: 23,
-    marginLeft: 47
+    width: 23
+    // marginLeft: 47
   },
   capturaDePantalla20231124: {
     width: 33,
-    height: 33,
-    marginLeft: 47
+    height: 33
+    // marginLeft: 47
   },
   container: {
-    width: 20,
-    marginLeft: 47
+    width: 20
+    // marginLeft: 47
   },
   frame: {
-    width: 19,
-    marginLeft: 47
+    width: 19
+    // marginLeft: 47
   },
   groupParent: {
-    top: 10,
-    left: 0,
+    // top: 10,
+    // left: 0,
     backgroundColor: Color.gris,
     height: 65,
     paddingVertical: Padding.p_3xs,
     justifyContent: 'center',
     paddingHorizontal: Padding.p_xl,
-    width: 360,
-    position: 'absolute'
+    width: 360
+    // position: 'absolute'
   },
   favoritos: {
     backgroundColor: Color.blanco,

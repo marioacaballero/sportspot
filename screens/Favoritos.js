@@ -1,5 +1,13 @@
 import React, { useState } from 'react'
-import { Text, StyleSheet, View, Image, Pressable, Modal } from 'react-native'
+import {
+  Text,
+  StyleSheet,
+  View,
+  Image,
+  Pressable,
+  Modal,
+  TouchableWithoutFeedback
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Padding, FontSize, Color, Border } from '../GlobalStyles'
 import PopupAlerta from '../components/PopupAlerta'
@@ -10,7 +18,7 @@ const Favoritos = () => {
   const [modalVisible, setModalVisible] = useState(false)
 
   const toggleModal = () => {
-    setModalVisible(true)
+    setModalVisible(!modalVisible)
   }
 
   return (
@@ -94,10 +102,16 @@ Fecha de la prueba: `}</Text>
                 transparent={true}
                 visible={modalVisible}
               >
-                <PopupAlerta
-                  onClose={toggleModal}
-                  setModalVisible={setModalVisible}
-                />
+                <TouchableWithoutFeedback onPress={toggleModal}>
+                  <View style={styles.modalOverlay}>
+                    <View>
+                      <PopupAlerta
+                        // onClose={toggleModal}
+                        setModalVisible={setModalVisible}
+                      />
+                    </View>
+                  </View>
+                </TouchableWithoutFeedback>
               </Modal>
             </View>
           </Pressable>
@@ -151,7 +165,7 @@ Fecha de la prueba: `}</Text>
               <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
                 Crear alerta
               </Text>
-              <Modal
+              {/* <Modal
                 animationType="fade"
                 transparent={true}
                 visible={modalVisible}
@@ -160,7 +174,7 @@ Fecha de la prueba: `}</Text>
                   onClose={toggleModal}
                   setModalVisible={setModalVisible}
                 />
-              </Modal>
+              </Modal> */}
             </View>
           </Pressable>
         </View>
@@ -351,6 +365,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     paddingHorizontal: Padding.p_xl
+  },
+  modalOverlay: {
+    // flex: 1,
+    // top: -100,
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   favoritos: {
     backgroundColor: Color.blanco,
