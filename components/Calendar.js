@@ -1,15 +1,78 @@
-import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { Calendar } from 'react-native-calendars'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
 
-const Calendar = ({ onClose }) => {
-  const handleClose = () => {
-    onClose()
+const Calendario = ({ onClose /*, setSelected, selected */ }) => {
+  const [selectedStartDate, setSelectedStartDate] = useState(null)
+  const [selectedEndDate, setSelectedEndDate] = useState(null)
+  const [arrayDate, setArrayDate] = useState([])
+
+  // Función para generar las fechas marcadas dinámicamente
+  const generateMarkedDates = () => {
+    const markedDates = {}
+    if (selectedStartDate && selectedEndDate) {
+      const startDate = new Date(selectedStartDate)
+      const endDate = new Date(selectedEndDate)
+
+      for (
+        let currentDate = new Date(startDate);
+        currentDate <= endDate;
+        currentDate.setDate(currentDate.getDate() + 1)
+      ) {
+        const year = currentDate.getFullYear()
+        const month = currentDate.getMonth() + 1 // ¡Recuerda que los meses comienzan desde 0!
+        const day = currentDate.getDate()
+
+        // Formatea el día y el mes con dos dígitos si es necesario (por ejemplo, 01 en lugar de 1)
+        const formattedMonth = month < 10 ? `0${month}` : month
+        const formattedDay = day < 10 ? `0${day}` : day
+
+        const dateString = `${year}-${formattedMonth}-${formattedDay}`
+        if (!arrayDate.includes(dateString)) {
+          // Actualiza el estado agregando la nueva fecha
+          setArrayDate((prevArrayDate) => [...prevArrayDate, dateString])
+        }
+
+        const marking = {
+          color: Color.sportsNaranja,
+          marked: true
+        }
+        if (currentDate.getTime() === startDate.getTime()) {
+          marking.startingDay = true
+        }
+        if (currentDate.getTime() === endDate.getTime()) {
+          marking.endingDay = true
+        }
+        markedDates[dateString] = marking
+      }
+    }
+    return markedDates
   }
 
+  const handleDayPress = (day) => {
+    if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
+      setSelectedStartDate(day.dateString)
+      setSelectedEndDate(null)
+    } else {
+      setSelectedEndDate(day.dateString)
+    }
+  }
   return (
     <View style={styles.calendar}>
-      <View style={[styles.calendar1, styles.captionFlexBox]}>
+      <Calendar
+        onDayPress={handleDayPress}
+        markingType={'period'}
+        markedDates={generateMarkedDates()}
+        // Otras propiedades de configuración de tu calendario
+      />
+      <Pressable
+        onPress={onClose}
+        style={[styles.helloAshfakWrapper, styles.captionFlexBox]}
+      >
+        <Text style={[styles.helloAshfak, styles.digit27Clr]}>Listo</Text>
+      </Pressable>
+      {/* <View style={[styles.calendar1, styles.captionFlexBox]}>
         <View style={[styles.caption, styles.week4FlexBox]}>
           <View style={[styles.month, styles.yearSpaceBlock]}>
             <Text style={styles.january}>Enero</Text>
@@ -194,7 +257,7 @@ const Calendar = ({ onClose }) => {
         >
           Listo
         </Text>
-      </View>
+      </View> */}
     </View>
   )
 }
@@ -391,4 +454,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Calendar
+export default Calendario

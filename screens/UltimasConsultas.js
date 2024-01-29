@@ -67,7 +67,10 @@ const UltimasConsultas = () => {
                   source={require('../assets/path-3391.png')}
                 />
               </Pressable>
-              <Text style={[styles.ltimas24Horas, styles.ciclismoTypo]}>
+              <Text
+                onPress={() => setshowSwitch(!showSwitch)}
+                style={[styles.ltimas24Horas, styles.ciclismoTypo]}
+              >
                 Últimas 24 horas
               </Text>
             </View>
