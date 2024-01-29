@@ -1,11 +1,18 @@
 import React from 'react'
 import { View, StyleSheet, Text, ScrollView } from 'react-native'
 import { Border, FontSize, FontFamily, Color, Padding } from '../GlobalStyles'
-import MapView from 'react-native-maps'
+import MapView, { Circle, Marker } from 'react-native-maps'
 
 const Maps = ({ onClose }) => {
   const handleClose = () => {
     onClose()
+  }
+
+  const initialRegion = {
+    latitude: 37.78825,
+    longitude: -122.4324,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421
   }
 
   return (
@@ -15,15 +22,15 @@ const Maps = ({ onClose }) => {
     >
       <View style={styles.mapsInner}>
         <View style={styles.mapViewParent}>
-          <MapView
-            initialRegion={{
-              latitude: 41.38676,
-              longitude: 2.16771,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421
-            }}
-            style={styles.mapView}
-          />
+          <MapView initialRegion={initialRegion} style={styles.mapView}>
+            <Circle
+              center={initialRegion}
+              radius={1000}
+              strokeColor="#40036F"
+              fillColor="rgba(101, 39, 148, 0.67)"
+            />
+            <Marker coordinate={initialRegion} pinColor="indigo" />
+          </MapView>
           <View style={styles.helloAshfakWrapper}>
             <Text
               style={[styles.helloAshfak, styles.kmTypo]}
@@ -115,6 +122,9 @@ const styles = StyleSheet.create({
   },
   mapView: {
     minHeight: 400
+  },
+  markerIcon: {
+    color: 'blue'
   }
 })
 
