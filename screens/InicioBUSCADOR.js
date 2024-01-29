@@ -3,14 +3,17 @@ import { Text, StyleSheet, Pressable, View, Modal, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import Maps from '../components/Maps'
 import Sports from '../components/Sports'
-import Calendar from '../components/Calendar'
+import Calendario from '../components/Calendar'
 import { Padding, FontFamily, Border, FontSize, Color } from '../GlobalStyles'
 
 const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
+  const navigation = useNavigation()
   const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
   const [frameContainer8Visible, setFrameContainer8Visible] = useState(false)
   const [frameContainer10Visible, setFrameContainer10Visible] = useState(false)
-  const navigation = useNavigation()
+  const [selected, setSelected] = useState(null)
+
+  console.log('select4ed', selected)
 
   const openFrameContainer6 = useCallback(() => {
     setFrameContainer6Visible(true)
@@ -77,7 +80,9 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
               contentFit="cover"
               source={require('../assets/frame-1547755978.png')}
             />
-            <Text style={styles.helloTypo}>Fecha</Text>
+            <Text style={styles.helloTypo}>
+              {!selected ? 'Fecha' : selected}
+            </Text>
           </View>
         </Pressable>
         <Pressable
@@ -117,7 +122,11 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
             style={styles.frameContainer10Bg}
             onPress={closeFrameContainer10}
           />
-          <Calendar onClose={closeFrameContainer10} />
+          <Calendario
+            onClose={closeFrameContainer10}
+            setSelected={setSelected}
+            selected={selected}
+          />
         </View>
       </Modal>
     </>
