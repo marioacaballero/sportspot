@@ -186,7 +186,11 @@ const InicioDeportista = () => {
         <View style={styles.frameContainer}>
           <View style={{ alignItems: 'center' }}>
             <Text style={styles.helloTypo}>Últimas horas de inscripción</Text>
-            <ScrollView style={styles.frameParent1} horizontal={true}>
+            <ScrollView
+              style={styles.frameParent1}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
               {events.map((event, i) => (
                 <View
                   key={event.id}
@@ -300,7 +304,11 @@ const InicioDeportista = () => {
           </View>
           <View style={{ alignItems: 'center' }}>
             <Text style={styles.helloTypo}>Últimas pruebas añadidas</Text>
-            <ScrollView style={styles.frameParent1} horizontal={true}>
+            <ScrollView
+              style={styles.frameParent1}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
               <View style={styles.image94ParentShadowBox1}>
                 <Image
                   style={[styles.image94Icon, styles.image94IconLayout]}
@@ -382,7 +390,11 @@ const InicioDeportista = () => {
             <Text style={styles.helloTypo}>
               Resultados de las útlimas pruebas
             </Text>
-            <ScrollView style={styles.frameParent1} horizontal={true}>
+            <ScrollView
+              style={styles.frameParent1}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
               <View style={styles.image94ParentShadowBox1}>
                 <Image
                   style={[styles.image94Icon, styles.image94IconLayout]}
