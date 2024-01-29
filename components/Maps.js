@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, StyleSheet, Text, Image, ScrollView } from 'react-native'
+import { View, StyleSheet, Text, ScrollView } from 'react-native'
 import { Border, FontSize, FontFamily, Color, Padding } from '../GlobalStyles'
+import MapView from 'react-native-maps'
 
 const Maps = ({ onClose }) => {
   const handleClose = () => {
@@ -14,24 +15,15 @@ const Maps = ({ onClose }) => {
     >
       <View style={styles.mapsInner}>
         <View style={styles.mapViewParent}>
-          <Image
-            style={[styles.mapViewIcon, styles.mapsLayout]}
-            contentFit="cover"
-            source={require('../assets/map-view.png')}
+          <MapView
+            initialRegion={{
+              latitude: 41.38676,
+              longitude: 2.16771,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421
+            }}
+            style={styles.mapView}
           />
-          <View style={styles.frameParent}>
-            <View style={styles.rangoDeDistanciaParent}>
-              <Text style={[styles.rangoDeDistancia, styles.helloAshfakTypo1]}>
-                Rango de distancia
-              </Text>
-              <Text style={[styles.km, styles.kmTypo]}>20km</Text>
-            </View>
-            <Image
-              style={styles.frameChild}
-              contentFit="cover"
-              source={require('../assets/group-1171276694.png')}
-            />
-          </View>
           <View style={styles.helloAshfakWrapper}>
             <Text
               style={[styles.helloAshfak, styles.kmTypo]}
@@ -87,8 +79,7 @@ const styles = StyleSheet.create({
   },
   frameChild: {
     height: 66,
-    marginTop: 15,
-    width: 333
+    marginTop: 15
   },
   frameParent: {
     marginTop: 24
@@ -103,6 +94,7 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_31xl,
     backgroundColor: Color.sportsNaranja,
     height: 42,
+    width: '100%',
     alignItems: 'center',
     marginTop: 24,
     alignSelf: 'stretch',
@@ -114,12 +106,15 @@ const styles = StyleSheet.create({
   },
   mapsInner: {
     justifyContent: 'center',
-    width: 333
+    minWidth: '100%'
   },
   maps: {
     backgroundColor: Color.blanco,
     padding: Padding.p_xl,
     maxHeight: '100%'
+  },
+  mapView: {
+    minHeight: 400
   }
 })
 

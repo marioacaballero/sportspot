@@ -5,7 +5,8 @@ import {
   View,
   Pressable,
   Image,
-  TextInput
+  TextInput,
+  ScrollView
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 // import { useNavigation } from '@react-navigation/native'
@@ -20,39 +21,43 @@ const IniciarSesin = ({ navigation }) => {
       locations={[0, 0.13, 0.37, 0.64, 0.88, 1]}
       colors={['#f25910', '#f7b99c', '#fff', '#fef8f5', '#642794', '#40036f']}
     >
-      <View style={styles.frameParent}>
-        <View style={styles.capturaDePantalla20231024Parent}>
-          <Image
-            style={styles.capturaDePantalla20231024Icon}
-            contentFit="cover"
-            source={require('../assets/captura-de-pantalla-20231024-103636transformed-1.png')}
-          />
-          <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>
-        </View>
-        <View style={styles.frameGroup}>
-          <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
-            <TextInput
-              style={[styles.nombreDeUsuario, styles.entrarTypo]}
-              placeholder="Nombre de usuario"
+      <ScrollView>
+        <View style={styles.frameParent}>
+          <View style={styles.capturaDePantalla20231024Parent}>
+            <Image
+              style={styles.capturaDePantalla20231024Icon}
+              contentFit="cover"
+              source={require('../assets/captura-de-pantalla-20231024-103636transformed-1.png')}
             />
+            <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>
           </View>
-          <View style={[styles.contraseaWrapper, styles.wrapperFlexBox]}>
-            <TextInput
-              style={[styles.nombreDeUsuario, styles.entrarTypo]}
-              placeholder="Contraseña"
-            />
+          <View style={styles.frameGroup}>
+            <View
+              style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}
+            >
+              <TextInput
+                style={[styles.nombreDeUsuario, styles.entrarTypo]}
+                placeholder="Nombre de usuario"
+              />
+            </View>
+            <View style={[styles.contraseaWrapper, styles.wrapperFlexBox]}>
+              <TextInput
+                style={[styles.nombreDeUsuario, styles.entrarTypo]}
+                placeholder="Contraseña"
+              />
+            </View>
+            <Pressable
+              style={[styles.entrarWrapper, styles.wrapperFlexBox]}
+              onPress={() => navigation.navigate('InicioDeportista')}
+            >
+              <Text style={[styles.entrar, styles.entrarTypo]}>Entrar</Text>
+            </Pressable>
+            <Text style={[styles.hasOlvidadoTu, styles.entrarTypo]}>
+              ¿Has olvidado tu contraseña?
+            </Text>
           </View>
-          <Pressable
-            style={[styles.entrarWrapper, styles.wrapperFlexBox]}
-            onPress={() => navigation.navigate('InicioDeportista')}
-          >
-            <Text style={[styles.entrar, styles.entrarTypo]}>Entrar</Text>
-          </Pressable>
-          <Text style={[styles.hasOlvidadoTu, styles.entrarTypo]}>
-            ¿Has olvidado tu contraseña?
-          </Text>
         </View>
-      </View>
+      </ScrollView>
     </LinearGradient>
   )
 }
@@ -149,14 +154,14 @@ const styles = StyleSheet.create({
     paddingTop: Padding.p_181xl,
     paddingBottom: Padding.p_152xl,
     alignItems: 'center',
-    height: 800
+    height: 700
   },
   iniciarSesin: {
     flex: 1,
     width: '100%',
     overflow: 'hidden',
     backgroundColor: 'transparent',
-    height: 800
+    height: 700
   }
 })
 
