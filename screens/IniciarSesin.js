@@ -1,5 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, View, Pressable, Image } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  Image,
+  TextInput
+} from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 // import { useNavigation } from '@react-navigation/native'
 import { Padding, Border, FontFamily, FontSize, Color } from '../GlobalStyles'
@@ -24,14 +31,16 @@ const IniciarSesin = ({ navigation }) => {
         </View>
         <View style={styles.frameGroup}>
           <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
-            <Text style={[styles.nombreDeUsuario, styles.entrarTypo]}>
-              Nombre de usuario
-            </Text>
+            <TextInput
+              style={[styles.nombreDeUsuario, styles.entrarTypo]}
+              placeholder="Nombre de usuario"
+            />
           </View>
           <View style={[styles.contraseaWrapper, styles.wrapperFlexBox]}>
-            <Text style={[styles.nombreDeUsuario, styles.entrarTypo]}>
-              Contraseña
-            </Text>
+            <TextInput
+              style={[styles.nombreDeUsuario, styles.entrarTypo]}
+              placeholder="Contraseña"
+            />
           </View>
           <Pressable
             style={[styles.entrarWrapper, styles.wrapperFlexBox]}

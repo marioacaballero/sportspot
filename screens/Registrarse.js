@@ -1,5 +1,12 @@
-import * as React from 'react'
-import { StyleSheet, Text, View, Pressable, Image } from 'react-native'
+import React from 'react'
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  Image,
+  TextInput
+} from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation } from '@react-navigation/native'
 import { Padding, Border, FontFamily, FontSize, Color } from '../GlobalStyles'
@@ -24,19 +31,22 @@ const Registrarse = () => {
         </View>
         <View style={styles.frameGroup}>
           <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
-            <Text style={[styles.nombreDeUsuario, styles.registrarse1Typo]}>
-              Nombre de usuario
-            </Text>
+            <TextInput
+              style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
+              placeholder="Nombre de usuario"
+            />
           </View>
           <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
-            <Text style={[styles.nombreDeUsuario, styles.registrarse1Typo]}>
-              Email
-            </Text>
+            <TextInput
+              style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
+              placeholder="Email"
+            />
           </View>
           <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
-            <Text style={[styles.nombreDeUsuario, styles.registrarse1Typo]}>
-              Contraseña
-            </Text>
+            <TextInput
+              style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
+              placeholder="Contraseña"
+            />
           </View>
           <Pressable
             style={[styles.registrarseWrapper, styles.wrapperFlexBox]}

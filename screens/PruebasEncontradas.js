@@ -11,7 +11,7 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { FontFamily, FontSize, Color, Border, Padding } from '../GlobalStyles'
 import PopupOrdenarPor from '../components/PopupOrdenarPor'
-import PruebasEncontradasFiltros from './PruebasEncontradasFiltros'
+import PruebasEncontradasFiltros from '../components/PruebasEncontradasFiltros'
 
 const PruebasEncontradas = () => {
   const navigation = useNavigation()

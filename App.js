@@ -8,7 +8,6 @@ import DatosDePago from './screens/DatosDePago'
 import Cuenta from './screens/Cuenta'
 import Metodo1 from './screens/Metodo1'
 import Bienvenida from './screens/Bienvenida'
-import EscribirResea from './components/EscribirResea'
 import Favoritos from './screens/Favoritos'
 import UltimasConsultas from './screens/UltimasConsultas'
 import Favoritos1 from './screens/Favoritos1'
@@ -20,16 +19,15 @@ import InicioDeportista from './screens/InicioDeportista'
 import InicioOrganizador from './screens/InicioOrganizador'
 import PruebasEncontradas from './screens/PruebasEncontradas'
 import InicioBUSCADOR from './screens/InicioBUSCADOR'
-import PruebasEncontradasFiltros from './screens/PruebasEncontradasFiltros'
-import Popupfiltros from './components/PopupOrdenarPor'
-import InicioSUSCRIPCIONES from './screens/InicioSUSCRIPCIONES'
-import PopupAlerta from './components/PopupAlerta'
 import PruebasEncontradasDetalle1 from './screens/PruebasEncontradasDetalle1'
-import Group from './screens/Group'
+import InicioSUSCRIPCIONES from './screens/InicioSUSCRIPCIONES'
 import SignIn from './screens/SignIn'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { loadFonts } from './GlobalStyles'
+import Popupfiltros from './components/PopupOrdenarPor'
+import PopupAlerta from './components/PopupAlerta'
+import EscribirResea from './components/EscribirResea'
 import MenuInferior from './components/MenuInferior'
+import { loadFonts } from './GlobalStyles'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { View } from 'react-native'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
@@ -165,11 +163,6 @@ export default function App() {
               options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="PruebasEncontradasFiltros"
-              component={PruebasEncontradasFiltros}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
               name="Popupfiltros"
               component={Popupfiltros}
               options={{ headerShown: false }}
@@ -187,11 +180,6 @@ export default function App() {
             <Stack.Screen
               name="PruebasEncontradasDetalle1"
               component={PruebasEncontradasDetalle1}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Group"
-              component={Group}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>
