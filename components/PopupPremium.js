@@ -3,7 +3,7 @@ import { Text, StyleSheet, View, Image, Pressable } from 'react-native'
 import { Padding, FontFamily, FontSize, Color, Border } from '../GlobalStyles'
 import { useNavigation } from '@react-navigation/native'
 
-const InicioPREMIUM = ({ setModalVisible }) => {
+const PopupPremium = ({ setModalVisible }) => {
   const navigation = useNavigation()
 
   return (
@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
   },
   frameChild: {
     width: 29,
-    height: 22
+    height: 22,
+    bottom: 3
   },
   vector: {
     width: 23,
@@ -73,11 +74,12 @@ const styles = StyleSheet.create({
     height: 25,
     marginLeft: 13,
     color: Color.sportsNaranja,
-    textAlign: 'left'
+    textAlign: 'left',
+    fontWeight: '500'
   },
   groupParent1: {
     // justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     height: 30,
     flexDirection: 'row',
     alignSelf: 'stretch'
@@ -139,4 +141,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default InicioPREMIUM
+export default PopupPremium

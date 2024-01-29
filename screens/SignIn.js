@@ -20,7 +20,7 @@ export default function SignIn({ navigation }) {
           <Image
             style={styles.image}
             contentFit="cover"
-            source={require('../assets/captura-de-pantalla-20231024-103636transformed-1.png')}
+            source={require('../assets/spotsport.png')}
           />
           <Text
             style={{
