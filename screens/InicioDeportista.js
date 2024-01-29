@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Padding, FontFamily, FontSize, Color, Border } from '../GlobalStyles'
-import InicioPREMIUM from './InicioPREMIUM'
+import PopupPremium from '../components/PopupPremium'
 import InicioNotificaciones from './InicioNotificaciones'
 import InicioBUSCADOR from './InicioBUSCADOR'
 import InicioOrganizador from './InicioOrganizador'
@@ -66,7 +66,7 @@ const InicioDeportista = () => {
                 <TouchableWithoutFeedback onPress={toggleModalPremium}>
                   <View style={styles.modalOverlay}>
                     <View>
-                      <InicioPREMIUM setModalVisible={setModalPremium} />
+                      <PopupPremium setModalVisible={setModalPremium} />
                     </View>
                   </View>
                 </TouchableWithoutFeedback>

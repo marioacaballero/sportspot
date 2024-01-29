@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text, ScrollView } from 'react-native'
+import { View, StyleSheet, Text, ScrollView, Image } from 'react-native'
 import { Border, FontSize, FontFamily, Color, Padding } from '../GlobalStyles'
 import MapView, { Circle, Marker } from 'react-native-maps'
 
@@ -29,7 +29,14 @@ const Maps = ({ onClose }) => {
               strokeColor="#40036F"
               fillColor="rgba(101, 39, 148, 0.67)"
             />
-            <Marker coordinate={initialRegion} pinColor="indigo" />
+            <Marker coordinate={initialRegion} anchor={{ x: 0.3, y: 0.4 }}>
+              <Image
+                source={require('../assets/marker.png')}
+                style={{ width: 22, height: 26 }}
+                resizeMode="contain"
+                resizeMethod="resize"
+              />
+            </Marker>
           </MapView>
           <View style={styles.helloAshfakWrapper}>
             <Text

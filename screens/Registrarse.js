@@ -25,7 +25,7 @@ const Registrarse = () => {
           <Image
             style={styles.capturaDePantalla20231024Icon}
             contentFit="cover"
-            source={require('../assets/captura-de-pantalla-20231024-103636transformed-1.png')}
+            source={require('../assets/spotsport.png')}
           />
           <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>
         </View>

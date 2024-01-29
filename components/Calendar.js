@@ -35,7 +35,7 @@ const Calendario = ({ onClose /*, setSelected, selected */ }) => {
         }
 
         const marking = {
-          color: Color.sportsNaranja,
+          color: Color.colorLinen_100,
           marked: true
         }
         if (currentDate.getTime() === startDate.getTime()) {

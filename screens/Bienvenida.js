@@ -27,7 +27,7 @@ const Bienvenida = () => {
             <Image
               style={styles.capturaDePantalla20231024Icon}
               contentFit="cover"
-              source={require('../assets/captura-de-pantalla-20231024-103636transformed-1.png')}
+              source={require('../assets/spotsport.png')}
             />
           </View>
         </View>
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   bienvenidaInner: {
     position: 'absolute',
-    marginTop: -400,
+    marginTop: -250,
     marginLeft: -152,
     top: '50%',
     left: '50%',
