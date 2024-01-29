@@ -11,6 +11,7 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Padding, FontSize, Color, Border } from '../GlobalStyles'
 import PopupAlerta from '../components/PopupAlerta'
+import { Path, Rect, Svg } from 'react-native-svg'
 
 const Favoritos = () => {
   const navigation = useNavigation()
@@ -24,21 +25,39 @@ const Favoritos = () => {
   return (
     <View style={styles.favoritos}>
       <View style={[styles.frameParent, styles.frameParentPosition]}>
-        <View>
-          <Text style={[styles.tusFavoritos, styles.ciclismoTypo]}>
-            TUS FAVORITOS
-          </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}
+        >
+          <Text style={styles.tusFavoritos}>TUS FAVORITOS</Text>
+          <Pressable onPress={() => navigation.goBack()}>
+            <Svg width="25" height="25" viewBox="0 0 21 21" fill="none">
+              <Rect
+                width="21"
+                height="21"
+                transform="translate(0 21) rotate(-90)"
+                fill="white"
+              />
+              <Path
+                d="M6.17798 4.98006L0.65625 10.5018L6.17798 16.0234L7.10604 15.0953L3.16862 11.158L20.3124 11.158L20.3124 9.84546L3.16874 9.84546L7.10604 5.90816L6.17798 4.98006Z"
+                fill={Color.sportsVioleta}
+              />
+            </Svg>
+          </Pressable>
         </View>
         <View style={[styles.backParent, styles.backParentSpaceBlock]}>
           <Pressable
             style={styles.backParent}
-            onPress={() => navigation.goBack()}
+            // onPress={() => navigation.goBack()}
           >
-            <Image
+            {/* <Image
               style={styles.backIcon}
               contentFit="cover"
               source={require('../assets/back.png')}
-            />
+            /> */}
           </Pressable>
           <View style={styles.frameWrapper}>
             <View style={styles.groupParentFlexBox}>
@@ -185,8 +204,8 @@ Fecha de la prueba: `}</Text>
 
 const styles = StyleSheet.create({
   frameParentPosition: {
-    left: '50%',
-    marginLeft: -180
+    // left: '50%',
+    // marginLeft: -180
   },
   ciclismoTypo: {
     fontFamily: FontFamily.inputPlaceholder,
@@ -211,10 +230,6 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100'
   },
-  menInferiorLayout: {
-    width: 360,
-    position: 'absolute'
-  },
   frameLayout: {
     height: 20,
     marginLeft: 47
@@ -225,8 +240,10 @@ const styles = StyleSheet.create({
   },
   tusFavoritos: {
     fontSize: FontSize.size_5xl,
-    width: 186,
-    textAlign: 'left',
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '700',
+    // width: 186,
+    // textAlign: 'left',
     color: Color.sportsVioleta
   },
   backIcon: {
@@ -325,10 +342,12 @@ const styles = StyleSheet.create({
     marginLeft: 119
   },
   frameParent: {
-    paddingTop: Padding.p_48xl,
-    paddingHorizontal: Padding.p_xl,
-    top: 0,
-    position: 'absolute'
+    paddingTop: 30,
+    paddingHorizontal: 15,
+    // paddingHorizontal: Padding.p_xl,
+    justifyContent: 'center'
+    // top: 0,
+    // position: 'absolute'
   },
   icon: {
     height: '100%',

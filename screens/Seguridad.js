@@ -1,26 +1,46 @@
 import * as React from 'react'
-import { Text, StyleSheet, View, Image } from 'react-native'
-// import { useNavigation } from '@react-navigation/native'
+import { Text, StyleSheet, View, Image, Pressable } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
+import { Path, Rect, Svg } from 'react-native-svg'
 
 const Seguridad = () => {
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
 
   return (
     <View style={styles.seguridad}>
       <View
-        style={[styles.gestionaTuCuentaWrapper, styles.seguridadInnerPosition]}
+        style={{
+          paddingTop: 30,
+          paddingHorizontal: 15,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          width: '100%'
+        }}
       >
         <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
           {'GESTIONA TU '}CUENTA
         </Text>
+        <Pressable onPress={() => navigation.goBack()}>
+          <Svg width="25" height="25" viewBox="0 0 21 21" fill="none">
+            <Rect
+              width="21"
+              height="21"
+              transform="translate(0 21) rotate(-90)"
+              fill="white"
+            />
+            <Path
+              d="M6.17798 4.98006L0.65625 10.5018L6.17798 16.0234L7.10604 15.0953L3.16862 11.158L20.3124 11.158L20.3124 9.84546L3.16874 9.84546L7.10604 5.90816L6.17798 4.98006Z"
+              fill={Color.sportsVioleta}
+            />
+          </Svg>
+        </Pressable>
       </View>
-      <View style={[styles.seguridadInner, styles.seguridadInnerPosition]}>
-        <View style={[styles.seguridadWrapper, styles.groupParentFlexBox]}>
-          <Text style={[styles.seguridad1, styles.seguridad1Typo]}>
-            Seguridad
-          </Text>
-        </View>
+      <View style={{ width: '100%' }}>
+        <Text style={[styles.seguridad1, styles.seguridad1Typo]}>
+          Seguridad
+        </Text>
       </View>
       <View style={styles.seguridadChild}>
         <View style={styles.card1Wrapper}>
@@ -80,7 +100,7 @@ const Seguridad = () => {
 const styles = StyleSheet.create({
   seguridadInnerPosition: {
     // left: 20,
-    position: 'absolute'
+    // position: 'absolute'
   },
   labelFlexBox: {
     textAlign: 'left',
@@ -228,9 +248,7 @@ const styles = StyleSheet.create({
     height: 146
   },
   seguridadChild: {
-    top: 173,
-    // left: 13,
-    position: 'absolute'
+    top: 30
   },
   cambiarContrasea: {
     color: Color.violeta3,
@@ -290,12 +308,15 @@ const styles = StyleSheet.create({
     // justifyContent: 'center'
   },
   seguridad: {
-    height: 800,
-    overflow: 'hidden',
+    // height: 800,
+    // overflow: 'hidden',
+    paddingTop: 20,
+    paddingHorizontal: 15,
     width: '100%',
     backgroundColor: Color.blanco,
-    flex: 1,
-    justifyContent: 'center',
+    height: '100%',
+    // flex: 1,
+    // justifyContent: 'center'
     alignItems: 'center'
   }
 })

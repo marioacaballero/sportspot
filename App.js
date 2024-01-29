@@ -31,6 +31,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { loadFonts } from './GlobalStyles'
 import MenuInferior from './components/MenuInferior'
 import { View } from 'react-native'
+import { Provider } from 'react-redux'
+import { store } from './redux/store'
 
 const Stack = createNativeStackNavigator()
 
@@ -42,158 +44,160 @@ export default function App() {
   }, [])
 
   return (
-    <View style={{ flex: 1 }}>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Bienvenida"
-          screenOptions={({ route }) => ({
-            headerShown: false,
-            footerShown: setIsFooterShow(
-              route.name !== 'Bienvenida' &&
-                route.name !== 'IniciarSesin' &&
-                route.name !== 'SignIn' &&
-                route.name !== 'Registrarse'
-            )
-          })}
-        >
-          <Stack.Screen
-            name="PruebasEncontradasDetalle"
-            component={PruebasEncontradasDetalle}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="EditarPerfil"
-            component={EditarPerfil}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Seguridad"
-            component={Seguridad}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Metodo"
-            component={Metodo}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="DatosDePago"
-            component={DatosDePago}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Cuenta"
-            component={Cuenta}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Metodo1"
-            component={Metodo1}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Bienvenida"
-            component={Bienvenida}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="SignIn"
-            component={SignIn}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="EscribirResea"
-            component={EscribirResea}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Favoritos"
-            component={Favoritos}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="UltimasConsultas"
-            component={UltimasConsultas}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Favoritos1"
-            component={Favoritos1}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="HistorialDePruebas"
-            component={HistorialDePruebas}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="TuPerfil"
-            component={TuPerfil}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="IniciarSesin"
-            component={IniciarSesin}
-            options={{ headerShown: false, title: 'Atrás' }}
-          />
-          <Stack.Screen
-            name="Registrarse"
-            component={Registrarse}
-            options={{ headerShown: false, title: 'Atrás' }}
-          />
-          <Stack.Screen
-            name="InicioDeportista"
-            component={InicioDeportista}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="InicioOrganizador"
-            component={InicioOrganizador}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="PruebasEncontradas"
-            component={PruebasEncontradas}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="InicioBUSCADOR"
-            component={InicioBUSCADOR}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="PruebasEncontradasFiltros"
-            component={PruebasEncontradasFiltros}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Popupfiltros"
-            component={Popupfiltros}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="InicioSUSCRIPCIONES"
-            component={InicioSUSCRIPCIONES}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="PopupAlerta"
-            component={PopupAlerta}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="PruebasEncontradasDetalle1"
-            component={PruebasEncontradasDetalle1}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Group"
-            component={Group}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-        {isFooterShow && <MenuInferior />}
-      </NavigationContainer>
-    </View>
+    <Provider store={store}>
+      <View style={{ flex: 1 }}>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Bienvenida"
+            screenOptions={({ route }) => ({
+              headerShown: false,
+              footerShown: setIsFooterShow(
+                route.name !== 'Bienvenida' &&
+                  route.name !== 'IniciarSesin' &&
+                  route.name !== 'SignIn' &&
+                  route.name !== 'Registrarse'
+              )
+            })}
+          >
+            <Stack.Screen
+              name="PruebasEncontradasDetalle"
+              component={PruebasEncontradasDetalle}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="EditarPerfil"
+              component={EditarPerfil}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Seguridad"
+              component={Seguridad}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Metodo"
+              component={Metodo}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="DatosDePago"
+              component={DatosDePago}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Cuenta"
+              component={Cuenta}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Metodo1"
+              component={Metodo1}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Bienvenida"
+              component={Bienvenida}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="SignIn"
+              component={SignIn}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="EscribirResea"
+              component={EscribirResea}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Favoritos"
+              component={Favoritos}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="UltimasConsultas"
+              component={UltimasConsultas}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Favoritos1"
+              component={Favoritos1}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="HistorialDePruebas"
+              component={HistorialDePruebas}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="TuPerfil"
+              component={TuPerfil}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="IniciarSesin"
+              component={IniciarSesin}
+              options={{ headerShown: false, title: 'Atrás' }}
+            />
+            <Stack.Screen
+              name="Registrarse"
+              component={Registrarse}
+              options={{ headerShown: false, title: 'Atrás' }}
+            />
+            <Stack.Screen
+              name="InicioDeportista"
+              component={InicioDeportista}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="InicioOrganizador"
+              component={InicioOrganizador}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="PruebasEncontradas"
+              component={PruebasEncontradas}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="InicioBUSCADOR"
+              component={InicioBUSCADOR}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="PruebasEncontradasFiltros"
+              component={PruebasEncontradasFiltros}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Popupfiltros"
+              component={Popupfiltros}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="InicioSUSCRIPCIONES"
+              component={InicioSUSCRIPCIONES}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="PopupAlerta"
+              component={PopupAlerta}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="PruebasEncontradasDetalle1"
+              component={PruebasEncontradasDetalle1}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Group"
+              component={Group}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+          {isFooterShow && <MenuInferior />}
+        </NavigationContainer>
+      </View>
+    </Provider>
   )
 }
