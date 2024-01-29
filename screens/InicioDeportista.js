@@ -185,8 +185,15 @@ const InicioDeportista = () => {
         </View>
         <View style={styles.frameContainer}>
           <View style={{ alignItems: 'center' }}>
-            <Text style={styles.helloTypo}>Últimas horas de inscripción</Text>
-            <ScrollView style={styles.frameParent1} horizontal={true}>
+            <Text style={styles.helloTypoScroll}>
+              Últimas horas de inscripción
+            </Text>
+            <ScrollView
+              // style={styles.frameParent1}
+              // style={{ marginBottom: 10 }}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
               {events.map((event, i) => (
                 <View
                   key={event.id}
@@ -299,8 +306,12 @@ const InicioDeportista = () => {
             </ScrollView>
           </View>
           <View style={{ alignItems: 'center' }}>
-            <Text style={styles.helloTypo}>Últimas pruebas añadidas</Text>
-            <ScrollView style={styles.frameParent1} horizontal={true}>
+            <Text style={styles.helloTypoScroll}>Últimas pruebas añadidas</Text>
+            <ScrollView
+              style={{ marginBottom: 10 }}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
               <View style={styles.image94ParentShadowBox1}>
                 <Image
                   style={[styles.image94Icon, styles.image94IconLayout]}
@@ -379,10 +390,14 @@ const InicioDeportista = () => {
             </ScrollView>
           </View>
           <View style={{ alignItems: 'center' }}>
-            <Text style={styles.helloTypo}>
+            <Text style={styles.helloTypoScroll}>
               Resultados de las útlimas pruebas
             </Text>
-            <ScrollView style={styles.frameParent1} horizontal={true}>
+            <ScrollView
+              // style={{ marginBottom: 10 }}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
               <View style={styles.image94ParentShadowBox1}>
                 <Image
                   style={[styles.image94Icon, styles.image94IconLayout]}
@@ -504,6 +519,15 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: Color.sportsVioleta,
     marginTop: 10
+  },
+  helloTypoScroll: {
+    fontSize: FontSize.inputPlaceholder_size,
+    textAlign: 'left',
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '700',
+    color: Color.sportsVioleta,
+    marginTop: 10,
+    marginBottom: 20
   },
   goingTypo: {
     fontSize: FontSize.inputLabel_size,
@@ -628,33 +652,37 @@ const styles = StyleSheet.create({
   image94ParentShadowBox1: {
     height: 162,
     width: 187,
-    shadowOpacity: 0.9,
-    elevation: 20,
+    shadowOpacity: 1,
+    elevation: 10,
     shadowRadius: 10,
     shadowOffset: {
-      width: 0,
+      width: 2,
       height: 4
     },
-    shadowColor: 'rgba(39, 39, 39, 0.8)',
-    borderRadius: 15,
+    shadowColor: 'black',
+    // borderRadius: 15,
     alignItems: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    borderRadius: Border.br_sm,
+    marginBottom: 20
   },
   image94ParentShadowBox: {
     height: 162,
     width: 187,
-    shadowOpacity: 0.9,
-    elevation: 20,
+    shadowOpacity: 1,
+    elevation: 10,
     shadowRadius: 10,
     shadowOffset: {
-      width: 0,
+      width: 2,
       height: 4
     },
-    shadowColor: 'rgba(39, 39, 39, 0.8)',
-    borderRadius: 15,
+    shadowColor: 'black',
+    // borderRadius: 15,
     alignItems: 'center',
     backgroundColor: 'white',
-    marginLeft: 10
+    borderRadius: Border.br_sm,
+    marginLeft: 10,
+    marginBottom: 20
   },
   imGoingTo2: {
     fontSize: FontSize.inputLabel_size,

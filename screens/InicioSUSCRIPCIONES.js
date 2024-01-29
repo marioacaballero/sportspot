@@ -16,12 +16,11 @@ const InicioSUSCRIPCIONES = () => {
   return (
     <ScrollView
       style={styles.inicioSuscripciones2}
-      contentContainerStyle={{ paddingBottom: 120 }}
+      contentContainerStyle={{ paddingBottom: 200 }}
     >
       <View style={styles.helloAshfakParent}>
         <Text style={[styles.helloAshfak, styles.helloClr]}>
-          {`PLANES DE
-SUSCRIPCIÓN`}
+          PLANES DE SUSCRIPCIÓN
         </Text>
         <View style={styles.groupParent}>
           <Image
@@ -220,7 +219,7 @@ const styles = StyleSheet.create({
     marginLeft: 47
   },
   helloAshfak: {
-    fontSize: FontSize.size_5xl,
+    fontSize: 22,
     // textAlign: 'left',
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
@@ -244,8 +243,8 @@ const styles = StyleSheet.create({
     zIndex: 0,
     flexDirection: 'row',
     // alignSelf: 'center',
-    alignItems: 'center',
-    flex: 1
+    alignItems: 'center'
+    // flex: 1
   },
   estasSonLasVentajasQueObt: {
     fontSize: FontSize.inputPlaceholder_size
@@ -389,7 +388,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_xl
   },
   inicioSuscripciones2: {
-    height: 900,
+    // height: 900,
     paddingTop: Padding.p_48xl,
     paddingBottom: Padding.p_5xl,
     paddingHorizontal: Padding.p_xl,
