@@ -15,9 +15,14 @@ import InicioPREMIUM from './InicioPREMIUM'
 import InicioNotificaciones from './InicioNotificaciones'
 import InicioBUSCADOR from './InicioBUSCADOR'
 import InicioOrganizador from './InicioOrganizador'
+import { useSelector } from 'react-redux'
 
 const InicioDeportista = () => {
   const navigation = useNavigation()
+  const { user } = useSelector((state) => state.users)
+  const { events } = useSelector((state) => state.events)
+
+  console.log('usuarioooo', user)
 
   const [modalPremium, setModalPremium] = useState(false)
   const [modalNotifications, setModalNotifications] = useState(false)
@@ -182,7 +187,41 @@ const InicioDeportista = () => {
           <View style={{ alignItems: 'center' }}>
             <Text style={styles.helloTypo}>Últimas horas de inscripción</Text>
             <ScrollView style={styles.frameParent1} horizontal={true}>
-              <View style={styles.image94ParentShadowBox1}>
+              {events.map((event, i) => (
+                <View
+                  key={event.id}
+                  style={
+                    i === 0
+                      ? styles.image94ParentShadowBox1
+                      : styles.image94ParentShadowBox
+                  }
+                >
+                  <Image
+                    style={[styles.image94Icon, styles.image94IconLayout]}
+                    contentFit="cover"
+                    source={event.image}
+                  />
+                  <View
+                    style={[
+                      styles.imGoingToShakeYParent,
+                      styles.frameGroupSpaceBlock
+                    ]}
+                  >
+                    <Text style={[styles.imGoingTo, styles.goingTypo]}>
+                      {event.title}
+                    </Text>
+                    <View style={styles.minParent}>
+                      <Text style={[styles.min, styles.minClr]}>
+                        {event.subTitle}
+                      </Text>
+                      <Text style={[styles.min1, styles.minTypo1]}>
+                        {event.header}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              ))}
+              {/* <View style={styles.image94ParentShadowBox1}>
                 <Image
                   style={[styles.image94Icon, styles.image94IconLayout]}
                   contentFit="cover"
@@ -231,8 +270,8 @@ const InicioDeportista = () => {
                     </Text>
                   </View>
                 </View>
-              </View>
-              <View style={styles.image94ParentShadowBox}>
+              </View> */}
+              {/* <View style={styles.image94ParentShadowBox}>
                 <Image
                   style={[styles.image94Icon, styles.image94IconLayout]}
                   contentFit="cover"
@@ -256,7 +295,7 @@ const InicioDeportista = () => {
                     </Text>
                   </View>
                 </View>
-              </View>
+              </View> */}
             </ScrollView>
           </View>
           <View style={{ alignItems: 'center' }}>

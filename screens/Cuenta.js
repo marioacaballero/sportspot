@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Text, StyleSheet, View, Pressable, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Color, FontFamily, Padding, FontSize, Border } from '../GlobalStyles'
+import { Path, Rect, Svg } from 'react-native-svg'
 
 const Cuenta = () => {
   const navigation = useNavigation()
@@ -11,11 +12,33 @@ const Cuenta = () => {
       <View
         style={[styles.gestionaTuCuentaWrapper, styles.frameParentPosition]}
       >
-        <Text
-          style={[styles.gestionaTuCuentaContainer, styles.editarPerfilTypo]}
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}
         >
-          GESTIONA TU CUENTA
-        </Text>
+          <Text
+            style={[styles.gestionaTuCuentaContainer, styles.editarPerfilTypo]}
+          >
+            GESTIONA TU CUENTA
+          </Text>
+          <Pressable onPress={() => navigation.goBack()}>
+            <Svg width="25" height="25" viewBox="0 0 21 21" fill="none">
+              <Rect
+                width="21"
+                height="21"
+                transform="translate(0 21) rotate(-90)"
+                fill="white"
+              />
+              <Path
+                d="M6.17798 4.98006L0.65625 10.5018L6.17798 16.0234L7.10604 15.0953L3.16862 11.158L20.3124 11.158L20.3124 9.84546L3.16874 9.84546L7.10604 5.90816L6.17798 4.98006Z"
+                fill={Color.sportsVioleta}
+              />
+            </Svg>
+          </Pressable>
+        </View>
       </View>
       <View style={[styles.frameParent, styles.frameParentPosition]}>
         <Pressable

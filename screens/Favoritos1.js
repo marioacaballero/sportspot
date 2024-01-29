@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, StyleSheet, View, Pressable } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
+import { Path, Rect, Svg } from 'react-native-svg'
 
 const Favoritos1 = () => {
   const navigation = useNavigation()
@@ -9,10 +10,30 @@ const Favoritos1 = () => {
   return (
     <View style={styles.favoritos}>
       <View style={[styles.frameParent, styles.parentSpaceBlock]}>
-        <View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}
+        >
           <Text style={[styles.tusFavoritos, styles.imGoingToFlexBox]}>
             TUS FAVORITOS
           </Text>
+          <Pressable onPress={() => navigation.goBack()}>
+            <Svg width="25" height="25" viewBox="0 0 21 21" fill="none">
+              <Rect
+                width="21"
+                height="21"
+                transform="translate(0 21) rotate(-90)"
+                fill="white"
+              />
+              <Path
+                d="M6.17798 4.98006L0.65625 10.5018L6.17798 16.0234L7.10604 15.0953L3.16862 11.158L20.3124 11.158L20.3124 9.84546L3.16874 9.84546L7.10604 5.90816L6.17798 4.98006Z"
+                fill={Color.sportsVioleta}
+              />
+            </Svg>
+          </Pressable>
         </View>
         <View style={[styles.frameWrapper, styles.frameSpaceBlock]}>
           <View style={styles.groupParentFlexBox}>

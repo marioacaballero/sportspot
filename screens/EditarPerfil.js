@@ -9,13 +9,14 @@ import {
   ScrollView
 } from 'react-native'
 import Calendar from '../components/Calendar'
-// import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
 import { LinearGradient } from 'expo-linear-gradient'
+import { Path, Rect, Svg } from 'react-native-svg'
 
 const EditarPerfil = () => {
   const [topContainerVisible, setTopContainerVisible] = useState(false)
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
 
   const openTopContainer = useCallback(() => {
     setTopContainerVisible(true)
@@ -28,21 +29,40 @@ const EditarPerfil = () => {
   return (
     <ScrollView>
       <View style={styles.editarPerfil}>
-        <View style={[styles.gestionaTuCuentaWrapper, styles.wrapperPosition]}>
+        <View
+          style={{
+            paddingTop: 30,
+            paddingHorizontal: 15,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '100%'
+          }}
+        >
           <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
-            {'GESTIONA TU '}CUENTA
+            GESTIONA TU CUENTA
           </Text>
+          <Pressable onPress={() => navigation.goBack()}>
+            <Svg width="25" height="25" viewBox="0 0 21 21" fill="none">
+              <Rect
+                width="21"
+                height="21"
+                transform="translate(0 21) rotate(-90)"
+                fill="white"
+              />
+              <Path
+                d="M6.17798 4.98006L0.65625 10.5018L6.17798 16.0234L7.10604 15.0953L3.16862 11.158L20.3124 11.158L20.3124 9.84546L3.16874 9.84546L7.10604 5.90816L6.17798 4.98006Z"
+                fill={Color.sportsVioleta}
+              />
+            </Svg>
+          </Pressable>
         </View>
-        <View style={[styles.editarPerfilInner, styles.wrapperPosition]}>
+        <View style={styles.editarPerfilInner}>
           <View style={[styles.editarPerfilWrapper, styles.groupParentFlexBox]}>
-            <Text style={[styles.editarPerfil1, styles.placehoderTypo]}>
-              Editar perfil
-            </Text>
+            <Text style={styles.editarPerfil1}>Editar perfil</Text>
           </View>
         </View>
-        <View
-          style={[styles.unsplashn6gnca77urcWrapper, styles.wrapperPosition]}
-        >
+        <View style={styles.unsplashn6gnca77urcWrapper}>
           <Image
             style={styles.unsplashn6gnca77urcIcon}
             contentFit="cover"
@@ -230,10 +250,6 @@ const EditarPerfil = () => {
 }
 
 const styles = StyleSheet.create({
-  wrapperPosition: {
-    // left: 20
-    position: 'relative'
-  },
   labelFlexBox: {
     textAlign: 'left',
     color: Color.sportsVioleta
@@ -309,14 +325,17 @@ const styles = StyleSheet.create({
     top: 67
   },
   editarPerfil1: {
-    color: Color.sportsNaranja
+    color: Color.sportsNaranja,
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '700'
   },
   editarPerfilWrapper: {
     alignItems: 'center'
   },
   editarPerfilInner: {
-    top: 140,
-    width: 320,
+    top: 20,
+    width: '100%',
+    paddingHorizontal: 15,
     justifyContent: 'center'
   },
   unsplashn6gnca77urcIcon: {
@@ -326,7 +345,7 @@ const styles = StyleSheet.create({
     position: 'relative'
   },
   unsplashn6gnca77urcWrapper: {
-    top: 172,
+    top: 50,
     // paddingLeft: Padding.p_83xl,
     // paddingRight: Padding.p_3xs,
     alignItems: 'center',
@@ -519,7 +538,7 @@ const styles = StyleSheet.create({
     marginTop: 21
   },
   frameParent: {
-    top: 200
+    top: 80
     // left: 17
     // position: 'absolute'
   },
