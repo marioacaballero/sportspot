@@ -27,9 +27,8 @@ const PopupPremium = ({ setModalVisible }) => {
         información puedes contactar con nuestro servicio de soporte técnico
       </Text>
       <Text style={[styles.helloAshfak9, styles.helloTypo]}>
-        {`¡Actúa ahora y experimenta una forma
-            completamente nueva de abordar tus
-            objetivos deportivos con Spotsport Premium!`}
+        ¡Actúa ahora y experimenta una forma completamente nueva de abordar tus
+        objetivos deportivos con Spotsport Premium!
       </Text>
       <View style={[styles.premiumInner, styles.helloSpaceBlock]}>
         <View style={styles.helloAshfakWrapper}>

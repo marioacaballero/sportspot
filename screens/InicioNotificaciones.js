@@ -537,7 +537,7 @@ const styles = StyleSheet.create({
     // right: 20,
     borderRadius: Border.br_3xs,
     shadowColor: 'rgba(69, 68, 68, 0.47)',
-    width: 320,
+    // width: 320,
     paddingHorizontal: Padding.p_lgi,
     paddingVertical: Padding.p_xl,
     shadowOpacity: 1,

@@ -703,8 +703,8 @@ const styles = StyleSheet.create({
     height: 92
   },
   inicioNotificaciones: {
-    height: 800,
-    width: '100%',
+    // height: 800,
+    // width: '100%',
     flex: 1,
     backgroundColor: Color.blanco
   }
