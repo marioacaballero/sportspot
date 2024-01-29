@@ -93,9 +93,7 @@ Fecha de la prueba: `}</Text>
                 contentFit="cover"
                 source={require('../assets/clarityeditsolid1.png')}
               />
-              <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
-                Escribe una reseña
-              </Text>
+              <Text style={styles.helloAshfak}>Escribe una reseña</Text>
             </Pressable>
           </View>
           <View style={[styles.frameGroup, styles.frameSpaceBlock1]}>
@@ -146,9 +144,7 @@ Fecha de la prueba: `}</Text>
                 contentFit="cover"
                 source={require('../assets/clarityeditsolid1.png')}
               />
-              <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
-                Escribe una reseña
-              </Text>
+              <Text style={styles.helloAshfak}>Escribe una reseña</Text>
             </Pressable>
           </View>
           <View style={[styles.frameGroup, styles.frameSpaceBlock1]}>
@@ -252,14 +248,15 @@ const styles = StyleSheet.create({
   ciclismoTypo: {
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
-    textAlign: 'left'
+    textAlign: 'left',
+    width: '100%'
   },
   frameSpaceBlock1: {
     marginTop: 25,
     alignItems: 'center'
   },
   parentFlexBox: {
-    width: 320,
+    // width: 320,
     alignItems: 'center',
     flexDirection: 'row'
   },
@@ -362,9 +359,7 @@ const styles = StyleSheet.create({
   },
   frameContainer7Bg: {
     width: '100%',
-    height: '100%',
-    left: 0,
-    top: 0
+    height: '100%'
   },
   clarityeditSolidIcon: {
     overflow: 'hidden'
@@ -373,7 +368,11 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputPlaceholder_size,
     color: Color.blanco,
     marginLeft: 10,
-    textAlign: 'left'
+    justifyContent: 'center',
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '700',
+    textAlign: 'center',
+    width: '100%'
   },
   clarityeditSolidParent: {
     borderRadius: Border.br_31xl,

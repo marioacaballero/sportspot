@@ -133,10 +133,10 @@ const styles = StyleSheet.create({
     width: 320,
     paddingHorizontal: 0,
     paddingVertical: Padding.p_xl,
-    maxWidth: '100%',
-    maxHeight: '100%',
+    // maxWidth: '100%',
+    // maxHeight: '100%',
     flexDirection: 'row',
-    bottom: 280
+    bottom: '100%'
   }
 })
 
