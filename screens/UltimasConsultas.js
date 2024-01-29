@@ -1,12 +1,22 @@
 import React, { useState } from 'react'
-import { Text, StyleSheet, View, Image, Switch, ScrollView } from 'react-native'
-// import { useNavigation } from '@react-navigation/native'
+import {
+  Text,
+  StyleSheet,
+  View,
+  Image,
+  Switch,
+  ScrollView,
+  Pressable
+} from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Color, Border, FontSize, Padding } from '../GlobalStyles'
+import { Path, Rect, Svg } from 'react-native-svg'
 
 const UltimasConsultas = () => {
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
 
   const [switchStates, setSwitchStates] = useState([false, false, false])
+  const [showSwitch, setshowSwitch] = useState(false)
 
   const toggleSwitch = (index) => {
     const newSwitchStates = [...switchStates]
@@ -16,67 +26,98 @@ const UltimasConsultas = () => {
 
   return (
     <ScrollView style={styles.ultimasConsultas}>
-      <View style={[styles.frameParent, styles.frameParentPosition]}>
-        <View style={styles.ltimasConsultasParent}>
-          <Text style={[styles.ltimasConsultas, styles.ciclismoTypo]}>
-            ÚLTIMAS CONSULTAS
-          </Text>
+      <View style={styles.frameParent}>
+        <View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              width: '100%'
+            }}
+          >
+            <Text style={[styles.ltimasConsultas, styles.ciclismoTypo]}>
+              ÚLTIMAS CONSULTAS
+            </Text>
+            <Pressable onPress={() => navigation.goBack()}>
+              <Svg width="25" height="25" viewBox="0 0 21 21" fill="none">
+                <Rect
+                  width="21"
+                  height="21"
+                  transform="translate(0 21) rotate(-90)"
+                  fill="white"
+                />
+                <Path
+                  d="M6.17798 4.98006L0.65625 10.5018L6.17798 16.0234L7.10604 15.0953L3.16862 11.158L20.3124 11.158L20.3124 9.84546L3.16874 9.84546L7.10604 5.90816L6.17798 4.98006Z"
+                  fill={Color.sportsVioleta}
+                />
+              </Svg>
+            </Pressable>
+          </View>
           <View style={styles.frameGroup}>
             <View style={[styles.path3391Parent, styles.groupParentFlexBox1]}>
-              <Image
-                style={styles.path3391Icon}
-                contentFit="cover"
-                source={require('../assets/path-3391.png')}
-              />
+              <Pressable onPress={() => setshowSwitch(!showSwitch)}>
+                <Image
+                  style={[
+                    styles.path3391Icon,
+
+                    showSwitch && styles.path3391IconRotate
+                  ]}
+                  contentFit="cover"
+                  source={require('../assets/path-3391.png')}
+                />
+              </Pressable>
               <Text style={[styles.ltimas24Horas, styles.ciclismoTypo]}>
                 Últimas 24 horas
               </Text>
             </View>
-            <View>
-              <View
-                style={[styles.ltimaSemanaParent, styles.groupParentFlexBox]}
-              >
-                <Text style={styles.ltimaSemanaTypo}>Últimas 24 horas</Text>
-                <Switch
-                  trackColor={{ false: '#767577', true: '#F25910' }}
-                  thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
-                  ios_backgroundColor="#3e3e3e"
-                  onValueChange={() => toggleSwitch(0)}
-                  value={switchStates[0]}
-                  style={styles.switch}
-                />
+            {showSwitch && (
+              <View style={styles.switches}>
+                <View
+                  style={[styles.ltimaSemanaParent, styles.groupParentFlexBox]}
+                >
+                  <Text style={styles.ltimaSemanaTypo}>Últimas 24 horas</Text>
+                  <Switch
+                    trackColor={{ false: '#767577', true: '#F25910' }}
+                    thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={() => toggleSwitch(0)}
+                    value={switchStates[0]}
+                    style={styles.switch}
+                  />
+                </View>
+                <View
+                  style={[styles.ltimaSemanaParent, styles.groupParentFlexBox]}
+                >
+                  <Text style={[styles.ltimaSemana, styles.ltimaSemanaTypo]}>
+                    Última semana
+                  </Text>
+                  <Switch
+                    trackColor={{ false: '#767577', true: '#F25910' }}
+                    thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={() => toggleSwitch(1)}
+                    value={switchStates[1]}
+                    style={styles.switch}
+                  />
+                </View>
+                <View
+                  style={[styles.ltimaSemanaParent, styles.groupParentFlexBox]}
+                >
+                  <Text style={[styles.ltimaSemana, styles.ltimaSemanaTypo]}>
+                    Último mes
+                  </Text>
+                  <Switch
+                    trackColor={{ false: '#767577', true: '#F25910' }}
+                    thumbColor={switchStates[2] ? '#FFFFFF' : '#FFFFFF'}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={() => toggleSwitch(2)}
+                    value={switchStates[2]}
+                    style={styles.switch}
+                  />
+                </View>
               </View>
-              <View
-                style={[styles.ltimaSemanaParent, styles.groupParentFlexBox]}
-              >
-                <Text style={[styles.ltimaSemana, styles.ltimaSemanaTypo]}>
-                  Última semana
-                </Text>
-                <Switch
-                  trackColor={{ false: '#767577', true: '#F25910' }}
-                  thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
-                  ios_backgroundColor="#3e3e3e"
-                  onValueChange={() => toggleSwitch(1)}
-                  value={switchStates[1]}
-                  style={styles.switch}
-                />
-              </View>
-              <View
-                style={[styles.ltimaSemanaParent, styles.groupParentFlexBox]}
-              >
-                <Text style={[styles.ltimaSemana, styles.ltimaSemanaTypo]}>
-                  Último mes
-                </Text>
-                <Switch
-                  trackColor={{ false: '#767577', true: '#F25910' }}
-                  thumbColor={switchStates[2] ? '#FFFFFF' : '#FFFFFF'}
-                  ios_backgroundColor="#3e3e3e"
-                  onValueChange={() => toggleSwitch(2)}
-                  value={switchStates[2]}
-                  style={styles.switch}
-                />
-              </View>
-            </View>
+            )}
           </View>
         </View>
         <View style={[styles.image84Parent, styles.parentBorder]}>
@@ -161,14 +202,29 @@ Fecha de la prueba: `}</Text>
 }
 
 const styles = StyleSheet.create({
-  frameParentPosition: {
-    left: '50%',
-    marginLeft: -180
-  },
   ciclismoTypo: {
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     textAlign: 'left'
+  },
+  switches: {
+    // backgroundColor: 'red',
+    width: '100%',
+    padding: 15,
+    borderRadius: Border.br_3xs,
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
+    shadowOffset: {
+      width: 2,
+      height: 2
+    },
+    shadowRadius: 4,
+    elevation: 4,
+    shadowOpacity: 1,
+    borderStyle: 'solid',
+    borderColor: Color.colorGainsboro_100,
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   groupParentFlexBox: {
     justifyContent: 'space-between',
@@ -237,13 +293,16 @@ const styles = StyleSheet.create({
   },
   ltimasConsultas: {
     fontSize: FontSize.size_5xl,
-    width: 186,
+    // width: 186,
     textAlign: 'left',
     color: Color.sportsVioleta
   },
   path3391Icon: {
-    width: 10,
-    height: 5
+    width: 15,
+    height: 10
+  },
+  path3391IconRotate: {
+    transform: [{ rotate: '180deg' }]
   },
   ltimas24Horas: {
     fontSize: FontSize.size_sm,
@@ -309,9 +368,7 @@ const styles = StyleSheet.create({
   frameGroup: {
     marginTop: 25
   },
-  ltimasConsultasParent: {
-    width: 320
-  },
+
   image84Icon: {
     borderTopLeftRadius: Border.br_3xs,
     borderBottomLeftRadius: Border.br_3xs,
@@ -365,9 +422,10 @@ const styles = StyleSheet.create({
     height: 17
   },
   frameParent: {
-    paddingTop: Padding.p_48xl,
-    paddingHorizontal: Padding.p_xl,
-    top: 0
+    paddingTop: 30,
+    paddingHorizontal: 15,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   icon: {
     height: '100%',
