@@ -9,10 +9,10 @@ const Maps = ({ onClose }) => {
   }
 
   const initialRegion = {
-    latitude: 37.78825,
-    longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421
+    latitude: 41.39185,
+    longitude: 2.18521,
+    latitudeDelta: 0.04,
+    longitudeDelta: 0.05
   }
 
   return (
@@ -132,7 +132,8 @@ const styles = StyleSheet.create({
     maxHeight: '100%'
   },
   mapView: {
-    minHeight: 400
+    minHeight: 400,
+    width: '100%'
   },
   markerIcon: {
     color: 'blue'
