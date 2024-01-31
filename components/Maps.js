@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, Text, ScrollView, Image } from 'react-native'
 import { Border, FontSize, FontFamily, Color, Padding } from '../GlobalStyles'
-import MapView, { Circle, Marker } from 'react-native-maps'
+import MapView, { Circle, Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 
 const Maps = ({ onClose }) => {
   const handleClose = () => {
@@ -22,14 +22,18 @@ const Maps = ({ onClose }) => {
     >
       <View style={styles.mapsInner}>
         <View style={styles.mapViewParent}>
-          <MapView initialRegion={initialRegion} style={styles.mapView}>
+          <MapView
+            initialRegion={initialRegion}
+            style={styles.mapView}
+            provider={PROVIDER_GOOGLE}
+          >
             <Circle
               center={initialRegion}
               radius={1000}
               strokeColor="#40036F"
               fillColor="rgba(101, 39, 148, 0.67)"
             />
-            <Marker coordinate={initialRegion} anchor={{ x: 0.3, y: 0.4 }}>
+            <Marker coordinate={initialRegion} anchor={{ x: 0.5, y: 0.5 }}>
               <Image
                 source={require('../assets/marker.png')}
                 style={{ width: 22, height: 26 }}
