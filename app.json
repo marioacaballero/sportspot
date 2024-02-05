@@ -1,9 +1,9 @@
 {
   "expo": {
-    "runtimeVersion": "1.0.0",
+    "runtimeVersion": "1.0.1",
     "name": "Aythen-Sport",
     "slug": "Aythen-Sport",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -12,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -34,9 +32,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "expo-font"
-    ],
+    "plugins": ["expo-font"],
     "extra": {
       "eas": {
         "projectId": "ac124ba8-62c5-44ac-ab0e-8da7a8b8e646"

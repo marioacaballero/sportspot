@@ -50,7 +50,11 @@ const InicioDeportista = () => {
     <ScrollView style={styles.inicioDeportista}>
       <View style={[styles.frameParent, styles.frameParentFlexBox]}>
         <View style={[styles.helloAshfakParent, styles.frameGroupFlexBox]}>
-          <Text style={[styles.helloAshfak, styles.imGoingToTypo]}>INICIO</Text>
+          {/* <Text style={[styles.helloAshfak, styles.imGoingToTypo]}>INICIO</Text> */}
+          <Image
+            style={styles.imageTop}
+            source={require('../assets/spotsport.png')}
+          />
           <View style={styles.groupParent}>
             <Pressable style={styles.wrapper} onPress={toggleModalPremium}>
               <Image
@@ -528,6 +532,11 @@ const styles = StyleSheet.create({
     color: Color.sportsVioleta,
     marginTop: 10,
     marginBottom: 20
+  },
+  imageTop: {
+    width: 100,
+    height: 25,
+    top: 3
   },
   goingTypo: {
     fontSize: FontSize.inputLabel_size,
