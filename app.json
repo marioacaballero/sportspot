@@ -1,9 +1,9 @@
 {
   "expo": {
     "runtimeVersion": "1.0.1",
-    "name": "Aythen-Sport",
-    "slug": "Aythen-Sport",
-    "version": "1.0.1",
+    "name": "SpotSportv1",
+    "slug": "pruebaapk",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -35,11 +35,12 @@
     "plugins": ["expo-font"],
     "extra": {
       "eas": {
-        "projectId": "ac124ba8-62c5-44ac-ab0e-8da7a8b8e646"
+        "projectId": "eb1bc1b8-9cfe-4242-a8ed-974f7e366c4c"
       }
     },
     "updates": {
       "url": "https://u.expo.dev/ac124ba8-62c5-44ac-ab0e-8da7a8b8e646"
-    }
+    },
+    "owner": "crisper1988"
   }
 }
