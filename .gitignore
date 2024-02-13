@@ -1,6 +1,8 @@
 # compiled output
-/dist
-/node_modules
+
+client/node_modules/
+api-sport/node_modules/
+api-sport/dist/
 
 # Logs
 logs
