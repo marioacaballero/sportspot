@@ -1,19 +1,24 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { Text, StyleSheet, Pressable, View, Modal, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import Maps from '../components/Maps'
 import Sports from '../components/Sports'
 import Calendario from '../components/Calendar'
 import { Padding, FontFamily, Border, FontSize, Color } from '../GlobalStyles'
+import { useDispatch } from 'react-redux'
+import { getAllSports } from '../redux/actions/sports'
 
 const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
   const navigation = useNavigation()
+  const dispatch = useDispatch()
   const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
   const [frameContainer8Visible, setFrameContainer8Visible] = useState(false)
   const [frameContainer10Visible, setFrameContainer10Visible] = useState(false)
   const [selected, setSelected] = useState(null)
 
-  console.log('select4ed', selected)
+  useEffect(() => {
+    dispatch(getAllSports())
+  }, [])
 
   const openFrameContainer6 = useCallback(() => {
     setFrameContainer6Visible(true)
