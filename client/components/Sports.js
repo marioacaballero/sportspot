@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { Svg, G, Path, Defs, ClipPath, Rect } from 'react-native-svg'
 import { FontSize, Color, FontFamily, Border, Padding } from '../GlobalStyles'
+import { useSelector } from 'react-redux'
 
 const Sports = ({ onClose }) => {
+  const { sports } = useSelector((state) => state.sports)
   const [showColor, setShowColor] = useState(null)
 
   const handleClose = () => {
@@ -84,7 +86,7 @@ const Sports = ({ onClose }) => {
             </View>
           </TouchableOpacity>
 
-          <Text style={styles.ftbol}>Basket</Text>
+          <Text style={styles.ftbol}>{sports[0]}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity>
@@ -120,7 +122,7 @@ const Sports = ({ onClose }) => {
               </Svg>
             </View>
           </TouchableOpacity>
-          <Text style={styles.ftbol}>Futbol</Text>
+          <Text style={styles.ftbol}>{sports[1]}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity>
@@ -156,7 +158,7 @@ const Sports = ({ onClose }) => {
               </Svg>
             </View>
           </TouchableOpacity>
-          <Text style={styles.ftbol}>Futbol</Text>
+          <Text style={styles.ftbol}>{sports[2]}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity>
@@ -196,7 +198,7 @@ const Sports = ({ onClose }) => {
               </Svg>
             </View>
           </TouchableOpacity>
-          <Text style={styles.ftbol}>Handball</Text>
+          <Text style={styles.ftbol}>{sports[3]}</Text>
         </TouchableOpacity>
       </View>
       <View
@@ -243,7 +245,7 @@ const Sports = ({ onClose }) => {
               </Svg>
             </View>
           </TouchableOpacity>
-          <Text style={styles.ftbol}>Ciclismo</Text>
+          <Text style={styles.ftbol}>{sports[4]}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity>
@@ -279,7 +281,7 @@ const Sports = ({ onClose }) => {
               </Svg>
             </View>
           </TouchableOpacity>
-          <Text style={styles.ftbol}>Tenis</Text>
+          <Text style={styles.ftbol}>{sports[5]}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity>
@@ -326,7 +328,7 @@ const Sports = ({ onClose }) => {
               </Svg>
             </View>
           </TouchableOpacity>
-          <Text style={styles.ftbol}>Running</Text>
+          <Text style={styles.ftbol}>{sports[6]}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity>
@@ -362,7 +364,7 @@ const Sports = ({ onClose }) => {
               </Svg>
             </View>
           </TouchableOpacity>
-          <Text style={styles.ftbol}>Hockey</Text>
+          <Text style={styles.ftbol}>{sports[7]}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.helloAshfakWrapper}>

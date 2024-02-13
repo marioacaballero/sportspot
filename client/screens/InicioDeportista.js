@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Text,
   StyleSheet,
@@ -15,10 +15,12 @@ import PopupPremium from '../components/PopupPremium'
 import InicioNotificaciones from './InicioNotificaciones'
 import InicioBUSCADOR from './InicioBUSCADOR'
 import InicioOrganizador from './InicioOrganizador'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllEvents } from '../redux/actions/events'
 
 const InicioDeportista = () => {
   const navigation = useNavigation()
+  const dispatch = useDispatch()
   const { user } = useSelector((state) => state.users)
   const { events } = useSelector((state) => state.events)
 
@@ -29,6 +31,10 @@ const InicioDeportista = () => {
   const [modalOrganizador, setModalOrganizador] = useState(false)
 
   const [mostrarInicioBuscador, setMostrarInicioBuscador] = useState(false)
+
+  useEffect(() => {
+    dispatch(getAllEvents())
+  }, [])
 
   const handleBuscarPress = () => {
     setMostrarInicioBuscador(true)

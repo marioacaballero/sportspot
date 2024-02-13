@@ -1,34 +1,31 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { getAllEvents } from '../actions/events'
 
 export const eventsSlices = createSlice({
   name: 'events',
   initialState: {
-    events: [
-      {
-        id: 1,
-        image: require('../../assets/image-941.png'),
-        title: 'Torneo de baloncesto',
-        subTitle: 'Lorem ipsum dolor sit amet.',
-        header: '¡La inscripción acaba en 10 horas!'
-      },
-      {
-        id: 2,
-        image: require('../../assets/image-942.png'),
-        title: 'Ciclismo',
-        subTitle: 'Lorem ipsum dolor sit amet.',
-        header: '¡La inscripción acaba en 10 horas!'
-      },
-      {
-        id: 3,
-        image: require('../../assets/image-943.png'),
-        title: 'Ciclismo',
-        subTitle: 'Lorem ipsum dolor sit amet.',
-        header: '¡La inscripción acaba en 10 horas!'
-      }
-    ],
-    event: {}
+    events: [],
+    event: {},
+    loading: false
   },
-  reducers: {}
+  reducers: {},
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(getAllEvents.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(getAllEvents.fulfilled, (state, action) => {
+        state.loading = false
+        state.events = action.payload
+        state.error = null
+      })
+      .addCase(getAllEvents.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+  }
 })
 
 export default eventsSlices.reducer
