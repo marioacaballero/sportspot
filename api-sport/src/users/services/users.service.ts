@@ -11,14 +11,13 @@ export class UsersService {
     private readonly userRepository: Repository<UserEntity>
   ) {}
 
-  public async getAllService() {
-    return await this.userRepository.find({ where: { isDelete: false } })
-  }
-
   public async createService(body: UserDTO) {
     return await this.userRepository.save(body)
   }
 
+  public async getAllService() {
+    return await this.userRepository.find({ where: { isDelete: false } })
+  }
   public async getOneService(id) {
     return await this.userRepository
       .createQueryBuilder('user')
@@ -27,7 +26,8 @@ export class UsersService {
   }
 
   public async deleteService(id) {
-    return await this.userRepository.update(id, { isDelete: true })
+    await this.userRepository.update(id, { isDelete: true })
+    return await this.getOneService(id)
   }
 
   public async updateService(
