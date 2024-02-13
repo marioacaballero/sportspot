@@ -19,6 +19,6 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService) //para usar variable de entorno
   await app.listen(+configService.get('PORT') || 3000)
-  console.log(`Api running on: ${await app.getUrl()}`)
+  console.log(`Api running on: localhost:3000`)
 }
 bootstrap()
