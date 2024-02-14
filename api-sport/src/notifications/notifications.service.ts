@@ -1,26 +1,59 @@
-import { Injectable } from '@nestjs/common';
-import { CreateNotificationDto } from './dto/create-notification.dto';
-import { UpdateNotificationDto } from './dto/update-notification.dto';
+import { Injectable } from '@nestjs/common'
+import { CreateNotificationDto } from './dto/create-notification.dto'
+import { UpdateNotificationDto } from './dto/update-notification.dto'
+import { Repository } from 'typeorm'
+import { InjectRepository } from '@nestjs/typeorm'
+import { NotificationEntity } from './entities/notification.entity'
 
 @Injectable()
 export class NotificationsService {
-  create(createNotificationDto: CreateNotificationDto) {
-    return 'This action adds a new notification';
+  constructor(
+    @InjectRepository(NotificationEntity)
+    private readonly notificationsRepository: Repository<NotificationEntity>
+  ) {}
+  public async createService(createNotificationDto: CreateNotificationDto) {
+    return await this.notificationsRepository.save(createNotificationDto)
   }
 
-  findAll() {
-    return `This action returns all notifications`;
+  public async getAllService() {
+    return await this.notificationsRepository.find({
+      where: { isDelete: false }
+    })
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} notification`;
+  public async getOneService(id: string) {
+    return await this.notificationsRepository
+      .createQueryBuilder('event')
+      .where({ id })
+      .getOne()
   }
 
-  update(id: number, updateNotificationDto: UpdateNotificationDto) {
-    return `This action updates a #${id} notification`;
+  public async updateService(
+    id: string,
+    updateNotificationDto: UpdateNotificationDto
+  ): Promise<NotificationEntity> {
+    const notifications = await this.notificationsRepository
+      .createQueryBuilder('sport')
+      .where({ id })
+      .getOne()
+
+    if (!notifications) {
+      throw new Error(`Deporte con ID ${id} no encontrado`)
+    }
+
+    notifications.title = updateNotificationDto.title
+    notifications.message = updateNotificationDto.message
+    notifications.date = updateNotificationDto.date
+    notifications.eventType = updateNotificationDto.eventType
+    notifications.eventId = updateNotificationDto.eventId
+    notifications.recipientId = updateNotificationDto.recipientId
+    notifications.read = updateNotificationDto.read
+
+    return await this.notificationsRepository.save(notifications)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} notification`;
+  public async deleteService(id) {
+    await this.notificationsRepository.update(id, { isDelete: true })
+    return await this.getOneService(id)
   }
 }
