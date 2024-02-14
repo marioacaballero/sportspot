@@ -1,5 +1,6 @@
-import { Entity, Column } from 'typeorm'
+import { Entity, Column, ManyToOne } from 'typeorm'
 import { BaseEntity } from 'src/config/base.entity'
+import { UserEntity } from 'src/users/entities/users.entity'
 
 @Entity({ name: 'notification' })
 export class NotificationEntity extends BaseEntity {
@@ -23,4 +24,7 @@ export class NotificationEntity extends BaseEntity {
 
   @Column({ default: false })
   read: boolean
+
+  @ManyToOne(() => UserEntity, (user) => user.notifications)
+  recipient: UserEntity
 }
