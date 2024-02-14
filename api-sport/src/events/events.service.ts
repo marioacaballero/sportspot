@@ -1,26 +1,59 @@
-import { Injectable } from '@nestjs/common';
-import { CreateEventDto } from './dto/create-event.dto';
-import { UpdateEventDto } from './dto/update-event.dto';
+import { Injectable } from '@nestjs/common'
+import { CreateEventDto } from './dto/create-event.dto'
+import { UpdateEventDto } from './dto/update-event.dto'
+import { Repository } from 'typeorm'
+import { InjectRepository } from '@nestjs/typeorm'
+import { EventEntity } from './entities/event.entity'
 
 @Injectable()
 export class EventsService {
-  create(createEventDto: CreateEventDto) {
-    return 'This action adds a new event';
+  constructor(
+    @InjectRepository(EventEntity)
+    private readonly eventsRepository: Repository<EventEntity>
+  ) {}
+
+  public async createService(createEventDto: CreateEventDto) {
+    return await this.eventsRepository.save(createEventDto)
   }
 
-  findAll() {
-    return `This action returns all events`;
+  public async getAllService() {
+    return await this.eventsRepository.find({ where: { isDelete: false } })
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} event`;
+  public async getOneService(id: string) {
+    return await this.eventsRepository
+      .createQueryBuilder('event')
+      .where({ id })
+      .getOne()
   }
 
-  update(id: number, updateEventDto: UpdateEventDto) {
-    return `This action updates a #${id} event`;
+  public async updateService(
+    id: string,
+    updateEventDto: UpdateEventDto
+  ): Promise<EventEntity> {
+    const event = await this.eventsRepository
+      .createQueryBuilder('sport')
+      .where({ id })
+      .getOne()
+
+    if (!event) {
+      throw new Error(`Deporte con ID ${id} no encontrado`)
+    }
+
+    event.title = updateEventDto.title
+    event.sport = updateEventDto.sport
+    event.description = updateEventDto.description
+    event.price = updateEventDto.price
+    event.modality = updateEventDto.modality
+    event.location = updateEventDto.location
+    event.dateStart = updateEventDto.dateStart
+    event.dateInscription = updateEventDto.dateInscription
+
+    return await this.eventsRepository.save(event)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} event`;
+  public async deleteService(id) {
+    await this.eventsRepository.update(id, { isDelete: true })
+    return await this.getOneService(id)
   }
 }
