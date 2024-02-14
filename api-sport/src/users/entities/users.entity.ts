@@ -1,6 +1,7 @@
 // usuario.entity.ts
 import { BaseEntity } from 'src/config/base.entity'
-import { Entity, Column } from 'typeorm'
+import { NotificationEntity } from 'src/notifications/entities/notification.entity'
+import { Entity, Column, OneToMany } from 'typeorm'
 
 @Entity({ name: 'user' })
 export class UserEntity extends BaseEntity {
@@ -12,4 +13,7 @@ export class UserEntity extends BaseEntity {
 
   @Column()
   password: string
+
+  @OneToMany(() => NotificationEntity, (notification) => notification.recipient)
+  notifications: NotificationEntity[]
 }
