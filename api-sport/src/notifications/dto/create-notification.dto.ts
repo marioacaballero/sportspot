@@ -1,4 +1,6 @@
 import { IsBoolean, IsNotEmpty, IsString, IsDate } from 'class-validator'
+import { UserEntity } from 'src/users/entities/users.entity'
+import { ManyToOne } from 'typeorm'
 
 export class CreateNotificationDto {
   @IsNotEmpty()
@@ -28,4 +30,7 @@ export class CreateNotificationDto {
   @IsNotEmpty()
   @IsBoolean()
   read: boolean = false
+
+  @ManyToOne(() => UserEntity, (user) => user.notifications)
+  recipient: UserEntity
 }
