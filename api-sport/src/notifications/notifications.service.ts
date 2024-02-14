@@ -4,15 +4,35 @@ import { UpdateNotificationDto } from './dto/update-notification.dto'
 import { Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 import { NotificationEntity } from './entities/notification.entity'
+import { UserEntity } from 'src/users/entities/users.entity'
 
 @Injectable()
 export class NotificationsService {
   constructor(
     @InjectRepository(NotificationEntity)
-    private readonly notificationsRepository: Repository<NotificationEntity>
+    private readonly notificationsRepository: Repository<NotificationEntity>,
+    @InjectRepository(UserEntity)
+    private readonly usersRepository: Repository<UserEntity>
   ) {}
+
   public async createService(createNotificationDto: CreateNotificationDto) {
-    return await this.notificationsRepository.save(createNotificationDto)
+    const user = await this.usersRepository
+      .createQueryBuilder('user')
+      .where({ id: createNotificationDto.recipientId })
+      .getOne()
+
+    if (!user) {
+      throw new Error(
+        `Usuario con ID ${createNotificationDto.recipientId} no encontrado`
+      )
+    }
+
+    const notification = this.notificationsRepository.create(
+      createNotificationDto
+    )
+    notification.recipient = user
+
+    return await this.notificationsRepository.save(notification)
   }
 
   public async getAllService() {
