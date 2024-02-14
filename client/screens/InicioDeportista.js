@@ -52,6 +52,8 @@ const InicioDeportista = () => {
     setModalOrganizador(!modalOrganizador)
   }
 
+  console.log(events)
+
   return (
     <ScrollView style={styles.inicioDeportista}>
       <View style={[styles.frameParent, styles.frameParentFlexBox]}>
@@ -216,7 +218,7 @@ const InicioDeportista = () => {
                   <Image
                     style={[styles.image94Icon, styles.image94IconLayout]}
                     contentFit="cover"
-                    source={event.image}
+                    source={'/assets/info.png'}
                   />
                   <View
                     style={[
@@ -460,7 +462,7 @@ const InicioDeportista = () => {
               </View>
               <View style={[styles.image94ParentShadowBox, styles.marginCard]}>
                 <Image
-                  style={[styles.image94Icon, styles.image94IconLayout]}
+                  style={styles.image94Icon}
                   contentFit="cover"
                   source={require('../assets/image-945.png')}
                 />
