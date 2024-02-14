@@ -229,7 +229,7 @@ const InicioDeportista = () => {
                     </Text>
                     <View style={styles.minParent}>
                       <Text style={[styles.min, styles.minClr]}>
-                        {event.subTitle}
+                        {event.description}
                       </Text>
                       <Text style={[styles.min1, styles.minTypo1]}>
                         {event.header}
