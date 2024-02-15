@@ -46,7 +46,7 @@ export class EventEntity extends BaseEntity {
   creator: UserEntity
 
   // Relación de muchos a muchos con los usuarios suscritos
-  @ManyToMany(() => UserEntity)
+  @ManyToMany(() => UserEntity, (user) => user.events)
   @JoinTable()
   suscribers: UserEntity[]
 
