@@ -131,4 +131,4 @@ $ npm run test:cov
 
 ## Comentarios
 
-- Esta estructura de base de datos proporciona una base sólida para tu aplicación de eventos deportivos y debería ser flexible para adaptarse a futuras expansiones o modificaciones.
+- Esta estructura de base de datos proporciona una base sólida para la aplicación de eventos deportivos y debería ser flexible para adaptarse a futuras expansiones o modificaciones.
