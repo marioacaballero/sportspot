@@ -1,5 +1,6 @@
 import { BaseEntity } from 'src/config/base.entity'
-import { Entity, Column } from 'typeorm'
+import { EventEntity } from 'src/events/entities/event.entity'
+import { Entity, Column, OneToMany } from 'typeorm'
 
 @Entity({ name: 'sport' })
 export class SportEntity extends BaseEntity {
@@ -11,4 +12,7 @@ export class SportEntity extends BaseEntity {
 
   @Column({ nullable: true })
   description: string | null
+
+  @OneToMany(() => EventEntity, (event) => event.sport)
+  events: EventEntity[]
 }
