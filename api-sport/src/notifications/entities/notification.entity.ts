@@ -1,6 +1,7 @@
 import { Entity, Column, ManyToOne } from 'typeorm'
 import { BaseEntity } from 'src/config/base.entity'
 import { UserEntity } from 'src/users/entities/users.entity'
+import { EventEntity } from 'src/events/entities/event.entity'
 
 @Entity({ name: 'notification' })
 export class NotificationEntity extends BaseEntity {
@@ -27,4 +28,7 @@ export class NotificationEntity extends BaseEntity {
 
   @ManyToOne(() => UserEntity, (user) => user.notifications)
   recipient: UserEntity
+
+  @ManyToOne(() => EventEntity, (event) => event.notifications)
+  event: EventEntity
 }
