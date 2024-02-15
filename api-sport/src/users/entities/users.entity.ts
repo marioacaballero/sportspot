@@ -19,10 +19,10 @@ export class UserEntity extends BaseEntity {
   notifications: NotificationEntity[]
 
   // Relación de uno a muchos con los eventos creados
-
   @OneToMany(() => EventEntity, (event) => event.creator)
   eventsCreated: EventEntity[]
 
+  // Relación de muchos a muchos con los eventos suscritos
   @ManyToMany(() => EventEntity, (event) => event.suscribers)
   events: EventEntity[]
 }
