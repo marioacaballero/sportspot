@@ -41,7 +41,7 @@ export class EventsService {
     }
 
     event.title = updateEventDto.title
-    event.sport = updateEventDto.sport
+    event.sportId = updateEventDto.sportId
     event.description = updateEventDto.description
     event.price = updateEventDto.price
     event.modality = updateEventDto.modality
