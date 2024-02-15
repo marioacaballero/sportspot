@@ -1,31 +1,3 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
 ## Installation
 
 ```bash
@@ -58,16 +30,105 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+# Desarrollo del Back-End
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Tablas y Relaciones en la Base de Datos:
 
-## Stay in touch
+### 1. Usuarios:
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Campos:
 
-## License
+  ```JSON
+   "id": Clave primaria, identificador único del usuario.
+   "name": Nombre del usuario.
+   "email": Correo electrónico del usuario.
+   "password": Contraseña del usuario (hash).
+   Otros campos según sea necesario.
+  ```
 
-Nest is [MIT licensed](LICENSE).
+- Relaciones:
+
+  - Relación con Eventos:
+
+    - Tipo: Uno a muchos (Un usuario puede crear múltiples eventos, pero un evento solo puede tener un creador).
+    - Clave Foránea: id_usuario en la tabla de Eventos.
+
+  - Relación con Notificaciones:
+    - Tipo: Uno a muchos (Un usuario puede recibir múltiples notificaciones).
+    - Clave Foránea: (notifications)id_usuario en la tabla de Notificaciones.
+
+### 2. Deporte:
+
+- Campos:
+
+  ```JSON
+   "id": Clave primaria, identificador único del deporte.
+   "name": Nombre del deporte.
+   "type":tipo de deporte.
+   "descripción": Descripción del deporte.
+   Otros campos según sea necesario.
+  ```
+
+- Relaciones:
+  - Relación con Eventos:
+    - Tipo: Uno a muchos (Un deporte puede estar asociado con múltiples eventos).
+    - Clave Foránea: id_deporte en la tabla de Eventos.
+
+### 3. Notificaciones:
+
+- Campos:
+
+  ```JSON
+   "id": Clave primaria, identificador único de la notificación.
+   "id_usuario": Clave foránea que hace referencia al usuario al que se dirige la notificación.
+   "title": titulo de la notificacion.
+   "message": Contenido del mensaje de la notificación.
+   "date": Fecha en que se creó la notificación.
+   "eventType": tipo de evento al cual pertenece la notificacion.
+   "eventId": clave foranera del evento al cual pertenece.
+   "recipientId": clave foranera del usuario al cual esta destinada.
+   "read": Estado de la notificación (leída/no leída).
+   "tipo_de_notificación": (opcional) Tipo de notificación (por ejemplo, tipo de evento relacionado).
+   -Otros campos según sea necesario.
+  ```
+
+- Relaciones:
+
+  - Relación con Usuarios:
+    - Tipo: Muchos a uno (Múltiples notificaciones pueden estar dirigidas a un usuario).
+    - Clave Foránea: id_usuario de la tabla de Usuarios.
+  - Relación con Eventos:
+    - Tipo: Muchos a uno (Una notificación puede estar asociada con un evento).
+    - Clave Foránea: id_evento de la tabla de Eventos.
+
+### 4. Eventos:
+
+- Campos:
+
+  ```JSON
+
+   "id": Clave primaria, identificador único del evento.
+   "title": Título del evento.
+   "description": Descripción del evento.
+   "modality": Modalidad del evento
+   "imagen_del_evento": Imagen relacionada con el evento.(ver como)
+   "price": Precio del evento.
+   "location": Ubicación donde se llevará a cabo el evento.
+   "dateStart": Fecha de inicio del evento.
+   "dateInscription": Fecha de cierre de la inscripcion del evento.
+   "sport": Clave foránea que hace referencia al deporte al que está asociado el evento.
+   "userId": Clave foránea que hace referencia al usuario creador del evento.
+   -Otros campos según sea necesario.
+  ```
+
+- Relaciones:
+  - Relación con Usuarios:
+    - Tipo: Muchos a uno (Un evento solo puede tener un creador).
+    - Clave Foránea: id_usuario en la tabla de Usuarios.
+  - Relación con Deporte:
+    - Tipo: Muchos a uno (Un evento está asociado con un único deporte).
+    - Clave Foránea: id_deporte en la tabla de Deporte.
+
+## Comentarios
+
+- Esta estructura de base de datos proporciona una base sólida para tu aplicación de eventos deportivos y debería ser flexible para adaptarse a futuras expansiones o modificaciones.

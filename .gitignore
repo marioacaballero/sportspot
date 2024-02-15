@@ -3,7 +3,7 @@
 client/node_modules/
 api-sport/node_modules/
 api-sport/dist/
-
+api-sport/.env
 # Logs
 logs
 *.log
