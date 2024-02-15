@@ -4,11 +4,13 @@ import {
   NumericType,
   ManyToOne,
   ManyToMany,
-  JoinTable
+  JoinTable,
+  OneToMany
 } from 'typeorm'
 import { BaseEntity } from 'src/config/base.entity'
 import { SportEntity } from 'src/sports/entities/sport.entity'
 import { UserEntity } from 'src/users/entities/users.entity'
+import { NotificationEntity } from 'src/notifications/entities/notification.entity'
 
 @Entity({ name: 'event' })
 export class EventEntity extends BaseEntity {
@@ -47,4 +49,7 @@ export class EventEntity extends BaseEntity {
   @ManyToMany(() => UserEntity)
   @JoinTable()
   suscribers: UserEntity[]
+
+  @OneToMany(() => NotificationEntity, (notification) => notification.event)
+  notifications: NotificationEntity[]
 }
