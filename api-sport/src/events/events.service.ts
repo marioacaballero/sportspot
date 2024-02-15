@@ -24,6 +24,9 @@ export class EventsService {
     return await this.eventsRepository
       .createQueryBuilder('event')
       .where({ id })
+      .leftJoinAndSelect('event.sport', 'sport')
+      .leftJoinAndSelect('event.creator', 'creator')
+      .leftJoinAndSelect('event.suscribers', 'suscribers')
       .getOne()
   }
 
