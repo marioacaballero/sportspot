@@ -85,26 +85,7 @@ export default function SignIn({ navigation }) {
                 {'Iniciar sesión con Apple'}
               </Text>
             </View>
-            <View
-              style={{
-                alignItems: 'center',
-                backgroundColor: '#E2DCEC',
-                borderRadius: 50,
-                paddingVertical: 20,
-                marginBottom: 10,
-                marginHorizontal: 21
-              }}
-            >
-              <Text
-                style={{
-                  color: '#40036F',
-                  fontSize: 18
-                }}
-                onPress={() => navigation.navigate('IniciarSesin')}
-              >
-                {'Iniciar sesión sin registro'}
-              </Text>
-            </View>
+
             <View
               style={{
                 alignItems: 'center',
@@ -123,6 +104,23 @@ export default function SignIn({ navigation }) {
                 onPress={() => navigation.navigate('Registrarse')}
               >
                 {'Registrarse'}
+              </Text>
+            </View>
+            <View
+              style={{
+                alignItems: 'center',
+                paddingVertical: 10,
+                marginHorizontal: 21
+              }}
+            >
+              <Text
+                style={{
+                  color: '#E2DCEC',
+                  fontSize: 18
+                }}
+                onPress={() => navigation.navigate('IniciarSesin')}
+              >
+                {'Iniciar sesión sin registro'}
               </Text>
             </View>
           </View>
