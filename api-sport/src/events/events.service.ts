@@ -16,8 +16,12 @@ export class EventsService {
     return await this.eventsRepository.save(createEventDto)
   }
 
-  public async getAllService() {
-    return await this.eventsRepository.find({ where: { isDelete: false } })
+  public async getAllService(query: { [key: string]: any }) {
+    const where = { isDelete: false }
+    Object.keys(query).forEach((key) => {
+      where[key] = query[key]
+    })
+    return await this.eventsRepository.find({ where })
   }
 
   public async getOneService(id: string) {
@@ -51,6 +55,9 @@ export class EventsService {
     event.location = updateEventDto.location
     event.dateStart = updateEventDto.dateStart
     event.dateInscription = updateEventDto.dateInscription
+    event.favorite = updateEventDto.favorite
+
+    console.log(event)
 
     return await this.eventsRepository.save(event)
   }
