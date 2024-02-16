@@ -35,14 +35,11 @@ export class NotificationsService {
     return await this.notificationsRepository.save(notification)
   }
 
-  public async getAllService(query) {
+  public async getAllService(query: { [key: string]: any }) {
     const where = { isDelete: false }
-    if (query.userId) {
-      where['recipientId'] = query.userId
-    }
-    if (query.read !== undefined) {
-      where['read'] = query.read
-    }
+    Object.keys(query).forEach((key) => {
+      where[key] = query[key]
+    })
     return await this.notificationsRepository.find({ where })
   }
 
