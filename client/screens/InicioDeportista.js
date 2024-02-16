@@ -204,9 +204,9 @@ const InicioDeportista = () => {
               horizontal={true}
               showsHorizontalScrollIndicator={false}
             >
-              {events.map((event, i) => (
+              {events?.map((event, i) => (
                 <View
-                  key={event.id}
+                  key={i}
                   style={
                     i === 0
                       ? styles.image94ParentShadowBox1
@@ -225,14 +225,14 @@ const InicioDeportista = () => {
                     ]}
                   >
                     <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                      {event.title}
+                      {event?.title}
                     </Text>
                     <View style={styles.minParent}>
                       <Text style={[styles.min, styles.minClr]}>
-                        {event.description}
+                        {event?.description}
                       </Text>
                       <Text style={[styles.min1, styles.minTypo1]}>
-                        {event.header}
+                        {event?.header}
                       </Text>
                     </View>
                   </View>
