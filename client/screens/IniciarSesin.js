@@ -5,8 +5,7 @@ import {
   View,
   Pressable,
   Image,
-  TextInput,
-  ScrollView
+  TextInput
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 // import { useNavigation } from '@react-navigation/native'
@@ -18,46 +17,44 @@ const IniciarSesin = ({ navigation }) => {
   return (
     <LinearGradient
       style={styles.iniciarSesin}
-      locations={[0, 0.13, 0.37, 0.64, 0.88, 1]}
-      colors={['#f25910', '#f7b99c', '#fff', '#fef8f5', '#642794', '#40036f']}
+      colors={['#F25910', '#F6B99C', '#FFF', '#FEF8F5', '#40036F']}
+      locations={[0, 0.2, 0.5, 0.8, 1]}
+      start={{ x: 0.3, y: 0 }}
+      end={{ x: 1, y: 0.8 }}
     >
-      <ScrollView>
-        <View style={styles.frameParent}>
-          <View style={styles.capturaDePantalla20231024Parent}>
-            <Image
-              style={styles.capturaDePantalla20231024Icon}
-              contentFit="cover"
-              source={require('../assets/spotsport.png')}
-            />
-            <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>
-          </View>
-          <View style={styles.frameGroup}>
-            <View
-              style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}
-            >
-              <TextInput
-                style={[styles.nombreDeUsuario, styles.entrarTypo]}
-                placeholder="Nombre de usuario"
-              />
-            </View>
-            <View style={[styles.contraseaWrapper, styles.wrapperFlexBox]}>
-              <TextInput
-                style={[styles.nombreDeUsuario, styles.entrarTypo]}
-                placeholder="Contraseña"
-              />
-            </View>
-            <Pressable
-              style={[styles.entrarWrapper, styles.wrapperFlexBox]}
-              onPress={() => navigation.navigate('InicioDeportista')}
-            >
-              <Text style={[styles.entrar, styles.entrarTypo]}>Entrar</Text>
-            </Pressable>
-            <Text style={[styles.hasOlvidadoTu, styles.entrarTypo]}>
-              ¿Has olvidado tu contraseña?
-            </Text>
-          </View>
+      <View style={styles.frameParent}>
+        <View style={styles.capturaDePantalla20231024Parent}>
+          <Image
+            style={styles.capturaDePantalla20231024Icon}
+            contentFit="cover"
+            source={require('../assets/spotsport.png')}
+          />
+          <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>
         </View>
-      </ScrollView>
+        <View style={styles.frameGroup}>
+          <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
+            <TextInput
+              style={[styles.nombreDeUsuario, styles.entrarTypo]}
+              placeholder="Nombre de usuario"
+            />
+          </View>
+          <View style={[styles.contraseaWrapper, styles.wrapperFlexBox]}>
+            <TextInput
+              style={[styles.nombreDeUsuario, styles.entrarTypo]}
+              placeholder="Contraseña"
+            />
+          </View>
+          <Pressable
+            style={[styles.entrarWrapper, styles.wrapperFlexBox]}
+            onPress={() => navigation.navigate('InicioDeportista')}
+          >
+            <Text style={[styles.entrar, styles.entrarTypo]}>Entrar</Text>
+          </Pressable>
+          <Text style={[styles.hasOlvidadoTu, styles.entrarTypo]}>
+            ¿Has olvidado tu contraseña?
+          </Text>
+        </View>
+      </View>
     </LinearGradient>
   )
 }
@@ -151,10 +148,9 @@ const styles = StyleSheet.create({
     // left: '50%',
     justifyContent: 'space-between',
     paddingHorizontal: Padding.p_2xl,
-    paddingTop: Padding.p_181xl,
+    marginTop: '35%',
     paddingBottom: Padding.p_152xl,
-    alignItems: 'center',
-    height: 700
+    alignItems: 'center'
   },
   iniciarSesin: {
     flex: 1,

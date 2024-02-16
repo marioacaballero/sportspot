@@ -13,7 +13,10 @@ export default function SignIn({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
-        colors={['#F25910', '#F6B99C', '#FFF', '#FEF8F5', '#652794', '#40036F']}
+        colors={['#F25910', '#F6B99C', '#FFF', '#FEF8F5', '#40036F']}
+        locations={[0, 0.2, 0.5, 0.8, 1]}
+        start={{ x: 0.3, y: 0 }}
+        end={{ x: 1, y: 0.8 }}
         style={styles.linearGradient}
       >
         <ScrollView>
@@ -26,7 +29,7 @@ export default function SignIn({ navigation }) {
             style={{
               color: '#F25910',
               fontSize: 22,
-              marginBottom: 63,
+              marginBottom: 43,
               alignSelf: 'center'
               // marginHorizontal: 47
             }}
@@ -37,14 +40,13 @@ export default function SignIn({ navigation }) {
             style={{
               color: '#F25910',
               fontSize: 40,
-              marginBottom: 9,
               alignSelf: 'center'
               // marginHorizontal: 45
             }}
           >
             {'Bienvenido/a'}
           </Text>
-          <View style={{ marginTop: 40 }}>
+          <View style={{ marginTop: 20 }}>
             <View
               style={{
                 alignItems: 'center',
@@ -136,6 +138,7 @@ const styles = StyleSheet.create({
     height: 69,
     marginVertical: 60,
     marginBottom: 11,
+    marginTop: '20%',
     alignSelf: 'center'
   },
   container: {
@@ -146,7 +149,6 @@ const styles = StyleSheet.create({
   },
   linearGradient: {
     flex: 1,
-    width: '100%',
-    alignContent: 'center'
+    width: '100%'
   }
 })

@@ -19,8 +19,10 @@ const Bienvenida = () => {
     <>
       <LinearGradient
         style={styles.bienvenida}
-        locations={[0, 0.13, 0.37, 0.64, 0.88, 1]}
-        colors={['#f25910', '#f7b99c', '#fff', '#fef8f5', '#642794', '#40036f']}
+        colors={['#F25910', '#F6B99C', '#FFF', '#FEF8F5', '#40036F']}
+        locations={[0, 0.2, 0.5, 0.8, 1]}
+        start={{ x: 0.3, y: 0 }}
+        end={{ x: 1, y: 0.8 }}
       >
         <View style={styles.bienvenidaInner}>
           <View style={styles.capturaDePantalla20231024Wrapper}>

@@ -48,6 +48,16 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
     <>
       <View style={styles.frameContainer}>
         <Pressable
+          onPress={() => setMostrarInicioBuscador(false)}
+          style={styles.arrowContainer}
+        >
+          <Image
+            style={styles.icon}
+            contentFit="cover"
+            source={require('../assets/up-arrow.png')}
+          />
+        </Pressable>
+        <Pressable
           style={[styles.frameWrapper, styles.frameWrapperSpaceBlock]}
           onPress={openFrameContainer6}
         >
@@ -139,31 +149,13 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
 }
 
 const styles = StyleSheet.create({
-  image94IconLayout: {
-    width: '100%',
-    overflow: 'hidden'
-  },
-  frameParentPosition: {
-    paddingHorizontal: Padding.p_xl,
-    width: 360,
-    left: 0,
-    position: 'absolute'
-  },
-  frameGroupFlexBox: {
-    justifyContent: 'space-between',
-    flexDirection: 'row'
-  },
   helloTypo1: {
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
-  iconLayout: {
-    height: '100%',
-    width: '100%'
-  },
-  frameGroupSpaceBlock: {
-    paddingVertical: 0,
-    alignSelf: 'stretch'
+  arrowContainer: {
+    left: '87%',
+    marginBottom: '3%'
   },
   frameWrapperSpaceBlock: {
     padding: Padding.p_3xs,
@@ -182,21 +174,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  goingClr: {
-    color: Color.sportsNaranja,
-    fontSize: FontSize.inputLabel_size,
-    alignSelf: 'stretch'
-  },
-  minClr: {
-    color: Color.colorGray_100,
-    fontSize: FontSize.size_3xs,
-    alignSelf: 'stretch'
-  },
-  minTypo: {
-    fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '100',
-    textAlign: 'left'
-  },
   frameLayout: {
     height: 20,
     marginLeft: 47
@@ -209,47 +186,6 @@ const styles = StyleSheet.create({
   wrapper: {
     width: 29,
     height: 22
-  },
-  icon1: {
-    overflow: 'hidden'
-  },
-  materialSymbolsnotifications: {
-    width: 27,
-    marginLeft: 7,
-    height: 24
-  },
-  groupParent: {
-    width: 63,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  helloAshfakParent: {
-    alignSelf: 'stretch',
-    alignItems: 'center'
-  },
-  helloAshfak1: {
-    fontSize: FontSize.inputPlaceholder_size,
-    textAlign: 'left',
-    color: Color.sportsVioleta
-  },
-  frameChild: {
-    width: 6,
-    height: 6,
-    marginTop: 5
-  },
-  helloAshfakGroup: {
-    alignItems: 'center'
-  },
-  helloAshfak2: {
-    color: Color.violeta3,
-    fontSize: FontSize.inputPlaceholder_size,
-    textAlign: 'left'
-  },
-  frameGroup: {
-    paddingHorizontal: Padding.p_31xl,
-    marginTop: 19,
-    justifyContent: 'space-between',
-    flexDirection: 'row'
   },
   frameContainer6Overlay: {
     flex: 1,
@@ -326,129 +262,20 @@ const styles = StyleSheet.create({
     padding: Padding.p_3xs,
     borderRadius: Border.br_31xl,
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    width: '100%'
   },
   frameContainer: {
     width: '100%',
     padding: 20,
     marginTop: 19
   },
-  image94Icon: {
-    borderTopLeftRadius: Border.br_7xs,
-    borderTopRightRadius: Border.br_7xs,
-    maxWidth: '100%',
-    height: 95,
-    alignSelf: 'stretch',
-    overflow: 'hidden'
-  },
-  imGoingTo: {
-    textAlign: 'left',
-    fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '700'
-  },
-  min: {
-    fontFamily: FontFamily.inputPlaceholder,
-    textAlign: 'left'
-  },
-  minParent: {
-    marginTop: 2,
-    alignSelf: 'stretch'
-  },
-  imGoingToShakeYParent: {
-    height: 44,
-    paddingHorizontal: Padding.p_8xs,
-    marginTop: 5
-  },
-  image94ParentShadowBox1: {
-    height: 162,
-    width: 187,
-    shadowOpacity: 1,
-    elevation: 10,
-    shadowRadius: 10,
-    shadowOffset: {
-      width: 2,
-      height: 4
-    },
-    shadowColor: 'rgba(39, 39, 39, 0.2)',
-    borderRadius: Border.br_sm,
-    alignItems: 'center',
-    backgroundColor: Color.blanco
-  },
-  image94ParentShadowBox: {
-    marginLeft: 15,
-    height: 162,
-    width: 187,
-    shadowOpacity: 1,
-    elevation: 10,
-    shadowRadius: 10,
-    shadowOffset: {
-      width: 2,
-      height: 4
-    },
-    shadowColor: 'rgba(39, 39, 39, 0.2)',
-    borderRadius: Border.br_sm,
-    alignItems: 'center',
-    backgroundColor: Color.blanco
-  },
-  imGoingTo2: {
-    color: Color.sportsNaranja,
-    fontSize: FontSize.inputLabel_size,
-    alignSelf: 'stretch'
-  },
-  min4: {
-    fontSize: FontSize.size_3xs,
-    fontWeight: '100',
-    color: Color.sportsVioleta,
-    alignSelf: 'stretch'
-  },
-  frameParent4: {
-    width: 328,
-    marginTop: 10,
-    flexDirection: 'row'
-  },
-  min6: {
-    color: Color.colorGray_100,
-    fontSize: FontSize.size_3xs,
-    alignSelf: 'stretch'
-  },
-  helloAshfakParent2: {
-    marginTop: 19
-  },
-  frameParent3: {
-    height: 354,
-    marginTop: 19,
-    alignItems: 'center'
-  },
-  helloAshfak9: {
-    fontSize: FontSize.inputPlaceholder_size,
-    color: Color.sportsVioleta
-  },
-  frameParent: {
-    paddingTop: Padding.p_48xl,
-    paddingBottom: Padding.p_6xl,
-    alignItems: 'center',
-    top: 0,
-    height: 800
-  },
   container: {
     width: 22,
     height: 25
   },
-  vector: {
-    width: 23,
-    marginLeft: 47
-  },
-  capturaDePantalla20231124: {
-    width: 33,
-    height: 33,
-    marginLeft: 47
-  },
   frame: {
     width: 20,
-    marginLeft: 47
-  },
-  groupPressable: {
-    width: 19,
     marginLeft: 47
   },
   groupContainer: {
@@ -468,6 +295,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Color.blanco,
     width: '100%'
+  },
+  icon: {
+    width: 29,
+    height: 13
   }
 })
 

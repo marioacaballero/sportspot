@@ -21,10 +21,8 @@ import { getAllEvents } from '../redux/actions/events'
 const InicioDeportista = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
-  const { user } = useSelector((state) => state.users)
+  // const { user } = useSelector((state) => state.users)
   const { events } = useSelector((state) => state.events)
-
-  console.log('usuarioooo', user)
 
   const [modalPremium, setModalPremium] = useState(false)
   const [modalNotifications, setModalNotifications] = useState(false)
