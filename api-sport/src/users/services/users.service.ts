@@ -5,6 +5,8 @@ import { Repository } from 'typeorm'
 import { UserDTO } from '../dto/user.dto'
 import { EventEntity } from 'src/events/entities/event.entity'
 import { UpdateUserDto } from '../dto/update-user.dto'
+import { NotificationsService } from 'src/notifications/notifications.service'
+import { CreateNotificationDto } from 'src/notifications/dto/create-notification.dto'
 
 @Injectable()
 export class UsersService {
@@ -13,7 +15,9 @@ export class UsersService {
     private readonly userRepository: Repository<UserEntity>,
 
     @InjectRepository(EventEntity)
-    private readonly eventRepository: Repository<EventEntity>
+    private readonly eventRepository: Repository<EventEntity>,
+
+    private readonly notificationsService: NotificationsService
   ) {}
 
   public async createService(body: UserDTO) {
@@ -54,8 +58,21 @@ export class UsersService {
     user.name = updateUserDto.name
     user.email = updateUserDto.email
 
-    if (event && !user.events.some((e) => e.id === event.id))
+    if (event && !user.events.some((e) => e.id === event.id)) {
       user.events = [...user.events, event]
+      const newNotification: CreateNotificationDto = {
+        recipientId: id,
+        eventId: updateUserDto.eventId,
+        title: event.title,
+        message: `el evento se realizara el dia ${event.dateStart}`,
+        date: new Date(),
+        eventType: 'Your event type',
+        read: false,
+        recipient: user
+      }
+
+      await this.notificationsService.createService(newNotification)
+    }
 
     return await this.userRepository.save(user)
   }
@@ -80,6 +97,11 @@ export class UsersService {
       .relation(UserEntity, 'events')
       .of(user)
       .remove(event)
+
+    await this.notificationsService.destroyService({
+      recipientId: userId,
+      eventId: eventId
+    })
 
     return await this.getOneService(userId) // Recargar el usuario para reflejar los cambios
   }
