@@ -1,5 +1,12 @@
 import { Type } from 'class-transformer'
-import { IsDate, IsDecimal, IsNotEmpty, IsString } from 'class-validator'
+import {
+  IsBoolean,
+  IsDate,
+  IsDecimal,
+  IsNotEmpty,
+  IsOptional,
+  IsString
+} from 'class-validator'
 import { NumericType } from 'typeorm'
 
 export class CreateEventDto {
@@ -36,4 +43,8 @@ export class CreateEventDto {
   @Type(() => Date)
   @IsDate()
   dateInscription: Date
+
+  @IsBoolean()
+  @IsOptional()
+  favorite: boolean
 }
