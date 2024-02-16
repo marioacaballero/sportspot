@@ -8,12 +8,9 @@ import {
   TextInput
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-// import { useNavigation } from '@react-navigation/native'
 import { Padding, Border, FontFamily, FontSize, Color } from '../GlobalStyles'
 
 const IniciarSesin = ({ navigation }) => {
-  // const navigation = useNavigation()
-
   return (
     <LinearGradient
       style={styles.iniciarSesin}
@@ -87,7 +84,8 @@ const styles = StyleSheet.create({
   },
   capturaDePantalla20231024Parent: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: '5%'
   },
   nombreDeUsuario: {
     color: Color.sportsVioleta,
@@ -141,11 +139,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   frameParent: {
-    // position: 'absolute',
-    // marginTop: -400,
-    // marginLeft: -180,
-    // top: '50%',
-    // left: '50%',
     justifyContent: 'space-between',
     paddingHorizontal: Padding.p_2xl,
     marginTop: '35%',

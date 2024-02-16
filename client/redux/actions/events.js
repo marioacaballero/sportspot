@@ -5,7 +5,7 @@ import axiosInstance from '../../utils/apiBackend'
 
 export const getAllEvents = createAsyncThunk('events/getAll', async () => {
   try {
-    console.log(axiosInstance)
+    console.log('events', axiosInstance)
     const { data } = await axiosInstance.get('/events')
     return data
   } catch (error) {
