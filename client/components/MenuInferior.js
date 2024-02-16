@@ -74,17 +74,20 @@ const styles = StyleSheet.create({
     height: 25
   },
   iconLayout: {
-    height: '100%',
-    width: '100%'
+    height: '95.5%',
+    width: '95.5%',
+    overflow: 'visible'
   },
   iconLayout2: {
-    height: '100%',
-    width: '100%',
+    height: '110%',
+    width: '110%',
     bottom: 5
   },
   vector: {
-    width: 23
-    // marginLeft: 47
+    width: 26
+  },
+  frameLayout: {
+    height: 23
   },
   menInferiorChild: {
     width: '100%',
@@ -105,10 +108,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10
-  },
-
-  frameLayout: {
-    height: 20
   },
   frame: {
     width: 20

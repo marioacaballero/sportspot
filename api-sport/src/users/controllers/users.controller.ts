@@ -1,7 +1,16 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post
+} from '@nestjs/common'
 import { UsersService } from '../services/users.service'
 import { UserEntity } from '../entities/users.entity'
 import { UserDTO } from '../dto/user.dto'
+import { UpdateUserDto } from '../dto/update-user.dto'
 
 @Controller('users')
 export class UsersController {
@@ -22,13 +31,20 @@ export class UsersController {
     return await this.userService.createService(body)
   }
 
-  @Put(':id')
-  async updateNameAndEmail(
+  @Patch('unsuscribe/:id')
+  async deleteSubscription(
     @Param('id') id: string,
-    @Body('name') newName: string,
-    @Body('email') newEmail: string
+    @Body('eventId') eventId: string
   ): Promise<UserEntity> {
-    return this.userService.updateService(id, newName, newEmail)
+    return this.userService.deleteSubscriptionService(id, eventId)
+  }
+
+  @Patch(':id')
+  async updateController(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto
+  ): Promise<UserEntity> {
+    return this.userService.updateService(id, updateUserDto)
   }
 
   @Delete(':id')

@@ -13,7 +13,7 @@ export class CreateEventDto {
 
   @IsNotEmpty()
   @IsString()
-  sport: string
+  sportId: string
 
   @IsNotEmpty()
   @IsDecimal()

@@ -5,7 +5,8 @@ import {
   Body,
   Patch,
   Param,
-  Delete
+  Delete,
+  Query
 } from '@nestjs/common'
 import { NotificationsService } from './notifications.service'
 import { CreateNotificationDto } from './dto/create-notification.dto'
@@ -21,8 +22,8 @@ export class NotificationsController {
   }
 
   @Get()
-  public async findAll() {
-    return this.notificationsService.getAllService()
+  public async findAll(@Query() query: any) {
+    return this.notificationsService.getAllService(query)
   }
 
   @Get(':id')

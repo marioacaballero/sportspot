@@ -1,5 +1,16 @@
-import { Entity, Column, NumericType } from 'typeorm'
+import {
+  Entity,
+  Column,
+  NumericType,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+  OneToMany
+} from 'typeorm'
 import { BaseEntity } from 'src/config/base.entity'
+import { SportEntity } from 'src/sports/entities/sport.entity'
+import { UserEntity } from 'src/users/entities/users.entity'
+import { NotificationEntity } from 'src/notifications/entities/notification.entity'
 
 @Entity({ name: 'event' })
 export class EventEntity extends BaseEntity {
@@ -10,7 +21,7 @@ export class EventEntity extends BaseEntity {
   description: string
 
   @Column()
-  sport: string
+  sportId: string
 
   @Column('decimal')
   price: NumericType
@@ -26,4 +37,19 @@ export class EventEntity extends BaseEntity {
 
   @Column()
   dateInscription: Date
+
+  @ManyToOne(() => SportEntity, (sport) => sport.events)
+  sport: SportEntity
+
+  // Relación de muchos a uno con el usuario creador
+  @ManyToOne(() => UserEntity, (user) => user.eventsCreated)
+  creator: UserEntity
+
+  // Relación de muchos a muchos con los usuarios suscritos
+  @ManyToMany(() => UserEntity, (user) => user.events)
+  @JoinTable()
+  suscribers: UserEntity[]
+
+  @OneToMany(() => NotificationEntity, (notification) => notification.event)
+  notifications: NotificationEntity[]
 }
