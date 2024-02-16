@@ -38,6 +38,9 @@ export class EventEntity extends BaseEntity {
   @Column()
   dateInscription: Date
 
+  @Column({ default: false })
+  favorite: boolean
+
   @ManyToOne(() => SportEntity, (sport) => sport.events)
   sport: SportEntity
 
