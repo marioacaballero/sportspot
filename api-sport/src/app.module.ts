@@ -6,6 +6,7 @@ import { DataSourceConfig } from './config/data.source'
 import { EventsModule } from './events/events.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { SportsModule } from './sports/sports.module';
+import { JsonwebtokenModule } from './jsonwebtoken/jsonwebtoken.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { SportsModule } from './sports/sports.module';
     UsersModule,
     EventsModule,
     NotificationsModule,
-    SportsModule
+    SportsModule,
+    JsonwebtokenModule
   ],
   controllers: [],
   providers: []
