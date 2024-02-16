@@ -5,7 +5,8 @@ import {
   Body,
   Patch,
   Param,
-  Delete
+  Delete,
+  Query
 } from '@nestjs/common'
 import { EventsService } from './events.service'
 import { CreateEventDto } from './dto/create-event.dto'
@@ -21,8 +22,8 @@ export class EventsController {
   }
 
   @Get()
-  public async findAll() {
-    return this.eventsService.getAllService()
+  public async findAll(@Query() query: any) {
+    return this.eventsService.getAllService(query)
   }
 
   @Get(':id')
