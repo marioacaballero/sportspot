@@ -35,10 +35,15 @@ export class NotificationsService {
     return await this.notificationsRepository.save(notification)
   }
 
-  public async getAllService() {
-    return await this.notificationsRepository.find({
-      where: { isDelete: false }
-    })
+  public async getAllService(query) {
+    const where = { isDelete: false }
+    if (query.userId) {
+      where['recipientId'] = query.userId
+    }
+    if (query.read !== undefined) {
+      where['read'] = query.read
+    }
+    return await this.notificationsRepository.find({ where })
   }
 
   public async getOneService(id: string) {
@@ -75,5 +80,9 @@ export class NotificationsService {
   public async deleteService(id) {
     await this.notificationsRepository.update(id, { isDelete: true })
     return await this.getOneService(id)
+  }
+
+  public async destroyService({ recipientId, eventId }) {
+    return await this.notificationsRepository.delete({ recipientId, eventId })
   }
 }
