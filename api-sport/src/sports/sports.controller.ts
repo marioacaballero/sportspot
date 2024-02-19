@@ -5,7 +5,8 @@ import {
   Body,
   Patch,
   Param,
-  Delete
+  Delete,
+  Query
 } from '@nestjs/common'
 import { SportsService } from './sports.service'
 import { CreateSportDto } from './dto/create-sport.dto'
@@ -26,8 +27,8 @@ export class SportsController {
   }
 
   @Get('types')
-  public async findAllTypes() {
-    return await this.sportsService.getAllTypes()
+  public async findAllTypes(@Query('name') name: string) {
+    return await this.sportsService.getAllTypes(name)
   }
 
   @Get(':id')
