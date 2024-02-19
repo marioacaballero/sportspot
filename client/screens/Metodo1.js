@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: Color.colorGainsboro_100,
     borderWidth: 1,
-    width: 320,
+    width: '90%',
     height: 247,
     flexDirection: 'row',
     left: 20,
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   },
   trabajaConNosotrosWrapper: {
     top: 67,
-    left: 20,
+    left: '7%',
     position: 'absolute'
   },
   icon: {
