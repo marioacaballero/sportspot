@@ -12,12 +12,21 @@ import { useNavigation } from '@react-navigation/native'
 import { FontFamily, FontSize, Color, Border, Padding } from '../GlobalStyles'
 import PopupOrdenarPor from '../components/PopupOrdenarPor'
 import PruebasEncontradasFiltros from '../components/PruebasEncontradasFiltros'
+import CorazonSVG from '../components/SVG/CorazonSVG'
 
 const PruebasEncontradas = () => {
   const navigation = useNavigation()
 
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
+  const [fav, setFav] = useState({})
+
+  const toggleFavorite = (itemId) => {
+    setFav((prevFavorites) => ({
+      ...prevFavorites,
+      [itemId]: !prevFavorites[itemId] || false
+    }))
+  }
 
   const toggleModalOrder = () => {
     setModalOrder(true)
@@ -93,11 +102,13 @@ const PruebasEncontradas = () => {
                   <Text style={[styles.senderismo, styles.textTypo]}>
                     Senderismo
                   </Text>
-                  <Image
-                    style={[styles.likeSpotsport, styles.containerLayout]}
-                    contentFit="cover"
-                    source={require('../assets/like--spotsport1.png')}
-                  />
+                  <Pressable
+                    style={styles.likeSpotsport}
+                    isFavorite={fav[0] || false}
+                    onPress={() => toggleFavorite(0)}
+                  >
+                    <CorazonSVG color={fav[0] ? '#F25910' : '#40036F'} />
+                  </Pressable>
                 </View>
                 <Text
                   style={[
@@ -112,14 +123,14 @@ const PruebasEncontradas = () => {
                     }
                   >
                     {
-                      'Modalidad: Pista                               Localización: Mérida, Badajor.                                                        Fecha de la prueba: '
+                      '-Modalidad: Pista                               -Localización: Mérida, Badajor.                                                        -Fecha de la prueba: '
                     }
                   </Text>
                   <Text style={styles.ene2024Typo}>
                     {'25 ene 2024                    '}
                   </Text>
                   <Text style={styles.modalidadPistaLocalizacin}>
-                    {'Plazo límite de inscripción: '}
+                    {'-Plazo límite de inscripción: '}
                   </Text>
                   <Text style={styles.ene2024Typo}>22 ene 2024</Text>
                 </Text>
@@ -157,11 +168,13 @@ const PruebasEncontradas = () => {
                   >
                     Ciclismo
                   </Text>
-                  <Image
-                    style={[styles.likeSpotsport, styles.containerLayout]}
-                    contentFit="cover"
-                    source={require('../assets/like--spotsport1.png')}
-                  />
+                  <Pressable
+                    style={styles.likeSpotsport}
+                    isFavorite={fav[1] || false}
+                    onPress={() => toggleFavorite(1)}
+                  >
+                    <CorazonSVG color={fav[1] ? '#F25910' : '#40036F'} />
+                  </Pressable>
                 </View>
                 <Text
                   style={[
@@ -176,14 +189,14 @@ const PruebasEncontradas = () => {
                     }
                   >
                     {
-                      'Modalidad: Pista                               Localización: Mérida, Badajor.                                                        Fecha de la prueba: '
+                      '-Modalidad: Pista                               -Localización: Mérida, Badajor.                                                        -Fecha de la prueba: '
                     }
                   </Text>
                   <Text style={styles.ene2024Typo}>
                     {'25 ene 2024                    '}
                   </Text>
                   <Text style={styles.modalidadPistaLocalizacin}>
-                    {'Plazo límite de inscripción: '}
+                    {'-Plazo límite de inscripción: '}
                   </Text>
                   <Text style={styles.ene2024Typo}>22 ene 2024</Text>
                 </Text>
@@ -216,11 +229,13 @@ const PruebasEncontradas = () => {
                   <Text style={[styles.senderismo, styles.textTypo]}>
                     CrossFit
                   </Text>
-                  <Image
-                    style={[styles.likeSpotsport, styles.containerLayout]}
-                    contentFit="cover"
-                    source={require('../assets/like--spotsport2.png')}
-                  />
+                  <Pressable
+                    style={styles.likeSpotsport}
+                    isFavorite={fav[2] || false}
+                    onPress={() => toggleFavorite(2)}
+                  >
+                    <CorazonSVG color={fav[2] ? '#F25910' : '#40036F'} />
+                  </Pressable>
                 </View>
                 <Text
                   style={[
@@ -235,14 +250,14 @@ const PruebasEncontradas = () => {
                     }
                   >
                     {
-                      'Modalidad: Pista                               Localización: Mérida, Badajor.                                                        Fecha de la prueba: '
+                      '-Modalidad: Pista                               -Localización: Mérida, Badajor.                                                        -Fecha de la prueba: '
                     }
                   </Text>
                   <Text style={styles.ene2024Typo}>
                     {'25 ene 2024                    '}
                   </Text>
                   <Text style={styles.modalidadPistaLocalizacin}>
-                    {'Plazo límite de inscripción: '}
+                    {'-Plazo límite de inscripción: '}
                   </Text>
                   <Text style={styles.ene2024Typo}>22 ene 2024</Text>
                 </Text>
@@ -280,11 +295,13 @@ const PruebasEncontradas = () => {
                   >
                     Ciclismo
                   </Text>
-                  <Image
-                    style={[styles.likeSpotsport, styles.containerLayout]}
-                    contentFit="cover"
-                    source={require('../assets/like--spotsport2.png')}
-                  />
+                  <Pressable
+                    style={styles.likeSpotsport}
+                    isFavorite={fav[3] || false}
+                    onPress={() => toggleFavorite(3)}
+                  >
+                    <CorazonSVG color={fav[3] ? '#F25910' : '#40036F'} />
+                  </Pressable>
                 </View>
                 <Text
                   style={[
@@ -299,14 +316,14 @@ const PruebasEncontradas = () => {
                     }
                   >
                     {
-                      'Modalidad: Pista                               Localización: Mérida, Badajor.                                                        Fecha de la prueba: '
+                      '-Modalidad: Pista                               -Localización: Mérida, Badajor.                                                        -Fecha de la prueba: '
                     }
                   </Text>
                   <Text style={styles.ene2024Typo}>
                     {'25 ene 2024                    '}
                   </Text>
                   <Text style={styles.modalidadPistaLocalizacin}>
-                    {'Plazo límite de inscripción: '}
+                    {'-Plazo límite de inscripción: '}
                   </Text>
                   <Text style={styles.ene2024Typo}>22 ene 2024</Text>
                 </Text>
@@ -379,7 +396,8 @@ const styles = StyleSheet.create({
     shadowColor: 'rgba(0, 0, 0, 0.25)',
     borderRadius: Border.br_3xs,
     flexDirection: 'row',
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    width: '100%'
   },
   menInferiorPosition: {
     width: 360,
@@ -436,8 +454,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   likeSpotsport: {
-    height: 20,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    right: '50%'
   },
   modalidadPistaLocalizacin: {
     fontFamily: FontFamily.inputPlaceholder
@@ -471,14 +489,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'stretch'
   },
-  frameParent: {
-    width: 320
-  },
   pruebasEncontradasParent: {
     paddingTop: Padding.p_48xl,
     paddingHorizontal: Padding.p_xl,
-    left: 0,
-    top: 0
+    paddingBottom: 30
   },
   icon: {
     height: '100%',
@@ -519,7 +533,6 @@ const styles = StyleSheet.create({
   },
   pruebasEncontradas: {
     backgroundColor: Color.blanco,
-    height: 800,
     overflow: 'hidden',
     width: '100%',
     flex: 1

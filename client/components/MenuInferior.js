@@ -1,59 +1,85 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View, Pressable, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Color } from '../GlobalStyles'
+import UltimasSVG from './SVG/UltimasSVG'
+import CorazonSVG from './SVG/CorazonSVG'
+import HomeSVG from './SVG/HomeSVG'
+import HistorialSVG from './SVG/HistorialSVG'
+import PerfilSVG from './SVG/PerfilSVG'
 
 const MenuInferior = () => {
   const navigation = useNavigation()
+  const [selectedIcon, setSelectedIcon] = useState(null)
+
+  const handleIconPress = (iconName) => {
+    if (selectedIcon === iconName) {
+      setSelectedIcon(null)
+    } else {
+      setSelectedIcon(iconName)
+    }
+  }
 
   return (
     <View style={styles.menInferior}>
       <View style={styles.groupContainer}>
         <Pressable
           style={styles.container}
-          onPress={() => navigation.navigate('UltimasConsultas')}
+          onPress={() => {
+            handleIconPress('UltimasConsultas')
+            navigation.navigate('UltimasConsultas')
+          }}
         >
-          <Image
-            style={styles.iconLayout2}
-            contentFit="cover"
-            source={require('../assets/group-1171276700.png')}
+          <UltimasSVG
+            color={selectedIcon === 'UltimasConsultas' ? '#F25910' : '#40036F'}
           />
         </Pressable>
         <Pressable
           style={[styles.vector, styles.frameLayout]}
-          onPress={() => navigation.navigate('Favoritos1')}
+          onPress={() => {
+            handleIconPress('Favoritos1')
+            navigation.navigate('Favoritos1')
+          }}
         >
-          <Image
-            style={styles.iconLayout}
-            contentFit="cover"
-            source={require('../assets/vector.png')}
+          <CorazonSVG
+            color={selectedIcon === 'Favoritos1' ? '#F25910' : '#40036F'}
           />
         </Pressable>
-        <Pressable onPress={() => navigation.navigate('InicioDeportista')}>
-          <Image
+        <Pressable
+          onPress={() => {
+            setSelectedIcon(null)
+            navigation.navigate('InicioDeportista')
+          }}
+        >
+          {/* <Image
             style={styles.capturaDePantalla20231124}
             contentFit="cover"
             source={require('../assets/captura-de-pantalla-20231124-114115-1.png')}
+          /> */}
+          <HomeSVG />
+        </Pressable>
+        <Pressable
+          style={styles.container2}
+          onPress={() => {
+            handleIconPress('HistorialDePruebas')
+            navigation.navigate('HistorialDePruebas')
+          }}
+        >
+          <HistorialSVG
+            color={
+              selectedIcon === 'HistorialDePruebas' ? '#F25910' : '#40036F'
+            }
           />
         </Pressable>
         <Pressable
-          style={[styles.frame, styles.frameLayout]}
-          onPress={() => navigation.navigate('HistorialDePruebas')}
+          style={styles.container2}
+          onPress={() => {
+            handleIconPress('TuPerfil')
+            navigation.navigate('TuPerfil')
+          }}
         >
-          <Image
-            style={styles.iconLayout}
-            contentFit="cover"
-            source={require('../assets/frame-1547756022.png')}
-          />
-        </Pressable>
-        <Pressable
-          style={[styles.groupPressable, styles.frameLayout]}
-          onPress={() => navigation.navigate('TuPerfil')}
-        >
-          <Image
-            style={styles.iconLayout}
-            contentFit="cover"
-            source={require('../assets/group-1171276701.png')}
+          <PerfilSVG
+            color={selectedIcon === 'TuPerfil' ? '#F25910' : '#40036F'}
           />
         </Pressable>
       </View>
@@ -71,17 +97,13 @@ export default MenuInferior
 const styles = StyleSheet.create({
   container: {
     width: 22,
-    height: 25
+    height: 25,
+    bottom: 3
   },
-  iconLayout: {
-    height: '95.5%',
-    width: '95.5%',
-    overflow: 'visible'
-  },
-  iconLayout2: {
-    height: '110%',
-    width: '110%',
-    bottom: 5
+  container2: {
+    width: 22,
+    height: 25,
+    top: 3
   },
   vector: {
     width: 26
@@ -111,8 +133,5 @@ const styles = StyleSheet.create({
   },
   frame: {
     width: 20
-  },
-  groupPressable: {
-    width: 19
   }
 })
