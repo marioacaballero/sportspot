@@ -133,4 +133,28 @@ export class UsersService {
 
     return await this.getOneService(userId) // Recargar el usuario para reflejar los cambios
   }
+
+  public async eventFavoritesService(
+    userId: string,
+    eventId: string
+  ): Promise<UserEntity> {
+    const user = await this.getOneService(userId)
+    if (!user) {
+      throw new Error(`Usuario con ID ${userId} no encontrado`)
+    }
+
+    const event = await this.eventService.getOneService(eventId)
+    if (!event) {
+      throw new Error(`Evento con ID ${eventId} no encontrado`)
+    }
+
+    const index = user.eventFavorites.findIndex((e) => e === eventId)
+    if (index === -1) {
+      user.eventFavorites = [...user.eventFavorites, eventId] // Guardar el ID del evento
+    } else {
+      user.eventFavorites = user.eventFavorites.filter((e) => e !== eventId)
+    }
+
+    return await this.userRepository.save(user)
+  }
 }
