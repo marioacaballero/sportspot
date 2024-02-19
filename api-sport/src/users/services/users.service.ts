@@ -7,6 +7,7 @@ import { EventEntity } from 'src/events/entities/event.entity'
 import { UpdateUserDto } from '../dto/update-user.dto'
 import { NotificationsService } from 'src/notifications/notifications.service'
 import { CreateNotificationDto } from 'src/notifications/dto/create-notification.dto'
+import { hash } from 'bcrypt'
 
 @Injectable()
 export class UsersService {
@@ -20,8 +21,31 @@ export class UsersService {
     private readonly notificationsService: NotificationsService
   ) {}
 
-  public async createService(body: UserDTO) {
-    return await this.userRepository.save(body)
+  public async register(userObject: UserDTO) {
+    try {
+      //Hash password
+      userObject.password = await hash(
+        userObject.password,
+        +process.env.HASH_SALT
+      )
+
+      const profile: UserEntity = await this.userRepository
+        .createQueryBuilder('profile')
+        .where({ email: userObject.email })
+        .getOne()
+
+      if (profile) {
+        throw new Error('The email is already registered in the database')
+      }
+      const newProfile = await this.userRepository.save(userObject)
+
+      if (!newProfile) {
+        throw new Error('The new profile is not created')
+      }
+      return newProfile
+    } catch (error) {
+      throw Error(error.message)
+    }
   }
 
   public async getAllService() {
@@ -31,6 +55,14 @@ export class UsersService {
     return await this.userRepository
       .createQueryBuilder('user')
       .where({ id })
+      .leftJoinAndSelect('user.events', 'events')
+      .getOne()
+  }
+
+  public async getByEmailService(email) {
+    return await this.userRepository
+      .createQueryBuilder('user')
+      .where({ email })
       .leftJoinAndSelect('user.events', 'events')
       .getOne()
   }
