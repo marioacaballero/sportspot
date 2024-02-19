@@ -1,17 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getAllEvents } from '../actions/events'
+import { getAllEvents, getEventById } from '../actions/events'
 
 export const eventsSlices = createSlice({
   name: 'events',
   initialState: {
     events: [],
     event: {},
-    loading: false
+    loading: false,
+    error: {}
   },
-  reducers: {},
+  reducers: {
+    setEvent: (state, action) => {
+      state.event = action.payload
+    }
+  },
 
   extraReducers: (builder) => {
     builder
+      // TODOS LOS EVENTOS
       .addCase(getAllEvents.pending, (state) => {
         state.loading = true
         state.error = null
@@ -25,7 +31,24 @@ export const eventsSlices = createSlice({
         state.loading = false
         state.error = action.payload
       })
+
+      // UN EVENTO
+      .addCase(getEventById.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(getEventById.fulfilled, (state, action) => {
+        state.loading = false
+        state.event = action.payload
+        state.error = null
+      })
+      .addCase(getEventById.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
   }
 })
+
+export const { setEvent } = eventsSlices.actions
 
 export default eventsSlices.reducer
