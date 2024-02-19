@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { NotificationEntity } from 'src/notifications/entities/notification.entity'
 import { EventEntity } from 'src/events/entities/event.entity'
 import { NotificationsService } from 'src/notifications/notifications.service'
+import { EventsService } from 'src/events/events.service'
 
 @Module({
   imports: [
@@ -18,6 +19,11 @@ import { NotificationsService } from 'src/notifications/notifications.service'
     TypeOrmModule.forFeature([UserEntity, EventEntity, NotificationEntity])
   ],
   controllers: [JsonwebtokenController],
-  providers: [JsonwebtokenService, UsersService, NotificationsService]
+  providers: [
+    JsonwebtokenService,
+    UsersService,
+    NotificationsService,
+    EventsService
+  ]
 })
 export class JsonwebtokenModule {}
