@@ -1,10 +1,31 @@
-import React from 'react'
-import { StyleSheet, Text, View, Pressable, Image } from 'react-native'
+import React, { useState } from 'react'
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  Image,
+  Modal,
+  TouchableWithoutFeedback
+} from 'react-native'
 // import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
+import { useDispatch, useSelector } from 'react-redux'
+import { onSuscription } from '../redux/actions/suscriptions'
+import ModalSuscription from '../components/ModalSuscription'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
   // const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.users)
+  const { event } = useSelector((state) => state.events)
+  const [modalSuscription, setModalSuscription] = useState(false)
+  const [suscription, setSuscription] = useState({
+    name: user.name,
+    email: '',
+    password: '',
+    eventId: event.id
+  })
 
   return (
     <View style={styles.pruebasEncontradasDetalle}>
@@ -18,13 +39,16 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
           <View style={styles.frameGroup}>
             <View>
               <Text style={[styles.pruebaDeCiclismo, styles.reseasDeLaTypo]}>
-                Prueba de ciclismo
+                {event.title}
               </Text>
               <Text style={[styles.modalidadMontaa, styles.ciclismoTypo]}>
-                Modalidad Montaña
+                {event.sport?.type}
               </Text>
             </View>
             <View style={styles.alertParent}>
+              <Text onPress={() => setModalSuscription(true)}>
+                Suscribrirse
+              </Text>
               <Image
                 style={styles.alertIcon}
                 contentFit="cover"
@@ -42,24 +66,22 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               />
             </View>
           </View>
-          <Text
-            style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}
-          >{`Lorem ipsum dolor sit amet consectetur. Scelerisque augue mattis libero tristique venenatis vulputate tristique. 
-
-Mi feugiat cras dignissim proin pharetra. Eget in tellus mi cras fames vestibulum. `}</Text>
-          <Text style={[styles.laInscripcinDe, styles.laInscripcinDeLayout]}>
+          <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+            {event.description}
+          </Text>
+          {/* <Text style={[styles.laInscripcinDe, styles.laInscripcinDeLayout]}>
             La inscripción de la prueba es en el pueblo de Hornachos, Badajoz.
             Se celebrará el 1 de febrero de 2024. Si te interesa par-ticipar
             tienes hasta el 22 de enero de 2024 para realizar la inscripción. El
             precio de inscripción es de 22€ por persona.
-          </Text>
+          </Text> */}
           <Text style={[styles.reseasDeLa, styles.reseasDeLaTypo]}>
             Reseñas de la prueba
           </Text>
         </View>
         <Pressable
           style={[styles.cilarrowTopParent, styles.parentSpaceBlock]}
-          onPress={() => navigation.navigate('PruebasEncontradas')}
+          onPress={() => navigation.goBack()}
         >
           <Image
             style={styles.cilarrowTopIcon}
@@ -69,6 +91,20 @@ Mi feugiat cras dignissim proin pharetra. Eget in tellus mi cras fames vestibulu
           <Text style={[styles.ciclismo, styles.ciclismoTypo]}>Ciclismo</Text>
         </Pressable>
       </View>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalSuscription}
+      >
+        <TouchableWithoutFeedback onPress={() => setModalSuscription(false)}>
+          <View style={styles.modalOverlay}>
+            <View>
+              <ModalSuscription />
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
     </View>
   )
 }
@@ -77,6 +113,14 @@ const styles = StyleSheet.create({
   parentPosition: {
     left: 0,
     position: 'absolute'
+  },
+  modalOverlay: {
+    // flex: 1,
+    // top: -100,
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   reseasDeLaTypo: {
     color: Color.sportsNaranja,

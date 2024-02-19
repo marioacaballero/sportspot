@@ -23,6 +23,8 @@ export class JsonwebtokenService {
 
   // Este método valida el inicio de sesión. Compara la contraseña proporcionada con la contraseña almacenada en el usuario.
   public async loginValidate(user: UserEntity, password: string) {
+    console.log(password)
+
     try {
       // Comprueba si la contraseña es correcta
       const checkPassword = await compare(password, user.password)
