@@ -22,6 +22,9 @@ export class UserEntity extends BaseEntity {
   })
   rol: 'sportsman' | 'organizer' = 'sportsman'
 
+  @Column('simple-array', { default: [] })
+  eventFavorites: string[]
+
   @OneToMany(() => NotificationEntity, (notification) => notification.recipient)
   notifications: NotificationEntity[]
 
