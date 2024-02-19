@@ -50,4 +50,12 @@ export class SportsService {
 
     return await this.sportsRepository.save(sport)
   }
+
+  public async getAllTypes() {
+    return await this.sportsRepository
+      .createQueryBuilder('sport')
+      .select('sport.type')
+      .distinct(true)
+      .getRawMany()
+  }
 }
