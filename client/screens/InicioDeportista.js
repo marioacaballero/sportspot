@@ -9,17 +9,17 @@ import {
   Modal,
   TouchableWithoutFeedback
 } from 'react-native'
-// import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { Padding, FontFamily, FontSize, Color, Border } from '../GlobalStyles'
 import PopupPremium from '../components/PopupPremium'
 import InicioNotificaciones from './InicioNotificaciones'
 import InicioBUSCADOR from './InicioBUSCADOR'
 import InicioOrganizador from './InicioOrganizador'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllEvents } from '../redux/actions/events'
+import { getAllEvents, getEventById } from '../redux/actions/events'
 
 const InicioDeportista = () => {
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
   const dispatch = useDispatch()
   // const { user } = useSelector((state) => state.users)
   const { events } = useSelector((state) => state.events)
@@ -198,13 +198,17 @@ const InicioDeportista = () => {
                 showsHorizontalScrollIndicator={false}
               >
                 {events?.map((event, i) => (
-                  <View
+                  <Pressable
                     key={i}
                     style={
                       i === 0
                         ? styles.image94ParentShadowBox1
                         : styles.image94ParentShadowBox
                     }
+                    onPress={() => {
+                      dispatch(getEventById(event.id))
+                      navigation.navigate('PruebasEncontradasDetalle')
+                    }}
                   >
                     <Image
                       style={[styles.image94Icon, styles.image94IconLayout]}
@@ -229,7 +233,7 @@ const InicioDeportista = () => {
                         </Text>
                       </View>
                     </View>
-                  </View>
+                  </Pressable>
                 ))}
               </ScrollView>
             </View>
