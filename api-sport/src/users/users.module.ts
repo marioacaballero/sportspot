@@ -11,7 +11,7 @@ import { NotificationsService } from 'src/notifications/notifications.service'
   imports: [
     TypeOrmModule.forFeature([UserEntity, EventEntity, NotificationEntity])
   ],
-  exports: [] /* [que quiero exportar] */,
+  exports: [UsersService] /* [que quiero exportar] */,
   providers: [UsersService, NotificationsService],
   controllers: [UsersController]
 })
