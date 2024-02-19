@@ -28,7 +28,7 @@ export class UsersController {
 
   @Post()
   public async create(@Body() body: UserDTO) {
-    return await this.userService.createService(body)
+    return await this.userService.register(body)
   }
 
   @Patch('unsuscribe/:id')
