@@ -57,8 +57,6 @@ export class EventsService {
     event.dateInscription = updateEventDto.dateInscription
     event.favorite = updateEventDto.favorite
 
-    console.log(event)
-
     return await this.eventsRepository.save(event)
   }
 
