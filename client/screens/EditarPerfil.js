@@ -181,9 +181,8 @@ const EditarPerfil = () => {
               </View>
             </View>
           </View>
-          <View style={styles.card1Parent}>
+          <View style={styles.card11Wrapper}>
             <View style={styles.card11}>
-              <View style={[styles.card1Child, styles.card1ChildPosition]} />
               <Image
                 style={[styles.favoriteIActiveIcon1, styles.iconLayout]}
                 contentFit="cover"
@@ -266,7 +265,7 @@ const styles = StyleSheet.create({
   },
   card1ChildPosition: {
     left: '0%',
-    top: '0%',
+    top: '10%',
     height: '100%',
     position: 'absolute',
     width: '100%'
@@ -297,8 +296,7 @@ const styles = StyleSheet.create({
     borderColor: Color.sportsVioleta,
     borderStyle: 'solid',
     borderRadius: Border.br_xl,
-    paddingVertical: Padding.p_5xs,
-    marginLeft: 15
+    paddingVertical: Padding.p_5xs
   },
   iconLayout: {
     maxHeight: '100%',
@@ -374,7 +372,8 @@ const styles = StyleSheet.create({
   datosPersonalesWrapper: {
     width: 195,
     height: 24,
-    marginLeft: 11
+    marginLeft: 11,
+    alignItems: 'center'
   },
   label: {
     fontSize: FontSize.size_5xs,
@@ -468,22 +467,40 @@ const styles = StyleSheet.create({
     width: 197
   },
   inputParent: {
-    height: 167
+    gap: 15
   },
   card1: {
     width: 324,
     paddingHorizontal: Padding.p_smi,
     paddingVertical: Padding.p_5xs,
     flexWrap: 'wrap',
-
     borderRadius: Border.br_base,
-    height: 234,
     flexDirection: 'row',
     overflow: 'hidden',
-    backgroundColor: Color.blanco
+    backgroundColor: Color.blanco,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
   },
   card1Wrapper: {
-    height: 234
+    height: '45%'
+  },
+  card11Wrapper: {
+    borderRadius: Border.br_base,
+    backgroundColor: Color.blanco,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
   },
   card1Child: {
     right: '0%',
@@ -505,7 +522,6 @@ const styles = StyleSheet.create({
   datosDeContactoWrapper: {
     height: '13.63%',
     width: '59.6%',
-    top: '3.47%',
     right: '26.02%',
     bottom: '82.9%',
     left: '14.37%',
@@ -522,7 +538,14 @@ const styles = StyleSheet.create({
   card11: {
     width: 327,
     height: 245,
-    zIndex: 0
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
   },
   input5: {
     width: 295,
@@ -532,15 +555,11 @@ const styles = StyleSheet.create({
     top: 48,
     left: 18,
     zIndex: 1,
-    position: 'absolute'
-  },
-  card1Parent: {
-    marginTop: 21
+    position: 'absolute',
+    gap: 15
   },
   frameParent: {
     top: 80
-    // left: 17
-    // position: 'absolute'
   },
   icon: {
     height: '100%',
@@ -579,8 +598,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   editarPerfil: {
-    height: 900,
     // overflow: 'hidden',
+    paddingBottom: 130,
     width: '100%',
     backgroundColor: Color.blanco,
     flex: 1,
