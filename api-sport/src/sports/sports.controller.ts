@@ -25,6 +25,11 @@ export class SportsController {
     return this.sportsService.getAllService()
   }
 
+  @Get('types')
+  public async findAllTypes() {
+    return await this.sportsService.getAllTypes()
+  }
+
   @Get(':id')
   public async findOne(@Param('id') id: string) {
     return await this.sportsService.getOneService(id)

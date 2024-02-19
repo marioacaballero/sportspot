@@ -8,6 +8,7 @@ import { UpdateUserDto } from '../dto/update-user.dto'
 import { NotificationsService } from 'src/notifications/notifications.service'
 import { CreateNotificationDto } from 'src/notifications/dto/create-notification.dto'
 import { hash } from 'bcrypt'
+import { EventsService } from 'src/events/events.service'
 
 @Injectable()
 export class UsersService {
@@ -18,7 +19,9 @@ export class UsersService {
     @InjectRepository(EventEntity)
     private readonly eventRepository: Repository<EventEntity>,
 
-    private readonly notificationsService: NotificationsService
+    private readonly notificationsService: NotificationsService,
+
+    private readonly eventService: EventsService
   ) {}
 
   public async register(userObject: UserDTO) {
@@ -78,10 +81,7 @@ export class UsersService {
   ): Promise<UserEntity> {
     const user = await this.getOneService(id)
 
-    const event = await this.eventRepository
-      .createQueryBuilder('event')
-      .where({ id: updateUserDto.eventId })
-      .getOne()
+    const event = await this.eventService.getOneService(updateUserDto.eventId)
 
     if (!user) {
       throw new Error(`Usuario con ID ${id} no encontrado`)
@@ -117,12 +117,8 @@ export class UsersService {
     if (!user) {
       throw new Error(`Usuario con ID ${userId} no encontrado`)
     }
-    console.log(eventId)
-    const event = await this.eventRepository
-      .createQueryBuilder('event')
-      .where({ id: eventId })
-      .getOne()
 
+    const event = await this.eventService.getOneService(eventId)
     // Cargar la relación de eventos para poder modificarla
     await this.userRepository
       .createQueryBuilder()
@@ -136,5 +132,29 @@ export class UsersService {
     })
 
     return await this.getOneService(userId) // Recargar el usuario para reflejar los cambios
+  }
+
+  public async eventFavoritesService(
+    userId: string,
+    eventId: string
+  ): Promise<UserEntity> {
+    const user = await this.getOneService(userId)
+    if (!user) {
+      throw new Error(`Usuario con ID ${userId} no encontrado`)
+    }
+
+    const event = await this.eventService.getOneService(eventId)
+    if (!event) {
+      throw new Error(`Evento con ID ${eventId} no encontrado`)
+    }
+
+    const index = user.eventFavorites.findIndex((e) => e === eventId)
+    if (index === -1) {
+      user.eventFavorites = [...user.eventFavorites, eventId] // Guardar el ID del evento
+    } else {
+      user.eventFavorites = user.eventFavorites.filter((e) => e !== eventId)
+    }
+
+    return await this.userRepository.save(user)
   }
 }

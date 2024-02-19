@@ -38,6 +38,14 @@ export class UsersController {
   ): Promise<UserEntity> {
     return this.userService.deleteSubscriptionService(id, eventId)
   }
+  @Patch('favorite/:id')
+  async favoriteEvent(
+    @Param('id') id: string,
+    @Body('eventId') eventId: string
+  ): Promise<UserEntity> {
+    console.log(id)
+    return this.userService.eventFavoritesService(id, eventId)
+  }
 
   @Patch(':id')
   async updateController(
