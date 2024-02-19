@@ -9,7 +9,7 @@ import {
   Modal,
   TouchableWithoutFeedback
 } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+// import { useNavigation } from '@react-navigation/native'
 import { Padding, FontFamily, FontSize, Color, Border } from '../GlobalStyles'
 import PopupPremium from '../components/PopupPremium'
 import InicioNotificaciones from './InicioNotificaciones'
@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllEvents } from '../redux/actions/events'
 
 const InicioDeportista = () => {
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
   const dispatch = useDispatch()
   // const { user } = useSelector((state) => state.users)
   const { events } = useSelector((state) => state.events)
@@ -135,7 +135,7 @@ const InicioDeportista = () => {
         <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
           <Pressable
             style={styles.helloAshfakGroup}
-            onPress={() => navigation.navigate('InicioDeportista')}
+            onPress={() => toggleModalOrganizador()}
           >
             <Text style={[styles.helloAshfak1, styles.helloTypo]}>
               Deportista
@@ -158,7 +158,10 @@ const InicioDeportista = () => {
           </Pressable>
           <Pressable
             style={styles.helloAshfakGroup}
-            onPress={() => toggleModalOrganizador()}
+            onPress={
+              () => toggleModalOrganizador()
+              // navigation.navigate('Organizador')
+            }
           >
             <Text style={[styles.helloAshfak2, styles.helloTypo]}>
               Organizador
@@ -179,44 +182,71 @@ const InicioDeportista = () => {
               }}
             ></Text>
           </Pressable>
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={modalOrganizador}
-          >
-            <TouchableWithoutFeedback onPress={toggleModalOrganizador}>
-              <View style={styles.modalOverlay}>
-                <View>
-                  <InicioOrganizador />
-                </View>
-              </View>
-            </TouchableWithoutFeedback>
-          </Modal>
         </View>
-        <View style={styles.frameContainer}>
-          <View style={{ alignItems: 'center' }}>
-            <Text style={styles.helloTypoScroll}>
-              Últimas horas de inscripción
-            </Text>
-            <ScrollView
-              // style={styles.frameParent1}
-              // style={{ marginBottom: 10 }}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            >
-              {events?.map((event, i) => (
-                <View
-                  key={i}
-                  style={
-                    i === 0
-                      ? styles.image94ParentShadowBox1
-                      : styles.image94ParentShadowBox
-                  }
-                >
+        {modalOrganizador ? (
+          <InicioOrganizador />
+        ) : (
+          <View style={styles.frameContainer}>
+            <View style={{ alignItems: 'center' }}>
+              <Text style={styles.helloTypoScroll}>
+                Últimas horas de inscripción
+              </Text>
+              <ScrollView
+                // style={styles.frameParent1}
+                // style={{ marginBottom: 10 }}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              >
+                {events?.map((event, i) => (
+                  <View
+                    key={i}
+                    style={
+                      i === 0
+                        ? styles.image94ParentShadowBox1
+                        : styles.image94ParentShadowBox
+                    }
+                  >
+                    <Image
+                      style={[styles.image94Icon, styles.image94IconLayout]}
+                      contentFit="cover"
+                      source={'/assets/info.png'}
+                    />
+                    <View
+                      style={[
+                        styles.imGoingToShakeYParent,
+                        styles.frameGroupSpaceBlock
+                      ]}
+                    >
+                      <Text style={[styles.imGoingTo, styles.goingTypo]}>
+                        {event?.title}
+                      </Text>
+                      <View style={styles.minParent}>
+                        <Text style={[styles.min, styles.minClr]}>
+                          {event?.description}
+                        </Text>
+                        <Text style={[styles.min1, styles.minTypo1]}>
+                          {event?.header}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                ))}
+              </ScrollView>
+            </View>
+            <View style={{ alignItems: 'center' }}>
+              <Text style={styles.helloTypoScroll}>
+                Últimas pruebas añadidas
+              </Text>
+              <ScrollView
+                style={{ marginBottom: 10 }}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              >
+                <View style={styles.image94ParentShadowBox1}>
                   <Image
                     style={[styles.image94Icon, styles.image94IconLayout]}
                     contentFit="cover"
-                    source={'/assets/info.png'}
+                    source={require('../assets/image-944.png')}
                   />
                   <View
                     style={[
@@ -225,267 +255,160 @@ const InicioDeportista = () => {
                     ]}
                   >
                     <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                      {event?.title}
+                      Lorem ipsum
                     </Text>
                     <View style={styles.minParent}>
                       <Text style={[styles.min, styles.minClr]}>
-                        {event?.description}
+                        Lorem ipsum dolor sit amet.{' '}
                       </Text>
-                      <Text style={[styles.min1, styles.minTypo1]}>
-                        {event?.header}
+                      <Text style={[styles.min, styles.minClr]}>
+                        Lorem ipsum dolor sit amet.{' '}
                       </Text>
                     </View>
                   </View>
                 </View>
-              ))}
-              {/* <View style={styles.image94ParentShadowBox1}>
-                <Image
-                  style={[styles.image94Icon, styles.image94IconLayout]}
-                  contentFit="cover"
-                  source={require('../assets/image-941.png')}
-                />
-                <View
-                  style={[
-                    styles.imGoingToShakeYParent,
-                    styles.frameGroupSpaceBlock
-                  ]}
-                >
-                  <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                    Torneo de baloncesto
-                  </Text>
-                  <View style={styles.minParent}>
-                    <Text style={[styles.min, styles.minClr]}>
-                      {'Lorem ipsum dolor sit amet.'}
+                <View style={styles.image94ParentShadowBox}>
+                  <Image
+                    style={[styles.image94Icon, styles.image94IconLayout]}
+                    contentFit="cover"
+                    source={require('../assets/image-945.png')}
+                  />
+                  <View
+                    style={[
+                      styles.imGoingToShakeYParent,
+                      styles.frameGroupSpaceBlock
+                    ]}
+                  >
+                    <Text style={[styles.imGoingTo, styles.goingTypo]}>
+                      Lorem ipsum
                     </Text>
-                    <Text style={[styles.min1, styles.minTypo1]}>
-                      ¡La inscripción acaba en 10 horas!
-                    </Text>
+                    <View style={styles.minParent}>
+                      <Text style={[styles.min, styles.minClr]}>
+                        Lorem ipsum dolor sit amet.{' '}
+                      </Text>
+                      <Text style={[styles.min, styles.minClr]}>
+                        Lorem ipsum dolor sit amet.{' '}
+                      </Text>
+                    </View>
                   </View>
                 </View>
-              </View>
-              <View style={styles.image94ParentShadowBox}>
-                <Image
-                  style={[styles.image94Icon, styles.image94IconLayout]}
-                  contentFit="cover"
-                  source={require('../assets/image-942.png')}
-                />
-                <View
-                  style={[
-                    styles.imGoingToShakeYParent,
-                    styles.frameGroupSpaceBlock
-                  ]}
-                >
-                  <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                    Ciclismo
-                  </Text>
-                  <View style={styles.minParent}>
-                    <Text style={[styles.min, styles.minClr]}>
-                      Lorem ipsum dolor sit amet.{' '}
+                <View style={styles.image94ParentShadowBox}>
+                  <Image
+                    style={[styles.image94Icon, styles.image94IconLayout]}
+                    contentFit="cover"
+                    source={require('../assets/image-943.png')}
+                  />
+                  <View
+                    style={[
+                      styles.imGoingToShakeYParent,
+                      styles.frameGroupSpaceBlock
+                    ]}
+                  >
+                    <Text style={[styles.imGoingTo2, styles.minTypo]}>
+                      Lorem ipsum
                     </Text>
-                    <Text style={[styles.min1, styles.minTypo1]}>
-                      ¡La inscripción acaba en 10 horas!
-                    </Text>
+                    <View style={styles.minParent}>
+                      <Text style={[styles.min10, styles.minTypo]}>
+                        Lorem ipsum dolor sit amet.{' '}
+                      </Text>
+                      <Text style={[styles.min10, styles.minTypo]}>
+                        Lorem ipsum dolor sit amet.{' '}
+                      </Text>
+                    </View>
                   </View>
                 </View>
-              </View> */}
-              {/* <View style={styles.image94ParentShadowBox}>
-                <Image
-                  style={[styles.image94Icon, styles.image94IconLayout]}
-                  contentFit="cover"
-                  source={require('../assets/image-943.png')}
-                />
-                <View
-                  style={[
-                    styles.imGoingToShakeYParent,
-                    styles.frameGroupSpaceBlock
-                  ]}
-                >
-                  <Text style={[styles.imGoingTo2, styles.minTypo]}>
-                    Ciclismo
-                  </Text>
-                  <View style={styles.minParent}>
-                    <Text style={[styles.min4, styles.minTypo]}>
-                      Lorem ipsum dolor sit amet.{' '}
+              </ScrollView>
+            </View>
+            <View style={{ alignItems: 'center' }}>
+              <Text style={styles.helloTypoScroll}>
+                Resultados de las útlimas pruebas
+              </Text>
+              <ScrollView
+                // style={{ marginBottom: 10 }}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              >
+                <View style={styles.image94ParentShadowBox1}>
+                  <Image
+                    style={[styles.image94Icon, styles.image94IconLayout]}
+                    contentFit="cover"
+                    source={require('../assets/image-943.png')}
+                  />
+                  <View
+                    style={[
+                      styles.imGoingToShakeYParent,
+                      styles.frameGroupSpaceBlock
+                    ]}
+                  >
+                    <Text style={[styles.imGoingTo2, styles.minTypo]}>
+                      Lorem ipsum
                     </Text>
-                    <Text style={[styles.min4, styles.minTypo]}>
-                      ¡La inscripción acaba en 10 horas!
-                    </Text>
+                    <View style={styles.minParent}>
+                      <Text style={[styles.min10, styles.minTypo]}>
+                        Lorem ipsum dolor sit amet.{' '}
+                      </Text>
+                      <Text style={[styles.min10, styles.minTypo]}>
+                        Lorem ipsum dolor sit amet.{' '}
+                      </Text>
+                    </View>
                   </View>
                 </View>
-              </View> */}
-            </ScrollView>
+                <View style={styles.image94ParentShadowBox}>
+                  <Image
+                    style={[styles.image94Icon, styles.image94IconLayout]}
+                    contentFit="cover"
+                    source={require('../assets/image-944.png')}
+                  />
+                  <View
+                    style={[
+                      styles.imGoingToShakeYParent,
+                      styles.frameGroupSpaceBlock
+                    ]}
+                  >
+                    <Text style={[styles.imGoingTo2, styles.minTypo]}>
+                      Lorem ipsum
+                    </Text>
+                    <View style={styles.minParent}>
+                      <Text style={[styles.min10, styles.minTypo]}>
+                        Lorem ipsum dolor sit amet.{' '}
+                      </Text>
+                      <Text style={[styles.min10, styles.minTypo]}>
+                        Lorem ipsum dolor sit amet.{' '}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+                <View
+                  style={[styles.image94ParentShadowBox, styles.marginCard]}
+                >
+                  <Image
+                    style={styles.image94Icon}
+                    contentFit="cover"
+                    source={require('../assets/image-945.png')}
+                  />
+                  <View
+                    style={[
+                      styles.imGoingToShakeYParent,
+                      styles.frameGroupSpaceBlock
+                    ]}
+                  >
+                    <Text style={[styles.imGoingTo2, styles.minTypo]}>
+                      Lorem ipsum
+                    </Text>
+                    <View style={styles.minParent}>
+                      <Text style={[styles.min10, styles.minTypo]}>
+                        Lorem ipsum dolor sit amet
+                      </Text>
+                      <Text style={[styles.min10, styles.minTypo]}>
+                        Lorem ipsum dolor sit amet.{' '}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </ScrollView>
+            </View>
           </View>
-          <View style={{ alignItems: 'center' }}>
-            <Text style={styles.helloTypoScroll}>Últimas pruebas añadidas</Text>
-            <ScrollView
-              style={{ marginBottom: 10 }}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            >
-              <View style={styles.image94ParentShadowBox1}>
-                <Image
-                  style={[styles.image94Icon, styles.image94IconLayout]}
-                  contentFit="cover"
-                  source={require('../assets/image-944.png')}
-                />
-                <View
-                  style={[
-                    styles.imGoingToShakeYParent,
-                    styles.frameGroupSpaceBlock
-                  ]}
-                >
-                  <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                    Lorem ipsum
-                  </Text>
-                  <View style={styles.minParent}>
-                    <Text style={[styles.min, styles.minClr]}>
-                      Lorem ipsum dolor sit amet.{' '}
-                    </Text>
-                    <Text style={[styles.min, styles.minClr]}>
-                      Lorem ipsum dolor sit amet.{' '}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-              <View style={styles.image94ParentShadowBox}>
-                <Image
-                  style={[styles.image94Icon, styles.image94IconLayout]}
-                  contentFit="cover"
-                  source={require('../assets/image-945.png')}
-                />
-                <View
-                  style={[
-                    styles.imGoingToShakeYParent,
-                    styles.frameGroupSpaceBlock
-                  ]}
-                >
-                  <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                    Lorem ipsum
-                  </Text>
-                  <View style={styles.minParent}>
-                    <Text style={[styles.min, styles.minClr]}>
-                      Lorem ipsum dolor sit amet.{' '}
-                    </Text>
-                    <Text style={[styles.min, styles.minClr]}>
-                      Lorem ipsum dolor sit amet.{' '}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-              <View style={styles.image94ParentShadowBox}>
-                <Image
-                  style={[styles.image94Icon, styles.image94IconLayout]}
-                  contentFit="cover"
-                  source={require('../assets/image-943.png')}
-                />
-                <View
-                  style={[
-                    styles.imGoingToShakeYParent,
-                    styles.frameGroupSpaceBlock
-                  ]}
-                >
-                  <Text style={[styles.imGoingTo2, styles.minTypo]}>
-                    Lorem ipsum
-                  </Text>
-                  <View style={styles.minParent}>
-                    <Text style={[styles.min10, styles.minTypo]}>
-                      Lorem ipsum dolor sit amet.{' '}
-                    </Text>
-                    <Text style={[styles.min10, styles.minTypo]}>
-                      Lorem ipsum dolor sit amet.{' '}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </ScrollView>
-          </View>
-          <View style={{ alignItems: 'center' }}>
-            <Text style={styles.helloTypoScroll}>
-              Resultados de las útlimas pruebas
-            </Text>
-            <ScrollView
-              // style={{ marginBottom: 10 }}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            >
-              <View style={styles.image94ParentShadowBox1}>
-                <Image
-                  style={[styles.image94Icon, styles.image94IconLayout]}
-                  contentFit="cover"
-                  source={require('../assets/image-943.png')}
-                />
-                <View
-                  style={[
-                    styles.imGoingToShakeYParent,
-                    styles.frameGroupSpaceBlock
-                  ]}
-                >
-                  <Text style={[styles.imGoingTo2, styles.minTypo]}>
-                    Lorem ipsum
-                  </Text>
-                  <View style={styles.minParent}>
-                    <Text style={[styles.min10, styles.minTypo]}>
-                      Lorem ipsum dolor sit amet.{' '}
-                    </Text>
-                    <Text style={[styles.min10, styles.minTypo]}>
-                      Lorem ipsum dolor sit amet.{' '}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-              <View style={styles.image94ParentShadowBox}>
-                <Image
-                  style={[styles.image94Icon, styles.image94IconLayout]}
-                  contentFit="cover"
-                  source={require('../assets/image-944.png')}
-                />
-                <View
-                  style={[
-                    styles.imGoingToShakeYParent,
-                    styles.frameGroupSpaceBlock
-                  ]}
-                >
-                  <Text style={[styles.imGoingTo2, styles.minTypo]}>
-                    Lorem ipsum
-                  </Text>
-                  <View style={styles.minParent}>
-                    <Text style={[styles.min10, styles.minTypo]}>
-                      Lorem ipsum dolor sit amet.{' '}
-                    </Text>
-                    <Text style={[styles.min10, styles.minTypo]}>
-                      Lorem ipsum dolor sit amet.{' '}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-              <View style={[styles.image94ParentShadowBox, styles.marginCard]}>
-                <Image
-                  style={styles.image94Icon}
-                  contentFit="cover"
-                  source={require('../assets/image-945.png')}
-                />
-                <View
-                  style={[
-                    styles.imGoingToShakeYParent,
-                    styles.frameGroupSpaceBlock
-                  ]}
-                >
-                  <Text style={[styles.imGoingTo2, styles.minTypo]}>
-                    Lorem ipsum
-                  </Text>
-                  <View style={styles.minParent}>
-                    <Text style={[styles.min10, styles.minTypo]}>
-                      Lorem ipsum dolor sit amet
-                    </Text>
-                    <Text style={[styles.min10, styles.minTypo]}>
-                      Lorem ipsum dolor sit amet.{' '}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </ScrollView>
-          </View>
-        </View>
+        )}
       </View>
     </ScrollView>
   )

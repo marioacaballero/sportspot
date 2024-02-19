@@ -1,23 +1,27 @@
 import React from 'react'
-import { Text, StyleSheet, View, Image, ScrollView } from 'react-native'
+import {
+  Text,
+  StyleSheet,
+  View,
+  Image,
+  ScrollView
+  // TextInput,
+  // Pressable
+} from 'react-native'
+import FomularioEventos from '../components/FomularioEventos'
 
 import { Padding, FontSize, FontFamily, Color, Border } from '../GlobalStyles'
 
 const InicioOrganizador = () => {
   return (
     <ScrollView
-      style={[styles.inicioOrganizador, styles.groupContainerSpaceBlock]}
+      style={[styles.inicioOrganizador]}
       contentContainerStyle={{ paddingBottom: 100 }}
     >
-      <View style={[styles.frameView, styles.frameParentSpaceBlock]}>
+      <View style={styles.frameView}>
         <Text style={styles.helloAshfak3}>{`Breve descripción del servicio a
         organizadores`}</Text>
-        <View
-          style={[
-            styles.healthiconsmegaphoneParent,
-            styles.frameParentSpaceBlock
-          ]}
-        >
+        <View style={[styles.healthiconsmegaphoneParent]}>
           <Image
             style={styles.healthiconsmegaphone}
             contentFit="cover"
@@ -38,12 +42,7 @@ const InicioOrganizador = () => {
           source={require('../assets/right-organization.png')}
         />
         {/* <View style={styles.connectorLayout} /> */}
-        <View
-          style={[
-            styles.healthiconsmegaphoneParent,
-            styles.frameParentSpaceBlock
-          ]}
-        >
+        <View style={styles.healthiconsmegaphoneParent}>
           <View style={styles.helloAshfakParent2}>
             <Text style={[styles.helloAshfak6, styles.helloLayout]}>{`AUMENTO DE
             INSCRIPCIONES`}</Text>
@@ -74,12 +73,7 @@ const InicioOrganizador = () => {
           source={require('../assets/left-organization.png')}
         />
         {/* <View style={[styles.connectorLine1, styles.connectorLayout]} /> */}
-        <View
-          style={[
-            styles.healthiconsmegaphoneParent,
-            styles.frameParentSpaceBlock
-          ]}
-        >
+        <View style={styles.healthiconsmegaphoneParent}>
           <Image
             style={styles.faSolidcoinsIcon}
             contentFit="cover"
@@ -100,12 +94,7 @@ const InicioOrganizador = () => {
           />
         </View>
         {/* <View style={styles.connectorLayout} /> */}
-        <View
-          style={[
-            styles.healthiconsmegaphoneParent,
-            styles.frameParentSpaceBlock
-          ]}
-        >
+        <View style={styles.healthiconsmegaphoneParent}>
           <View style={styles.helloAshfakParent2}>
             <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
               ÉXITO DE PRUEBAS
@@ -123,19 +112,73 @@ const InicioOrganizador = () => {
             source={require('../assets/fluentmdl2medalsolid.png')}
           />
         </View>
+
+        <View style={styles.helloAshfakParent2}>
+          <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
+            ACCEDE Y CREA TU EVENTO
+          </Text>
+          <Text
+            style={[styles.helloAshfak9, styles.helloTypo]}
+          >{`Por parte de los deportistas,
+              generando renombre en
+              competiciones de los
+              organizadores`}</Text>
+        </View>
+        <FomularioEventos />
       </View>
     </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
+  picker: {
+    height: 50,
+    width: 200,
+    borderColor: 'gray',
+    borderWidth: 1
+  },
+  items: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: Color.blanco,
+    height: 52,
+    padding: 8
+  },
+  itemsTextArea: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginTop: 10,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: Color.blanco,
+    // height: 52,
+    padding: 8,
+    height: 100
+  },
+  textArea: {
+    marginTop: 6,
+    width: '100%',
+    fontSize: FontSize.inputPlaceholder_size,
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '700',
+    color: Color.sportsVioleta
+  },
+  textAreaInput: {
+    alignSelf: 'flex-start'
+  },
   groupContainerSpaceBlock: {
     paddingHorizontal: Padding.p_xl
   },
-  frameParentSpaceBlock: {
-    // marginTop: 20,
-    alignSelf: 'stretch'
+  helloTypoScroll: {
+    fontSize: FontSize.inputPlaceholder_size,
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '700',
+    color: Color.sportsVioleta
   },
+
   helloTypo2: {
     fontSize: FontSize.inputPlaceholder_size,
     textAlign: 'left',
@@ -318,8 +361,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   },
   frameView: {
-    borderRadius: Border.br_3xs,
-    backgroundColor: Color.colorLinen_200,
     padding: Padding.p_xl,
     zIndex: 2,
     alignItems: 'center',
@@ -360,14 +401,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_xl,
     alignItems: 'center'
   },
-  inicioOrganizador: {
-    // backgroundColor: Color.blanco,
-    height: 800,
-    paddingTop: 180,
-    paddingBottom: Padding.p_5xl,
-    // width: '100%',
-    flex: 1
-  },
   materialSymbolsnotifications: {
     width: 27,
     marginLeft: 7,
@@ -380,13 +413,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_xl,
     justifyContent: 'center',
     alignItems: 'center',
-    width: 360,
+    width: '100%',
     left: 0,
     position: 'absolute'
   },
   iconLayout: {
     height: '100%',
     width: '100%'
+  },
+  inicioOrganizador: {
+    height: '100%',
+    backgroundColor: Color.colorLinen_200,
+    marginTop: 20,
+    borderRadius: 30
+    // paddingTop: 180,
+    // flex: 1
   }
 })
 

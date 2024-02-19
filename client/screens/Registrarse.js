@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   StyleSheet,
   Text,
@@ -10,9 +10,30 @@ import {
 import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation } from '@react-navigation/native'
 import { Padding, Border, FontFamily, FontSize, Color } from '../GlobalStyles'
+import { useDispatch } from 'react-redux'
+import { register } from '../redux/actions/users'
 
 const Registrarse = () => {
+  const dispatch = useDispatch()
   const navigation = useNavigation()
+  const [registerUser, setRegisterUser] = useState({
+    name: '',
+    password: '',
+    email: ''
+  })
+
+  const onValuesUser = (field, value) => {
+    setRegisterUser((prevState) => ({
+      ...prevState,
+      [field]: value
+    }))
+  }
+
+  const onSubmit = () => {
+    dispatch(register(registerUser))
+  }
+
+  console.log(registerUser)
 
   return (
     <LinearGradient
@@ -36,23 +57,32 @@ const Registrarse = () => {
             <TextInput
               style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
               placeholder="Nombre de usuario"
+              value={registerUser.name}
+              onChangeText={(value) => onValuesUser('name', value)}
             />
           </View>
           <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
               placeholder="Email"
+              value={registerUser.email}
+              onChangeText={(value) => onValuesUser('email', value)}
             />
           </View>
           <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
               placeholder="Contraseña"
+              value={registerUser.password}
+              onChangeText={(value) => onValuesUser('password', value)}
             />
           </View>
           <Pressable
             style={[styles.registrarseWrapper, styles.wrapperFlexBox]}
-            onPress={() => navigation.navigate('InicioDeportista')}
+            onPress={() => {
+              onSubmit()
+              navigation.navigate('InicioDeportista')
+            }}
           >
             <Text style={[styles.registrarse1, styles.registrarse1Typo]}>
               Registrarse

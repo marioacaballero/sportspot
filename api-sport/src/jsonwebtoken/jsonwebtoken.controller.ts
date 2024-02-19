@@ -1,13 +1,18 @@
-import { Controller, Post, Request } from '@nestjs/common'
+import { Body, Controller, Post } from '@nestjs/common'
 import { JsonwebtokenService } from './jsonwebtoken.service'
+import { UsersService } from 'src/users/services/users.service'
 
-@Controller('jsonwebtoken')
+@Controller('jwt')
 export class JsonwebtokenController {
-  constructor(private jsonwebtokenService: JsonwebtokenService) {}
+  constructor(
+    private jsonwebtokenService: JsonwebtokenService,
+    private readonly userService: UsersService
+  ) {}
 
   // @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Request() req) {
-    return this.jsonwebtokenService.login(req.user)
+  async login(@Body() body: { email: string; password: string }) {
+    const user = await this.userService.getByEmailService(body.email)
+    return this.jsonwebtokenService.loginValidate(user, body.password)
   }
 }
