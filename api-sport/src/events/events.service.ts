@@ -55,7 +55,6 @@ export class EventsService {
     event.location = updateEventDto.location
     event.dateStart = updateEventDto.dateStart
     event.dateInscription = updateEventDto.dateInscription
-    event.favorite = updateEventDto.favorite
 
     return await this.eventsRepository.save(event)
   }
