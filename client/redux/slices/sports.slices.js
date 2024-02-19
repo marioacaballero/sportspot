@@ -5,9 +5,16 @@ export const sportsSlices = createSlice({
   name: 'sports',
   initialState: {
     sports: [],
+    sport: {},
     loading: false
   },
-  reducers: {},
+  reducers: {
+    setSport: (state, action) => {
+      state.sport = action.payload
+      // const filterSports = state.sports.filter((el) => el.name === state.sport)
+      // state.sport = filterSports
+    }
+  },
 
   extraReducers: (builder) => {
     builder
@@ -26,5 +33,6 @@ export const sportsSlices = createSlice({
       })
   }
 })
+export const { setSport } = sportsSlices.actions
 
 export default sportsSlices.reducer

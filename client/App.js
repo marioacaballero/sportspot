@@ -148,7 +148,7 @@ export default function App() {
               options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="InicioOrganizador"
+              name="Organizador"
               component={InicioOrganizador}
               options={{ headerShown: false }}
             />
