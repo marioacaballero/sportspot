@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   StyleSheet,
   Text,
@@ -9,8 +9,28 @@ import {
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Padding, Border, FontFamily, FontSize, Color } from '../GlobalStyles'
+import { useDispatch } from 'react-redux'
+import { login } from '../redux/actions/users'
 
 const IniciarSesin = ({ navigation }) => {
+  const dispatch = useDispatch()
+
+  const [loginInfo, setLoginInfo] = useState({
+    email: '',
+    password: ''
+  })
+
+  const valuesLogin = (field, value) => {
+    setLoginInfo((prev) => ({
+      ...prev,
+      [field]: value
+    }))
+  }
+
+  const onSubit = () => {
+    dispatch(login(loginInfo))
+  }
+
   return (
     <LinearGradient
       style={styles.iniciarSesin}
@@ -33,17 +53,24 @@ const IniciarSesin = ({ navigation }) => {
             <TextInput
               style={[styles.nombreDeUsuario, styles.entrarTypo]}
               placeholder="Nombre de usuario"
+              value={loginInfo.email}
+              onChangeText={(value) => valuesLogin('email', value)}
             />
           </View>
           <View style={[styles.contraseaWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={[styles.nombreDeUsuario, styles.entrarTypo]}
               placeholder="Contraseña"
+              value={loginInfo.password}
+              onChangeText={(value) => valuesLogin('password', value)}
             />
           </View>
           <Pressable
             style={[styles.entrarWrapper, styles.wrapperFlexBox]}
-            onPress={() => navigation.navigate('InicioDeportista')}
+            onPress={() => {
+              onSubit()
+              navigation.navigate('InicioDeportista')
+            }}
           >
             <Text style={[styles.entrar, styles.entrarTypo]}>Entrar</Text>
           </Pressable>
@@ -88,6 +115,7 @@ const styles = StyleSheet.create({
     marginBottom: '5%'
   },
   nombreDeUsuario: {
+    width: '100%',
     color: Color.sportsVioleta,
     textAlign: 'left',
     fontSize: FontSize.size_lg,
