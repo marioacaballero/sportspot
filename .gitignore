@@ -1,6 +1,7 @@
 # compiled output
 
 client/node_modules/
+client/.env
 api-sport/node_modules/
 api-sport/dist/
 api-sport/.env
