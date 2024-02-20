@@ -38,6 +38,12 @@ export class EventEntity extends BaseEntity {
   @Column()
   dateInscription: Date
 
+  @Column({
+    default:
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA+gAAAABCAYAAABNAIQzAAAAIElEQVR42u3BMQEAAAgDIM3vuW7mMYYP0JlsAQAAAK8OmrgCiekCissAAAAASUVORK5CYII='
+  })
+  image: string
+
   @ManyToOne(() => SportEntity, (sport) => sport.events)
   sport: SportEntity
 

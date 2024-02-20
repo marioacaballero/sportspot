@@ -1,4 +1,5 @@
-import * as React from 'react'
+import React from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
   StyleSheet,
   View,
@@ -140,7 +141,16 @@ Blanco Carrrilho`}</Text>
               styles.solarsettingsBoldParent1,
               styles.solarsettingsSpaceBlock
             ]}
-            onPress={() => navigation.navigate('IniciarSesin')}
+            onPress={() => {
+              AsyncStorage.clear()
+                .then(() => {
+                  console.log('AsyncStorage borrado correctamente')
+                  navigation.navigate('IniciarSesin')
+                })
+                .catch((error) => {
+                  console.error('Error al borrar AsyncStorage:', error)
+                })
+            }}
           >
             <Image
               style={styles.solarsettingsBoldIcon}

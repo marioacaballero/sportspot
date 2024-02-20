@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   StyleSheet,
   Text,
@@ -7,10 +7,65 @@ import {
   Image,
   TextInput
 } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Padding, Border, FontFamily, FontSize, Color } from '../GlobalStyles'
+import { useDispatch, useSelector } from 'react-redux'
+import { login } from '../redux/actions/users'
 
 const IniciarSesin = ({ navigation }) => {
+  const { user, userToken } = useSelector((state) => state.users)
+  const dispatch = useDispatch()
+
+  const [loginInfo, setLoginInfo] = useState({
+    email: '',
+    password: ''
+  })
+
+  // useEffect(() => {
+  //   if (user) {
+  //     localStorage.setItem('token', userToken)
+  //   }
+  //   if (localStorage.getItem('token')) {
+  //     navigation.navigate('InicioDeportista')
+  //   }
+  // }, [userToken, user])
+
+  useEffect(() => {
+    const storeTokenAndNavigate = async () => {
+      if (user) {
+        try {
+          await AsyncStorage.setItem('token', userToken)
+        } catch (error) {
+          console.error('Error al almacenar el token:', error)
+        }
+      }
+
+      try {
+        const storedToken = await AsyncStorage.getItem('token')
+        console.log('holaaaaaa', storedToken)
+        if (storedToken) {
+          navigation.navigate('InicioDeportista')
+        }
+      } catch (error) {
+        console.error('Error al recuperar el token:', error)
+      }
+    }
+
+    storeTokenAndNavigate()
+  }, [userToken, user, navigation])
+
+  const valuesLogin = (field, value) => {
+    setLoginInfo((prev) => ({
+      ...prev,
+      [field]: value
+    }))
+  }
+
+  const onSubmit = () => {
+    dispatch(login(loginInfo))
+  }
+
   return (
     <LinearGradient
       style={styles.iniciarSesin}
@@ -33,17 +88,25 @@ const IniciarSesin = ({ navigation }) => {
             <TextInput
               style={[styles.nombreDeUsuario, styles.entrarTypo]}
               placeholder="Nombre de usuario"
+              value={loginInfo.email}
+              onChangeText={(value) => valuesLogin('email', value)}
             />
           </View>
           <View style={[styles.contraseaWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={[styles.nombreDeUsuario, styles.entrarTypo]}
               placeholder="Contraseña"
+              value={loginInfo.password}
+              onChangeText={(value) => valuesLogin('password', value)}
+              secureTextEntry={true}
             />
           </View>
           <Pressable
             style={[styles.entrarWrapper, styles.wrapperFlexBox]}
-            onPress={() => navigation.navigate('InicioDeportista')}
+            onPress={() => {
+              onSubmit()
+              // navigation.navigate('InicioDeportista')
+            }}
           >
             <Text style={[styles.entrar, styles.entrarTypo]}>Entrar</Text>
           </Pressable>
@@ -88,6 +151,7 @@ const styles = StyleSheet.create({
     marginBottom: '5%'
   },
   nombreDeUsuario: {
+    width: '100%',
     color: Color.sportsVioleta,
     textAlign: 'left',
     fontSize: FontSize.size_lg,
