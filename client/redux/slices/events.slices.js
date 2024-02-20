@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getAllEvents, getEventById } from '../actions/events'
+import { getAllEvents, getEventById, favorite } from '../actions/events'
 
 export const eventsSlices = createSlice({
   name: 'events',
@@ -7,7 +7,8 @@ export const eventsSlices = createSlice({
     events: [],
     event: {},
     loading: false,
-    error: {}
+    error: {},
+    favorites: []
   },
   reducers: {
     setEvent: (state, action) => {
@@ -43,6 +44,21 @@ export const eventsSlices = createSlice({
         state.error = null
       })
       .addCase(getEventById.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+
+      // FAVORITOS
+      .addCase(favorite.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(favorite.fulfilled, (state, action) => {
+        state.loading = false
+        state.event = action.payload
+        state.error = null
+      })
+      .addCase(favorite.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

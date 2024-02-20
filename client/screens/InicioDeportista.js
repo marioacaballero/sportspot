@@ -50,8 +50,6 @@ const InicioDeportista = () => {
     setModalOrganizador(!modalOrganizador)
   }
 
-  console.log(events)
-
   return (
     <ScrollView style={styles.inicioDeportista}>
       <View style={[styles.frameParent, styles.frameParentFlexBox]}>

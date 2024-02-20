@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   Text,
   StyleSheet,
@@ -13,13 +14,21 @@ import { FontFamily, FontSize, Color, Border, Padding } from '../GlobalStyles'
 import PopupOrdenarPor from '../components/PopupOrdenarPor'
 import PruebasEncontradasFiltros from '../components/PruebasEncontradasFiltros'
 import CorazonSVG from '../components/SVG/CorazonSVG'
+import { getAllEvents, getEventById } from '../redux/actions/events'
 
 const PruebasEncontradas = () => {
   const navigation = useNavigation()
+  const dispatch = useDispatch()
+
+  const { events } = useSelector((state) => state.events)
 
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
   const [fav, setFav] = useState({})
+
+  useEffect(() => {
+    dispatch(getAllEvents())
+  }, [])
 
   const toggleFavorite = (itemId) => {
     setFav((prevFavorites) => ({
@@ -91,255 +100,77 @@ const PruebasEncontradas = () => {
             </View>
           </View>
           <View style={styles.frameContainer}>
-            <View style={styles.unsplashon4qwhhjcemParentShadowBox}>
-              <Image
-                style={styles.unsplashon4qwhhjcemIcon}
-                contentFit="cover"
-                source={require('../assets/unsplashon4qwhhjcem2.png')}
-              />
-              <View style={styles.frameView}>
-                <View style={styles.frameGroupFlexBox}>
-                  <Text style={[styles.senderismo, styles.textTypo]}>
-                    Senderismo
-                  </Text>
-                  <Pressable
-                    style={styles.likeSpotsport}
-                    isFavorite={fav[0] || false}
-                    onPress={() => toggleFavorite(0)}
+            {events.map((event, i) => (
+              <Pressable
+                key={i}
+                onPress={() => {
+                  dispatch(getEventById(event.id))
+                  navigation.navigate('PruebasEncontradasDetalle')
+                }}
+                style={styles.unsplashon4qwhhjcemParentShadowBox}
+              >
+                <Image
+                  style={styles.unsplashon4qwhhjcemIcon}
+                  contentFit="cover"
+                  source={require('../assets/unsplashon4qwhhjcem2.png')}
+                />
+
+                <View style={styles.frameView}>
+                  <View style={styles.frameGroupFlexBox}>
+                    <Text style={[styles.senderismo, styles.textTypo]}>
+                      {event.title}
+                    </Text>
+                    <Pressable
+                      style={styles.likeSpotsport}
+                      isFavorite={fav[0] || false}
+                      onPress={() => toggleFavorite(0)}
+                    >
+                      <CorazonSVG color={fav[0] ? '#F25910' : '#40036F'} />
+                    </Pressable>
+                  </View>
+                  <Text
+                    style={[
+                      styles.imGoingToContainer,
+                      styles.goingContainerFlexBox
+                    ]}
                   >
-                    <CorazonSVG color={fav[0] ? '#F25910' : '#40036F'} />
-                  </Pressable>
+                    <Text style={styles.modalidad}>
+                      -Modalidad: {event.modality}
+                    </Text>
+                    <Text style={styles.modalidad}>
+                      -Localización: {event.location}
+                    </Text>
+                    <Text style={styles.modalidad}>-Fecha de la prueba:</Text>
+                    <Text style={styles.ene2024Typo}>
+                      {event.dateStart.substring(
+                        0,
+                        event.dateStart.indexOf('T')
+                      )}
+                    </Text>
+                    <Text style={styles.modalidad}>
+                      -Plazo límite de inscripción:
+                    </Text>
+                    <Text style={styles.ene2024Typo}>
+                      {event.dateInscription.substring(
+                        0,
+                        event.dateInscription.indexOf('T')
+                      )}
+                    </Text>
+                  </Text>
+                  <Text
+                    style={[
+                      styles.imGoingToContainer1,
+                      styles.goingContainerFlexBox
+                    ]}
+                  >
+                    <Text style={styles.precioDeInscripcin}>
+                      {'PRECIO DE INSCRIPCIÓN: '}
+                    </Text>
+                    <Text style={styles.textTypo}>{event.price}</Text>
+                  </Text>
                 </View>
-                <Text
-                  style={[
-                    styles.imGoingToContainer,
-                    styles.goingContainerFlexBox
-                  ]}
-                >
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                    onPress={() =>
-                      navigation.navigate('PruebasEncontradasDetalle')
-                    }
-                  >
-                    {
-                      '-Modalidad: Pista                               -Localización: Mérida, Badajor.                                                        -Fecha de la prueba: '
-                    }
-                  </Text>
-                  <Text style={styles.ene2024Typo}>
-                    {'25 ene 2024                    '}
-                  </Text>
-                  <Text style={styles.modalidadPistaLocalizacin}>
-                    {'-Plazo límite de inscripción: '}
-                  </Text>
-                  <Text style={styles.ene2024Typo}>22 ene 2024</Text>
-                </Text>
-                <Text
-                  style={[
-                    styles.imGoingToContainer1,
-                    styles.goingContainerFlexBox
-                  ]}
-                >
-                  <Text style={styles.precioDeInscripcin}>
-                    {'PRECIO DE INSCRIPCIÓN: '}
-                  </Text>
-                  <Text style={styles.textTypo}>22€</Text>
-                </Text>
-              </View>
-            </View>
-            <View
-              style={[
-                styles.unsplashon4qwhhjcemGroup,
-                styles.unsplashon4qwhhjcemParentShadowBox
-              ]}
-            >
-              <Image
-                style={styles.unsplashon4qwhhjcemIcon}
-                contentFit="cover"
-                source={require('../assets/unsplashon4qwhhjcem3.png')}
-              />
-              <View style={styles.frameView}>
-                <View style={styles.frameGroupFlexBox}>
-                  <Text
-                    style={[styles.senderismo, styles.textTypo]}
-                    onPress={() =>
-                      navigation.navigate('PruebasEncontradasDetalle')
-                    }
-                  >
-                    Ciclismo
-                  </Text>
-                  <Pressable
-                    style={styles.likeSpotsport}
-                    isFavorite={fav[1] || false}
-                    onPress={() => toggleFavorite(1)}
-                  >
-                    <CorazonSVG color={fav[1] ? '#F25910' : '#40036F'} />
-                  </Pressable>
-                </View>
-                <Text
-                  style={[
-                    styles.imGoingToContainer,
-                    styles.goingContainerFlexBox
-                  ]}
-                >
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                    onPress={() =>
-                      navigation.navigate('PruebasEncontradasDetalle')
-                    }
-                  >
-                    {
-                      '-Modalidad: Pista                               -Localización: Mérida, Badajor.                                                        -Fecha de la prueba: '
-                    }
-                  </Text>
-                  <Text style={styles.ene2024Typo}>
-                    {'25 ene 2024                    '}
-                  </Text>
-                  <Text style={styles.modalidadPistaLocalizacin}>
-                    {'-Plazo límite de inscripción: '}
-                  </Text>
-                  <Text style={styles.ene2024Typo}>22 ene 2024</Text>
-                </Text>
-                <Text
-                  style={[
-                    styles.imGoingToContainer1,
-                    styles.goingContainerFlexBox
-                  ]}
-                >
-                  <Text style={styles.precioDeInscripcin}>
-                    {'PRECIO DE INSCRIPCIÓN: '}
-                  </Text>
-                  <Text style={styles.textTypo}>22€</Text>
-                </Text>
-              </View>
-            </View>
-            <View
-              style={[
-                styles.unsplashon4qwhhjcemContainer,
-                styles.unsplashon4qwhhjcemParentShadowBox
-              ]}
-            >
-              <Image
-                style={styles.unsplashon4qwhhjcemIcon}
-                contentFit="cover"
-                source={require('../assets/unsplashon4qwhhjcem4.png')}
-              />
-              <View style={styles.frameView}>
-                <View style={styles.frameGroupFlexBox}>
-                  <Text style={[styles.senderismo, styles.textTypo]}>
-                    CrossFit
-                  </Text>
-                  <Pressable
-                    style={styles.likeSpotsport}
-                    isFavorite={fav[2] || false}
-                    onPress={() => toggleFavorite(2)}
-                  >
-                    <CorazonSVG color={fav[2] ? '#F25910' : '#40036F'} />
-                  </Pressable>
-                </View>
-                <Text
-                  style={[
-                    styles.imGoingToContainer,
-                    styles.goingContainerFlexBox
-                  ]}
-                >
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                    onPress={() =>
-                      navigation.navigate('PruebasEncontradasDetalle')
-                    }
-                  >
-                    {
-                      '-Modalidad: Pista                               -Localización: Mérida, Badajor.                                                        -Fecha de la prueba: '
-                    }
-                  </Text>
-                  <Text style={styles.ene2024Typo}>
-                    {'25 ene 2024                    '}
-                  </Text>
-                  <Text style={styles.modalidadPistaLocalizacin}>
-                    {'-Plazo límite de inscripción: '}
-                  </Text>
-                  <Text style={styles.ene2024Typo}>22 ene 2024</Text>
-                </Text>
-                <Text
-                  style={[
-                    styles.imGoingToContainer1,
-                    styles.goingContainerFlexBox
-                  ]}
-                >
-                  <Text style={styles.precioDeInscripcin}>
-                    {'PRECIO DE INSCRIPCIÓN: '}
-                  </Text>
-                  <Text style={styles.textTypo}>22€</Text>
-                </Text>
-              </View>
-            </View>
-            <View
-              style={[
-                styles.unsplashon4qwhhjcemParent1,
-                styles.unsplashon4qwhhjcemParentShadowBox
-              ]}
-            >
-              <Image
-                style={styles.unsplashon4qwhhjcemIcon}
-                contentFit="cover"
-                source={require('../assets/unsplashon4qwhhjcem3.png')}
-              />
-              <View style={styles.frameView}>
-                <View style={styles.frameGroupFlexBox}>
-                  <Text
-                    style={[styles.senderismo, styles.textTypo]}
-                    onPress={() =>
-                      navigation.navigate('PruebasEncontradasDetalle')
-                    }
-                  >
-                    Ciclismo
-                  </Text>
-                  <Pressable
-                    style={styles.likeSpotsport}
-                    isFavorite={fav[3] || false}
-                    onPress={() => toggleFavorite(3)}
-                  >
-                    <CorazonSVG color={fav[3] ? '#F25910' : '#40036F'} />
-                  </Pressable>
-                </View>
-                <Text
-                  style={[
-                    styles.imGoingToContainer,
-                    styles.goingContainerFlexBox
-                  ]}
-                >
-                  <Text
-                    style={styles.modalidadPistaLocalizacin}
-                    onPress={() =>
-                      navigation.navigate('PruebasEncontradasDetalle')
-                    }
-                  >
-                    {
-                      '-Modalidad: Pista                               -Localización: Mérida, Badajor.                                                        -Fecha de la prueba: '
-                    }
-                  </Text>
-                  <Text style={styles.ene2024Typo}>
-                    {'25 ene 2024                    '}
-                  </Text>
-                  <Text style={styles.modalidadPistaLocalizacin}>
-                    {'-Plazo límite de inscripción: '}
-                  </Text>
-                  <Text style={styles.ene2024Typo}>22 ene 2024</Text>
-                </Text>
-                <Text
-                  style={[
-                    styles.imGoingToContainer1,
-                    styles.goingContainerFlexBox
-                  ]}
-                >
-                  <Text style={styles.precioDeInscripcin}>
-                    {'PRECIO DE INSCRIPCIÓN: '}
-                  </Text>
-                  <Text style={styles.textTypo}>22€</Text>
-                </Text>
-              </View>
-            </View>
+              </Pressable>
+            ))}
           </View>
         </View>
       </View>
@@ -373,13 +204,8 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
-  containerLayout: {
-    width: 20,
-    height: 20
-  },
   goingContainerFlexBox: {
     marginTop: 10,
-    alignSelf: 'stretch',
     textAlign: 'left'
   },
   unsplashon4qwhhjcemParentShadowBox: {
@@ -396,12 +222,9 @@ const styles = StyleSheet.create({
     shadowColor: 'rgba(0, 0, 0, 0.25)',
     borderRadius: Border.br_3xs,
     flexDirection: 'row',
-    alignSelf: 'stretch',
-    width: '100%'
-  },
-  menInferiorPosition: {
-    width: 360,
-    left: 0
+    // alignSelf: 'stretch',
+    width: '100%',
+    marginTop: 10
   },
   pruebasEncontradas1: {
     fontSize: FontSize.size_5xl,
@@ -457,8 +280,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     right: '50%'
   },
-  modalidadPistaLocalizacin: {
-    fontFamily: FontFamily.inputPlaceholder
+  modalidad: {
+    fontFamily: FontFamily.inputPlaceholder,
+    marginLeft: 10
   },
   imGoingToContainer: {
     fontSize: FontSize.size_3xs,
@@ -475,19 +299,9 @@ const styles = StyleSheet.create({
     width: 201,
     padding: Padding.p_3xs
   },
-  unsplashon4qwhhjcemGroup: {
-    marginTop: 8
-  },
-  unsplashon4qwhhjcemContainer: {
-    marginTop: 8
-  },
-  unsplashon4qwhhjcemParent1: {
-    marginTop: 8
-  },
   frameContainer: {
     marginTop: 8,
-    alignItems: 'center',
-    alignSelf: 'stretch'
+    alignItems: 'center'
   },
   pruebasEncontradasParent: {
     paddingTop: Padding.p_48xl,
@@ -498,20 +312,6 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%'
   },
-  wrapper: {
-    width: 22,
-    height: 25
-  },
-  vector: {
-    width: 23,
-    marginLeft: 47,
-    height: 20
-  },
-  capturaDePantalla20231124: {
-    width: 33,
-    height: 33,
-    marginLeft: 47
-  },
   container: {
     marginLeft: 47,
     height: 20
@@ -520,16 +320,6 @@ const styles = StyleSheet.create({
     width: 19,
     marginLeft: 47,
     height: 20
-  },
-  groupParent: {
-    top: 10,
-    backgroundColor: Color.gris,
-    height: 65,
-    justifyContent: 'center',
-    paddingVertical: Padding.p_3xs,
-    alignItems: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: Padding.p_xl
   },
   pruebasEncontradas: {
     backgroundColor: Color.blanco,
