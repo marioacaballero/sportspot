@@ -2,7 +2,7 @@ import axios from 'axios'
 // import { apiBackend } from './config'
 
 const axiosInstance = axios.create({
-  baseURL: 'http://192.168.18.82:3000/'
+  baseURL: process.env.NEXT_PUBLIC_API_BACKEND
   // maxContentLength: Infinity,
   // maxBodyLength: Infinity
 })
