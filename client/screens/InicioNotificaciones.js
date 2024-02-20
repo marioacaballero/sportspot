@@ -1,14 +1,71 @@
-import * as React from 'react'
+import React, { useEffect } from 'react'
 import { Text, StyleSheet, View, Image } from 'react-native'
 // import { useNavigation } from '@react-navigation/native'
 import { Padding, Color, FontFamily, FontSize, Border } from '../GlobalStyles'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAlNotificationsByUser } from '../redux/actions/notifications'
 
 const InicioNotificaciones = () => {
+  const { notifications } = useSelector((state) => state.notifications)
+  const { user } = useSelector((state) => state.users)
+  const dispatch = useDispatch()
   // const navigation = useNavigation()
+
+  useEffect(() => {
+    dispatch(getAlNotificationsByUser(user.id))
+  }, [])
+
+  console.log(notifications)
 
   return (
     <View style={styles.frameParent1}>
       <View style={styles.materialSymbolsnotificationsParent}>
+        <Image
+          style={[
+            styles.materialSymbolsnotificationsIcon,
+            styles.materialLayout
+          ]}
+          contentFit="cover"
+          source={require('../assets/materialsymbolsnotifications2.png')}
+        />
+        <Text style={[styles.helloAshfak6, styles.imGoingToClr]}>
+          Notificaciones
+        </Text>
+      </View>
+
+      {notifications &&
+        notifications.map((notification, i) => (
+          <View key={i}>
+            <View style={[styles.lineView, styles.frameChildBorder]} />
+            <View style={styles.frameParent2}>
+              <View style={styles.frameParent3}>
+                <View style={styles.frameParent4}>
+                  <View style={styles.vectorWrapper}>
+                    <Image
+                      style={styles.vectorIcon}
+                      contentFit="cover"
+                      source={require('../assets/vector6.png')}
+                    />
+                  </View>
+                  <View style={styles.helloAshfakParent3}>
+                    <Text style={[styles.helloAshfak7, styles.helloTypo4]}>
+                      {notification.title}
+                    </Text>
+                    <Text style={[styles.helloAshfak8, styles.helloTypo1]}>
+                      {notification.message}
+                    </Text>
+                  </View>
+                </View>
+                <Text style={[styles.helloAshfak9, styles.helloTypo]}>
+                  {notification.createdAt}
+                </Text>
+              </View>
+              <View style={[styles.frameChild1, styles.frameChildBorder]} />
+            </View>
+          </View>
+        ))}
+
+      {/* <View style={styles.materialSymbolsnotificationsParent}>
         <Image
           style={[
             styles.materialSymbolsnotificationsIcon,
@@ -46,8 +103,9 @@ const InicioNotificaciones = () => {
           </Text>
         </View>
         <View style={[styles.frameChild1, styles.frameChildBorder]} />
-      </View>
-      <View style={styles.frameParent5}>
+      </View> */}
+
+      {/* <View style={styles.frameParent5}>
         <View>
           <View style={styles.frameParent7}>
             <View style={styles.vectorWrapper}>
@@ -197,7 +255,7 @@ const InicioNotificaciones = () => {
           <Text style={styles.helloTypo}>3 oct, a las 09:45</Text>
         </View>
         <View style={[styles.frameChild2, styles.frameChildBorder]} />
-      </View>
+      </View> */}
     </View>
   )
 }
@@ -532,6 +590,7 @@ const styles = StyleSheet.create({
   frameParent1: {
     justifyContent: 'center',
     alignSelf: 'center',
+    minWidth: '100%',
     // position: 'absolute',
     // top: 100,
     // right: 20,
