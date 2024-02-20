@@ -47,4 +47,8 @@ export class CreateEventDto {
   @IsBoolean()
   @IsOptional()
   favorite: boolean
+
+  @IsString()
+  @IsOptional() // Hacemos la propiedad image opcional
+  image: string
 }
