@@ -32,7 +32,7 @@ export class UsersController {
 
   @Post()
   public async create(@Body() body: UserDTO) {
-    // await this.sendMailsService.sendRegistrationNotification(body.email)
+    //await this.sendMailsService.sendRegistrationNotification(body.email)
     return await this.userService.register(body)
   }
 
