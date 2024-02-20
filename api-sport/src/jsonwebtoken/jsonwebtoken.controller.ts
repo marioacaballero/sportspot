@@ -12,7 +12,7 @@ export class JsonwebtokenController {
   // @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Body() body: { email: string; password: string }) {
-    console.log('bodyyyyy', body)
+    console.log('controller', body)
 
     const user = await this.userService.getByEmailService(body.email)
     return this.jsonwebtokenService.loginValidate(user, body.password)
