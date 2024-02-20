@@ -6,7 +6,7 @@ import { Entity, Column, OneToMany, ManyToMany } from 'typeorm'
 
 @Entity({ name: 'user' })
 export class UserEntity extends BaseEntity {
-  @Column()
+  @Column({ unique: true })
   name: string
 
   @Column({ unique: true })
