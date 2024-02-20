@@ -43,7 +43,6 @@ const IniciarSesin = ({ navigation }) => {
 
       try {
         const storedToken = await AsyncStorage.getItem('token')
-        console.log('holaaaaaa', storedToken)
         if (storedToken) {
           navigation.navigate('InicioDeportista')
         }

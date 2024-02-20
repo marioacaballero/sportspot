@@ -8,7 +8,6 @@ export const getAlNotificationsByUser = createAsyncThunk(
       const { data } = await axiosInstance.get('notifications', {
         params: { recipientId }
       })
-      console.log(data)
       return data
     } catch (error) {
       throw new Error(error)

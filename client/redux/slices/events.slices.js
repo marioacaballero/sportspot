@@ -55,7 +55,7 @@ export const eventsSlices = createSlice({
       })
       .addCase(favorite.fulfilled, (state, action) => {
         state.loading = false
-        state.event = action.payload
+        state.favorites = action.payload
         state.error = null
       })
       .addCase(favorite.rejected, (state, action) => {

@@ -16,14 +16,11 @@ export const notificationsSlices = createSlice({
         state.error = null
       })
       .addCase(getAlNotificationsByUser.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.loading = false
         state.notifications = action.payload
         state.error = null
       })
       .addCase(getAlNotificationsByUser.rejected, (state, action) => {
-        console.log(action.payload)
-
         state.loading = false
         state.error = action.payload
       })
