@@ -140,7 +140,10 @@ Blanco Carrrilho`}</Text>
               styles.solarsettingsBoldParent1,
               styles.solarsettingsSpaceBlock
             ]}
-            onPress={() => navigation.navigate('IniciarSesin')}
+            onPress={() => {
+              localStorage.clear()
+              navigation.navigate('IniciarSesin')
+            }}
           >
             <Image
               style={styles.solarsettingsBoldIcon}

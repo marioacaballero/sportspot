@@ -10,22 +10,14 @@ import {
 } from 'react-native'
 // import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
-import { useDispatch, useSelector } from 'react-redux'
-import { onSuscription } from '../redux/actions/suscriptions'
+import { useSelector } from 'react-redux'
 import ModalSuscription from '../components/ModalSuscription'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
   // const navigation = useNavigation()
-  const dispatch = useDispatch()
   const { user } = useSelector((state) => state.users)
   const { event } = useSelector((state) => state.events)
   const [modalSuscription, setModalSuscription] = useState(false)
-  const [suscription, setSuscription] = useState({
-    name: user.name,
-    email: '',
-    password: '',
-    eventId: event.id
-  })
 
   return (
     <View style={styles.pruebasEncontradasDetalle}>
@@ -88,7 +80,9 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
             contentFit="cover"
             source={require('../assets/cilarrowtop.png')}
           />
-          <Text style={[styles.ciclismo, styles.ciclismoTypo]}>Ciclismo</Text>
+          <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
+            {event.sport?.name}
+          </Text>
         </Pressable>
       </View>
 
@@ -97,10 +91,18 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
         transparent={true}
         visible={modalSuscription}
       >
-        <TouchableWithoutFeedback onPress={() => setModalSuscription(false)}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            setModalSuscription(false)
+          }}
+        >
           <View style={styles.modalOverlay}>
             <View>
-              <ModalSuscription />
+              <ModalSuscription
+                user={user}
+                event={event}
+                onClose={() => setModalSuscription(false)}
+              />
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -111,8 +113,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   parentPosition: {
-    left: 0,
-    position: 'absolute'
+    // left: 0,
+    // position: 'absolute'
   },
   modalOverlay: {
     // flex: 1,

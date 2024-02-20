@@ -1,26 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getAllSports } from '../actions/sports'
+import { getAlNotificationsByUser } from '../actions/notifications'
 
 export const notificationsSlices = createSlice({
   name: 'notifications',
   initialState: {
-    sports: [],
+    notifications: [],
     loading: false
   },
   reducers: {},
 
   extraReducers: (builder) => {
     builder
-      .addCase(getAllSports.pending, (state) => {
+      .addCase(getAlNotificationsByUser.pending, (state) => {
         state.loading = true
         state.error = null
       })
-      .addCase(getAllSports.fulfilled, (state, action) => {
+      .addCase(getAlNotificationsByUser.fulfilled, (state, action) => {
+        console.log(action.payload)
         state.loading = false
-        state.sports = action.payload
+        state.notifications = action.payload
         state.error = null
       })
-      .addCase(getAllSports.rejected, (state, action) => {
+      .addCase(getAlNotificationsByUser.rejected, (state, action) => {
+        console.log(action.payload)
+
         state.loading = false
         state.error = action.payload
       })
