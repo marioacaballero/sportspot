@@ -55,6 +55,7 @@ export class EventsService {
     event.location = updateEventDto.location
     event.dateStart = updateEventDto.dateStart
     event.dateInscription = updateEventDto.dateInscription
+    event.image = updateEventDto.image
 
     return await this.eventsRepository.save(event)
   }
