@@ -11,10 +11,14 @@ import { UsersService } from '../services/users.service'
 import { UserEntity } from '../entities/users.entity'
 import { UserDTO } from '../dto/user.dto'
 import { UpdateUserDto } from '../dto/update-user.dto'
+import { SendMailsService } from 'src/send-mails/send-mails.service'
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly userService: UsersService) {}
+  constructor(
+    private readonly userService: UsersService,
+    private readonly sendMailsService: SendMailsService
+  ) {}
 
   @Get()
   public async getAll() {
@@ -28,6 +32,7 @@ export class UsersController {
 
   @Post()
   public async create(@Body() body: UserDTO) {
+    await this.sendMailsService.sendRegistrationNotification(body.email)
     return await this.userService.register(body)
   }
 
