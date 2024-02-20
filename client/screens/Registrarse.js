@@ -30,7 +30,10 @@ const Registrarse = () => {
   }
 
   const onSubmit = () => {
-    dispatch(register(registerUser))
+    if (register.name && registerUser.password && registerUser.email) {
+      dispatch(register(registerUser))
+      navigation.navigate('IniciarSesin')
+    }
   }
 
   console.log(registerUser)
@@ -75,13 +78,13 @@ const Registrarse = () => {
               placeholder="Contraseña"
               value={registerUser.password}
               onChangeText={(value) => onValuesUser('password', value)}
+              secureTextEntry={true}
             />
           </View>
           <Pressable
             style={[styles.registrarseWrapper, styles.wrapperFlexBox]}
             onPress={() => {
               onSubmit()
-              navigation.navigate('IniciarSesin')
             }}
           >
             <Text style={[styles.registrarse1, styles.registrarse1Typo]}>
