@@ -31,9 +31,12 @@ export const createEvent = createAsyncThunk('events/create', async (body) => {
   }
 })
 
-export const favorite = createAsyncThunk('users/favorite', async (id, body) => {
+export const favorite = createAsyncThunk('users/favorite', async (body) => {
+  const { id, eventId } = body
   try {
-    const { data } = await axiosInstance.patch(`/users/favorite/${id}`, body)
+    const { data } = await axiosInstance.patch(`/users/favorite/${id}`, {
+      eventId
+    })
     return data
   } catch (error) {
     throw new Error(error)

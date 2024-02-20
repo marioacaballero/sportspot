@@ -36,8 +36,6 @@ const Registrarse = () => {
     }
   }
 
-  console.log(registerUser)
-
   return (
     <LinearGradient
       style={styles.registrarse}

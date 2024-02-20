@@ -15,8 +15,6 @@ const InicioNotificaciones = () => {
     dispatch(getAlNotificationsByUser(user.id))
   }, [])
 
-  console.log(notifications)
-
   return (
     <View style={styles.frameParent1}>
       <View style={styles.materialSymbolsnotificationsParent}>

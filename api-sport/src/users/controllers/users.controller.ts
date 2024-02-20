@@ -48,7 +48,7 @@ export class UsersController {
     @Param('id') id: string,
     @Body('eventId') eventId: string
   ): Promise<UserEntity> {
-    console.log(id)
+    // console.log(id)
     return this.userService.eventFavoritesService(id, eventId)
   }
 

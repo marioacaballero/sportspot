@@ -14,27 +14,28 @@ import { FontFamily, FontSize, Color, Border, Padding } from '../GlobalStyles'
 import PopupOrdenarPor from '../components/PopupOrdenarPor'
 import PruebasEncontradasFiltros from '../components/PruebasEncontradasFiltros'
 import CorazonSVG from '../components/SVG/CorazonSVG'
-import { getAllEvents, getEventById } from '../redux/actions/events'
+import { getAllEvents, getEventById, favorite } from '../redux/actions/events'
 
 const PruebasEncontradas = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
-  const { events } = useSelector((state) => state.events)
+  const { events, favorites } = useSelector((state) => state.events)
+  const { user } = useSelector((state) => state.users)
 
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
-  const [fav, setFav] = useState({})
 
   useEffect(() => {
     dispatch(getAllEvents())
   }, [])
 
-  const toggleFavorite = (itemId) => {
-    setFav((prevFavorites) => ({
-      ...prevFavorites,
-      [itemId]: !prevFavorites[itemId] || false
-    }))
+  const toggleFavorite = (eventId) => {
+    const data = {
+      id: user.id,
+      eventId
+    }
+    dispatch(favorite(data))
   }
 
   const toggleModalOrder = () => {
@@ -122,10 +123,14 @@ const PruebasEncontradas = () => {
                     </Text>
                     <Pressable
                       style={styles.likeSpotsport}
-                      isFavorite={fav[0] || false}
-                      onPress={() => toggleFavorite(0)}
+                      onPress={() => toggleFavorite(event.id)}
                     >
-                      <CorazonSVG color={fav[0] ? '#F25910' : '#40036F'} />
+                      <CorazonSVG
+                        isFavorite={
+                          favorites.eventFavorites &&
+                          favorites.eventFavorites.includes(event.id)
+                        }
+                      />
                     </Pressable>
                   </View>
                   <Text
