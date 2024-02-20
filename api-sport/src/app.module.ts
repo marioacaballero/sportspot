@@ -3,10 +3,11 @@ import { UsersModule } from './users/users.module'
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { DataSourceConfig } from './config/data.source'
-import { EventsModule } from './events/events.module';
-import { NotificationsModule } from './notifications/notifications.module';
-import { SportsModule } from './sports/sports.module';
-import { JsonwebtokenModule } from './jsonwebtoken/jsonwebtoken.module';
+import { EventsModule } from './events/events.module'
+import { NotificationsModule } from './notifications/notifications.module'
+import { SportsModule } from './sports/sports.module'
+import { JsonwebtokenModule } from './jsonwebtoken/jsonwebtoken.module'
+import { SendMailsModule } from './send-mails/send-mails.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { JsonwebtokenModule } from './jsonwebtoken/jsonwebtoken.module';
     EventsModule,
     NotificationsModule,
     SportsModule,
-    JsonwebtokenModule
+    JsonwebtokenModule,
+    SendMailsModule
   ],
   controllers: [],
   providers: []
