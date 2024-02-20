@@ -31,38 +31,34 @@ const Sports = ({ onClose }) => {
 
   return (
     <View style={styles.sports}>
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center'
-        }}
-      >
+      <View style={styles.container}>
         {sports?.map((sport) => (
-          <TouchableOpacity
-            key={sport?.name}
-            onPress={() => sportSelectStyle(sport?.name)}
-            style={{
-              alignItems: 'center',
-              border: '1px solid #E5E5E5',
-              borderRadius: 50,
-              padding: 15,
-              backgroundColor: showColor.includes(sport?.name)
-                ? '#40036F'
-                : 'white'
-            }}
-          >
-            <View style={{ alignItems: 'center' }}>
-              {sport?.name === 'Fulbo' && <FutbolSVG />}
-              {sport?.name === 'Ciclismo' && <CiclismoSVG />}
-              {sport?.name === 'Hockey' && <HockeySVG />}
-              {sport?.name === 'Tenis' && <TennisSVG />}
-              {sport?.name === 'Running' && <RunningSVG />}
-              {sport?.name === 'Rugby' && <RugbySVG />}
-              {sport?.name === 'Handball' && <HandballSVG />}
-              {sport?.name === 'Basketball' && <BasketSVG />}
-            </View>
-          </TouchableOpacity>
+          <View key={sport?.name} style={{ alignItems: 'center' }}>
+            <TouchableOpacity
+              onPress={() => sportSelectStyle(sport?.name)}
+              style={{
+                alignItems: 'center',
+                border: '1px solid #E5E5E5',
+                borderRadius: 50,
+                padding: 15,
+                backgroundColor: showColor.includes(sport?.name)
+                  ? '#40036F'
+                  : 'white'
+              }}
+            >
+              <View>
+                {sport?.name === 'Futbol' && <FutbolSVG />}
+                {sport?.name === 'Ciclismo' && <CiclismoSVG />}
+                {sport?.name === 'Hockey' && <HockeySVG />}
+                {sport?.name === 'Tenis' && <TennisSVG />}
+                {sport?.name === 'Running' && <RunningSVG />}
+                {sport?.name === 'Rugby' && <RugbySVG />}
+                {sport?.name === 'Handball' && <HandballSVG />}
+                {sport?.name === 'Basketball' && <BasketSVG />}
+              </View>
+            </TouchableOpacity>
+            <Text style={styles.ftbol}>{sport?.name}</Text>
+          </View>
         ))}
         <View style={styles.helloAshfakWrapper}>
           <Text style={styles.helloAshfak} onPress={handleClose}>
@@ -82,7 +78,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.colorGray_200,
     textAlign: 'center',
-    marginTop: 11
+    marginTop: 6
   },
   helloAshfak: {
     fontSize: FontSize.inputPlaceholder_size,
@@ -103,10 +99,17 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_5xs,
     backgroundColor: Color.blanco,
     width: 361,
-    flexDirection: 'column', // Arrange children horizontally
+    flexDirection: 'column',
+    alignItems: 'center',
     padding: Padding.p_xl,
     marginTop: 15,
-    justifyContent: 'space-between' // Distribute children evenly along the row
+    justifyContent: 'space-between'
+  },
+  container: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 10
   }
 })
 
