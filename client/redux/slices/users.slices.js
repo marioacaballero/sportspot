@@ -5,6 +5,7 @@ export const usersSlices = createSlice({
   name: 'users',
   initialState: {
     user: {},
+    userToken: '',
     loading: false
   },
   reducers: {},
@@ -17,6 +18,7 @@ export const usersSlices = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         console.log(action.payload)
         state.loading = false
+        state.userToken = action.payload.accesToken
         state.user = action.payload.user
         state.error = null
       })

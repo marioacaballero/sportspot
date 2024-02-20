@@ -81,7 +81,7 @@ const Registrarse = () => {
             style={[styles.registrarseWrapper, styles.wrapperFlexBox]}
             onPress={() => {
               onSubmit()
-              navigation.navigate('InicioDeportista')
+              navigation.navigate('IniciarSesin')
             }}
           >
             <Text style={[styles.registrarse1, styles.registrarse1Typo]}>

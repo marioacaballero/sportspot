@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   StyleSheet,
   Text,
@@ -9,16 +9,27 @@ import {
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Padding, Border, FontFamily, FontSize, Color } from '../GlobalStyles'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../redux/actions/users'
 
 const IniciarSesin = ({ navigation }) => {
+  const { user, userToken } = useSelector((state) => state.users)
   const dispatch = useDispatch()
 
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
   })
+  console.log('userrrrr', userToken)
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('token', userToken)
+    }
+    if (localStorage.getItem('token')) {
+      navigation.navigate('InicioDeportista')
+    }
+  }, [userToken, user])
 
   const valuesLogin = (field, value) => {
     setLoginInfo((prev) => ({
@@ -27,7 +38,7 @@ const IniciarSesin = ({ navigation }) => {
     }))
   }
 
-  const onSubit = () => {
+  const onSubmit = () => {
     dispatch(login(loginInfo))
   }
 
@@ -68,8 +79,8 @@ const IniciarSesin = ({ navigation }) => {
           <Pressable
             style={[styles.entrarWrapper, styles.wrapperFlexBox]}
             onPress={() => {
-              onSubit()
-              navigation.navigate('InicioDeportista')
+              onSubmit()
+              // navigation.navigate('InicioDeportista')
             }}
           >
             <Text style={[styles.entrar, styles.entrarTypo]}>Entrar</Text>

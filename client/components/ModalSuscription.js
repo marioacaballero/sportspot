@@ -15,9 +15,9 @@ const ModalSuscription = ({ user, event, onClose }) => {
   const dispatch = useDispatch()
   const [suscription, setSuscription] = useState({
     name: user.name,
-    eventId: event.id,
-    email: '',
-    password: ''
+    eventId: event.id
+    // email: '',
+    // password: ''
   })
 
   const valuesSuscription = (field, value) => {
