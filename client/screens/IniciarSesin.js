@@ -7,6 +7,7 @@ import {
   Image,
   TextInput
 } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Padding, Border, FontFamily, FontSize, Color } from '../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,16 +21,39 @@ const IniciarSesin = ({ navigation }) => {
     email: '',
     password: ''
   })
-  console.log('userrrrr', userToken)
+
+  // useEffect(() => {
+  //   if (user) {
+  //     localStorage.setItem('token', userToken)
+  //   }
+  //   if (localStorage.getItem('token')) {
+  //     navigation.navigate('InicioDeportista')
+  //   }
+  // }, [userToken, user])
 
   useEffect(() => {
-    if (user) {
-      localStorage.setItem('token', userToken)
+    const storeTokenAndNavigate = async () => {
+      if (user) {
+        try {
+          await AsyncStorage.setItem('token', userToken)
+        } catch (error) {
+          console.error('Error al almacenar el token:', error)
+        }
+      }
+
+      try {
+        const storedToken = await AsyncStorage.getItem('token')
+        console.log('holaaaaaa', storedToken)
+        if (storedToken) {
+          navigation.navigate('InicioDeportista')
+        }
+      } catch (error) {
+        console.error('Error al recuperar el token:', error)
+      }
     }
-    if (localStorage.getItem('token')) {
-      navigation.navigate('InicioDeportista')
-    }
-  }, [userToken, user])
+
+    storeTokenAndNavigate()
+  }, [userToken, user, navigation])
 
   const valuesLogin = (field, value) => {
     setLoginInfo((prev) => ({
@@ -74,6 +98,7 @@ const IniciarSesin = ({ navigation }) => {
               placeholder="Contraseña"
               value={loginInfo.password}
               onChangeText={(value) => valuesLogin('password', value)}
+              secureTextEntry={true}
             />
           </View>
           <Pressable
