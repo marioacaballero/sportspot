@@ -36,6 +36,12 @@ const PruebasEncontradas = () => {
     dispatch(getAllEvents())
   }, [])
 
+  useEffect(() => {
+    if (favorites.eventFavorites) {
+      setFavoriteEvents(favorites.eventFavorites)
+    }
+  }, [favorites, eventsFilter])
+
   const toggleFavorite = (eventId) => {
     const data = {
       id: user.id,
@@ -138,10 +144,7 @@ const PruebasEncontradas = () => {
                       onPress={() => toggleFavorite(event.id)}
                     >
                       <CorazonSVG
-                        isFavorite={
-                          favorites.eventFavorites &&
-                          favorites.eventFavorites.includes(event.id)
-                        }
+                        isFavorite={favoriteEvents.includes(event.id)}
                       />
                     </Pressable>
                   </View>

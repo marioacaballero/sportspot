@@ -1,55 +1,47 @@
-import * as React from 'react'
-import { Text, StyleSheet, View, Image, Pressable } from 'react-native'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+import {
+  Text,
+  StyleSheet,
+  View,
+  Image,
+  Pressable,
+  TextInput,
+  ScrollView
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
-import { Path, Rect, Svg } from 'react-native-svg'
+import BackArrowSVG from '../components/SVG/BackArrowSVG'
 
 const Seguridad = () => {
   const navigation = useNavigation()
 
+  const { user } = useSelector((state) => state.users)
+
+  const [mostrarCamposExtras, setMostrarCamposExtras] = useState(false)
+
+  const handleContraseñaFocus = () => {
+    setMostrarCamposExtras(true)
+  }
+
   return (
-    <View style={styles.seguridad}>
-      <View
-        style={{
-          paddingTop: 30,
-          paddingHorizontal: 15,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          width: '100%'
-        }}
-      >
-        <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
-          {'GESTIONA TU '}CUENTA
-        </Text>
-        <Pressable onPress={() => navigation.goBack()}>
-          <Svg width="25" height="25" viewBox="0 0 21 21" fill="none">
-            <Rect
-              width="21"
-              height="21"
-              transform="translate(0 21) rotate(-90)"
-              fill="white"
-            />
-            <Path
-              d="M6.17798 4.98006L0.65625 10.5018L6.17798 16.0234L7.10604 15.0953L3.16862 11.158L20.3124 11.158L20.3124 9.84546L3.16874 9.84546L7.10604 5.90816L6.17798 4.98006Z"
-              fill={Color.sportsVioleta}
-            />
-          </Svg>
-        </Pressable>
-      </View>
-      <View style={{ width: '100%' }}>
-        <Text style={[styles.seguridad1, styles.seguridad1Typo]}>
-          Seguridad
-        </Text>
-      </View>
-      <View style={styles.seguridadChild}>
-        <View style={styles.card1Wrapper}>
+    <ScrollView style={styles.scrollView}>
+      <View style={styles.seguridad}>
+        <View style={styles.viewContainer}>
+          <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
+            {'GESTIONA TU '}CUENTA
+          </Text>
+          <Pressable onPress={() => navigation.goBack()}>
+            <BackArrowSVG />
+          </Pressable>
+        </View>
+        <View style={{ width: '100%' }}>
+          <Text style={[styles.seguridad1, styles.seguridad1Typo]}>
+            Seguridad
+          </Text>
+        </View>
+        <View style={styles.seguridadChild}>
           <View style={styles.card1}>
-            <Image
-              style={styles.favoriteIActiveIcon}
-              contentFit="cover"
-              source={require('../assets/favorite-iactive.png')}
-            />
             <Image
               style={[styles.passwordIcon, styles.passwordIconLayout]}
               contentFit="cover"
@@ -65,39 +57,73 @@ const Seguridad = () => {
                 <View style={styles.inputContent}>
                   <Text style={[styles.label, styles.labelFlexBox]}>Email</Text>
                   <Text style={[styles.placehoder, styles.seguridad1Typo]}>
-                    ejemplo@gmail.com
+                    {user && user.email
+                      ? `${user.email.substring(0, 3)}****${user.email.slice(
+                          -7
+                        )}`
+                      : ''}
                   </Text>
                 </View>
               </View>
               <View style={[styles.inputLayout]}>
                 <View style={styles.inputContent}>
                   <Text style={[styles.label, styles.labelFlexBox]}>
-                    Contraseña
+                    Contraseña actual
                   </Text>
-                  <Text style={[styles.placehoder, styles.seguridad1Typo]}>
-                    ************
-                  </Text>
+                  <TextInput
+                    placeholder="********"
+                    style={styles.placehoder}
+                    onFocus={handleContraseñaFocus}
+                  />
                 </View>
               </View>
             </View>
           </View>
+          {mostrarCamposExtras && (
+            <View style={styles.card2}>
+              <View style={[styles.inputLayout]}>
+                <View style={styles.inputContent}>
+                  <Text style={[styles.label, styles.labelFlexBox]}>
+                    Nueva contraseña
+                  </Text>
+                  <TextInput placeholder="********" style={styles.placehoder} />
+                </View>
+              </View>
+              <View style={[styles.inputLayout]}>
+                <View style={styles.inputContent}>
+                  <Text style={[styles.label, styles.labelFlexBox]}>
+                    Repite la nueva contraseña
+                  </Text>
+                  <TextInput placeholder="********" style={styles.placehoder} />
+                </View>
+              </View>
+            </View>
+          )}
+        </View>
+        <View style={{ marginTop: mostrarCamposExtras ? '25%' : '8%' }}>
+          <Pressable
+            style={[styles.cambiarContraseaWrapper, styles.wrapperLayout]}
+            onPress={() => setMostrarCamposExtras(false)}
+          >
+            <Text style={[styles.cambiarContrasea, styles.eliminarCuentaTypo]}>
+              Cambiar contraseña
+            </Text>
+          </Pressable>
+          <View style={[styles.eliminarCuentaWrapper, styles.wrapperLayout]}>
+            <Text style={[styles.eliminarCuenta, styles.eliminarCuentaTypo]}>
+              Eliminar cuenta
+            </Text>
+          </View>
         </View>
       </View>
-      <View style={[styles.cambiarContraseaWrapper, styles.wrapperLayout]}>
-        <Text style={[styles.cambiarContrasea, styles.eliminarCuentaTypo]}>
-          Cambiar contraseña
-        </Text>
-      </View>
-      <View style={[styles.eliminarCuentaWrapper, styles.wrapperLayout]}>
-        <Text style={[styles.eliminarCuenta, styles.eliminarCuentaTypo]}>
-          Eliminar cuenta
-        </Text>
-      </View>
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
+  scrollView: {
+    height: '100%'
+  },
   seguridadInnerPosition: {
     // left: 20,
     // position: 'absolute'
@@ -132,7 +158,9 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_xl,
     borderWidth: 1,
     borderStyle: 'solid',
-    paddingVertical: Padding.p_5xs
+    paddingVertical: Padding.p_5xs,
+    marginBottom: 5,
+    marginTop: 5
   },
   wrapperLayout: {
     paddingVertical: Padding.p_6xs,
@@ -143,20 +171,11 @@ const styles = StyleSheet.create({
     // left: 31,
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'center',
-    position: 'absolute'
+    justifyContent: 'center'
   },
   eliminarCuentaTypo: {
     fontSize: FontSize.inputPlaceholder_size,
     textAlign: 'left'
-  },
-  menInferiorLayout: {
-    width: 360,
-    position: 'absolute'
-  },
-  frameLayout: {
-    height: 20
-    // marginLeft: 47
   },
   gestionaTuCuentaContainer: {
     fontSize: FontSize.size_5xl,
@@ -185,11 +204,8 @@ const styles = StyleSheet.create({
   },
   passwordIcon: {
     width: 32
-    // marginLeft: 11
   },
   contrasea: {
-    // top: '0%',
-    // left: '0%',
     fontSize: FontSize.inputLabel_size,
     textTransform: 'capitalize',
     fontWeight: '500',
@@ -198,7 +214,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'left',
     color: Color.sportsVioleta
-    // position: 'absolute'
   },
   contraseaWrapper: {
     width: 195
@@ -214,8 +229,6 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   inputContent: {
-    // justifyContent: 'space-between',
-    // alignSelf: 'stretch',
     flex: 1
   },
   inputParent: {
@@ -244,11 +257,29 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: Color.blanco
   },
-  card1Wrapper: {
-    height: 146
+  card2: {
+    borderRadius: Border.br_base,
+    shadowColor: 'rgba(83, 89, 144, 0.07)',
+    shadowOffset: {
+      width: 0,
+      height: 8
+    },
+    shadowRadius: 25,
+    elevation: 25,
+    shadowOpacity: 1,
+    width: 324,
+    paddingHorizontal: Padding.p_smi,
+    paddingVertical: Padding.p_5xs,
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    overflow: 'hidden',
+    backgroundColor: Color.blanco,
+    marginTop: 10,
+    flex: 1
   },
   seguridadChild: {
-    top: 30
+    top: 30,
+    height: '50%'
   },
   cambiarContrasea: {
     color: Color.violeta3,
@@ -256,7 +287,6 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   cambiarContraseaWrapper: {
-    top: 336,
     backgroundColor: Color.sportsVioleta
   },
   eliminarCuenta: {
@@ -265,28 +295,18 @@ const styles = StyleSheet.create({
     color: Color.rojoUbiqum
   },
   eliminarCuentaWrapper: {
-    top: 409,
     borderColor: Color.sportsNaranja,
     borderWidth: 1,
     borderStyle: 'solid',
     paddingHorizontal: 0,
     height: 43,
     width: 281,
-    borderRadius: Border.br_31xl
-    // left: 31
+    borderRadius: Border.br_31xl,
+    top: 10
   },
   wrapper: {
     width: 22,
     height: 25
-  },
-  vector: {
-    width: 23
-    // marginLeft: 47
-  },
-  capturaDePantalla20231124: {
-    width: 33,
-    height: 33
-    // marginLeft: 47
   },
   container: {
     width: 20
@@ -308,16 +328,20 @@ const styles = StyleSheet.create({
     // justifyContent: 'center'
   },
   seguridad: {
-    // height: 800,
-    // overflow: 'hidden',
     paddingTop: 20,
     paddingHorizontal: 15,
     width: '100%',
     backgroundColor: Color.blanco,
-    height: '100%',
-    // flex: 1,
-    // justifyContent: 'center'
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingBottom: 160
+  },
+  viewContainer: {
+    paddingTop: 30,
+    paddingHorizontal: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%'
   }
 })
 

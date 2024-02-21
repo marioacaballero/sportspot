@@ -19,7 +19,9 @@ export class EventsService {
   public async getAllService(query: { [key: string]: any }) {
     const where = { isDelete: false }
     Object.keys(query).forEach((key) => {
-      if (key === 'sportId') {
+      if (query[key] !== '' && query[key] !== undefined) {
+        where[key] = query[key]
+      } else if (key === 'sportId') {
         where[key] = In(query[key])
       } else if (key === 'dateStart') {
         if (Array.isArray(query[key])) {
@@ -33,8 +35,6 @@ export class EventsService {
         } else {
           where[key] = query[key]
         }
-      } else if (query[key] !== '' && query[key] !== undefined) {
-        where[key] = query[key]
       }
     })
     return await this.eventsRepository.find({ where })

@@ -26,6 +26,7 @@ import Popupfiltros from './components/PopupOrdenarPor'
 import PopupAlerta from './components/PopupAlerta'
 import EscribirResea from './components/EscribirResea'
 import MenuInferior from './components/MenuInferior'
+import Contacta from './screens/Contacta'
 import { loadFonts } from './GlobalStyles'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { View } from 'react-native'
@@ -180,6 +181,11 @@ export default function App() {
             <Stack.Screen
               name="PruebasEncontradasDetalle1"
               component={PruebasEncontradasDetalle1}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Contacta"
+              component={Contacta}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>
