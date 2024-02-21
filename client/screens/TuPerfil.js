@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { FontFamily, FontSize, Padding, Border, Color } from '../GlobalStyles'
-import { Path, Rect, Svg } from 'react-native-svg'
+import BackArrowSVG from '../components/SVG/BackArrowSVG'
 
 const TuPerfil = () => {
   const navigation = useNavigation()
@@ -33,18 +33,7 @@ const TuPerfil = () => {
             TU PERFIL
           </Text>
           <Pressable onPress={() => navigation.goBack()}>
-            <Svg width="25" height="25" viewBox="0 0 21 21" fill="none">
-              <Rect
-                width="21"
-                height="21"
-                transform="translate(0 21) rotate(-90)"
-                fill="white"
-              />
-              <Path
-                d="M6.17798 4.98006L0.65625 10.5018L6.17798 16.0234L7.10604 15.0953L3.16862 11.158L20.3124 11.158L20.3124 9.84546L3.16874 9.84546L7.10604 5.90816L6.17798 4.98006Z"
-                fill={Color.sportsVioleta}
-              />
-            </Svg>
+            <BackArrowSVG />
           </Pressable>
         </View>
         <View style={styles.unsplashn6gnca77urcParent}>
