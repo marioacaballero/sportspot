@@ -6,17 +6,39 @@ import {
   Pressable,
   Modal,
   Image,
-  ScrollView
+  ScrollView,
+  TextInput
 } from 'react-native'
 import Calendar from '../components/Calendar'
 import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Path, Rect, Svg } from 'react-native-svg'
+import { useDispatch, useSelector } from 'react-redux'
+import { suscriptionEventUser } from '../redux/actions/users'
 
 const EditarPerfil = () => {
-  const [topContainerVisible, setTopContainerVisible] = useState(false)
   const navigation = useNavigation()
+  const dispatch = useDispatch()
+
+  const { user } = useSelector((state) => state.users)
+  const [topContainerVisible, setTopContainerVisible] = useState(false)
+  const [date, setDate] = useState('')
+  const [valuesUser, setValuesUser] = useState({
+    name: user.name || '',
+    apellido: user.apellido || '',
+    sexo: user.sexo || '',
+    fechaNacimiento: user.fechaNacimiento || '',
+    direccion: user.direccion || '',
+    telefono: user.telefono || ''
+  })
+
+  const settingValuesUser = (field, value) => {
+    setValuesUser((prev) => ({
+      ...prev,
+      [field]: value
+    }))
+  }
 
   const openTopContainer = useCallback(() => {
     setTopContainerVisible(true)
@@ -25,6 +47,15 @@ const EditarPerfil = () => {
   const closeTopContainer = useCallback(() => {
     setTopContainerVisible(false)
   }, [])
+
+  const onSubmit = () => {
+    const data = {
+      id: user.id,
+      suscription: valuesUser
+    }
+
+    dispatch(suscriptionEventUser(data))
+  }
 
   return (
     <ScrollView>
@@ -127,9 +158,12 @@ const EditarPerfil = () => {
                     <Text style={[styles.label, styles.labelFlexBox]}>
                       Nombre
                     </Text>
-                    <Text style={[styles.placehoder, styles.placehoderTypo]}>
-                      Lara
-                    </Text>
+                    <TextInput
+                      // style={[styles.label, styles.labelFlexBox]}
+                      placeholder={user.name || '@Lara'}
+                      value={valuesUser.name}
+                      onChangeText={(value) => settingValuesUser('name', value)}
+                    />
                   </View>
                 </View>
                 <View style={styles.input1}>
@@ -137,11 +171,16 @@ const EditarPerfil = () => {
                     style={[styles.inputContent, styles.inputContentFlexBox]}
                   >
                     <Text style={[styles.label, styles.labelFlexBox]}>
-                      Apellidos
+                      Apellido
                     </Text>
-                    <Text style={[styles.placehoder, styles.placehoderTypo]}>
-                      Macías Blanco Carrillo
-                    </Text>
+                    <TextInput
+                      // style={[styles.label, styles.labelFlexBox]}
+                      placeholder={user?.apellido || '@Macias Blanco'}
+                      value={valuesUser.apellido}
+                      onChangeText={(value) =>
+                        settingValuesUser('apellido', value)
+                      }
+                    />
                   </View>
                 </View>
                 <View style={[styles.input2, styles.inputBorder]}>
@@ -151,15 +190,18 @@ const EditarPerfil = () => {
                     <Text style={[styles.label, styles.labelFlexBox]}>
                       Género
                     </Text>
-                    <Text style={[styles.placehoder, styles.placehoderTypo]}>
+                    <TextInput
+                      placeholder={user.sexo || '@Mujer'}
+                      value={valuesUser.sexo}
+                      onChangeText={(value) => settingValuesUser('sexo', value)}
+                    />
+                    {/* <Text style={[styles.placehoder, styles.placehoderTypo]}>
                       Mujer
-                    </Text>
+                    </Text> */}
                   </View>
                 </View>
-                <Pressable
-                  style={[styles.top, styles.inputBorderDate]}
-                  onPress={openTopContainer}
-                >
+                <Pressable style={[styles.top, styles.inputBorderDate]}>
+                  <View></View>
                   <View
                     style={[styles.inputContent3, styles.groupParentFlexBox]}
                   >
@@ -167,15 +209,24 @@ const EditarPerfil = () => {
                       <Text style={[styles.label, styles.labelFlexBox]}>
                         Fecha de nacimiento
                       </Text>
-                      <Text style={[styles.placehoder, styles.placehoderTypo]}>
+                      <TextInput
+                        placeholder={user.fechaNacimiento || '@12/12/2020'}
+                        value={valuesUser.fechaNacimiento}
+                        onChangeText={(value) =>
+                          settingValuesUser('fechaNacimiento', value)
+                        }
+                      />
+                      {/* <Text style={[styles.placehoder, styles.placehoderTypo]}>
                         12/12/2020
-                      </Text>
+                      </Text> */}
                     </View>
-                    <Image
-                      style={styles.iconlylightcalendar}
-                      contentFit="cover"
-                      source={require('../assets/iconlylightcalendar.png')}
-                    />
+                    <Pressable onPress={openTopContainer}>
+                      <Image
+                        style={styles.iconlylightcalendar}
+                        contentFit="cover"
+                        source={require('../assets/iconlylightcalendar.png')}
+                      />
+                    </Pressable>
                   </View>
                 </Pressable>
               </View>
@@ -205,9 +256,10 @@ const EditarPerfil = () => {
               <View style={styles.input}>
                 <View style={[styles.inputContent, styles.inputContentFlexBox]}>
                   <Text style={[styles.label, styles.labelFlexBox]}>Email</Text>
-                  <Text style={[styles.placehoder, styles.placehoderTypo]}>
+                  <TextInput placeholder={user.email || 'ejemplo@gmail.com'} />
+                  {/* <Text style={[styles.placehoder, styles.placehoderTypo]}>
                     ejemplo@gmail.com
-                  </Text>
+                  </Text> */}
                 </View>
               </View>
               <View style={styles.inputCel}>
@@ -215,9 +267,16 @@ const EditarPerfil = () => {
                   <Text style={[styles.label, styles.labelFlexBox]}>
                     Teléfono
                   </Text>
-                  <Text style={[styles.placehoder, styles.placehoderTypo]}>
+                  <TextInput
+                    placeholder={user.telefono || '@600100100'}
+                    value={valuesUser.telefono}
+                    onChangeText={(value) =>
+                      settingValuesUser('telefono', value)
+                    }
+                  />
+                  {/* <Text style={[styles.placehoder, styles.placehoderTypo]}>
                     600100100
-                  </Text>
+                  </Text> */}
                 </View>
               </View>
               <View style={[styles.inputAdress, styles.inputBorder]}>
@@ -225,10 +284,25 @@ const EditarPerfil = () => {
                   <Text style={[styles.label, styles.labelFlexBox]}>
                     Dirección
                   </Text>
-                  <Text style={[styles.placehoder, styles.placehoderTypo]}>
+                  <TextInput
+                    placeholder={user.direccion || '@C/Falsa, 123'}
+                    value={valuesUser.direccion}
+                    onChangeText={(value) =>
+                      settingValuesUser('direccion', value)
+                    }
+                  />
+                  {/* <Text style={[styles.placehoder, styles.placehoderTypo]}>
                     C/Falsa, 123
-                  </Text>
+                  </Text> */}
                 </View>
+              </View>
+              <View style={styles.helloAshfakWrapper}>
+                <Text
+                  style={[styles.helloAshfak, styles.kmTypo]}
+                  onPress={onSubmit}
+                >
+                  Actulizar
+                </Text>
               </View>
             </View>
           </View>
@@ -241,7 +315,7 @@ const EditarPerfil = () => {
             style={styles.topContainerBg}
             onPress={closeTopContainer}
           />
-          <Calendar onClose={closeTopContainer} />
+          <Calendar onClose={closeTopContainer} setDate={setDate} />
         </View>
       </Modal>
     </ScrollView>
@@ -252,6 +326,22 @@ const styles = StyleSheet.create({
   labelFlexBox: {
     textAlign: 'left',
     color: Color.sportsVioleta
+  },
+  helloAshfak: {
+    color: Color.blanco,
+    textAlign: 'left',
+    fontSize: FontSize.inputPlaceholder_size,
+    fontWeight: '700'
+  },
+  helloAshfakWrapper: {
+    borderRadius: Border.br_31xl,
+    backgroundColor: Color.sportsNaranja,
+    height: 42,
+    width: '100%',
+    alignItems: 'center',
+    marginTop: 24,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
   },
   groupParentFlexBox: {
     flexDirection: 'row',
@@ -599,10 +689,10 @@ const styles = StyleSheet.create({
   },
   editarPerfil: {
     // overflow: 'hidden',
-    paddingBottom: 130,
+    paddingBottom: 220,
     width: '100%',
     backgroundColor: Color.blanco,
-    flex: 1,
+    // flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start'
   }

@@ -36,14 +36,14 @@ const Sports = ({ onClose, setEventsFilter }) => {
           <View key={sport?.name} style={{ alignItems: 'center' }}>
             <TouchableOpacity
               onPress={() => {
-                // setEventsFilter((prevState) => ({
-                //   ...prevState,
-                //   sportId: prevState.sportId.concat(sport.id)
-                // }))
                 setEventsFilter((prevState) => ({
                   ...prevState,
-                  sportId: sport.id
+                  sportId: prevState.sportId.concat(sport.id)
                 }))
+                // setEventsFilter((prevState) => ({
+                //   ...prevState,
+                //   sportId: sport.id
+                // }))
                 sportSelectStyle(sport?.name)
               }}
               style={{
@@ -64,7 +64,7 @@ const Sports = ({ onClose, setEventsFilter }) => {
                 {sport?.name === 'Running' && <RunningSVG />}
                 {sport?.name === 'Rugby' && <RugbySVG />}
                 {sport?.name === 'Handball' && <HandballSVG />}
-                {sport?.name === 'Basketball' && <BasketSVG />}
+                {sport?.name === 'Basket' && <BasketSVG />}
               </View>
             </TouchableOpacity>
             <Text style={styles.ftbol}>{sport?.name}</Text>

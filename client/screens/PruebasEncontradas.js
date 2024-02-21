@@ -20,15 +20,18 @@ const PruebasEncontradas = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
-  const { eventsFilter, favorites } = useSelector((state) => state.events)
+  const { eventsFilter, favorites, nameEventsFilters } = useSelector(
+    (state) => state.events
+  )
   const { user } = useSelector((state) => state.users)
+  const { sports } = useSelector((state) => state.sports)
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
-  const [, setEventsOrders] = useState({
-    price: '',
-    distance: ''
-  })
   const [favoriteEvents, setFavoriteEvents] = useState([])
+
+  const filterDescription = sports.filter(
+    (sport) => sport.id === nameEventsFilters.sportId
+  )
 
   useEffect(() => {
     dispatch(getAllEvents())
@@ -62,19 +65,25 @@ const PruebasEncontradas = () => {
         <Text style={[styles.pruebasEncontradas1, styles.ene2024Typo]}>
           {'PRUEBAS ENCONTRADAS'}
         </Text>
-        <View style={[styles.cilarrowTopParent, styles.parentSpaceBlock]}>
+        <Pressable
+          style={[styles.cilarrowTopParent, styles.parentSpaceBlock]}
+          onPress={() => navigation.goBack()}
+        >
           <Image
             style={styles.cilarrowTopIcon}
             contentFit="cover"
             source={require('../assets/cilarrowtop1.png')}
           />
-          <Text
-            style={[styles.badajozCilcismo22, styles.filtrosTypo]}
-            onPress={() => navigation.navigate('InicioDeportista')}
-          >
-            Badajoz, cilcismo, 22 ene.
+          <Text style={[styles.badajozCilcismo22, styles.filtrosTypo]}>
+            {`${
+              filterDescription.length >= 1 ? filterDescription[0]?.name : ''
+            }${nameEventsFilters.dateStart && ','} ${
+              nameEventsFilters.dateStart
+            }${nameEventsFilters.location && ','} ${
+              nameEventsFilters.location
+            }`}
           </Text>
-        </View>
+        </Pressable>
         <View style={[styles.frameParent, styles.parentSpaceBlock]}>
           <View style={[styles.frameGroup, styles.frameGroupFlexBox]}>
             <Pressable style={styles.filtrosParent} onPress={toggleModalFilter}>
@@ -99,10 +108,7 @@ const PruebasEncontradas = () => {
                   transparent={true}
                   visible={modalOrder}
                 >
-                  <PopupOrdenarPor
-                    setModalVisible={setModalOrder}
-                    setEventsOrders={setEventsOrders}
-                  />
+                  <PopupOrdenarPor setModalVisible={setModalOrder} />
                 </Modal>
                 <Text style={styles.filtrosTypo}>Ordenar por</Text>
               </Pressable>
@@ -126,7 +132,7 @@ const PruebasEncontradas = () => {
                 <Image
                   style={styles.unsplashon4qwhhjcemIcon}
                   contentFit="cover"
-                  source={require('../assets/unsplashon4qwhhjcem2.png')}
+                  source={{ uri: event.image }}
                 />
 
                 <View style={styles.frameView}>
@@ -150,10 +156,10 @@ const PruebasEncontradas = () => {
                     ]}
                   >
                     <Text style={styles.modalidad}>
-                      -Modalidad: {event.modality}
+                      -Modalidad: {event.modality} {'\n'}
                     </Text>
                     <Text style={styles.modalidad}>
-                      -Localización: {event.location}
+                      -Localización: {event.location} {'\n'}
                     </Text>
                     <Text style={styles.modalidad}>-Fecha de la prueba:</Text>
                     <Text style={styles.ene2024Typo}>
@@ -161,7 +167,9 @@ const PruebasEncontradas = () => {
                         0,
                         event.dateStart.indexOf('T')
                       )}
+                      {'\n'}
                     </Text>
+
                     <Text style={styles.modalidad}>
                       -Plazo límite de inscripción:
                     </Text>
@@ -170,6 +178,7 @@ const PruebasEncontradas = () => {
                         0,
                         event.dateInscription.indexOf('T')
                       )}
+                      {'\n'}
                     </Text>
                   </Text>
                   <Text
