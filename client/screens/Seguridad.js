@@ -19,6 +19,9 @@ const Seguridad = () => {
   const { user } = useSelector((state) => state.users)
 
   const [mostrarCamposExtras, setMostrarCamposExtras] = useState(false)
+  const [password, setPassword] = useState('')
+
+  console.log(user)
 
   const handleContraseñaFocus = () => {
     setMostrarCamposExtras(true)
@@ -74,6 +77,9 @@ const Seguridad = () => {
                     placeholder="********"
                     style={styles.placehoder}
                     onFocus={handleContraseñaFocus}
+                    value={password}
+                    onChangeText={(value) => setPassword(value)}
+                    secureTextEntry={true}
                   />
                 </View>
               </View>

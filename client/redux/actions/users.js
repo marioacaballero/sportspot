@@ -31,3 +31,20 @@ export const login = createAsyncThunk('users/login', async (body) => {
     throw new Error(error)
   }
 })
+
+export const changePassword = createAsyncThunk(
+  'users/newPassword',
+  async (body) => {
+    console.log('passsbody', body)
+    const { id, newPassword } = body
+    try {
+      const { data } = await axiosInstance.patch(
+        `/users/password/${id}`,
+        newPassword
+      )
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+)
