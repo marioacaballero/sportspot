@@ -27,6 +27,7 @@ const PruebasEncontradas = () => {
   const { sports } = useSelector((state) => state.sports)
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
+  const [favoriteEvents, setFavoriteEvents] = useState([])
 
   const filterDescription = sports.filter(
     (sport) => sport.id === nameEventsFilters.sportId

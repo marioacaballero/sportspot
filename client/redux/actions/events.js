@@ -16,6 +16,7 @@ export const getAllEvents = createAsyncThunk('events/getAll', async () => {
 export const getAllEventsFilters = createAsyncThunk(
   'eventsFilters/getAll',
   async (query) => {
+    console.log(query)
     try {
       const { data } = await axiosInstance.get('/events', { params: query })
       return data
