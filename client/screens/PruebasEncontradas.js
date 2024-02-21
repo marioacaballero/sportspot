@@ -24,7 +24,7 @@ const PruebasEncontradas = () => {
   const { user } = useSelector((state) => state.users)
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
-  const [eventsOrders, setEventsOrders] = useState({
+  const [, setEventsOrders] = useState({
     price: '',
     distance: ''
   })
