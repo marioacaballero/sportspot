@@ -17,7 +17,7 @@ import { JwtService } from '@nestjs/jwt'
     TypeOrmModule.forFeature([UserEntity, EventEntity, NotificationEntity])
   ],
   controllers: [UsersController],
-  exports: [UsersService] /* [que quiero exportar] */,
+  exports: [] /* [que quiero exportar] */,
   providers: [
     UsersService,
     NotificationsService,
