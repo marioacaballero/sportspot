@@ -19,6 +19,7 @@ import { EventsService } from 'src/events/events.service'
     TypeOrmModule.forFeature([UserEntity, EventEntity, NotificationEntity])
   ],
   controllers: [JsonwebtokenController],
+  exports: [JsonwebtokenService],
   providers: [
     JsonwebtokenService,
     UsersService,
