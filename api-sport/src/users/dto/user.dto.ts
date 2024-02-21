@@ -3,7 +3,7 @@ import { IsNotEmpty, IsOptional, IsString } from 'class-validator'
 export class UserDTO {
   @IsNotEmpty()
   @IsString()
-  name: string
+  nickname: string
 
   @IsNotEmpty()
   @IsString()
@@ -16,4 +16,28 @@ export class UserDTO {
   @IsString()
   @IsOptional()
   rol: 'sportsman' | 'organizer' = 'sportsman'
+
+  @IsOptional()
+  name: string
+
+  @IsOptional()
+  apellido: string
+
+  @IsOptional()
+  sexo: string
+
+  @IsOptional()
+  fechaNacimiento: string
+
+  @IsOptional()
+  telefono: string
+
+  @IsOptional()
+  direccion: string
+
+  @IsOptional()
+  avatar: string
+
+  @IsOptional()
+  eventFavorites: string[]
 }
