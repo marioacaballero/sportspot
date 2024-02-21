@@ -3,7 +3,6 @@ import { UserEntity } from '../entities/users.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { UserDTO } from '../dto/user.dto'
-import { EventEntity } from 'src/events/entities/event.entity'
 import { UpdateUserDto } from '../dto/update-user.dto'
 import { NotificationsService } from 'src/notifications/notifications.service'
 import { CreateNotificationDto } from 'src/notifications/dto/create-notification.dto'
@@ -16,9 +15,6 @@ export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-
-    @InjectRepository(EventEntity)
-    private readonly eventRepository: Repository<EventEntity>,
 
     private readonly notificationsService: NotificationsService,
 
@@ -177,6 +173,8 @@ export class UsersService {
       throw new Error(`Evento con ID ${eventId} no encontrado`)
     }
 
+    user.eventFavorites = user.eventFavorites ? user.eventFavorites : []
+    console.log(user.eventFavorites)
     const index = user.eventFavorites.findIndex((e) => e === eventId)
     if (index === -1) {
       user.eventFavorites = [...user.eventFavorites, eventId] // Guardar el ID del evento

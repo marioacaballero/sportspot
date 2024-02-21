@@ -4,12 +4,16 @@ import { UpdateEventDto } from './dto/update-event.dto'
 import { Between, In, Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 import { EventEntity } from './entities/event.entity'
+import { UserEntity } from 'src/users/entities/users.entity'
 
 @Injectable()
 export class EventsService {
   constructor(
     @InjectRepository(EventEntity)
-    private readonly eventsRepository: Repository<EventEntity>
+    private readonly eventsRepository: Repository<EventEntity>,
+
+    @InjectRepository(UserEntity)
+    private readonly usersRepository: Repository<UserEntity>
   ) {}
 
   public async createService(createEventDto: CreateEventDto) {
@@ -79,5 +83,16 @@ export class EventsService {
   public async deleteService(id) {
     await this.eventsRepository.update(id, { isDelete: true })
     return await this.getOneService(id)
+  }
+
+  public async getFavorites(id: string) {
+    const user = await this.usersRepository
+      .createQueryBuilder('user')
+      .where({ id })
+      .getOne()
+
+    return await this.eventsRepository.find({
+      where: { id: In(user.eventFavorites) }
+    })
   }
 }
