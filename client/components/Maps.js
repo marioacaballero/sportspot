@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, Text, ScrollView, TextInput } from 'react-native'
 import { Border, FontSize, FontFamily, Color, Padding } from '../GlobalStyles'
-import { useDispatch, useSelector } from 'react-redux'
-import { setNameEvent } from '../redux/slices/events.slices'
+import { useSelector } from 'react-redux'
+// import { setNameEvent } from '../redux/slices/events.slices'
 // import MapView, { Circle, Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 
 const Maps = ({ onClose, setEventsFilter }) => {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const { events } = useSelector((state) => state.events)
   const handleClose = () => {
     onClose()
@@ -27,9 +27,6 @@ const Maps = ({ onClose, setEventsFilter }) => {
     const filtereEvents = filterEventsByLetter(text)
     setEventsLocal(filtereEvents)
   }
-
-  console.log('searchhhhh', searchText)
-  console.log('eventttttt', eventsLocal)
 
   // const initialRegion = {
   //   latitude: 41.39185,
