@@ -18,13 +18,22 @@ export class EventsController {
 
   @Post()
   public async create(@Body() createEventDto: CreateEventDto) {
-
     return this.eventsService.createService(createEventDto)
   }
 
   @Get()
   public async findAll(@Query() query: any) {
-    return this.eventsService.getAllService(query)
+    const filterQuery = {}
+    for (const key in query) {
+      if (
+        Object.prototype.hasOwnProperty.call(query, key) &&
+        query[key] !== ''
+      ) {
+        filterQuery[key] = query[key]
+      }
+    }
+
+    return this.eventsService.getAllService(filterQuery)
   }
 
   @Get(':id')

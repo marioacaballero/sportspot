@@ -11,7 +11,7 @@ import HandballSVG from './SVG/Sports/HandballSVG'
 import FutbolSVG from './SVG/Sports/FutbolSVG'
 import RunningSVG from './SVG/Sports/RunningSVG'
 
-const Sports = ({ onClose }) => {
+const Sports = ({ onClose, setEventsFilter }) => {
   const { sports } = useSelector((state) => state.sports)
   const [showColor, setShowColor] = useState([])
 
@@ -35,7 +35,17 @@ const Sports = ({ onClose }) => {
         {sports?.map((sport) => (
           <View key={sport?.name} style={{ alignItems: 'center' }}>
             <TouchableOpacity
-              onPress={() => sportSelectStyle(sport?.name)}
+              onPress={() => {
+                // setEventsFilter((prevState) => ({
+                //   ...prevState,
+                //   sportId: prevState.sportId.concat(sport.id)
+                // }))
+                setEventsFilter((prevState) => ({
+                  ...prevState,
+                  sportId: sport.id
+                }))
+                sportSelectStyle(sport?.name)
+              }}
               style={{
                 alignItems: 'center',
                 border: '1px solid #E5E5E5',
