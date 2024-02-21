@@ -1,1 +1,1 @@
-export class Jsonwebtoken {}
+export class JsonwebtokenEntity {}
