@@ -32,7 +32,7 @@ export class UserEntity extends BaseEntity {
   sexo: string
 
   @Column({ nullable: true })
-  fechaNacimiento: Date
+  fechaNacimiento: string
 
   @Column({ nullable: true })
   telefono: string
