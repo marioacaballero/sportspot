@@ -22,25 +22,28 @@ export class EventsService {
 
   public async getAllService(query: { [key: string]: any }) {
     const where = { isDelete: false }
+
     Object.keys(query).forEach((key) => {
       if (query[key] !== '' && query[key] !== undefined) {
-        where[key] = query[key]
-      } else if (key === 'sportId') {
-        where[key] = In(query[key])
-      } else if (key === 'dateStart') {
-        if (Array.isArray(query[key])) {
-          where[key] = Between(query[key][0], query[key][1])
-        } else {
-          where[key] = query[key]
-        }
-      } else if (key === 'dateInscription') {
-        if (Array.isArray(query[key])) {
-          where[key] = Between(query[key][0], query[key][1])
-        } else {
-          where[key] = query[key]
+        if (key === 'sportId') {
+          console.log('entro')
+          where[key] = In(query[key])
+        } else if (key === 'dateStart') {
+          if (Array.isArray(query[key])) {
+            where[key] = Between(query[key][0], query[key][1])
+          } else {
+            where[key] = query[key]
+          }
+        } else if (key === 'dateInscription') {
+          if (Array.isArray(query[key])) {
+            where[key] = Between(query[key][0], query[key][1])
+          } else {
+            where[key] = query[key]
+          }
         }
       }
     })
+
     return await this.eventsRepository.find({ where })
   }
 
