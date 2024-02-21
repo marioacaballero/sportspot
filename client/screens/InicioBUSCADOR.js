@@ -7,6 +7,8 @@ import Calendario from '../components/Calendar'
 import { Padding, FontFamily, Border, FontSize, Color } from '../GlobalStyles'
 import { useDispatch } from 'react-redux'
 import { getAllSports } from '../redux/actions/sports'
+import { getAllEventsFilters } from '../redux/actions/events'
+import { setNameEvent } from '../redux/slices/events.slices'
 
 const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
   const navigation = useNavigation()
@@ -15,6 +17,11 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
   const [frameContainer8Visible, setFrameContainer8Visible] = useState(false)
   const [frameContainer10Visible, setFrameContainer10Visible] = useState(false)
   const [selected, setSelected] = useState(null)
+  const [eventsFilter, setEventsFilter] = useState({
+    sportId: '',
+    location: '',
+    dateStart: ''
+  })
 
   useEffect(() => {
     dispatch(getAllSports())
@@ -43,6 +50,12 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
   const closeFrameContainer10 = useCallback(() => {
     setFrameContainer10Visible(false)
   }, [])
+
+  const onSubmit = () => {
+    dispatch(getAllEventsFilters(eventsFilter))
+  }
+
+  console.log(eventsFilter)
 
   return (
     <>
@@ -103,6 +116,8 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
         <Pressable
           style={[styles.helloAshfakWrapper, styles.groupContainerFlexBox]}
           onPress={() => {
+            onSubmit()
+            dispatch(setNameEvent(setNameEvent))
             navigation.navigate('PruebasEncontradas')
             setMostrarInicioBuscador(false)
           }}
@@ -127,7 +142,10 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
             style={styles.frameContainer8Bg}
             onPress={closeFrameContainer8}
           />
-          <Sports onClose={closeFrameContainer8} />
+          <Sports
+            onClose={closeFrameContainer8}
+            setEventsFilter={setEventsFilter}
+          />
         </View>
       </Modal>
 
@@ -141,6 +159,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
             onClose={closeFrameContainer10}
             setSelected={setSelected}
             selected={selected}
+            setEventsFilter={setEventsFilter}
           />
         </View>
       </Modal>

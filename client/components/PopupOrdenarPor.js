@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import { Color, FontFamily, FontSize, Border, Padding } from '../GlobalStyles'
 
-const PopupOrdenarPor = ({ setModalVisible }) => {
+const PopupOrdenarPor = ({ setModalVisible, setEventsOrders }) => {
   const [switchStates, setSwitchStates] = useState([
     false,
     false,
