@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { CreateEventDto } from './dto/create-event.dto'
 import { UpdateEventDto } from './dto/update-event.dto'
-import { Repository } from 'typeorm'
+import { In, Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 import { EventEntity } from './entities/event.entity'
 
@@ -19,7 +19,11 @@ export class EventsService {
   public async getAllService(query: { [key: string]: any }) {
     const where = { isDelete: false }
     Object.keys(query).forEach((key) => {
-      where[key] = query[key]
+      if (key === 'sportId') {
+        where[key] = In(query[key])
+      } else if (query[key] !== '' && query[key] !== undefined) {
+        where[key] = query[key]
+      }
     })
     return await this.eventsRepository.find({ where })
   }

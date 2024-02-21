@@ -9,6 +9,7 @@ import { NotificationsService } from 'src/notifications/notifications.service'
 import { CreateNotificationDto } from 'src/notifications/dto/create-notification.dto'
 import { hash } from 'bcrypt'
 import { EventsService } from 'src/events/events.service'
+import { JsonwebtokenService } from 'src/jsonwebtoken/jsonwebtoken.service'
 
 @Injectable()
 export class UsersService {
@@ -21,7 +22,9 @@ export class UsersService {
 
     private readonly notificationsService: NotificationsService,
 
-    private readonly eventService: EventsService
+    private readonly eventService: EventsService,
+
+    private readonly jsonwebtokenService: JsonwebtokenService
   ) {}
 
   public async register(userObject: UserDTO) {
@@ -51,10 +54,35 @@ export class UsersService {
     }
   }
 
+  public async changePasswordService(
+    id: string,
+    oldPassword: string,
+    newPassword: string
+  ) {
+    const user = await this.getOneService(id)
+
+    if (!user) {
+      throw new Error(`Usuario con ID ${id} no encontrado`)
+    }
+
+    const isPasswordValid = await this.jsonwebtokenService.verifyPassword(
+      user,
+      oldPassword
+    )
+
+    if (!isPasswordValid) {
+      throw new Error('La contraseña actual no es válida')
+    }
+
+    user.password = await hash(newPassword, +process.env.HASH_SALT)
+
+    return await this.userRepository.save(user)
+  }
+
   public async getAllService() {
     return await this.userRepository.find({ where: { isDelete: false } })
   }
-  public async getOneService(id) {
+  public async getOneService(id: string) {
     return await this.userRepository
       .createQueryBuilder('user')
       .where({ id })
@@ -87,8 +115,9 @@ export class UsersService {
       throw new Error(`Usuario con ID ${id} no encontrado`)
     }
 
-    user.name = updateUserDto.name
-    user.email = updateUserDto.email
+    for (const key in updateUserDto) {
+      user[key] = updateUserDto[key]
+    }
 
     if (event && !user.events.some((e) => e.id === event.id)) {
       user.events = [...user.events, event]
