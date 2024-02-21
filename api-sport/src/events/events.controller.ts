@@ -26,6 +26,11 @@ export class EventsController {
     return this.eventsService.getAllService(query)
   }
 
+  @Get('/favorites/:id')
+  public async findAllFavorites(@Param('id') id: string) {
+    return this.eventsService.getFavorites(id)
+  }
+
   @Get(':id')
   public async findOne(@Param('id') id: string) {
     return await this.eventsService.getOneService(id)
