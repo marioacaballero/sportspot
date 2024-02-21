@@ -11,7 +11,7 @@ export const eventsSlices = createSlice({
   initialState: {
     events: [],
     eventsFilter: [],
-    nameEventsFilters: '',
+    nameEventsFilters: {},
     event: {},
     loading: false,
     error: {},

@@ -17,7 +17,7 @@ const Registrarse = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
   const [registerUser, setRegisterUser] = useState({
-    name: '',
+    nickname: '',
     password: '',
     email: ''
   })
@@ -58,8 +58,8 @@ const Registrarse = () => {
             <TextInput
               style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
               placeholder="Nombre de usuario"
-              value={registerUser.name}
-              onChangeText={(value) => onValuesUser('name', value)}
+              value={registerUser.nickname}
+              onChangeText={(value) => onValuesUser('nickname', value)}
             />
           </View>
           <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>

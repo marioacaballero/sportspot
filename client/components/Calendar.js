@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { Calendar } from 'react-native-calendars'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
 
-const Calendario = ({ onClose, setEventsFilter }) => {
+const Calendario = ({ onClose, setEventsFilter, setDate }) => {
   const [selectedStartDate, setSelectedStartDate] = useState(null)
   const [selectedEndDate, setSelectedEndDate] = useState(null)
   const [arrayDate, setArrayDate] = useState([])
@@ -50,6 +50,7 @@ const Calendario = ({ onClose, setEventsFilter }) => {
   const handleDayPress = (day) => {
     if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
       setSelectedStartDate(day.dateString)
+      setDate(day.dateString)
       setEventsFilter((prevState) => ({
         ...prevState,
         dateStart: day.dateString
