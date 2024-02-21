@@ -105,11 +105,12 @@ Blanco Carrrilho`}</Text>
               Entidades colaboradores
             </Text>
           </View>
-          <View
+          <Pressable
             style={[
               styles.solarsettingsBoldGroup,
               styles.solarsettingsSpaceBlock
             ]}
+            onPress={() => navigation.navigate('Contacta')}
           >
             <Image
               style={styles.solarsettingsBoldIcon}
@@ -119,7 +120,7 @@ Blanco Carrrilho`}</Text>
             <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
               Contactar con atención al cliente
             </Text>
-          </View>
+          </Pressable>
           <Pressable
             style={[
               styles.solarsettingsBoldGroup,
