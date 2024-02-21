@@ -52,6 +52,15 @@ export class UsersController {
     return this.userService.eventFavoritesService(id, eventId)
   }
 
+  @Patch('password/:id')
+  async changePassword(
+    @Param('id') id: string,
+    @Body('oldPassword') oldPassword: string,
+    @Body('newPassword') newPassword: string
+  ): Promise<UserEntity> {
+    return this.userService.changePasswordService(id, oldPassword, newPassword)
+  }
+
   @Patch(':id')
   async updateController(
     @Param('id') id: string,
