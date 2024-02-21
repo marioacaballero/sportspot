@@ -211,7 +211,7 @@ const InicioDeportista = () => {
                     <Image
                       style={[styles.image94Icon, styles.image94IconLayout]}
                       contentFit="cover"
-                      source={'/assets/info.png'}
+                      source={{ uri: event.image }}
                     />
                     <View
                       style={[
