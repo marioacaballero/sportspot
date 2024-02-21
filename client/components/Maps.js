@@ -1,19 +1,42 @@
-import React from 'react'
-import { View, StyleSheet, Text, ScrollView, Image } from 'react-native'
+import React, { useState } from 'react'
+import { View, StyleSheet, Text, ScrollView, TextInput } from 'react-native'
 import { Border, FontSize, FontFamily, Color, Padding } from '../GlobalStyles'
-import MapView, { Circle, Marker, PROVIDER_GOOGLE } from 'react-native-maps'
+import { useDispatch, useSelector } from 'react-redux'
+import { setNameEvent } from '../redux/slices/events.slices'
+// import MapView, { Circle, Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 
-const Maps = ({ onClose }) => {
+const Maps = ({ onClose, setEventsFilter }) => {
+  const dispatch = useDispatch()
+  const { events } = useSelector((state) => state.events)
   const handleClose = () => {
     onClose()
   }
 
-  const initialRegion = {
-    latitude: 41.39185,
-    longitude: 2.18521,
-    latitudeDelta: 0.04,
-    longitudeDelta: 0.05
+  const [searchText, setSearchText] = useState('')
+  const [eventsLocal, setEventsLocal] = useState([...events])
+
+  const filterEventsByLetter = (letter) => {
+    return events.filter((event) =>
+      event.location.toLowerCase().startsWith(letter.toLowerCase())
+    )
   }
+
+  const handleTextChange = (text) => {
+    setSearchText(text)
+
+    const filtereEvents = filterEventsByLetter(text)
+    setEventsLocal(filtereEvents)
+  }
+
+  console.log('searchhhhh', searchText)
+  console.log('eventttttt', eventsLocal)
+
+  // const initialRegion = {
+  //   latitude: 41.39185,
+  //   longitude: 2.18521,
+  //   latitudeDelta: 0.04,
+  //   longitudeDelta: 0.05
+  // }
 
   return (
     <ScrollView
@@ -21,8 +44,32 @@ const Maps = ({ onClose }) => {
       contentContainerStyle={{ paddingBottom: 50 }}
     >
       <View style={styles.mapsInner}>
-        <View style={styles.mapViewParent}>
-          <MapView
+        <View>
+          <View style={styles.items}>
+            <TextInput
+              style={styles.helloTypoScroll}
+              placeholder="Buscar"
+              value={searchText}
+              onChangeText={handleTextChange}
+            />
+          </View>
+          <ScrollView style={styles.mapViewParent}>
+            {eventsLocal.map((event, i) => (
+              <Text
+                key={i}
+                style={styles.helloTypo}
+                onPress={() => {
+                  setEventsFilter((prevState) => ({
+                    ...prevState,
+                    location: event.location
+                  }))
+                }}
+              >
+                {event.location}
+              </Text>
+            ))}
+          </ScrollView>
+          {/* <MapView
             initialRegion={initialRegion}
             style={styles.mapView}
             provider={PROVIDER_GOOGLE}
@@ -41,15 +88,15 @@ const Maps = ({ onClose }) => {
                 resizeMethod="resize"
               />
             </Marker>
-          </MapView>
-          <View style={styles.helloAshfakWrapper}>
-            <Text
-              style={[styles.helloAshfak, styles.kmTypo]}
-              onPress={handleClose}
-            >
-              Listo
-            </Text>
-          </View>
+          </MapView> */}
+        </View>
+        <View style={styles.helloAshfakWrapper}>
+          <Text
+            style={[styles.helloAshfak, styles.kmTypo]}
+            onPress={handleClose}
+          >
+            Listo
+          </Text>
         </View>
       </View>
     </ScrollView>
@@ -59,8 +106,34 @@ const Maps = ({ onClose }) => {
 const styles = StyleSheet.create({
   mapsLayout: {
     maxWidth: '90%',
-    maxHeight: '90%',
+    maxHeight: '60%',
     borderRadius: Border.br_5xs
+  },
+  items: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 15,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: Color.sportsNaranja,
+    height: 40,
+    padding: 8
+  },
+  helloTypoScroll: {
+    width: '100%',
+    fontSize: FontSize.inputPlaceholder_size,
+    fontFamily: FontFamily.inputPlaceholder,
+    color: Color.sportsVioleta
+  },
+  helloTypo: {
+    marginTop: 8,
+    width: '100%',
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '500',
+    fontSize: FontSize.size_sm,
+    textAlign: 'center',
+    color: Color.sportsVioleta
   },
   helloAshfakTypo1: {
     textAlign: 'left',
@@ -120,7 +193,8 @@ const styles = StyleSheet.create({
   },
   mapViewParent: {
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    height: 160
+    // justifyContent: 'center'
   },
   mapsInner: {
     justifyContent: 'center',
@@ -128,8 +202,8 @@ const styles = StyleSheet.create({
   },
   maps: {
     backgroundColor: Color.blanco,
-    padding: Padding.p_xl,
-    maxHeight: '100%'
+    padding: Padding.p_xl
+    // maxHeight: '100%'
   },
   mapView: {
     minHeight: 400,

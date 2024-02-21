@@ -117,7 +117,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
           style={[styles.helloAshfakWrapper, styles.groupContainerFlexBox]}
           onPress={() => {
             onSubmit()
-            dispatch(setNameEvent(setNameEvent))
+            dispatch(setNameEvent(eventsFilter))
             navigation.navigate('PruebasEncontradas')
             setMostrarInicioBuscador(false)
           }}
@@ -132,7 +132,10 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
             style={styles.frameContainer6Bg}
             onPress={closeFrameContainer6}
           />
-          <Maps onClose={closeFrameContainer6} />
+          <Maps
+            onClose={closeFrameContainer6}
+            setEventsFilter={setEventsFilter}
+          />
         </View>
       </Modal>
 
