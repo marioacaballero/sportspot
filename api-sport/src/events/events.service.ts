@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { CreateEventDto } from './dto/create-event.dto'
 import { UpdateEventDto } from './dto/update-event.dto'
-import { In, Repository } from 'typeorm'
+import { Between, In, Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 import { EventEntity } from './entities/event.entity'
 
@@ -21,6 +21,18 @@ export class EventsService {
     Object.keys(query).forEach((key) => {
       if (key === 'sportId') {
         where[key] = In(query[key])
+      } else if (key === 'dateStart') {
+        if (Array.isArray(query[key])) {
+          where[key] = Between(query[key][0], query[key][1])
+        } else {
+          where[key] = query[key]
+        }
+      } else if (key === 'dateInscription') {
+        if (Array.isArray(query[key])) {
+          where[key] = Between(query[key][0], query[key][1])
+        } else {
+          where[key] = query[key]
+        }
       } else if (query[key] !== '' && query[key] !== undefined) {
         where[key] = query[key]
       }
