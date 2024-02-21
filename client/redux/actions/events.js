@@ -13,6 +13,18 @@ export const getAllEvents = createAsyncThunk('events/getAll', async () => {
   }
 })
 
+export const getAllEventsFilters = createAsyncThunk(
+  'eventsFilters/getAll',
+  async (query) => {
+    try {
+      const { data } = await axiosInstance.get('/events', { params: query })
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+)
+
 export const getEventById = createAsyncThunk('events/getOne', async (id) => {
   try {
     const { data } = await axiosInstance.get(`/events/${id}`)

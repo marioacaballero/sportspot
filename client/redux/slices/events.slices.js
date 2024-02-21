@@ -1,10 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getAllEvents, getEventById, favorite } from '../actions/events'
+import {
+  getAllEvents,
+  getEventById,
+  favorite,
+  getAllEventsFilters
+} from '../actions/events'
 
 export const eventsSlices = createSlice({
   name: 'events',
   initialState: {
     events: [],
+    eventsFilter: [],
+    nameEventsFilters: '',
     event: {},
     loading: false,
     error: {},
@@ -13,6 +20,9 @@ export const eventsSlices = createSlice({
   reducers: {
     setEvent: (state, action) => {
       state.event = action.payload
+    },
+    setNameEvent: (state, action) => {
+      state.nameEventsFilters = action.payload
     }
   },
 
@@ -62,9 +72,25 @@ export const eventsSlices = createSlice({
         state.loading = false
         state.error = action.payload
       })
+
+      // FILTRO DE EVENTOS
+      .addCase(getAllEventsFilters.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(getAllEventsFilters.fulfilled, (state, action) => {
+        console.log(action.payload)
+        state.loading = false
+        state.eventsFilter = action.payload
+        state.error = null
+      })
+      .addCase(getAllEventsFilters.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
   }
 })
 
-export const { setEvent } = eventsSlices.actions
+export const { setEvent, setNameEvent } = eventsSlices.actions
 
 export default eventsSlices.reducer

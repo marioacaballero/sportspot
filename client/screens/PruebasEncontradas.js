@@ -20,11 +20,14 @@ const PruebasEncontradas = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
-  const { events, favorites } = useSelector((state) => state.events)
+  const { eventsFilter, favorites } = useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
-
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
+  const [eventsOrders, setEventsOrders] = useState({
+    price: '',
+    distance: ''
+  })
   const [favoriteEvents, setFavoriteEvents] = useState([])
 
   useEffect(() => {
@@ -35,7 +38,7 @@ const PruebasEncontradas = () => {
     if (favorites.eventFavorites) {
       setFavoriteEvents(favorites.eventFavorites)
     }
-  }, [favorites, events])
+  }, [favorites, eventsFilter])
 
   const toggleFavorite = (eventId) => {
     const data = {
@@ -96,7 +99,10 @@ const PruebasEncontradas = () => {
                   transparent={true}
                   visible={modalOrder}
                 >
-                  <PopupOrdenarPor setModalVisible={setModalOrder} />
+                  <PopupOrdenarPor
+                    setModalVisible={setModalOrder}
+                    setEventsOrders={setEventsOrders}
+                  />
                 </Modal>
                 <Text style={styles.filtrosTypo}>Ordenar por</Text>
               </Pressable>
@@ -108,7 +114,7 @@ const PruebasEncontradas = () => {
             </View>
           </View>
           <View style={styles.frameContainer}>
-            {events.map((event, i) => (
+            {eventsFilter.map((event, i) => (
               <Pressable
                 key={i}
                 onPress={() => {
