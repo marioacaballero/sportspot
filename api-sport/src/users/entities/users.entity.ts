@@ -7,7 +7,7 @@ import { Entity, Column, OneToMany, ManyToMany } from 'typeorm'
 @Entity({ name: 'user' })
 export class UserEntity extends BaseEntity {
   @Column({ unique: true })
-  name: string
+  nickname: string
 
   @Column({ unique: true })
   email: string
@@ -21,6 +21,27 @@ export class UserEntity extends BaseEntity {
     default: 'sportsman'
   })
   rol: 'sportsman' | 'organizer' = 'sportsman'
+
+  @Column({ nullable: true })
+  name: string
+
+  @Column({ nullable: true })
+  apellido: string
+
+  @Column({ nullable: true })
+  sexo: string
+
+  @Column({ nullable: true })
+  fechaNacimiento: string
+
+  @Column({ nullable: true })
+  telefono: string
+
+  @Column({ nullable: true })
+  direccion: string
+
+  @Column({ nullable: true })
+  avatar: string
 
   @Column('simple-array', { nullable: true })
   eventFavorites: string[]

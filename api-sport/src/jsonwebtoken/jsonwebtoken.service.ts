@@ -39,6 +39,23 @@ export class JsonwebtokenService {
     }
   }
 
+  // Este método verifica la contraseña. Compara la contraseña proporcionada con la contraseña almacenada en el usuario.
+  public async verifyPassword(user: UserEntity, password: string) {
+    try {
+      // Comprueba si la contraseña es correcta
+      const checkPassword = await compare(password, user.password)
+
+      if (!checkPassword) {
+        throw new Error('La contraseña es inválida')
+      } else {
+        return true
+      }
+    } catch (error) {
+      console.log(error)
+      return false
+    }
+  }
+
   // Este método inicia sesión. Firma un JWT con el ID del usuario y el secreto proporcionados.
   public async login(user: UserEntity) {
     try {
