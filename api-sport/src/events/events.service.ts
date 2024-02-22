@@ -26,7 +26,6 @@ export class EventsService {
     Object.keys(query).forEach((key) => {
       if (query[key] !== '' && query[key] !== undefined) {
         if (key === 'sportId') {
-          console.log('entro')
           where[key] = In(query[key])
         } else if (key === 'dateStart') {
           if (Array.isArray(query[key])) {
@@ -41,6 +40,7 @@ export class EventsService {
             where[key] = query[key]
           }
         }
+        where[key] = query[key]
       }
     })
 
