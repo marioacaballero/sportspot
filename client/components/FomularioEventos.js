@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import * as ImagePicker from 'expo-image-picker'
 import {
   Image,
   Modal,
@@ -23,10 +24,12 @@ const FomularioEventos = () => {
   const { dateStart, dateSuscription } = useSelector((state) => state.events)
   const { sport } = useSelector((state) => state.sports)
   const { user } = useSelector((state) => state.users)
-  const [date, setDate] = useState(null)
-  const [dateInscription, setDateInscription] = useState(null)
+  // const [date, setDate] = useState(null)
+  // const [dateInscription, setDateInscription] = useState(null)
   const [calendar, setCalendar] = useState(null)
   const [calendarInscription, setCalendarInscription] = useState(null)
+  const [selectedImage, setSelectedImage] = useState(null)
+
   const [sportsModal, setSportsModal] = useState(false)
   const [event, setEvent] = useState({
     title: '',
@@ -37,8 +40,6 @@ const FomularioEventos = () => {
     // dateStart,
     // dateInscription: dataSuscription
   })
-
-  console.log(date)
 
   const onCloseModalSports = () => {
     setSportsModal(false)
@@ -55,7 +56,27 @@ const FomularioEventos = () => {
     }))
   }
 
-  console.log(event)
+  const uploadImage = async () => {
+    let result = {}
+    await ImagePicker.requestMediaLibraryPermissionsAsync()
+    result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1
+    })
+
+    if (!result.cancelled) {
+      setSelectedImage(result?.assets[0].uri)
+      const data = {
+        id: user.id,
+        suscription: {
+          avatar: result?.assets[0].uri
+        }
+      }
+      dispatch(suscriptionEventUser(data))
+    }
+  }
 
   const onSubmit = () => {
     const data = {
@@ -68,7 +89,8 @@ const FomularioEventos = () => {
       dateStart,
       dateInscription: dateSuscription,
       creator: user?.id,
-      timeStart: event?.timeStart
+      timeStart: event?.timeStart,
+      image: selectedImage
     }
 
     dispatch(createEvent(data))
@@ -84,13 +106,21 @@ const FomularioEventos = () => {
 
   return (
     <Pressable style={{ width: '100%', marginTop: 30 }}>
-      <View style={styles.items}>
+      <Pressable style={styles.items} onPress={uploadImage}>
         <Image
           style={{ width: 25, height: 25, marginRight: 10 }}
           source={require('../assets/frame-1547755976.png')}
         />
         <Text style={styles.helloTypoScroll}>Portada</Text>
-      </View>
+        <Image
+          // style={styles.unsplashn6gnca77urcIcon}
+          style={{ width: 20, height: 20 }}
+          contentFit="cover"
+          source={
+            selectedImage ? { uri: selectedImage } : { uri: user?.avatar }
+          }
+        />
+      </Pressable>
       <View style={styles.items}>
         <Image
           style={{ width: 25, height: 25, marginRight: 10 }}

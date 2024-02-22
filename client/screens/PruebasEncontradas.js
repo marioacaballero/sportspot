@@ -24,7 +24,7 @@ const PruebasEncontradas = () => {
     (state) => state.events
   )
   const { user } = useSelector((state) => state.users)
-  const { sports } = useSelector((state) => state.sports)
+  // const { sports } = useSelector((state) => state.sports)
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
   const [favoriteEvents, setFavoriteEvents] = useState([])
@@ -81,11 +81,11 @@ const PruebasEncontradas = () => {
               <Text key={sport.id}>{`${sport.name},`}</Text>
             ))} */}
 
-            {`${nameEventsFilters.dateStart && ','} ${
-              nameEventsFilters.dateStart
-            }${nameEventsFilters.location && ','} ${
-              nameEventsFilters.location
-            }`}
+            {`${nameEventsFilters.sportName}${
+              nameEventsFilters.dateStart && ','
+            } ${nameEventsFilters.dateStart}${
+              nameEventsFilters.location && ','
+            } ${nameEventsFilters.location}`}
           </Text>
         </Pressable>
         <View style={[styles.frameParent, styles.parentSpaceBlock]}>
