@@ -1,39 +1,60 @@
-import React, { useState } from 'react'
-import { View, StyleSheet, Text, ScrollView, TextInput } from 'react-native'
-import { Border, FontSize, FontFamily, Color, Padding } from '../GlobalStyles'
-import { useSelector } from 'react-redux'
-// import { setNameEvent } from '../redux/slices/events.slices'
-// import MapView, { Circle, Marker, PROVIDER_GOOGLE } from 'react-native-maps'
+import React, { useState, useEffect } from 'react'
+import { Border, Color, FontFamily, FontSize, Padding } from '../GlobalStyles'
+
+import {
+  View,
+  StyleSheet,
+  Text,
+  ScrollView,
+  TextInput,
+  TouchableOpacity
+} from 'react-native'
+import { data } from '../utils/ciudadesEspaña'
 
 const Maps = ({ onClose, setEventsFilter }) => {
-  // const dispatch = useDispatch()
-  const { events } = useSelector((state) => state.events)
-  const handleClose = () => {
-    onClose()
-  }
-
   const [searchText, setSearchText] = useState('')
-  const [eventsLocal, setEventsLocal] = useState([...events])
+  const [eventsLocal, setEventsLocal] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 50
+
+  useEffect(() => {
+    setEventsLocal(data.slice(0, itemsPerPage))
+  }, [])
 
   const filterEventsByLetter = (letter) => {
-    return events.filter((event) =>
-      event.location.toLowerCase().startsWith(letter.toLowerCase())
+    return data.filter((event) =>
+      event.label.toLowerCase().startsWith(letter.toLowerCase())
     )
   }
 
   const handleTextChange = (text) => {
     setSearchText(text)
-
     const filtereEvents = filterEventsByLetter(text)
-    setEventsLocal(filtereEvents)
+    setEventsLocal(filtereEvents.slice(0, itemsPerPage))
+    setCurrentPage(1)
   }
 
-  // const initialRegion = {
-  //   latitude: 41.39185,
-  //   longitude: 2.18521,
-  //   latitudeDelta: 0.04,
-  //   longitudeDelta: 0.05
-  // }
+  const handleLoadMore = () => {
+    const nextPage = currentPage + 1
+    const startIndex = (nextPage - 1) * itemsPerPage
+    const endIndex = nextPage * itemsPerPage
+    setEventsLocal([
+      ...eventsLocal,
+      ...filterEventsByLetter(searchText).slice(startIndex, endIndex)
+    ])
+    setCurrentPage(nextPage)
+  }
+
+  const handleScroll = (event) => {
+    const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent
+    const paddingToBottom = 20
+    if (
+      layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom
+    ) {
+      handleLoadMore()
+    }
+  }
 
   return (
     <ScrollView
@@ -50,48 +71,28 @@ const Maps = ({ onClose, setEventsFilter }) => {
               onChangeText={handleTextChange}
             />
           </View>
-          <ScrollView style={styles.mapViewParent}>
+          <ScrollView
+            style={styles.mapViewParent}
+            onScroll={handleScroll}
+            scrollEventThrottle={16}
+          >
             {eventsLocal.map((event, i) => (
-              <Text
+              <TouchableOpacity
                 key={i}
-                style={styles.helloTypo}
                 onPress={() => {
                   setEventsFilter((prevState) => ({
                     ...prevState,
-                    location: event.location
+                    location: event.label
                   }))
                 }}
               >
-                {event.location}
-              </Text>
+                <Text style={styles.helloTypo}>{event.label}</Text>
+              </TouchableOpacity>
             ))}
           </ScrollView>
-          {/* <MapView
-            initialRegion={initialRegion}
-            style={styles.mapView}
-            provider={PROVIDER_GOOGLE}
-          >
-            <Circle
-              center={initialRegion}
-              radius={1000}
-              strokeColor="#40036F"
-              fillColor="rgba(101, 39, 148, 0.67)"
-            />
-            <Marker coordinate={initialRegion} anchor={{ x: 0.5, y: 0.5 }}>
-              <Image
-                source={require('../assets/marker.png')}
-                style={{ width: 22, height: 26 }}
-                resizeMode="contain"
-                resizeMethod="resize"
-              />
-            </Marker>
-          </MapView> */}
         </View>
         <View style={styles.helloAshfakWrapper}>
-          <Text
-            style={[styles.helloAshfak, styles.kmTypo]}
-            onPress={handleClose}
-          >
+          <Text style={[styles.helloAshfak, styles.kmTypo]} onPress={onClose}>
             Listo
           </Text>
         </View>

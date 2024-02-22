@@ -3,7 +3,8 @@ import {
   getAllEvents,
   getEventById,
   favorite,
-  getAllEventsFilters
+  getAllEventsFilters,
+  getFavorites
 } from '../actions/events'
 
 export const eventsSlices = createSlice({
@@ -15,7 +16,10 @@ export const eventsSlices = createSlice({
     event: {},
     loading: false,
     error: {},
-    favorites: []
+    favorites: [],
+    allFavorites: [],
+    dateStart: '',
+    dateSuscription: ''
   },
   reducers: {
     setEvent: (state, action) => {
@@ -23,6 +27,12 @@ export const eventsSlices = createSlice({
     },
     setNameEvent: (state, action) => {
       state.nameEventsFilters = action.payload
+    },
+    setDateStart: (state, action) => {
+      state.dateStart = action.payload
+    },
+    setDateSuscription: (state, action) => {
+      state.dateSuscription = action.payload
     }
   },
 
@@ -72,6 +82,20 @@ export const eventsSlices = createSlice({
         state.loading = false
         state.error = action.payload
       })
+      .addCase(getFavorites.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(getFavorites.fulfilled, (state, action) => {
+        console.log('action.payload', action.payload)
+        state.loading = false
+        state.allFavorites = action.payload
+        state.error = null
+      })
+      .addCase(getFavorites.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
 
       // FILTRO DE EVENTOS
       .addCase(getAllEventsFilters.pending, (state) => {
@@ -79,7 +103,6 @@ export const eventsSlices = createSlice({
         state.error = null
       })
       .addCase(getAllEventsFilters.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.loading = false
         state.eventsFilter = action.payload
         state.error = null
@@ -91,6 +114,7 @@ export const eventsSlices = createSlice({
   }
 })
 
-export const { setEvent, setNameEvent } = eventsSlices.actions
+export const { setEvent, setNameEvent, setDateStart, setDateSuscription } =
+  eventsSlices.actions
 
 export default eventsSlices.reducer

@@ -36,6 +36,7 @@ export const getEventById = createAsyncThunk('events/getOne', async (id) => {
 })
 
 export const createEvent = createAsyncThunk('events/create', async (body) => {
+  console.log(body)
   try {
     const { data } = await axiosInstance.post('/events', body)
     return data
@@ -43,6 +44,18 @@ export const createEvent = createAsyncThunk('events/create', async (body) => {
     throw new Error(error)
   }
 })
+
+export const getFavorites = createAsyncThunk(
+  'users/getFavorites',
+  async (id) => {
+    try {
+      const { data } = await axiosInstance.get(`/events/favorites/${id}`)
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+)
 
 export const favorite = createAsyncThunk('users/favorite', async (body) => {
   const { id, eventId } = body

@@ -2,21 +2,32 @@ import React from 'react'
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { Calendar } from 'react-native-calendars'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
+import { useDispatch } from 'react-redux'
+import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
 
-const CalendarOneDay = ({ onClose, setDate, date }) => {
+const CalendarOneDay = ({ onClose, start, suscription }) => {
+  const dispath = useDispatch()
   return (
     <View style={styles.calendar}>
       <Calendar
         onDayPress={(day) => {
-          setDate(day.dateString)
-        }}
-        markedDates={{
-          [date]: {
-            selected: true,
-            disableTouchEvent: true,
-            selectedDotColor: 'orange'
+          if (start && !suscription) {
+            dispath(setDateStart(day.dateString))
+          } else {
+            dispath(setDateSuscription(day.dateString))
           }
+          // start && !suscription && dispath(setDateStart(day.dateString))
+          // start && !suscription && dispath(setDateStart(day.dateString))
+
+          // setDate(day.dateString)
         }}
+        // markedDates={{
+        //   [date]: {
+        //     selected: true,
+        //     disableTouchEvent: true,
+        //     selectedDotColor: 'orange'
+        //   }
+        // }}
         // markedDates={generateMarkedDates()}
         // Otras propiedades de configuración de tu calendario
       />

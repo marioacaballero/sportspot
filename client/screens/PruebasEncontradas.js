@@ -24,14 +24,16 @@ const PruebasEncontradas = () => {
     (state) => state.events
   )
   const { user } = useSelector((state) => state.users)
-  const { sports } = useSelector((state) => state.sports)
+  // const { sports } = useSelector((state) => state.sports)
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
   const [favoriteEvents, setFavoriteEvents] = useState([])
 
-  const filterDescription = sports.filter(
-    (sport) => sport.id === nameEventsFilters.sportId
-  )
+  // const filterDescription = sports.filter((sport) =>
+  //   nameEventsFilters.sportName.some((name) => name === sport.name)
+  // )
+
+  // console.log('eventos filtrados', filterDescription)
 
   useEffect(() => {
     dispatch(getAllEvents())
@@ -75,13 +77,15 @@ const PruebasEncontradas = () => {
             source={require('../assets/cilarrowtop1.png')}
           />
           <Text style={[styles.badajozCilcismo22, styles.filtrosTypo]}>
-            {`${
-              filterDescription.length >= 1 ? filterDescription[0]?.name : ''
-            }${nameEventsFilters.dateStart && ','} ${
-              nameEventsFilters.dateStart
-            }${nameEventsFilters.location && ','} ${
-              nameEventsFilters.location
-            }`}
+            {/* {filterDescription.map((sport) => (
+              <Text key={sport.id}>{`${sport.name},`}</Text>
+            ))} */}
+
+            {`${nameEventsFilters.sportName}${
+              nameEventsFilters.dateStart && ','
+            } ${nameEventsFilters.dateStart}${
+              nameEventsFilters.location && ','
+            } ${nameEventsFilters.location}`}
           </Text>
         </Pressable>
         <View style={[styles.frameParent, styles.parentSpaceBlock]}>
@@ -156,29 +160,23 @@ const PruebasEncontradas = () => {
                     ]}
                   >
                     <Text style={styles.modalidad}>
-                      -Modalidad: {event.modality} {'\n'}
+                      -Modalidad: {event.modality}
+                      {'\n'}
                     </Text>
                     <Text style={styles.modalidad}>
-                      -Localización: {event.location} {'\n'}
+                      -Localización: {event.location}
+                      {'\n'}
                     </Text>
                     <Text style={styles.modalidad}>-Fecha de la prueba:</Text>
                     <Text style={styles.ene2024Typo}>
-                      {event.dateStart.substring(
-                        0,
-                        event.dateStart.indexOf('T')
-                      )}
-                      {'\n'}
+                      {event.datestart} {'\n'}
                     </Text>
 
                     <Text style={styles.modalidad}>
                       -Plazo límite de inscripción:
                     </Text>
                     <Text style={styles.ene2024Typo}>
-                      {event.dateInscription.substring(
-                        0,
-                        event.dateInscription.indexOf('T')
-                      )}
-                      {'\n'}
+                      {event?.dateinscription} {'\n'}
                     </Text>
                   </Text>
                   <Text
