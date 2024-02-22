@@ -33,7 +33,8 @@ const FomularioEventos = () => {
     description: '',
     price: '',
     modality: '',
-    location: ''
+    location: '',
+    timeStart: ''
     // dateStart,
     // dateInscription: dataSuscription
   })
@@ -60,14 +61,15 @@ const FomularioEventos = () => {
   const onSubmit = () => {
     const data = {
       title: event.title,
-      description: event.description,
+      description: event?.description,
       sportId: sport && sport?.id,
-      price: event.price,
+      price: event?.price,
       modality: 'cesped',
-      location: event.location,
+      location: event?.location,
       dateStart,
       dateInscription: dateSuscription,
-      creator: user?.id
+      creator: user?.id,
+      timeStart: event?.timeStart
     }
 
     dispatch(createEvent(data))
@@ -199,13 +201,28 @@ const FomularioEventos = () => {
         />
         <Text style={styles.helloTypoScroll}>Fecha de inscripcion</Text>
       </Pressable>
-      <Pressable style={styles.items} /* onPress={() => setCalendar(true)} */>
+      <View style={styles.items}>
         <Image
           style={{ width: 25, height: 25, marginRight: 10 }}
           source={require('../assets/frame-1547755976.png')}
         />
-        <Text style={styles.helloTypoScroll}>Hora</Text>
-      </Pressable>
+
+        <Text
+          style={{
+            fontSize: FontSize.inputPlaceholder_size,
+            fontFamily: FontFamily.inputPlaceholder,
+            fontWeight: '700',
+            color: Color.sportsVioleta
+          }}
+        >
+          Hora:
+        </Text>
+        <TextInput
+          style={styles.helloTypoScroll}
+          value={event.timeStart}
+          onChangeText={(value) => onValuesEvent('timeStart', value)}
+        />
+      </View>
 
       <TouchableOpacity
         style={{

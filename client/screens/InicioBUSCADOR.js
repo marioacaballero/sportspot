@@ -19,8 +19,8 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
   const [selected, setSelected] = useState(null)
   const [eventsFilter, setEventsFilter] = useState({
     sportId: [],
-    location: ''
-    // dateStart: ''
+    location: '',
+    dateStart: []
   })
 
   useEffect(() => {
