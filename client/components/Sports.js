@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { FontSize, Color, FontFamily, Border, Padding } from '../GlobalStyles'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import BasketSVG from './SVG/Sports/BasketSVG'
 import HockeySVG from './SVG/Sports/HockeySVG'
 import TennisSVG from './SVG/Sports/TenisSVG'
@@ -10,8 +10,10 @@ import RugbySVG from './SVG/Sports/RugbySVG'
 import HandballSVG from './SVG/Sports/HandballSVG'
 import FutbolSVG from './SVG/Sports/FutbolSVG'
 import RunningSVG from './SVG/Sports/RunningSVG'
+import { setSport } from '../redux/slices/sports.slices'
 
 const Sports = ({ onClose, setEventsFilter }) => {
+  const dispatch = useDispatch()
   const { sports } = useSelector((state) => state.sports)
   const [showColor, setShowColor] = useState([])
 
@@ -55,6 +57,7 @@ const Sports = ({ onClose, setEventsFilter }) => {
                   ...prevState,
                   sportName: sport.name
                 }))
+                dispatch(setSport(sport.name))
                 sportSelectStyle(sport?.name)
               }}
               style={{

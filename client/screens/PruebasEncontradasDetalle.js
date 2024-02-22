@@ -25,7 +25,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
         <Image
           style={styles.unsplashon4qwhhjcemIcon}
           contentFit="cover"
-          source={require('../assets/unsplashon4qwhhjcem.png')}
+          // source={require('../assets/unsplashon4qwhhjcem.png')}
+          source={{ uri: event.image }}
         />
         <View style={styles.frameParent}>
           <View style={styles.frameGroup}>
