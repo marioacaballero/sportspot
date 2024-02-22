@@ -33,10 +33,13 @@ export class EventEntity extends BaseEntity {
   location: string
 
   @Column()
-  dateStart: Date
+  dateStart: string
 
   @Column()
-  dateInscription: Date
+  dateInscription: string
+
+  @Column()
+  timeStart: string
 
   @Column({
     default:

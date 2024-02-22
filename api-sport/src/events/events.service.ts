@@ -22,11 +22,11 @@ export class EventsService {
 
   public async getAllService(query: { [key: string]: any }) {
     const where = { isDelete: false }
+    let sportName = null
 
     Object.keys(query).forEach((key) => {
       if (query[key] !== '' && query[key] !== undefined) {
         if (key === 'sportId') {
-          console.log('entro')
           where[key] = In(query[key])
         } else if (key === 'dateStart') {
           if (Array.isArray(query[key])) {
@@ -40,11 +40,47 @@ export class EventsService {
           } else {
             where[key] = query[key]
           }
+        } else if (key === 'sportName') {
+          sportName = query[key]
+        } else {
+          where[key] = query[key]
         }
       }
     })
+    let queryBuilder = this.eventsRepository
+      .createQueryBuilder('event')
+      .select([
+        'event.id AS id',
+        'event.title AS title',
+        'event.description AS description',
+        'event.price AS price',
+        'event.modality AS modality',
+        'event.location AS location',
+        'event.dateStart AS dateStart',
+        'event.timeStart AS timeStart',
+        'event.dateInscription AS dateInscription',
+        'event.image AS image',
+        'event.createdAt AS createdAt',
+        'event.updatedAt AS updatedAt',
+        'event.creator AS creator',
+        'event.isDelete AS isDelete',
+        'event.sportId AS sportId',
+        'sport.name AS sportName'
+      ])
+      .where(where)
 
-    return await this.eventsRepository.find({ where })
+    if (sportName) {
+      queryBuilder = queryBuilder.leftJoin(
+        'event.sport',
+        'sport',
+        'sport.name = :sportName',
+        { sportName }
+      )
+    } else {
+      queryBuilder = queryBuilder.leftJoin('event.sport', 'sport')
+    }
+
+    return await queryBuilder.getRawMany()
   }
 
   public async getOneService(id: string) {
@@ -70,15 +106,11 @@ export class EventsService {
       throw new Error(`Deporte con ID ${id} no encontrado`)
     }
 
-    event.title = updateEventDto.title
-    event.sportId = updateEventDto.sportId
-    event.description = updateEventDto.description
-    event.price = updateEventDto.price
-    event.modality = updateEventDto.modality
-    event.location = updateEventDto.location
-    event.dateStart = updateEventDto.dateStart
-    event.dateInscription = updateEventDto.dateInscription
-    event.image = updateEventDto.image
+    for (const key in updateEventDto) {
+      if (updateEventDto.hasOwnProperty(key)) {
+        event[key] = updateEventDto[key]
+      }
+    }
 
     return await this.eventsRepository.save(event)
   }
