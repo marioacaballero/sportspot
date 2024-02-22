@@ -14,6 +14,15 @@ export const suscriptionEventUser = createAsyncThunk(
   }
 )
 
+export const getUser = createAsyncThunk('users/getUser', async (id) => {
+  try {
+    const { data } = await axiosInstance.get(`/users/${id}`)
+    return data
+  } catch (error) {
+    throw new Error(error)
+  }
+})
+
 export const register = createAsyncThunk('users/register', async (body) => {
   try {
     const { data } = await axiosInstance.post('/users', body)
@@ -35,13 +44,12 @@ export const login = createAsyncThunk('users/login', async (body) => {
 export const changePassword = createAsyncThunk(
   'users/newPassword',
   async (body) => {
-    console.log('passsbody', body)
-    const { id, newPassword } = body
+    const { id, newPassword, oldPassword } = body
     try {
-      const { data } = await axiosInstance.patch(
-        `/users/password/${id}`,
-        newPassword
-      )
+      const { data } = await axiosInstance.patch(`/users/password/${id}`, {
+        newPassword,
+        oldPassword
+      })
       return data
     } catch (error) {
       throw new Error(error)

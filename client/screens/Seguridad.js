@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   Text,
   StyleSheet,
@@ -12,16 +12,48 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
+import { changePassword } from '../redux/actions/users'
 
 const Seguridad = () => {
   const navigation = useNavigation()
+  const dispatch = useDispatch()
 
-  const { user } = useSelector((state) => state.users)
+  const { user, isOkay } = useSelector((state) => state.users)
 
   const [mostrarCamposExtras, setMostrarCamposExtras] = useState(false)
-  const [password, setPassword] = useState('')
+  const [password, setPassword] = useState({
+    oldPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  })
 
-  console.log(user)
+  const valuesLogin = (field, value) => {
+    setPassword((prev) => ({
+      ...prev,
+      [field]: value
+    }))
+  }
+
+  const handleChangePassword = () => {
+    if (password.newPassword === password.confirmPassword) {
+      if (isOkay) {
+        if (password.newPassword.length >= 3) {
+          const data = {
+            id: user.id,
+            oldPassword: password.oldPassword,
+            newPassword: password.confirmPassword
+          }
+          dispatch(changePassword(data))
+        } else {
+          alert('La nueva contraseña debe tener al menos 3 caracteres')
+        }
+      } else {
+        alert('Contraseña actual incorrecta')
+      }
+    } else {
+      alert('Las contraseñas no coinciden')
+    }
+  }
 
   const handleContraseñaFocus = () => {
     setMostrarCamposExtras(true)
@@ -77,8 +109,8 @@ const Seguridad = () => {
                     placeholder="********"
                     style={styles.placehoder}
                     onFocus={handleContraseñaFocus}
-                    value={password}
-                    onChangeText={(value) => setPassword(value)}
+                    value={password.oldPassword}
+                    onChangeText={(value) => valuesLogin('oldPassword', value)}
                     secureTextEntry={true}
                   />
                 </View>
@@ -92,7 +124,13 @@ const Seguridad = () => {
                   <Text style={[styles.label, styles.labelFlexBox]}>
                     Nueva contraseña
                   </Text>
-                  <TextInput placeholder="********" style={styles.placehoder} />
+                  <TextInput
+                    placeholder="********"
+                    style={styles.placehoder}
+                    onChangeText={(value) => valuesLogin('newPassword', value)}
+                    value={password.newPassword}
+                    secureTextEntry={true}
+                  />
                 </View>
               </View>
               <View style={[styles.inputLayout]}>
@@ -100,7 +138,15 @@ const Seguridad = () => {
                   <Text style={[styles.label, styles.labelFlexBox]}>
                     Repite la nueva contraseña
                   </Text>
-                  <TextInput placeholder="********" style={styles.placehoder} />
+                  <TextInput
+                    placeholder="********"
+                    style={styles.placehoder}
+                    onChangeText={(value) =>
+                      valuesLogin('confirmPassword', value)
+                    }
+                    value={password.confirmPassword}
+                    secureTextEntry={true}
+                  />
                 </View>
               </View>
             </View>
@@ -109,7 +155,7 @@ const Seguridad = () => {
         <View style={{ marginTop: mostrarCamposExtras ? '25%' : '8%' }}>
           <Pressable
             style={[styles.cambiarContraseaWrapper, styles.wrapperLayout]}
-            onPress={() => setMostrarCamposExtras(false)}
+            onPress={() => handleChangePassword()}
           >
             <Text style={[styles.cambiarContrasea, styles.eliminarCuentaTypo]}>
               Cambiar contraseña
