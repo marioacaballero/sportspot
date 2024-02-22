@@ -7,8 +7,10 @@ import { EventsModule } from './events/events.module'
 import { NotificationsModule } from './notifications/notifications.module'
 import { SportsModule } from './sports/sports.module'
 import { JsonwebtokenModule } from './jsonwebtoken/jsonwebtoken.module'
-import { SendMailsModule } from './send-mails/send-mails.module';
+import { SendMailsModule } from './send-mails/send-mails.module'
 
+import { join } from 'path'
+console.log(join(__dirname, 'template'))
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),

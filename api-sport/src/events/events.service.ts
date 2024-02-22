@@ -49,32 +49,16 @@ export class EventsService {
     })
     let queryBuilder = this.eventsRepository
       .createQueryBuilder('event')
-      .select([
-        'event.id AS id',
-        'event.title AS title',
-        'event.description AS description',
-        'event.price AS price',
-        'event.modality AS modality',
-        'event.location AS location',
-        'event.dateStart AS dateStart',
-        'event.timeStart AS timeStart',
-        'event.dateInscription AS dateInscription',
-        'event.image AS image',
-        'event.createdAt AS createdAt',
-        'event.updatedAt AS updatedAt',
-        'event.creator AS creator',
-        'event.isDelete AS isDelete',
-        'event.sportId AS sportId',
-        'sport.name AS sportName'
-      ])
-      .where(where)
+      .select(['event', 'sport.name AS sportName'])
 
+      .where(where)
+    console.log(where)
     if (sportName) {
       queryBuilder = queryBuilder
         .leftJoin('event.sport', 'sport', 'sport.name = :sportName', {
           sportName
         })
-        .andWhere('sport.name =:sportName', { sportName })
+        .andWhere('sport.name = :sportName', { sportName })
     } else {
       queryBuilder = queryBuilder.leftJoin('event.sport', 'sport')
     }
