@@ -45,7 +45,11 @@ export class EventsService {
       }
     })
 
-    return await this.eventsRepository.find({ where })
+    return await this.eventsRepository
+      .createQueryBuilder('event')
+      .where(where)
+      .leftJoinAndSelect('event.sport', 'sport')
+      .getMany()
   }
 
   public async getOneService(id: string) {
