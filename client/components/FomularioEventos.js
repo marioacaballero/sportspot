@@ -20,6 +20,7 @@ import SportsPopUp from './SportsPopUp'
 const FomularioEventos = () => {
   const dispatch = useDispatch()
   //   const navigation = useNavigation()
+  const { dateStart, dateSuscription } = useSelector((state) => state.events)
   const { sport } = useSelector((state) => state.sports)
   const { user } = useSelector((state) => state.users)
   const [date, setDate] = useState(null)
@@ -32,10 +33,12 @@ const FomularioEventos = () => {
     description: '',
     price: '',
     modality: '',
-    location: '',
-    dateStart: '',
-    dateInscription: ''
+    location: ''
+    // dateStart,
+    // dateInscription: dataSuscription
   })
+
+  console.log(date)
 
   const onCloseModalSports = () => {
     setSportsModal(false)
@@ -52,6 +55,8 @@ const FomularioEventos = () => {
     }))
   }
 
+  console.log(event)
+
   const onSubmit = () => {
     const data = {
       title: event.title,
@@ -60,8 +65,8 @@ const FomularioEventos = () => {
       price: event.price,
       modality: 'cesped',
       location: event.location,
-      dateStart: `${date}T20:00:00`,
-      dateInscription: `${dateInscription}T20:00:00`,
+      dateStart,
+      dateInscription: dateSuscription,
       creator: user?.id
     }
 
@@ -194,6 +199,13 @@ const FomularioEventos = () => {
         />
         <Text style={styles.helloTypoScroll}>Fecha de inscripcion</Text>
       </Pressable>
+      <Pressable style={styles.items} /* onPress={() => setCalendar(true)} */>
+        <Image
+          style={{ width: 25, height: 25, marginRight: 10 }}
+          source={require('../assets/frame-1547755976.png')}
+        />
+        <Text style={styles.helloTypoScroll}>Hora</Text>
+      </Pressable>
 
       <TouchableOpacity
         style={{
@@ -219,8 +231,10 @@ const FomularioEventos = () => {
           />
           <CalendarOneDay
             onClose={closeCalendar}
-            setDate={setDate}
-            date={date}
+            start={true}
+            suscription={false}
+            // setDate={setDate}
+            // date={date}
           />
         </View>
       </Modal>
@@ -247,8 +261,10 @@ const FomularioEventos = () => {
           />
           <CalendarOneDay
             onClose={closeCalendarInscription}
-            setDate={setDateInscription}
-            date={dateInscription}
+            start={false}
+            suscription={true}
+            // setDate={setDateInscription}
+            // date={dateInscription}
           />
         </View>
       </Modal>
