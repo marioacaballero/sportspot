@@ -11,6 +11,38 @@ export class SportsService {
     @InjectRepository(SportEntity)
     private readonly sportsRepository: Repository<SportEntity>
   ) {}
+
+  private initialized = false
+
+  async onModuleInit() {
+    if (!this.initialized) {
+      const sports: CreateSportDto[] = [
+        { name: 'futbol', type: '11', description: null },
+        { name: 'futbol', type: '5', description: null },
+        { name: 'basket', type: '', description: null },
+        { name: 'rugby', type: '15', description: null },
+        { name: 'rugby', type: '7', description: null },
+        { name: 'tenis', type: 'single', description: null },
+        { name: 'tenis', type: 'doble', description: null },
+        { name: 'handball', type: '', description: null },
+        { name: 'ciclismo', type: 'pista', description: null },
+        { name: 'ciclismo', type: 'montaña', description: null },
+        { name: 'ciclismo', type: 'carretera', description: null },
+        { name: 'running', type: '', description: null },
+        { name: 'hockey', type: '', description: null }
+      ]
+
+      for (const sport of sports) {
+        const existingSport = await this.sportsRepository.findOne({
+          where: { name: sport.name, type: sport.type }
+        })
+        if (!existingSport) {
+          await this.sportsRepository.save(sport)
+        }
+      }
+    }
+  }
+
   public async createService(createSportDto: CreateSportDto) {
     return await this.sportsRepository.save(createSportDto)
   }
