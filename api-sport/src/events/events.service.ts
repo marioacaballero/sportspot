@@ -70,12 +70,11 @@ export class EventsService {
       .where(where)
 
     if (sportName) {
-      queryBuilder = queryBuilder.leftJoin(
-        'event.sport',
-        'sport',
-        'sport.name = :sportName',
-        { sportName }
-      )
+      queryBuilder = queryBuilder
+        .leftJoin('event.sport', 'sport', 'sport.name = :sportName', {
+          sportName
+        })
+        .andWhere('sport.name = :sportName', { sportName })
     } else {
       queryBuilder = queryBuilder.leftJoin('event.sport', 'sport')
     }
