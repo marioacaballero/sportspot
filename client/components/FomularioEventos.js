@@ -32,7 +32,6 @@ const FomularioEventos = () => {
     title: '',
     description: '',
     price: '',
-    modality: '',
     location: '',
     timeStart: ''
     // dateStart,
@@ -64,7 +63,7 @@ const FomularioEventos = () => {
       description: event?.description,
       sportId: sport && sport?.id,
       price: event?.price,
-      modality: 'cesped',
+      modality: sport?.type,
       location: event?.location,
       dateStart,
       dateInscription: dateSuscription,

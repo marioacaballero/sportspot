@@ -29,15 +29,11 @@ const PruebasEncontradas = () => {
   const [modalFilter, setModalFilter] = useState(false)
   const [favoriteEvents, setFavoriteEvents] = useState([])
 
-  // const filterDescription = sports.filter(
-  //   (sport) => sport.id === nameEventsFilters.sportId
-  // )
-
   const filterDescription = sports.filter((sport) =>
     nameEventsFilters.sportId.some((id) => id === sport.id)
   )
 
-  console.log('filtroooooo', filterDescription)
+  console.log('eventos filtrados', eventsFilter)
 
   useEffect(() => {
     dispatch(getAllEvents())
