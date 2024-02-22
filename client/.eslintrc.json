@@ -20,6 +20,7 @@
     "react/no-unescaped-entities": "warn",
     "camelcase": "warn",
     "semi": ["error", "never"],
-    "quotes": ["error", "single"]
+    "quotes": ["error", "single"],
+    "no-undef": "off"
   }
 }

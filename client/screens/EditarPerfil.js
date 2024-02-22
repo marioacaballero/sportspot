@@ -10,12 +10,13 @@ import {
   TextInput
 } from 'react-native'
 import Calendar from '../components/Calendar'
+import * as ImagePicker from 'expo-image-picker'
 import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
 import { LinearGradient } from 'expo-linear-gradient'
-import { Path, Rect, Svg } from 'react-native-svg'
 import { useDispatch, useSelector } from 'react-redux'
 import { suscriptionEventUser } from '../redux/actions/users'
+import BackArrowSVG from '../components/SVG/BackArrowSVG'
 
 const EditarPerfil = () => {
   const navigation = useNavigation()
@@ -23,15 +24,20 @@ const EditarPerfil = () => {
 
   const { user } = useSelector((state) => state.users)
   const [topContainerVisible, setTopContainerVisible] = useState(false)
-  const [date, setDate] = useState('')
+  const [selectedImage, setSelectedImage] = useState(null)
+  const [, setDate] = useState('')
   const [valuesUser, setValuesUser] = useState({
-    name: user.name || '',
-    apellido: user.apellido || '',
-    sexo: user.sexo || '',
-    fechaNacimiento: user.fechaNacimiento || '',
-    direccion: user.direccion || '',
-    telefono: user.telefono || ''
+    name: user?.name || '',
+    apellido: user?.apellido || '',
+    sexo: user?.sexo || '',
+    fechaNacimiento: user?.fechaNacimiento || '',
+    direccion: user?.direccion || '',
+    telefono: user?.telefono || ''
   })
+
+  // useEffect(() => {
+  //   dispatch(getUser(user?.id))
+  // }, [dispatch])
 
   const settingValuesUser = (field, value) => {
     setValuesUser((prev) => ({
@@ -57,6 +63,29 @@ const EditarPerfil = () => {
     dispatch(suscriptionEventUser(data))
   }
 
+  const uploadImage = async () => {
+    let result = {}
+    await ImagePicker.requestMediaLibraryPermissionsAsync()
+    result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1
+    })
+
+    if (!result.cancelled) {
+      setSelectedImage(result?.assets[0].uri)
+      const data = {
+        id: user.id,
+        suscription: {
+          avatar: result?.assets[0].uri
+        }
+      }
+      dispatch(suscriptionEventUser(data))
+    }
+  }
+
+  console.log('user', user)
   return (
     <ScrollView>
       <View style={styles.editarPerfil}>
@@ -74,18 +103,7 @@ const EditarPerfil = () => {
             GESTIONA TU CUENTA
           </Text>
           <Pressable onPress={() => navigation.goBack()}>
-            <Svg width="25" height="25" viewBox="0 0 21 21" fill="none">
-              <Rect
-                width="21"
-                height="21"
-                transform="translate(0 21) rotate(-90)"
-                fill="white"
-              />
-              <Path
-                d="M6.17798 4.98006L0.65625 10.5018L6.17798 16.0234L7.10604 15.0953L3.16862 11.158L20.3124 11.158L20.3124 9.84546L3.16874 9.84546L7.10604 5.90816L6.17798 4.98006Z"
-                fill={Color.sportsVioleta}
-              />
-            </Svg>
+            <BackArrowSVG />
           </Pressable>
         </View>
         <View style={styles.editarPerfilInner}>
@@ -93,11 +111,16 @@ const EditarPerfil = () => {
             <Text style={styles.editarPerfil1}>Editar perfil</Text>
           </View>
         </View>
-        <View style={styles.unsplashn6gnca77urcWrapper}>
+        <Pressable
+          style={styles.unsplashn6gnca77urcWrapper}
+          onPress={() => uploadImage()}
+        >
           <Image
             style={styles.unsplashn6gnca77urcIcon}
             contentFit="cover"
-            source={require('../assets/unsplashn6gnca77urc.png')}
+            source={
+              selectedImage ? { uri: selectedImage } : { uri: user?.avatar }
+            }
           />
           <View
             style={{
@@ -129,7 +152,7 @@ const EditarPerfil = () => {
               </Text>
             </LinearGradient>
           </View>
-        </View>
+        </Pressable>
         <View style={styles.frameParent}>
           <View style={styles.card1Wrapper}>
             <View style={styles.card1}>
@@ -160,8 +183,8 @@ const EditarPerfil = () => {
                     </Text>
                     <TextInput
                       // style={[styles.label, styles.labelFlexBox]}
-                      placeholder={user.name || '@Lara'}
-                      value={valuesUser.name}
+                      placeholder={user?.name || 'Nombre'}
+                      value={valuesUser?.name}
                       onChangeText={(value) => settingValuesUser('name', value)}
                     />
                   </View>
@@ -175,8 +198,8 @@ const EditarPerfil = () => {
                     </Text>
                     <TextInput
                       // style={[styles.label, styles.labelFlexBox]}
-                      placeholder={user?.apellido || '@Macias Blanco'}
-                      value={valuesUser.apellido}
+                      placeholder={user?.apellido || 'Apellido'}
+                      value={valuesUser?.apellido}
                       onChangeText={(value) =>
                         settingValuesUser('apellido', value)
                       }
@@ -191,7 +214,7 @@ const EditarPerfil = () => {
                       Género
                     </Text>
                     <TextInput
-                      placeholder={user.sexo || '@Mujer'}
+                      placeholder={user?.sexo || '-'}
                       value={valuesUser.sexo}
                       onChangeText={(value) => settingValuesUser('sexo', value)}
                     />
@@ -210,7 +233,7 @@ const EditarPerfil = () => {
                         Fecha de nacimiento
                       </Text>
                       <TextInput
-                        placeholder={user.fechaNacimiento || '@12/12/2020'}
+                        placeholder={user?.fechaNacimiento || '12/12/2020'}
                         value={valuesUser.fechaNacimiento}
                         onChangeText={(value) =>
                           settingValuesUser('fechaNacimiento', value)
@@ -256,7 +279,7 @@ const EditarPerfil = () => {
               <View style={styles.input}>
                 <View style={[styles.inputContent, styles.inputContentFlexBox]}>
                   <Text style={[styles.label, styles.labelFlexBox]}>Email</Text>
-                  <TextInput placeholder={user.email || 'ejemplo@gmail.com'} />
+                  <TextInput placeholder={user?.email || 'ejemplo@gmail.com'} />
                   {/* <Text style={[styles.placehoder, styles.placehoderTypo]}>
                     ejemplo@gmail.com
                   </Text> */}
@@ -268,7 +291,7 @@ const EditarPerfil = () => {
                     Teléfono
                   </Text>
                   <TextInput
-                    placeholder={user.telefono || '@600100100'}
+                    placeholder={user?.telefono || '@600100100'}
                     value={valuesUser.telefono}
                     onChangeText={(value) =>
                       settingValuesUser('telefono', value)
@@ -285,7 +308,7 @@ const EditarPerfil = () => {
                     Dirección
                   </Text>
                   <TextInput
-                    placeholder={user.direccion || '@C/Falsa, 123'}
+                    placeholder={user?.direccion || '@C/Falsa, 123'}
                     value={valuesUser.direccion}
                     onChangeText={(value) =>
                       settingValuesUser('direccion', value)
@@ -301,7 +324,7 @@ const EditarPerfil = () => {
                   style={[styles.helloAshfak, styles.kmTypo]}
                   onPress={onSubmit}
                 >
-                  Actulizar
+                  Actualizar
                 </Text>
               </View>
             </View>
