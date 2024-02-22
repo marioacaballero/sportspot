@@ -70,15 +70,11 @@ export class EventsService {
       throw new Error(`Deporte con ID ${id} no encontrado`)
     }
 
-    event.title = updateEventDto.title
-    event.sportId = updateEventDto.sportId
-    event.description = updateEventDto.description
-    event.price = updateEventDto.price
-    event.modality = updateEventDto.modality
-    event.location = updateEventDto.location
-    event.dateStart = updateEventDto.dateStart
-    event.dateInscription = updateEventDto.dateInscription
-    event.image = updateEventDto.image
+    for (const key in updateEventDto) {
+      if (updateEventDto.hasOwnProperty(key)) {
+        event[key] = updateEventDto[key]
+      }
+    }
 
     return await this.eventsRepository.save(event)
   }
