@@ -29,11 +29,11 @@ const PruebasEncontradas = () => {
   const [modalFilter, setModalFilter] = useState(false)
   const [favoriteEvents, setFavoriteEvents] = useState([])
 
-  const filterDescription = sports.filter((sport) =>
-    nameEventsFilters.sportName.some((name) => name === sport.name)
-  )
+  // const filterDescription = sports.filter((sport) =>
+  //   nameEventsFilters.sportName.some((name) => name === sport.name)
+  // )
 
-  console.log('eventos filtrados', filterDescription)
+  // console.log('eventos filtrados', filterDescription)
 
   useEffect(() => {
     dispatch(getAllEvents())
@@ -77,9 +77,9 @@ const PruebasEncontradas = () => {
             source={require('../assets/cilarrowtop1.png')}
           />
           <Text style={[styles.badajozCilcismo22, styles.filtrosTypo]}>
-            {filterDescription.map((sport) => (
+            {/* {filterDescription.map((sport) => (
               <Text key={sport.id}>{`${sport.name},`}</Text>
-            ))}
+            ))} */}
 
             {`${nameEventsFilters.dateStart && ','} ${
               nameEventsFilters.dateStart
