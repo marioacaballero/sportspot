@@ -49,7 +49,7 @@ const Sports = ({ onClose, setEventsFilter }) => {
               onPress={() => {
                 setEventsFilter((prevState) => ({
                   ...prevState,
-                  sportname: prevState.sportname.concat(sport.name)
+                  sportName: prevState.sportName.concat(sport.name)
                 }))
                 // setEventsFilter((prevState) => ({
                 //   ...prevState,

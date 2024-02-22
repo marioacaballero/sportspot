@@ -30,10 +30,10 @@ const PruebasEncontradas = () => {
   const [favoriteEvents, setFavoriteEvents] = useState([])
 
   const filterDescription = sports.filter((sport) =>
-    nameEventsFilters.sportId.some((id) => id === sport.id)
+    nameEventsFilters.sportName.some((name) => name === sport.name)
   )
 
-  console.log('eventos filtrados', eventsFilter)
+  console.log('eventos filtrados', filterDescription)
 
   useEffect(() => {
     dispatch(getAllEvents())
@@ -160,29 +160,23 @@ const PruebasEncontradas = () => {
                     ]}
                   >
                     <Text style={styles.modalidad}>
-                      -Modalidad: {event.modality} {'\n'}
+                      -Modalidad: {event.modality}
+                      {'\n'}
                     </Text>
                     <Text style={styles.modalidad}>
-                      -Localización: {event.location} {'\n'}
+                      -Localización: {event.location}
+                      {'\n'}
                     </Text>
                     <Text style={styles.modalidad}>-Fecha de la prueba:</Text>
                     <Text style={styles.ene2024Typo}>
-                      {event.dateStart.substring(
-                        0,
-                        event.dateStart.indexOf('T')
-                      )}
-                      {'\n'}
+                      {event.datestart} {'\n'}
                     </Text>
 
                     <Text style={styles.modalidad}>
                       -Plazo límite de inscripción:
                     </Text>
                     <Text style={styles.ene2024Typo}>
-                      {event.dateInscription.substring(
-                        0,
-                        event.dateInscription.indexOf('T')
-                      )}
-                      {'\n'}
+                      {event?.dateinscription} {'\n'}
                     </Text>
                   </Text>
                   <Text

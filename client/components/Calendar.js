@@ -17,9 +17,8 @@ const Calendario = ({ onClose, setEventsFilter, setDate }) => {
       for (
         let currentDate = new Date(startDate);
         currentDate <= endDate;
-
-      ) // currentDate.setDate(currentDate.getDate() + 1)
-      {
+        currentDate.setDate(currentDate.getDate() + 1)
+      ) {
         const year = currentDate.getFullYear()
         const month = currentDate.getMonth() + 1
         const day = currentDate.getDate()
@@ -51,11 +50,11 @@ const Calendario = ({ onClose, setEventsFilter, setDate }) => {
   const handleDayPress = (day) => {
     if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
       setSelectedStartDate(day.dateString)
-      // setDate(day.dateString)
-      setEventsFilter((prevState) => ({
-        ...prevState,
-        dateStart: prevState.sportId.concat(day.dateString)
-      }))
+      setDate(day.dateString)
+      // setEventsFilter((prevState) => ({
+      //   ...prevState,
+      //   dateStart: prevState.dateStart.concat(day.dateString)
+      // }))
       setSelectedEndDate(null)
     } else {
       setSelectedEndDate(day.dateString)
@@ -64,7 +63,12 @@ const Calendario = ({ onClose, setEventsFilter, setDate }) => {
   return (
     <View style={styles.calendar}>
       <Calendar
-        onDayPress={handleDayPress}
+        onDayPress={(day) =>
+          setEventsFilter((prevState) => ({
+            ...prevState,
+            dateStart: day.dateString
+          }))
+        }
         markingType={'period'}
         markedDates={generateMarkedDates()}
       />

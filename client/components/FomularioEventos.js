@@ -63,7 +63,7 @@ const FomularioEventos = () => {
       description: event?.description,
       sportId: sport && sport?.id,
       price: event?.price,
-      modality: sport?.type,
+      modality: 'cesped',
       location: event?.location,
       dateStart,
       dateInscription: dateSuscription,
