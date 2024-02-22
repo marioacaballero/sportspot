@@ -8,19 +8,19 @@ import { join } from 'path'
   imports: [
     MailerModule.forRoot({
       transport: {
-        host: 'smtp.example.com', // Servidor SMTP
+        host: 'smtp.ethereal.email', // Servidor SMTP
         port: 587,
         secure: false, // true para TLS; false para otros protocolos
         auth: {
-          user: 'tu-correo@example.com', // Correo electrónico de origen
-          pass: 'tu-contraseña' // Contraseña del correo electrónico de origen
+          user: 'judson.cremin36@ethereal.email', // Correo electrónico de origen
+          pass: 'suj5m3zpGjxFnfvHEB' // Contraseña del correo electrónico de origen
         }
       },
       defaults: {
         from: '"Nombre del Remitente" <tu-correo@example.com>' // Dirección de correo electrónico del remitente
       },
       template: {
-        dir: join(__dirname, 'views'), // Directorio de plantillas de correo electrónico
+        dir: join(__dirname, '..', 'template'), // Directorio de plantillas de correo electrónico
 
         options: {
           strict: true
