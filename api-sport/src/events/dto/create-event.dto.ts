@@ -1,7 +1,5 @@
-import { Type } from 'class-transformer'
 import {
   IsBoolean,
-  IsDate,
   IsDecimal,
   IsNotEmpty,
   IsOptional,
@@ -35,14 +33,16 @@ export class CreateEventDto {
   location: string
 
   @IsNotEmpty()
-  @Type(() => Date)
-  @IsDate()
-  dateStart: Date
+  @IsString()
+  dateStart: string
 
   @IsNotEmpty()
-  @Type(() => Date)
-  @IsDate()
-  dateInscription: Date
+  @IsString()
+  dateInscription: string
+
+  @IsNotEmpty()
+  @IsString()
+  timeStart: string
 
   @IsBoolean()
   @IsOptional()
