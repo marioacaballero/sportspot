@@ -7,10 +7,19 @@ export class SendMailsService {
   constructor(private readonly mailerService: MailerService) {}
 
   async sendRegistrationNotification(email: string) {
+    const htmlTemplate = `
+      <style>
+        p {
+          color: blue;
+        }
+      </style>
+      <p>¡Gracias por registrarte!</p>
+      <p>Este es un correo de prueba.</p>
+    `
     await this.mailerService.sendMail({
       to: email,
       subject: 'Registro exitoso',
-      html: '<p>¡Gracias por registrarte!</p>', // Archivo de plantilla de correo electrónico
+      html: htmlTemplate, // Archivo de plantilla de correo electrónico
       context: {} // Datos adicionales que pueden ser pasados a la plantilla
     })
     console.log(join(__dirname, '..', 'template', 'registration'))
