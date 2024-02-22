@@ -3,7 +3,8 @@ import {
   getAllEvents,
   getEventById,
   favorite,
-  getAllEventsFilters
+  getAllEventsFilters,
+  getFavorites
 } from '../actions/events'
 
 export const eventsSlices = createSlice({
@@ -16,6 +17,7 @@ export const eventsSlices = createSlice({
     loading: false,
     error: {},
     favorites: [],
+    allFavorites: [],
     dateStart: '',
     dateSuscription: ''
   },
@@ -80,6 +82,20 @@ export const eventsSlices = createSlice({
         state.loading = false
         state.error = action.payload
       })
+      .addCase(getFavorites.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(getFavorites.fulfilled, (state, action) => {
+        console.log('action.payload', action.payload)
+        state.loading = false
+        state.allFavorites = action.payload
+        state.error = null
+      })
+      .addCase(getFavorites.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
 
       // FILTRO DE EVENTOS
       .addCase(getAllEventsFilters.pending, (state) => {
@@ -87,7 +103,6 @@ export const eventsSlices = createSlice({
         state.error = null
       })
       .addCase(getAllEventsFilters.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.loading = false
         state.eventsFilter = action.payload
         state.error = null
