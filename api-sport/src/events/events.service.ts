@@ -39,8 +39,9 @@ export class EventsService {
           } else {
             where[key] = query[key]
           }
+        } else {
+          where[key] = query[key]
         }
-        where[key] = query[key]
       }
     })
 
