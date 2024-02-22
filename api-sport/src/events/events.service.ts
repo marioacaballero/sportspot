@@ -22,6 +22,7 @@ export class EventsService {
 
   public async getAllService(query: { [key: string]: any }) {
     const where = { isDelete: false }
+    let sportName = null
 
     Object.keys(query).forEach((key) => {
       if (query[key] !== '' && query[key] !== undefined) {
@@ -39,12 +40,14 @@ export class EventsService {
           } else {
             where[key] = query[key]
           }
+        } else if (key === 'sportName') {
+          sportName = query[key]
         } else {
           where[key] = query[key]
         }
       }
     })
-    return await this.eventsRepository
+    let queryBuilder = this.eventsRepository
       .createQueryBuilder('event')
       .select([
         'event.id AS id',
@@ -65,8 +68,19 @@ export class EventsService {
         'sport.name AS sportName'
       ])
       .where(where)
-      .leftJoin('event.sport', 'sport')
-      .getRawMany()
+
+    if (sportName) {
+      queryBuilder = queryBuilder.leftJoin(
+        'event.sport',
+        'sport',
+        'sport.name = :sportName',
+        { sportName }
+      )
+    } else {
+      queryBuilder = queryBuilder.leftJoin('event.sport', 'sport')
+    }
+
+    return await queryBuilder.getRawMany()
   }
 
   public async getOneService(id: string) {
