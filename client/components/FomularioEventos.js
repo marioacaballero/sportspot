@@ -20,6 +20,7 @@ import SportsPopUp from './SportsPopUp'
 const FomularioEventos = () => {
   const dispatch = useDispatch()
   //   const navigation = useNavigation()
+  const { dateStart, dateSuscription } = useSelector((state) => state.events)
   const { sport } = useSelector((state) => state.sports)
   const { user } = useSelector((state) => state.users)
   const [date, setDate] = useState(null)
@@ -31,11 +32,13 @@ const FomularioEventos = () => {
     title: '',
     description: '',
     price: '',
-    modality: '',
     location: '',
-    dateStart: '',
-    dateInscription: ''
+    timeStart: ''
+    // dateStart,
+    // dateInscription: dataSuscription
   })
+
+  console.log(date)
 
   const onCloseModalSports = () => {
     setSportsModal(false)
@@ -52,17 +55,20 @@ const FomularioEventos = () => {
     }))
   }
 
+  console.log(event)
+
   const onSubmit = () => {
     const data = {
       title: event.title,
-      description: event.description,
+      description: event?.description,
       sportId: sport && sport?.id,
-      price: event.price,
+      price: event?.price,
       modality: 'cesped',
-      location: event.location,
-      dateStart: `${date}T20:00:00`,
-      dateInscription: `${dateInscription}T20:00:00`,
-      creator: user?.id
+      location: event?.location,
+      dateStart,
+      dateInscription: dateSuscription,
+      creator: user?.id,
+      timeStart: event?.timeStart
     }
 
     dispatch(createEvent(data))
@@ -194,6 +200,28 @@ const FomularioEventos = () => {
         />
         <Text style={styles.helloTypoScroll}>Fecha de inscripcion</Text>
       </Pressable>
+      <View style={styles.items}>
+        <Image
+          style={{ width: 25, height: 25, marginRight: 10 }}
+          source={require('../assets/frame-1547755976.png')}
+        />
+
+        <Text
+          style={{
+            fontSize: FontSize.inputPlaceholder_size,
+            fontFamily: FontFamily.inputPlaceholder,
+            fontWeight: '700',
+            color: Color.sportsVioleta
+          }}
+        >
+          Hora:
+        </Text>
+        <TextInput
+          style={styles.helloTypoScroll}
+          value={event.timeStart}
+          onChangeText={(value) => onValuesEvent('timeStart', value)}
+        />
+      </View>
 
       <TouchableOpacity
         style={{
@@ -219,8 +247,10 @@ const FomularioEventos = () => {
           />
           <CalendarOneDay
             onClose={closeCalendar}
-            setDate={setDate}
-            date={date}
+            start={true}
+            suscription={false}
+            // setDate={setDate}
+            // date={date}
           />
         </View>
       </Modal>
@@ -247,8 +277,10 @@ const FomularioEventos = () => {
           />
           <CalendarOneDay
             onClose={closeCalendarInscription}
-            setDate={setDateInscription}
-            date={dateInscription}
+            start={false}
+            suscription={true}
+            // setDate={setDateInscription}
+            // date={dateInscription}
           />
         </View>
       </Modal>

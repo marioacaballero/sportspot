@@ -51,10 +51,10 @@ const Calendario = ({ onClose, setEventsFilter, setDate }) => {
     if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
       setSelectedStartDate(day.dateString)
       setDate(day.dateString)
-      setEventsFilter((prevState) => ({
-        ...prevState,
-        dateStart: day.dateString
-      }))
+      // setEventsFilter((prevState) => ({
+      //   ...prevState,
+      //   dateStart: prevState.dateStart.concat(day.dateString)
+      // }))
       setSelectedEndDate(null)
     } else {
       setSelectedEndDate(day.dateString)
@@ -63,7 +63,12 @@ const Calendario = ({ onClose, setEventsFilter, setDate }) => {
   return (
     <View style={styles.calendar}>
       <Calendar
-        onDayPress={handleDayPress}
+        onDayPress={(day) =>
+          setEventsFilter((prevState) => ({
+            ...prevState,
+            dateStart: day.dateString
+          }))
+        }
         markingType={'period'}
         markedDates={generateMarkedDates()}
       />

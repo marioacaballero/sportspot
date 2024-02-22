@@ -29,21 +29,32 @@ const Sports = ({ onClose, setEventsFilter }) => {
     }
   }
 
+  const uniqueSports = {}
+  const filteredSports = sports
+    .map((sport) => {
+      if (!uniqueSports[sport.name]) {
+        uniqueSports[sport.name] = true
+        return sport
+      }
+      return null
+    })
+    .filter((sport) => sport !== null)
+
   return (
     <View style={styles.sports}>
       <View style={styles.container}>
-        {sports?.map((sport) => (
+        {filteredSports?.map((sport) => (
           <View key={sport?.name} style={{ alignItems: 'center' }}>
             <TouchableOpacity
               onPress={() => {
-                setEventsFilter((prevState) => ({
-                  ...prevState,
-                  sportId: prevState.sportId.concat(sport.id)
-                }))
                 // setEventsFilter((prevState) => ({
                 //   ...prevState,
-                //   sportId: sport.id
+                //   sportName: prevState.sportName.concat(sport.name)
                 // }))
+                setEventsFilter((prevState) => ({
+                  ...prevState,
+                  sportName: sport.name
+                }))
                 sportSelectStyle(sport?.name)
               }}
               style={{
@@ -57,17 +68,20 @@ const Sports = ({ onClose, setEventsFilter }) => {
               }}
             >
               <View>
-                {sport?.name === 'Futbol' && <FutbolSVG />}
-                {sport?.name === 'Ciclismo' && <CiclismoSVG />}
-                {sport?.name === 'Hockey' && <HockeySVG />}
-                {sport?.name === 'Tenis' && <TennisSVG />}
-                {sport?.name === 'Running' && <RunningSVG />}
-                {sport?.name === 'Rugby' && <RugbySVG />}
-                {sport?.name === 'Handball' && <HandballSVG />}
-                {sport?.name === 'Basket' && <BasketSVG />}
+                {sport?.name === 'futbol' && <FutbolSVG />}
+                {sport?.name === 'ciclismo' && <CiclismoSVG />}
+                {sport?.name === 'hockey' && <HockeySVG />}
+                {sport?.name === 'tenis' && <TennisSVG />}
+                {sport?.name === 'running' && <RunningSVG />}
+                {sport?.name === 'rugby' && <RugbySVG />}
+                {sport?.name === 'handball' && <HandballSVG />}
+                {sport?.name === 'basket' && <BasketSVG />}
               </View>
             </TouchableOpacity>
-            <Text style={styles.ftbol}>{sport?.name}</Text>
+            <Text style={styles.ftbol}>
+              {sport?.name.slice(0, 1).toUpperCase()}
+              {sport?.name.slice(1)}
+            </Text>
           </View>
         ))}
         <View style={styles.helloAshfakWrapper}>

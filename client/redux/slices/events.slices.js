@@ -15,7 +15,9 @@ export const eventsSlices = createSlice({
     event: {},
     loading: false,
     error: {},
-    favorites: []
+    favorites: [],
+    dateStart: '',
+    dateSuscription: ''
   },
   reducers: {
     setEvent: (state, action) => {
@@ -23,6 +25,12 @@ export const eventsSlices = createSlice({
     },
     setNameEvent: (state, action) => {
       state.nameEventsFilters = action.payload
+    },
+    setDateStart: (state, action) => {
+      state.dateStart = action.payload
+    },
+    setDateSuscription: (state, action) => {
+      state.dateSuscription = action.payload
     }
   },
 
@@ -91,6 +99,7 @@ export const eventsSlices = createSlice({
   }
 })
 
-export const { setEvent, setNameEvent } = eventsSlices.actions
+export const { setEvent, setNameEvent, setDateStart, setDateSuscription } =
+  eventsSlices.actions
 
 export default eventsSlices.reducer

@@ -36,6 +36,7 @@ export const getEventById = createAsyncThunk('events/getOne', async (id) => {
 })
 
 export const createEvent = createAsyncThunk('events/create', async (body) => {
+  console.log(body)
   try {
     const { data } = await axiosInstance.post('/events', body)
     return data

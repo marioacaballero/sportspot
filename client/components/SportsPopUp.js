@@ -18,7 +18,10 @@ const SportsPopUp = ({ onClose }) => {
             onClose()
           }}
         >
-          <Text style={styles.item}>{sport.name}</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={styles.item}>{sport.name.toUpperCase()}</Text>
+            <Text style={styles.itemType}>{sport.type}</Text>
+          </View>
         </Pressable>
       ))}
     </View>
@@ -31,6 +34,14 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     color: Color.sportsVioleta,
+    marginTop: 10
+  },
+  itemType: {
+    fontSize: FontSize.inputPlaceholder_size,
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '700',
+    color: Color.sportsNaranja,
+    marginLeft: 10,
     marginTop: 10
   },
   container: {
