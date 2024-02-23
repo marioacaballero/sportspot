@@ -39,9 +39,26 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               </Text>
             </View>
             <View style={styles.alertParent}>
-              <Text onPress={() => setModalSuscription(true)}>
-                Suscribrirse
-              </Text>
+              <View
+                style={{
+                  // padding: 5,
+                  height: 30,
+                  width: 90,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 50,
+                  marginRight: 10,
+                  // marginTop: 30,
+                  backgroundColor: Color.sportsNaranja
+                }}
+              >
+                <Text
+                  style={{ color: 'white' }}
+                  onPress={() => setModalSuscription(true)}
+                >
+                  Suscribrirse
+                </Text>
+              </View>
               <Image
                 style={styles.alertIcon}
                 contentFit="cover"
@@ -183,9 +200,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   },
   alertParent: {
-    paddingHorizontal: 0,
-    paddingVertical: Padding.p_8xs,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   },
   frameGroup: {
     justifyContent: 'space-between',
