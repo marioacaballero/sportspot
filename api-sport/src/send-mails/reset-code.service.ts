@@ -159,12 +159,7 @@ export class ResetCodeService {
     return `Correo enviado exitosamente code: ${resetCode}`
   }
 
-  async validateResetCode(
-    userId: string,
-    code: string,
-    email: string,
-    password: string
-  ) {
+  async validateResetCode(code: string, email: string, password: string) {
     const resetCode = await this.resetCodeRepository.findOne({
       where: {
         code: code,
@@ -173,9 +168,11 @@ export class ResetCodeService {
       }
     })
 
+    const user = await this.usersService.findOneByEmail(email)
+
     if (resetCode) {
       const updateUserDto: UpdateUserDto = { password }
-      await this.usersService.updateService(userId, updateUserDto)
+      await this.usersService.updateService(user.id, updateUserDto)
     } else {
       throw new BadRequestException(
         'El código de restablecimiento de contraseña no es válido'
