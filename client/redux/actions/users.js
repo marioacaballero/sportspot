@@ -56,3 +56,12 @@ export const changePassword = createAsyncThunk(
     }
   }
 )
+
+export const deleteUser = createAsyncThunk('users/delete', async (id) => {
+  try {
+    const { data } = await axiosInstance.delete(`/users/${id}`)
+    return data
+  } catch (error) {
+    throw new Error(error)
+  }
+})
