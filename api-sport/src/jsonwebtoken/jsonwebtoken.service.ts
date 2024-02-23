@@ -59,6 +59,7 @@ export class JsonwebtokenService {
   // Este método inicia sesión. Firma un JWT con el ID del usuario y el secreto proporcionados.
   public async login(user: UserEntity) {
     try {
+      if (user.isDelete) throw new Error('El usuario no existe')
       return {
         accesToken: this.signJWT({
           payload: { id: user.id },

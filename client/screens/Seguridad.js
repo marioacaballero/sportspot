@@ -9,10 +9,11 @@ import {
   TextInput,
   ScrollView
 } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
-import { changePassword } from '../redux/actions/users'
+import { changePassword, deleteUser } from '../redux/actions/users'
 
 const Seguridad = () => {
   const navigation = useNavigation()
@@ -57,6 +58,26 @@ const Seguridad = () => {
 
   const handleContraseñaFocus = () => {
     setMostrarCamposExtras(true)
+  }
+
+  const clearAll = async () => {
+    try {
+      await AsyncStorage.clear()
+    } catch (e) {
+      // clear error
+    }
+    console.log('Done.')
+  }
+
+  const handleDeleteUser = () => {
+    const confirmDelete = window.confirm(
+      '¿Seguro que quieres borrar tu cuenta?'
+    )
+    if (confirmDelete) {
+      clearAll()
+      dispatch(deleteUser(user.id))
+      navigation.navigate('SignIn')
+    }
   }
 
   return (
@@ -161,11 +182,14 @@ const Seguridad = () => {
               Cambiar contraseña
             </Text>
           </Pressable>
-          <View style={[styles.eliminarCuentaWrapper, styles.wrapperLayout]}>
+          <Pressable
+            onPress={handleDeleteUser}
+            style={[styles.eliminarCuentaWrapper, styles.wrapperLayout]}
+          >
             <Text style={[styles.eliminarCuenta, styles.eliminarCuentaTypo]}>
               Eliminar cuenta
             </Text>
-          </View>
+          </Pressable>
         </View>
       </View>
     </ScrollView>

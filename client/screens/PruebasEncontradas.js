@@ -24,16 +24,10 @@ const PruebasEncontradas = () => {
     (state) => state.events
   )
   const { user } = useSelector((state) => state.users)
-  // const { sports } = useSelector((state) => state.sports)
+
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
   const [favoriteEvents, setFavoriteEvents] = useState([])
-
-  // const filterDescription = sports.filter((sport) =>
-  //   nameEventsFilters.sportName.some((name) => name === sport.name)
-  // )
-
-  // console.log('eventos filtrados', filterDescription)
 
   useEffect(() => {
     dispatch(getAllEvents())
@@ -128,7 +122,7 @@ const PruebasEncontradas = () => {
               <Pressable
                 key={i}
                 onPress={() => {
-                  dispatch(getEventById(event.id))
+                  dispatch(getEventById(event.event_id))
                   navigation.navigate('PruebasEncontradasDetalle')
                 }}
                 style={styles.unsplashon4qwhhjcemParentShadowBox}
@@ -136,20 +130,20 @@ const PruebasEncontradas = () => {
                 <Image
                   style={styles.unsplashon4qwhhjcemIcon}
                   contentFit="cover"
-                  source={{ uri: event.image }}
+                  source={{ uri: event.event_image }}
                 />
 
                 <View style={styles.frameView}>
                   <View style={styles.frameGroupFlexBox}>
                     <Text style={[styles.senderismo, styles.textTypo]}>
-                      {event.title}
+                      {event.event_title}
                     </Text>
                     <Pressable
                       style={styles.likeSpotsport}
-                      onPress={() => toggleFavorite(event.id)}
+                      onPress={() => toggleFavorite(event.event_id)}
                     >
                       <CorazonSVG
-                        isFavorite={favoriteEvents.includes(event.id)}
+                        isFavorite={favoriteEvents.includes(event.event_id)}
                       />
                     </Pressable>
                   </View>
@@ -160,23 +154,23 @@ const PruebasEncontradas = () => {
                     ]}
                   >
                     <Text style={styles.modalidad}>
-                      -Modalidad: {event.modality}
+                      -Modalidad: {event.event_modality}
                       {'\n'}
                     </Text>
                     <Text style={styles.modalidad}>
-                      -Localización: {event.location}
+                      -Localización: {event.event_location}
                       {'\n'}
                     </Text>
                     <Text style={styles.modalidad}>-Fecha de la prueba:</Text>
                     <Text style={styles.ene2024Typo}>
-                      {event.datestart} {'\n'}
+                      {event.event_datestart} {'\n'}
                     </Text>
 
                     <Text style={styles.modalidad}>
                       -Plazo límite de inscripción:
                     </Text>
                     <Text style={styles.ene2024Typo}>
-                      {event?.dateinscription} {'\n'}
+                      {event?.event_dateinscription} {'\n'}
                     </Text>
                   </Text>
                   <Text
@@ -188,7 +182,7 @@ const PruebasEncontradas = () => {
                     <Text style={styles.precioDeInscripcin}>
                       {'PRECIO DE INSCRIPCIÓN: '}
                     </Text>
-                    <Text style={styles.textTypo}>{event.price}</Text>
+                    <Text style={styles.textTypo}>{event.event_price}</Text>
                   </Text>
                 </View>
               </Pressable>
