@@ -3,6 +3,18 @@ import { SendMailsService } from './send-mails.service'
 import { SendMailsController } from './send-mails.controller'
 import { MailerModule } from '@nestjs-modules/mailer'
 import { join } from 'path'
+import { ResetCodeController } from './reset-code.controller'
+import { ResetCodeService } from './reset-code.service'
+import { ResetCodeEntity } from './entities/reset-code.entity'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { UsersService } from 'src/users/services/users.service'
+import { NotificationsService } from 'src/notifications/notifications.service'
+import { EventsService } from 'src/events/events.service'
+import { JsonwebtokenService } from 'src/jsonwebtoken/jsonwebtoken.service'
+import { JwtService } from '@nestjs/jwt'
+import { UserEntity } from 'src/users/entities/users.entity'
+import { NotificationEntity } from 'src/notifications/entities/notification.entity'
+import { EventEntity } from 'src/events/entities/event.entity'
 
 @Module({
   imports: [
@@ -26,9 +38,24 @@ import { join } from 'path'
           strict: true
         }
       }
-    })
+    }),
+    TypeOrmModule.forFeature([
+      ResetCodeEntity,
+      UserEntity,
+      NotificationEntity,
+      EventEntity
+    ])
   ],
-  controllers: [SendMailsController],
-  providers: [SendMailsService]
+  controllers: [SendMailsController, ResetCodeController],
+  providers: [
+    SendMailsService,
+    ResetCodeService,
+    UsersService,
+    NotificationsService,
+    EventsService,
+    SendMailsService,
+    JsonwebtokenService,
+    JwtService
+  ]
 })
 export class SendMailsModule {}
