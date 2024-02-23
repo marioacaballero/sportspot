@@ -211,7 +211,7 @@ const InicioDeportista = () => {
                     <Image
                       style={[styles.image94Icon, styles.image94IconLayout]}
                       contentFit="cover"
-                      source={{ uri: event.image }}
+                      source={{ uri: event.event_image }}
                     />
                     <View
                       style={[
@@ -220,15 +220,15 @@ const InicioDeportista = () => {
                       ]}
                     >
                       <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                        {event?.title}
+                        {event?.event_title}
                       </Text>
                       <View style={styles.minParent}>
                         <Text style={[styles.min, styles.minClr]}>
-                          {event?.description}
+                          {event?.event_description}
                         </Text>
-                        <Text style={[styles.min1, styles.minTypo1]}>
+                        {/* <Text style={[styles.min1, styles.minTypo1]}>
                           {event?.header}
-                        </Text>
+                        </Text> */}
                       </View>
                     </View>
                   </Pressable>
