@@ -55,8 +55,6 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
     dispatch(getAllEventsFilters(eventsFilter))
   }
 
-  console.log(eventsFilter)
-
   return (
     <>
       <View style={styles.frameContainer}>

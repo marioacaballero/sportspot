@@ -134,7 +134,6 @@ Blanco Carrrilho`}</Text>
             onPress={() => {
               AsyncStorage.clear()
                 .then(() => {
-                  console.log('AsyncStorage borrado correctamente')
                   navigation.navigate('IniciarSesin')
                 })
                 .catch((error) => {

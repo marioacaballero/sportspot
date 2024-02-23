@@ -85,7 +85,6 @@ const EditarPerfil = () => {
     }
   }
 
-  console.log('user', user)
   return (
     <ScrollView>
       <View style={styles.editarPerfil}>

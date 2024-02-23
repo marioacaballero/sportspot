@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import {
   StyleSheet,
   Text,
@@ -7,60 +8,24 @@ import {
   Image,
   TextInput
 } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Padding, Border, FontFamily, FontSize, Color } from '../GlobalStyles'
-import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../redux/actions/users'
+import { resetPasswordMail } from '../redux/actions/users'
 
-const IniciarSesin = ({ navigation }) => {
-  const { user, userToken } = useSelector((state) => state.users)
+const IniciarSesin = () => {
   const dispatch = useDispatch()
 
-  const [loginInfo, setLoginInfo] = useState({
-    email: '',
-    password: ''
-  })
+  const [email, setEmail] = useState('')
 
-  useEffect(() => {
-    const clearAll = async () => {
-      try {
-        await AsyncStorage.clear()
-      } catch (e) {}
-    }
+  const mostrarBotonEnviar =
+    email.toLowerCase().includes('.com') && email.length > 10
 
-    const storeTokenAndNavigate = async () => {
-      if (user) {
-        try {
-          await AsyncStorage.setItem('token', userToken)
-        } catch (error) {
-          console.error('Error al almacenar el token:', error)
-        }
-      }
-
-      try {
-        const storedToken = await AsyncStorage.getItem('token')
-        if (storedToken) {
-          navigation.navigate('InicioDeportista')
-        }
-      } catch (error) {
-        console.error('Error al recuperar el token:', error)
-      }
-    }
-
-    clearAll()
-    storeTokenAndNavigate()
-  }, [userToken])
-
-  const valuesLogin = (field, value) => {
-    setLoginInfo((prev) => ({
-      ...prev,
-      [field]: value
-    }))
+  const handleEmail = (text) => {
+    setEmail(text)
   }
 
-  const onSubmit = () => {
-    dispatch(login(loginInfo))
+  const handleSendEmail = () => {
+    dispatch(resetPasswordMail(email))
   }
 
   return (
@@ -81,37 +46,22 @@ const IniciarSesin = ({ navigation }) => {
           <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>
         </View>
         <View style={styles.frameGroup}>
+          <Text style={styles.hasOlvidadoTu}>Ingresa tu mail</Text>
           <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
             <TextInput
-              style={[styles.nombreDeUsuario, styles.entrarTypo]}
-              placeholder="Nombre de usuario"
-              value={loginInfo.email}
-              onChangeText={(value) => valuesLogin('email', value)}
+              style={styles.nombreDeUsuario}
+              placeholder="Email"
+              value={email}
+              onChangeText={handleEmail}
             />
           </View>
-          <View style={[styles.contraseaWrapper, styles.wrapperFlexBox]}>
-            <TextInput
-              style={[styles.nombreDeUsuario, styles.entrarTypo]}
-              placeholder="Contraseña"
-              value={loginInfo.password}
-              onChangeText={(value) => valuesLogin('password', value)}
-              secureTextEntry={true}
-            />
-          </View>
-          <Pressable
-            style={[styles.entrarWrapper, styles.wrapperFlexBox]}
-            onPress={() => {
-              onSubmit()
-              // navigation.navigate('InicioDeportista')
-            }}
-          >
-            <Text style={[styles.entrar, styles.entrarTypo]}>Entrar</Text>
-          </Pressable>
-          <Pressable onPress={() => navigation.navigate('RecuperarContraseña')}>
-            <Text style={[styles.hasOlvidadoTu, styles.entrarTypo]}>
-              ¿Has olvidado tu contraseña?
-            </Text>
-          </Pressable>
+          {mostrarBotonEnviar && (
+            <Pressable style={styles.enviarWrapper} onPress={handleSendEmail}>
+              <Text style={styles.enviar}>
+                Enviar código de restablecimiento
+              </Text>
+            </Pressable>
+          )}
         </View>
       </View>
     </LinearGradient>
@@ -126,11 +76,6 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_31xl,
     alignSelf: 'stretch',
     alignItems: 'center'
-  },
-  entrarTypo: {
-    textAlign: 'left',
-    fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '700'
   },
   capturaDePantalla20231024Icon: {
     width: 262,
@@ -154,7 +99,8 @@ const styles = StyleSheet.create({
     color: Color.sportsVioleta,
     textAlign: 'left',
     fontSize: FontSize.size_lg,
-    fontFamily: FontFamily.inputPlaceholder
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '700'
   },
   nombreDeUsuarioWrapper: {
     paddingHorizontal: Padding.p_xl,
@@ -163,7 +109,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 55,
     borderRadius: Border.br_31xl,
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    marginTop: '5%'
   },
   contraseaWrapper: {
     marginTop: 10,
@@ -191,10 +138,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   hasOlvidadoTu: {
-    fontSize: FontSize.size_mini,
+    fontSize: FontSize.size_xl,
     marginTop: 10,
     color: Color.sportsVioleta,
-    textAlign: 'left'
+    textAlign: 'left',
+    fontWeight: '700'
+  },
+  enviarWrapper: {
+    marginTop: '5%'
+  },
+  enviar: {
+    color: Color.sportsVioleta,
+    fontWeight: '700',
+    textAlign: 'left',
+    fontSize: FontSize.size_mini
   },
   frameGroup: {
     width: 318,

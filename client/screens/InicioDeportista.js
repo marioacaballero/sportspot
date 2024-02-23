@@ -82,8 +82,6 @@ const InicioDeportista = () => {
     return diferenciaDias < 4
   })
 
-  console.log(lastHours)
-
   return (
     <ScrollView style={styles.inicioDeportista}>
       <View style={[styles.frameParent, styles.frameParentFlexBox]}>
