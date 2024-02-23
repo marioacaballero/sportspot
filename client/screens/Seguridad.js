@@ -9,11 +9,11 @@ import {
   TextInput,
   ScrollView
 } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
 import { changePassword, deleteUser } from '../redux/actions/users'
+import { clearUser } from '../redux/slices/users.slices'
 
 const Seguridad = () => {
   const navigation = useNavigation()
@@ -60,21 +60,12 @@ const Seguridad = () => {
     setMostrarCamposExtras(true)
   }
 
-  const clearAll = async () => {
-    try {
-      await AsyncStorage.clear()
-    } catch (e) {
-      // clear error
-    }
-    console.log('Done.')
-  }
-
   const handleDeleteUser = () => {
     const confirmDelete = window.confirm(
       '¿Seguro que quieres borrar tu cuenta?'
     )
     if (confirmDelete) {
-      clearAll()
+      dispatch(clearUser())
       dispatch(deleteUser(user.id))
       navigation.navigate('SignIn')
     }

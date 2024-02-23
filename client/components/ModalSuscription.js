@@ -1,72 +1,28 @@
-import React, { useState } from 'react'
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View
-} from 'react-native'
+import React from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Color, FontFamily, FontSize } from '../GlobalStyles'
 import { useDispatch } from 'react-redux'
 import { suscriptionEventUser } from '../redux/actions/users'
 
 const ModalSuscription = ({ user, event, onClose }) => {
   const dispatch = useDispatch()
-  const [suscription, setSuscription] = useState({
-    name: user.name,
-    eventId: event.id
-    // email: '',
-    // password: ''
-  })
-
-  const valuesSuscription = (field, value) => {
-    setSuscription((prevState) => ({
-      ...prevState,
-      [field]: value
-    }))
-  }
 
   const onSubmit = () => {
     const data = {
       id: user.id,
-      suscription
+      eventId: event.id
     }
 
     dispatch(suscriptionEventUser(data))
   }
 
+  console.log(event)
+
   return (
     <View style={styles.container}>
       <Text
         style={{ marginBottom: 30 }}
-      >{`${user.name} confirma tu cuenta`}</Text>
-      <View style={styles.items}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-        <TextInput
-          style={styles.helloTypoScroll}
-          placeholder="Email"
-          value={suscription.email}
-          onChangeText={(value) => valuesSuscription('email', value)}
-        />
-      </View>
-
-      <View style={styles.items}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-        <TextInput
-          style={styles.helloTypoScroll}
-          placeholder="Contraseña"
-          value={suscription.password}
-          onChangeText={(value) => valuesSuscription('password', value)}
-        />
-      </View>
-
+      >{`${user.nickname} Seguro que deseas inscribirte?`}</Text>
       <TouchableOpacity
         style={{
           //   width: 100,
@@ -109,14 +65,10 @@ const styles = StyleSheet.create({
     color: Color.sportsVioleta
   },
   container: {
-    // minWidth: '100%',
-    // height: 350,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 30,
     borderRadius: 30,
-    // position: 'absolute',
-    // bottom: 0,
     backgroundColor: Color.blanco
   }
 })

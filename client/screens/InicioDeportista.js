@@ -204,7 +204,7 @@ const InicioDeportista = () => {
                         : styles.image94ParentShadowBox
                     }
                     onPress={() => {
-                      dispatch(getEventById(event.id))
+                      dispatch(getEventById(event.event_id))
                       navigation.navigate('PruebasEncontradasDetalle')
                     }}
                   >

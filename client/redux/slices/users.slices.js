@@ -10,7 +10,12 @@ export const usersSlices = createSlice({
     error: false,
     isOkay: false
   },
-  reducers: {},
+  reducers: {
+    clearUser: (state) => {
+      state.user = null
+      state.userToken = ''
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
@@ -55,5 +60,7 @@ export const usersSlices = createSlice({
       })
   }
 })
+
+export const { clearUser } = usersSlices.actions
 
 export default usersSlices.reducer
