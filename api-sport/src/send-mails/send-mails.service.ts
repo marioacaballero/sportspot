@@ -132,7 +132,7 @@ export class SendMailsService {
         }
       ]
     })
-    console.log(join(__dirname, '..', 'template', 'registration'))
+
     return 'Correo enviado exitosamente'
   }
 }
