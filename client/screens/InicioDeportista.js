@@ -50,6 +50,40 @@ const InicioDeportista = () => {
     setModalOrganizador(!modalOrganizador)
   }
 
+  const eventos = events.map((event) => {
+    return event
+  })
+
+  // Filtro de eventos de los ultimos 7 dias
+  function functionDate(fecha1, fecha2) {
+    const unDia = 1000 * 60 * 60 * 24
+    const diferenciaMs = Math.abs(fecha1 - fecha2)
+    return Math.floor(diferenciaMs / unDia)
+  }
+
+  const fechaActual = new Date()
+
+  const latestEventsAdded = eventos.filter((evento) => {
+    const fechaEvento = new Date(evento.event_createdAt)
+    const diferenciaDias = functionDate(fechaActual, fechaEvento)
+
+    return diferenciaDias < 7
+  })
+
+  // Filtro para las ultimas 48hs de inscripcion
+  const lastHours = eventos.filter((evento) => {
+    const fechaEvento = new Date(evento.event_date_inscription)
+
+    const diferenciaDias = functionDate(
+      fechaActual,
+      fechaEvento <= fechaActual ? fechaEvento : ''
+    )
+
+    return diferenciaDias < 4
+  })
+
+  console.log(lastHours)
+
   return (
     <ScrollView style={styles.inicioDeportista}>
       <View style={[styles.frameParent, styles.frameParentFlexBox]}>
@@ -190,12 +224,10 @@ const InicioDeportista = () => {
                 Últimas horas de inscripción
               </Text>
               <ScrollView
-                // style={styles.frameParent1}
-                // style={{ marginBottom: 10 }}
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
               >
-                {events?.map((event, i) => (
+                {lastHours?.map((event, i) => (
                   <Pressable
                     key={i}
                     style={
@@ -239,7 +271,54 @@ const InicioDeportista = () => {
               <Text style={styles.helloTypoScroll}>
                 Últimas pruebas añadidas
               </Text>
+
               <ScrollView
+                // style={styles.frameParent1}
+                // style={{ marginBottom: 10 }}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              >
+                {latestEventsAdded?.map((event, i) => (
+                  <Pressable
+                    key={i}
+                    style={
+                      i === 0
+                        ? styles.image94ParentShadowBox1
+                        : styles.image94ParentShadowBox
+                    }
+                    onPress={() => {
+                      dispatch(getEventById(event.event_id))
+                      navigation.navigate('PruebasEncontradasDetalle')
+                    }}
+                  >
+                    <Image
+                      style={[styles.image94Icon, styles.image94IconLayout]}
+                      contentFit="cover"
+                      source={{ uri: event.event_image }}
+                    />
+                    <View
+                      style={[
+                        styles.imGoingToShakeYParent,
+                        styles.frameGroupSpaceBlock
+                      ]}
+                    >
+                      <Text style={[styles.imGoingTo, styles.goingTypo]}>
+                        {event?.event_title}
+                      </Text>
+                      <View style={styles.minParent}>
+                        <Text style={[styles.min, styles.minClr]}>
+                          {event?.event_description}
+                        </Text>
+                        {/* <Text style={[styles.min1, styles.minTypo1]}>
+                          {event?.header}
+                        </Text> */}
+                      </View>
+                    </View>
+                  </Pressable>
+                ))}
+              </ScrollView>
+
+              {/* <ScrollView
                 style={{ marginBottom: 10 }}
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
@@ -319,7 +398,7 @@ const InicioDeportista = () => {
                     </View>
                   </View>
                 </View>
-              </ScrollView>
+              </ScrollView> */}
             </View>
             <View style={{ alignItems: 'center' }}>
               <Text style={styles.helloTypoScroll}>

@@ -40,11 +40,14 @@ export class UserEntity extends BaseEntity {
   @Column({ nullable: true })
   direccion: string
 
-  @Column({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   avatar: string
 
   @Column('simple-array', { nullable: true })
   eventFavorites: string[]
+
+  @Column({ default: false })
+  isAprobed: boolean
 
   @OneToMany(() => NotificationEntity, (notification) => notification.recipient)
   notifications: NotificationEntity[]
