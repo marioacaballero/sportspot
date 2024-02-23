@@ -17,6 +17,7 @@ const IniciarSesin = ({ navigation }) => {
   const { user, userToken } = useSelector((state) => state.users)
   const dispatch = useDispatch()
 
+  const [tokenLocal, setTokenLocal] = useState('')
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
@@ -32,6 +33,15 @@ const IniciarSesin = ({ navigation }) => {
   // }, [userToken, user])
 
   useEffect(() => {
+    const clearAll = async () => {
+      try {
+        console.log('entre al clearrr')
+        await AsyncStorage.clear()
+      } catch (e) {
+        // clear error
+      }
+      console.log('Done.')
+    }
     const storeTokenAndNavigate = async () => {
       if (user) {
         try {
@@ -44,6 +54,7 @@ const IniciarSesin = ({ navigation }) => {
       try {
         const storedToken = await AsyncStorage.getItem('token')
         if (storedToken) {
+          setTokenLocal(storedToken)
           navigation.navigate('InicioDeportista')
         }
       } catch (error) {
@@ -51,8 +62,11 @@ const IniciarSesin = ({ navigation }) => {
       }
     }
 
+    clearAll()
     storeTokenAndNavigate()
-  }, [userToken, user, navigation])
+  }, [userToken])
+
+  console.log('tokennnnnnn', tokenLocal)
 
   const valuesLogin = (field, value) => {
     setLoginInfo((prev) => ({

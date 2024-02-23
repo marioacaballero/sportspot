@@ -4,9 +4,9 @@ import axiosInstance from '../../utils/apiBackend'
 export const suscriptionEventUser = createAsyncThunk(
   'users/suscription',
   async (body) => {
-    const { id, suscription } = body
+    const { id, eventId } = body
     try {
-      const { data } = await axiosInstance.patch(`/users/${id}`, suscription)
+      const { data } = await axiosInstance.patch(`/users/${id}`, { eventId })
       return data
     } catch (error) {
       throw new Error(error)
