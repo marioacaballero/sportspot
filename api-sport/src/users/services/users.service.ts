@@ -112,7 +112,11 @@ export class UsersService {
     }
 
     for (const key in updateUserDto) {
-      user[key] = updateUserDto[key]
+      if (key === 'password') {
+        user[key] = await hash(updateUserDto[key], +process.env.HASH_SALT)
+      } else {
+        user[key] = updateUserDto[key]
+      }
     }
 
     if (event && !user.events.some((e) => e.id === event.id)) {
@@ -183,5 +187,9 @@ export class UsersService {
     }
 
     return await this.userRepository.save(user)
+  }
+
+  public async findOneByEmail(email: string): Promise<UserEntity> {
+    return await this.userRepository.findOne({ where: { email } })
   }
 }
