@@ -16,8 +16,6 @@ const ModalSuscription = ({ user, event, onClose }) => {
     dispatch(suscriptionEventUser(data))
   }
 
-  console.log(event)
-
   return (
     <View style={styles.container}>
       <Text

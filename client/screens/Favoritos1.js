@@ -27,6 +27,7 @@ const Favoritos1 = () => {
     return grouped
   }, {})
 
+  console.log('groupedFavorites', groupedFavorites)
   return (
     <View style={styles.favoritos}>
       <View style={[styles.frameParent, styles.parentSpaceBlock]}>
@@ -56,7 +57,7 @@ const Favoritos1 = () => {
             <Pressable
               style={[styles.frameContainer, styles.frameSpaceBlock]}
               onPress={() =>
-                navigation.navigate('Favoritos', { sport: item[0] })
+                navigation.navigate('Favoritos', { sport: item[1] })
               }
             >
               <View style={styles.frameGroup}>

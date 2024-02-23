@@ -32,6 +32,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { View } from 'react-native'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
+import RecuperarContraseña from './screens/RecuperarContraseña'
 
 const Stack = createNativeStackNavigator()
 
@@ -186,6 +187,11 @@ export default function App() {
             <Stack.Screen
               name="Contacta"
               component={Contacta}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="RecuperarContraseña"
+              component={RecuperarContraseña}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>

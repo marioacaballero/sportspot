@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Text,
   StyleSheet,
@@ -12,14 +13,29 @@ import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Padding, FontSize, Color, Border } from '../GlobalStyles'
 import PopupAlerta from '../components/PopupAlerta'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
+import CorazonSVG from '../components/SVG/CorazonSVG'
+import { favorite, getFavorites } from '../redux/actions/events'
 
-const Favoritos = () => {
+const Favoritos = ({ route }) => {
   const navigation = useNavigation()
+  const dispatch = useDispatch()
+
+  const { user } = useSelector((state) => state.users)
+  const { sport } = route.params
 
   const [modalVisible, setModalVisible] = useState(false)
 
   const toggleModal = () => {
     setModalVisible(!modalVisible)
+  }
+
+  const toggleFavorite = async (pruebaId) => {
+    const data = {
+      id: user.id,
+      eventId: pruebaId
+    }
+    await dispatch(favorite(data))
+    await dispatch(getFavorites(user.id))
   }
 
   return (
@@ -41,141 +57,87 @@ const Favoritos = () => {
           <View style={styles.frameWrapper}>
             <View style={styles.groupParentFlexBox}>
               <Text style={[styles.pruebasDeCiclismo, styles.ciclismoTypo]}>
-                Pruebas de ciclismo (2)
+                {`Pruebas de ${sport[0].title} (${sport.length})`}
               </Text>
             </View>
           </View>
         </View>
-        <View style={[styles.frameGroup, styles.backParentSpaceBlock]}>
-          <View style={[styles.image84Parent, styles.parentFlexBox]}>
-            <Image
-              style={styles.image84Icon}
-              contentFit="cover"
-              source={require('../assets/image-84.png')}
-            />
-            <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
-              <View style={styles.ciclismoParent}>
-                <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
-                  Ciclismo
-                </Text>
+        {sport.map((prueba, index) => (
+          <View
+            key={index}
+            style={[styles.backParent, styles.backParentSpaceBlock]}
+          >
+            <View style={[styles.frameGroup, styles.backParentSpaceBlock]}>
+              <View style={[styles.image84Parent, styles.parentFlexBox]}>
                 <Image
-                  style={styles.heartIcon}
+                  style={styles.image84Icon}
                   contentFit="cover"
-                  source={require('../assets/heart.png')}
+                  source={{ uri: prueba.image }}
                 />
-              </View>
-              <Text style={styles.imGoingToContainer}>
-                <Text
-                  style={styles.modalidadMontaaLocalizaci}
-                >{`Modalidad: Montaña
-Localización: Hornachos, Badajoz
-Fecha de la prueba: `}</Text>
-                <Text style={styles.textTypo}>{`01 feb 2024
-`}</Text>
-                <Text style={styles.modalidadMontaaLocalizaci}>
-                  {'Fecha límite de inscripción: '}
-                </Text>
-                <Text style={styles.textTypo}>22 ene 2024</Text>
-              </Text>
-              <Text style={styles.imGoingToContainer1}>
-                <Text style={styles.precioDeInscripcin}>
-                  {'PRECIO DE INSCRIPCIÓN: '}
-                </Text>
-                <Text style={[styles.text, styles.textTypo]}>22€</Text>
-              </Text>
-            </View>
-          </View>
-          <Pressable onPress={toggleModal}>
-            <View style={[styles.vectorParent, styles.parentFlexBox]}>
-              <Image
-                style={styles.vectorIcon}
-                contentFit="cover"
-                source={require('../assets/vector5.png')}
-              />
-              <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
-                Crear alerta
-              </Text>
-              <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalVisible}
-              >
-                <TouchableWithoutFeedback onPress={toggleModal}>
-                  <View style={styles.modalOverlay}>
-                    <View>
-                      <PopupAlerta
-                        // onClose={toggleModal}
-                        setModalVisible={setModalVisible}
-                      />
-                    </View>
+                <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
+                  <View style={styles.ciclismoParent}>
+                    <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
+                      {prueba.description}
+                    </Text>
+                    <Pressable onPress={() => toggleFavorite(prueba.id)}>
+                      <CorazonSVG isFavorite={true} />
+                    </Pressable>
                   </View>
-                </TouchableWithoutFeedback>
-              </Modal>
-            </View>
-          </Pressable>
-        </View>
-        <View style={[styles.frameGroup, styles.backParentSpaceBlock]}>
-          <View style={[styles.image84Parent, styles.parentFlexBox]}>
-            <Image
-              style={styles.image84Icon}
-              contentFit="cover"
-              source={require('../assets/image-94.png')}
-            />
-            <View style={styles.frameSpaceBlock}>
-              <View style={styles.groupParentFlexBox}>
-                <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
-                  Ciclismo
-                </Text>
-                <Image
-                  style={styles.heartIcon1}
-                  contentFit="cover"
-                  source={require('../assets/heart1.png')}
-                />
+                  <Text style={styles.imGoingToContainer}>
+                    <Text style={styles.modalidadMontaaLocalizaci}>
+                      -Modalidad: {prueba.modality} {'\n'}
+                    </Text>
+                    <Text>
+                      -Localización: {prueba.location} {'\n'}
+                    </Text>
+                    <Text>
+                      -Fecha de la prueba: {prueba.dateStart} {'\n'}
+                    </Text>
+                    <Text style={styles.modalidadMontaaLocalizaci}>
+                      -Fecha límite de inscripción: {prueba.dateInscription}
+                    </Text>
+                  </Text>
+                  <Text style={styles.imGoingToContainer1}>
+                    <Text style={styles.precioDeInscripcin}>
+                      {'PRECIO DE INSCRIPCIÓN: '}
+                    </Text>
+                    <Text
+                      style={[styles.text, styles.textTypo]}
+                    >{`${prueba.price}€`}</Text>
+                  </Text>
+                </View>
               </View>
-              <Text style={styles.imGoingToContainer}>
-                <Text
-                  style={styles.modalidadMontaaLocalizaci}
-                >{`Modalidad: Carretera
-Localización: Mérida, Badajoz
-Fecha de la prueba: `}</Text>
-                <Text style={styles.textTypo}>{`18 ene 2024
-`}</Text>
-                <Text style={styles.modalidadMontaaLocalizaci}>
-                  {'Fecha límite de inscripción: '}
-                </Text>
-                <Text style={styles.textTypo}>10 ene 2024</Text>
-              </Text>
-              <Text style={styles.imGoingToContainer1}>
-                <Text style={styles.precioDeInscripcin}>
-                  {'PRECIO DE INSCRIPCIÓN: '}
-                </Text>
-                <Text style={[styles.text, styles.textTypo]}>35€</Text>
-              </Text>
+              <Pressable onPress={toggleModal}>
+                <View style={[styles.vectorParent, styles.parentFlexBox]}>
+                  <Image
+                    style={styles.vectorIcon}
+                    contentFit="cover"
+                    source={require('../assets/vector5.png')}
+                  />
+                  <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
+                    Crear alerta
+                  </Text>
+                  <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={modalVisible}
+                  >
+                    <TouchableWithoutFeedback onPress={toggleModal}>
+                      <View style={styles.modalOverlay}>
+                        <View>
+                          <PopupAlerta
+                            // onClose={toggleModal}
+                            setModalVisible={setModalVisible}
+                          />
+                        </View>
+                      </View>
+                    </TouchableWithoutFeedback>
+                  </Modal>
+                </View>
+              </Pressable>
             </View>
           </View>
-          <Pressable onPress={toggleModal}>
-            <View style={[styles.vectorParent, styles.parentFlexBox]}>
-              <Image
-                style={styles.vectorIcon}
-                contentFit="cover"
-                source={require('../assets/vector5.png')}
-              />
-              <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
-                Crear alerta
-              </Text>
-              {/* <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalVisible}
-              >
-                <PopupAlerta
-                  onClose={toggleModal}
-                  setModalVisible={setModalVisible}
-                />
-              </Modal> */}
-            </View>
-          </Pressable>
-        </View>
+        ))}
       </View>
     </View>
   )
@@ -263,7 +225,8 @@ const styles = StyleSheet.create({
     marginLeft: 119
   },
   ciclismoParent: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   modalidadMontaaLocalizaci: {
     fontFamily: FontFamily.inputPlaceholder

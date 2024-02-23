@@ -57,6 +57,36 @@ export const changePassword = createAsyncThunk(
   }
 )
 
+export const resetPasswordMail = createAsyncThunk(
+  'users/resetPassword',
+  async (body) => {
+    try {
+      const { data } = await axiosInstance.post(
+        'reset-code/reset-password',
+        body
+      )
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+)
+
+export const validateResetPassword = createAsyncThunk(
+  'users/validateResetPassword',
+  async (body) => {
+    try {
+      const { data } = await axiosInstance.post(
+        'reset-code/validate-reset-code',
+        body
+      )
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+)
+
 export const deleteUser = createAsyncThunk('users/delete', async (id) => {
   try {
     const { data } = await axiosInstance.delete(`/users/${id}`)
