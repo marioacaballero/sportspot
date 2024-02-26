@@ -60,22 +60,18 @@ const FomularioEventos = () => {
     let result = {}
     await ImagePicker.requestMediaLibraryPermissionsAsync()
     result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1
+      aspect: [4, 3],
+      quality: 1,
+      base64: true
     })
-
-    if (!result.cancelled) {
-      setSelectedImage(result?.assets[0].uri)
-      const data = {
-        id: user.id,
-        suscription: {
-          avatar: result?.assets[0].uri
-        }
-      }
-      dispatch(suscriptionEventUser(data))
-    }
+    // const resultImage = result.assets[0].base64
+    // if (result?.assets[0].base64.startWith('data:image/jpeg;base64,')) {
+    //   setSelectedImage(result?.assets[0].base64)
+    // } else {
+    setSelectedImage(`data:image/jpeg;base64,${result?.assets[0].base64}`)
+    // }
   }
 
   const onSubmit = () => {
