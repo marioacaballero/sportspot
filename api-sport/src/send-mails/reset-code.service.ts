@@ -1,6 +1,5 @@
 import { MailerService } from '@nestjs-modules/mailer'
 import { BadRequestException, Injectable } from '@nestjs/common'
-import { randomBytes } from 'crypto'
 import { join } from 'path'
 import { MoreThanOrEqual, Repository } from 'typeorm'
 import { ResetCodeEntity } from './entities/reset-code.entity'
@@ -59,7 +58,7 @@ export class ResetCodeService {
       'instagram_icon.png'
     )
     // Generar un código de restablecimiento de contraseña
-    const resetCode = randomBytes(20).toString('hex')
+    const resetCode = Math.floor(1000 + Math.random() * 9000).toString()
 
     // Guardar el código en la base de datos
 
