@@ -79,7 +79,7 @@ const InicioDeportista = () => {
       fechaEvento <= fechaActual ? fechaEvento : ''
     )
 
-    return diferenciaDias < 4
+    return diferenciaDias < 7
   })
 
   return (
@@ -315,88 +315,6 @@ const InicioDeportista = () => {
                   </Pressable>
                 ))}
               </ScrollView>
-
-              {/* <ScrollView
-                style={{ marginBottom: 10 }}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-              >
-                <View style={styles.image94ParentShadowBox1}>
-                  <Image
-                    style={[styles.image94Icon, styles.image94IconLayout]}
-                    contentFit="cover"
-                    source={require('../assets/image-944.png')}
-                  />
-                  <View
-                    style={[
-                      styles.imGoingToShakeYParent,
-                      styles.frameGroupSpaceBlock
-                    ]}
-                  >
-                    <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                      Lorem ipsum
-                    </Text>
-                    <View style={styles.minParent}>
-                      <Text style={[styles.min, styles.minClr]}>
-                        Lorem ipsum dolor sit amet.{' '}
-                      </Text>
-                      <Text style={[styles.min, styles.minClr]}>
-                        Lorem ipsum dolor sit amet.{' '}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={styles.image94ParentShadowBox}>
-                  <Image
-                    style={[styles.image94Icon, styles.image94IconLayout]}
-                    contentFit="cover"
-                    source={require('../assets/image-945.png')}
-                  />
-                  <View
-                    style={[
-                      styles.imGoingToShakeYParent,
-                      styles.frameGroupSpaceBlock
-                    ]}
-                  >
-                    <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                      Lorem ipsum
-                    </Text>
-                    <View style={styles.minParent}>
-                      <Text style={[styles.min, styles.minClr]}>
-                        Lorem ipsum dolor sit amet.{' '}
-                      </Text>
-                      <Text style={[styles.min, styles.minClr]}>
-                        Lorem ipsum dolor sit amet.{' '}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={styles.image94ParentShadowBox}>
-                  <Image
-                    style={[styles.image94Icon, styles.image94IconLayout]}
-                    contentFit="cover"
-                    source={require('../assets/image-943.png')}
-                  />
-                  <View
-                    style={[
-                      styles.imGoingToShakeYParent,
-                      styles.frameGroupSpaceBlock
-                    ]}
-                  >
-                    <Text style={[styles.imGoingTo2, styles.minTypo]}>
-                      Lorem ipsum
-                    </Text>
-                    <View style={styles.minParent}>
-                      <Text style={[styles.min10, styles.minTypo]}>
-                        Lorem ipsum dolor sit amet.{' '}
-                      </Text>
-                      <Text style={[styles.min10, styles.minTypo]}>
-                        Lorem ipsum dolor sit amet.{' '}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </ScrollView> */}
             </View>
             <View style={{ alignItems: 'center' }}>
               <Text style={styles.helloTypoScroll}>
