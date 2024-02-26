@@ -55,7 +55,8 @@ export default function App() {
                 route.name !== 'Bienvenida' &&
                   route.name !== 'IniciarSesin' &&
                   route.name !== 'SignIn' &&
-                  route.name !== 'Registrarse'
+                  route.name !== 'Registrarse' &&
+                  route.name !== 'RecuperarContraseña'
               )
             })}
           >
