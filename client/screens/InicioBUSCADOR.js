@@ -20,8 +20,11 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
   const [eventsFilter, setEventsFilter] = useState({
     sportName: '',
     location: '',
-    dateStart: ''
+    dateStart: '',
+    dateEnd: ''
   })
+
+  console.log(eventsFilter)
 
   useEffect(() => {
     dispatch(getAllSports())
@@ -161,6 +164,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
             setSelected={setSelected}
             selected={selected}
             setEventsFilter={setEventsFilter}
+            eventsFilter={eventsFilter}
           />
         </View>
       </Modal>

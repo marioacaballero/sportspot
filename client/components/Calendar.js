@@ -2,76 +2,94 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { Calendar } from 'react-native-calendars'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
+import moment from 'moment'
 
-const Calendario = ({ onClose, setEventsFilter, setDate }) => {
-  const [selectedStartDate, setSelectedStartDate] = useState(null)
-  const [selectedEndDate, setSelectedEndDate] = useState(null)
-  const [arrayDate, setArrayDate] = useState([])
+const Calendario = ({ onClose, setEventsFilter, setDate, eventsFilter }) => {
+  // const [selectedStartDate, setSelectedStartDate] = useState(null)
+  // const [selectedEndDate, setSelectedEndDate] = useState(null)
+  // const [arrayDate, setArrayDate] = useState([])
+
+  const [startDate, setStartDate] = useState(null)
+  const [endDate, setEndDate] = useState(null)
+
+  const handleDayPress = (day) => {
+    if (!startDate) {
+      setStartDate(day.dateString)
+      setEndDate(null)
+      setEventsFilter({
+        dateStart: day.dateString,
+        dateEnd: eventsFilter.dateEnd
+      })
+    } else if (startDate && !endDate) {
+      setEndDate(day.dateString)
+      setEventsFilter({
+        dateStart: eventsFilter.dateStart,
+        dateEnd: day.dateString
+      })
+    }
+  }
 
   const generateMarkedDates = () => {
     const markedDates = {}
-    if (selectedStartDate && selectedEndDate) {
-      const startDate = new Date(selectedStartDate)
-      const endDate = new Date(selectedEndDate)
-
-      for (
-        let currentDate = new Date(startDate);
-        currentDate <= endDate;
-        currentDate.setDate(currentDate.getDate() + 1)
-      ) {
-        const year = currentDate.getFullYear()
-        const month = currentDate.getMonth() + 1
-        const day = currentDate.getDate()
-
-        const formattedMonth = month < 10 ? `0${month}` : month
-        const formattedDay = day < 10 ? `0${day}` : day
-
-        const dateString = `${year}-${formattedMonth}-${formattedDay}`
-        if (!arrayDate.includes(dateString)) {
-          setArrayDate((prevArrayDate) => [...prevArrayDate, dateString])
-        }
-
-        const marking = {
-          color: Color.colorLinen_100,
-          marked: true
-        }
-        if (currentDate.getTime() === startDate.getTime()) {
-          marking.startingDay = true
-        }
-        if (currentDate.getTime() === endDate.getTime()) {
-          marking.endingDay = true
-        }
-        markedDates[dateString] = marking
+    if (startDate) {
+      markedDates[startDate] = {
+        startingDay: true,
+        color: Color.sportsNaranja,
+        textColor: 'white'
       }
     }
+
+    if (endDate) {
+      markedDates[endDate] = {
+        endingDay: true,
+        color: Color.sportsNaranja,
+        textColor: 'white'
+      }
+    }
+
+    if (startDate && endDate) {
+      const currentDate = moment(startDate)
+      while (currentDate.isBefore(endDate)) {
+        currentDate.add(1, 'day')
+        markedDates[currentDate.format('YYYY-MM-DD')] = {
+          color: Color.sportsNaranja,
+          textColor: 'white'
+        }
+      }
+    }
+
     return markedDates
   }
 
-  const handleDayPress = (day) => {
-    if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
-      setSelectedStartDate(day.dateString)
-      setDate(day.dateString)
-      // setEventsFilter((prevState) => ({
-      //   ...prevState,
-      //   dateStart: prevState.dateStart.concat(day.dateString)
-      // }))
-      setSelectedEndDate(null)
-    } else {
-      setSelectedEndDate(day.dateString)
-    }
+  const resetFilter = () => {
+    setStartDate(null)
+    setEndDate(null)
+    setEventsFilter({
+      dateStart: null,
+      dateEnd: null
+    })
   }
+
   return (
     <View style={styles.calendar}>
       <Calendar
-        onDayPress={(day) =>
-          setEventsFilter((prevState) => ({
-            ...prevState,
-            dateStart: day.dateString
-          }))
-        }
+        onDayPress={handleDayPress}
         markingType={'period'}
         markedDates={generateMarkedDates()}
       />
+      {startDate && endDate && (
+        <Pressable
+          style={[styles.helloAshfakWrapper, styles.captionFlexBox]}
+          onPress={resetFilter}
+        >
+          <Text
+            style={[styles.helloAshfak, styles.digit27Clr]}
+            onPress={resetFilter}
+          >
+            Reset
+          </Text>
+        </Pressable>
+      )}
       <Pressable
         onPress={onClose}
         style={[styles.helloAshfakWrapper, styles.captionFlexBox]}
