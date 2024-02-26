@@ -18,6 +18,7 @@ export class ResetCodeService {
   ) {}
 
   async sendResetCodeEmail(email: string) {
+    console.log('email', email)
     const sportspotLogo = join(
       __dirname,
       '..',

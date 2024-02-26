@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { changePassword, getUser, login } from '../actions/users'
+import { changePassword, getAllUsers, getUser, login } from '../actions/users'
 
 export const usersSlices = createSlice({
   name: 'users',
   initialState: {
     user: {},
+    users: {},
     userToken: '',
     loading: false,
     error: false,
@@ -42,6 +43,19 @@ export const usersSlices = createSlice({
         state.error = null
       })
       .addCase(getUser.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(getAllUsers.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(getAllUsers.fulfilled, (state, action) => {
+        state.loading = false
+        state.users = action.payload
+        state.error = null
+      })
+      .addCase(getAllUsers.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

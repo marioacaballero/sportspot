@@ -23,6 +23,15 @@ export const getUser = createAsyncThunk('users/getUser', async (id) => {
   }
 })
 
+export const getAllUsers = createAsyncThunk('users/getAllUsers', async () => {
+  try {
+    const { data } = await axiosInstance.get('/users')
+    return data
+  } catch (error) {
+    throw new Error(error)
+  }
+})
+
 export const register = createAsyncThunk('users/register', async (body) => {
   try {
     const { data } = await axiosInstance.post('/users', body)
@@ -75,10 +84,13 @@ export const resetPasswordMail = createAsyncThunk(
 export const validateResetPassword = createAsyncThunk(
   'users/validateResetPassword',
   async (body) => {
+    const { email, code, password } = body
     try {
       const { data } = await axiosInstance.post(
         'reset-code/validate-reset-code',
-        body
+        email,
+        code,
+        password
       )
       return data
     } catch (error) {
