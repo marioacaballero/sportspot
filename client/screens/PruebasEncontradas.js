@@ -14,30 +14,28 @@ import { FontFamily, FontSize, Color, Border, Padding } from '../GlobalStyles'
 import PopupOrdenarPor from '../components/PopupOrdenarPor'
 import PruebasEncontradasFiltros from '../components/PruebasEncontradasFiltros'
 import CorazonSVG from '../components/SVG/CorazonSVG'
-import { getAllEvents, getEventById, favorite } from '../redux/actions/events'
+import {
+  getAllEvents,
+  getEventById,
+  favorite,
+  getFavorites
+} from '../redux/actions/events'
 
 const PruebasEncontradas = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
-  const { eventsFilter, favorites, nameEventsFilters } = useSelector(
-    (state) => state.events
-  )
+  const { eventsFilter, favorites, nameEventsFilters, allFavorites } =
+    useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
 
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
-  const [favoriteEvents, setFavoriteEvents] = useState([])
 
   useEffect(() => {
     dispatch(getAllEvents())
-  }, [])
-
-  useEffect(() => {
-    if (favorites.eventFavorites) {
-      setFavoriteEvents(favorites.eventFavorites)
-    }
-  }, [favorites, eventsFilter])
+    dispatch(getFavorites(user.id))
+  }, [dispatch, favorites])
 
   const toggleFavorite = (eventId) => {
     const data = {
@@ -143,7 +141,9 @@ const PruebasEncontradas = () => {
                       onPress={() => toggleFavorite(event.event_id)}
                     >
                       <CorazonSVG
-                        isFavorite={favoriteEvents.includes(event.event_id)}
+                        isFavorite={allFavorites.some(
+                          (favorite) => favorite.id === event.event_id
+                        )}
                       />
                     </Pressable>
                   </View>
