@@ -4,7 +4,8 @@ import {
   getEventById,
   favorite,
   getAllEventsFilters,
-  getFavorites
+  getFavorites,
+  createEvent
 } from '../actions/events'
 
 export const eventsSlices = createSlice({
@@ -15,6 +16,7 @@ export const eventsSlices = createSlice({
     nameEventsFilters: {},
     event: {},
     loading: false,
+    loadingGet: false,
     error: {},
     favorites: [],
     allFavorites: [],
@@ -78,15 +80,29 @@ export const eventsSlices = createSlice({
     builder
       // TODOS LOS EVENTOS
       .addCase(getAllEvents.pending, (state) => {
-        state.loading = true
+        state.loadingGet = true
         state.error = null
       })
       .addCase(getAllEvents.fulfilled, (state, action) => {
-        state.loading = false
+        state.loadingGet = false
         state.events = action.payload
         state.error = null
       })
       .addCase(getAllEvents.rejected, (state, action) => {
+        state.loadingGet = false
+        state.error = action.payload
+      })
+
+      // crear
+      .addCase(createEvent.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(createEvent.fulfilled, (state) => {
+        state.loading = false
+        state.error = null
+      })
+      .addCase(createEvent.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

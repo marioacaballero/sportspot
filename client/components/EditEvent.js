@@ -18,7 +18,7 @@ import { updateEvent } from '../redux/actions/events'
 import CalendarOneDay from './CalendarOneDay'
 import SportsPopUp from './SportsPopUp'
 
-const EditEvent = ({ event: eventRedux }) => {
+const EditEvent = ({ event: eventRedux, onClose }) => {
   const dispatch = useDispatch()
   //   const navigation = useNavigation()
   const { dateStart, dateSuscription } = useSelector((state) => state.events)
@@ -118,6 +118,9 @@ const EditEvent = ({ event: eventRedux }) => {
         backgroundColor: 'white'
       }}
     >
+      <Text style={{ textAlign: 'right', fontSize: 20 }} onPress={onClose}>
+        X
+      </Text>
       <Pressable style={styles.items} onPress={uploadImage}>
         <Image
           style={{ width: 25, height: 25, marginRight: 10 }}
@@ -302,7 +305,7 @@ const EditEvent = ({ event: eventRedux }) => {
         }}
         onPress={onSubmit}
       >
-        <Text style={{ color: 'white' }}>Crear</Text>
+        <Text style={{ color: 'white' }}>Confirmar</Text>
       </TouchableOpacity>
 
       <Modal animationType="slide" transparent visible={calendar}>

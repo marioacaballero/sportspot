@@ -13,152 +13,201 @@ import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
 import { useSelector } from 'react-redux'
 import ModalSuscription from '../components/ModalSuscription'
 import EditEvent from '../components/EditEvent'
+import { ActivityIndicator } from 'react-native-paper'
+import { LinearGradient } from 'expo-linear-gradient'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
   // const navigation = useNavigation()
   const { user } = useSelector((state) => state.users)
-  const { event } = useSelector((state) => state.events)
+  const { event, loading } = useSelector((state) => state.events)
   const [modalSuscription, setModalSuscription] = useState(false)
   const [modalEditEvent, setModalEditEvent] = useState(false)
 
-  return (
-    <View style={styles.pruebasEncontradasDetalle}>
-      <View style={[styles.unsplashon4qwhhjcemParent, styles.parentPosition]}>
-        <Image
-          style={styles.unsplashon4qwhhjcemIcon}
-          contentFit="cover"
-          // source={require('../assets/unsplashon4qwhhjcem.png')}
-          source={{ uri: event.image }}
-        />
+  const isEventAlreadyAdded = user.events.some(
+    (userEvent) => userEvent.id === event.id
+  )
 
-        <View style={styles.frameParent}>
-          <View style={styles.frameGroup}>
-            <View>
-              <Text style={[styles.pruebaDeCiclismo, styles.reseasDeLaTypo]}>
-                {event.title}
-              </Text>
-              <Text style={[styles.modalidadMontaa, styles.ciclismoTypo]}>
-                {event.sport?.type}
-              </Text>
-            </View>
-            <View style={styles.alertParent}>
-              <View
-                style={{
-                  // padding: 5,
-                  height: 30,
-                  width: 90,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: 50,
-                  marginRight: 10,
-                  // marginTop: 30,
-                  backgroundColor: Color.sportsNaranja
-                }}
-              >
-                {event?.creator?.id === user?.id ? (
-                  <Text
-                    style={{ color: 'white' }}
-                    onPress={() => {
-                      setModalEditEvent(true)
-                    }}
-                  >
-                    Editar
-                  </Text>
-                ) : (
-                  <Text
-                    style={{ color: 'white' }}
-                    onPress={() => setModalSuscription(true)}
-                  >
-                    Suscribrirse
-                  </Text>
-                )}
+  console.log('si o noooo??', isEventAlreadyAdded)
+
+  if (loading) {
+    return (
+      <LinearGradient
+        colors={['#F25910', '#F6B99C', '#FFF', '#FEF8F5', '#40036F']}
+        locations={[0, 0.2, 0.5, 0.8, 1]}
+        start={{ x: 0.3, y: 0 }}
+        end={{ x: 1, y: 0.8 }}
+        style={styles.linearGradient}
+      >
+        <ActivityIndicator
+          style={{
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.1)'
+            // backdropFilter: 'blur(5px)'
+          }}
+          animating={true}
+          size="large"
+          color={Color.violeta2}
+        />
+      </LinearGradient>
+    )
+  } else {
+    return (
+      <View style={styles.pruebasEncontradasDetalle}>
+        <View style={[styles.unsplashon4qwhhjcemParent, styles.parentPosition]}>
+          {/* {loading && (
+          <ActivityIndicator
+            style={{
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'rgba(0, 0, 0, 0.1)'
+              // backdropFilter: 'blur(5px)'
+            }}
+            animating={true}
+            size="large"
+            color={Color.violeta2}
+          />
+        )} */}
+          <Image
+            style={styles.unsplashon4qwhhjcemIcon}
+            contentFit="cover"
+            // source={require('../assets/unsplashon4qwhhjcem.png')}
+            source={{ uri: event.image }}
+          />
+
+          <View style={styles.frameParent}>
+            <View style={styles.frameGroup}>
+              <View>
+                <Text style={[styles.pruebaDeCiclismo, styles.reseasDeLaTypo]}>
+                  {event.title}
+                </Text>
+                <Text style={[styles.modalidadMontaa, styles.ciclismoTypo]}>
+                  {event.sport?.type}
+                </Text>
               </View>
-              <Image
-                style={styles.alertIcon}
-                contentFit="cover"
-                source={require('../assets/alert.png')}
-              />
-              <Image
-                style={[styles.clarityshareSolidIcon, styles.containerLayout]}
-                contentFit="cover"
-                source={require('../assets/claritysharesolid.png')}
-              />
-              <Image
-                style={[styles.clarityshareSolidIcon, styles.containerLayout]}
-                contentFit="cover"
-                source={require('../assets/like--spotsport.png')}
-              />
+              <View style={styles.alertParent}>
+                <View
+                  style={{
+                    // padding: 5,
+                    height: 30,
+                    width: 90,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 50,
+                    marginRight: 10,
+                    // marginTop: 30,
+                    backgroundColor: Color.sportsNaranja
+                  }}
+                >
+                  {event?.creator?.id === user?.id ? (
+                    <Text
+                      style={{ color: 'white' }}
+                      onPress={() => {
+                        setModalEditEvent(true)
+                      }}
+                    >
+                      Editar
+                    </Text>
+                  ) : (
+                    <Text
+                      style={{ color: 'white' }}
+                      onPress={() => setModalSuscription(true)}
+                    >
+                      {isEventAlreadyAdded ? 'Desuscribirse' : 'Suscribrirse'}
+                    </Text>
+                  )}
+                </View>
+                <Image
+                  style={styles.alertIcon}
+                  contentFit="cover"
+                  source={require('../assets/alert.png')}
+                />
+                <Image
+                  style={[styles.clarityshareSolidIcon, styles.containerLayout]}
+                  contentFit="cover"
+                  source={require('../assets/claritysharesolid.png')}
+                />
+                <Image
+                  style={[styles.clarityshareSolidIcon, styles.containerLayout]}
+                  contentFit="cover"
+                  source={require('../assets/like--spotsport.png')}
+                />
+              </View>
             </View>
-          </View>
-          <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-            {event.description}
-          </Text>
-          {/* <Text style={[styles.laInscripcinDe, styles.laInscripcinDeLayout]}>
+            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+              {event.description}
+            </Text>
+            {/* <Text style={[styles.laInscripcinDe, styles.laInscripcinDeLayout]}>
             La inscripción de la prueba es en el pueblo de Hornachos, Badajoz.
             Se celebrará el 1 de febrero de 2024. Si te interesa par-ticipar
             tienes hasta el 22 de enero de 2024 para realizar la inscripción. El
             precio de inscripción es de 22€ por persona.
           </Text> */}
-          <Text style={[styles.reseasDeLa, styles.reseasDeLaTypo]}>
-            Reseñas de la prueba
-          </Text>
-        </View>
-        <Pressable
-          style={[styles.cilarrowTopParent, styles.parentSpaceBlock]}
-          onPress={() => navigation.goBack()}
-        >
-          <Image
-            style={styles.cilarrowTopIcon}
-            contentFit="cover"
-            source={require('../assets/cilarrowtop.png')}
-          />
-          <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
-            {event.sport?.name}
-          </Text>
-        </Pressable>
-      </View>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalSuscription}
-      >
-        <TouchableWithoutFeedback
-          onPress={() => {
-            setModalSuscription(false)
-          }}
-        >
-          <View style={styles.modalOverlay}>
-            <View>
-              <ModalSuscription
-                user={user}
-                event={event}
-                onClose={() => setModalSuscription(false)}
-              />
-            </View>
+            <Text style={[styles.reseasDeLa, styles.reseasDeLaTypo]}>
+              Reseñas de la prueba
+            </Text>
           </View>
-        </TouchableWithoutFeedback>
-      </Modal>
+          <Pressable
+            style={[styles.cilarrowTopParent, styles.parentSpaceBlock]}
+            onPress={() => navigation.goBack()}
+          >
+            <Image
+              style={styles.cilarrowTopIcon}
+              contentFit="cover"
+              source={require('../assets/cilarrowtop.png')}
+            />
+            <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
+              {event.sport?.name}
+            </Text>
+          </Pressable>
+        </View>
 
-      <Modal animationType="slide" transparent={true} visible={modalEditEvent}>
-        {/* <TouchableWithoutFeedback
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalSuscription}
+        >
+          <TouchableWithoutFeedback
+            onPress={() => {
+              setModalSuscription(false)
+            }}
+          >
+            <View style={styles.modalOverlay}>
+              <View>
+                <ModalSuscription
+                  user={user}
+                  event={event}
+                  onClose={() => setModalSuscription(false)}
+                />
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalEditEvent}
+        >
+          {/* <TouchableWithoutFeedback
           onPress={() => {
             setModalEditEvent(false)
           }}
         > */}
-        {/* <View style={styles.modalOverlay}> */}
-        {/* <View> */}
-        <EditEvent
-          // user={user}
-          event={event}
-          // onClose={() => setModalSuscription(false)}
-        />
-        {/* </View> */}
-        {/* </View> */}
-        {/* </TouchableWithoutFeedback> */}
-      </Modal>
-    </View>
-  )
+          <View style={styles.modalOverlay}>
+            {/* <View> */}
+            <EditEvent
+              // user={user}
+              event={event}
+              onClose={() => setModalEditEvent(false)}
+            />
+          </View>
+          {/* </View> */}
+          {/* </TouchableWithoutFeedback> */}
+        </Modal>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -166,14 +215,18 @@ const styles = StyleSheet.create({
     // left: 0,
     // position: 'absolute'
   },
+  linearGradient: {
+    flex: 1,
+    width: '100%'
+  },
   modalOverlay: {
     // flex: 1,
     // top: -100,
     height: '100%',
     width: '100%',
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center'
+    backgroundColor: 'white'
+    // justifyContent: 'center',
+    // alignItems: 'center'
   },
   reseasDeLaTypo: {
     color: Color.sportsNaranja,
@@ -266,7 +319,15 @@ const styles = StyleSheet.create({
     padding: Padding.p_xl,
     zIndex: 1,
     alignSelf: 'stretch',
-    height: 420
+    height: '100%'
+  },
+  frameParentBlur: {
+    opacity: 0.5,
+    backgroundColor: Color.naranja3,
+    padding: Padding.p_xl,
+    zIndex: 1,
+    alignSelf: 'stretch',
+    height: '100%'
   },
   cilarrowTopIcon: {
     width: 21,
@@ -331,6 +392,14 @@ const styles = StyleSheet.create({
   },
   pruebasEncontradasDetalle: {
     flex: 1,
+    height: 800,
+    overflow: 'hidden',
+    width: '100%',
+    backgroundColor: Color.blanco
+  },
+  pruebasEncontradasDetalleBlur: {
+    flex: 1,
+    opacity: 0.5,
     height: 800,
     overflow: 'hidden',
     width: '100%',

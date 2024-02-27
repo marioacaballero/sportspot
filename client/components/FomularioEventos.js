@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
 import * as ImagePicker from 'expo-image-picker'
+import React, { useEffect, useState } from 'react'
 import {
   Image,
   Modal,
@@ -13,10 +13,10 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { Color, FontFamily, FontSize } from '../GlobalStyles'
 import { getAllSports } from '../redux/actions/sports'
-import { createEvent, getAllEvents } from '../redux/actions/events'
 // import { useNavigation } from '@react-navigation/native'
 import CalendarOneDay from './CalendarOneDay'
 import SportsPopUp from './SportsPopUp'
+import { onSubmit } from './utils/createEvent'
 
 const FomularioEventos = () => {
   const dispatch = useDispatch()
@@ -72,25 +72,6 @@ const FomularioEventos = () => {
     // } else {
     setSelectedImage(`data:image/jpeg;base64,${result?.assets[0].base64}`)
     // }
-  }
-
-  const onSubmit = () => {
-    const data = {
-      title: event.title,
-      description: event?.description,
-      sportId: sport && sport?.id,
-      price: event?.price,
-      modality: sport.type,
-      location: event?.location,
-      dateStart,
-      dateInscription: dateSuscription,
-      creator: user?.id,
-      timeStart: event?.timeStart,
-      image: selectedImage
-    }
-
-    dispatch(createEvent(data))
-    dispatch(getAllEvents())
   }
 
   const closeCalendar = () => {
@@ -285,7 +266,17 @@ const FomularioEventos = () => {
           marginTop: 30,
           backgroundColor: Color.sportsNaranja
         }}
-        onPress={onSubmit}
+        onPress={() =>
+          onSubmit(
+            event,
+            sport,
+            user,
+            selectedImage,
+            dispatch,
+            dateSuscription,
+            dateStart
+          )
+        }
       >
         <Text style={{ color: 'white' }}>Crear</Text>
       </TouchableOpacity>
