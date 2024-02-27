@@ -1,5 +1,5 @@
-import * as ImagePicker from 'expo-image-picker'
 import React, { useEffect, useState } from 'react'
+import * as ImagePicker from 'expo-image-picker'
 import {
   Image,
   Modal,
@@ -13,12 +13,12 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { Color, FontFamily, FontSize } from '../GlobalStyles'
 import { getAllSports } from '../redux/actions/sports'
+import { updateEvent } from '../redux/actions/events'
 // import { useNavigation } from '@react-navigation/native'
 import CalendarOneDay from './CalendarOneDay'
 import SportsPopUp from './SportsPopUp'
-import { onSubmit } from './utils/createEvent'
 
-const FomularioEventos = () => {
+const EditEvent = ({ event: eventRedux, onClose }) => {
   const dispatch = useDispatch()
   //   const navigation = useNavigation()
   const { dateStart, dateSuscription } = useSelector((state) => state.events)
@@ -32,11 +32,11 @@ const FomularioEventos = () => {
 
   const [sportsModal, setSportsModal] = useState(false)
   const [event, setEvent] = useState({
-    title: '',
-    description: '',
-    price: '',
-    location: '',
-    timeStart: ''
+    title: eventRedux.title,
+    description: eventRedux.description,
+    price: eventRedux.price,
+    location: eventRedux.location,
+    timeStart: eventRedux.timeStart
     // dateStart,
     // dateInscription: dataSuscription
   })
@@ -56,6 +56,8 @@ const FomularioEventos = () => {
     }))
   }
 
+  console.log(event)
+
   const uploadImage = async () => {
     let result = {}
     await ImagePicker.requestMediaLibraryPermissionsAsync()
@@ -74,6 +76,27 @@ const FomularioEventos = () => {
     // }
   }
 
+  const onSubmit = () => {
+    const data = {
+      id: eventRedux.id,
+      updateEventDto: {
+        title: event.title,
+        description: event?.description,
+        sportId: eventRedux.sportId,
+        price: event?.price,
+        // modality: sport.type,
+        location: event?.location,
+        dateStart: eventRedux.dateStart,
+        dateInscription: eventRedux.dateInscription,
+        creator: user?.id,
+        timeStart: event?.timeStart,
+        image: eventRedux.image
+      }
+    }
+
+    dispatch(updateEvent(data))
+  }
+
   const closeCalendar = () => {
     setCalendar(false)
   }
@@ -83,7 +106,21 @@ const FomularioEventos = () => {
   }
 
   return (
-    <View style={{ width: '100%', marginTop: 30 }}>
+    <View
+      style={{
+        flex: 1,
+        // width: '100%',
+        marginTop: 30,
+        // height: '100%',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        paddingHorizontal: 15,
+        backgroundColor: 'white'
+      }}
+    >
+      <Text style={{ textAlign: 'right', fontSize: 20 }} onPress={onClose}>
+        X
+      </Text>
       <Pressable style={styles.items} onPress={uploadImage}>
         <Image
           style={{ width: 25, height: 25, marginRight: 10 }}
@@ -266,19 +303,9 @@ const FomularioEventos = () => {
           marginTop: 30,
           backgroundColor: Color.sportsNaranja
         }}
-        onPress={() =>
-          onSubmit(
-            event,
-            sport,
-            user,
-            selectedImage,
-            dispatch,
-            dateSuscription,
-            dateStart
-          )
-        }
+        onPress={onSubmit}
       >
-        <Text style={{ color: 'white' }}>Crear</Text>
+        <Text style={{ color: 'white' }}>Confirmar</Text>
       </TouchableOpacity>
 
       <Modal animationType="slide" transparent visible={calendar}>
@@ -344,7 +371,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(113, 113, 113, 0.3)'
   },
   frameContainer10Bg: {
-    position: 'absolute',
+    // position: 'absolute',
     width: '100%',
     height: '100%',
     left: 0,
@@ -391,4 +418,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default FomularioEventos
+export default EditEvent

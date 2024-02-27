@@ -4,9 +4,35 @@ import axiosInstance from '../../utils/apiBackend'
 export const suscriptionEventUser = createAsyncThunk(
   'users/suscription',
   async (body) => {
+    console.log(body)
     const { id, eventId } = body
     try {
       const { data } = await axiosInstance.patch(`/users/${id}`, { eventId })
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+)
+
+export const updateUser = createAsyncThunk('users/update', async (body) => {
+  console.log(body)
+  const { id, valuesUser } = body
+  try {
+    const { data } = await axiosInstance.patch(`/users/${id}`, valuesUser)
+    return data
+  } catch (error) {
+    throw new Error(error)
+  }
+})
+
+export const updateUserAvatar = createAsyncThunk(
+  'users/updateAvatar',
+  async (body) => {
+    console.log(body)
+    const { id, avatar } = body
+    try {
+      const { data } = await axiosInstance.patch(`/users/${id}`, { avatar })
       return data
     } catch (error) {
       throw new Error(error)

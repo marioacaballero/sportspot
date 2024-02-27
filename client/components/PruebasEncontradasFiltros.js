@@ -7,38 +7,52 @@ import {
   Image,
   Switch,
   Pressable,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native'
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
 // import { useNavigation } from '@react-navigation/native'
 import { Color, FontFamily, FontSize, Border, Padding } from '../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
-import { setEventFromPrice } from '../redux/slices/events.slices'
+import {
+  setEventFromPrice,
+  setFiltersToFilters
+} from '../redux/slices/events.slices'
 import { List } from 'react-native-paper'
 
 const PruebasEncontradasFiltros = ({ setModalVisible }) => {
   const dispatch = useDispatch()
   // const navigation = useNavigation()
   const { eventsFilter } = useSelector((state) => state.events)
+  const { sports } = useSelector((state) => state.sports)
   const [start, setStart] = useState(0)
   const [end, setEnd] = useState(150)
-  const [switchStates, setSwitchStates] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false
-  ])
+  const [typesFilter, setTypesFilter] = useState([])
+  const [switchStates, setSwitchStates] = useState({})
 
-  const toggleSwitch = (index) => {
-    const newSwitchStates = [...switchStates]
-    newSwitchStates[index] = !newSwitchStates[index]
-    setSwitchStates(newSwitchStates)
+  // const toggleSwitch = (index) => {
+  //   const newSwitchStates = [...switchStates]
+  //   newSwitchStates[index] = !newSwitchStates[index]
+  //   setSwitchStates(newSwitchStates)
+  // }
+
+  const toggleSwitch = (key, value) => {
+    console.log('valueeeee', value)
+    const eventModalityId = key.split('-')[1]
+
+    setSwitchStates((prevState) => ({ ...prevState, [key]: value }))
+
+    if (value) {
+      console.log('agregar')
+      setTypesFilter([...typesFilter, eventModalityId])
+    } else {
+      setTypesFilter(
+        typesFilter.filter((item) => {
+          console.log('itemmmm', item)
+          return item !== eventModalityId
+        })
+      )
+    }
   }
 
   const handleValuesChange = (newValues) => {
@@ -50,19 +64,45 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
     dispatch(setEventFromPrice({ start, end }))
   }
 
-  const filtrando = eventsFilter.map((event) => event.sportname)
-  const nameSportFilter = filtrando.filter((value, index, self) => {
-    return self.indexOf(value) === index
+  const uniqueSports = {}
+
+  eventsFilter.forEach((event) => {
+    const { sportname, event_modality } = event
+    if (!uniqueSports[sportname]) {
+      uniqueSports[sportname] = { sportname, event_modality: [event_modality] }
+    } else {
+      if (!uniqueSports[sportname].event_modality.includes(event_modality)) {
+        uniqueSports[sportname].event_modality.push(event_modality)
+      }
+    }
   })
 
-  console.log(nameSportFilter)
+  const result = Object.values(uniqueSports)
 
-  const [expanded, setExpanded] = useState(true)
+  const [expandedStates, setExpandedStates] = useState({})
 
-  const handlePress = () => setExpanded(!expanded)
+  const handlePress = (sportName) => {
+    setExpandedStates((prevState) => ({
+      ...prevState,
+      [sportName]: !prevState[sportName] // Invertir el estado de expansión del acordeón correspondiente al nombre del deporte
+    }))
+  }
+
+  const submit = () => {
+    dispatch(setFiltersToFilters(typesFilter))
+    setModalVisible(false)
+  }
 
   return (
-    <ScrollView style={styles.frameContainer}>
+    <ScrollView
+      style={{
+        backgroundColor: 'white',
+        marginTop: 226,
+        paddingBottom: 300,
+        paddingHorizontal: 15
+      }}
+      showsVerticalScrollIndicator={false}
+    >
       <View style={[styles.tuPresupuestoParent, styles.parentFrameFlexBox]}>
         <Text style={[styles.tuPresupuesto, styles.filtrosTypo]}>
           Tu presupuesto:
@@ -103,37 +143,76 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
 
       <View style={[styles.frameParent1, styles.frameSpaceBlock]}>
         <View style={styles.frameParent2}>
-          {nameSportFilter.map((sport, i) => (
-            <View key={i} style={styles.parentFrameFlexBox}>
-              <List.Accordion
-                title={sport}
-                left={(props) => <List.Icon {...props} icon="folder" />}
-                onPress={handlePress}
-                expanded={expanded}
+          {result.map((sport, i) => (
+            <View
+              key={i}
+              style={
+                {
+                  // flexDirection: 'row'
+                  // alignItems: 'center',
+                  // // width: '100%',
+                  // justifyContent: 'space-between'
+                }
+              }
+            >
+              <List.Section
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  // // width: '100%',
+                  justifyContent: 'space-between'
+                }}
+                titleStyle={[styles.ciclsmo, styles.ciclsmoTypo]}
+                title={`${sport.sportname
+                  .slice(0, 1)
+                  .toUpperCase()}${sport.sportname.slice(1)}`}
               >
-                <List.Item title="First item" />
-                <List.Item title="Second item" />
-              </List.Accordion>
+                <List.Accordion
+                  onPress={() => handlePress(sport.sportname)}
+                  expanded={expandedStates[sport.sportname]}
+                >
+                  {sport.event_modality.map((type, i) => (
+                    <View
+                      key={i}
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between'
+                      }}
+                    >
+                      <List.Item
+                        titleStyle={[styles.carretera, styles.filtrosTypo]}
+                        title={type}
+                      />
+                      <Switch
+                        trackColor={{ false: '#767577', true: '#F25910' }}
+                        thumbColor={
+                          switchStates[`${sport.sportname}-${type}`]
+                            ? '#FFFFFF'
+                            : '#FFFFFF'
+                        }
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={(value) =>
+                          toggleSwitch(`${sport.sportname}-${type}`, value)
+                        }
+                        value={switchStates[`${sport.sportname}-${type}`]}
+                        style={styles.switch}
+                      />
+                    </View>
+                  ))}
 
-              {/* <View style={styles.path3391Parent}>
-                <Image
-                  style={styles.path3391Icon}
-                  contentFit="cover"
-                  source={require('../assets/path-3391.png')}
-                />
-                <Text style={[styles.ciclsmo, styles.ciclsmoTypo]}>
-                  {sport.slice(0, 1).toUpperCase()}
-                  {sport.slice(1)}
-                </Text>
-              </View>
-              <Switch
-                trackColor={{ false: '#767577', true: '#F25910' }}
-                thumbColor={switchStates[i] ? '#FFFFFF' : '#FFFFFF'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={() => toggleSwitch(i)}
-                value={switchStates[i]}
-                style={styles.switch}
-              /> */}
+                  {/* <List.Item title="Second item" /> */}
+                </List.Accordion>
+                <View>
+                  <Switch
+                    trackColor={{ false: '#767577', true: '#F25910' }}
+                    thumbColor={switchStates[i] ? '#FFFFFF' : '#FFFFFF'}
+                    ios_backgroundColor="#3e3e3e"
+                    // onValueChange={(value) => toggleSwitch(i, value)}
+                    // value={switchStates[i]}
+                    // style={styles.switch}
+                  />
+                </View>
+              </List.Section>
             </View>
           ))}
 
@@ -314,6 +393,32 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
           />
         </View> */}
       </View>
+      <TouchableOpacity
+        style={{
+          backgroundColor: Color.sportsNaranja,
+          height: 42,
+          marginTop: 10,
+          padding: Padding.p_3xs,
+          borderRadius: Border.br_31xl,
+          alignSelf: 'stretch',
+          justifyContent: 'center',
+          width: '100%'
+        }}
+        onPress={submit}
+      >
+        <Text
+          style={{
+            color: Color.blanco,
+            textAlign: 'center',
+            fontSize: FontSize.inputPlaceholder_size,
+            alignSelf: 'stretch',
+            fontFamily: FontFamily.inputPlaceholder,
+            fontWeight: '700'
+          }}
+        >
+          Aplicar filtros
+        </Text>
+      </TouchableOpacity>
     </ScrollView>
   )
 }
@@ -340,6 +445,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     flexDirection: 'row'
   },
+
   frameSpaceBlock: {
     marginTop: 12,
     alignSelf: 'stretch'
@@ -506,8 +612,11 @@ const styles = StyleSheet.create({
     marginLeft: 5
   },
   path3391Parent: {
-    alignItems: 'center',
-    flexDirection: 'row'
+    // alignItems: 'center',
+    // flexDirection: 'row',
+    flexDirection: 'row-reverse',
+    width: '100%',
+    justifyContent: 'flex-end'
   },
   toggleChild: {
     backgroundColor: Color.sportsNaranja
@@ -521,8 +630,8 @@ const styles = StyleSheet.create({
     height: 17
   },
   carretera: {
-    fontWeight: '100',
-    fontFamily: FontFamily.inputPlaceholderThin
+    fontWeight: '500',
+    fontFamily: FontFamily.inputPlaceholder
   },
   toggleInner: {
     backgroundColor: Color.gris
@@ -554,7 +663,8 @@ const styles = StyleSheet.create({
   },
   frameParent2: {
     justifyContent: 'center',
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    paddingHorizontal: 20
   },
   path3391Icon1: {
     width: 5,
@@ -581,7 +691,9 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     paddingHorizontal: Padding.p_xl,
     backgroundColor: Color.blanco,
-    top: 220
+    top: 220,
+    // flex: 1,
+    paddingBottom: 400
   },
   pruebasEncontradasParent: {
     paddingTop: Padding.p_48xl,

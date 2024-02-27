@@ -110,6 +110,7 @@ export class UsersService {
     updateUserDto: UpdateUserDto
   ): Promise<UserEntity> {
     const user = await this.getOneService(id)
+    console.log('userrrr', updateUserDto)
 
     const event = await this.eventService.getOneService(updateUserDto.eventId)
 

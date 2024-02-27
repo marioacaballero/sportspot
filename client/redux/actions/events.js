@@ -25,6 +25,17 @@ export const getAllEventsFilters = createAsyncThunk(
   }
 )
 
+export const updateEvent = createAsyncThunk('update/event', async (body) => {
+  const { id, updateEventDto } = body
+  console.log(body)
+  try {
+    const { data } = await axiosInstance.patch(`/events/${id}`, updateEventDto)
+    return data
+  } catch (error) {
+    throw new Error(error)
+  }
+})
+
 export const getEventById = createAsyncThunk('events/getOne', async (id) => {
   try {
     const { data } = await axiosInstance.get(`/events/${id}`)

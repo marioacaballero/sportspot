@@ -15,7 +15,7 @@ import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useDispatch, useSelector } from 'react-redux'
-import { suscriptionEventUser } from '../redux/actions/users'
+import { getUser, updateUser, updateUserAvatar } from '../redux/actions/users'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
 
 const EditarPerfil = () => {
@@ -35,10 +35,6 @@ const EditarPerfil = () => {
     telefono: user?.telefono || ''
   })
 
-  // useEffect(() => {
-  //   dispatch(getUser(user?.id))
-  // }, [dispatch])
-
   const settingValuesUser = (field, value) => {
     setValuesUser((prev) => ({
       ...prev,
@@ -57,33 +53,33 @@ const EditarPerfil = () => {
   const onSubmit = () => {
     const data = {
       id: user.id,
-      suscription: valuesUser
+      valuesUser
     }
 
-    dispatch(suscriptionEventUser(data))
+    dispatch(updateUser(data))
+    dispatch(getUser(user.id))
   }
 
   const uploadImage = async () => {
     let result = {}
     await ImagePicker.requestMediaLibraryPermissionsAsync()
     result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1
+      aspect: [4, 3],
+      quality: 1,
+      base64: true
     })
 
-    if (!result.cancelled) {
-      setSelectedImage(result?.assets[0].uri)
-      const data = {
-        id: user.id,
-        suscription: {
-          avatar: result?.assets[0].uri
-        }
-      }
-      dispatch(suscriptionEventUser(data))
+    setSelectedImage(`data:image/jpeg;base64,${result?.assets[0].base64}`)
+    const data = {
+      id: user.id,
+      avatar: `data:image/jpeg;base64,${result?.assets[0].base64}`
     }
+    dispatch(updateUserAvatar(data))
+    dispatch(getUser(user.id))
   }
+  console.log(selectedImage)
 
   return (
     <ScrollView>

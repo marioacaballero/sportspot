@@ -4,7 +4,8 @@ import {
   getEventById,
   favorite,
   getAllEventsFilters,
-  getFavorites
+  getFavorites,
+  createEvent
 } from '../actions/events'
 
 export const eventsSlices = createSlice({
@@ -15,6 +16,7 @@ export const eventsSlices = createSlice({
     nameEventsFilters: {},
     event: {},
     loading: false,
+    loadingGet: false,
     error: {},
     favorites: [],
     allFavorites: [],
@@ -46,28 +48,9 @@ export const eventsSlices = createSlice({
         state.eventsFilter = []
       }
     },
-    // setOrderEvents: (state, action) => {
-    //   const { dateStart, price } = action.payload
-
-    //   // Filtro por precio si price es verdadero
-    //   if (price) {
-    //     console.log('precio')
-    //     state.eventsFilter.sort((a, b) => {
-    //       return parseFloat(a.event_price) - parseFloat(b.event_price)
-    //     })
-    //   }
-
-    //   // Ordenar eventos por event_date_start de menor a mayor
-    //   if (dateStart) {
-    //     state.eventsFilter.sort((a, b) => {
-    //       return new Date(b.event_date_start) - new Date(a.event_date_start)
-    //     })
-    //   }
-    // }
     setOrderEvents: (state, action) => {
       const { dateStart, price } = action.payload
 
-      // Filtro por fecha si dateStart es verdadero
       if (dateStart) {
         console.log('fecha')
         state.eventsFilter.sort((a, b) => {
@@ -75,13 +58,21 @@ export const eventsSlices = createSlice({
         })
       }
 
-      // Filtro por precio si price es verdadero
       if (price) {
         console.log('precio')
         state.eventsFilter.sort((a, b) => {
           return parseFloat(a.event_price) - parseFloat(b.event_price)
         })
       }
+    },
+    setFiltersToFilters: (state, action) => {
+      const eventModalityIds = action.payload
+
+      const filteredEvents = state.eventsFilter.filter((event) => {
+        return eventModalityIds.some((id) => event.event_modality === id)
+      })
+
+      state.eventsFilter = filteredEvents
     }
   },
 
@@ -89,15 +80,29 @@ export const eventsSlices = createSlice({
     builder
       // TODOS LOS EVENTOS
       .addCase(getAllEvents.pending, (state) => {
-        state.loading = true
+        state.loadingGet = true
         state.error = null
       })
       .addCase(getAllEvents.fulfilled, (state, action) => {
-        state.loading = false
+        state.loadingGet = false
         state.events = action.payload
         state.error = null
       })
       .addCase(getAllEvents.rejected, (state, action) => {
+        state.loadingGet = false
+        state.error = action.payload
+      })
+
+      // crear
+      .addCase(createEvent.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(createEvent.fulfilled, (state) => {
+        state.loading = false
+        state.error = null
+      })
+      .addCase(createEvent.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })
@@ -168,7 +173,8 @@ export const {
   setDateStart,
   setDateSuscription,
   setEventFromPrice,
-  setOrderEvents
+  setOrderEvents,
+  setFiltersToFilters
 } = eventsSlices.actions
 
 export default eventsSlices.reducer

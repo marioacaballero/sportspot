@@ -11,9 +11,11 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { FontFamily, FontSize, Padding, Border, Color } from '../GlobalStyles'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
+import { useSelector } from 'react-redux'
 
 const TuPerfil = () => {
   const navigation = useNavigation()
+  const { user } = useSelector((state) => state.users)
 
   return (
     <ScrollView
@@ -40,14 +42,18 @@ const TuPerfil = () => {
           <Image
             style={styles.unsplashn6gnca77urcIcon}
             contentFit="cover"
-            source={require('../assets/unsplashn6gnca77urc.png')}
+            // require('../assets/unsplashn6gnca77urc.png')
+            source={
+              user.avatar
+                ? { uri: user.avatar }
+                : require('../assets/unsplashn6gnca77urc.png')
+            }
           />
           <View style={styles.laraMacasBlancoCarrrilhoParent}>
-            <Text
-              style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}
-            >{`Lara Macías
-Blanco Carrrilho`}</Text>
-            <Text style={styles.mujer23Aos}>Mujer, 23 años</Text>
+            <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
+              {user?.nickname}
+            </Text>
+            <Text style={styles.mujer23Aos}>{user.sexo}</Text>
           </View>
         </View>
         <View style={styles.frameParent}>
