@@ -378,11 +378,11 @@ export class SendMailsService {
     <img src="cid:sportSpot" />
         <p class='title'>Se han modificado los siguientes datos del evento ${event.title}</p>
           <p>Lista de cambios: 
-            ${updateEventDto.dateStart ? `<p>Fecha de inscripcion:${updateEventDto.dateInscription}</p>` : ''}
+            ${updateEventDto.dateStart ? `<p>Fecha de comienzo:${updateEventDto.dateInscription}</p>` : ''}
             ${updateEventDto.dateInscription ? `<p>Fecha de inscripcion:${updateEventDto.dateInscription}</p>` : ''}
-            ${updateEventDto.timeStart ? `<p>Fecha de inscripcion:${updateEventDto.timeStart}</p>` : ''}
-            ${updateEventDto.location ? `<p>Fecha de inscripcion:${updateEventDto.location}</p>` : ''}
-            ${updateEventDto.modality ? `<p>Fecha de inscripcion:${updateEventDto.modality}</p>` : ''}
+            ${updateEventDto.timeStart ? `<p>Hora de comienzo:${updateEventDto.timeStart}</p>` : ''}
+            ${updateEventDto.location ? `<p>Localidad:${updateEventDto.location}</p>` : ''}
+            ${updateEventDto.modality ? `<p>Modalidad:${updateEventDto.modality}</p>` : ''}
           </p>
           <p>Disculpe las molestias</p>
           <p class='social'>¡Síguenos en nuestras redes!</p>

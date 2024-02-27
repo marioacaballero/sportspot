@@ -10,9 +10,14 @@ import { JsonwebtokenModule } from './jsonwebtoken/jsonwebtoken.module'
 import { SendMailsModule } from './send-mails/send-mails.module'
 
 import { join } from 'path'
+import { PassportModule } from '@nestjs/passport'
+import { StripeModule } from './stripe/stripe.module'
+
+//import { GoogleStrategyModule } from './google/google.module'
 console.log(join(__dirname, 'template'))
 @Module({
   imports: [
+    PassportModule.register({ defaultStrategy: 'google' }),
     ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
     TypeOrmModule.forRoot(DataSourceConfig),
     UsersModule,
@@ -20,7 +25,9 @@ console.log(join(__dirname, 'template'))
     NotificationsModule,
     SportsModule,
     JsonwebtokenModule,
-    SendMailsModule
+    SendMailsModule,
+    StripeModule
+    //GoogleStrategyModule
   ],
   controllers: [],
   providers: []
