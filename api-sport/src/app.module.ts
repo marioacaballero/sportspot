@@ -24,8 +24,8 @@ console.log(join(__dirname, 'template'))
     NotificationsModule,
     SportsModule,
     JsonwebtokenModule,
-    SendMailsModule,
-    GoogleStrategyModule
+    SendMailsModule
+    //GoogleStrategyModule
   ],
   controllers: [],
   providers: []
