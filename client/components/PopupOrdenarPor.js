@@ -9,8 +9,15 @@ import {
   ScrollView
 } from 'react-native'
 import { Color, FontFamily, FontSize, Border, Padding } from '../GlobalStyles'
+import { useDispatch } from 'react-redux'
+import { setOrderEvents } from '../redux/slices/events.slices'
 
 const PopupOrdenarPor = ({ setModalVisible }) => {
+  const dispatch = useDispatch()
+  const [valuesOrder, setvaluesOrder] = useState({
+    dateStart: false,
+    price: false
+  })
   const [switchStates, setSwitchStates] = useState([
     false,
     false,
@@ -25,6 +32,18 @@ const PopupOrdenarPor = ({ setModalVisible }) => {
     const newSwitchStates = [...switchStates]
     newSwitchStates[index] = !newSwitchStates[index]
     setSwitchStates(newSwitchStates)
+  }
+
+  const orderItems = (field, value) => {
+    setvaluesOrder((prev) => ({
+      ...prev,
+      [field]: value
+    }))
+  }
+
+  const submit = () => {
+    dispatch(setOrderEvents(valuesOrder))
+    setModalVisible(false)
   }
 
   return (
@@ -44,29 +63,41 @@ const PopupOrdenarPor = ({ setModalVisible }) => {
       <View style={styles.popupfiltrosInner}>
         <View style={styles.frameFlexBox}>
           <View style={[styles.frameParent, styles.frameFlexBox]}>
-            <View style={styles.fechaParent}>
+            <Pressable
+              style={styles.fechaParent}
+              // onPress={() => {
+              //   orderItems('dateStart', true)
+              // }}
+            >
               <Text style={[styles.fecha, styles.fechaTypo]}>Fecha</Text>
               <Switch
                 trackColor={{ false: '#767577', true: '#F25910' }}
                 thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
                 ios_backgroundColor="#3e3e3e"
-                onValueChange={() => toggleSwitch(0)}
+                onValueChange={(value) => {
+                  toggleSwitch(0)
+                  orderItems('dateStart', value)
+                }}
                 value={switchStates[0]}
                 style={styles.switch}
               />
-            </View>
-            <View style={styles.parentFlexBox2}>
+            </Pressable>
+
+            <Pressable style={styles.parentFlexBox2}>
               <Text style={[styles.precio, styles.fechaTypo]}>Precio</Text>
               <Switch
                 trackColor={{ false: '#767577', true: '#F25910' }}
                 thumbColor={switchStates[1] ? '#FFFFFF' : '#FFFFFF'}
                 ios_backgroundColor="#3e3e3e"
-                onValueChange={() => toggleSwitch(1)}
+                onValueChange={(value) => {
+                  toggleSwitch(1)
+                  orderItems('price', value)
+                }}
                 value={switchStates[1]}
                 style={styles.switch}
               />
-            </View>
-            <View
+            </Pressable>
+            {/* <View
               style={[styles.circuitoHomologadoParent, styles.parentFlexBox2]}
             >
               <Text style={[styles.precio, styles.fechaTypo]}>
@@ -130,8 +161,15 @@ const PopupOrdenarPor = ({ setModalVisible }) => {
                 value={switchStates[6]}
                 style={styles.switch}
               />
-            </View>
+            </View> */}
           </View>
+          <Pressable
+            onPress={() => {
+              submit()
+            }}
+          >
+            <Text>enviar</Text>
+          </Pressable>
         </View>
       </View>
     </ScrollView>
@@ -238,13 +276,13 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 4,
     shadowOpacity: 1,
-    width: 320,
+    width: '100%',
     paddingHorizontal: Padding.p_xl,
     paddingVertical: Padding.p_3xs,
-    maxHeight: '100%',
+    // maxHeight: '100%',
     maxWidth: '100%',
-    top: 210,
-    left: 20
+    top: 210
+    // left: 20
   },
   switch: {
     transform: [{ scale: 0.8 }]
