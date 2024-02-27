@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { HttpException, Injectable } from '@nestjs/common'
 import { UserEntity } from '../entities/users.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
@@ -58,7 +58,7 @@ export class UsersService {
     const user = await this.getOneService(id)
 
     if (!user) {
-      throw new Error(`Usuario con ID ${id} no encontrado`)
+      throw new HttpException(`Usuario con ID ${id} no encontrado`, 404)
     }
 
     const isPasswordValid = await this.jsonwebtokenService.verifyPassword(
@@ -79,11 +79,16 @@ export class UsersService {
     return await this.userRepository.find({ where: { isDelete: false } })
   }
   public async getOneService(id: string) {
-    return await this.userRepository
+    const user = await this.userRepository
       .createQueryBuilder('user')
       .where({ id })
       .leftJoinAndSelect('user.events', 'events')
       .getOne()
+
+    if (!user)
+      throw new HttpException(`Usuario con ID ${id} no encontrado`, 404)
+
+    return user
   }
 
   public async getByEmailService(email) {
@@ -107,9 +112,8 @@ export class UsersService {
 
     const event = await this.eventService.getOneService(updateUserDto.eventId)
 
-    if (!user) {
-      throw new Error(`Usuario con ID ${id} no encontrado`)
-    }
+    if (!user)
+      throw new HttpException(`Usuario con ID ${id} no encontrado`, 404)
 
     for (const key in updateUserDto) {
       if (key === 'password') {
@@ -144,7 +148,7 @@ export class UsersService {
   ): Promise<UserEntity> {
     const user = await this.getOneService(userId)
     if (!user) {
-      throw new Error(`Usuario con ID ${userId} no encontrado`)
+      throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404)
     }
 
     const event = await this.eventService.getOneService(eventId)
@@ -169,12 +173,12 @@ export class UsersService {
   ): Promise<UserEntity> {
     const user = await this.getOneService(userId)
     if (!user) {
-      throw new Error(`Usuario con ID ${userId} no encontrado`)
+      throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404)
     }
 
     const event = await this.eventService.getOneService(eventId)
     if (!event) {
-      throw new Error(`Evento con ID ${eventId} no encontrado`)
+      throw new HttpException(`Evento con ID ${eventId} no encontrado`, 404)
     }
 
     user.eventFavorites = user.eventFavorites ? user.eventFavorites : []
@@ -190,6 +194,10 @@ export class UsersService {
   }
 
   public async findOneByEmail(email: string): Promise<UserEntity> {
-    return await this.userRepository.findOne({ where: { email } })
+    const user = await this.userRepository.findOne({ where: { email } })
+    if (!user) {
+      throw new HttpException(`Evento con ID ${email} no encontrado`, 404)
+    }
+    return user
   }
 }
