@@ -45,7 +45,7 @@ export class UsersService {
     const newProfile = await this.userRepository.save(userObject)
 
     if (!newProfile) {
-      throw new Error('The new profile is not created')
+      throw new HttpException('The new profile is not created', 501)
     }
 
     return newProfile
@@ -68,7 +68,7 @@ export class UsersService {
     )
 
     if (!isPasswordValid) {
-      throw new Error('La contraseña actual no es válida')
+      throw new HttpException('La contraseña actual no es válida', 401)
     }
 
     user.password = await hash(newPassword, +process.env.HASH_SALT)
