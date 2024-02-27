@@ -9,6 +9,7 @@ import { NotificationEntity } from 'src/notifications/entities/notification.enti
 import { EventEntity } from 'src/events/entities/event.entity'
 import { NotificationsService } from 'src/notifications/notifications.service'
 import { EventsService } from 'src/events/events.service'
+import { SendMailsService } from 'src/send-mails/send-mails.service'
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { EventsService } from 'src/events/events.service'
     JsonwebtokenService,
     UsersService,
     NotificationsService,
-    EventsService
+    EventsService,
+    SendMailsService
   ]
 })
 export class JsonwebtokenModule {}

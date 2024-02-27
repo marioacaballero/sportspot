@@ -5,6 +5,7 @@ import { Between, In, Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 import { EventEntity } from './entities/event.entity'
 import { UserEntity } from 'src/users/entities/users.entity'
+import { SendMailsService } from 'src/send-mails/send-mails.service'
 
 @Injectable()
 export class EventsService {
@@ -13,7 +14,9 @@ export class EventsService {
     private readonly eventsRepository: Repository<EventEntity>,
 
     @InjectRepository(UserEntity)
-    private readonly usersRepository: Repository<UserEntity>
+    private readonly usersRepository: Repository<UserEntity>,
+
+    private readonly sendMailsService: SendMailsService
   ) {}
 
   public async createService(createEventDto: CreateEventDto) {
@@ -52,7 +55,7 @@ export class EventsService {
       .select(['event', 'sport.name AS sportName'])
 
       .where(where)
-    console.log(where)
+
     if (sportName) {
       queryBuilder = queryBuilder
         .leftJoin('event.sport', 'sport', 'sport.name = :sportName', {
@@ -81,12 +84,13 @@ export class EventsService {
     updateEventDto: UpdateEventDto
   ): Promise<EventEntity> {
     const event = await this.eventsRepository
-      .createQueryBuilder('sport')
+      .createQueryBuilder('event')
       .where({ id })
+      .leftJoinAndSelect('event.suscribers', 'suscribers')
       .getOne()
 
     if (!event) {
-      throw new Error(`Deporte con ID ${id} no encontrado`)
+      throw new Error(`Evento con ID ${id} no encontrado`)
     }
 
     for (const key in updateEventDto) {
@@ -94,15 +98,37 @@ export class EventsService {
         event[key] = updateEventDto[key]
       }
     }
+    if (
+      updateEventDto.dateStart ||
+      updateEventDto.dateInscription ||
+      updateEventDto.timeStart ||
+      updateEventDto.location ||
+      updateEventDto.modality
+    ) {
+      await this.sendMailsService.sendEventModificationNotification(
+        event,
+        updateEventDto
+      )
+    }
 
     return await this.eventsRepository.save(event)
   }
 
   public async deleteService(id) {
+    const event = await this.eventsRepository
+      .createQueryBuilder('event')
+      .where({ id })
+      .leftJoinAndSelect('event.suscribers', 'suscribers')
+      .getOne()
+
+    if (!event) {
+      throw new Error(`Evento con ID ${id} no encontrado`)
+    }
+
     await this.eventsRepository.update(id, { isDelete: true })
+    await this.sendMailsService.sendEventDeletedNotification(event)
     return await this.getOneService(id)
   }
-
   public async getFavorites(id: string) {
     const user = await this.usersRepository
       .createQueryBuilder('user')
