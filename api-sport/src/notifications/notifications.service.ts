@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, HttpException } from '@nestjs/common'
 import { CreateNotificationDto } from './dto/create-notification.dto'
 import { UpdateNotificationDto } from './dto/update-notification.dto'
 import { Repository } from 'typeorm'
@@ -22,8 +22,9 @@ export class NotificationsService {
       .getOne()
 
     if (!user) {
-      throw new Error(
-        `Usuario con ID ${createNotificationDto.recipientId} no encontrado`
+      throw new HttpException(
+        `Usuario con ID ${createNotificationDto.recipientId} no encontrado`,
+        404
       )
     }
 
@@ -44,10 +45,16 @@ export class NotificationsService {
   }
 
   public async getOneService(id: string) {
-    return await this.notificationsRepository
+    const notifications = await this.notificationsRepository
       .createQueryBuilder('event')
       .where({ id })
       .getOne()
+
+    if (!notifications) {
+      throw new HttpException(`Notificación con ID ${id} no encontrada`, 404)
+    }
+
+    return notifications
   }
 
   public async updateService(
@@ -60,7 +67,7 @@ export class NotificationsService {
       .getOne()
 
     if (!notifications) {
-      throw new Error(`Deporte con ID ${id} no encontrado`)
+      throw new HttpException(`Notificación con ID ${id} no encontrada`, 404)
     }
 
     notifications.title = updateNotificationDto.title
