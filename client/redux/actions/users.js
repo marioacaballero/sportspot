@@ -26,6 +26,20 @@ export const updateUser = createAsyncThunk('users/update', async (body) => {
   }
 })
 
+export const updateUserAvatar = createAsyncThunk(
+  'users/updateAvatar',
+  async (body) => {
+    console.log(body)
+    const { id, avatar } = body
+    try {
+      const { data } = await axiosInstance.patch(`/users/${id}`, { avatar })
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+)
+
 export const getUser = createAsyncThunk('users/getUser', async (id) => {
   try {
     const { data } = await axiosInstance.get(`/users/${id}`)

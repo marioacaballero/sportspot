@@ -15,7 +15,7 @@ import { useNavigation } from '@react-navigation/native'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateUser } from '../redux/actions/users'
+import { getUser, updateUser, updateUserAvatar } from '../redux/actions/users'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
 
 const EditarPerfil = () => {
@@ -34,10 +34,6 @@ const EditarPerfil = () => {
     direccion: user?.direccion || '',
     telefono: user?.telefono || ''
   })
-
-  // useEffect(() => {
-  //   dispatch(getUser(user?.id))
-  // }, [dispatch])
 
   const settingValuesUser = (field, value) => {
     setValuesUser((prev) => ({
@@ -58,21 +54,11 @@ const EditarPerfil = () => {
     const data = {
       id: user.id,
       valuesUser
-      // avatar: selectedImage
     }
 
     dispatch(updateUser(data))
-
-    // const data = {
-    //   id: user.id,
-    //   suscription: {
-    //     avatar: selectedImage
-    //   }
-    // }
-    // dispatch(suscriptionEventUser(data))
+    dispatch(getUser(user.id))
   }
-
-  console.log(valuesUser)
 
   const uploadImage = async () => {
     let result = {}
@@ -86,22 +72,14 @@ const EditarPerfil = () => {
     })
 
     setSelectedImage(`data:image/jpeg;base64,${result?.assets[0].base64}`)
+    const data = {
+      id: user.id,
+      avatar: `data:image/jpeg;base64,${result?.assets[0].base64}`
+    }
+    dispatch(updateUserAvatar(data))
+    dispatch(getUser(user.id))
   }
-
-  // const uploadImage = async () => {
-  //   let result = {}
-  //   await ImagePicker.requestMediaLibraryPermissionsAsync()
-  //   result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: true,
-  //     aspect: [4, 3],
-  //     quality: 1,
-  //     base64: true
-  //   })
-
-  //   setSelectedImage(`data:image/jpeg;base64,${result?.assets[0].base64}`)
-
-  // }
+  console.log(selectedImage)
 
   return (
     <ScrollView>
