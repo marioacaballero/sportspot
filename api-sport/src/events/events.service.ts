@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, HttpException } from '@nestjs/common'
 import { CreateEventDto } from './dto/create-event.dto'
 import { UpdateEventDto } from './dto/update-event.dto'
 import { Between, In, Repository } from 'typeorm'
@@ -70,13 +70,19 @@ export class EventsService {
   }
 
   public async getOneService(id: string) {
-    return await this.eventsRepository
+    const event = await this.eventsRepository
       .createQueryBuilder('event')
       .where({ id })
       .leftJoinAndSelect('event.sport', 'sport')
       .leftJoinAndSelect('event.creator', 'creator')
       .leftJoinAndSelect('event.suscribers', 'suscribers')
       .getOne()
+
+    if (!event) {
+      throw new HttpException(`Evento con ID ${id} no encontrado`, 404)
+    }
+
+    return event
   }
 
   public async updateService(
@@ -92,7 +98,7 @@ export class EventsService {
       .getOne()
 
     if (!event) {
-      throw new Error(`Evento con ID ${id} no encontrado`)
+      throw new HttpException(`Evento con ID ${id} no encontrado`, 404)
     }
 
     for (const key in updateEventDto) {
@@ -124,7 +130,7 @@ export class EventsService {
       .getOne()
 
     if (!event) {
-      throw new Error(`Evento con ID ${id} no encontrado`)
+      throw new HttpException(`Evento con ID ${id} no encontrado`, 404)
     }
 
     await this.eventsRepository.update(id, { isDelete: true })

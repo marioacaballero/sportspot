@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt'
 import { UserEntity } from 'src/users/entities/users.entity'
 import { compare } from 'bcrypt'
 import { JwtPayload, sign } from 'jsonwebtoken'
+import { HttpException } from '@nestjs/common'
 
 @Injectable()
 export class JsonwebtokenService {
@@ -23,19 +24,14 @@ export class JsonwebtokenService {
 
   // Este método valida el inicio de sesión. Compara la contraseña proporcionada con la contraseña almacenada en el usuario.
   public async loginValidate(user: UserEntity, password: string) {
-    try {
-      // Comprueba si la contraseña es correcta
-      const checkPassword = await compare(password, user.password)
+    // Comprueba si la contraseña es correcta
+    const checkPassword = await compare(password, user.password)
 
-      if (!checkPassword) {
-        throw new Error('La contraseña es inválida')
-      } else {
-        // Si la contraseña es correcta, inicia sesión
-        return await this.login(user)
-      }
-    } catch (error) {
-      console.log(error)
-      return error.message
+    if (!checkPassword) {
+      throw new HttpException('La contraseña es inválida', 400)
+    } else {
+      // Si la contraseña es correcta, inicia sesión
+      return await this.login(user)
     }
   }
 
@@ -46,7 +42,7 @@ export class JsonwebtokenService {
       const checkPassword = await compare(password, user.password)
 
       if (!checkPassword) {
-        throw new Error('La contraseña es inválida')
+        throw new HttpException('La contraseña es inválida', 400)
       } else {
         return true
       }
@@ -59,7 +55,7 @@ export class JsonwebtokenService {
   // Este método inicia sesión. Firma un JWT con el ID del usuario y el secreto proporcionados.
   public async login(user: UserEntity) {
     try {
-      if (user.isDelete) throw new Error('El usuario no existe')
+      if (user.isDelete) throw new HttpException('El usuario no existe', 404)
       return {
         accesToken: this.signJWT({
           payload: { id: user.id },
@@ -69,7 +65,7 @@ export class JsonwebtokenService {
         user
       }
     } catch (error) {
-      throw Error('error en login')
+      throw new HttpException('error en login', 501)
     }
   }
 }
