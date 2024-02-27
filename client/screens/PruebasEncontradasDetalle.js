@@ -12,12 +12,14 @@ import {
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
 import { useSelector } from 'react-redux'
 import ModalSuscription from '../components/ModalSuscription'
+import EditEvent from '../components/EditEvent'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
   // const navigation = useNavigation()
   const { user } = useSelector((state) => state.users)
   const { event } = useSelector((state) => state.events)
   const [modalSuscription, setModalSuscription] = useState(false)
+  const [modalEditEvent, setModalEditEvent] = useState(false)
 
   return (
     <View style={styles.pruebasEncontradasDetalle}>
@@ -28,6 +30,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
           // source={require('../assets/unsplashon4qwhhjcem.png')}
           source={{ uri: event.image }}
         />
+
         <View style={styles.frameParent}>
           <View style={styles.frameGroup}>
             <View>
@@ -52,12 +55,23 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   backgroundColor: Color.sportsNaranja
                 }}
               >
-                <Text
-                  style={{ color: 'white' }}
-                  onPress={() => setModalSuscription(true)}
-                >
-                  Suscribrirse
-                </Text>
+                {event?.creator?.id === user?.id ? (
+                  <Text
+                    style={{ color: 'white' }}
+                    onPress={() => {
+                      setModalEditEvent(true)
+                    }}
+                  >
+                    Editar
+                  </Text>
+                ) : (
+                  <Text
+                    style={{ color: 'white' }}
+                    onPress={() => setModalSuscription(true)}
+                  >
+                    Suscribrirse
+                  </Text>
+                )}
               </View>
               <Image
                 style={styles.alertIcon}
@@ -125,6 +139,24 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
           </View>
         </TouchableWithoutFeedback>
       </Modal>
+
+      <Modal animationType="slide" transparent={true} visible={modalEditEvent}>
+        {/* <TouchableWithoutFeedback
+          onPress={() => {
+            setModalEditEvent(false)
+          }}
+        > */}
+        {/* <View style={styles.modalOverlay}> */}
+        {/* <View> */}
+        <EditEvent
+          // user={user}
+          event={event}
+          // onClose={() => setModalSuscription(false)}
+        />
+        {/* </View> */}
+        {/* </View> */}
+        {/* </TouchableWithoutFeedback> */}
+      </Modal>
     </View>
   )
 }
@@ -138,7 +170,8 @@ const styles = StyleSheet.create({
     // flex: 1,
     // top: -100,
     height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    width: '100%',
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center'
   },

@@ -13,12 +13,12 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { Color, FontFamily, FontSize } from '../GlobalStyles'
 import { getAllSports } from '../redux/actions/sports'
-import { createEvent, getAllEvents } from '../redux/actions/events'
+import { updateEvent } from '../redux/actions/events'
 // import { useNavigation } from '@react-navigation/native'
 import CalendarOneDay from './CalendarOneDay'
 import SportsPopUp from './SportsPopUp'
 
-const FomularioEventos = () => {
+const EditEvent = ({ event: eventRedux }) => {
   const dispatch = useDispatch()
   //   const navigation = useNavigation()
   const { dateStart, dateSuscription } = useSelector((state) => state.events)
@@ -32,11 +32,11 @@ const FomularioEventos = () => {
 
   const [sportsModal, setSportsModal] = useState(false)
   const [event, setEvent] = useState({
-    title: '',
-    description: '',
-    price: '',
-    location: '',
-    timeStart: ''
+    title: eventRedux.title,
+    description: eventRedux.description,
+    price: eventRedux.price,
+    location: eventRedux.location,
+    timeStart: eventRedux.timeStart
     // dateStart,
     // dateInscription: dataSuscription
   })
@@ -55,6 +55,8 @@ const FomularioEventos = () => {
       [field]: value
     }))
   }
+
+  console.log(event)
 
   const uploadImage = async () => {
     let result = {}
@@ -76,21 +78,23 @@ const FomularioEventos = () => {
 
   const onSubmit = () => {
     const data = {
-      title: event.title,
-      description: event?.description,
-      sportId: sport && sport?.id,
-      price: event?.price,
-      modality: sport.type,
-      location: event?.location,
-      dateStart,
-      dateInscription: dateSuscription,
-      creator: user?.id,
-      timeStart: event?.timeStart,
-      image: selectedImage
+      id: eventRedux.id,
+      updateEventDto: {
+        title: event.title,
+        description: event?.description,
+        sportId: eventRedux.sportId,
+        price: event?.price,
+        // modality: sport.type,
+        location: event?.location,
+        dateStart: eventRedux.dateStart,
+        dateInscription: eventRedux.dateInscription,
+        creator: user?.id,
+        timeStart: event?.timeStart,
+        image: eventRedux.image
+      }
     }
 
-    dispatch(createEvent(data))
-    dispatch(getAllEvents())
+    dispatch(updateEvent(data))
   }
 
   const closeCalendar = () => {
@@ -102,7 +106,18 @@ const FomularioEventos = () => {
   }
 
   return (
-    <View style={{ width: '100%', marginTop: 30 }}>
+    <View
+      style={{
+        flex: 1,
+        // width: '100%',
+        marginTop: 30,
+        // height: '100%',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        paddingHorizontal: 15,
+        backgroundColor: 'white'
+      }}
+    >
       <Pressable style={styles.items} onPress={uploadImage}>
         <Image
           style={{ width: 25, height: 25, marginRight: 10 }}
@@ -353,7 +368,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(113, 113, 113, 0.3)'
   },
   frameContainer10Bg: {
-    position: 'absolute',
+    // position: 'absolute',
     width: '100%',
     height: '100%',
     left: 0,
@@ -400,4 +415,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default FomularioEventos
+export default EditEvent
