@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { HttpException, Injectable } from '@nestjs/common'
 import { UserEntity } from '../entities/users.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
@@ -24,30 +24,31 @@ export class UsersService {
   ) {}
 
   public async register(userObject: UserDTO) {
-    try {
-      //Hash password
-      userObject.password = await hash(
-        userObject.password,
-        +process.env.HASH_SALT
+    //Hash password
+    userObject.password = await hash(
+      userObject.password,
+      +process.env.HASH_SALT
+    )
+
+    const existingUser: UserEntity = await this.userRepository
+      .createQueryBuilder('user')
+      .where({ email: userObject.email })
+      .getOne()
+
+    if (existingUser) {
+      throw new HttpException(
+        'The email is already registered in the database',
+        409
       )
-
-      const profile: UserEntity = await this.userRepository
-        .createQueryBuilder('profile')
-        .where({ email: userObject.email })
-        .getOne()
-
-      if (profile) {
-        throw new Error('The email is already registered in the database')
-      }
-      const newProfile = await this.userRepository.save(userObject)
-
-      if (!newProfile) {
-        throw new Error('The new profile is not created')
-      }
-      return newProfile
-    } catch (error) {
-      throw Error(error.message)
     }
+
+    const newProfile = await this.userRepository.save(userObject)
+
+    if (!newProfile) {
+      throw new HttpException('The new profile is not created', 501)
+    }
+
+    return newProfile
   }
 
   public async changePasswordService(
@@ -58,7 +59,7 @@ export class UsersService {
     const user = await this.getOneService(id)
 
     if (!user) {
-      throw new Error(`Usuario con ID ${id} no encontrado`)
+      throw new HttpException(`Usuario con ID ${id} no encontrado`, 404)
     }
 
     const isPasswordValid = await this.jsonwebtokenService.verifyPassword(
@@ -67,7 +68,7 @@ export class UsersService {
     )
 
     if (!isPasswordValid) {
-      throw new Error('La contraseña actual no es válida')
+      throw new HttpException('La contraseña actual no es válida', 401)
     }
 
     user.password = await hash(newPassword, +process.env.HASH_SALT)
@@ -79,11 +80,16 @@ export class UsersService {
     return await this.userRepository.find({ where: { isDelete: false } })
   }
   public async getOneService(id: string) {
-    return await this.userRepository
+    const user = await this.userRepository
       .createQueryBuilder('user')
       .where({ id })
       .leftJoinAndSelect('user.events', 'events')
       .getOne()
+
+    if (!user)
+      throw new HttpException(`Usuario con ID ${id} no encontrado`, 404)
+
+    return user
   }
 
   public async getByEmailService(email) {
@@ -107,9 +113,8 @@ export class UsersService {
 
     const event = await this.eventService.getOneService(updateUserDto.eventId)
 
-    if (!user) {
-      throw new Error(`Usuario con ID ${id} no encontrado`)
-    }
+    if (!user)
+      throw new HttpException(`Usuario con ID ${id} no encontrado`, 404)
 
     for (const key in updateUserDto) {
       if (key === 'password') {
@@ -144,7 +149,7 @@ export class UsersService {
   ): Promise<UserEntity> {
     const user = await this.getOneService(userId)
     if (!user) {
-      throw new Error(`Usuario con ID ${userId} no encontrado`)
+      throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404)
     }
 
     const event = await this.eventService.getOneService(eventId)
@@ -169,12 +174,12 @@ export class UsersService {
   ): Promise<UserEntity> {
     const user = await this.getOneService(userId)
     if (!user) {
-      throw new Error(`Usuario con ID ${userId} no encontrado`)
+      throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404)
     }
 
     const event = await this.eventService.getOneService(eventId)
     if (!event) {
-      throw new Error(`Evento con ID ${eventId} no encontrado`)
+      throw new HttpException(`Evento con ID ${eventId} no encontrado`, 404)
     }
 
     user.eventFavorites = user.eventFavorites ? user.eventFavorites : []
@@ -190,6 +195,10 @@ export class UsersService {
   }
 
   public async findOneByEmail(email: string): Promise<UserEntity> {
-    return await this.userRepository.findOne({ where: { email } })
+    const user = await this.userRepository.findOne({ where: { email } })
+    if (!user) {
+      throw new HttpException(`Evento con ID ${email} no encontrado`, 404)
+    }
+    return user
   }
 }

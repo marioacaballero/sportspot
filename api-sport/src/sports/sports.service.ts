@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, HttpException } from '@nestjs/common'
 import { CreateSportDto } from './dto/create-sport.dto'
 import { UpdateSportDto } from './dto/update-sport.dto'
 import { SportEntity } from './entities/sport.entity'
@@ -52,10 +52,16 @@ export class SportsService {
   }
 
   public async getOneService(id) {
-    return await this.sportsRepository
+    const sport = await this.sportsRepository
       .createQueryBuilder('sport')
       .where({ id })
       .getOne()
+
+    if (!sport) {
+      throw new HttpException(`Deporte con ID ${id} no encontrado`, 404)
+    }
+
+    return sport
   }
 
   public async deleteService(id) {
@@ -73,7 +79,7 @@ export class SportsService {
       .getOne()
 
     if (!sport) {
-      throw new Error(`Deporte con ID ${id} no encontrado`)
+      throw new HttpException(`Deporte con ID ${id} no encontrado`, 404)
     }
 
     sport.name = updateSportDto.name
