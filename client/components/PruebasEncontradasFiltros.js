@@ -9,11 +9,19 @@ import {
   Pressable,
   ScrollView
 } from 'react-native'
+import MultiSlider from '@ptomasroos/react-native-multi-slider'
 // import { useNavigation } from '@react-navigation/native'
 import { Color, FontFamily, FontSize, Border, Padding } from '../GlobalStyles'
+import { useDispatch, useSelector } from 'react-redux'
+import { setEventFromPrice } from '../redux/slices/events.slices'
+import { List } from 'react-native-paper'
 
 const PruebasEncontradasFiltros = ({ setModalVisible }) => {
+  const dispatch = useDispatch()
   // const navigation = useNavigation()
+  const { eventsFilter } = useSelector((state) => state.events)
+  const [start, setStart] = useState(0)
+  const [end, setEnd] = useState(150)
   const [switchStates, setSwitchStates] = useState([
     false,
     false,
@@ -33,6 +41,26 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
     setSwitchStates(newSwitchStates)
   }
 
+  const handleValuesChange = (newValues) => {
+    setStart(newValues[0])
+    setEnd(newValues[1])
+  }
+
+  const priceDispatch = () => {
+    dispatch(setEventFromPrice({ start, end }))
+  }
+
+  const filtrando = eventsFilter.map((event) => event.sportname)
+  const nameSportFilter = filtrando.filter((value, index, self) => {
+    return self.indexOf(value) === index
+  })
+
+  console.log(nameSportFilter)
+
+  const [expanded, setExpanded] = useState(true)
+
+  const handlePress = () => setExpanded(!expanded)
+
   return (
     <ScrollView style={styles.frameContainer}>
       <View style={[styles.tuPresupuestoParent, styles.parentFrameFlexBox]}>
@@ -47,38 +75,69 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
           />
         </Pressable>
       </View>
-      <View style={[styles.frameView, styles.frameSpaceBlock]}>
-        <Image
-          style={styles.frameInner}
-          contentFit="cover"
-          source={require('../assets/frame-1547756008.png')}
-        />
-        <View style={[styles.lineParent, styles.linePosition]}>
-          <View style={[styles.lineView, styles.lineViewLayout]} />
-          <Text style={[styles.text, styles.textTypo]}>0 €</Text>
-        </View>
-        <View style={[styles.lineGroup, styles.linePosition]}>
-          <View style={[styles.lineView, styles.lineViewLayout]} />
-          <Text style={[styles.text, styles.textTypo]}>1000 €</Text>
-        </View>
-        <View style={styles.parent}>
-          <Text style={[styles.text2, styles.textTypo]}>55 €</Text>
-          <View style={[styles.frameChild2, styles.lineViewLayout]} />
-        </View>
-        <Image
-          style={[styles.ellipseIcon, styles.ellipseIconLayout]}
-          contentFit="cover"
-          source={require('../assets/ellipse-7193.png')}
-        />
-        <Image
-          style={[styles.frameChild3, styles.ellipseIconLayout]}
-          contentFit="cover"
-          source={require('../assets/ellipse-7193.png')}
+
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Inicio: {start}</Text>
+        <Text>Fin: {end}</Text>
+        <MultiSlider
+          values={[start, end]}
+          sliderLength={300}
+          onValuesChange={handleValuesChange}
+          onValuesChangeFinish={priceDispatch}
+          min={0}
+          max={200}
+          step={1}
+          allowOverlap={false}
+          snapped
+          markerStyle={{
+            // height: Platform.select({ ios: 20, android: 30 }),
+            // width: Platform.select({ ios: 20, android: 30 }),
+            // borderRadius: Platform.select({ ios: 10, android: 15 }),
+            backgroundColor: Color.sportsNaranja
+          }}
+          selectedStyle={{ backgroundColor: Color.naranja3 }}
+          unselectedStyle={{ backgroundColor: 'lightgray' }}
+          containerStyle={{ height: 40 }}
         />
       </View>
+
       <View style={[styles.frameParent1, styles.frameSpaceBlock]}>
         <View style={styles.frameParent2}>
-          <View style={styles.parentFrameFlexBox}>
+          {nameSportFilter.map((sport, i) => (
+            <View key={i} style={styles.parentFrameFlexBox}>
+              <List.Accordion
+                title={sport}
+                left={(props) => <List.Icon {...props} icon="folder" />}
+                onPress={handlePress}
+                expanded={expanded}
+              >
+                <List.Item title="First item" />
+                <List.Item title="Second item" />
+              </List.Accordion>
+
+              {/* <View style={styles.path3391Parent}>
+                <Image
+                  style={styles.path3391Icon}
+                  contentFit="cover"
+                  source={require('../assets/path-3391.png')}
+                />
+                <Text style={[styles.ciclsmo, styles.ciclsmoTypo]}>
+                  {sport.slice(0, 1).toUpperCase()}
+                  {sport.slice(1)}
+                </Text>
+              </View>
+              <Switch
+                trackColor={{ false: '#767577', true: '#F25910' }}
+                thumbColor={switchStates[i] ? '#FFFFFF' : '#FFFFFF'}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={() => toggleSwitch(i)}
+                value={switchStates[i]}
+                style={styles.switch}
+              /> */}
+            </View>
+          ))}
+
+          {/* <View style={styles.parentFrameFlexBox}>
             <View style={styles.path3391Parent}>
               <Image
                 style={styles.path3391Icon}
@@ -95,8 +154,8 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
               value={switchStates[0]}
               style={styles.switch}
             />
-          </View>
-          <View style={styles.frameParent4}>
+          </View> */}
+          {/* <View style={styles.frameParent4}>
             <View style={[styles.carreteraParent, styles.parentFrameFlexBox]}>
               <Text style={[styles.carretera, styles.filtrosTypo]}>
                 Carretera
@@ -158,9 +217,9 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
                 style={styles.switch}
               />
             </View>
-          </View>
+          </View> */}
         </View>
-        <View style={[styles.frameParent5, styles.parentFrameFlexBox]}>
+        {/* <View style={[styles.frameParent5, styles.parentFrameFlexBox]}>
           <View style={styles.path3391Parent}>
             <Image
               style={styles.path3391Icon1}
@@ -253,7 +312,7 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
             value={switchStates[10]}
             style={styles.switch}
           />
-        </View>
+        </View> */}
       </View>
     </ScrollView>
   )

@@ -42,7 +42,7 @@ const MenuInferior = () => {
           }}
         >
           <CorazonSVG
-            color={selectedIcon === 'Favoritos1' ? '#F25910' : '#40036F'}
+            isFavorite={selectedIcon === 'Favoritos1' ? '#F25910' : '#40036F'}
           />
         </Pressable>
         <Pressable

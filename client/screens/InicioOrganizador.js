@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
   helloTypo: {
     marginTop: 2,
     color: Color.violeta2,
-    fontFamily: FontFamily.inputPlaceholderThin,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100',
     fontSize: FontSize.inputLabel_size
   },
@@ -313,12 +313,13 @@ const styles = StyleSheet.create({
   helloAshfak7: {
     marginTop: 2,
     color: Color.violeta2,
-    fontFamily: FontFamily.inputPlaceholderThin,
+    fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100',
     fontSize: FontSize.inputLabel_size
   },
   helloAshfakParent2: {
-    flex: 1
+    flex: 1,
+    marginTop: 15
   },
   vectorIcon: {
     width: 31,
