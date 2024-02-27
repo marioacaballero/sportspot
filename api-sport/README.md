@@ -6,16 +6,13 @@ $ npm install
 
 ## Running the app
 
-```bash
+````bash
 # development
 $ npm run start
 
 # watch mode
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
-```
 
 ## Test
 
@@ -28,107 +25,115 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+````
+
+# SCALEWAY
+
+## Paso 1: Configurar el Servidor en Scaleway
+
+Iniciar sesión en Scaleway: Accede a tu cuenta de Scaleway en https://www.scaleway.com/.
+
+Crear una instancia de servidor: Ve al panel de control y crea una instancia de servidor. Elige el sistema operativo que prefieras (por ejemplo, Ubuntu 20.04 LTS) y asegúrate de abrir los puertos necesarios (por defecto, el puerto 80 y/o 443 para HTTP/HTTPS).
+
+Conectar al servidor: Una vez que la instancia esté lista, conéctate a ella mediante SSH usando el comando:
+
+```bash
+ssh usuario@ip_del_servidor
 ```
 
-# Desarrollo del Back-End
+Reemplaza usuario con tu nombre de usuario y ip_del_servidor con la dirección IP de tu instancia.
 
-## Tablas y Relaciones en la Base de Datos:
+## Paso 2: Preparar el Entorno en el Servidor
 
-### 1. Usuarios:
+1 Actualizar el sistema: Ejecuta los siguientes comandos para asegurarte de que el sistema esté actualizado:
 
-- Campos:
+```bash
+sudo apt update
+sudo apt upgrade
+```
 
-  ```JSON
-   "id": Clave primaria, identificador único del usuario.
-   "name": Nombre del usuario.
-   "email": Correo electrónico del usuario.
-   "password": Contraseña del usuario (hash).
-   Otros campos según sea necesario.
-  ```
+2 Instalar Node.js y npm: Instala Node.js y npm en el servidor. Puedes hacerlo utilizando NVM (Node Version Manager) para gestionar las versiones de Node.js:
 
-- Relaciones:
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+source ~/.bashrc
+nvm install stable
+```
 
-  - Relación con Eventos:
+Instalar MongoDB u otra base de datos (si es necesario): Si tu aplicación Nest.js requiere una base de datos, instálala y configúrala adecuadamente en el servidor.
 
-    - Tipo: Uno a muchos (Un usuario puede crear múltiples eventos, pero un evento solo puede tener un creador).
-    - Clave Foránea: id_usuario en la tabla de Eventos.
+## Paso 3: Clonar el Repositorio del Backend
 
-  - Relación con Notificaciones:
-    - Tipo: Uno a muchos (Un usuario puede recibir múltiples notificaciones).
-    - Clave Foránea: (notifications)id_usuario en la tabla de Notificaciones.
+Clonar el repositorio: Utiliza Git para clonar el repositorio de tu backend Nest.js en el servidor:
 
-### 2. Deporte:
+```bash
+git clone url_del_repositorio
+```
 
-- Campos:
+Reemplaza url_del_repositorio con la URL de tu repositorio.
 
-  ```JSON
-   "id": Clave primaria, identificador único del deporte.
-   "name": Nombre del deporte.
-   "type":tipo de deporte.
-   "descripción": Descripción del deporte.
-   Otros campos según sea necesario.
-  ```
+### Paso 4: Instalar Dependencias y Configurar la Aplicación
 
-- Relaciones:
-  - Relación con Eventos:
-    - Tipo: Uno a muchos (Un deporte puede estar asociado con múltiples eventos).
-    - Clave Foránea: id_deporte en la tabla de Eventos.
+Instalar las dependencias del proyecto: Navega hasta el directorio del proyecto y ejecuta:
 
-### 3. Notificaciones:
+```bash
+cd nombre_del_proyecto
+npm install
+```
 
-- Campos:
+## Configuración de Variables de Entorno
 
-  ```JSON
-   "id": Clave primaria, identificador único de la notificación.
-   "id_usuario": Clave foránea que hace referencia al usuario al que se dirige la notificación.
-   "title": titulo de la notificacion.
-   "message": Contenido del mensaje de la notificación.
-   "date": Fecha en que se creó la notificación.
-   "eventType": tipo de evento al cual pertenece la notificacion.
-   "eventId": clave foranera del evento al cual pertenece.
-   "recipientId": clave foranera del usuario al cual esta destinada.
-   "read": Estado de la notificación (leída/no leída).
-   "tipo_de_notificación": (opcional) Tipo de notificación (por ejemplo, tipo de evento relacionado).
-   -Otros campos según sea necesario.
-  ```
+1 - Navegar al directorio del proyecto: Ve al directorio de tu proyecto Nest.js donde deseas configurar las variables de entorno.
 
-- Relaciones:
+2 - Crear o editar el archivo .env: Puedes crear o editar el archivo .env directamente desde la línea de comandos. Utiliza un editor de texto como Nano o Vim. Por ejemplo, para crear un archivo .env y editarlo con Nano, ejecuta:
 
-  - Relación con Usuarios:
-    - Tipo: Muchos a uno (Múltiples notificaciones pueden estar dirigidas a un usuario).
-    - Clave Foránea: id_usuario de la tabla de Usuarios.
-  - Relación con Eventos:
-    - Tipo: Muchos a uno (Una notificación puede estar asociada con un evento).
-    - Clave Foránea: id_evento de la tabla de Eventos.
+```bash
+nano .env
+```
 
-### 4. Eventos:
+Esto abrirá un nuevo archivo .env en el editor Nano.
 
-- Campos:
+3 - Agregar las variables de entorno: Dentro del archivo .env, añade tus variables de entorno en el formato NOMBRE_VARIABLE=valor. Por ejemplo:
 
-  ```JSON
+```plaintext
+PORT=3000
+MONGODB_URI=mongodb://usuario:contraseña@localhost:27017/base_de_datos
+OTRO_VARIABLE=valor
+```
 
-   "id": Clave primaria, identificador único del evento.
-   "title": Título del evento.
-   "description": Descripción del evento.
-   "modality": Modalidad del evento
-   "imagen_del_evento": Imagen relacionada con el evento.(ver como)
-   "price": Precio del evento.
-   "location": Ubicación donde se llevará a cabo el evento.
-   "dateStart": Fecha de inicio del evento.
-   "dateInscription": Fecha de cierre de la inscripcion del evento.
-   "sport": Clave foránea que hace referencia al deporte al que está asociado el evento.
-   "userId": Clave foránea que hace referencia al usuario creador del evento.
-   -Otros campos según sea necesario.
-  ```
+Puedes agregar todas las variables de entorno necesarias para tu aplicación.
 
-- Relaciones:
-  - Relación con Usuarios:
-    - Tipo: Muchos a uno (Un evento solo puede tener un creador).
-    - Clave Foránea: id_usuario en la tabla de Usuarios.
-  - Relación con Deporte:
-    - Tipo: Muchos a uno (Un evento está asociado con un único deporte).
-    - Clave Foránea: id_deporte en la tabla de Deporte.
+4 - Guardar y salir del editor: En Nano, puedes guardar los cambios presionando Ctrl + O (para escribir) y luego Enter, y luego salir presionando Ctrl + X.
 
-## Comentarios
+5 - Verificar la configuración: Verifica que el archivo .env se haya creado o editado correctamente ejecutando para ver su contenido.
 
-- Esta estructura de base de datos proporciona una base sólida para la aplicación de eventos deportivos y debería ser flexible para adaptarse a futuras expansiones o modificaciones.
+```plaintext
+cat .env
+```
+
+# Paso 5: Ejecutar la Aplicación
+
+## Ejecución de la Aplicación con PM2
+
+PM2 es un administrador de procesos para aplicaciones Node.js que facilita la gestión de aplicaciones en producción.
+
+1 - Instalar PM2: Si no lo has hecho aún, instala PM2 globalmente en tu servidor ejecutando:
+
+```bash
+npm install pm2 -g
+```
+
+2 - Iniciar la aplicación con PM2: Navega hasta el directorio de tu proyecto y ejecuta tu aplicación utilizando PM2:
+
+```bash
+pm2 start npm --name api-web2 -- run start:dev
+```
+
+Gestionar la aplicación con PM2: Puedes administrar tu aplicación utilizando varios comandos de PM2, por ejemplo:
+
+```bash
+pm2 list                    # Listar todas las aplicaciones administradas por PM2
+pm2 logs mi-aplicacion      # Ver los logs de la aplicación
+pm2 restart mi-aplicacion   # Reiniciar la aplicación
+pm2 stop mi-aplicacion      # Detener la aplicación
+```
