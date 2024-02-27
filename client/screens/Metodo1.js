@@ -112,11 +112,11 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: Color.colorGainsboro_100,
     borderWidth: 1,
-    width: '90%',
+    width: '100%',
     height: 247,
-    flexDirection: 'row',
-    left: 20,
-    position: 'absolute'
+    flexDirection: 'row'
+    // left: 20
+    // position: 'absolute'
   },
   trabajaConNosotros: {
     fontSize: FontSize.size_5xl,
@@ -184,10 +184,10 @@ const styles = StyleSheet.create({
   },
   trabajaConNosotrosFrame: {
     top: 446,
-    left: 39,
+    // left: 39,
     borderRadius: Border.br_31xl,
     backgroundColor: Color.sportsNaranja,
-    width: 281,
+    width: '100%',
     height: 43,
     paddingHorizontal: 0,
     paddingVertical: Padding.p_6xs
@@ -197,7 +197,9 @@ const styles = StyleSheet.create({
     height: 800,
     overflow: 'hidden',
     width: '100%',
-    flex: 1
+    flex: 1,
+    paddingHorizontal: 15,
+    alignItems: 'center'
   }
 })
 

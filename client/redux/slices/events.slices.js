@@ -33,6 +33,55 @@ export const eventsSlices = createSlice({
     },
     setDateSuscription: (state, action) => {
       state.dateSuscription = action.payload
+    },
+    setEventFromPrice: (state, action) => {
+      const { start, end } = action.payload
+
+      state.eventsFilter = state.eventsFilter.filter((event) => {
+        const precio = parseInt(event.event_price)
+        return precio >= start && precio <= end
+      })
+
+      if (state.eventsFilter.length === 0) {
+        state.eventsFilter = []
+      }
+    },
+    // setOrderEvents: (state, action) => {
+    //   const { dateStart, price } = action.payload
+
+    //   // Filtro por precio si price es verdadero
+    //   if (price) {
+    //     console.log('precio')
+    //     state.eventsFilter.sort((a, b) => {
+    //       return parseFloat(a.event_price) - parseFloat(b.event_price)
+    //     })
+    //   }
+
+    //   // Ordenar eventos por event_date_start de menor a mayor
+    //   if (dateStart) {
+    //     state.eventsFilter.sort((a, b) => {
+    //       return new Date(b.event_date_start) - new Date(a.event_date_start)
+    //     })
+    //   }
+    // }
+    setOrderEvents: (state, action) => {
+      const { dateStart, price } = action.payload
+
+      // Filtro por fecha si dateStart es verdadero
+      if (dateStart) {
+        console.log('fecha')
+        state.eventsFilter.sort((a, b) => {
+          return new Date(a.event_date_start) - new Date(b.event_date_start)
+        })
+      }
+
+      // Filtro por precio si price es verdadero
+      if (price) {
+        console.log('precio')
+        state.eventsFilter.sort((a, b) => {
+          return parseFloat(a.event_price) - parseFloat(b.event_price)
+        })
+      }
     }
   },
 
@@ -113,7 +162,13 @@ export const eventsSlices = createSlice({
   }
 })
 
-export const { setEvent, setNameEvent, setDateStart, setDateSuscription } =
-  eventsSlices.actions
+export const {
+  setEvent,
+  setNameEvent,
+  setDateStart,
+  setDateSuscription,
+  setEventFromPrice,
+  setOrderEvents
+} = eventsSlices.actions
 
 export default eventsSlices.reducer
