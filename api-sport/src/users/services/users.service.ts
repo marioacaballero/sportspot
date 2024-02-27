@@ -24,30 +24,31 @@ export class UsersService {
   ) {}
 
   public async register(userObject: UserDTO) {
-    try {
-      //Hash password
-      userObject.password = await hash(
-        userObject.password,
-        +process.env.HASH_SALT
+    //Hash password
+    userObject.password = await hash(
+      userObject.password,
+      +process.env.HASH_SALT
+    )
+
+    const existingUser: UserEntity = await this.userRepository
+      .createQueryBuilder('user')
+      .where({ email: userObject.email })
+      .getOne()
+
+    if (existingUser) {
+      throw new HttpException(
+        'The email is already registered in the database',
+        409
       )
-
-      const profile: UserEntity = await this.userRepository
-        .createQueryBuilder('profile')
-        .where({ email: userObject.email })
-        .getOne()
-
-      if (profile) {
-        throw new Error('The email is already registered in the database')
-      }
-      const newProfile = await this.userRepository.save(userObject)
-
-      if (!newProfile) {
-        throw new Error('The new profile is not created')
-      }
-      return newProfile
-    } catch (error) {
-      throw Error(error.message)
     }
+
+    const newProfile = await this.userRepository.save(userObject)
+
+    if (!newProfile) {
+      throw new Error('The new profile is not created')
+    }
+
+    return newProfile
   }
 
   public async changePasswordService(
