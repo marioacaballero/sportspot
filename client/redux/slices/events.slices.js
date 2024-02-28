@@ -65,11 +65,22 @@ export const eventsSlices = createSlice({
         })
       }
     },
+    // setFiltersToFilters: (state, action) => {
+    //   const eventModalityIds = action.payload
+
+    //   const filteredEvents = state.eventsFilter.filter((event) => {
+    //     return eventModalityIds.some((id) => event.event_modality === id)
+    //   })
+
+    //   state.eventsFilter = filteredEvents
+    // }
     setFiltersToFilters: (state, action) => {
       const eventModalityIds = action.payload
 
       const filteredEvents = state.eventsFilter.filter((event) => {
-        return eventModalityIds.some((id) => event.event_modality === id)
+        return eventModalityIds.every((id) => {
+          return event.sportname === id || event.event_modality === id
+        })
       })
 
       state.eventsFilter = filteredEvents

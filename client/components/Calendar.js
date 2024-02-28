@@ -5,27 +5,25 @@ import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
 import moment from 'moment'
 
 const Calendario = ({ onClose, setEventsFilter, setDate, eventsFilter }) => {
-  // const [selectedStartDate, setSelectedStartDate] = useState(null)
-  // const [selectedEndDate, setSelectedEndDate] = useState(null)
-  // const [arrayDate, setArrayDate] = useState([])
-
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
 
   const handleDayPress = (day) => {
-    if (!startDate) {
-      setStartDate(day.dateString)
-      setEndDate(null)
-      setEventsFilter({
-        dateStart: day.dateString,
-        dateEnd: eventsFilter.dateEnd
-      })
+    const dateString = day.dateString.toString()
+    if (!startDate || startDate.length === 0) {
+      setStartDate(dateString)
+
+      setEventsFilter((prevState) => ({
+        ...prevState,
+        dateStart: dateString
+      }))
     } else if (startDate && !endDate) {
-      setEndDate(day.dateString)
-      setEventsFilter({
-        dateStart: eventsFilter.dateStart,
-        dateEnd: day.dateString
-      })
+      const newEndDate = dateString
+      setEndDate(newEndDate)
+      setEventsFilter((prevState) => ({
+        ...prevState,
+        dateStart: [startDate, newEndDate]
+      }))
     }
   }
 
