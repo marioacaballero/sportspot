@@ -24,7 +24,7 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
   const dispatch = useDispatch()
   // const navigation = useNavigation()
   const { eventsFilter } = useSelector((state) => state.events)
-  const { sports } = useSelector((state) => state.sports)
+  // const { sports } = useSelector((state) => state.sports)
   const [start, setStart] = useState(0)
   const [end, setEnd] = useState(150)
   const [typesFilter, setTypesFilter] = useState([])
@@ -37,7 +37,7 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
   // }
 
   const toggleSwitch = (key, value) => {
-    console.log('valueeeee', value)
+    console.log('keyyyy', key)
     const eventModalityId = key.split('-')[1]
 
     setSwitchStates((prevState) => ({ ...prevState, [key]: value }))
@@ -142,24 +142,30 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
       </View>
 
       <View style={[styles.frameParent1, styles.frameSpaceBlock]}>
-        <View style={styles.frameParent2}>
+        <View
+          style={{
+            width: '100%'
+            // flexDirection: 'column',
+            // justifyContent: 'center'
+            // alignItems: 'center'
+          }} /* style={styles.frameParent2} */
+        >
           {result.map((sport, i) => (
             <View
               key={i}
-              style={
-                {
-                  // flexDirection: 'row'
-                  // alignItems: 'center',
-                  // // width: '100%',
-                  // justifyContent: 'space-between'
-                }
-              }
+              style={{
+                flexDirection: 'row',
+                // alignItems: 'center',
+                width: '100%',
+                justifyContent: 'space-between'
+                // backgroundColor: 'red'
+              }}
             >
               <List.Section
                 style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  // // width: '100%',
+                  flexDirection: 'row-reverse',
+                  // // alignItems: 'center',
+                  // // // width: '100%',
                   justifyContent: 'space-between'
                 }}
                 titleStyle={[styles.ciclsmo, styles.ciclsmoTypo]}
@@ -202,17 +208,18 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
 
                   {/* <List.Item title="Second item" /> */}
                 </List.Accordion>
-                <View>
-                  <Switch
-                    trackColor={{ false: '#767577', true: '#F25910' }}
-                    thumbColor={switchStates[i] ? '#FFFFFF' : '#FFFFFF'}
-                    ios_backgroundColor="#3e3e3e"
-                    // onValueChange={(value) => toggleSwitch(i, value)}
-                    // value={switchStates[i]}
-                    // style={styles.switch}
-                  />
-                </View>
               </List.Section>
+              <View>
+                <Switch
+                  trackColor={{ false: '#767577', true: '#F25910' }}
+                  ios_backgroundColor="#3e3e3e"
+                  onValueChange={(value) =>
+                    toggleSwitch(`${sport.sportname}-${sport.sportname}`, value)
+                  }
+                  value={switchStates[`${sport.sportname}-${sport.sportname}`]}
+                  style={styles.switch}
+                />
+              </View>
             </View>
           ))}
 

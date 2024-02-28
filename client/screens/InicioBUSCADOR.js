@@ -20,8 +20,8 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
   const [eventsFilter, setEventsFilter] = useState({
     sportName: '',
     location: '',
-    dateStart: '',
-    dateEnd: ''
+    dateStart: []
+    // dateEnd: ''
   })
 
   console.log(eventsFilter)
