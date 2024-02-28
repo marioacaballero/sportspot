@@ -27,7 +27,7 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
   // const { sports } = useSelector((state) => state.sports)
   const [start, setStart] = useState(0)
   const [end, setEnd] = useState(150)
-  const [typesFilter, setTypesFilter] = useState([])
+  const [typesFilter, setTypesFilter] = useState({})
   const [switchStates, setSwitchStates] = useState({})
 
   // const toggleSwitch = (index) => {
@@ -36,23 +36,60 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
   //   setSwitchStates(newSwitchStates)
   // }
 
+  // const toggleSwitch = (key, value) => {
+  //   console.log('keyyyy', key)
+  //   const eventModalityId = key.split('-')[1]
+
+  //   setSwitchStates((prevState) => ({ ...prevState, [key]: value }))
+
+  //   if (value) {
+  //     console.log('agregar')
+  //     setTypesFilter([...typesFilter, { modality: eventModalityId }])
+  //   } else {
+  //     setTypesFilter(
+  //       typesFilter.filter((item) => {
+  //         console.log('itemmmm', item)
+  //         return item.modality !== eventModalityId
+  //       })
+  //     )
+  //   }
+  // }
+
   const toggleSwitch = (key, value) => {
-    console.log('keyyyy', key)
-    const eventModalityId = key.split('-')[1]
+    const [name, modality] = key.split('-')
 
     setSwitchStates((prevState) => ({ ...prevState, [key]: value }))
 
-    if (value) {
-      console.log('agregar')
-      setTypesFilter([...typesFilter, eventModalityId])
-    } else {
-      setTypesFilter(
-        typesFilter.filter((item) => {
-          console.log('itemmmm', item)
-          return item !== eventModalityId
-        })
-      )
-    }
+    setTypesFilter((prevState) => {
+      const updateState = { ...prevState }
+
+      if (value) {
+        updateState[name] = [...(updateState[name] || []), modality]
+      } else {
+        updateState[name] = (updateState[name] || []).filter(
+          (item) => item !== modality
+        )
+      }
+
+      return updateState
+    })
+  }
+
+  const toggleSwitchSport = (key, value) => {
+    console.log('keyyyy', key)
+    const name = key.split('-')[1]
+
+    setSwitchStates((prevState) => ({ ...prevState, [key]: value }))
+
+    setTypesFilter((prevState) => {
+      const updateState = { ...prevState }
+
+      if (value) {
+        updateState[name] = [...(updateState[name] || [])]
+      }
+
+      return updateState
+    })
   }
 
   const handleValuesChange = (newValues) => {
@@ -84,13 +121,13 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
   const handlePress = (sportName) => {
     setExpandedStates((prevState) => ({
       ...prevState,
-      [sportName]: !prevState[sportName] // Invertir el estado de expansión del acordeón correspondiente al nombre del deporte
+      [sportName]: !prevState[sportName]
     }))
   }
 
   const submit = () => {
-    dispatch(setFiltersToFilters(typesFilter))
     setModalVisible(false)
+    dispatch(setFiltersToFilters(typesFilter))
   }
 
   return (
@@ -214,7 +251,10 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
                   trackColor={{ false: '#767577', true: '#F25910' }}
                   ios_backgroundColor="#3e3e3e"
                   onValueChange={(value) =>
-                    toggleSwitch(`${sport.sportname}-${sport.sportname}`, value)
+                    toggleSwitchSport(
+                      `${sport.sportname}-${sport.sportname}`,
+                      value
+                    )
                   }
                   value={switchStates[`${sport.sportname}-${sport.sportname}`]}
                   style={styles.switch}
@@ -411,7 +451,7 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
           justifyContent: 'center',
           width: '100%'
         }}
-        onPress={submit}
+        onPress={() => submit()}
       >
         <Text
           style={{

@@ -77,13 +77,26 @@ export const eventsSlices = createSlice({
     setFiltersToFilters: (state, action) => {
       const eventModalityIds = action.payload
 
-      const filteredEvents = state.eventsFilter.filter((event) => {
-        return eventModalityIds.every((id) => {
-          return event.sportname === id || event.event_modality === id
-        })
-      })
+      console.log('payload', eventModalityIds)
 
-      state.eventsFilter = filteredEvents
+      // const modalities = Object.values(eventModalityIds).flatMap(
+      //   (modalities) => modalities
+      // )
+
+      const sports = Object.keys(eventModalityIds)
+
+      console.log('sports', sports)
+
+      const filterEvents = eventsFilter.filter((event) =>
+        sports.includes(event.sportname)
+      )
+      // state.eventsFilter = filterEvents
+      console.log(filterEvents)
+
+      // if (sports) {
+      //   console.log('deportes', sports)
+
+      // }
     }
   },
 
@@ -163,16 +176,16 @@ export const eventsSlices = createSlice({
 
       // FILTRO DE EVENTOS
       .addCase(getAllEventsFilters.pending, (state) => {
-        state.loading = true
+        state.loadingGet = true
         state.error = null
       })
       .addCase(getAllEventsFilters.fulfilled, (state, action) => {
-        state.loading = false
+        state.loadingGet = false
         state.eventsFilter = action.payload
         state.error = null
       })
       .addCase(getAllEventsFilters.rejected, (state, action) => {
-        state.loading = false
+        state.loadingGet = false
         state.error = action.payload
       })
   }
