@@ -3,6 +3,7 @@ import axios from 'axios'
 
 const axiosInstance = axios.create({
   baseURL: 'http://212.47.234.94:3000'
+  // baseURL: 'https://jsonplaceholder.typicode.com/todos/1'
   // baseURL: 'http://192.168.18.82:3000'
   // maxContentLength: Infinity,
   // maxBodyLength: Infinity
