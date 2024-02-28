@@ -54,6 +54,16 @@ export const createEvent = createAsyncThunk('events/create', async (body) => {
   }
 })
 
+export const deleteEvent = createAsyncThunk('delete/event', async (id) => {
+  console.log('DELETE', id)
+  try {
+    const { data } = await axiosInstance.delete(`/events/${id}`)
+    return data
+  } catch (error) {
+    throw new Error(error)
+  }
+})
+
 export const getFavorites = createAsyncThunk(
   'users/getFavorites',
   async (id) => {

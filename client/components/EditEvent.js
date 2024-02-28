@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import * as ImagePicker from 'expo-image-picker'
 import {
+  Alert,
   Image,
   Modal,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -13,14 +15,14 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { Color, FontFamily, FontSize } from '../GlobalStyles'
 import { getAllSports } from '../redux/actions/sports'
-import { updateEvent } from '../redux/actions/events'
-// import { useNavigation } from '@react-navigation/native'
+import { deleteEvent, updateEvent } from '../redux/actions/events'
+import { useNavigation } from '@react-navigation/native'
 import CalendarOneDay from './CalendarOneDay'
 import SportsPopUp from './SportsPopUp'
 
 const EditEvent = ({ event: eventRedux, onClose }) => {
   const dispatch = useDispatch()
-  //   const navigation = useNavigation()
+  const navigation = useNavigation()
   const { dateStart, dateSuscription } = useSelector((state) => state.events)
   const { sport } = useSelector((state) => state.sports)
   const { user } = useSelector((state) => state.users)
@@ -105,15 +107,32 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
     setCalendarInscription(false)
   }
 
+  const handleDelete = () => {
+    Alert.alert(
+      'Confirmar eliminación',
+      '¿Estás seguro de que deseas eliminar este evento?',
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel'
+        },
+        {
+          text: 'Eliminar',
+          onPress: () => {
+            navigation.goBack()
+            dispatch(deleteEvent(eventRedux.id))
+          }
+        }
+      ],
+      { cancelable: false }
+    )
+  }
+
   return (
-    <View
+    <ScrollView
       style={{
         flex: 1,
-        // width: '100%',
         marginTop: 30,
-        // height: '100%',
-        // justifyContent: 'center',
-        // alignItems: 'center',
         paddingHorizontal: 15,
         backgroundColor: 'white'
       }}
@@ -301,6 +320,22 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
           justifyContent: 'center',
           borderRadius: 50,
           marginTop: 30,
+          backgroundColor: Color.colorGray_100
+        }}
+        onPress={handleDelete}
+      >
+        <Text style={{ color: 'white' }}>Cancelar evento</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={{
+          //   width: 100,
+          height: 52,
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: 50,
+          marginTop: 15,
           backgroundColor: Color.sportsNaranja
         }}
         onPress={onSubmit}
@@ -353,7 +388,7 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
           />
         </View>
       </Modal>
-    </View>
+    </ScrollView>
   )
 }
 

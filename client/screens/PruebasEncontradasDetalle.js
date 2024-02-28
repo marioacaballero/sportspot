@@ -77,10 +77,14 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
 
           <View style={styles.frameParent}>
             <View style={styles.frameGroup}>
-              <View>
-                <Text style={[styles.pruebaDeCiclismo, styles.reseasDeLaTypo]}>
-                  {event.title}
-                </Text>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginBottom: 15
+                }}
+              >
+                <Text style={styles.reseasDeLaTypo}>{event.title}</Text>
                 <Text style={[styles.modalidadMontaa, styles.ciclismoTypo]}>
                   {event.sport?.type}
                 </Text>
@@ -231,7 +235,7 @@ const styles = StyleSheet.create({
   reseasDeLaTypo: {
     color: Color.sportsNaranja,
     fontSize: FontSize.size_3xl,
-    textAlign: 'left',
+
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
@@ -257,11 +261,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row'
   },
-  menInferiorPosition: {
-    width: 360,
-    left: 0,
-    position: 'absolute'
-  },
   unsplashon4qwhhjcemIcon: {
     maxWidth: '100%',
     height: 351,
@@ -270,9 +269,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     width: '100%'
   },
-  pruebaDeCiclismo: {
-    textAlign: 'left'
-  },
+
   modalidadMontaa: {
     fontSize: FontSize.size_lg
   },
@@ -287,14 +284,17 @@ const styles = StyleSheet.create({
   },
   alertParent: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    width: '100%',
+    justifyContent: 'space-between',
     alignItems: 'center'
   },
   frameGroup: {
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row',
-    alignSelf: 'stretch'
+    // flexDirection: 'row',
+    width: '100%'
+    // backgroundColor: 'red'
+    // alignSelf: 'stretch'
   },
   loremIpsumDolor: {
     fontWeight: '300',
@@ -318,7 +318,6 @@ const styles = StyleSheet.create({
     backgroundColor: Color.naranja3,
     padding: Padding.p_xl,
     zIndex: 1,
-    alignSelf: 'stretch',
     height: '100%'
   },
   frameParentBlur: {
