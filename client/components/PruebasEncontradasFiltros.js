@@ -178,11 +178,11 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
         />
       </View>
 
-      <View style={[styles.frameParent1, styles.frameSpaceBlock]}>
+      <View>
         <View
           style={{
-            width: '100%'
-            // flexDirection: 'column',
+            // backgroundColor: 'red'
+            flexDirection: 'column'
             // justifyContent: 'center'
             // alignItems: 'center'
           }} /* style={styles.frameParent2} */
@@ -192,18 +192,17 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
               key={i}
               style={{
                 flexDirection: 'row',
-                // alignItems: 'center',
-                width: '100%',
+                alignItems: 'center',
+                // width: '100%',
                 justifyContent: 'space-between'
-                // backgroundColor: 'red'
               }}
             >
               <List.Section
                 style={{
                   flexDirection: 'row-reverse',
-                  // // alignItems: 'center',
-                  // // // width: '100%',
-                  justifyContent: 'space-between'
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginTop: 5
                 }}
                 titleStyle={[styles.ciclsmo, styles.ciclsmoTypo]}
                 title={`${sport.sportname
@@ -242,8 +241,6 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
                       />
                     </View>
                   ))}
-
-                  {/* <List.Item title="Second item" /> */}
                 </List.Accordion>
               </List.Section>
               <View>

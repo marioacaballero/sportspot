@@ -65,38 +65,30 @@ export const eventsSlices = createSlice({
         })
       }
     },
-    // setFiltersToFilters: (state, action) => {
-    //   const eventModalityIds = action.payload
-
-    //   const filteredEvents = state.eventsFilter.filter((event) => {
-    //     return eventModalityIds.some((id) => event.event_modality === id)
-    //   })
-
-    //   state.eventsFilter = filteredEvents
-    // }
     setFiltersToFilters: (state, action) => {
-      const eventModalityIds = action.payload
+      const itemsFilters = action.payload
 
-      console.log('payload', eventModalityIds)
+      console.log(itemsFilters)
 
-      // const modalities = Object.values(eventModalityIds).flatMap(
-      //   (modalities) => modalities
-      // )
-
-      const sports = Object.keys(eventModalityIds)
-
-      console.log('sports', sports)
-
-      const filterEvents = eventsFilter.filter((event) =>
-        sports.includes(event.sportname)
-      )
-      // state.eventsFilter = filterEvents
-      console.log(filterEvents)
-
-      // if (sports) {
-      //   console.log('deportes', sports)
-
-      // }
+      const filteredEvents = state.eventsFilter.filter((event) => {
+        for (const sport of Object.keys(itemsFilters)) {
+          const value = itemsFilters[sport]
+          if (Array.isArray(value)) {
+            if (value.length === 0 && event.sportname.includes(sport)) {
+              return true
+            }
+            if (value.length > 0 && value.includes(event.event_modality)) {
+              return true
+            }
+          } else {
+            if (event.sportname.includes(sport)) {
+              return true
+            }
+          }
+        }
+        return false
+      })
+      state.eventsFilter = filteredEvents
     }
   },
 
