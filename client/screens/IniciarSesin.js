@@ -12,9 +12,10 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { Padding, Border, FontFamily, FontSize, Color } from '../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../redux/actions/users'
+import { ActivityIndicator } from 'react-native-paper'
 
 const IniciarSesin = ({ navigation }) => {
-  const { user, userToken } = useSelector((state) => state.users)
+  const { user, userToken, loading } = useSelector((state) => state.users)
   const dispatch = useDispatch()
 
   const [loginInfo, setLoginInfo] = useState({
@@ -79,6 +80,17 @@ const IniciarSesin = ({ navigation }) => {
             source={require('../assets/spotsport.png')}
           />
           <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>
+          {loading && (
+            <ActivityIndicator
+              style={{
+                width: '100%',
+                height: '100%'
+              }}
+              animating={true}
+              size="large"
+              color={Color.violeta2}
+            />
+          )}
         </View>
         <View style={styles.frameGroup}>
           <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
@@ -126,6 +138,10 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_31xl,
     alignSelf: 'stretch',
     alignItems: 'center'
+  },
+  linearGradient: {
+    flex: 1,
+    width: '100%'
   },
   entrarTypo: {
     textAlign: 'left',

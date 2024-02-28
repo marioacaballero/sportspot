@@ -27,8 +27,13 @@ const PruebasEncontradas = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
-  const { eventsFilter, favorites, nameEventsFilters, allFavorites, loading } =
-    useSelector((state) => state.events)
+  const {
+    eventsFilter,
+    favorites,
+    nameEventsFilters,
+    allFavorites,
+    loadingGet
+  } = useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
 
   const [modalOrder, setModalOrder] = useState(false)
@@ -55,7 +60,7 @@ const PruebasEncontradas = () => {
     setModalFilter(true)
   }
 
-  if (loading) {
+  if (loadingGet) {
     return (
       <LinearGradient
         colors={['#F25910', '#F6B99C', '#FFF', '#FEF8F5', '#40036F']}
