@@ -94,9 +94,7 @@ const FomularioEventos = () => {
           // style={styles.unsplashn6gnca77urcIcon}
           style={{ width: 20, height: 20 }}
           contentFit="cover"
-          source={
-            selectedImage ? { uri: selectedImage } : { uri: user?.avatar }
-          }
+          source={selectedImage && { uri: selectedImage }}
         />
       </Pressable>
       <View style={styles.items}>
@@ -137,6 +135,8 @@ const FomularioEventos = () => {
         </Text>
         <TextInput
           style={styles.textArea}
+          multiline={true} // Permitir múltiples líneas
+          numberOfLines={2} // Número de líneas visibles inicia
           value={event.description}
           onChangeText={(value) => onValuesEvent('description', value)}
         />
@@ -157,7 +157,7 @@ const FomularioEventos = () => {
           Entrada / Precio:
         </Text>
         <TextInput
-          style={styles.helloTypoScroll}
+          style={styles.helloTypoScrollPrecio}
           value={event.price}
           onChangeText={(value) => onValuesEvent('price', value)}
         />
@@ -189,38 +189,18 @@ const FomularioEventos = () => {
           style={{ width: 25, height: 25, marginRight: 10 }}
           source={require('../assets/frame-1547755976.png')}
         />
-        <Text style={styles.helloTypoScroll}>Deporte</Text>
-      </Pressable>
-
-      {/* <View style={styles.items}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-
-        <Text
-          style={{
-            fontSize: FontSize.inputPlaceholder_size,
-            fontFamily: FontFamily.inputPlaceholder,
-            fontWeight: '700',
-            color: Color.sportsVioleta
-          }}
-        >
-          Modalidad:
+        <Text style={styles.helloTypoScroll}>
+          Deporte: {sport?.name?.slice(0, 1).toUpperCase()}
+          {sport?.name?.slice(1)} {sport?.type}
         </Text>
-        <TextInput
-          style={styles.helloTypoScroll}
-          value={event.location}
-          onChangeText={(value) => onValuesEvent('modality', value)}
-        />
-      </View> */}
+      </Pressable>
 
       <Pressable style={styles.items} onPress={() => setCalendar(true)}>
         <Image
           style={{ width: 25, height: 25, marginRight: 10 }}
           source={require('../assets/frame-1547755976.png')}
         />
-        <Text style={styles.helloTypoScroll}>Fecha</Text>
+        <Text style={styles.helloTypoScrollDate}>Fecha: {dateStart}</Text>
       </Pressable>
       <Pressable
         style={styles.items}
@@ -230,7 +210,9 @@ const FomularioEventos = () => {
           style={{ width: 25, height: 25, marginRight: 10 }}
           source={require('../assets/frame-1547755976.png')}
         />
-        <Text style={styles.helloTypoScroll}>Fecha de inscripcion</Text>
+        <Text style={styles.helloTypoScrollDate}>
+          Fecha de inscripcion: {dateSuscription}
+        </Text>
       </Pressable>
       <View style={styles.items}>
         <Image
@@ -351,7 +333,23 @@ const styles = StyleSheet.create({
     top: 0
   },
   helloTypoScroll: {
-    width: '100%',
+    width: '70%',
+    marginLeft: 5,
+    fontSize: FontSize.inputPlaceholder_size,
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '700',
+    color: Color.sportsVioleta
+  },
+  helloTypoScrollDate: {
+    width: '90%',
+    fontSize: FontSize.inputPlaceholder_size,
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '700',
+    color: Color.sportsVioleta
+  },
+  helloTypoScrollPrecio: {
+    width: '50%',
+    marginLeft: 5,
     fontSize: FontSize.inputPlaceholder_size,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
@@ -369,25 +367,24 @@ const styles = StyleSheet.create({
   },
   itemsTextArea: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginTop: 10,
     borderRadius: 30,
     borderWidth: 1,
     borderColor: Color.blanco,
-    // height: 52,
     padding: 8,
-    height: 100
+    minHeight: 60
+    // backgroundColor: 'red'
   },
   textArea: {
-    marginTop: -2,
-    width: '100%',
+    // flex: 1,
+    width: '60%',
+    marginLeft: 5,
     fontSize: FontSize.inputPlaceholder_size,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     color: Color.sportsVioleta
-  },
-  textAreaInput: {
-    alignSelf: 'flex-start'
   }
 })
 

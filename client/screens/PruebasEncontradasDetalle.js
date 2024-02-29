@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   StyleSheet,
   Text,
@@ -9,25 +9,47 @@ import {
   TouchableWithoutFeedback
 } from 'react-native'
 // import { useNavigation } from '@react-navigation/native'
+import CorazonSVG from '../components/SVG/CorazonSVG'
 import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import ModalSuscription from '../components/ModalSuscription'
 import EditEvent from '../components/EditEvent'
 import { ActivityIndicator } from 'react-native-paper'
 import { LinearGradient } from 'expo-linear-gradient'
+import { favorite, getFavorites } from '../redux/actions/events'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
   // const navigation = useNavigation()
+  const dispatch = useDispatch()
   const { user } = useSelector((state) => state.users)
-  const { event, loading } = useSelector((state) => state.events)
+  const {
+    event,
+    loading,
+    allFavorites,
+    favorites: favoritesRedux
+  } = useSelector((state) => state.events)
   const [modalSuscription, setModalSuscription] = useState(false)
   const [modalEditEvent, setModalEditEvent] = useState(false)
+  const [favorites, setFavorites] = useState()
 
+  useEffect(() => {
+    dispatch(getFavorites(user.id))
+  }, [dispatch, favoritesRedux]) // Asegúrate de incluir las dependencias correctas
+
+  useEffect(() => {
+    setFavorites(allFavorites)
+  }, [allFavorites]) // Ejecutar cuando allFavorites cambie
   const isEventAlreadyAdded = user.events.some(
     (userEvent) => userEvent.id === event.id
   )
 
-  console.log('si o noooo??', isEventAlreadyAdded)
+  const handleFavorite = () => {
+    const data = {
+      id: user.id,
+      eventId: event.id
+    }
+    dispatch(favorite(data))
+  }
 
   if (loading) {
     return (
@@ -43,7 +65,6 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
             width: '100%',
             height: '100%',
             backgroundColor: 'rgba(0, 0, 0, 0.1)'
-            // backdropFilter: 'blur(5px)'
           }}
           animating={true}
           size="large"
@@ -55,23 +76,9 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     return (
       <View style={styles.pruebasEncontradasDetalle}>
         <View style={[styles.unsplashon4qwhhjcemParent, styles.parentPosition]}>
-          {/* {loading && (
-          <ActivityIndicator
-            style={{
-              width: '100%',
-              height: '100%',
-              backgroundColor: 'rgba(0, 0, 0, 0.1)'
-              // backdropFilter: 'blur(5px)'
-            }}
-            animating={true}
-            size="large"
-            color={Color.violeta2}
-          />
-        )} */}
           <Image
             style={styles.unsplashon4qwhhjcemIcon}
             contentFit="cover"
-            // source={require('../assets/unsplashon4qwhhjcem.png')}
             source={{ uri: event.image }}
           />
 
@@ -131,22 +138,18 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   contentFit="cover"
                   source={require('../assets/claritysharesolid.png')}
                 />
-                <Image
-                  style={[styles.clarityshareSolidIcon, styles.containerLayout]}
-                  contentFit="cover"
-                  source={require('../assets/like--spotsport.png')}
+                <CorazonSVG
+                  isFavorite={favorites?.some(
+                    (favorite) => favorite.id === event?.id
+                  )}
+                  // isFavorite={'red'}
+                  handle={handleFavorite}
                 />
               </View>
             </View>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
               {event.description}
             </Text>
-            {/* <Text style={[styles.laInscripcinDe, styles.laInscripcinDeLayout]}>
-            La inscripción de la prueba es en el pueblo de Hornachos, Badajoz.
-            Se celebrará el 1 de febrero de 2024. Si te interesa par-ticipar
-            tienes hasta el 22 de enero de 2024 para realizar la inscripción. El
-            precio de inscripción es de 22€ por persona.
-          </Text> */}
             <Text style={[styles.reseasDeLa, styles.reseasDeLaTypo]}>
               Reseñas de la prueba
             </Text>

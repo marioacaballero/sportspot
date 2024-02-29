@@ -76,7 +76,8 @@ const Seguridad = () => {
       <View style={styles.seguridad}>
         <View style={styles.viewContainer}>
           <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
-            {'GESTIONA TU '}CUENTA
+            {`GESTIONA TU
+CUENTA`}
           </Text>
           <Pressable onPress={() => navigation.goBack()}>
             <BackArrowSVG />
@@ -245,7 +246,7 @@ const styles = StyleSheet.create({
     textAlign: 'left'
   },
   gestionaTuCuentaContainer: {
-    fontSize: FontSize.size_5xl,
+    fontSize: FontSize.size_11xl,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     alignSelf: 'stretch'
@@ -403,8 +404,8 @@ const styles = StyleSheet.create({
     paddingBottom: 160
   },
   viewContainer: {
-    paddingTop: 30,
-    paddingHorizontal: 15,
+    paddingTop: 10,
+    // paddingHorizontal: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

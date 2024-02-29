@@ -21,10 +21,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
     sportName: '',
     location: '',
     dateStart: []
-    // dateEnd: ''
   })
-
-  console.log(eventsFilter)
 
   useEffect(() => {
     dispatch(getAllSports())

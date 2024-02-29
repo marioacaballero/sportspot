@@ -8,7 +8,7 @@ export const usersSlices = createSlice({
     users: {},
     userToken: '',
     loading: false,
-    error: false,
+    error: null,
     isOkay: false
   },
   reducers: {
@@ -31,7 +31,7 @@ export const usersSlices = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false
-        state.error = action.payload
+        state.error = true
       })
       .addCase(getUser.pending, (state) => {
         state.loading = true

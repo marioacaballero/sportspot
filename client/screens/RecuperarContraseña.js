@@ -57,14 +57,19 @@ const RecuperarContraseña = () => {
   }
 
   const handlePassword1 = (text) => {
+    console.log('password1', text)
     setPassword1(text)
   }
 
   const handlePassword2 = (text) => {
+    console.log('password2', text)
+
     setPassword2(text)
   }
 
   const handleVerificationCode = (text) => {
+    console.log('Verificacion', text)
+
     setVerificationCode(text)
   }
 

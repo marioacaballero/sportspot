@@ -33,6 +33,8 @@ import { View } from 'react-native'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
 import RecuperarContraseña from './screens/RecuperarContraseña'
+// import { StripeProvider } from '@stripe/stripe-react-native'
+// import PaymentScreen from './screens/PaymentScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -43,9 +45,13 @@ export default function App() {
     loadFonts()
   }, [])
 
+  // const KEY =
+  //   'pk_test_51OpBGEEOUHrYS47YxO9vPqjLLRu9F387GV3jMcc4rEtayJX9n7hKCyXw0cGlJCk7foCP89YpQUT4gD02XoGVK50l005VwrZaGC'
+
   return (
     <Provider store={store}>
       <View style={{ flex: 1 }}>
+        {/* <StripeProvider publishableKey={KEY}> */}
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName="Bienvenida"
@@ -65,6 +71,11 @@ export default function App() {
               component={PruebasEncontradasDetalle}
               options={{ headerShown: false }}
             />
+            {/* <Stack.Screen
+                name="payment"
+                component={PaymentScreen}
+                options={{ headerShown: false }}
+              /> */}
             <Stack.Screen
               name="EditarPerfil"
               component={EditarPerfil}
@@ -198,6 +209,7 @@ export default function App() {
           </Stack.Navigator>
           {isFooterShow && <MenuInferior />}
         </NavigationContainer>
+        {/* </StripeProvider> */}
       </View>
     </Provider>
   )

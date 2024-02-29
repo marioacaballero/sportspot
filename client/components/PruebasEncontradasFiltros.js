@@ -3,7 +3,6 @@ import {
   Text,
   StyleSheet,
   View,
-  // Pressable,
   Image,
   Switch,
   Pressable,
@@ -11,7 +10,6 @@ import {
   TouchableOpacity
 } from 'react-native'
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
-// import { useNavigation } from '@react-navigation/native'
 import { Color, FontFamily, FontSize, Border, Padding } from '../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -22,38 +20,11 @@ import { List } from 'react-native-paper'
 
 const PruebasEncontradasFiltros = ({ setModalVisible }) => {
   const dispatch = useDispatch()
-  // const navigation = useNavigation()
   const { eventsFilter } = useSelector((state) => state.events)
-  // const { sports } = useSelector((state) => state.sports)
   const [start, setStart] = useState(0)
   const [end, setEnd] = useState(150)
   const [typesFilter, setTypesFilter] = useState({})
   const [switchStates, setSwitchStates] = useState({})
-
-  // const toggleSwitch = (index) => {
-  //   const newSwitchStates = [...switchStates]
-  //   newSwitchStates[index] = !newSwitchStates[index]
-  //   setSwitchStates(newSwitchStates)
-  // }
-
-  // const toggleSwitch = (key, value) => {
-  //   console.log('keyyyy', key)
-  //   const eventModalityId = key.split('-')[1]
-
-  //   setSwitchStates((prevState) => ({ ...prevState, [key]: value }))
-
-  //   if (value) {
-  //     console.log('agregar')
-  //     setTypesFilter([...typesFilter, { modality: eventModalityId }])
-  //   } else {
-  //     setTypesFilter(
-  //       typesFilter.filter((item) => {
-  //         console.log('itemmmm', item)
-  //         return item.modality !== eventModalityId
-  //       })
-  //     )
-  //   }
-  // }
 
   const toggleSwitch = (key, value) => {
     const [name, modality] = key.split('-')
@@ -76,7 +47,6 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
   }
 
   const toggleSwitchSport = (key, value) => {
-    console.log('keyyyy', key)
     const name = key.split('-')[1]
 
     setSwitchStates((prevState) => ({ ...prevState, [key]: value }))
@@ -201,7 +171,7 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
                 style={{
                   flexDirection: 'row-reverse',
                   alignItems: 'center',
-                  justifyContent: 'space-between',
+                  justifyContent: 'center',
                   marginTop: 5
                 }}
                 titleStyle={[styles.ciclsmo, styles.ciclsmoTypo]}
@@ -259,183 +229,7 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
               </View>
             </View>
           ))}
-
-          {/* <View style={styles.parentFrameFlexBox}>
-            <View style={styles.path3391Parent}>
-              <Image
-                style={styles.path3391Icon}
-                contentFit="cover"
-                source={require('../assets/path-3391.png')}
-              />
-              <Text style={[styles.ciclsmo, styles.ciclsmoTypo]}>Ciclísmo</Text>
-            </View>
-            <Switch
-              trackColor={{ false: '#767577', true: '#F25910' }}
-              thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={() => toggleSwitch(0)}
-              value={switchStates[0]}
-              style={styles.switch}
-            />
-          </View> */}
-          {/* <View style={styles.frameParent4}>
-            <View style={[styles.carreteraParent, styles.parentFrameFlexBox]}>
-              <Text style={[styles.carretera, styles.filtrosTypo]}>
-                Carretera
-              </Text>
-              <Switch
-                trackColor={{ false: '#767577', true: '#F25910' }}
-                thumbColor={switchStates[1] ? '#FFFFFF' : '#FFFFFF'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={() => toggleSwitch(1)}
-                value={switchStates[1]}
-                style={styles.switch}
-              />
-            </View>
-            <View style={[styles.pistaParent, styles.parentFrameFlexBox]}>
-              <Text style={[styles.carretera, styles.filtrosTypo]}>Pista</Text>
-              <Switch
-                trackColor={{ false: '#767577', true: '#F25910' }}
-                thumbColor={switchStates[2] ? '#FFFFFF' : '#FFFFFF'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={() => toggleSwitch(2)}
-                value={switchStates[2]}
-                style={styles.switch}
-              />
-            </View>
-            <View style={[styles.montaaParent, styles.parentFrameFlexBox]}>
-              <Text style={[styles.carretera, styles.filtrosTypo]}>
-                Montaña
-              </Text>
-              <Switch
-                trackColor={{ false: '#767577', true: '#F25910' }}
-                thumbColor={switchStates[3] ? '#FFFFFF' : '#FFFFFF'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={() => toggleSwitch(3)}
-                value={switchStates[3]}
-                style={styles.switch}
-              />
-            </View>
-            <View style={[styles.ciclocrssParent, styles.parentFrameFlexBox]}>
-              <Text style={[styles.carretera, styles.filtrosTypo]}>
-                Ciclocróss
-              </Text>
-              <Switch
-                trackColor={{ false: '#767577', true: '#F25910' }}
-                thumbColor={switchStates[4] ? '#FFFFFF' : '#FFFFFF'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={() => toggleSwitch(4)}
-                value={switchStates[4]}
-                style={styles.switch}
-              />
-            </View>
-            <View style={[styles.ciclocrssParent, styles.parentFrameFlexBox]}>
-              <Text style={[styles.carretera, styles.filtrosTypo]}>Trial</Text>
-              <Switch
-                trackColor={{ false: '#767577', true: '#F25910' }}
-                thumbColor={switchStates[5] ? '#FFFFFF' : '#FFFFFF'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={() => toggleSwitch(5)}
-                value={switchStates[5]}
-                style={styles.switch}
-              />
-            </View>
-          </View> */}
         </View>
-        {/* <View style={[styles.frameParent5, styles.parentFrameFlexBox]}>
-          <View style={styles.path3391Parent}>
-            <Image
-              style={styles.path3391Icon1}
-              contentFit="cover"
-              source={require('../assets/path-33911.png')}
-            />
-            <Text style={[styles.ciclsmo, styles.ciclsmoTypo]}>
-              Senderismo/caminata
-            </Text>
-          </View>
-          <Switch
-            trackColor={{ false: '#767577', true: '#F25910' }}
-            thumbColor={switchStates[6] ? '#FFFFFF' : '#FFFFFF'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={() => toggleSwitch(6)}
-            value={switchStates[6]}
-            style={styles.switch}
-          />
-        </View>
-        <View style={[styles.frameParent5, styles.parentFrameFlexBox]}>
-          <View style={styles.path3391Parent}>
-            <Image
-              style={styles.path3391Icon1}
-              contentFit="cover"
-              source={require('../assets/path-33911.png')}
-            />
-            <Text style={[styles.ciclsmo, styles.ciclsmoTypo]}>
-              Carreras en ruta
-            </Text>
-          </View>
-          <Switch
-            trackColor={{ false: '#767577', true: '#F25910' }}
-            thumbColor={switchStates[7] ? '#FFFFFF' : '#FFFFFF'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={() => toggleSwitch(7)}
-            value={switchStates[7]}
-            style={styles.switch}
-          />
-        </View>
-        <View style={[styles.frameParent5, styles.parentFrameFlexBox]}>
-          <View style={styles.path3391Parent}>
-            <Image
-              style={styles.path3391Icon1}
-              contentFit="cover"
-              source={require('../assets/path-33911.png')}
-            />
-            <Text style={[styles.ciclsmo, styles.ciclsmoTypo]}>Decatlón</Text>
-          </View>
-          <Switch
-            trackColor={{ false: '#767577', true: '#F25910' }}
-            thumbColor={switchStates[8] ? '#FFFFFF' : '#FFFFFF'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={() => toggleSwitch(8)}
-            value={switchStates[8]}
-            style={styles.switch}
-          />
-        </View>
-        <View style={[styles.frameParent5, styles.parentFrameFlexBox]}>
-          <View style={styles.path3391Parent}>
-            <Image
-              style={styles.path3391Icon1}
-              contentFit="cover"
-              source={require('../assets/path-33911.png')}
-            />
-            <Text style={[styles.ciclsmo, styles.ciclsmoTypo]}>Triatlón</Text>
-          </View>
-          <Switch
-            trackColor={{ false: '#767577', true: '#F25910' }}
-            thumbColor={switchStates[9] ? '#FFFFFF' : '#FFFFFF'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={() => toggleSwitch(9)}
-            value={switchStates[9]}
-            style={styles.switch}
-          />
-        </View>
-        <View style={[styles.frameParent5, styles.parentFrameFlexBox]}>
-          <View style={styles.path3391Parent}>
-            <Image
-              style={styles.path3391Icon1}
-              contentFit="cover"
-              source={require('../assets/path-33911.png')}
-            />
-            <Text style={[styles.ciclsmo, styles.ciclsmoTypo]}>CrossFit</Text>
-          </View>
-          <Switch
-            trackColor={{ false: '#767577', true: '#F25910' }}
-            thumbColor={switchStates[10] ? '#FFFFFF' : '#FFFFFF'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={() => toggleSwitch(10)}
-            value={switchStates[10]}
-            style={styles.switch}
-          />
-        </View> */}
       </View>
       <TouchableOpacity
         style={{
