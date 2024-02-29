@@ -39,6 +39,20 @@ const ModalSuscription = ({ user, event, onClose }) => {
       >
         <Text style={{ color: 'white' }}>Confirmar</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={{
+          //   width: 100,
+          height: 52,
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: 50,
+          marginTop: 30,
+          backgroundColor: Color.sportsNaranja
+        }}
+      >
+        <Text style={{ color: 'white' }}>Pagar</Text>
+      </TouchableOpacity>
     </View>
   )
 }

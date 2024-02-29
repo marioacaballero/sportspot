@@ -7,6 +7,7 @@ import HomeSVG from './SVG/HomeSVG'
 import HistorialSVG from './SVG/HistorialSVG'
 import PerfilSVG from './SVG/PerfilSVG'
 import CorazonMenuInferiorSVG from './SVG/CorazonMenuInferiosSVG'
+import { Ellipse, Svg } from 'react-native-svg'
 
 const MenuInferior = () => {
   const navigation = useNavigation()
@@ -22,6 +23,18 @@ const MenuInferior = () => {
 
   return (
     <View style={styles.menInferior}>
+      <View style={styles.contenedor}>
+        <Svg
+          style={styles.onda}
+          width="74"
+          height="48"
+          viewBox="0 0 37 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <Ellipse cx="18.5" rx="18.5" ry="12" fill="#F2F1F8" />
+        </Svg>
+      </View>
       <View style={styles.groupContainer}>
         <Pressable
           style={styles.container}
@@ -51,11 +64,6 @@ const MenuInferior = () => {
             navigation.navigate('InicioDeportista')
           }}
         >
-          {/* <Image
-            style={styles.capturaDePantalla20231124}
-            contentFit="cover"
-            source={require('../assets/captura-de-pantalla-20231124-114115-1.png')}
-          /> */}
           <HomeSVG />
         </Pressable>
         <Pressable
@@ -100,6 +108,32 @@ const styles = StyleSheet.create({
     height: 25,
     bottom: 3
   },
+  contenedor: {
+    height: 2,
+    width: '100%',
+    flexDirection: 'row',
+    backgroundColor: '#F2F1F8',
+    position: 'relative'
+  },
+  onda: {
+    height: 60,
+    width: 80,
+    borderTopLeftRadius: 150,
+    borderTopRightRadius: 150,
+    borderBottomLeftRadius: 150,
+    borderBottomRightRadius: 150,
+    borderColor: Color.violeta3,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    position: 'absolute',
+    left: '50%',
+    marginLeft: -40,
+    top: -46,
+    transform: [{ rotate: '180deg' }],
+    zIndex: 5
+  },
   container2: {
     width: 22,
     height: 25,
@@ -122,7 +156,8 @@ const styles = StyleSheet.create({
   menInferior: {
     height: 50,
     width: '100%',
-    backgroundColor: Color.gris
+    paddingHorizontal: 20,
+    backgroundColor: '#F2F1F8'
   },
   groupContainer: {
     height: 65,
@@ -130,6 +165,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10
+    // marginHorizontal: 30
   },
   frame: {
     width: 20
