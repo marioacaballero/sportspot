@@ -37,7 +37,8 @@ const UltimasConsultas = () => {
             }}
           >
             <Text style={[styles.ltimasConsultas, styles.ciclismoTypo]}>
-              ÚLTIMAS CONSULTAS
+              {`ÚLTIMAS
+CONSULTAS`}
             </Text>
             <Pressable onPress={() => navigation.goBack()}>
               <Svg width="25" height="25" viewBox="0 0 21 21" fill="none">
@@ -295,7 +296,7 @@ const styles = StyleSheet.create({
     top: 0
   },
   ltimasConsultas: {
-    fontSize: FontSize.size_5xl,
+    fontSize: FontSize.size_11xl,
     // width: 186,
     textAlign: 'left',
     color: Color.sportsVioleta
@@ -417,7 +418,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     alignItems: 'center',
     flexDirection: 'row',
-    width: 320
+    width: '100%'
   },
   heartIcon1: {
     width: 17,
