@@ -1,5 +1,5 @@
 import React from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+// import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
   StyleSheet,
   View,
@@ -11,10 +11,12 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { FontFamily, FontSize, Padding, Border, Color } from '../GlobalStyles'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { clearUser } from '../redux/slices/users.slices'
 
 const TuPerfil = () => {
   const navigation = useNavigation()
+  const dispatch = useDispatch()
   const { user } = useSelector((state) => state.users)
 
   return (
@@ -138,13 +140,15 @@ const TuPerfil = () => {
               styles.solarsettingsSpaceBlock
             ]}
             onPress={() => {
-              AsyncStorage.clear()
-                .then(() => {
-                  navigation.navigate('IniciarSesin')
-                })
-                .catch((error) => {
-                  console.error('Error al borrar AsyncStorage:', error)
-                })
+              // AsyncStorage.clear()
+              //   .then(() => {
+              //     navigation.navigate('IniciarSesin')
+              //   })
+              //   .catch((error) => {
+              //     console.error('Error al borrar AsyncStorage:', error)
+              //   })
+              dispatch(clearUser())
+              navigation.navigate('IniciarSesin')
             }}
           >
             <Image

@@ -89,9 +89,11 @@ const Registrarse = () => {
               Registrarse
             </Text>
           </Pressable>
-          <Text style={[styles.hasOlvidadoTu, styles.registrarse1Typo]}>
-            ¿Has olvidado tu contraseña?
-          </Text>
+          <Pressable onPress={() => navigation.navigate('IniciarSesin')}>
+            <Text style={[styles.hasOlvidadoTu, styles.registrarse1Typo]}>
+              ¿Ya tenes cuenta?
+            </Text>
+          </Pressable>
         </View>
       </View>
     </LinearGradient>

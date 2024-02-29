@@ -8,7 +8,7 @@ const BackArrowSVG = () => {
         width="21"
         height="21"
         transform="translate(0 21) rotate(-90)"
-        fill="white"
+        fill="transparent"
       />
       <Path
         d="M6.17798 4.98006L0.65625 10.5018L6.17798 16.0234L7.10604 15.0953L3.16862 11.158L20.3124 11.158L20.3124 9.84546L3.16874 9.84546L7.10604 5.90816L6.17798 4.98006Z"

@@ -34,7 +34,7 @@ export default function SignIn({ navigation }) {
               // marginHorizontal: 47
             }}
           >
-            {'ENCUENTRA TU PRUEBA'}
+            ENCUENTRA TU PRUEBA
           </Text>
           <Text
             style={{

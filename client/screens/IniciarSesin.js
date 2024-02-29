@@ -13,6 +13,7 @@ import { Padding, Border, FontFamily, FontSize, Color } from '../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../redux/actions/users'
 import { ActivityIndicator } from 'react-native-paper'
+import BackArrowSVG from '../components/SVG/BackArrowSVG'
 
 const IniciarSesin = ({ navigation }) => {
   const { user, userToken, loading } = useSelector((state) => state.users)
@@ -72,6 +73,12 @@ const IniciarSesin = ({ navigation }) => {
       start={{ x: 0.3, y: 0 }}
       end={{ x: 1, y: 0.8 }}
     >
+      <Pressable
+        style={{ position: 'absolute', top: 30, right: 20 }}
+        onPress={() => navigation.navigate('SignIn')}
+      >
+        <BackArrowSVG />
+      </Pressable>
       <View style={styles.frameParent}>
         <View style={styles.capturaDePantalla20231024Parent}>
           <Image
