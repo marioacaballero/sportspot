@@ -42,7 +42,7 @@ const PruebasEncontradas = () => {
   useEffect(() => {
     dispatch(getAllEvents())
     dispatch(getFavorites(user.id))
-  }, [dispatch, favorites])
+  }, [favorites])
 
   const toggleFavorite = (eventId) => {
     const data = {
