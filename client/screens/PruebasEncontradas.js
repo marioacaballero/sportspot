@@ -60,6 +60,19 @@ const PruebasEncontradas = () => {
     setModalFilter(true)
   }
 
+  const renderedElements = []
+
+  // Verificar y agregar elementos al array
+  if (nameEventsFilters.sportName) {
+    renderedElements.push(nameEventsFilters.sportName)
+  }
+  if (nameEventsFilters.dateStart) {
+    renderedElements.push(nameEventsFilters.dateStart)
+  }
+  if (nameEventsFilters.location) {
+    renderedElements.push(nameEventsFilters.location)
+  }
+
   if (loadingGet) {
     return (
       <LinearGradient
@@ -87,10 +100,11 @@ const PruebasEncontradas = () => {
       <ScrollView style={styles.pruebasEncontradas}>
         <View style={styles.pruebasEncontradasParent}>
           <Text style={[styles.pruebasEncontradas1, styles.ene2024Typo]}>
-            {'PRUEBAS ENCONTRADAS'}
+            {`PRUEBAS
+ENCONTRADAS`}
           </Text>
           <Pressable
-            style={[styles.cilarrowTopParent, styles.parentSpaceBlock]}
+            style={styles.cilarrowTopParent}
             onPress={() => navigation.goBack()}
           >
             <Image
@@ -98,17 +112,18 @@ const PruebasEncontradas = () => {
               contentFit="cover"
               source={require('../assets/cilarrowtop1.png')}
             />
-            <Text style={[styles.badajozCilcismo22, styles.filtrosTypo]}>
-              {/* {filterDescription.map((sport) => (
-              <Text key={sport.id}>{`${sport.name},`}</Text>
-            ))} */}
-
-              {`${nameEventsFilters.sportName}${
-                nameEventsFilters.dateStart && ','
-              } ${nameEventsFilters.dateStart}${
-                nameEventsFilters.location && ','
-              } ${nameEventsFilters.location}`}
-            </Text>
+            {renderedElements.map((element, index) => (
+              <Text
+                key={index}
+                style={[styles.badajozCilcismo22, styles.filtrosTypo]}
+              >
+                {element}
+                {/* Agregar una coma si no es el último elemento */}
+                {index < renderedElements.length - 1 && ','}
+                {/* {nameEventsFilters.sportName} {nameEventsFilters.dateStart}
+              {nameEventsFilters.location} */}
+              </Text>
+            ))}
           </Pressable>
           <View style={[styles.frameParent, styles.parentSpaceBlock]}>
             <View style={[styles.frameGroup, styles.frameGroupFlexBox]}>
@@ -284,12 +299,12 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_5xl,
     textAlign: 'left',
     color: Color.sportsVioleta,
-    width: 180
+    width: '100%'
   },
   cilarrowTopIcon: {
     width: 25,
-    height: 25,
-    overflow: 'hidden'
+    height: 25
+    // overflow: 'hidden'
   },
   badajozCilcismo22: {
     marginLeft: 13
@@ -298,8 +313,8 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_31xl,
     backgroundColor: Color.naranja3,
     padding: Padding.p_3xs,
-    flexDirection: 'row',
-    alignSelf: 'stretch'
+    flexDirection: 'row'
+    // alignSelf: 'stretch'
   },
   frameChild: {
     width: 10,
@@ -351,7 +366,8 @@ const styles = StyleSheet.create({
   },
   frameView: {
     width: '100%',
-    padding: Padding.p_3xs
+    padding: 20
+    // backgroundColor: 'red'
   },
   frameContainer: {
     marginTop: 8,
