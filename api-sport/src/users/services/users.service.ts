@@ -112,7 +112,25 @@ export class UsersService {
     const user = await this.getOneService(id)
     console.log('userrrr', updateUserDto)
 
-    const event = await this.eventService.getOneService(updateUserDto.eventId)
+    if (updateUserDto.eventId) {
+      const event = await this.eventService.getOneService(updateUserDto.eventId)
+
+      if (event && !user.events.some((e) => e.id === event.id)) {
+        user.events = [...user.events, event]
+        const newNotification: CreateNotificationDto = {
+          recipientId: id,
+          eventId: updateUserDto.eventId,
+          title: event.title,
+          message: `el evento se realizara el dia ${event.dateStart}`,
+          date: new Date(),
+          eventType: 'Your event type',
+          read: false,
+          recipient: user
+        }
+
+        await this.notificationsService.createService(newNotification)
+      }
+    }
 
     if (!user)
       throw new HttpException(`Usuario con ID ${id} no encontrado`, 404)
@@ -123,22 +141,6 @@ export class UsersService {
       } else {
         user[key] = updateUserDto[key]
       }
-    }
-
-    if (event && !user.events.some((e) => e.id === event.id)) {
-      user.events = [...user.events, event]
-      const newNotification: CreateNotificationDto = {
-        recipientId: id,
-        eventId: updateUserDto.eventId,
-        title: event.title,
-        message: `el evento se realizara el dia ${event.dateStart}`,
-        date: new Date(),
-        eventType: 'Your event type',
-        read: false,
-        recipient: user
-      }
-
-      await this.notificationsService.createService(newNotification)
     }
 
     return await this.userRepository.save(user)
@@ -198,7 +200,7 @@ export class UsersService {
   public async findOneByEmail(email: string): Promise<UserEntity> {
     const user = await this.userRepository.findOne({ where: { email } })
     if (!user) {
-      throw new HttpException(`Evento con ID ${email} no encontrado`, 404)
+      throw new HttpException(`Usuario con ID ${email} no encontrado`, 404)
     }
     return user
   }

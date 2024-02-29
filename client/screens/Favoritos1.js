@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Text, StyleSheet, View, Pressable, FlatList } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { ActivityIndicator } from 'react-native-paper'
+import { LinearGradient } from 'expo-linear-gradient'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
 import { getFavorites } from '../redux/actions/events'
@@ -11,11 +13,13 @@ const Favoritos1 = () => {
   const dispatch = useDispatch()
 
   const { user } = useSelector((state) => state.users)
-  const { allFavorites } = useSelector((state) => state.events)
+  const { allFavorites, favorites, loadingGet } = useSelector(
+    (state) => state.events
+  )
 
   useEffect(() => {
     dispatch(getFavorites(user.id))
-  }, [dispatch])
+  }, [favorites])
 
   // Agrupar favoritos por deporte
   const groupedFavorites = allFavorites.reduce((grouped, favorite) => {
@@ -27,58 +31,85 @@ const Favoritos1 = () => {
     return grouped
   }, {})
 
-  console.log('groupedFavorites', groupedFavorites)
-  return (
-    <View style={styles.favoritos}>
-      <View style={[styles.frameParent, styles.parentSpaceBlock]}>
-        <View
+  if (loadingGet) {
+    return (
+      <LinearGradient
+        colors={['#F25910', '#F6B99C', '#FFF', '#FEF8F5', '#40036F']}
+        locations={[0, 0.2, 0.5, 0.8, 1]}
+        start={{ x: 0.3, y: 0 }}
+        end={{ x: 1, y: 0.8 }}
+        style={styles.linearGradient}
+      >
+        <ActivityIndicator
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center'
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.1)'
+            // backdropFilter: 'blur(5px)'
           }}
-        >
-          <Text style={[styles.tusFavoritos, styles.imGoingToFlexBox]}>
-            TUS FAVORITOS
-          </Text>
-          <Pressable onPress={() => navigation.goBack()}>
-            <BackArrowSVG />
-          </Pressable>
-        </View>
-        <View style={[styles.frameWrapper, styles.frameSpaceBlock]}>
-          <View style={styles.groupParentFlexBox}>
-            <Text style={styles.tusListasTypo}>Tus listas</Text>
-          </View>
-        </View>
-        <FlatList
-          data={Object.entries(groupedFavorites)}
-          keyExtractor={(item) => item[0]}
-          renderItem={({ item }) => (
-            <Pressable
-              style={[styles.frameContainer, styles.frameSpaceBlock]}
-              onPress={() =>
-                navigation.navigate('Favoritos', { sport: item[1] })
-              }
-            >
-              <View style={styles.frameGroup}>
-                <View style={styles.pruebasDeCiclismoWrapper}>
-                  <Text style={styles.tusListasTypo}>{item[0]}</Text>
-                </View>
-                <Text style={[styles.imGoingTo, styles.imGoingToFlexBox]}>
-                  ({item[1].length}) Pruebas añadidas
-                </Text>
-              </View>
-            </Pressable>
-          )}
+          animating={true}
+          size="large"
+          color={Color.violeta2}
         />
+      </LinearGradient>
+    )
+  } else {
+    return (
+      <View style={styles.favoritos}>
+        <View style={[styles.frameParent, styles.parentSpaceBlock]}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
+            <Text style={[styles.tusFavoritos, styles.imGoingToFlexBox]}>
+              TUS FAVORITOS
+            </Text>
+            <Pressable onPress={() => navigation.goBack()}>
+              <BackArrowSVG />
+            </Pressable>
+          </View>
+          <View style={[styles.frameWrapper, styles.frameSpaceBlock]}>
+            <View style={styles.groupParentFlexBox}>
+              <Text style={styles.tusListasTypo}>Tus listas</Text>
+            </View>
+          </View>
+          <FlatList
+            data={Object.entries(groupedFavorites)}
+            keyExtractor={(item) => item[0]}
+            renderItem={({ item }) => (
+              <Pressable
+                style={[styles.frameContainer, styles.frameSpaceBlock]}
+                onPress={() =>
+                  navigation.navigate('Favoritos', { sport: item[1] })
+                }
+              >
+                <View style={styles.frameGroup}>
+                  <View style={styles.pruebasDeCiclismoWrapper}>
+                    <Text style={styles.tusListasTypo}>{item[0]}</Text>
+                  </View>
+                  <Text style={[styles.imGoingTo, styles.imGoingToFlexBox]}>
+                    ({item[1].length}) Pruebas añadidas
+                  </Text>
+                </View>
+              </Pressable>
+            )}
+          />
+        </View>
       </View>
-    </View>
-  )
+    )
+  }
 }
 
 const styles = StyleSheet.create({
   parentSpaceBlock: {
     paddingHorizontal: Padding.p_xl,
+    width: '100%'
+  },
+  linearGradient: {
+    flex: 1,
     width: '100%'
   },
   imGoingToFlexBox: {

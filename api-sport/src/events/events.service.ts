@@ -79,7 +79,7 @@ export class EventsService {
       .getOne()
 
     if (!event) {
-      throw new HttpException(`Evento con ID ${id} no encontrado`, 404)
+      throw new HttpException(`Evento con ID iguana ${id} no encontrado`, 404)
     }
 
     return event
@@ -98,7 +98,7 @@ export class EventsService {
       .getOne()
 
     if (!event) {
-      throw new HttpException(`Evento con ID ${id} no encontrado`, 404)
+      throw new HttpException(`Evento con ID perro ${id} no encontrado`, 404)
     }
 
     for (const key in updateEventDto) {
@@ -130,7 +130,7 @@ export class EventsService {
       .getOne()
 
     if (!event) {
-      throw new HttpException(`Evento con ID ${id} no encontrado`, 404)
+      throw new HttpException(`Evento con ID gato ${id} no encontrado`, 404)
     }
 
     await this.eventsRepository.update(id, { isDelete: true })

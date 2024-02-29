@@ -3,7 +3,6 @@ import {
   Text,
   StyleSheet,
   View,
-  // Pressable,
   Image,
   Switch,
   Pressable,
@@ -11,7 +10,6 @@ import {
   TouchableOpacity
 } from 'react-native'
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
-// import { useNavigation } from '@react-navigation/native'
 import { Color, FontFamily, FontSize, Border, Padding } from '../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -22,38 +20,11 @@ import { List } from 'react-native-paper'
 
 const PruebasEncontradasFiltros = ({ setModalVisible }) => {
   const dispatch = useDispatch()
-  // const navigation = useNavigation()
   const { eventsFilter } = useSelector((state) => state.events)
-  // const { sports } = useSelector((state) => state.sports)
   const [start, setStart] = useState(0)
   const [end, setEnd] = useState(150)
   const [typesFilter, setTypesFilter] = useState({})
   const [switchStates, setSwitchStates] = useState({})
-
-  // const toggleSwitch = (index) => {
-  //   const newSwitchStates = [...switchStates]
-  //   newSwitchStates[index] = !newSwitchStates[index]
-  //   setSwitchStates(newSwitchStates)
-  // }
-
-  // const toggleSwitch = (key, value) => {
-  //   console.log('keyyyy', key)
-  //   const eventModalityId = key.split('-')[1]
-
-  //   setSwitchStates((prevState) => ({ ...prevState, [key]: value }))
-
-  //   if (value) {
-  //     console.log('agregar')
-  //     setTypesFilter([...typesFilter, { modality: eventModalityId }])
-  //   } else {
-  //     setTypesFilter(
-  //       typesFilter.filter((item) => {
-  //         console.log('itemmmm', item)
-  //         return item.modality !== eventModalityId
-  //       })
-  //     )
-  //   }
-  // }
 
   const toggleSwitch = (key, value) => {
     const [name, modality] = key.split('-')
@@ -76,7 +47,6 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
   }
 
   const toggleSwitchSport = (key, value) => {
-    console.log('keyyyy', key)
     const name = key.split('-')[1]
 
     setSwitchStates((prevState) => ({ ...prevState, [key]: value }))

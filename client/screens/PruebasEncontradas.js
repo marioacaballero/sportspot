@@ -149,7 +149,7 @@ const PruebasEncontradas = () => {
               </View>
             </View>
             <View style={styles.frameContainer}>
-              {eventsFilter.map((event, i) => (
+              {eventsFilter?.map((event, i) => (
                 <Pressable
                   key={i}
                   onPress={() => {

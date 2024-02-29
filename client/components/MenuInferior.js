@@ -3,10 +3,10 @@ import { StyleSheet, View, Pressable, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Color } from '../GlobalStyles'
 import UltimasSVG from './SVG/UltimasSVG'
-import CorazonSVG from './SVG/CorazonSVG'
 import HomeSVG from './SVG/HomeSVG'
 import HistorialSVG from './SVG/HistorialSVG'
 import PerfilSVG from './SVG/PerfilSVG'
+import CorazonMenuInferiorSVG from './SVG/CorazonMenuInferiosSVG'
 
 const MenuInferior = () => {
   const navigation = useNavigation()
@@ -41,7 +41,7 @@ const MenuInferior = () => {
             navigation.navigate('Favoritos1')
           }}
         >
-          <CorazonSVG
+          <CorazonMenuInferiorSVG
             isFavorite={selectedIcon === 'Favoritos1' ? '#F25910' : '#40036F'}
           />
         </Pressable>

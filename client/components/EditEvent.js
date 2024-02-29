@@ -23,8 +23,6 @@ import SportsPopUp from './SportsPopUp'
 const EditEvent = ({ event: eventRedux, onClose }) => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
-  const { dateStart, dateSuscription } = useSelector((state) => state.events)
-  const { sport } = useSelector((state) => state.sports)
   const { user } = useSelector((state) => state.users)
   // const [date, setDate] = useState(null)
   // const [dateInscription, setDateInscription] = useState(null)
@@ -57,8 +55,6 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
       [field]: value
     }))
   }
-
-  console.log(event)
 
   const uploadImage = async () => {
     let result = {}

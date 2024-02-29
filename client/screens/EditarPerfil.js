@@ -79,7 +79,6 @@ const EditarPerfil = () => {
     dispatch(updateUserAvatar(data))
     dispatch(getUser(user.id))
   }
-  console.log(selectedImage)
 
   return (
     <ScrollView>

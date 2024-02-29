@@ -14,7 +14,7 @@ import { FontFamily, Padding, FontSize, Color, Border } from '../GlobalStyles'
 import PopupAlerta from '../components/PopupAlerta'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
 import CorazonSVG from '../components/SVG/CorazonSVG'
-import { favorite, getFavorites } from '../redux/actions/events'
+import { favorite } from '../redux/actions/events'
 
 const Favoritos = ({ route }) => {
   const navigation = useNavigation()
@@ -29,14 +29,16 @@ const Favoritos = ({ route }) => {
     setModalVisible(!modalVisible)
   }
 
-  const toggleFavorite = async (pruebaId) => {
+  const toggleFavorite = (pruebaId) => {
     const data = {
       id: user.id,
       eventId: pruebaId
     }
-    await dispatch(favorite(data))
-    await dispatch(getFavorites(user.id))
+    dispatch(favorite(data))
+    navigation.navigate('Favoritos1')
   }
+
+  console.log('pruebaaaaa', sport)
 
   return (
     <View style={styles.favoritos}>
@@ -79,9 +81,12 @@ const Favoritos = ({ route }) => {
                     <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
                       {prueba.description}
                     </Text>
-                    <Pressable onPress={() => toggleFavorite(prueba.id)}>
-                      <CorazonSVG isFavorite={true} />
-                    </Pressable>
+                    {/* <Pressable onPress={() => alert('hola')}> */}
+                    <CorazonSVG
+                      isFavorite={true}
+                      handle={() => toggleFavorite(sport[0].id)}
+                    />
+                    {/* </Pressable> */}
                   </View>
                   <Text style={styles.imGoingToContainer}>
                     <Text style={styles.modalidadMontaaLocalizaci}>

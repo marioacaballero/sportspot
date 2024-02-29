@@ -52,14 +52,12 @@ export const eventsSlices = createSlice({
       const { dateStart, price } = action.payload
 
       if (dateStart) {
-        console.log('fecha')
         state.eventsFilter.sort((a, b) => {
           return new Date(a.event_date_start) - new Date(b.event_date_start)
         })
       }
 
       if (price) {
-        console.log('precio')
         state.eventsFilter.sort((a, b) => {
           return parseFloat(a.event_price) - parseFloat(b.event_price)
         })
@@ -67,8 +65,6 @@ export const eventsSlices = createSlice({
     },
     setFiltersToFilters: (state, action) => {
       const itemsFilters = action.payload
-
-      console.log(itemsFilters)
 
       const filteredEvents = state.eventsFilter.filter((event) => {
         for (const sport of Object.keys(itemsFilters)) {
@@ -140,29 +136,29 @@ export const eventsSlices = createSlice({
 
       // FAVORITOS
       .addCase(favorite.pending, (state) => {
-        state.loading = true
+        state.loadingGet = true
         state.error = null
       })
       .addCase(favorite.fulfilled, (state, action) => {
-        state.loading = false
+        state.loadingGet = false
         state.favorites = action.payload
         state.error = null
       })
       .addCase(favorite.rejected, (state, action) => {
-        state.loading = false
+        state.loadingGet = false
         state.error = action.payload
       })
       .addCase(getFavorites.pending, (state) => {
-        state.loading = true
+        state.loadingGet = true
         state.error = null
       })
       .addCase(getFavorites.fulfilled, (state, action) => {
-        state.loading = false
+        state.loadingGet = false
         state.allFavorites = action.payload
         state.error = null
       })
       .addCase(getFavorites.rejected, (state, action) => {
-        state.loading = false
+        state.loadingGet = false
         state.error = action.payload
       })
 
