@@ -94,7 +94,8 @@ const EditarPerfil = () => {
           }}
         >
           <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
-            GESTIONA TU CUENTA
+            {`GESTIONA TU
+CUENTA`}
           </Text>
           <Pressable onPress={() => navigation.goBack()}>
             <BackArrowSVG />
@@ -420,7 +421,7 @@ const styles = StyleSheet.create({
     marginLeft: 47
   },
   gestionaTuCuentaContainer: {
-    fontSize: FontSize.size_5xl,
+    fontSize: FontSize.size_11xl,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     textAlign: 'left',

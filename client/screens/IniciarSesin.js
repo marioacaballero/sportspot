@@ -76,7 +76,7 @@ const IniciarSesin = ({ navigation }) => {
         <View style={styles.capturaDePantalla20231024Parent}>
           <Image
             style={styles.capturaDePantalla20231024Icon}
-            contentFit="cover"
+            resizeMode="contain"
             source={require('../assets/spotsport.png')}
           />
           <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>

@@ -22,7 +22,8 @@ const Cuenta = () => {
           <Text
             style={[styles.gestionaTuCuentaContainer, styles.editarPerfilTypo]}
           >
-            GESTIONA TU CUENTA
+            {`GESTIONA TU 
+CUENTA`}
           </Text>
           <Pressable onPress={() => navigation.goBack()}>
             <Svg width="25" height="25" viewBox="0 0 21 21" fill="none">
@@ -70,7 +71,68 @@ const Cuenta = () => {
             />
           </View>
         </Pressable>
+
         <Pressable
+          style={styles.pencillineParent}
+          onPress={() => navigation.navigate('Seguridad')}
+        >
+          <View style={[styles.pencilline, styles.pencillineSpaceBlock]}>
+            <Image
+              style={styles.shieldcheckIcon}
+              contentFit="cover"
+              source={require('../assets/shieldcheck.png')}
+            />
+          </View>
+          <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
+            <View style={styles.editarPerfilWrapper}>
+              <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
+                Seguirdad
+              </Text>
+            </View>
+            <Text style={[styles.imGoingTo, styles.goingTypo]}>
+              Mantén segura tu cuenta, elimina tu cuenta
+            </Text>
+          </View>
+          <View style={styles.arrowleftSpaceBlock}>
+            <Image
+              style={styles.vectorIconLayout}
+              contentFit="cover"
+              source={require('../assets/vector4.png')}
+            />
+          </View>
+        </Pressable>
+
+        <Pressable
+          style={styles.pencillineParent}
+          onPress={() => navigation.navigate('DatosDePago')}
+        >
+          <View style={[styles.pencilline, styles.pencillineSpaceBlock]}>
+            <Image
+              style={styles.shieldcheckIcon}
+              contentFit="cover"
+              source={require('../assets/wallet.png')}
+            />
+          </View>
+          <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
+            <View style={styles.editarPerfilWrapper}>
+              <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
+                Datos de pago
+              </Text>
+            </View>
+            <Text style={[styles.imGoingTo, styles.goingTypo]}>
+              Elimina o añade métodos de pago
+            </Text>
+          </View>
+          <View style={styles.arrowleftSpaceBlock}>
+            <Image
+              style={styles.vectorIconLayout}
+              contentFit="cover"
+              source={require('../assets/vector4.png')}
+            />
+          </View>
+        </Pressable>
+
+        {/* <Pressable
           style={styles.pencillineShadowBox}
           onPress={() => navigation.navigate('Seguridad')}
         >
@@ -98,8 +160,8 @@ const Cuenta = () => {
               source={require('../assets/vector4.png')}
             />
           </View>
-        </Pressable>
-        <Pressable
+        </Pressable> */}
+        {/* <Pressable
           style={styles.pencillineShadowBox}
           onPress={() => navigation.navigate('DatosDePago')}
         >
@@ -127,7 +189,7 @@ const Cuenta = () => {
               source={require('../assets/vector4.png')}
             />
           </View>
-        </Pressable>
+        </Pressable> */}
       </View>
     </View>
   )
@@ -173,7 +235,7 @@ const styles = StyleSheet.create({
     color: Color.sportsVioleta
   },
   gestionaTuCuentaContainer: {
-    fontSize: FontSize.size_5xl
+    fontSize: FontSize.size_11xl
   },
   gestionaTuCuentaWrapper: {
     // top: 67
@@ -230,7 +292,8 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   frameGroup: {
-    paddingTop: Padding.p_xs
+    paddingTop: Padding.p_xs,
+    marginRight: 70
   },
   vectorIconLayout: {
     height: 13,
@@ -248,13 +311,14 @@ const styles = StyleSheet.create({
       }
     ],
     paddingVertical: Padding.p_11xl,
-    paddingHorizontal: Padding.p_11xs,
-    height: 67,
+    paddingHorizontal: 20,
+    // height: 67,
     width: 48
   },
   pencillineParent: {
-    height: 62,
-    // width: 320,
+    height: 75,
+    alignItems: 'center',
+    justifyContent: 'space-between',
     borderWidth: 1,
     borderColor: Color.colorGainsboro_100,
     borderStyle: 'solid',

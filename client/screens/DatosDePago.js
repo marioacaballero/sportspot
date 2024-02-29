@@ -20,7 +20,8 @@ const DatosDePago = () => {
         }}
       >
         <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
-          GESTIONA TU CUENTA
+          {`GESTIONA TU
+CUENTA`}
         </Text>
         <Pressable onPress={() => navigation.goBack()}>
           <Svg width="25" height="25" viewBox="0 0 21 21" fill="none">
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   gestionaTuCuentaContainer: {
-    fontSize: FontSize.size_5xl,
+    fontSize: FontSize.size_11xl,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     alignSelf: 'stretch'
