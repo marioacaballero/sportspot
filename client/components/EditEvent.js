@@ -15,7 +15,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { Color, FontFamily, FontSize } from '../GlobalStyles'
 import { getAllSports } from '../redux/actions/sports'
-import { deleteEvent, updateEvent } from '../redux/actions/events'
+import { deleteEvent, getAllEvents, updateEvent } from '../redux/actions/events'
 import { useNavigation } from '@react-navigation/native'
 import CalendarOneDay from './CalendarOneDay'
 import SportsPopUp from './SportsPopUp'
@@ -88,11 +88,12 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
         dateInscription: eventRedux.dateInscription,
         creator: user?.id,
         timeStart: event?.timeStart,
-        image: eventRedux.image
+        image: selectedImage || eventRedux.image
       }
     }
 
     dispatch(updateEvent(data))
+    dispatch(getAllEvents())
   }
 
   const closeCalendar = () => {

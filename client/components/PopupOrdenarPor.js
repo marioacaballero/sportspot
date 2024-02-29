@@ -6,7 +6,8 @@ import {
   Image,
   Switch,
   Pressable,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native'
 import { Color, FontFamily, FontSize, Border, Padding } from '../GlobalStyles'
 import { useDispatch } from 'react-redux'
@@ -69,7 +70,7 @@ const PopupOrdenarPor = ({ setModalVisible }) => {
               //   orderItems('dateStart', true)
               // }}
             >
-              <Text style={[styles.fecha, styles.fechaTypo]}>Fecha</Text>
+              <Text style={[styles.precio, styles.fechaTypo]}>Fecha</Text>
               <Switch
                 trackColor={{ false: '#767577', true: '#F25910' }}
                 thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
@@ -163,13 +164,41 @@ const PopupOrdenarPor = ({ setModalVisible }) => {
               />
             </View> */}
           </View>
-          <Pressable
+          {/* <Pressable
             onPress={() => {
               submit()
             }}
           >
             <Text>enviar</Text>
-          </Pressable>
+          </Pressable> */}
+          <TouchableOpacity
+            style={{
+              backgroundColor: Color.sportsNaranja,
+              height: 42,
+              marginTop: 10,
+              padding: Padding.p_3xs,
+              borderRadius: Border.br_31xl,
+              alignSelf: 'stretch',
+              justifyContent: 'center',
+              width: '100%'
+            }}
+            onPress={() => {
+              submit()
+            }}
+          >
+            <Text
+              style={{
+                color: Color.blanco,
+                textAlign: 'center',
+                fontSize: FontSize.inputPlaceholder_size,
+                alignSelf: 'stretch',
+                fontFamily: FontFamily.inputPlaceholder,
+                fontWeight: '700'
+              }}
+            >
+              Aplicar filtros
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>

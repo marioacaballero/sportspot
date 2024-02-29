@@ -16,7 +16,9 @@ import { ActivityIndicator } from 'react-native-paper'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
 
 const IniciarSesin = ({ navigation }) => {
-  const { user, userToken, loading } = useSelector((state) => state.users)
+  const { user, userToken, loading, error } = useSelector(
+    (state) => state.users
+  )
   const dispatch = useDispatch()
 
   const [loginInfo, setLoginInfo] = useState({
@@ -117,6 +119,11 @@ const IniciarSesin = ({ navigation }) => {
               secureTextEntry={true}
             />
           </View>
+          {error && (
+            <Text style={[styles.hasOlvidadoTu2, styles.entrarTypo]}>
+              Email o contraseña incorrecta
+            </Text>
+          )}
           <Pressable
             style={[styles.entrarWrapper, styles.wrapperFlexBox]}
             onPress={() => {
@@ -126,6 +133,7 @@ const IniciarSesin = ({ navigation }) => {
           >
             <Text style={[styles.entrar, styles.entrarTypo]}>Entrar</Text>
           </Pressable>
+
           <Pressable onPress={() => navigation.navigate('RecuperarContraseña')}>
             <Text style={[styles.hasOlvidadoTu, styles.entrarTypo]}>
               ¿Has olvidado tu contraseña?
@@ -217,6 +225,12 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_mini,
     marginTop: 10,
     color: Color.sportsVioleta,
+    textAlign: 'left'
+  },
+  hasOlvidadoTu2: {
+    fontSize: FontSize.size_mini,
+    marginTop: 10,
+    color: 'red',
     textAlign: 'left'
   },
   frameGroup: {
