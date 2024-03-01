@@ -51,6 +51,7 @@ export default function App() {
 
   return (
     <View style={{ flex: 1 }}>
+      {/* <StripeProvider publishableKey={KEY}> */}
       <StatusBar style="auto" />
       <Provider store={store}>
         {/* <StripeProvider publishableKey={KEY}> */}
@@ -74,8 +75,8 @@ export default function App() {
               options={{ headerShown: false }}
             />
             {/* <Stack.Screen
-                name="payment"
-                component={PaymentScreen}
+                name="stripe"
+                component={StripeComponent}
                 options={{ headerShown: false }}
               /> */}
             <Stack.Screen
@@ -213,6 +214,7 @@ export default function App() {
         </NavigationContainer>
         {/* </StripeProvider> */}
       </Provider>
+      {/* </StripeProvider> */}
     </View>
   )
 }
