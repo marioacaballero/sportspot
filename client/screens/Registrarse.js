@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   wrapperFlexBox: {
     paddingVertical: Padding.p_xs,
     flexDirection: 'row',
-    height: 55,
+    height: 60,
     borderRadius: Border.br_31xl,
     alignSelf: 'stretch',
     alignItems: 'center'
@@ -176,29 +176,20 @@ const styles = StyleSheet.create({
     textAlign: 'left'
   },
   frameGroup: {
-    width: 318,
-    justifyContent: 'flex-end',
-    alignItems: 'center'
+    width: '100%',
+    alignItems: 'center',
+    marginTop: '15%'
   },
   frameParent: {
-    position: 'absolute',
-    marginTop: -400,
-    marginLeft: -180,
-    top: '50%',
-    left: '50%',
+    height: '100%',
     justifyContent: 'space-between',
-    paddingHorizontal: Padding.p_2xl,
-    paddingTop: Padding.p_181xl,
-    paddingBottom: Padding.p_152xl,
-    alignItems: 'center',
-    height: 800
+    paddingVertical: '50%',
+    paddingHorizontal: 15,
+    alignItems: 'center'
   },
   registrarse: {
     flex: 1,
-    width: '100%',
-    overflow: 'hidden',
-    backgroundColor: 'transparent',
-    height: 800
+    width: '100%'
   }
 })
 

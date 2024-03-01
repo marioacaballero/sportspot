@@ -28,10 +28,10 @@ export default function SignIn({ navigation }) {
           <Text
             style={{
               color: '#F25910',
+              width: '100%',
               fontSize: 22,
               marginBottom: 43,
-              alignSelf: 'center'
-              // marginHorizontal: 47
+              textAlign: 'center'
             }}
           >
             ENCUENTRA TU PRUEBA
@@ -40,16 +40,17 @@ export default function SignIn({ navigation }) {
             style={{
               color: '#F25910',
               fontSize: 40,
-              alignSelf: 'center'
-              // marginHorizontal: 45
+              width: '100%',
+              textAlign: 'center'
             }}
           >
-            {'Bienvenido/a'}
+            Bienvenido/a
           </Text>
           <View style={{ marginTop: 20 }}>
             <View
               style={{
-                alignItems: 'center',
+                // alignItems: 'center',
+                justifyContent: 'center',
                 backgroundColor: '#E2DCEC',
                 borderRadius: 50,
                 paddingVertical: 20,
@@ -60,15 +61,16 @@ export default function SignIn({ navigation }) {
               <Text
                 style={{
                   color: '#40036F',
-                  fontSize: 18
+                  fontSize: 18,
+                  textAlign: 'center'
                 }}
               >
-                {'Iniciar sesión con Google'}
+                Iniciar sesión con Google
               </Text>
             </View>
             <View
               style={{
-                alignItems: 'center',
+                // alignItems: 'center',
                 backgroundColor: '#E2DCEC',
                 borderRadius: 50,
                 paddingVertical: 20,
@@ -79,16 +81,17 @@ export default function SignIn({ navigation }) {
               <Text
                 style={{
                   color: '#40036F',
-                  fontSize: 18
+                  fontSize: 18,
+                  textAlign: 'center'
                 }}
               >
-                {'Iniciar sesión con Apple'}
+                Iniciar sesión con Apple
               </Text>
             </View>
 
             <View
               style={{
-                alignItems: 'center',
+                // alignItems: 'center',
                 backgroundColor: '#E2DCEC',
                 borderRadius: 50,
                 paddingVertical: 20,
@@ -99,16 +102,17 @@ export default function SignIn({ navigation }) {
               <Text
                 style={{
                   color: '#40036F',
-                  fontSize: 18
+                  fontSize: 18,
+                  textAlign: 'center'
                 }}
                 onPress={() => navigation.navigate('Registrarse')}
               >
-                {'Registrarse'}
+                Registrarse
               </Text>
             </View>
             <View
               style={{
-                alignItems: 'center',
+                // alignItems: 'center',
                 paddingVertical: 10,
                 marginHorizontal: 21
               }}
@@ -116,11 +120,12 @@ export default function SignIn({ navigation }) {
               <Text
                 style={{
                   color: '#E2DCEC',
-                  fontSize: 18
+                  fontSize: 18,
+                  textAlign: 'center'
                 }}
                 onPress={() => navigation.navigate('IniciarSesin')}
               >
-                {'Iniciar sesión sin registro'}
+                Iniciar sesión sin registro
               </Text>
             </View>
           </View>
