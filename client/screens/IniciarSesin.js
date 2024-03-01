@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   capturaDePantalla20231024Icon: {
-    width: 262,
+    // width: 262,
     height: 69
   },
   encuentraTuPrueba: {
@@ -243,8 +243,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   iniciarSesin: {
-    flex: 1,
-    width: '100%'
+    flex: 1
+    // width: '100%'
     // overflow: 'hidden',
     // backgroundColor: 'transparent',
     // height: 700
