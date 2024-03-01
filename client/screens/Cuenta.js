@@ -9,9 +9,7 @@ const Cuenta = () => {
 
   return (
     <View style={styles.cuenta}>
-      <View
-        style={[styles.gestionaTuCuentaWrapper, styles.frameParentPosition]}
-      >
+      <View>
         <View
           style={{
             flexDirection: 'row',
@@ -41,18 +39,16 @@ CUENTA`}
           </Pressable>
         </View>
       </View>
-      <View style={[styles.frameParent, styles.frameParentPosition]}>
+      <View>
         <Pressable
           style={styles.pencillineParent}
           onPress={() => navigation.navigate('EditarPerfil')}
         >
-          <View style={[styles.pencilline, styles.pencillineSpaceBlock]}>
-            <Image
-              style={styles.vectorIcon}
-              contentFit="cover"
-              source={require('../assets/vector3.png')}
-            />
-          </View>
+          <Image
+            style={styles.vectorIcon}
+            contentFit="cover"
+            source={require('../assets/vector3.png')}
+          />
           <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
             <View style={styles.editarPerfilWrapper}>
               <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
@@ -63,26 +59,23 @@ CUENTA`}
               Actualiza los datos de tu cuenta
             </Text>
           </View>
-          <View style={styles.arrowleftSpaceBlock}>
-            <Image
-              style={styles.vectorIconLayout}
-              contentFit="cover"
-              source={require('../assets/vector4.png')}
-            />
-          </View>
+
+          <Image
+            style={styles.vectorIconLayout}
+            contentFit="cover"
+            source={require('../assets/vector4.png')}
+          />
         </Pressable>
 
         <Pressable
           style={styles.pencillineParent}
           onPress={() => navigation.navigate('Seguridad')}
         >
-          <View style={[styles.pencilline, styles.pencillineSpaceBlock]}>
-            <Image
-              style={styles.shieldcheckIcon}
-              contentFit="cover"
-              source={require('../assets/shieldcheck.png')}
-            />
-          </View>
+          <Image
+            style={styles.shieldcheckIcon}
+            contentFit="cover"
+            source={require('../assets/shieldcheck.png')}
+          />
           <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
             <View style={styles.editarPerfilWrapper}>
               <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
@@ -93,26 +86,23 @@ CUENTA`}
               Mantén segura tu cuenta, elimina tu cuenta
             </Text>
           </View>
-          <View style={styles.arrowleftSpaceBlock}>
-            <Image
-              style={styles.vectorIconLayout}
-              contentFit="cover"
-              source={require('../assets/vector4.png')}
-            />
-          </View>
+
+          <Image
+            style={styles.vectorIconLayout}
+            contentFit="cover"
+            source={require('../assets/vector4.png')}
+          />
         </Pressable>
 
         <Pressable
           style={styles.pencillineParent}
           onPress={() => navigation.navigate('DatosDePago')}
         >
-          <View style={[styles.pencilline, styles.pencillineSpaceBlock]}>
-            <Image
-              style={styles.shieldcheckIcon}
-              contentFit="cover"
-              source={require('../assets/wallet.png')}
-            />
-          </View>
+          <Image
+            style={styles.shieldcheckIcon}
+            contentFit="cover"
+            source={require('../assets/wallet.png')}
+          />
           <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
             <View style={styles.editarPerfilWrapper}>
               <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
@@ -123,84 +113,19 @@ CUENTA`}
               Elimina o añade métodos de pago
             </Text>
           </View>
-          <View style={styles.arrowleftSpaceBlock}>
-            <Image
-              style={styles.vectorIconLayout}
-              contentFit="cover"
-              source={require('../assets/vector4.png')}
-            />
-          </View>
-        </Pressable>
 
-        {/* <Pressable
-          style={styles.pencillineShadowBox}
-          onPress={() => navigation.navigate('Seguridad')}
-        >
-          <View style={[styles.pencilline1, styles.pencillineSpaceBlock]}>
-            <Image
-              style={styles.shieldcheckIcon}
-              contentFit="cover"
-              source={require('../assets/shieldcheck.png')}
-            />
-          </View>
-          <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
-            <View style={styles.editarPerfilWrapper}>
-              <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
-                Seguirdad
-              </Text>
-            </View>
-            <Text style={[styles.imGoingTo1, styles.goingTypo]}>
-              Mantén segura tu cuenta, elimina tu cuenta
-            </Text>
-          </View>
-          <View style={styles.arrowleftSpaceBlock}>
-            <Image
-              style={styles.vectorIconLayout}
-              contentFit="cover"
-              source={require('../assets/vector4.png')}
-            />
-          </View>
-        </Pressable> */}
-        {/* <Pressable
-          style={styles.pencillineShadowBox}
-          onPress={() => navigation.navigate('DatosDePago')}
-        >
-          <View style={[styles.pencilline1, styles.pencillineSpaceBlock]}>
-            <Image
-              style={styles.shieldcheckIcon}
-              contentFit="cover"
-              source={require('../assets/wallet.png')}
-            />
-          </View>
-          <View style={[styles.frameView, styles.frameSpaceBlock]}>
-            <View style={styles.editarPerfilWrapper}>
-              <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
-                Datos de pago
-              </Text>
-            </View>
-            <Text style={[styles.imGoingTo, styles.goingTypo]}>
-              Elimina o añade métodos de pago
-            </Text>
-          </View>
-          <View style={styles.arrowleftSpaceBlock}>
-            <Image
-              style={styles.vectorIconLayout}
-              contentFit="cover"
-              source={require('../assets/vector4.png')}
-            />
-          </View>
-        </Pressable> */}
+          <Image
+            style={styles.vectorIconLayout}
+            contentFit="cover"
+            source={require('../assets/vector4.png')}
+          />
+        </Pressable>
       </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  frameParentPosition: {
-    paddingTop: 30,
-    paddingLeft: 15,
-    paddingRight: 15
-  },
   editarPerfilTypo: {
     textAlign: 'left',
     color: Color.sportsVioleta,
@@ -208,13 +133,9 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     alignSelf: 'stretch'
   },
-  menInferiorLayout: {
-    width: 360,
-    position: 'absolute'
-  },
+
   frameLayout: {
     height: 20
-    // marginLeft: 47
   },
   pencillineSpaceBlock: {
     paddingBottom: Padding.p_mini,
@@ -222,24 +143,16 @@ const styles = StyleSheet.create({
     paddingTop: Padding.p_mini,
     alignItems: 'center'
   },
-  frameSpaceBlock: {
-    paddingBottom: Padding.p_3xs,
-    paddingHorizontal: Padding.p_3xs,
-    width: 201
-  },
+  frameSpaceBlock: {},
   goingTypo: {
-    marginTop: 5,
     fontFamily: FontFamily.inputPlaceholder,
     fontSize: FontSize.size_3xs,
-    textAlign: 'left',
     color: Color.sportsVioleta
   },
   gestionaTuCuentaContainer: {
     fontSize: FontSize.size_11xl
   },
-  gestionaTuCuentaWrapper: {
-    // top: 67
-  },
+  gestionaTuCuentaWrapper: {},
   icon: {
     height: '100%',
     width: '100%'
@@ -280,58 +193,42 @@ const styles = StyleSheet.create({
   editarPerfil: {
     fontSize: FontSize.size_sm,
     display: 'flex',
-    alignItems: 'center',
-    flex: 1
+    alignItems: 'center'
   },
   editarPerfilWrapper: {
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignSelf: 'stretch'
   },
-  imGoingTo: {
-    alignSelf: 'stretch'
-  },
   frameGroup: {
-    paddingTop: Padding.p_xs,
-    marginRight: 70
+    flexDirection: 'column',
+    width: '100%',
+    marginLeft: 10
   },
   vectorIconLayout: {
     height: 13,
-    width: 15,
-    transform: [
-      {
-        rotate: '-180deg'
-      }
-    ]
-  },
-  arrowleftSpaceBlock: {
-    transform: [
-      {
-        rotate: '-180deg'
-      }
-    ],
-    paddingVertical: Padding.p_11xl,
-    paddingHorizontal: 20,
-    // height: 67,
-    width: 48
+    width: 15
   },
   pencillineParent: {
-    height: 75,
+    height: 80,
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     borderWidth: 1,
     borderColor: Color.colorGainsboro_100,
     borderStyle: 'solid',
     shadowOpacity: 1,
-    elevation: 4,
-    shadowRadius: 4,
+    elevation: 2,
+    shadowRadius: 2,
     shadowOffset: {
-      width: 2,
-      height: 2
+      width: 1,
+      height: 1
     },
     shadowColor: 'rgba(0, 0, 0, 0.25)',
     borderRadius: Border.br_3xs,
-    flexDirection: 'row'
+    marginTop: 15,
+    flexDirection: 'row',
+    width: '100%',
+    paddingHorizontal: 40
   },
   shieldcheckIcon: {
     width: 32,
@@ -340,16 +237,12 @@ const styles = StyleSheet.create({
   pencilline1: {
     paddingLeft: Padding.p_mini
   },
-  imGoingTo1: {
-    width: 214
-  },
   frameContainer: {
     paddingTop: Padding.p_sm,
     height: 62
   },
   pencillineShadowBox: {
     marginTop: 15,
-    // width: 320,
     borderWidth: 1,
     borderColor: Color.colorGainsboro_100,
     borderStyle: 'solid',
@@ -366,17 +259,12 @@ const styles = StyleSheet.create({
   },
   frameView: {
     paddingTop: Padding.p_mini,
-    paddingHorizontal: Padding.p_3xs,
-    width: 201
-  },
-  frameParent: {
-    // top: 145
+    paddingHorizontal: Padding.p_3xs
   },
   cuenta: {
     backgroundColor: Color.blanco,
-    height: 800,
-    overflow: 'hidden',
-    width: '100%',
+    paddingHorizontal: 15,
+    paddingVertical: 30,
     flex: 1
   }
 })

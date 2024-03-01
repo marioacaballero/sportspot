@@ -5,10 +5,10 @@
     "slug": "pruebaapk",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/spotsport.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/spotsport.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

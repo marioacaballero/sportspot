@@ -33,6 +33,7 @@ import { View } from 'react-native'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
 import RecuperarContraseña from './screens/RecuperarContraseña'
+import { StatusBar } from 'expo-status-bar'
 // import { StripeProvider } from '@stripe/stripe-react-native'
 // import PaymentScreen from './screens/PaymentScreen'
 
@@ -49,8 +50,9 @@ export default function App() {
   //   'pk_test_51OpBGEEOUHrYS47YxO9vPqjLLRu9F387GV3jMcc4rEtayJX9n7hKCyXw0cGlJCk7foCP89YpQUT4gD02XoGVK50l005VwrZaGC'
 
   return (
-    <Provider store={store}>
-      <View style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
+      <StatusBar style="auto" />
+      <Provider store={store}>
         {/* <StripeProvider publishableKey={KEY}> */}
         <NavigationContainer>
           <Stack.Navigator
@@ -210,7 +212,7 @@ export default function App() {
           {isFooterShow && <MenuInferior />}
         </NavigationContainer>
         {/* </StripeProvider> */}
-      </View>
-    </Provider>
+      </Provider>
+    </View>
   )
 }

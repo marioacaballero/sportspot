@@ -81,26 +81,27 @@ const IniciarSesin = ({ navigation }) => {
       >
         <BackArrowSVG />
       </Pressable>
+
       <View style={styles.frameParent}>
-        <View style={styles.capturaDePantalla20231024Parent}>
+        <View>
           <Image
             style={styles.capturaDePantalla20231024Icon}
             resizeMode="contain"
             source={require('../assets/spotsport.png')}
           />
           <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>
-          {loading && (
-            <ActivityIndicator
-              style={{
-                width: '100%',
-                height: '100%'
-              }}
-              animating={true}
-              size="large"
-              color={Color.violeta2}
-            />
-          )}
         </View>
+        {loading && (
+          <ActivityIndicator
+            // style={{
+            //   width: '100%',
+            //   height: '100%'
+            // }}
+            animating={true}
+            size="large"
+            color={Color.violeta2}
+          />
+        )}
         <View style={styles.frameGroup}>
           <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
             <TextInput
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
   wrapperFlexBox: {
     paddingVertical: Padding.p_xs,
     flexDirection: 'row',
-    height: 55,
+    height: 60,
     borderRadius: Border.br_31xl,
     alignSelf: 'stretch',
     alignItems: 'center'
@@ -175,11 +176,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
-  capturaDePantalla20231024Parent: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: '5%'
-  },
+
   nombreDeUsuario: {
     width: '100%',
     color: Color.sportsVioleta,
@@ -234,23 +231,23 @@ const styles = StyleSheet.create({
     textAlign: 'left'
   },
   frameGroup: {
-    width: 318,
-    justifyContent: 'flex-end',
-    alignItems: 'center'
+    width: '100%',
+    alignItems: 'center',
+    marginTop: '20%'
   },
   frameParent: {
+    paddingVertical: '50%',
+    paddingHorizontal: 15,
+    height: '100%',
     justifyContent: 'space-between',
-    paddingHorizontal: Padding.p_2xl,
-    marginTop: '35%',
-    paddingBottom: Padding.p_152xl,
     alignItems: 'center'
   },
   iniciarSesin: {
     flex: 1,
-    width: '100%',
-    overflow: 'hidden',
-    backgroundColor: 'transparent',
-    height: 700
+    width: '100%'
+    // overflow: 'hidden',
+    // backgroundColor: 'transparent',
+    // height: 700
   }
 })
 
