@@ -1,25 +1,27 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Color, FontFamily, FontSize } from '../GlobalStyles'
-import { useDispatch } from 'react-redux'
-import { suscriptionEventUser } from '../redux/actions/users'
+// import { useDispatch } from 'react-redux'
+// import { suscriptionEventUser } from '../redux/actions/users'
+import { useNavigation } from '@react-navigation/native'
 
 const ModalSuscription = ({ user, event, onClose }) => {
-  const dispatch = useDispatch()
+  const navigation = useNavigation()
+  // const dispatch = useDispatch()
 
-  const onSubmit = () => {
-    const data = {
-      id: user.id,
-      eventId: event.id
-    }
+  // const onSubmit = () => {
+  //   const data = {
+  //     id: user.id,
+  //     eventId: event.id
+  //   }
 
-    dispatch(suscriptionEventUser(data))
-  }
+  //   dispatch(suscriptionEventUser(data))
+  // }
 
   return (
     <View style={styles.container}>
       <Text
-        style={{ marginBottom: 30 }}
+        style={{ marginBottom: 30, color: Color.blanco }}
       >{`${user.nickname} Seguro que deseas inscribirte?`}</Text>
       <TouchableOpacity
         style={{
@@ -29,29 +31,15 @@ const ModalSuscription = ({ user, event, onClose }) => {
           alignItems: 'center',
           justifyContent: 'center',
           borderRadius: 50,
-          marginTop: 30,
           backgroundColor: Color.sportsNaranja
         }}
         onPress={() => {
-          onSubmit()
+          // onSubmit()
           onClose()
+          navigation.navigate('stripe')
         }}
       >
         <Text style={{ color: 'white' }}>Confirmar</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={{
-          //   width: 100,
-          height: 52,
-          width: '100%',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 50,
-          marginTop: 30,
-          backgroundColor: Color.sportsNaranja
-        }}
-      >
-        <Text style={{ color: 'white' }}>Pagar</Text>
       </TouchableOpacity>
     </View>
   )
@@ -69,6 +57,10 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 8
   },
+  modalOverlay: {
+    height: '100%',
+    width: '100%'
+  },
   helloTypoScroll: {
     width: '100%',
     fontSize: FontSize.inputPlaceholder_size,
@@ -77,11 +69,14 @@ const styles = StyleSheet.create({
     color: Color.sportsVioleta
   },
   container: {
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 30,
-    borderRadius: 30,
-    backgroundColor: Color.blanco
+    paddingHorizontal: 15,
+    paddingVertical: 50,
+    backgroundColor: Color.colorGray_100,
+    position: 'absolute',
+    bottom: 0
   }
 })
 
