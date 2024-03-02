@@ -180,13 +180,11 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
             }}
           >
             <View style={styles.modalOverlay}>
-              <View>
-                <ModalSuscription
-                  user={user}
-                  event={event}
-                  onClose={() => setModalSuscription(false)}
-                />
-              </View>
+              <ModalSuscription
+                user={user}
+                event={event}
+                onClose={() => setModalSuscription(false)}
+              />
             </View>
           </TouchableWithoutFeedback>
         </Modal>
@@ -230,8 +228,8 @@ const styles = StyleSheet.create({
     // flex: 1,
     // top: -100,
     height: '100%',
-    width: '100%',
-    backgroundColor: 'white'
+    width: '100%'
+    // backgroundColor: 'white'
     // justifyContent: 'center',
     // alignItems: 'center'
   },
