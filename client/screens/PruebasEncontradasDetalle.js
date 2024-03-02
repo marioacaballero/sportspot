@@ -101,7 +101,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   style={{
                     // padding: 5,
                     height: 30,
-                    width: 90,
+                    width: 110,
+
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderRadius: 50,
@@ -112,7 +113,11 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                 >
                   {event?.creator?.id === user?.id ? (
                     <Text
-                      style={{ color: 'white' }}
+                      style={{
+                        color: 'white',
+                        width: '100%',
+                        textAlign: 'center'
+                      }}
                       onPress={() => {
                         setModalEditEvent(true)
                       }}
@@ -121,7 +126,11 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                     </Text>
                   ) : (
                     <Text
-                      style={{ color: 'white' }}
+                      style={{
+                        color: 'white',
+                        width: '100%',
+                        textAlign: 'center'
+                      }}
                       onPress={() => setModalSuscription(true)}
                     >
                       {isEventAlreadyAdded ? 'Desuscribirse' : 'Suscribrirse'}

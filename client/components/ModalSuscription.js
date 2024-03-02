@@ -39,7 +39,9 @@ const ModalSuscription = ({ user, event, onClose }) => {
           navigation.navigate('stripe')
         }}
       >
-        <Text style={{ color: 'white' }}>Confirmar</Text>
+        <Text style={{ color: 'white', width: '100%', textAlign: 'center' }}>
+          Confirmar
+        </Text>
       </TouchableOpacity>
     </View>
   )
