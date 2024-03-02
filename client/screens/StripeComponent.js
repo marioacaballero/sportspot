@@ -123,7 +123,9 @@ const StripeComponent = ({ onClose }) => {
             backgroundColor: Color.sportsNaranja
           }}
         >
-          <Text style={{ color: 'white' }}>Pagar</Text>
+          <Text style={{ color: 'white', width: '100%', textAlign: 'center' }}>
+            Pagar
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
