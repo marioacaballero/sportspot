@@ -34,6 +34,8 @@ import { Provider } from 'react-redux'
 import { store } from './redux/store'
 import RecuperarContraseña from './screens/RecuperarContraseña'
 import { StatusBar } from 'expo-status-bar'
+// import PaymentScreen from './screens/StripeComponent'
+// import { StripeProvider } from '@stripe/stripe-react-native'
 // import { StripeProvider } from '@stripe/stripe-react-native'
 // import PaymentScreen from './screens/PaymentScreen'
 
@@ -56,6 +58,7 @@ export default function App() {
       <Provider store={store}>
         {/* <StripeProvider publishableKey={KEY}> */}
         <NavigationContainer>
+          {/* <StripeProvider publishableKey="pk_test_51OpBGEEOUHrYS47YxO9vPqjLLRu9F387GV3jMcc4rEtayJX9n7hKCyXw0cGlJCk7foCP89YpQUT4gD02XoGVK50l005VwrZaGC"> */}
           <Stack.Navigator
             initialRouteName="Bienvenida"
             screenOptions={({ route }) => ({
@@ -75,10 +78,10 @@ export default function App() {
               options={{ headerShown: false }}
             />
             {/* <Stack.Screen
-                name="stripe"
-                component={StripeComponent}
-                options={{ headerShown: false }}
-              /> */}
+              name="pay"
+              component={PaymentScreen}
+              options={{ headerShown: false }}
+            /> */}
             <Stack.Screen
               name="EditarPerfil"
               component={EditarPerfil}
@@ -211,6 +214,7 @@ export default function App() {
             />
           </Stack.Navigator>
           {isFooterShow && <MenuInferior />}
+          {/* </StripeProvider> */}
         </NavigationContainer>
         {/* </StripeProvider> */}
       </Provider>
