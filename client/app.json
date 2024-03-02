@@ -32,7 +32,16 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-font"],
+    "plugins": [
+      "expo-font",
+      [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier": "",
+          "enableGooglePay": true
+        }
+      ]
+    ],
     "extra": {
       "eas": {
         "projectId": "eb1bc1b8-9cfe-4242-a8ed-974f7e366c4c"

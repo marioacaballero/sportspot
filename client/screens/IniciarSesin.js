@@ -107,6 +107,7 @@ const IniciarSesin = ({ navigation }) => {
             <TextInput
               style={[styles.nombreDeUsuario, styles.entrarTypo]}
               placeholder="Nombre de usuario"
+              autoCapitalize="none"
               value={loginInfo.email}
               onChangeText={(value) => valuesLogin('email', value)}
             />
