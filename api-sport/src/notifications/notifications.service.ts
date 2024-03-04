@@ -46,7 +46,7 @@ export class NotificationsService {
 
   public async getOneService(id: string) {
     const notifications = await this.notificationsRepository
-      .createQueryBuilder('event')
+      .createQueryBuilder('notification')
       .where({ id })
       .getOne()
 
@@ -62,7 +62,7 @@ export class NotificationsService {
     updateNotificationDto: UpdateNotificationDto
   ): Promise<NotificationEntity> {
     const notifications = await this.notificationsRepository
-      .createQueryBuilder('sport')
+      .createQueryBuilder('notification')
       .where({ id })
       .getOne()
 
