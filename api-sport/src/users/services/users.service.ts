@@ -95,6 +95,13 @@ export class UsersService {
   public async getByEmailService(email) {
     return await this.userRepository
       .createQueryBuilder('user')
+      .select([
+        'user.id',
+        'user.nickname',
+        'user.name',
+        'user.password',
+        'user.email'
+      ])
       .where({ email })
       .leftJoinAndSelect('user.events', 'events')
       .getOne()
