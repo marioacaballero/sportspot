@@ -103,7 +103,6 @@ export class UsersService {
         'user.email'
       ])
       .where({ email })
-      .leftJoinAndSelect('user.events', 'events')
       .getOne()
   }
 
