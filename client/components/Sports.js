@@ -12,7 +12,7 @@ import FutbolSVG from './SVG/Sports/FutbolSVG'
 import RunningSVG from './SVG/Sports/RunningSVG'
 import { setSport } from '../redux/slices/sports.slices'
 
-const Sports = ({ onClose, setEventsFilter }) => {
+const Sports = ({ onClose, setEventsFilter, setLocalSport }) => {
   const dispatch = useDispatch()
   const { sports } = useSelector((state) => state.sports)
   const [showColor, setShowColor] = useState([])
@@ -28,6 +28,8 @@ const Sports = ({ onClose, setEventsFilter }) => {
       setShowColor(showColor.filter((sport) => sport !== name))
     } else {
       setShowColor([...showColor, name])
+      const newSport = [...showColor, name]
+      setLocalSport(newSport.join(', '))
     }
   }
 
@@ -42,6 +44,7 @@ const Sports = ({ onClose, setEventsFilter }) => {
     })
     .filter((sport) => sport !== null)
 
+  console.log(showColor, 'showColor')
   return (
     <View style={styles.sports}>
       <View style={styles.container}>
@@ -71,14 +74,26 @@ const Sports = ({ onClose, setEventsFilter }) => {
               }}
             >
               <View>
-                {sport?.name === 'futbol' && <FutbolSVG />}
-                {sport?.name === 'ciclismo' && <CiclismoSVG />}
-                {sport?.name === 'hockey' && <HockeySVG />}
-                {sport?.name === 'tenis' && <TennisSVG />}
-                {sport?.name === 'running' && <RunningSVG />}
-                {sport?.name === 'rugby' && <RugbySVG />}
-                {sport?.name === 'handball' && <HandballSVG />}
-                {sport?.name === 'basket' && <BasketSVG />}
+                {sport?.name === 'futbol' && (
+                  <FutbolSVG showColor={showColor} />
+                )}
+                {sport?.name === 'ciclismo' && (
+                  <CiclismoSVG showColor={showColor} />
+                )}
+                {sport?.name === 'hockey' && (
+                  <HockeySVG showColor={showColor} />
+                )}
+                {sport?.name === 'tenis' && <TennisSVG showColor={showColor} />}
+                {sport?.name === 'running' && (
+                  <RunningSVG showColor={showColor} />
+                )}
+                {sport?.name === 'rugby' && <RugbySVG showColor={showColor} />}
+                {sport?.name === 'handball' && (
+                  <HandballSVG showColor={showColor} />
+                )}
+                {sport?.name === 'basket' && (
+                  <BasketSVG showColor={showColor} />
+                )}
               </View>
             </TouchableOpacity>
             <Text style={styles.ftbol}>

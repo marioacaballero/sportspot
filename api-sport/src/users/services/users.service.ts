@@ -116,7 +116,6 @@ export class UsersService {
     updateUserDto: UpdateUserDto
   ): Promise<UserEntity> {
     const user = await this.getOneService(id)
-    console.log('userrrr', updateUserDto)
 
     if (updateUserDto.eventId) {
       const event = await this.eventService.getOneService(updateUserDto.eventId)
@@ -192,7 +191,6 @@ export class UsersService {
     }
 
     user.eventFavorites = user.eventFavorites ? user.eventFavorites : []
-    console.log(user.eventFavorites)
     const index = user.eventFavorites.findIndex((e) => e === eventId)
     if (index === -1) {
       user.eventFavorites = [...user.eventFavorites, eventId] // Guardar el ID del evento

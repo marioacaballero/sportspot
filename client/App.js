@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import PruebasEncontradasDetalle from './screens/PruebasEncontradasDetalle'
-import EditarPerfil from './screens/EditarPerfil'
+import EditarPerfil from './screens/Perfil/EditarPerfil'
 import Seguridad from './screens/Seguridad'
-import Metodo from './screens/Metodo'
-import DatosDePago from './screens/DatosDePago'
-import Cuenta from './screens/Cuenta'
-import Metodo1 from './screens/Metodo1'
+import Metodo from './screens/Perfil/Pago/Metodo'
+import DatosDePago from './screens/Perfil/Pago/DatosDePago'
+import Cuenta from './screens/Perfil/Cuenta'
+import Metodo1 from './screens/Perfil/Metodo1'
 import Bienvenida from './screens/Bienvenida'
 import Favoritos from './screens/Favoritos'
 import UltimasConsultas from './screens/UltimasConsultas'
 import Favoritos1 from './screens/Favoritos1'
 import HistorialDePruebas from './screens/HistorialDePruebas'
-import TuPerfil from './screens/TuPerfil'
+import TuPerfil from './screens/Perfil/TuPerfil'
 import IniciarSesin from './screens/IniciarSesin'
 import Registrarse from './screens/Registrarse'
 import InicioDeportista from './screens/InicioDeportista'
@@ -20,13 +20,13 @@ import InicioOrganizador from './screens/InicioOrganizador'
 import PruebasEncontradas from './screens/PruebasEncontradas'
 import InicioBUSCADOR from './screens/InicioBUSCADOR'
 import PruebasEncontradasDetalle1 from './screens/PruebasEncontradasDetalle1'
-import InicioSUSCRIPCIONES from './screens/InicioSUSCRIPCIONES'
+import InicioSUSCRIPCIONES from './screens/Suscripciones/InicioSUSCRIPCIONES'
 import SignIn from './screens/SignIn'
 import Popupfiltros from './components/PopupOrdenarPor'
 import PopupAlerta from './components/PopupAlerta'
 import EscribirResea from './components/EscribirResea'
 import MenuInferior from './components/MenuInferior'
-import Contacta from './screens/Contacta'
+import Contacta from './screens/Perfil/Contacta'
 import { loadFonts } from './GlobalStyles'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { View } from 'react-native'
@@ -34,6 +34,7 @@ import { Provider } from 'react-redux'
 import { store } from './redux/store'
 import RecuperarContraseña from './screens/RecuperarContraseña'
 import { StatusBar } from 'expo-status-bar'
+import VentajasSuscripciones from './screens/Suscripciones/VentajasSuscripciones'
 // import PaymentScreen from './screens/StripeComponent'
 import { StripeProvider } from '@stripe/stripe-react-native'
 import StripeComponent from './screens/StripeComponent'
@@ -76,6 +77,11 @@ export default function App() {
               <Stack.Screen
                 name="PruebasEncontradasDetalle"
                 component={PruebasEncontradasDetalle}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="VentajasSuscripciones"
+                component={VentajasSuscripciones}
                 options={{ headerShown: false }}
               />
               <Stack.Screen

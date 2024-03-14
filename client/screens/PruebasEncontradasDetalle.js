@@ -34,7 +34,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(getFavorites(user.id))
-  }, [dispatch, favoritesRedux]) // Asegúrate de incluir las dependencias correctas
+  }, [dispatch, favoritesRedux])
 
   useEffect(() => {
     setFavorites(allFavorites)
@@ -50,6 +50,9 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     }
     dispatch(favorite(data))
   }
+
+  console.log('favorites', favorites)
+  console.log('allFavorites', allFavorites)
 
   if (loading) {
     return (

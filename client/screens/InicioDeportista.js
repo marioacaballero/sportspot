@@ -195,9 +195,7 @@ const InicioDeportista = () => {
               style={styles.helloAshfakGroup}
               onPress={() => toggleModalOrganizador()}
             >
-              <Text style={[styles.helloAshfak1, styles.helloTypo]}>
-                Deportista
-              </Text>
+              <Text style={styles.helloTypo}>Deportista</Text>
               <Text
                 style={{
                   fontSize: 50,

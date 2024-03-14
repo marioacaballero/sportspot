@@ -38,8 +38,6 @@ const Favoritos = ({ route }) => {
     navigation.navigate('Favoritos1')
   }
 
-  console.log('pruebaaaaa', sport)
-
   return (
     <View style={styles.favoritos}>
       <View style={[styles.frameParent, styles.frameParentPosition]}>

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Text, StyleSheet, View, Image } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Text, StyleSheet, View, Image, Switch, ScrollView } from 'react-native'
 // import { useNavigation } from '@react-navigation/native'
 import { Padding, Color, FontFamily, FontSize, Border } from '../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,13 +10,15 @@ const InicioNotificaciones = () => {
   const { user } = useSelector((state) => state.users)
   const dispatch = useDispatch()
   // const navigation = useNavigation()
+  const [isEnabled, setIsEnabled] = useState(false)
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
 
   useEffect(() => {
-    dispatch(getAlNotificationsByUser(user.id))
+    dispatch(getAlNotificationsByUser(user?.id))
   }, [])
 
   return (
-    <View style={styles.frameParent1}>
+    <ScrollView style={styles.frameParent1}>
       <View style={styles.materialSymbolsnotificationsParent}>
         <Image
           style={[
@@ -29,10 +31,17 @@ const InicioNotificaciones = () => {
         <Text style={[styles.helloAshfak6, styles.imGoingToClr]}>
           Notificaciones
         </Text>
+        <Switch
+          trackColor={{ false: '#767577', true: '#F25910' }}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+          style={styles.switch}
+        />
       </View>
 
       {notifications &&
-        notifications.map((notification, i) => (
+        notifications?.map((notification, i) => (
           <View key={i}>
             <View style={[styles.lineView, styles.frameChildBorder]} />
             <View style={styles.frameParent2}>
@@ -63,19 +72,6 @@ const InicioNotificaciones = () => {
           </View>
         ))}
 
-      {/* <View style={styles.materialSymbolsnotificationsParent}>
-        <Image
-          style={[
-            styles.materialSymbolsnotificationsIcon,
-            styles.materialLayout
-          ]}
-          contentFit="cover"
-          source={require('../assets/materialsymbolsnotifications2.png')}
-        />
-        <Text style={[styles.helloAshfak6, styles.imGoingToClr]}>
-          Notificaciones
-        </Text>
-      </View>
       <View style={[styles.lineView, styles.frameChildBorder]} />
       <View style={styles.frameParent2}>
         <View style={styles.frameParent3}>
@@ -101,9 +97,9 @@ const InicioNotificaciones = () => {
           </Text>
         </View>
         <View style={[styles.frameChild1, styles.frameChildBorder]} />
-      </View> */}
+      </View>
 
-      {/* <View style={styles.frameParent5}>
+      <View style={styles.frameParent5}>
         <View>
           <View style={styles.frameParent7}>
             <View style={styles.vectorWrapper}>
@@ -208,53 +204,7 @@ const InicioNotificaciones = () => {
         </View>
         <View style={[styles.frameChild2, styles.frameChildBorder]} />
       </View>
-      <View style={styles.frameParent5}>
-        <View>
-          <View style={styles.frameParent7}>
-            <View style={styles.vectorWrapper}>
-              <Image
-                style={[
-                  styles.materialSymbolshikingSharpIcon,
-                  styles.iconPosition
-                ]}
-                contentFit="cover"
-                source={require('../assets/materialsymbolshikingsharp.png')}
-              />
-            </View>
-            <View style={styles.helloAshfakWrapper}>
-              <Text
-                style={[styles.helloAshfak10, styles.helloTypo4]}
-              >{`Prueba de senderismo añadida
-                  recientemente`}</Text>
-              <Text style={styles.helloTypo1}>¡No te la pierdas!</Text>
-            </View>
-          </View>
-          <Text style={styles.helloTypo}>9 oct, a las 13:39</Text>
-        </View>
-        <View style={[styles.frameChild2, styles.frameChildBorder]} />
-      </View>
-      <View style={styles.frameParent5}>
-        <View>
-          <View style={styles.frameParent7}>
-            <View style={styles.vectorWrapper}>
-              <Image
-                style={[styles.mdibankIcon, styles.iconPosition]}
-                contentFit="cover"
-                source={require('../assets/mdibank.png')}
-              />
-            </View>
-            <View style={styles.helloAshfakWrapper}>
-              <Text
-                style={[styles.helloAshfak10, styles.helloTypo4]}
-              >{`¡El Club Lorem Ipsum acaba de
-                  publicar una nueva prueba!`}</Text>
-            </View>
-          </View>
-          <Text style={styles.helloTypo}>3 oct, a las 09:45</Text>
-        </View>
-        <View style={[styles.frameChild2, styles.frameChildBorder]} />
-      </View> */}
-    </View>
+    </ScrollView>
   )
 }
 
@@ -586,15 +536,9 @@ const styles = StyleSheet.create({
     width: 22
   },
   frameParent1: {
-    justifyContent: 'center',
-    alignSelf: 'center',
-    minWidth: '100%',
-    // position: 'absolute',
-    // top: 100,
-    // right: 20,
+    minWidth: '80%',
     borderRadius: Border.br_3xs,
     shadowColor: 'rgba(69, 68, 68, 0.47)',
-    // width: 320,
     paddingHorizontal: Padding.p_lgi,
     paddingVertical: Padding.p_xl,
     shadowOpacity: 1,
@@ -604,7 +548,12 @@ const styles = StyleSheet.create({
       height: 4
     },
     backgroundColor: Color.blanco,
-    zIndex: 10
+    zIndex: 10,
+    marginBottom: '10%',
+    marginTop: '10%'
+  },
+  switch: {
+    top: 12
   }
 })
 

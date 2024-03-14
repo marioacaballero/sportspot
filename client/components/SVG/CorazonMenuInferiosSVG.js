@@ -4,6 +4,7 @@ import { Svg, Path } from 'react-native-svg'
 const CorazonMenuInferiorSVG = ({ isFavorite }) => {
   return (
     <Svg
+      style={{ top: 2 }}
       width="22"
       height="22"
       viewBox="0 0 25 23"

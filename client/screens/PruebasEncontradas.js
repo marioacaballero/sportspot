@@ -7,42 +7,37 @@ import {
   Pressable,
   Image,
   ScrollView,
-  Modal,
-  ActivityIndicator
+  Modal
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { FontFamily, FontSize, Color, Border, Padding } from '../GlobalStyles'
 import PopupOrdenarPor from '../components/PopupOrdenarPor'
 import PruebasEncontradasFiltros from '../components/PruebasEncontradasFiltros'
 import CorazonSVG from '../components/SVG/CorazonSVG'
-import {
-  getAllEvents,
-  getEventById,
-  favorite,
-  getFavorites
-} from '../redux/actions/events'
-import { LinearGradient } from 'expo-linear-gradient'
+import { getAllEvents, getEventById, favorite } from '../redux/actions/events'
 
 const PruebasEncontradas = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
-  const {
-    eventsFilter,
-    favorites,
-    nameEventsFilters,
-    allFavorites,
-    loadingGet
-  } = useSelector((state) => state.events)
+  const { eventsFilter, favorites, nameEventsFilters } = useSelector(
+    (state) => state.events
+  )
   const { user } = useSelector((state) => state.users)
 
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
+  const [favoriteEvents, setFavoriteEvents] = useState([])
 
   useEffect(() => {
     dispatch(getAllEvents())
-    dispatch(getFavorites(user.id))
-  }, [favorites])
+  }, [])
+
+  useEffect(() => {
+    if (favorites.eventFavorites) {
+      setFavoriteEvents(favorites.eventFavorites)
+    }
+  }, [favorites, eventsFilter])
 
   const toggleFavorite = (eventId) => {
     const data = {
@@ -60,197 +55,149 @@ const PruebasEncontradas = () => {
     setModalFilter(true)
   }
 
-  const renderedElements = []
+  return (
+    <ScrollView style={styles.pruebasEncontradas}>
+      <View style={styles.pruebasEncontradasParent}>
+        <Text style={[styles.pruebasEncontradas1, styles.ene2024Typo]}>
+          {'PRUEBAS ENCONTRADAS'}
+        </Text>
+        <Pressable
+          style={[styles.cilarrowTopParent, styles.parentSpaceBlock]}
+          onPress={() => navigation.goBack()}
+        >
+          <Image
+            style={styles.cilarrowTopIcon}
+            contentFit="cover"
+            source={require('../assets/cilarrowtop1.png')}
+          />
+          <Text style={[styles.badajozCilcismo22, styles.filtrosTypo]}>
+            {/* {filterDescription.map((sport) => (
+              <Text key={sport.id}>{`${sport.name},`}</Text>
+            ))} */}
 
-  // Verificar y agregar elementos al array
-  if (nameEventsFilters.sportName) {
-    renderedElements.push(nameEventsFilters.sportName)
-  }
-  if (nameEventsFilters.dateStart) {
-    renderedElements.push(nameEventsFilters.dateStart)
-  }
-  if (nameEventsFilters.location) {
-    renderedElements.push(nameEventsFilters.location)
-  }
-
-  if (loadingGet) {
-    return (
-      <LinearGradient
-        colors={['#F25910', '#F6B99C', '#FFF', '#FEF8F5', '#40036F']}
-        locations={[0, 0.2, 0.5, 0.8, 1]}
-        start={{ x: 0.3, y: 0 }}
-        end={{ x: 1, y: 0.8 }}
-        style={styles.linearGradient}
-      >
-        <ActivityIndicator
-          style={{
-            width: '100%',
-            height: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.1)'
-            // backdropFilter: 'blur(5px)'
-          }}
-          animating={true}
-          size="large"
-          color={Color.violeta2}
-        />
-      </LinearGradient>
-    )
-  } else {
-    return (
-      <ScrollView style={styles.pruebasEncontradas}>
-        <View style={styles.pruebasEncontradasParent}>
-          <Text style={[styles.pruebasEncontradas1, styles.ene2024Typo]}>
-            {`PRUEBAS
-ENCONTRADAS`}
+            {`${nameEventsFilters.sportName}${
+              nameEventsFilters.dateStart && ','
+            } ${nameEventsFilters.dateStart}${
+              nameEventsFilters.location && ','
+            } ${nameEventsFilters.location}`}
           </Text>
-          <Pressable
-            style={styles.cilarrowTopParent}
-            onPress={() => navigation.goBack()}
-          >
-            <Image
-              style={styles.cilarrowTopIcon}
-              contentFit="cover"
-              source={require('../assets/cilarrowtop1.png')}
-            />
-            {renderedElements.map((element, index) => (
-              <Text
-                key={index}
-                style={[styles.badajozCilcismo22, styles.filtrosTypo]}
+        </Pressable>
+        <View style={[styles.frameParent, styles.parentSpaceBlock]}>
+          <View style={[styles.frameGroup, styles.frameGroupFlexBox]}>
+            <Pressable style={styles.filtrosParent} onPress={toggleModalFilter}>
+              <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalFilter}
               >
-                {element}
-                {/* Agregar una coma si no es el último elemento */}
-                {index < renderedElements.length - 1 && ','}
-                {/* {nameEventsFilters.sportName} {nameEventsFilters.dateStart}
-              {nameEventsFilters.location} */}
-              </Text>
-            ))}
-          </Pressable>
-          <View style={[styles.frameParent, styles.parentSpaceBlock]}>
-            <View style={[styles.frameGroup, styles.frameGroupFlexBox]}>
-              <Pressable
-                style={styles.filtrosParent}
-                onPress={toggleModalFilter}
-              >
+                <PruebasEncontradasFiltros setModalVisible={setModalFilter} />
+              </Modal>
+              <Text style={styles.filtrosTypo}>Filtros</Text>
+              <Image
+                style={styles.frameChild}
+                contentFit="cover"
+                source={require('../assets/ellipse-7189.png')}
+              />
+            </Pressable>
+            <View style={styles.filtrosParent}>
+              <Pressable onPress={toggleModalOrder}>
                 <Modal
                   animationType="fade"
                   transparent={true}
-                  visible={modalFilter}
+                  visible={modalOrder}
                 >
-                  <PruebasEncontradasFiltros setModalVisible={setModalFilter} />
+                  <PopupOrdenarPor setModalVisible={setModalOrder} />
                 </Modal>
-                <Text style={styles.filtrosTypo}>Filtros</Text>
-                <Image
-                  style={styles.frameChild}
-                  contentFit="cover"
-                  source={require('../assets/ellipse-7189.png')}
-                />
+                <Text style={styles.filtrosTypo}>Ordenar por</Text>
               </Pressable>
-              <View style={styles.filtrosParent}>
-                <Pressable onPress={toggleModalOrder}>
-                  <Modal
-                    animationType="fade"
-                    transparent={true}
-                    visible={modalOrder}
-                  >
-                    <PopupOrdenarPor setModalVisible={setModalOrder} />
-                  </Modal>
-                  <Text style={styles.filtrosTypo}>Ordenar por</Text>
-                </Pressable>
-                <Image
-                  style={styles.frameChild}
-                  contentFit="cover"
-                  source={require('../assets/ellipse-7190.png')}
-                />
-              </View>
-            </View>
-            <View style={styles.frameContainer}>
-              {eventsFilter?.map((event, i) => (
-                <Pressable
-                  key={i}
-                  onPress={() => {
-                    dispatch(getEventById(event.event_id))
-                    navigation.navigate('PruebasEncontradasDetalle')
-                  }}
-                  style={styles.unsplashon4qwhhjcemParentShadowBox}
-                >
-                  <Image
-                    style={styles.unsplashon4qwhhjcemIcon}
-                    contentFit="cover"
-                    source={{ uri: event.event_image }}
-                  />
-
-                  <View style={styles.frameView}>
-                    <View style={styles.frameGroupFlexBox}>
-                      <Text style={[styles.senderismo, styles.textTypo]}>
-                        {event.event_title}
-                      </Text>
-                      <Pressable
-                        style={styles.likeSpotsport}
-                        onPress={() => toggleFavorite(event.event_id)}
-                      >
-                        <CorazonSVG
-                          isFavorite={allFavorites.some(
-                            (favorite) => favorite.id === event.event_id
-                          )}
-                        />
-                      </Pressable>
-                    </View>
-                    <Text
-                      style={[
-                        styles.imGoingToContainer,
-                        styles.goingContainerFlexBox
-                      ]}
-                    >
-                      <Text style={styles.modalidad}>
-                        -Modalidad: {event.event_modality}
-                        {'\n'}
-                      </Text>
-                      <Text style={styles.modalidad}>
-                        -Localización: {event.event_location}
-                        {'\n'}
-                      </Text>
-                      <Text style={styles.modalidad}>-Fecha de la prueba:</Text>
-                      <Text style={styles.ene2024Typo}>
-                        {event.event_date_start} {'\n'}
-                      </Text>
-
-                      <Text style={styles.modalidad}>
-                        -Plazo límite de inscripción:
-                      </Text>
-                      <Text style={styles.ene2024Typo}>
-                        {event?.event_date_inscription} {'\n'}
-                      </Text>
-                    </Text>
-                    <Text
-                      style={[
-                        styles.imGoingToContainer1,
-                        styles.goingContainerFlexBox
-                      ]}
-                    >
-                      <Text style={styles.precioDeInscripcin}>
-                        {'PRECIO DE INSCRIPCIÓN: '}
-                      </Text>
-                      <Text style={styles.textTypo}>{event.event_price}</Text>
-                    </Text>
-                  </View>
-                </Pressable>
-              ))}
+              <Image
+                style={styles.frameChild}
+                contentFit="cover"
+                source={require('../assets/ellipse-7190.png')}
+              />
             </View>
           </View>
+          <View style={styles.frameContainer}>
+            {eventsFilter.map((event, i) => (
+              <Pressable
+                key={i}
+                onPress={() => {
+                  dispatch(getEventById(event.event_id))
+                  navigation.navigate('PruebasEncontradasDetalle')
+                }}
+                style={styles.unsplashon4qwhhjcemParentShadowBox}
+              >
+                <Image
+                  style={styles.unsplashon4qwhhjcemIcon}
+                  contentFit="cover"
+                  source={{ uri: event.event_image }}
+                />
+
+                <View style={styles.frameView}>
+                  <View style={styles.frameGroupFlexBox}>
+                    <Text style={[styles.senderismo, styles.textTypo]}>
+                      {event.event_title}
+                    </Text>
+                    <Pressable
+                      style={styles.likeSpotsport}
+                      onPress={() => toggleFavorite(event.event_id)}
+                    >
+                      <CorazonSVG
+                        isFavorite={favoriteEvents.includes(event.event_id)}
+                      />
+                    </Pressable>
+                  </View>
+                  <Text
+                    style={[
+                      styles.imGoingToContainer,
+                      styles.goingContainerFlexBox
+                    ]}
+                  >
+                    <Text style={styles.modalidad}>
+                      -Modalidad: {event.event_modality}
+                      {'\n'}
+                    </Text>
+                    <Text style={styles.modalidad}>
+                      -Localización: {event.event_location}
+                      {'\n'}
+                    </Text>
+                    <Text style={styles.modalidad}>-Fecha de la prueba:</Text>
+                    <Text style={styles.ene2024Typo}>
+                      {event.event_datestart} {'\n'}
+                    </Text>
+
+                    <Text style={styles.modalidad}>
+                      -Plazo límite de inscripción:
+                    </Text>
+                    <Text style={styles.ene2024Typo}>
+                      {event?.event_dateinscription} {'\n'}
+                    </Text>
+                  </Text>
+                  <Text
+                    style={[
+                      styles.imGoingToContainer1,
+                      styles.goingContainerFlexBox
+                    ]}
+                  >
+                    <Text style={styles.precioDeInscripcin}>
+                      {'PRECIO DE INSCRIPCIÓN: '}
+                    </Text>
+                    <Text style={styles.textTypo}>{event.event_price}</Text>
+                  </Text>
+                </View>
+              </Pressable>
+            ))}
+          </View>
         </View>
-      </ScrollView>
-    )
-  }
+      </View>
+    </ScrollView>
+  )
 }
 
 const styles = StyleSheet.create({
   ene2024Typo: {
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
-  },
-  linearGradient: {
-    flex: 1,
-    width: '100%'
   },
   parentSpaceBlock: {
     marginTop: 20,
@@ -299,12 +246,12 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_5xl,
     textAlign: 'left',
     color: Color.sportsVioleta,
-    width: '100%'
+    width: 180
   },
   cilarrowTopIcon: {
     width: 25,
-    height: 25
-    // overflow: 'hidden'
+    height: 25,
+    overflow: 'hidden'
   },
   badajozCilcismo22: {
     marginLeft: 13
@@ -313,8 +260,8 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_31xl,
     backgroundColor: Color.naranja3,
     padding: Padding.p_3xs,
-    flexDirection: 'row'
-    // alignSelf: 'stretch'
+    flexDirection: 'row',
+    alignSelf: 'stretch'
   },
   frameChild: {
     width: 10,
@@ -365,14 +312,12 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_2xs
   },
   frameView: {
-    width: '100%',
-    padding: 20
-    // backgroundColor: 'red'
+    width: 201,
+    padding: Padding.p_3xs
   },
   frameContainer: {
     marginTop: 8,
-    alignItems: 'center',
-    width: '100%'
+    alignItems: 'center'
   },
   pruebasEncontradasParent: {
     paddingTop: Padding.p_48xl,

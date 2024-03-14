@@ -5,7 +5,8 @@ import {
   View,
   Pressable,
   Image,
-  TextInput
+  TextInput,
+  TouchableOpacity
 } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -93,10 +94,6 @@ const IniciarSesin = ({ navigation }) => {
         </View>
         {loading && (
           <ActivityIndicator
-            // style={{
-            //   width: '100%',
-            //   height: '100%'
-            // }}
             animating={true}
             size="large"
             color={Color.violeta2}
@@ -106,7 +103,7 @@ const IniciarSesin = ({ navigation }) => {
           <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={[styles.nombreDeUsuario, styles.entrarTypo]}
-              placeholder="Nombre de usuario"
+              placeholder="Email"
               autoCapitalize="none"
               value={loginInfo.email}
               onChangeText={(value) => valuesLogin('email', value)}
@@ -119,6 +116,7 @@ const IniciarSesin = ({ navigation }) => {
               value={loginInfo.password}
               onChangeText={(value) => valuesLogin('password', value)}
               secureTextEntry={true}
+              onSubmitEditing={onSubmit}
             />
           </View>
           {error && (
@@ -126,19 +124,21 @@ const IniciarSesin = ({ navigation }) => {
               Email o contraseña incorrecta
             </Text>
           )}
-          <Pressable
+          <TouchableOpacity
             style={[styles.entrarWrapper, styles.wrapperFlexBox]}
-            onPress={() => {
-              onSubmit()
-              // navigation.navigate('InicioDeportista')
-            }}
+            onPress={onSubmit}
           >
             <Text style={[styles.entrar, styles.entrarTypo]}>Entrar</Text>
-          </Pressable>
+          </TouchableOpacity>
 
           <Pressable onPress={() => navigation.navigate('RecuperarContraseña')}>
             <Text style={[styles.hasOlvidadoTu, styles.entrarTypo]}>
               ¿Has olvidado tu contraseña?
+            </Text>
+          </Pressable>
+          <Pressable onPress={() => navigation.navigate('Registrarse')}>
+            <Text style={[styles.hasOlvidadoTu, styles.entrarTypo]}>
+              Crea tu cuenta
             </Text>
           </Pressable>
         </View>
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   entrarTypo: {
-    textAlign: 'left',
+    textAlign: 'center',
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
@@ -181,7 +181,6 @@ const styles = StyleSheet.create({
   nombreDeUsuario: {
     width: '100%',
     color: Color.sportsVioleta,
-    textAlign: 'left',
     fontSize: FontSize.size_lg,
     fontFamily: FontFamily.inputPlaceholder
   },
@@ -237,7 +236,7 @@ const styles = StyleSheet.create({
     marginTop: '20%'
   },
   frameParent: {
-    paddingVertical: '50%',
+    paddingVertical: '40%',
     paddingHorizontal: 15,
     height: '100%',
     justifyContent: 'space-between',

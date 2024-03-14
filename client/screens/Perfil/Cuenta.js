@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Text, StyleSheet, View, Pressable, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { Color, FontFamily, Padding, FontSize, Border } from '../GlobalStyles'
-import { Path, Rect, Svg } from 'react-native-svg'
+import { Color, FontFamily, FontSize, Border } from '../../GlobalStyles'
+import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 
 const Cuenta = () => {
   const navigation = useNavigation()
@@ -24,18 +24,7 @@ const Cuenta = () => {
 CUENTA`}
           </Text>
           <Pressable onPress={() => navigation.goBack()}>
-            <Svg width="25" height="25" viewBox="0 0 21 21" fill="none">
-              <Rect
-                width="21"
-                height="21"
-                transform="translate(0 21) rotate(-90)"
-                fill="white"
-              />
-              <Path
-                d="M6.17798 4.98006L0.65625 10.5018L6.17798 16.0234L7.10604 15.0953L3.16862 11.158L20.3124 11.158L20.3124 9.84546L3.16874 9.84546L7.10604 5.90816L6.17798 4.98006Z"
-                fill={Color.sportsVioleta}
-              />
-            </Svg>
+            <BackArrowSVG />
           </Pressable>
         </View>
       </View>
@@ -47,9 +36,9 @@ CUENTA`}
           <Image
             style={styles.vectorIcon}
             contentFit="cover"
-            source={require('../assets/vector3.png')}
+            source={require('../../assets/vector3.png')}
           />
-          <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
+          <View style={styles.frameGroup}>
             <View style={styles.editarPerfilWrapper}>
               <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
                 Editar perfil
@@ -63,7 +52,7 @@ CUENTA`}
           <Image
             style={styles.vectorIconLayout}
             contentFit="cover"
-            source={require('../assets/vector4.png')}
+            source={require('../../assets/vector4.png')}
           />
         </Pressable>
 
@@ -74,12 +63,12 @@ CUENTA`}
           <Image
             style={styles.shieldcheckIcon}
             contentFit="cover"
-            source={require('../assets/shieldcheck.png')}
+            source={require('../../assets/shieldcheck.png')}
           />
           <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
             <View style={styles.editarPerfilWrapper}>
               <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
-                Seguirdad
+                Seguridad
               </Text>
             </View>
             <Text style={[styles.imGoingTo, styles.goingTypo]}>
@@ -90,7 +79,7 @@ CUENTA`}
           <Image
             style={styles.vectorIconLayout}
             contentFit="cover"
-            source={require('../assets/vector4.png')}
+            source={require('../../assets/vector4.png')}
           />
         </Pressable>
 
@@ -101,7 +90,7 @@ CUENTA`}
           <Image
             style={styles.shieldcheckIcon}
             contentFit="cover"
-            source={require('../assets/wallet.png')}
+            source={require('../../assets/wallet.png')}
           />
           <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
             <View style={styles.editarPerfilWrapper}>
@@ -117,7 +106,7 @@ CUENTA`}
           <Image
             style={styles.vectorIconLayout}
             contentFit="cover"
-            source={require('../assets/vector4.png')}
+            source={require('../../assets/vector4.png')}
           />
         </Pressable>
       </View>
@@ -133,17 +122,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     alignSelf: 'stretch'
   },
-
-  frameLayout: {
-    height: 20
-  },
-  pencillineSpaceBlock: {
-    paddingBottom: Padding.p_mini,
-    paddingRight: Padding.p_3xs,
-    paddingTop: Padding.p_mini,
-    alignItems: 'center'
-  },
-  frameSpaceBlock: {},
   goingTypo: {
     fontFamily: FontFamily.inputPlaceholder,
     fontSize: FontSize.size_3xs,
@@ -152,43 +130,9 @@ const styles = StyleSheet.create({
   gestionaTuCuentaContainer: {
     fontSize: FontSize.size_11xl
   },
-  gestionaTuCuentaWrapper: {},
-  icon: {
-    height: '100%',
-    width: '100%'
-  },
-  wrapper: {
-    width: 22,
-    height: 25
-  },
-  vector: {
-    width: 23
-  },
-  capturaDePantalla20231124: {
-    width: 33,
-    height: 33
-  },
-  container: {
-    width: 20
-  },
-  frame: {
-    width: 19
-  },
-  groupParent: {
-    backgroundColor: Color.gris,
-    height: 65,
-    justifyContent: 'center',
-    paddingHorizontal: Padding.p_xl,
-    paddingVertical: Padding.p_3xs,
-    alignItems: 'center',
-    flexDirection: 'row'
-  },
   vectorIcon: {
     width: 25,
     height: 25
-  },
-  pencilline: {
-    paddingLeft: Padding.p_xl
   },
   editarPerfil: {
     fontSize: FontSize.size_sm,
@@ -213,11 +157,11 @@ const styles = StyleSheet.create({
     height: 80,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: Color.colorGainsboro_100,
+    borderColor: Color.blanco,
+    backgroundColor: 'white',
     borderStyle: 'solid',
     shadowOpacity: 1,
-    elevation: 2,
+    elevation: 4,
     shadowRadius: 2,
     shadowOffset: {
       width: 1,
@@ -233,33 +177,6 @@ const styles = StyleSheet.create({
   shieldcheckIcon: {
     width: 32,
     height: 32
-  },
-  pencilline1: {
-    paddingLeft: Padding.p_mini
-  },
-  frameContainer: {
-    paddingTop: Padding.p_sm,
-    height: 62
-  },
-  pencillineShadowBox: {
-    marginTop: 15,
-    borderWidth: 1,
-    borderColor: Color.colorGainsboro_100,
-    borderStyle: 'solid',
-    shadowOpacity: 1,
-    elevation: 4,
-    shadowRadius: 4,
-    shadowOffset: {
-      width: 2,
-      height: 2
-    },
-    shadowColor: 'rgba(0, 0, 0, 0.25)',
-    borderRadius: Border.br_3xs,
-    flexDirection: 'row'
-  },
-  frameView: {
-    paddingTop: Padding.p_mini,
-    paddingHorizontal: Padding.p_3xs
   },
   cuenta: {
     backgroundColor: Color.blanco,

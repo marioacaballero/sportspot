@@ -8,6 +8,7 @@ import {
   StyleSheet
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
+import { Color } from '../GlobalStyles'
 
 export default function SignIn({ navigation }) {
   return (
@@ -119,7 +120,7 @@ export default function SignIn({ navigation }) {
             >
               <Text
                 style={{
-                  color: '#E2DCEC',
+                  color: Color.sportsNaranja,
                   fontSize: 18,
                   textAlign: 'center'
                 }}

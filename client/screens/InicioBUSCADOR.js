@@ -17,6 +17,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
   const [frameContainer8Visible, setFrameContainer8Visible] = useState(false)
   const [frameContainer10Visible, setFrameContainer10Visible] = useState(false)
   const [selected, setSelected] = useState(null)
+  const [localSport, setLocalSport] = useState('')
   const [eventsFilter, setEventsFilter] = useState({
     sportName: '',
     location: '',
@@ -79,10 +80,11 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
               source={require('../assets/frame-1547755976.png')}
             />
             <Text style={[styles.helloAshfak3, styles.helloTypo]}>
-              Localización
+              {eventsFilter.location ? eventsFilter.location : 'Localización'}
             </Text>
           </View>
         </Pressable>
+
         <Pressable
           style={[styles.framePressable, styles.frameWrapperSpaceBlock]}
           onPress={openFrameContainer8}
@@ -93,7 +95,9 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
               contentFit="cover"
               source={require('../assets/frame-1547755977.png')}
             />
-            <Text style={styles.helloTypo}>Deporte</Text>
+            <Text style={styles.helloTypo}>
+              {!localSport ? 'Deporte' : localSport}
+            </Text>
           </View>
         </Pressable>
         <Pressable
@@ -146,6 +150,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
           <Sports
             onClose={closeFrameContainer8}
             setEventsFilter={setEventsFilter}
+            setLocalSport={setLocalSport}
           />
         </View>
       </Modal>
@@ -175,8 +180,9 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   arrowContainer: {
-    left: '87%',
-    marginBottom: '3%'
+    position: 'absolute',
+    left: '110%',
+    top: 36
   },
   frameWrapperSpaceBlock: {
     padding: Padding.p_3xs,
@@ -194,19 +200,6 @@ const styles = StyleSheet.create({
   groupContainerFlexBox: {
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  frameLayout: {
-    height: 20,
-    marginLeft: 47
-  },
-  helloAshfak: {
-    fontSize: FontSize.size_5xl,
-    textAlign: 'left',
-    color: Color.sportsVioleta
-  },
-  wrapper: {
-    width: 29,
-    height: 22
   },
   frameContainer6Overlay: {
     flex: 1,
@@ -287,39 +280,17 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   frameContainer: {
-    width: '100%',
+    width: '97%',
     padding: 20,
     marginTop: 19
-  },
-  container: {
-    width: 22,
-    height: 25
   },
   frame: {
     width: 20,
     marginLeft: 47
   },
-  groupContainer: {
-    top: 10,
-    backgroundColor: Color.gris,
-    height: 65,
-    paddingVertical: Padding.p_3xs,
-    flexDirection: 'row',
-    paddingHorizontal: Padding.p_xl,
-    width: 360,
-    left: 0,
-    position: 'absolute'
-  },
-  inicioBuscador: {
-    overflow: 'hidden',
-    height: 800,
-    flex: 1,
-    backgroundColor: Color.blanco,
-    width: '100%'
-  },
   icon: {
-    width: 29,
-    height: 13
+    width: 24,
+    height: 10
   }
 })
 

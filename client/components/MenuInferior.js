@@ -26,13 +26,13 @@ const MenuInferior = () => {
       <View style={styles.contenedor}>
         <Svg
           style={styles.onda}
-          width="74"
+          width="77"
           height="48"
-          viewBox="0 0 37 24"
+          viewBox="0 0 42 38"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <Ellipse cx="18.5" rx="18.5" ry="12" fill="#F2F1F8" />
+          <Ellipse cx="18.5" rx="22.5" ry="12" fill="#F2F1F8" />
         </Svg>
       </View>
       <View style={styles.groupContainer}>
@@ -63,8 +63,9 @@ const MenuInferior = () => {
             setSelectedIcon(null)
             navigation.navigate('InicioDeportista')
           }}
+          style={styles.homeIcon}
         >
-          <HomeSVG />
+          <HomeSVG color={selectedIcon === null ? '#F25910' : '#40036F'} />
         </Pressable>
         <Pressable
           style={styles.container2}
@@ -169,5 +170,9 @@ const styles = StyleSheet.create({
   },
   frame: {
     width: 20
+  },
+  homeIcon: {
+    right: 2,
+    bottom: 8
   }
 })

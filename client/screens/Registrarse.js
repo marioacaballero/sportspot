@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import {
   StyleSheet,
   Text,
   View,
   Pressable,
   Image,
-  TextInput
+  TextInput,
+  ScrollView
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation } from '@react-navigation/native'
@@ -14,12 +15,17 @@ import { useDispatch } from 'react-redux'
 import { register } from '../redux/actions/users'
 
 const Registrarse = () => {
+  const confirmPasswordInputRef = useRef(null)
+  const passwordInputRef = useRef(null)
+
   const dispatch = useDispatch()
+
   const navigation = useNavigation()
+
   const [registerUser, setRegisterUser] = useState({
-    nickname: '',
     password: '',
-    email: ''
+    email: '',
+    confirmPassword: ''
   })
 
   const onValuesUser = (field, value) => {
@@ -30,9 +36,16 @@ const Registrarse = () => {
   }
 
   const onSubmit = () => {
-    if (register.name && registerUser.password && registerUser.email) {
+    if (
+      registerUser.email &&
+      registerUser.password &&
+      registerUser.confirmPassword &&
+      registerUser.password === registerUser.confirmPassword
+    ) {
       dispatch(register(registerUser))
       navigation.navigate('IniciarSesin')
+    } else {
+      alert('Las contraseñas no coinciden')
     }
   }
 
@@ -44,7 +57,7 @@ const Registrarse = () => {
       start={{ x: 0.3, y: 0 }}
       end={{ x: 1, y: 0.8 }}
     >
-      <View style={styles.frameParent}>
+      <ScrollView style={styles.frameParent}>
         <View style={styles.capturaDePantalla20231024Parent}>
           <Image
             style={styles.capturaDePantalla20231024Icon}
@@ -54,22 +67,16 @@ const Registrarse = () => {
           <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>
         </View>
         <View style={styles.frameGroup}>
-          <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
-            <TextInput
-              style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
-              placeholder="Nombre de usuario"
-              value={registerUser.nickname}
-              onChangeText={(value) => onValuesUser('nickname', value)}
-            />
-          </View>
           <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
               placeholder="Email"
               value={registerUser.email}
               onChangeText={(value) => onValuesUser('email', value)}
+              onSubmitEditing={() => passwordInputRef.current.focus()}
             />
           </View>
+
           <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
@@ -77,6 +84,20 @@ const Registrarse = () => {
               value={registerUser.password}
               onChangeText={(value) => onValuesUser('password', value)}
               secureTextEntry={true}
+              onSubmitEditing={() => confirmPasswordInputRef.current.focus()} // Mover al siguiente campo al presionar "Enter"
+              ref={passwordInputRef} // Referencia al campo de texto actual
+            />
+          </View>
+
+          <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
+            <TextInput
+              style={styles.nombreDeUsuario}
+              placeholder="Confirmar contraseña"
+              value={registerUser.confirmPassword}
+              onChangeText={(value) => onValuesUser('confirmPassword', value)}
+              secureTextEntry={true}
+              onSubmitEditing={onSubmit}
+              ref={confirmPasswordInputRef}
             />
           </View>
           <Pressable
@@ -95,7 +116,7 @@ const Registrarse = () => {
             </Text>
           </Pressable>
         </View>
-      </View>
+      </ScrollView>
     </LinearGradient>
   )
 }
@@ -110,7 +131,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   registrarse1Typo: {
-    textAlign: 'left',
+    textAlign: 'center',
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
@@ -132,8 +153,11 @@ const styles = StyleSheet.create({
   },
   nombreDeUsuario: {
     color: Color.sportsVioleta,
-    textAlign: 'left',
-    fontSize: FontSize.size_lg
+    textAlign: 'center',
+    fontSize: FontSize.size_lg,
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '700',
+    width: '90%'
   },
   nombreDeUsuarioWrapper: {
     paddingHorizontal: Padding.p_xl,
@@ -145,7 +169,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   emailWrapper: {
-    marginTop: 10,
+    marginBottom: 10,
     paddingHorizontal: Padding.p_xl,
     backgroundColor: Color.gris,
     paddingVertical: Padding.p_xs,
@@ -173,7 +197,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_mini,
     marginTop: 10,
     color: Color.sportsVioleta,
-    textAlign: 'left'
+    textAlign: 'center'
   },
   frameGroup: {
     width: '100%',
@@ -181,11 +205,8 @@ const styles = StyleSheet.create({
     marginTop: '15%'
   },
   frameParent: {
-    height: '100%',
-    justifyContent: 'space-between',
-    paddingVertical: '50%',
-    paddingHorizontal: 15,
-    alignItems: 'center'
+    paddingVertical: '40%',
+    paddingHorizontal: 15
   },
   registrarse: {
     flex: 1,

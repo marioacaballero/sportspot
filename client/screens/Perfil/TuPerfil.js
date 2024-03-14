@@ -9,10 +9,16 @@ import {
   ScrollView
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { FontFamily, FontSize, Padding, Border, Color } from '../GlobalStyles'
-import BackArrowSVG from '../components/SVG/BackArrowSVG'
+import {
+  FontFamily,
+  FontSize,
+  Padding,
+  Border,
+  Color
+} from '../../GlobalStyles'
+import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearUser } from '../redux/slices/users.slices'
+import { clearUser } from '../../redux/slices/users.slices'
 
 const TuPerfil = () => {
   const navigation = useNavigation()
@@ -24,7 +30,6 @@ const TuPerfil = () => {
       style={styles.tuPerfil}
       contentContainerStyle={{ paddingBottom: 20 }}
     >
-      {/* <View style={styles.pajamaswork} /> */}
       <View style={styles.tuPerfilParent}>
         <View
           style={{
@@ -46,16 +51,16 @@ const TuPerfil = () => {
             contentFit="cover"
             // require('../assets/unsplashn6gnca77urc.png')
             source={
-              user.avatar
-                ? { uri: user.avatar }
-                : require('../assets/unsplashn6gnca77urc.png')
+              user?.avatar
+                ? { uri: user?.avatar }
+                : require('../../assets/unsplashn6gnca77urc.png')
             }
           />
           <View style={styles.laraMacasBlancoCarrrilhoParent}>
             <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
               {user?.nickname}
             </Text>
-            <Text style={styles.mujer23Aos}>{user.sexo}</Text>
+            <Text style={styles.mujer23Aos}>{user?.sexo}</Text>
           </View>
         </View>
         <View style={styles.frameParent}>
@@ -66,7 +71,7 @@ const TuPerfil = () => {
             <Image
               style={styles.solarsettingsBoldIcon}
               contentFit="cover"
-              source={require('../assets/solarsettingsbold.png')}
+              source={require('../../assets/solarsettingsbold.png')}
             />
             <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
               Gestiona tu cuenta
@@ -81,11 +86,14 @@ const TuPerfil = () => {
             <Image
               style={styles.solarsettingsBoldIcon}
               contentFit="cover"
-              source={require('../assets/solarsettingsbold1.png')}
+              source={require('../../assets/solarsettingsbold1.png')}
             />
             <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
               Premios alcanzados
             </Text>
+            <View style={styles.soonButton}>
+              <Text style={styles.soonText}>Soon</Text>
+            </View>
           </View>
           <View
             style={[
@@ -96,7 +104,7 @@ const TuPerfil = () => {
             <Image
               style={styles.solarsettingsBoldIcon}
               contentFit="cover"
-              source={require('../assets/solarsettingsbold2.png')}
+              source={require('../../assets/solarsettingsbold2.png')}
             />
             <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
               Entidades colaboradores
@@ -112,7 +120,7 @@ const TuPerfil = () => {
             <Image
               style={styles.solarsettingsBoldIcon}
               contentFit="cover"
-              source={require('../assets/solarsettingsbold3.png')}
+              source={require('../../assets/solarsettingsbold3.png')}
             />
             <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
               Contactar con atención al cliente
@@ -128,7 +136,7 @@ const TuPerfil = () => {
             <Image
               style={styles.solarsettingsBoldIcon}
               contentFit="cover"
-              source={require('../assets/solarsettingsbold4.png')}
+              source={require('../../assets/solarsettingsbold4.png')}
             />
             <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
               Trabaja con nosotros
@@ -154,7 +162,7 @@ const TuPerfil = () => {
             <Image
               style={styles.solarsettingsBoldIcon}
               contentFit="cover"
-              source={require('../assets/solarsettingsbold5.png')}
+              source={require('../../assets/solarsettingsbold5.png')}
             />
             <Text style={[styles.cerrarSesin, styles.cerrarSesinTypo]}>
               Cerrar sesión
@@ -188,14 +196,6 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     alignItems: 'center',
     flexDirection: 'row'
-  },
-  menInferiorPosition: {
-    left: 0,
-    width: 360
-  },
-  frameLayout: {
-    height: 20,
-    marginLeft: 47
   },
   pajamaswork: {
     top: 618,
@@ -267,47 +267,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   tuPerfilParent: {
-    // marginLeft: -180,
-    // left: '50%',
     paddingTop: 30,
-    paddingHorizontal: Padding.p_xl,
-    // width: 360,
-    top: 0
-  },
-  icon: {
-    height: '100%',
-    width: '100%'
-  },
-  wrapper: {
-    width: 22,
-    height: 25
-  },
-  vector: {
-    width: 23,
-    marginLeft: 47
-  },
-  capturaDePantalla20231124: {
-    width: 33,
-    height: 33,
-    marginLeft: 47
-  },
-  container: {
-    width: 20,
-    marginLeft: 47
-  },
-  frame: {
-    width: 19,
-    marginLeft: 47
-  },
-  groupParent: {
-    top: 10,
-    backgroundColor: Color.gris,
-    height: 65,
-    justifyContent: 'center',
-    paddingVertical: Padding.p_3xs,
-    alignItems: 'center',
-    flexDirection: 'row',
-    left: 0,
     paddingHorizontal: Padding.p_xl
   },
   tuPerfil: {
@@ -316,6 +276,21 @@ const styles = StyleSheet.create({
     height: 800,
     overflow: 'hidden',
     width: '100%'
+  },
+  soonButton: {
+    height: 20,
+    width: 40,
+    borderRadius: Border.br_31xl,
+    backgroundColor: Color.grisGeneral,
+    alignItems: 'center',
+    left: '90%'
+  },
+  soonText: {
+    color: Color.gris,
+    fontFamily: FontFamily.inputPlaceholder,
+    fontSize: FontSize.inputLabel_size,
+    top: 1,
+    fontWeight: '700'
   }
 })
 
