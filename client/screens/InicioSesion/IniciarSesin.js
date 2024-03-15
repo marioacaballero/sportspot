@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import {
   StyleSheet,
   Text,
@@ -10,17 +10,24 @@ import {
 } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { LinearGradient } from 'expo-linear-gradient'
-import { Padding, Border, FontFamily, FontSize, Color } from '../GlobalStyles'
+import {
+  Padding,
+  Border,
+  FontFamily,
+  FontSize,
+  Color
+} from '../../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../redux/actions/users'
+import { login } from '../../redux/actions/users'
 import { ActivityIndicator } from 'react-native-paper'
-import BackArrowSVG from '../components/SVG/BackArrowSVG'
+import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 
 const IniciarSesin = ({ navigation }) => {
   const { user, userToken, loading, error } = useSelector(
     (state) => state.users
   )
   const dispatch = useDispatch()
+  const passwordInputRef = useRef(null)
 
   const [loginInfo, setLoginInfo] = useState({
     email: '',
@@ -88,7 +95,7 @@ const IniciarSesin = ({ navigation }) => {
           <Image
             style={styles.capturaDePantalla20231024Icon}
             resizeMode="contain"
-            source={require('../assets/spotsport.png')}
+            source={require('../../assets/spotsport.png')}
           />
           <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>
         </View>
@@ -107,6 +114,8 @@ const IniciarSesin = ({ navigation }) => {
               autoCapitalize="none"
               value={loginInfo.email}
               onChangeText={(value) => valuesLogin('email', value)}
+              onSubmitEditing={() => passwordInputRef.current.focus()}
+              returnKeyType="next"
             />
           </View>
           <View style={[styles.contraseaWrapper, styles.wrapperFlexBox]}>
@@ -117,6 +126,8 @@ const IniciarSesin = ({ navigation }) => {
               onChangeText={(value) => valuesLogin('password', value)}
               secureTextEntry={true}
               onSubmitEditing={onSubmit}
+              returnKeyType="done"
+              ref={passwordInputRef}
             />
           </View>
           {error && (

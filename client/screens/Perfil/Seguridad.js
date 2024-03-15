@@ -10,10 +10,16 @@ import {
   ScrollView
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
-import BackArrowSVG from '../components/SVG/BackArrowSVG'
-import { changePassword, deleteUser } from '../redux/actions/users'
-import { clearUser } from '../redux/slices/users.slices'
+import {
+  Color,
+  FontSize,
+  FontFamily,
+  Padding,
+  Border
+} from '../../GlobalStyles'
+import BackArrowSVG from '../../components/SVG/BackArrowSVG'
+import { changePassword, deleteUser } from '../../redux/actions/users'
+import { clearUser } from '../../redux/slices/users.slices'
 
 const Seguridad = () => {
   const navigation = useNavigation()
@@ -93,7 +99,7 @@ CUENTA`}
             <Image
               style={[styles.passwordIcon, styles.passwordIconLayout]}
               contentFit="cover"
-              source={require('../assets/password.png')}
+              source={require('../../assets/password.png')}
             />
             <View style={[styles.contraseaWrapper, styles.passwordIconLayout]}>
               <Text style={[styles.contrasea, styles.iconLayout]}>

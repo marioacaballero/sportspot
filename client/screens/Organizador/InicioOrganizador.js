@@ -1,23 +1,48 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Text,
   StyleSheet,
   View,
   Image,
-  ScrollView
-  // TextInput,
-  // Pressable
+  ScrollView,
+  Pressable
 } from 'react-native'
-import FomularioEventos from '../components/FomularioEventos'
-
-import { Padding, FontSize, FontFamily, Color, Border } from '../GlobalStyles'
+// import FomularioEventos from '../components/FomularioEventos'
+import {
+  Padding,
+  FontSize,
+  FontFamily,
+  Color,
+  Border
+} from '../../GlobalStyles'
+import { useNavigation } from '@react-navigation/native'
+import WebSVG from '../../components/SVG/WebSVG'
+import MensajeSVG from '../../components/SVG/MensajeSVG'
+import ContactoSVG from '../../components/SVG/ContactoSVG'
+import AccesoOrganizadorModal from '../../components/AccesoOrganizadorModal'
 
 const InicioOrganizador = () => {
+  const navigation = useNavigation()
+
+  const [modalVisible, setModalVisible] = useState(false)
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible)
+  }
+
   return (
-    <ScrollView
-      style={[styles.inicioOrganizador]}
-      contentContainerStyle={{ paddingBottom: 100 }}
-    >
+    <ScrollView style={[styles.inicioOrganizador]}>
+      <View style={styles.topContainer}>
+        <Pressable style={styles.helloAshfakWrapper2} onPress={toggleModal}>
+          <Text style={styles.buttonsText}>Acceso como organizador</Text>
+        </Pressable>
+        <Pressable
+          style={styles.helloAshfakWrapper}
+          onPress={() => navigation.navigate('PublicarEvento')}
+        >
+          <Text style={styles.buttonsText}>Publicar un evento</Text>
+        </Pressable>
+      </View>
       <View style={styles.frameView}>
         <Text style={styles.helloAshfak3}>{`Breve descripción del servicio a
         organizadores`}</Text>
@@ -25,13 +50,12 @@ const InicioOrganizador = () => {
           <Image
             style={styles.healthiconsmegaphone}
             contentFit="cover"
-            source={require('../assets/healthiconsmegaphone.png')}
+            source={require('../../assets/healthiconsmegaphone.png')}
           />
           <View style={styles.helloAshfakParent1}>
-            <Text
-              style={[styles.helloAshfak4, styles.helloTypo1]}
-            >{`NUEVO PUNTO DE 
-            CONTACTO`}</Text>
+            <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
+              NUEVO PUNTO DE CONTACTO
+            </Text>
             <Text style={[styles.helloAshfak5, styles.helloTypo]}>
               Entre deportistas y organizadores.
             </Text>
@@ -39,13 +63,14 @@ const InicioOrganizador = () => {
         </View>
         <Image
           style={{ marginTop: 15 }}
-          source={require('../assets/right-organization.png')}
+          source={require('../../assets/right-organization.png')}
         />
         {/* <View style={styles.connectorLayout} /> */}
         <View style={styles.healthiconsmegaphoneParent}>
           <View style={styles.helloAshfakParent2}>
-            <Text style={[styles.helloAshfak6, styles.helloLayout]}>{`AUMENTO DE
-            INSCRIPCIONES`}</Text>
+            <Text style={[styles.helloAshfak6, styles.helloLayout]}>
+              AUMENTO DE INSCRIPCIONES
+            </Text>
             <Text style={[styles.helloAshfak7, styles.helloLayout]}>
               En las competiciones ofrecidas por los organizadores
             </Text>
@@ -54,34 +79,35 @@ const InicioOrganizador = () => {
             <Image
               style={styles.lineIconLayout}
               contentFit="cover"
-              source={require('../assets/line-101.png')}
+              source={require('../../assets/line-101.png')}
             />
             <Image
               style={styles.vectorIcon}
               contentFit="cover"
-              source={require('../assets/vector7.png')}
+              source={require('../../assets/vector7.png')}
             />
             <Image
               style={[styles.frameChild1, styles.lineIconLayout]}
               contentFit="cover"
-              source={require('../assets/line-100.png')}
+              source={require('../../assets/line-100.png')}
             />
           </View>
         </View>
         <Image
           style={{ marginTop: 15 }}
-          source={require('../assets/left-organization.png')}
+          source={require('../../assets/left-organization.png')}
         />
         {/* <View style={[styles.connectorLine1, styles.connectorLayout]} /> */}
         <View style={styles.healthiconsmegaphoneParent}>
           <Image
             style={styles.faSolidcoinsIcon}
             contentFit="cover"
-            source={require('../assets/fasolidcoins.png')}
+            source={require('../../assets/ingresos.png')}
           />
           <View style={styles.helloAshfakParent3}>
-            <Text style={[styles.helloAshfak4, styles.helloTypo1]}>{`AUMENTO DE
-            INGRESOS`}</Text>
+            <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
+              AUMENTO DE INGRESOS
+            </Text>
             <Text style={[styles.helloAshfak9, styles.helloTypo]}>
               Para los organizadores de los eventos deportivos
             </Text>
@@ -90,7 +116,7 @@ const InicioOrganizador = () => {
         <View style={{ width: '100%' }}>
           <Image
             style={{ marginTop: 15 }}
-            source={require('../assets/right-organization.png')}
+            source={require('../../assets/right-organization.png')}
           />
         </View>
         {/* <View style={styles.connectorLayout} /> */}
@@ -99,33 +125,37 @@ const InicioOrganizador = () => {
             <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
               ÉXITO DE PRUEBAS
             </Text>
-            <Text
-              style={[styles.helloAshfak9, styles.helloTypo]}
-            >{`Por parte de los deportistas,
-              generando renombre en
-              competiciones de los
-              organizadores`}</Text>
+            <Text style={[styles.helloAshfak9, styles.helloTypo]}>
+              Por parte de los deportistas, generando renombre en competiciones
+              de los organizadores
+            </Text>
           </View>
           <Image
             style={styles.fluentMdl2medalSolidIcon}
             contentFit="cover"
-            source={require('../assets/fluentmdl2medalsolid.png')}
+            source={require('../../assets/fluentmdl2medalsolid.png')}
           />
         </View>
 
-        <View style={styles.helloAshfakParent2}>
-          <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
-            ACCEDE Y CREA TU EVENTO
-          </Text>
-          <Text
-            style={[styles.helloAshfak9, styles.helloTypo]}
-          >{`Por parte de los deportistas,
-              generando renombre en
-              competiciones de los
-              organizadores`}</Text>
+        {/* <FomularioEventos /> */}
+        <View style={styles.buttonsContainer}>
+          <View style={styles.helloAshfakWrapper}>
+            <WebSVG />
+            <Text style={styles.buttonsText}>www.spotsport.es</Text>
+          </View>
+          <View style={styles.helloAshfakWrapper}>
+            <MensajeSVG />
+            <Text style={styles.buttonsText}>
+              inforganizadores@spotsport.com
+            </Text>
+          </View>
+          <View style={styles.helloAshfakWrapper}>
+            <ContactoSVG />
+            <Text style={styles.buttonsText}>6XX XX XX XX</Text>
+          </View>
         </View>
-        <FomularioEventos />
       </View>
+      {modalVisible && <AccesoOrganizadorModal toggleModal={toggleModal} />}
     </ScrollView>
   )
 }
@@ -136,6 +166,10 @@ const styles = StyleSheet.create({
     width: 200,
     borderColor: 'gray',
     borderWidth: 1
+  },
+  topContainer: {
+    gap: 5,
+    marginBottom: 30
   },
   items: {
     flexDirection: 'row',
@@ -290,7 +324,8 @@ const styles = StyleSheet.create({
   },
   helloAshfak4: {
     textAlign: 'left',
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    width: '60%'
   },
   helloAshfak5: {
     textAlign: 'left',
@@ -302,7 +337,8 @@ const styles = StyleSheet.create({
   },
   healthiconsmegaphoneParent: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 20
   },
   helloAshfak6: {
     color: Color.sportsNaranja,
@@ -320,6 +356,12 @@ const styles = StyleSheet.create({
   helloAshfakParent2: {
     flex: 1,
     marginTop: 15
+  },
+  helloAshfakParent4: {
+    // flex: 1,
+    marginTop: 30,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   vectorIcon: {
     width: 31,
@@ -343,8 +385,8 @@ const styles = StyleSheet.create({
     ]
   },
   faSolidcoinsIcon: {
-    width: 57,
-    height: 56,
+    width: 63,
+    height: 48,
     overflow: 'hidden'
   },
   helloAshfak9: {
@@ -364,8 +406,9 @@ const styles = StyleSheet.create({
   frameView: {
     padding: Padding.p_xl,
     zIndex: 2,
-    alignItems: 'center',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    backgroundColor: Color.colorLinen_200,
+    borderRadius: 30
   },
   icon: {
     height: '100%',
@@ -407,28 +450,49 @@ const styles = StyleSheet.create({
     marginLeft: 7,
     height: 24
   },
-  icon1: {
-    overflow: 'hidden'
-  },
-  frameParentFlexBox: {
-    paddingHorizontal: Padding.p_xl,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    left: 0,
-    position: 'absolute'
-  },
   iconLayout: {
     height: '100%',
     width: '100%'
   },
   inicioOrganizador: {
     height: '100%',
-    backgroundColor: Color.colorLinen_200,
-    marginTop: 20,
-    borderRadius: 30
-    // paddingTop: 180,
-    // flex: 1
+
+    marginTop: 20
+  },
+  buttonsContainer: {
+    marginTop: 20
+  },
+  helloAshfakWrapper: {
+    backgroundColor: Color.sportsNaranja,
+    height: 48,
+    marginTop: 10,
+    padding: Padding.p_3xs,
+    borderRadius: Border.br_31xl,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    width: '100%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 10
+  },
+  helloAshfakWrapper2: {
+    backgroundColor: Color.sportsVioleta,
+    height: 48,
+    marginTop: 10,
+    padding: Padding.p_3xs,
+    borderRadius: Border.br_31xl,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    width: '100%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 10
+  },
+  buttonsText: {
+    color: Color.blanco,
+    textAlign: 'center',
+    fontSize: FontSize.inputPlaceholder_size,
+    fontFamily: FontFamily.inputPlaceholder
   }
 })
 

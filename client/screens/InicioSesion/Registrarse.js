@@ -10,9 +10,15 @@ import {
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation } from '@react-navigation/native'
-import { Padding, Border, FontFamily, FontSize, Color } from '../GlobalStyles'
+import {
+  Padding,
+  Border,
+  FontFamily,
+  FontSize,
+  Color
+} from '../../GlobalStyles'
 import { useDispatch } from 'react-redux'
-import { register } from '../redux/actions/users'
+import { register } from '../../redux/actions/users'
 
 const Registrarse = () => {
   const confirmPasswordInputRef = useRef(null)
@@ -62,7 +68,7 @@ const Registrarse = () => {
           <Image
             style={styles.capturaDePantalla20231024Icon}
             contentFit="cover"
-            source={require('../assets/spotsport.png')}
+            source={require('../../assets/spotsport.png')}
           />
           <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>
         </View>

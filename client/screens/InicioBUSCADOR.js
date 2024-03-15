@@ -116,7 +116,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
           </View>
         </Pressable>
         <Pressable
-          style={[styles.helloAshfakWrapper, styles.groupContainerFlexBox]}
+          style={styles.helloAshfakWrapper}
           onPress={() => {
             onSubmit()
             dispatch(setNameEvent(eventsFilter))
@@ -124,7 +124,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
             setMostrarInicioBuscador(false)
           }}
         >
-          <Text style={[styles.helloAshfak6, styles.helloTypo1]}>Buscar</Text>
+          <Text style={styles.helloAshfak6}>Buscar</Text>
         </Pressable>
       </View>
 
@@ -175,10 +175,6 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
 }
 
 const styles = StyleSheet.create({
-  helloTypo1: {
-    fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '700'
-  },
   arrowContainer: {
     position: 'absolute',
     left: '110%',
@@ -196,10 +192,6 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_sm,
     textAlign: 'left',
     color: Color.sportsVioleta
-  },
-  groupContainerFlexBox: {
-    justifyContent: 'center',
-    alignItems: 'center'
   },
   frameContainer6Overlay: {
     flex: 1,
@@ -267,7 +259,9 @@ const styles = StyleSheet.create({
     color: Color.blanco,
     textAlign: 'center',
     fontSize: FontSize.inputPlaceholder_size,
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '700'
   },
   helloAshfakWrapper: {
     backgroundColor: Color.sportsNaranja,
@@ -277,7 +271,8 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_31xl,
     alignSelf: 'stretch',
     justifyContent: 'center',
-    width: '100%'
+    width: '100%',
+    alignItems: 'center'
   },
   frameContainer: {
     width: '97%',

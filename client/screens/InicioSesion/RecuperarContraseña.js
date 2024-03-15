@@ -11,12 +11,18 @@ import {
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { Padding, Border, FontFamily, FontSize, Color } from '../GlobalStyles'
+import {
+  Padding,
+  Border,
+  FontFamily,
+  FontSize,
+  Color
+} from '../../GlobalStyles'
 import {
   getAllUsers,
   resetPasswordMail,
   validateResetPassword
-} from '../redux/actions/users'
+} from '../../redux/actions/users'
 
 const RecuperarContraseña = () => {
   const navigation = useNavigation()
@@ -108,7 +114,7 @@ const RecuperarContraseña = () => {
           <Image
             style={styles.capturaDePantalla20231024Icon}
             contentFit="cover"
-            source={require('../assets/spotsport.png')}
+            source={require('../../assets/spotsport.png')}
           />
           <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>
         </View>

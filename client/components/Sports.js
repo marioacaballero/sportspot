@@ -44,7 +44,6 @@ const Sports = ({ onClose, setEventsFilter, setLocalSport }) => {
     })
     .filter((sport) => sport !== null)
 
-  console.log(showColor, 'showColor')
   return (
     <View style={styles.sports}>
       <View style={styles.container}>
@@ -52,10 +51,6 @@ const Sports = ({ onClose, setEventsFilter, setLocalSport }) => {
           <View key={sport?.name} style={{ alignItems: 'center' }}>
             <TouchableOpacity
               onPress={() => {
-                // setEventsFilter((prevState) => ({
-                //   ...prevState,
-                //   sportName: prevState.sportName.concat(sport.name)
-                // }))
                 setEventsFilter((prevState) => ({
                   ...prevState,
                   sportName: sport.name

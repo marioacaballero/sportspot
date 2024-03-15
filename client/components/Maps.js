@@ -75,10 +75,12 @@ const Maps = ({ onClose, setEventsFilter }) => {
             style={styles.mapViewParent}
             onScroll={handleScroll}
             scrollEventThrottle={16}
+            showsVerticalScrollIndicator={false}
           >
             {eventsLocal.map((event, i) => (
               <TouchableOpacity
                 key={i}
+                style={{ paddingHorizontal: 20 }}
                 onPress={() => {
                   setEventsFilter((prevState) => ({
                     ...prevState,
@@ -115,22 +117,22 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderWidth: 1,
     borderColor: Color.sportsNaranja,
-    height: 40,
-    padding: 8
+    height: 45,
+    padding: 7
   },
   helloTypoScroll: {
     width: '100%',
     fontSize: FontSize.inputPlaceholder_size,
     fontFamily: FontFamily.inputPlaceholder,
-    color: Color.sportsVioleta
+    color: Color.sportsVioleta,
+    left: 20
   },
   helloTypo: {
-    marginTop: 8,
+    marginTop: 9,
     width: '100%',
     fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '500',
-    fontSize: FontSize.size_sm,
-    textAlign: 'center',
+    fontSize: FontSize.inputPlaceholder_size,
+    // textAlign: 'center',
     color: Color.sportsVioleta
   },
   helloAshfakTypo1: {
@@ -185,13 +187,13 @@ const styles = StyleSheet.create({
     height: 42,
     width: '100%',
     alignItems: 'center',
-    marginTop: 24,
+    marginTop: 25,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
   mapViewParent: {
     alignSelf: 'stretch',
-    height: 160
+    height: 170
     // justifyContent: 'center'
   },
   mapsInner: {
@@ -204,7 +206,7 @@ const styles = StyleSheet.create({
     // maxHeight: '100%'
   },
   mapView: {
-    minHeight: 400,
+    minHeight: 450,
     width: '100%'
   },
   markerIcon: {

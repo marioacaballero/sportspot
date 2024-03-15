@@ -14,11 +14,12 @@ import { Padding, FontFamily, FontSize, Color, Border } from '../GlobalStyles'
 import PopupPremium from '../components/PopupPremium'
 import InicioNotificaciones from './InicioNotificaciones'
 import InicioBUSCADOR from './InicioBUSCADOR'
-import InicioOrganizador from './InicioOrganizador'
+import InicioOrganizador from './Organizador/InicioOrganizador'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllEvents, getEventById } from '../redux/actions/events'
 import { ActivityIndicator } from 'react-native-paper'
 import { LinearGradient } from 'expo-linear-gradient'
+import DatosDeportista from '../components/DatosDeportista'
 
 const InicioDeportista = () => {
   const navigation = useNavigation()
@@ -110,6 +111,7 @@ const InicioDeportista = () => {
   } else {
     return (
       <ScrollView style={styles.inicioDeportista}>
+        <DatosDeportista />
         <View style={[styles.frameParent, styles.frameParentFlexBox]}>
           <View style={[styles.helloAshfakParent, styles.frameGroupFlexBox]}>
             {/* <Text style={[styles.helloAshfak, styles.imGoingToTypo]}>INICIO</Text> */}
