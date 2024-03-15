@@ -89,7 +89,6 @@ export class EventsService {
     id: string,
     updateEventDto: UpdateEventDto
   ): Promise<EventEntity> {
-    console.log('infoooooooo', updateEventDto)
 
     const event = await this.eventsRepository
       .createQueryBuilder('event')

@@ -1,12 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { Calendar } from 'react-native-calendars'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
 import moment from 'moment'
 
-const Calendario = ({ onClose, setEventsFilter, setDate, eventsFilter }) => {
+const Calendario = ({
+  onClose,
+  setEventsFilter,
+  setSelected,
+  setDate,
+  eventsFilter
+}) => {
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
+
+  useEffect(() => {
+    const dates = [startDate, endDate]
+    const formattedDates = dates.filter((date) => date !== null).join(', ')
+    setSelected(formattedDates)
+  }, [startDate, endDate])
 
   const handleDayPress = (day) => {
     const dateString = day.dateString.toString()
@@ -56,6 +68,8 @@ const Calendario = ({ onClose, setEventsFilter, setDate, eventsFilter }) => {
       }
     }
 
+    // const dates = [startDate, endDate]
+    // setSelected(dates)
     return markedDates
   }
 

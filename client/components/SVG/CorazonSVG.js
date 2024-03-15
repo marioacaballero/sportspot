@@ -4,7 +4,6 @@ import { Svg, Path } from 'react-native-svg'
 import { Color } from '../../GlobalStyles'
 
 const CorazonSVG = ({ isFavorite, handle }) => {
-  console.log('favoritooo?', isFavorite)
   return (
     <TouchableOpacity onPress={handle}>
       <Svg

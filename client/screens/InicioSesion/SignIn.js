@@ -8,6 +8,7 @@ import {
   StyleSheet
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
+import { Color } from '../../GlobalStyles'
 
 export default function SignIn({ navigation }) {
   return (
@@ -23,7 +24,7 @@ export default function SignIn({ navigation }) {
           <Image
             style={styles.image}
             contentFit="cover"
-            source={require('../assets/spotsport.png')}
+            source={require('../../assets/spotsport.png')}
           />
           <Text
             style={{
@@ -47,64 +48,16 @@ export default function SignIn({ navigation }) {
             Bienvenido/a
           </Text>
           <View style={{ marginTop: 20 }}>
-            <View
-              style={{
-                // alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#E2DCEC',
-                borderRadius: 50,
-                paddingVertical: 20,
-                marginBottom: 10,
-                marginHorizontal: 21
-              }}
-            >
-              <Text
-                style={{
-                  color: '#40036F',
-                  fontSize: 18,
-                  textAlign: 'center'
-                }}
-              >
-                Iniciar sesión con Google
-              </Text>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Iniciar sesión con Google</Text>
             </View>
-            <View
-              style={{
-                // alignItems: 'center',
-                backgroundColor: '#E2DCEC',
-                borderRadius: 50,
-                paddingVertical: 20,
-                marginBottom: 10,
-                marginHorizontal: 21
-              }}
-            >
-              <Text
-                style={{
-                  color: '#40036F',
-                  fontSize: 18,
-                  textAlign: 'center'
-                }}
-              >
-                Iniciar sesión con Apple
-              </Text>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Iniciar sesión con Apple</Text>
             </View>
 
-            <View
-              style={{
-                // alignItems: 'center',
-                backgroundColor: '#E2DCEC',
-                borderRadius: 50,
-                paddingVertical: 20,
-                marginBottom: 10,
-                marginHorizontal: 21
-              }}
-            >
+            <View style={styles.button}>
               <Text
-                style={{
-                  color: '#40036F',
-                  fontSize: 18,
-                  textAlign: 'center'
-                }}
+                style={styles.buttonText}
                 onPress={() => navigation.navigate('Registrarse')}
               >
                 Registrarse
@@ -119,7 +72,7 @@ export default function SignIn({ navigation }) {
             >
               <Text
                 style={{
-                  color: '#E2DCEC',
+                  color: Color.sportsNaranja,
                   fontSize: 18,
                   textAlign: 'center'
                 }}
@@ -153,5 +106,17 @@ const styles = StyleSheet.create({
   linearGradient: {
     flex: 1,
     width: '100%'
+  },
+  button: {
+    backgroundColor: '#E2DCEC',
+    borderRadius: 50,
+    paddingVertical: 20,
+    marginBottom: 10,
+    marginHorizontal: 21
+  },
+  buttonText: {
+    color: '#40036F',
+    fontSize: 18,
+    textAlign: 'center'
   }
 })

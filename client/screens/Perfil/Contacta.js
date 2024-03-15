@@ -1,8 +1,14 @@
 import React from 'react'
 import { View, StyleSheet, Text, Pressable, TextInput } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { Color, Border, FontSize, FontFamily, Padding } from '../GlobalStyles'
-import BackArrowSVG from '../components/SVG/BackArrowSVG'
+import {
+  Color,
+  Border,
+  FontSize,
+  FontFamily,
+  Padding
+} from '../../GlobalStyles'
+import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 
 const Contacta = () => {
   const navigation = useNavigation()
@@ -45,19 +51,18 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   innerContainer: {
-    top: 142,
-    borderRadius: Border.br_3xs,
-    shadowColor: 'rgba(0, 0, 0, 0.25)',
+    top: 122,
+    borderRadius: Border.br_base,
+    shadowColor: '#000',
     shadowOffset: {
-      width: 2,
+      width: 0,
       height: 2
     },
-    shadowRadius: 4,
-    elevation: 4,
-    shadowOpacity: 1,
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    backgroundColor: Color.blanco,
     borderStyle: 'solid',
-    borderColor: Color.colorGainsboro_100,
-    borderWidth: 1,
     width: '90%',
     height: 360,
     left: 20,

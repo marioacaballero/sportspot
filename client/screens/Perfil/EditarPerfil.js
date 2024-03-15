@@ -9,14 +9,24 @@ import {
   ScrollView,
   TextInput
 } from 'react-native'
-import Calendar from '../components/Calendar'
+import Calendar from '../../components/Calendar'
 import * as ImagePicker from 'expo-image-picker'
 import { useNavigation } from '@react-navigation/native'
-import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
+import {
+  Color,
+  FontSize,
+  FontFamily,
+  Padding,
+  Border
+} from '../../GlobalStyles'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUser, updateUser, updateUserAvatar } from '../redux/actions/users'
-import BackArrowSVG from '../components/SVG/BackArrowSVG'
+import {
+  getUser,
+  updateUser,
+  updateUserAvatar
+} from '../../redux/actions/users'
+import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 
 const EditarPerfil = () => {
   const navigation = useNavigation()
@@ -114,7 +124,11 @@ CUENTA`}
             style={styles.unsplashn6gnca77urcIcon}
             contentFit="cover"
             source={
-              selectedImage ? { uri: selectedImage } : { uri: user?.avatar }
+              selectedImage
+                ? { uri: selectedImage }
+                : user?.avatar
+                ? { uri: user.avatar }
+                : require('../../assets/unsplashn6gnca77urc.png')
             }
           />
           <View
@@ -132,7 +146,7 @@ CUENTA`}
             <LinearGradient
               colors={['#BA08F9', 'transparent']}
               start={{ x: 0, y: 0 }}
-              end={{ x: 0.5, y: 0.5 }}
+              end={{ x: 0.8, y: 0.5 }}
               style={{ flex: 1 }}
             >
               <Text
@@ -152,14 +166,9 @@ CUENTA`}
           <View style={styles.card1Wrapper}>
             <View style={styles.card1}>
               <Image
-                style={styles.favoriteIActiveIcon}
-                contentFit="cover"
-                source={require('../assets/favorite-iactive.png')}
-              />
-              <Image
                 style={styles.userIcon}
                 contentFit="cover"
-                source={require('../assets/user.png')}
+                source={require('../../assets/user.png')}
               />
               <View style={styles.datosPersonalesWrapper}>
                 <Text
@@ -177,7 +186,6 @@ CUENTA`}
                       Nombre
                     </Text>
                     <TextInput
-                      // style={[styles.label, styles.labelFlexBox]}
                       placeholder={user?.name || 'Nombre'}
                       value={valuesUser?.name}
                       onChangeText={(value) => settingValuesUser('name', value)}
@@ -192,7 +200,6 @@ CUENTA`}
                       Apellido
                     </Text>
                     <TextInput
-                      // style={[styles.label, styles.labelFlexBox]}
                       placeholder={user?.apellido || 'Apellido'}
                       value={valuesUser?.apellido}
                       onChangeText={(value) =>
@@ -213,9 +220,6 @@ CUENTA`}
                       value={valuesUser.sexo}
                       onChangeText={(value) => settingValuesUser('sexo', value)}
                     />
-                    {/* <Text style={[styles.placehoder, styles.placehoderTypo]}>
-                      Mujer
-                    </Text> */}
                   </View>
                 </View>
                 <Pressable style={[styles.top, styles.inputBorderDate]}>
@@ -234,15 +238,12 @@ CUENTA`}
                           settingValuesUser('fechaNacimiento', value)
                         }
                       />
-                      {/* <Text style={[styles.placehoder, styles.placehoderTypo]}>
-                        12/12/2020
-                      </Text> */}
                     </View>
                     <Pressable onPress={openTopContainer}>
                       <Image
                         style={styles.iconlylightcalendar}
                         contentFit="cover"
-                        source={require('../assets/iconlylightcalendar.png')}
+                        source={require('../../assets/iconlylightcalendar.png')}
                       />
                     </Pressable>
                   </View>
@@ -255,7 +256,7 @@ CUENTA`}
               <Image
                 style={[styles.favoriteIActiveIcon1, styles.iconLayout]}
                 contentFit="cover"
-                source={require('../assets/favorite-iactive1.png')}
+                source={require('../../assets/favorite-iactive1.png')}
               />
               <View style={styles.datosDeContactoWrapper}>
                 <Text
@@ -267,7 +268,7 @@ CUENTA`}
               <Image
                 style={[styles.addressbookIcon, styles.iconLayout]}
                 contentFit="cover"
-                source={require('../assets/addressbook.png')}
+                source={require('../../assets/addressbook.png')}
               />
             </View>
             <View style={[styles.inputGroup, styles.inputFlexBox]}>
@@ -275,9 +276,6 @@ CUENTA`}
                 <View style={[styles.inputContent, styles.inputContentFlexBox]}>
                   <Text style={[styles.label, styles.labelFlexBox]}>Email</Text>
                   <TextInput placeholder={user?.email || 'ejemplo@gmail.com'} />
-                  {/* <Text style={[styles.placehoder, styles.placehoderTypo]}>
-                    ejemplo@gmail.com
-                  </Text> */}
                 </View>
               </View>
               <View style={styles.inputCel}>
@@ -286,15 +284,12 @@ CUENTA`}
                     Teléfono
                   </Text>
                   <TextInput
-                    placeholder={user?.telefono || '@600100100'}
+                    placeholder={user?.telefono || 'Escribe aqui...'}
                     value={valuesUser.telefono}
                     onChangeText={(value) =>
                       settingValuesUser('telefono', value)
                     }
                   />
-                  {/* <Text style={[styles.placehoder, styles.placehoderTypo]}>
-                    600100100
-                  </Text> */}
                 </View>
               </View>
               <View style={[styles.inputAdress, styles.inputBorder]}>
@@ -303,15 +298,12 @@ CUENTA`}
                     Dirección
                   </Text>
                   <TextInput
-                    placeholder={user?.direccion || '@C/Falsa, 123'}
+                    placeholder={user?.direccion || 'Escribe aqui...'}
                     value={valuesUser.direccion}
                     onChangeText={(value) =>
                       settingValuesUser('direccion', value)
                     }
                   />
-                  {/* <Text style={[styles.placehoder, styles.placehoderTypo]}>
-                    C/Falsa, 123
-                  </Text> */}
                 </View>
               </View>
               <View style={styles.helloAshfakWrapper}>
@@ -365,12 +357,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center'
   },
-  placehoderTypo: {
-    fontSize: FontSize.size_sm,
-    textAlign: 'left',
-    fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '700'
-  },
   card1ChildPosition: {
     left: '0%',
     top: '10%',
@@ -412,23 +398,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     overflow: 'hidden'
   },
-  menInferiorLayout: {
-    width: 360,
-    position: 'absolute'
-  },
-  frameLayout: {
-    height: 20,
-    marginLeft: 47
-  },
   gestionaTuCuentaContainer: {
     fontSize: FontSize.size_11xl,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     textAlign: 'left',
     alignSelf: 'stretch'
-  },
-  gestionaTuCuentaWrapper: {
-    top: 67
   },
   editarPerfil1: {
     color: Color.sportsNaranja,
@@ -452,8 +427,6 @@ const styles = StyleSheet.create({
   },
   unsplashn6gnca77urcWrapper: {
     top: 50,
-    // paddingLeft: Padding.p_83xl,
-    // paddingRight: Padding.p_3xs,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -468,7 +441,7 @@ const styles = StyleSheet.create({
     width: 22
   },
   datosPersonales: {
-    fontSize: FontSize.inputLabel_size,
+    fontSize: FontSize.size_sm,
     textTransform: 'capitalize',
     fontWeight: '500',
     fontFamily: FontFamily.inputPlaceholder,
@@ -479,18 +452,13 @@ const styles = StyleSheet.create({
   },
   datosPersonalesWrapper: {
     width: 195,
-    height: 24,
+    height: 35,
     marginLeft: 11,
     alignItems: 'center'
   },
   label: {
     fontSize: FontSize.size_5xs,
     fontFamily: FontFamily.inputPlaceholder,
-    alignSelf: 'stretch'
-  },
-  placehoder: {
-    color: Color.sportsVioleta,
-    fontSize: FontSize.size_sm,
     alignSelf: 'stretch'
   },
   inputContent: {
@@ -610,14 +578,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5
   },
-  card1Child: {
-    right: '0%',
-    bottom: '0%',
-
-    borderRadius: Border.br_base,
-    top: '0%',
-    backgroundColor: Color.blanco
-  },
   favoriteIActiveIcon1: {
     height: '14.29%',
     width: '4.92%',
@@ -631,12 +591,12 @@ const styles = StyleSheet.create({
     height: '13.63%',
     width: '59.6%',
     right: '26.02%',
-    bottom: '82.9%',
+    marginBottom: '82.9%',
     left: '14.37%',
     position: 'absolute'
   },
   addressbookIcon: {
-    height: '13.06%',
+    height: '11.06%',
     width: '9.79%',
     top: '2.86%',
     right: '86.85%',
@@ -655,10 +615,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5
   },
-  input5: {
-    width: 295,
-    height: 47
-  },
   inputGroup: {
     top: 48,
     left: 18,
@@ -669,48 +625,10 @@ const styles = StyleSheet.create({
   frameParent: {
     top: 80
   },
-  icon: {
-    height: '100%',
-    width: '100%'
-  },
-  wrapper: {
-    height: 25,
-    width: 22
-  },
-  vector: {
-    width: 23,
-    marginLeft: 47
-  },
-  capturaDePantalla20231124: {
-    width: 33,
-    height: 33,
-    marginLeft: 47
-  },
-  container: {
-    width: 20,
-    marginLeft: 47
-  },
-  frame: {
-    width: 19,
-    marginLeft: 47
-  },
-  groupParent: {
-    // top: 10,
-    // left: 0,
-    backgroundColor: Color.gris,
-    height: 65,
-    paddingHorizontal: Padding.p_xl,
-    paddingVertical: Padding.p_3xs,
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center'
-  },
   editarPerfil: {
-    // overflow: 'hidden',
     paddingBottom: 220,
     width: '100%',
     backgroundColor: Color.blanco,
-    // flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start'
   }

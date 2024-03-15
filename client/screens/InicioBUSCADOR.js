@@ -17,6 +17,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
   const [frameContainer8Visible, setFrameContainer8Visible] = useState(false)
   const [frameContainer10Visible, setFrameContainer10Visible] = useState(false)
   const [selected, setSelected] = useState(null)
+  const [localSport, setLocalSport] = useState('')
   const [eventsFilter, setEventsFilter] = useState({
     sportName: '',
     location: '',
@@ -79,10 +80,11 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
               source={require('../assets/frame-1547755976.png')}
             />
             <Text style={[styles.helloAshfak3, styles.helloTypo]}>
-              Localización
+              {eventsFilter.location ? eventsFilter.location : 'Localización'}
             </Text>
           </View>
         </Pressable>
+
         <Pressable
           style={[styles.framePressable, styles.frameWrapperSpaceBlock]}
           onPress={openFrameContainer8}
@@ -93,7 +95,9 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
               contentFit="cover"
               source={require('../assets/frame-1547755977.png')}
             />
-            <Text style={styles.helloTypo}>Deporte</Text>
+            <Text style={styles.helloTypo}>
+              {!localSport ? 'Deporte' : localSport}
+            </Text>
           </View>
         </Pressable>
         <Pressable
@@ -112,7 +116,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
           </View>
         </Pressable>
         <Pressable
-          style={[styles.helloAshfakWrapper, styles.groupContainerFlexBox]}
+          style={styles.helloAshfakWrapper}
           onPress={() => {
             onSubmit()
             dispatch(setNameEvent(eventsFilter))
@@ -120,7 +124,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
             setMostrarInicioBuscador(false)
           }}
         >
-          <Text style={[styles.helloAshfak6, styles.helloTypo1]}>Buscar</Text>
+          <Text style={styles.helloAshfak6}>Buscar</Text>
         </Pressable>
       </View>
 
@@ -146,6 +150,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
           <Sports
             onClose={closeFrameContainer8}
             setEventsFilter={setEventsFilter}
+            setLocalSport={setLocalSport}
           />
         </View>
       </Modal>
@@ -170,13 +175,10 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
 }
 
 const styles = StyleSheet.create({
-  helloTypo1: {
-    fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '700'
-  },
   arrowContainer: {
-    left: '87%',
-    marginBottom: '3%'
+    position: 'absolute',
+    left: '110%',
+    top: 36
   },
   frameWrapperSpaceBlock: {
     padding: Padding.p_3xs,
@@ -190,23 +192,6 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_sm,
     textAlign: 'left',
     color: Color.sportsVioleta
-  },
-  groupContainerFlexBox: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  frameLayout: {
-    height: 20,
-    marginLeft: 47
-  },
-  helloAshfak: {
-    fontSize: FontSize.size_5xl,
-    textAlign: 'left',
-    color: Color.sportsVioleta
-  },
-  wrapper: {
-    width: 29,
-    height: 22
   },
   frameContainer6Overlay: {
     flex: 1,
@@ -274,7 +259,9 @@ const styles = StyleSheet.create({
     color: Color.blanco,
     textAlign: 'center',
     fontSize: FontSize.inputPlaceholder_size,
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '700'
   },
   helloAshfakWrapper: {
     backgroundColor: Color.sportsNaranja,
@@ -284,42 +271,21 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_31xl,
     alignSelf: 'stretch',
     justifyContent: 'center',
-    width: '100%'
+    width: '100%',
+    alignItems: 'center'
   },
   frameContainer: {
-    width: '100%',
+    width: '97%',
     padding: 20,
     marginTop: 19
-  },
-  container: {
-    width: 22,
-    height: 25
   },
   frame: {
     width: 20,
     marginLeft: 47
   },
-  groupContainer: {
-    top: 10,
-    backgroundColor: Color.gris,
-    height: 65,
-    paddingVertical: Padding.p_3xs,
-    flexDirection: 'row',
-    paddingHorizontal: Padding.p_xl,
-    width: 360,
-    left: 0,
-    position: 'absolute'
-  },
-  inicioBuscador: {
-    overflow: 'hidden',
-    height: 800,
-    flex: 1,
-    backgroundColor: Color.blanco,
-    width: '100%'
-  },
   icon: {
-    width: 29,
-    height: 13
+    width: 24,
+    height: 10
   }
 })
 

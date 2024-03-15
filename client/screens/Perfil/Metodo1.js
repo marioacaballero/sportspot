@@ -1,7 +1,13 @@
 import * as React from 'react'
 import { StyleSheet, View, Text, Image } from 'react-native'
 // import { useNavigation } from '@react-navigation/native'
-import { FontFamily, Padding, FontSize, Color, Border } from '../GlobalStyles'
+import {
+  FontFamily,
+  Padding,
+  FontSize,
+  Color,
+  Border
+} from '../../GlobalStyles'
 
 const Metodo1 = () => {
   // const navigation = useNavigation()
@@ -13,7 +19,7 @@ const Metodo1 = () => {
           <Image
             style={styles.medalIcon}
             contentFit="cover"
-            source={require('../assets/medal.png')}
+            source={require('../../assets/medal.png')}
           />
         </View>
         <View style={styles.frameWrapper}>

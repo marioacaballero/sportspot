@@ -1,25 +1,33 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import {
   StyleSheet,
   Text,
   View,
   Pressable,
   Image,
-  TextInput
+  TextInput,
+  TouchableOpacity
 } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { LinearGradient } from 'expo-linear-gradient'
-import { Padding, Border, FontFamily, FontSize, Color } from '../GlobalStyles'
+import {
+  Padding,
+  Border,
+  FontFamily,
+  FontSize,
+  Color
+} from '../../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../redux/actions/users'
+import { login } from '../../redux/actions/users'
 import { ActivityIndicator } from 'react-native-paper'
-import BackArrowSVG from '../components/SVG/BackArrowSVG'
+import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 
 const IniciarSesin = ({ navigation }) => {
   const { user, userToken, loading, error } = useSelector(
     (state) => state.users
   )
   const dispatch = useDispatch()
+  const passwordInputRef = useRef(null)
 
   const [loginInfo, setLoginInfo] = useState({
     email: '',
@@ -87,16 +95,12 @@ const IniciarSesin = ({ navigation }) => {
           <Image
             style={styles.capturaDePantalla20231024Icon}
             resizeMode="contain"
-            source={require('../assets/spotsport.png')}
+            source={require('../../assets/spotsport.png')}
           />
           <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>
         </View>
         {loading && (
           <ActivityIndicator
-            // style={{
-            //   width: '100%',
-            //   height: '100%'
-            // }}
             animating={true}
             size="large"
             color={Color.violeta2}
@@ -106,10 +110,12 @@ const IniciarSesin = ({ navigation }) => {
           <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={[styles.nombreDeUsuario, styles.entrarTypo]}
-              placeholder="Nombre de usuario"
+              placeholder="Email"
               autoCapitalize="none"
               value={loginInfo.email}
               onChangeText={(value) => valuesLogin('email', value)}
+              onSubmitEditing={() => passwordInputRef.current.focus()}
+              returnKeyType="next"
             />
           </View>
           <View style={[styles.contraseaWrapper, styles.wrapperFlexBox]}>
@@ -119,6 +125,9 @@ const IniciarSesin = ({ navigation }) => {
               value={loginInfo.password}
               onChangeText={(value) => valuesLogin('password', value)}
               secureTextEntry={true}
+              onSubmitEditing={onSubmit}
+              returnKeyType="done"
+              ref={passwordInputRef}
             />
           </View>
           {error && (
@@ -126,19 +135,21 @@ const IniciarSesin = ({ navigation }) => {
               Email o contraseña incorrecta
             </Text>
           )}
-          <Pressable
+          <TouchableOpacity
             style={[styles.entrarWrapper, styles.wrapperFlexBox]}
-            onPress={() => {
-              onSubmit()
-              // navigation.navigate('InicioDeportista')
-            }}
+            onPress={onSubmit}
           >
             <Text style={[styles.entrar, styles.entrarTypo]}>Entrar</Text>
-          </Pressable>
+          </TouchableOpacity>
 
           <Pressable onPress={() => navigation.navigate('RecuperarContraseña')}>
             <Text style={[styles.hasOlvidadoTu, styles.entrarTypo]}>
               ¿Has olvidado tu contraseña?
+            </Text>
+          </Pressable>
+          <Pressable onPress={() => navigation.navigate('Registrarse')}>
+            <Text style={[styles.hasOlvidadoTu, styles.entrarTypo]}>
+              Crea tu cuenta
             </Text>
           </Pressable>
         </View>
@@ -161,7 +172,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   entrarTypo: {
-    textAlign: 'left',
+    textAlign: 'center',
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
@@ -181,7 +192,6 @@ const styles = StyleSheet.create({
   nombreDeUsuario: {
     width: '100%',
     color: Color.sportsVioleta,
-    textAlign: 'left',
     fontSize: FontSize.size_lg,
     fontFamily: FontFamily.inputPlaceholder
   },
@@ -237,7 +247,7 @@ const styles = StyleSheet.create({
     marginTop: '20%'
   },
   frameParent: {
-    paddingVertical: '50%',
+    paddingVertical: '40%',
     paddingHorizontal: 15,
     height: '100%',
     justifyContent: 'space-between',

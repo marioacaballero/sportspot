@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Color, Border, FontSize, Padding } from '../GlobalStyles'
-import { Path, Rect, Svg } from 'react-native-svg'
+import BackArrowSVG from '../components/SVG/BackArrowSVG'
 
 const UltimasConsultas = () => {
   const navigation = useNavigation()
@@ -41,18 +41,7 @@ const UltimasConsultas = () => {
 CONSULTAS`}
             </Text>
             <Pressable onPress={() => navigation.goBack()}>
-              <Svg width="25" height="25" viewBox="0 0 21 21" fill="none">
-                <Rect
-                  width="21"
-                  height="21"
-                  transform="translate(0 21) rotate(-90)"
-                  fill="white"
-                />
-                <Path
-                  d="M6.17798 4.98006L0.65625 10.5018L6.17798 16.0234L7.10604 15.0953L3.16862 11.158L20.3124 11.158L20.3124 9.84546L3.16874 9.84546L7.10604 5.90816L6.17798 4.98006Z"
-                  fill={Color.sportsVioleta}
-                />
-              </Svg>
+              <BackArrowSVG />
             </Pressable>
           </View>
           <View style={styles.frameGroup}>
@@ -124,7 +113,12 @@ CONSULTAS`}
             )}
           </View>
         </View>
-        <View style={[styles.image84Parent, styles.parentBorder]}>
+        <View style={styles.consultaContainer}>
+          <Text style={styles.ultimasConsultas1}>
+            ¡Aqui podras volver a visitar los eventos vistos recientemente!
+          </Text>
+        </View>
+        {/* <View style={[styles.image84Parent, styles.parentBorder]}>
           <Image
             style={styles.image84Icon}
             contentFit="cover"
@@ -161,8 +155,8 @@ Fecha de la prueba: `}</Text>
               <Text style={[styles.text, styles.textTypo]}>22€</Text>
             </Text>
           </View>
-        </View>
-        <View style={[styles.image84Parent, styles.parentBorder]}>
+        </View> */}
+        {/* <View style={[styles.image84Parent, styles.parentBorder]}>
           <Image
             style={styles.image84Icon}
             contentFit="cover"
@@ -199,7 +193,7 @@ Fecha de la prueba: `}</Text>
               <Text style={[styles.text, styles.textTypo]}>18€</Text>
             </Text>
           </View>
-        </View>
+        </View> */}
       </View>
     </ScrollView>
   )
@@ -473,6 +467,15 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     width: '100%',
     flex: 1
+  },
+  consultaContainer: {
+    padding: 20
+  },
+  ultimasConsultas1: {
+    fontSize: FontSize.size_lg,
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '700',
+    color: Color.sportsVioleta
   }
 })
 

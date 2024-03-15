@@ -1,7 +1,7 @@
 import * as ImagePicker from 'expo-image-picker'
 import React, { useEffect, useState } from 'react'
 import {
-  Image,
+  // Image,
   Modal,
   Pressable,
   StyleSheet,
@@ -17,6 +17,7 @@ import { getAllSports } from '../redux/actions/sports'
 import CalendarOneDay from './CalendarOneDay'
 import SportsPopUp from './SportsPopUp'
 import { onSubmit } from './utils/createEvent'
+import { Checkbox } from 'react-native-paper'
 
 const FomularioEventos = () => {
   const dispatch = useDispatch()
@@ -33,13 +34,18 @@ const FomularioEventos = () => {
   const [sportsModal, setSportsModal] = useState(false)
   const [event, setEvent] = useState({
     title: '',
-    description: '',
+    // description: '',
     price: '',
     location: '',
-    timeStart: ''
-    // dateStart,
-    // dateInscription: dataSuscription
+    timeStart: '',
+    place: '',
+    eventLink: '',
+    inscriptionLink: '',
+    space: '',
+    mail: '',
+    phone: ''
   })
+  const [checked, setChecked] = useState(false)
 
   const onCloseModalSports = () => {
     setSportsModal(false)
@@ -66,12 +72,7 @@ const FomularioEventos = () => {
       quality: 1,
       base64: true
     })
-    // const resultImage = result.assets[0].base64
-    // if (result?.assets[0].base64.startWith('data:image/jpeg;base64,')) {
-    //   setSelectedImage(result?.assets[0].base64)
-    // } else {
     setSelectedImage(`data:image/jpeg;base64,${result?.assets[0].base64}`)
-    // }
   }
 
   const closeCalendar = () => {
@@ -83,42 +84,127 @@ const FomularioEventos = () => {
   }
 
   return (
-    <View style={{ width: '100%', marginTop: 30 }}>
-      <Pressable style={styles.items} onPress={uploadImage}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-        <Text style={styles.helloTypoScroll}>Portada</Text>
-        <Image
-          // style={styles.unsplashn6gnca77urcIcon}
-          style={{ width: 20, height: 20 }}
-          contentFit="cover"
-          source={selectedImage && { uri: selectedImage }}
-        />
-      </Pressable>
+    <View>
       <View style={styles.items}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-        <Text
-          style={{
-            fontSize: FontSize.inputPlaceholder_size,
-            fontFamily: FontFamily.inputPlaceholder,
-            fontWeight: '700',
-            color: Color.sportsVioleta
-          }}
-        >
-          Titulo:
-        </Text>
+        <Text style={styles.text}>Nombre del evento</Text>
         <TextInput
           style={styles.helloTypoScroll}
           value={event.title}
           onChangeText={(value) => onValuesEvent('title', value)}
+          placeholder="Escriba el lugar del evento"
+          placeholderTextColor={Color.sportsVioleta}
         />
       </View>
-      <View style={[styles.itemsTextArea]}>
+
+      <Pressable style={styles.items} onPress={() => setSportsModal(true)}>
+        <Text style={styles.text}>Deporte</Text>
+        <Text style={styles.helloTypoScroll}>
+          {sport?.name?.slice(0, 1).toUpperCase()}
+          {sport?.name?.slice(1)}{' '}
+          {sport.type ? sport?.type : 'Elije tu deporte'}
+        </Text>
+      </Pressable>
+
+      <View style={styles.items}>
+        <Text style={styles.text}>Link del evento</Text>
+        <TextInput
+          style={styles.helloTypoScroll}
+          value={event.location}
+          onChangeText={(value) => onValuesEvent('eventLink', value)}
+          placeholder="https://www.deportedeporte.com/"
+          placeholderTextColor={Color.sportsVioleta}
+        />
+      </View>
+
+      <View style={styles.items}>
+        <Text style={styles.text}>Link de la inscripción</Text>
+        <TextInput
+          style={styles.helloTypoScroll}
+          value={event.location}
+          onChangeText={(value) => onValuesEvent('inscriptionLink', value)}
+          placeholder="https://www.deportedeporte.com/inscripción/"
+          placeholderTextColor={Color.sportsVioleta}
+        />
+      </View>
+
+      <View style={styles.items2Container}>
+        <View style={styles.items2Flex}>
+          <Text style={styles.text2}>Precio de inscripción</Text>
+          <View style={styles.items2}>
+            <TextInput
+              style={styles.helloTypoScrollPrecio}
+              value={event.price}
+              onChangeText={(value) => onValuesEvent('price', value)}
+              placeholder="35€"
+              placeholderTextColor={Color.sportsVioleta}
+            />
+          </View>
+        </View>
+
+        <View style={styles.items2Flex}>
+          <Text style={styles.text2}>Plazas disponibles</Text>
+          <View style={styles.items2}>
+            <TextInput
+              style={styles.helloTypoScrollPrecio}
+              value={event.price}
+              onChangeText={(value) => onValuesEvent('space', value)}
+              placeholder="XXXX"
+              placeholderTextColor={Color.sportsVioleta}
+            />
+          </View>
+        </View>
+
+        <View style={styles.items2Flex}>
+          <Text style={styles.text2}>Subir cartel del evento</Text>
+          <Pressable style={styles.items2} onPress={uploadImage}>
+            {/* <Image
+              style={{ width: 20, height: 20 }}
+              contentFit="cover"
+              source={selectedImage && { uri: selectedImage }}
+            /> */}
+            <Text style={styles.subirArchivo}>Subir archivo</Text>
+          </Pressable>
+        </View>
+      </View>
+
+      <View style={styles.checkContainer}>
+        <Text style={styles.textDiseño}>
+          Quiero contratar el diseño del cartel
+        </Text>
+        <Checkbox
+          status={checked ? 'checked' : 'unchecked'}
+          onPress={() => {
+            setChecked(!checked)
+          }}
+          color={Color.sportsNaranja}
+        />
+      </View>
+
+      <Text style={styles.contactoText}>Datos de contacto del organizador</Text>
+
+      <View style={styles.items}>
+        <Text style={styles.text}>Email</Text>
+        <TextInput
+          style={styles.helloTypoScroll}
+          value={event.location}
+          onChangeText={(value) => onValuesEvent('mail', value)}
+          placeholder="organizador@gmail.com"
+          placeholderTextColor={Color.sportsVioleta}
+        />
+      </View>
+
+      <View style={styles.items}>
+        <Text style={styles.text}>Telefono</Text>
+        <TextInput
+          style={styles.helloTypoScroll}
+          value={event.location}
+          onChangeText={(value) => onValuesEvent('phone', value)}
+          placeholder="XXX-XXX-XXX"
+          placeholderTextColor={Color.sportsVioleta}
+        />
+      </View>
+
+      {/* <View style={[styles.itemsTextArea]}>
         <Image
           style={{ width: 25, height: 25, marginRight: 10, marginTop: 6 }}
           source={require('../assets/frame-1547755976.png')}
@@ -140,62 +226,9 @@ const FomularioEventos = () => {
           value={event.description}
           onChangeText={(value) => onValuesEvent('description', value)}
         />
-      </View>
-      <View style={styles.items}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-        <Text
-          style={{
-            fontSize: FontSize.inputPlaceholder_size,
-            fontFamily: FontFamily.inputPlaceholder,
-            fontWeight: '700',
-            color: Color.sportsVioleta
-          }}
-        >
-          Entrada / Precio:
-        </Text>
-        <TextInput
-          style={styles.helloTypoScrollPrecio}
-          value={event.price}
-          onChangeText={(value) => onValuesEvent('price', value)}
-        />
-      </View>
-      <View style={styles.items}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
+      </View> */}
 
-        <Text
-          style={{
-            fontSize: FontSize.inputPlaceholder_size,
-            fontFamily: FontFamily.inputPlaceholder,
-            fontWeight: '700',
-            color: Color.sportsVioleta
-          }}
-        >
-          Localizacion:
-        </Text>
-        <TextInput
-          style={styles.helloTypoScroll}
-          value={event.location}
-          onChangeText={(value) => onValuesEvent('location', value)}
-        />
-      </View>
-      <Pressable style={styles.items} onPress={() => setSportsModal(true)}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-        <Text style={styles.helloTypoScroll}>
-          Deporte: {sport?.name?.slice(0, 1).toUpperCase()}
-          {sport?.name?.slice(1)} {sport?.type}
-        </Text>
-      </Pressable>
-
-      <Pressable style={styles.items} onPress={() => setCalendar(true)}>
+      {/* <Pressable style={styles.items} onPress={() => setCalendar(true)}>
         <Image
           style={{ width: 25, height: 25, marginRight: 10 }}
           source={require('../assets/frame-1547755976.png')}
@@ -213,8 +246,8 @@ const FomularioEventos = () => {
         <Text style={styles.helloTypoScrollDate}>
           Fecha de inscripcion: {dateSuscription}
         </Text>
-      </Pressable>
-      <View style={styles.items}>
+      </Pressable> */}
+      {/* <View style={styles.items}>
         <Image
           style={{ width: 25, height: 25, marginRight: 10 }}
           source={require('../assets/frame-1547755976.png')}
@@ -235,7 +268,7 @@ const FomularioEventos = () => {
           value={event.timeStart}
           onChangeText={(value) => onValuesEvent('timeStart', value)}
         />
-      </View>
+      </View> */}
 
       <TouchableOpacity
         style={{
@@ -245,7 +278,7 @@ const FomularioEventos = () => {
           alignItems: 'center',
           justifyContent: 'center',
           borderRadius: 50,
-          marginTop: 30,
+          marginTop: 10,
           backgroundColor: Color.sportsNaranja
         }}
         onPress={() =>
@@ -260,7 +293,7 @@ const FomularioEventos = () => {
           )
         }
       >
-        <Text style={{ color: 'white' }}>Crear</Text>
+        <Text style={{ color: 'white' }}>Enviar</Text>
       </TouchableOpacity>
 
       <Modal animationType="slide" transparent visible={calendar}>
@@ -333,11 +366,10 @@ const styles = StyleSheet.create({
     top: 0
   },
   helloTypoScroll: {
-    width: '70%',
+    width: '100%',
     marginLeft: 5,
-    fontSize: FontSize.inputPlaceholder_size,
+    fontSize: 12,
     fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '700',
     color: Color.sportsVioleta
   },
   helloTypoScrollDate: {
@@ -347,44 +379,107 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: Color.sportsVioleta
   },
-  helloTypoScrollPrecio: {
-    width: '50%',
+  subirArchivo: {
+    width: '100%',
     marginLeft: 5,
+    fontSize: 12,
+    fontFamily: FontFamily.inputPlaceholder,
+    color: Color.sportsVioleta,
+    top: 6
+  },
+  helloTypoScrollPrecio: {
+    width: '60%',
     fontSize: FontSize.inputPlaceholder_size,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
-    color: Color.sportsVioleta
+    color: Color.sportsVioleta,
+    textAlign: 'center'
   },
   items: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10,
+    marginBottom: 20,
+    borderRadius: 30,
+    // borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderRightWidth: 1,
+    borderLeftWidth: 1,
+    borderColor: Color.sportsVioleta,
+    height: 45,
+    padding: 8
+  },
+  items2Container: {
+    flexDirection: 'row',
+    gap: 10,
+    alignItems: 'center'
+  },
+  checkContainer: {
+    flexDirection: 'row',
+    gap: 5,
+    alignItems: 'center',
+    justifyContent: 'flex-end'
+  },
+  items2Flex: {
+    flexDirection: 'column',
+    width: '31%',
+    gap: 5,
+    justifyContent: 'center'
+  },
+  items2: {
+    alignItems: 'center',
+    marginBottom: 10,
     borderRadius: 30,
     borderWidth: 1,
-    borderColor: Color.blanco,
-    height: 52,
+    borderColor: Color.sportsVioleta,
+    height: 45,
     padding: 8
   },
   itemsTextArea: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 10,
+    marginBottom: 10,
     borderRadius: 30,
     borderWidth: 1,
     borderColor: Color.blanco,
     padding: 8,
     minHeight: 60
-    // backgroundColor: 'red'
   },
   textArea: {
-    // flex: 1,
     width: '60%',
     marginLeft: 5,
     fontSize: FontSize.inputPlaceholder_size,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     color: Color.sportsVioleta
+  },
+  text: {
+    fontSize: FontSize.size_5xs,
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '700',
+    color: Color.sportsVioleta,
+    position: 'absolute',
+    left: 30,
+    bottom: 38.5
+  },
+  text2: {
+    fontSize: FontSize.size_5xs,
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '700',
+    color: Color.sportsVioleta,
+    textAlign: 'center'
+  },
+  textDiseño: {
+    fontSize: FontSize.inputLabel_size,
+    fontFamily: FontFamily.inputPlaceholder,
+    color: Color.sportsVioleta,
+    textAlign: 'center'
+  },
+  contactoText: {
+    marginBottom: 20,
+    marginTop: 20,
+    color: Color.sportsNaranja,
+    left: 5
   }
 })
 
