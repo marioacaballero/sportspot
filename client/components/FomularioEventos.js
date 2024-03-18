@@ -1,7 +1,6 @@
 import * as ImagePicker from 'expo-image-picker'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import {
-  // Image,
   Modal,
   Pressable,
   StyleSheet,
@@ -13,15 +12,17 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { Color, FontFamily, FontSize } from '../GlobalStyles'
 import { getAllSports } from '../redux/actions/sports'
-// import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import CalendarOneDay from './CalendarOneDay'
 import SportsPopUp from './SportsPopUp'
 import { onSubmit } from './utils/createEvent'
 import { Checkbox } from 'react-native-paper'
+import Maps from './Maps'
 
 const FomularioEventos = () => {
   const dispatch = useDispatch()
-  //   const navigation = useNavigation()
+  const navigation = useNavigation()
+
   const { dateStart, dateSuscription } = useSelector((state) => state.events)
   const { sport } = useSelector((state) => state.sports)
   const { user } = useSelector((state) => state.users)
@@ -30,15 +31,15 @@ const FomularioEventos = () => {
   const [calendar, setCalendar] = useState(null)
   const [calendarInscription, setCalendarInscription] = useState(null)
   const [selectedImage, setSelectedImage] = useState(null)
+  const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
 
   const [sportsModal, setSportsModal] = useState(false)
   const [event, setEvent] = useState({
     title: '',
-    // description: '',
     price: '',
     location: '',
     timeStart: '',
-    place: '',
+    // place: '',
     eventLink: '',
     inscriptionLink: '',
     space: '',
@@ -83,6 +84,14 @@ const FomularioEventos = () => {
     setCalendarInscription(false)
   }
 
+  const openFrameContainer6 = useCallback(() => {
+    setFrameContainer6Visible(true)
+  }, [])
+
+  const closeFrameContainer6 = useCallback(() => {
+    setFrameContainer6Visible(false)
+  }, [])
+
   return (
     <View>
       <View style={styles.items}>
@@ -91,7 +100,7 @@ const FomularioEventos = () => {
           style={styles.helloTypoScroll}
           value={event.title}
           onChangeText={(value) => onValuesEvent('title', value)}
-          placeholder="Escriba el lugar del evento"
+          placeholder="Escriba el nombre del evento"
           placeholderTextColor={Color.sportsVioleta}
         />
       </View>
@@ -105,11 +114,18 @@ const FomularioEventos = () => {
         </Text>
       </Pressable>
 
+      <Pressable style={styles.items} onPress={openFrameContainer6}>
+        <Text style={styles.text}>Lugar del evento</Text>
+        <Text style={styles.helloTypoScroll}>
+          {event.location ? event.location : 'Elija el lugar del evento'}
+        </Text>
+      </Pressable>
+
       <View style={styles.items}>
         <Text style={styles.text}>Link del evento</Text>
         <TextInput
           style={styles.helloTypoScroll}
-          value={event.location}
+          value={event.eventLink}
           onChangeText={(value) => onValuesEvent('eventLink', value)}
           placeholder="https://www.deportedeporte.com/"
           placeholderTextColor={Color.sportsVioleta}
@@ -120,12 +136,29 @@ const FomularioEventos = () => {
         <Text style={styles.text}>Link de la inscripción</Text>
         <TextInput
           style={styles.helloTypoScroll}
-          value={event.location}
+          value={event.inscriptionLink}
           onChangeText={(value) => onValuesEvent('inscriptionLink', value)}
           placeholder="https://www.deportedeporte.com/inscripción/"
           placeholderTextColor={Color.sportsVioleta}
         />
       </View>
+
+      <Pressable style={styles.items} onPress={() => setCalendar(true)}>
+        <Text style={styles.text}>Fecha de inicio</Text>
+        <Text style={styles.helloTypoScroll}>
+          {dateStart || 'Seleccione la fecha de inicio'}
+        </Text>
+      </Pressable>
+
+      <Pressable
+        style={styles.items}
+        onPress={() => setCalendarInscription(true)}
+      >
+        <Text style={styles.text}>Fecha de inscripcion</Text>
+        <Text style={styles.helloTypoScroll}>
+          {dateSuscription || 'Fecha límite de inscripción'}
+        </Text>
+      </Pressable>
 
       <View style={styles.items2Container}>
         <View style={styles.items2Flex}>
@@ -146,7 +179,7 @@ const FomularioEventos = () => {
           <View style={styles.items2}>
             <TextInput
               style={styles.helloTypoScrollPrecio}
-              value={event.price}
+              value={event.space}
               onChangeText={(value) => onValuesEvent('space', value)}
               placeholder="XXXX"
               placeholderTextColor={Color.sportsVioleta}
@@ -186,7 +219,7 @@ const FomularioEventos = () => {
         <Text style={styles.text}>Email</Text>
         <TextInput
           style={styles.helloTypoScroll}
-          value={event.location}
+          value={event.mail}
           onChangeText={(value) => onValuesEvent('mail', value)}
           placeholder="organizador@gmail.com"
           placeholderTextColor={Color.sportsVioleta}
@@ -197,7 +230,7 @@ const FomularioEventos = () => {
         <Text style={styles.text}>Telefono</Text>
         <TextInput
           style={styles.helloTypoScroll}
-          value={event.location}
+          value={event.phone}
           onChangeText={(value) => onValuesEvent('phone', value)}
           placeholder="XXX-XXX-XXX"
           placeholderTextColor={Color.sportsVioleta}
@@ -228,25 +261,6 @@ const FomularioEventos = () => {
         />
       </View> */}
 
-      {/* <Pressable style={styles.items} onPress={() => setCalendar(true)}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-        <Text style={styles.helloTypoScrollDate}>Fecha: {dateStart}</Text>
-      </Pressable>
-      <Pressable
-        style={styles.items}
-        onPress={() => setCalendarInscription(true)}
-      >
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-        <Text style={styles.helloTypoScrollDate}>
-          Fecha de inscripcion: {dateSuscription}
-        </Text>
-      </Pressable> */}
       {/* <View style={styles.items}>
         <Image
           style={{ width: 25, height: 25, marginRight: 10 }}
@@ -281,7 +295,7 @@ const FomularioEventos = () => {
           marginTop: 10,
           backgroundColor: Color.sportsNaranja
         }}
-        onPress={() =>
+        onPress={() => {
           onSubmit(
             event,
             sport,
@@ -291,7 +305,8 @@ const FomularioEventos = () => {
             dateSuscription,
             dateStart
           )
-        }
+          navigation.navigate('InicioDeportista')
+        }}
       >
         <Text style={{ color: 'white' }}>Enviar</Text>
       </TouchableOpacity>
@@ -339,6 +354,16 @@ const FomularioEventos = () => {
             // setDate={setDateInscription}
             // date={dateInscription}
           />
+        </View>
+      </Modal>
+
+      <Modal animationType="fade" transparent visible={frameContainer6Visible}>
+        <View style={styles.frameContainer6Overlay}>
+          <Pressable
+            style={styles.frameContainer6Bg}
+            onPress={closeFrameContainer6}
+          />
+          <Maps onClose={closeFrameContainer6} setEventsFilter={setEvent} />
         </View>
       </Modal>
     </View>
@@ -480,6 +505,19 @@ const styles = StyleSheet.create({
     marginTop: 20,
     color: Color.sportsNaranja,
     left: 5
+  },
+  frameContainer6Bg: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    left: 0,
+    top: 0
+  },
+  frameContainer6Overlay: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(113, 113, 113, 0.3)'
   }
 })
 

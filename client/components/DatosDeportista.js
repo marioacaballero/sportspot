@@ -8,8 +8,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Pressable,
-  TextInput,
-  Image
+  TextInput
 } from 'react-native'
 import { Color, FontSize, FontFamily } from '../GlobalStyles'
 import FutbolSVG from './SVG/Sports/FutbolSVG'
@@ -21,14 +20,14 @@ import HandballSVG from './SVG/Sports/HandballSVG'
 import BasketSVG from './SVG/Sports/BasketSVG'
 import TenisSVG from './SVG/Sports/TenisSVG'
 
-const DatosDeportista = () => {
+const DatosDeportista = ({ modalSport, setModalSport }) => {
   const dispatch = useDispatch()
 
   const { sports } = useSelector((state) => state.sports)
 
   const [showColor, setShowColor] = useState([])
   const [city, setCity] = useState(false)
-  const [modal, setModal] = useState(true)
+  const [selectedValue, setSelectedValue] = useState(null)
 
   useEffect(() => {
     dispatch(getAllSports())
@@ -55,8 +54,12 @@ const DatosDeportista = () => {
     })
     .filter((sport) => sport !== null)
 
+  const handlePress = (value) => {
+    setSelectedValue(value)
+  }
+
   return (
-    <Modal visible={modal} transparent animationType="slide">
+    <Modal visible={modalSport} transparent animationType="slide">
       <View style={styles.container}>
         <Text style={styles.containerText}>¿Qué deporte practicas?</Text>
         <View style={styles.containerSport}>
@@ -123,13 +126,75 @@ const DatosDeportista = () => {
 
         <View style={styles.radioContainer}>
           <Text>Radio km</Text>
-          <Image
-            source={require('../assets/radio.png')}
-            style={{ width: 250, height: 32 }}
-          />
+          <View style={styles.line}></View>
+          <View style={styles.kmContainer}>
+            <Pressable onPress={() => handlePress(0)}>
+              <Text
+                style={[selectedValue === 0 ? styles.kmSelected : styles.km]}
+              >
+                0
+              </Text>
+              <View
+                style={[
+                  selectedValue === 0 ? styles.circleSelected : styles.circle
+                ]}
+              ></View>
+            </Pressable>
+            <Pressable onPress={() => handlePress(25)}>
+              <Text
+                style={[selectedValue === 25 ? styles.kmSelected : styles.km]}
+              >
+                25
+              </Text>
+              <View
+                style={[
+                  selectedValue === 25 ? styles.circleSelected : styles.circle
+                ]}
+              ></View>
+            </Pressable>
+            <Pressable onPress={() => handlePress(50)}>
+              <Text
+                style={[selectedValue === 50 ? styles.kmSelected : styles.km]}
+              >
+                50
+              </Text>
+              <View
+                style={[
+                  selectedValue === 50 ? styles.circleSelected : styles.circle
+                ]}
+              ></View>
+            </Pressable>
+            <Pressable onPress={() => handlePress(75)}>
+              <Text
+                style={[selectedValue === 75 ? styles.kmSelected : styles.km]}
+              >
+                75
+              </Text>
+              <View
+                style={[
+                  selectedValue === 75 ? styles.circleSelected : styles.circle
+                ]}
+              ></View>
+            </Pressable>
+            <Pressable onPress={() => handlePress(100)}>
+              <Text
+                style={[selectedValue === 100 ? styles.kmSelected : styles.km]}
+              >
+                100
+              </Text>
+              <View
+                style={[
+                  selectedValue === 100 ? styles.circleSelected : styles.circle
+                ]}
+              ></View>
+            </Pressable>
+          </View>
         </View>
 
-        <Pressable style={styles.buttonSave} onPress={() => setModal(false)}>
+        <Pressable
+          style={styles.buttonSave}
+          onPress={() => setModalSport(false)}
+        >
           <Text style={styles.saveText}>Guardar</Text>
         </Pressable>
       </View>
@@ -211,6 +276,47 @@ const styles = StyleSheet.create({
   },
   radioContainer: {
     marginTop: 15
+  },
+  line: {
+    height: 3,
+    width: 250,
+    backgroundColor: Color.sportsVioleta,
+    color: Color.sportsVioleta,
+    marginTop: 30
+  },
+  circle: {
+    height: 10,
+    width: 10,
+    backgroundColor: Color.sportsVioleta,
+    borderRadius: 100,
+    marginTop: 5
+  },
+  circleSelected: {
+    height: 10,
+    width: 10,
+    backgroundColor: Color.sportsNaranja,
+    borderRadius: 100,
+    marginTop: 5
+  },
+  kmContainer: {
+    position: 'absolute',
+    top: 26,
+    alignItems: 'center',
+    gap: 48,
+    flexDirection: 'row',
+    left: -1
+  },
+  km: {
+    color: Color.sportsVioleta,
+    fontSize: FontSize.inputLabel_size,
+    fontFamily: FontFamily.inputPlaceholder,
+    right: 1
+  },
+  kmSelected: {
+    color: Color.sportsNaranja,
+    fontSize: FontSize.inputLabel_size,
+    fontFamily: FontFamily.inputPlaceholder,
+    right: 1
   }
 })
 

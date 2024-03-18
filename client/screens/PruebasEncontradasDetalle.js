@@ -39,7 +39,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   useEffect(() => {
     setFavorites(allFavorites)
   }, [allFavorites]) // Ejecutar cuando allFavorites cambie
-  const isEventAlreadyAdded = user.events.some(
+  const isEventAlreadyAdded = user.events?.some(
     (userEvent) => userEvent.id === event.id
   )
 
@@ -50,9 +50,6 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     }
     dispatch(favorite(data))
   }
-
-  console.log('favorites', favorites)
-  console.log('allFavorites', allFavorites)
 
   if (loading) {
     return (
@@ -154,7 +151,6 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   isFavorite={favorites?.some(
                     (favorite) => favorite.id === event?.id
                   )}
-                  // isFavorite={'red'}
                   handle={handleFavorite}
                 />
               </View>

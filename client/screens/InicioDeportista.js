@@ -30,11 +30,12 @@ const InicioDeportista = () => {
   const [modalPremium, setModalPremium] = useState(false)
   const [modalNotifications, setModalNotifications] = useState(false)
   const [modalOrganizador, setModalOrganizador] = useState(false)
-
   const [mostrarInicioBuscador, setMostrarInicioBuscador] = useState(false)
+  const [modalSport, setModalSport] = useState(false)
 
   useEffect(() => {
     dispatch(getAllEvents())
+    setModalSport(true)
   }, [])
 
   const handleBuscarPress = () => {
@@ -111,7 +112,10 @@ const InicioDeportista = () => {
   } else {
     return (
       <ScrollView style={styles.inicioDeportista}>
-        <DatosDeportista />
+        <DatosDeportista
+          modalSport={modalSport}
+          setModalSport={setModalSport}
+        />
         <View style={[styles.frameParent, styles.frameParentFlexBox]}>
           <View style={[styles.helloAshfakParent, styles.frameGroupFlexBox]}>
             {/* <Text style={[styles.helloAshfak, styles.imGoingToTypo]}>INICIO</Text> */}

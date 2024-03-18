@@ -4,9 +4,15 @@ import { Text, StyleSheet, View, Pressable, FlatList } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { ActivityIndicator } from 'react-native-paper'
 import { LinearGradient } from 'expo-linear-gradient'
-import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
-import BackArrowSVG from '../components/SVG/BackArrowSVG'
-import { getFavorites } from '../redux/actions/events'
+import {
+  Padding,
+  FontSize,
+  Color,
+  FontFamily,
+  Border
+} from '../../GlobalStyles'
+import BackArrowSVG from '../../components/SVG/BackArrowSVG'
+import { getFavorites } from '../../redux/actions/events'
 
 const Favoritos1 = () => {
   const navigation = useNavigation()

@@ -6,15 +6,15 @@ import { useDispatch } from 'react-redux'
 import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
 
 const CalendarOneDay = ({ onClose, start, suscription }) => {
-  const dispath = useDispatch()
+  const dispatch = useDispatch()
   return (
     <View style={styles.calendar}>
       <Calendar
         onDayPress={(day) => {
           if (start && !suscription) {
-            dispath(setDateStart(day.dateString))
+            dispatch(setDateStart(day.dateString))
           } else {
-            dispath(setDateSuscription(day.dateString))
+            dispatch(setDateSuscription(day.dateString))
           }
           // start && !suscription && dispath(setDateStart(day.dateString))
           // start && !suscription && dispath(setDateStart(day.dateString))
