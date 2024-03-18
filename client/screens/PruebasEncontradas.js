@@ -14,15 +14,19 @@ import { FontFamily, FontSize, Color, Border, Padding } from '../GlobalStyles'
 import PopupOrdenarPor from '../components/PopupOrdenarPor'
 import PruebasEncontradasFiltros from '../components/PruebasEncontradasFiltros'
 import CorazonSVG from '../components/SVG/CorazonSVG'
-import { getAllEvents, getEventById, favorite } from '../redux/actions/events'
+import {
+  getAllEvents,
+  getEventById,
+  favorite,
+  getFavorites
+} from '../redux/actions/events'
 
 const PruebasEncontradas = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
-  const { eventsFilter, favorites, nameEventsFilters } = useSelector(
-    (state) => state.events
-  )
+  const { eventsFilter, favorites, nameEventsFilters, allFavorites } =
+    useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
 
   const [modalOrder, setModalOrder] = useState(false)
@@ -31,13 +35,18 @@ const PruebasEncontradas = () => {
 
   useEffect(() => {
     dispatch(getAllEvents())
-  }, [])
+    dispatch(getFavorites(user.id))
+  }, [favorites])
+
+  // useEffect(() => {
+  //   if (favorites.eventFavorites) {
+  //     setFavoriteEvents(favorites.eventFavorites)
+  //   }
+  // }, [favorites, eventsFilter])
 
   useEffect(() => {
-    if (favorites.eventFavorites) {
-      setFavoriteEvents(favorites.eventFavorites)
-    }
-  }, [favorites, eventsFilter])
+    setFavoriteEvents(allFavorites)
+  }, [allFavorites])
 
   const toggleFavorite = (eventId) => {
     const data = {
@@ -71,10 +80,6 @@ const PruebasEncontradas = () => {
             source={require('../assets/cilarrowtop1.png')}
           />
           <Text style={[styles.badajozCilcismo22, styles.filtrosTypo]}>
-            {/* {filterDescription.map((sport) => (
-              <Text key={sport.id}>{`${sport.name},`}</Text>
-            ))} */}
-
             {`${nameEventsFilters.sportName}${
               nameEventsFilters.dateStart && ','
             } ${nameEventsFilters.dateStart}${
@@ -138,14 +143,14 @@ const PruebasEncontradas = () => {
                     <Text style={[styles.senderismo, styles.textTypo]}>
                       {event.event_title}
                     </Text>
-                    <Pressable
-                      style={styles.likeSpotsport}
-                      onPress={() => toggleFavorite(event.event_id)}
-                    >
+                    <View style={styles.likeSpotsport}>
                       <CorazonSVG
-                        isFavorite={favoriteEvents.includes(event.event_id)}
+                        isFavorite={favoriteEvents?.some(
+                          (favorite) => favorite.id === event?.event_id
+                        )}
+                        handle={() => toggleFavorite(event.event_id)}
                       />
-                    </Pressable>
+                    </View>
                   </View>
                   <Text
                     style={[

@@ -4,13 +4,7 @@ import { Calendar } from 'react-native-calendars'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
 import moment from 'moment'
 
-const Calendario = ({
-  onClose,
-  setEventsFilter,
-  setSelected,
-  setDate,
-  eventsFilter
-}) => {
+const Calendario = ({ onClose, setEventsFilter, setSelected }) => {
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
 

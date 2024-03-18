@@ -31,7 +31,7 @@ const Registrarse = () => {
   const [registerUser, setRegisterUser] = useState({
     password: '',
     email: '',
-    confirmPassword: ''
+    nickname: ''
   })
 
   const onValuesUser = (field, value) => {
@@ -45,8 +45,8 @@ const Registrarse = () => {
     if (
       registerUser.email &&
       registerUser.password &&
-      registerUser.confirmPassword &&
-      registerUser.password === registerUser.confirmPassword
+      registerUser.nickname
+      // registerUser.password === registerUser.confirmPassword
     ) {
       dispatch(register(registerUser))
       navigation.navigate('IniciarSesin')
@@ -83,13 +83,21 @@ const Registrarse = () => {
             />
           </View>
 
+          <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
+            <TextInput
+              style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
+              placeholder="Nombre de usuario"
+              value={registerUser.nickname}
+              onChangeText={(value) => onValuesUser('nickname', value)}
+            />
+          </View>
+
           <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
-              placeholder="Contraseña"
-              value={registerUser.password}
-              onChangeText={(value) => onValuesUser('password', value)}
-              secureTextEntry={true}
+              placeholder="Nombre de usuario"
+              value={registerUser.nickname}
+              onChangeText={(value) => onValuesUser('nickname', value)}
               onSubmitEditing={() => confirmPasswordInputRef.current.focus()} // Mover al siguiente campo al presionar "Enter"
               ref={passwordInputRef} // Referencia al campo de texto actual
             />
@@ -98,9 +106,9 @@ const Registrarse = () => {
           <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={styles.nombreDeUsuario}
-              placeholder="Confirmar contraseña"
-              value={registerUser.confirmPassword}
-              onChangeText={(value) => onValuesUser('confirmPassword', value)}
+              placeholder="Contraseña"
+              value={registerUser.password}
+              onChangeText={(value) => onValuesUser('password', value)}
               secureTextEntry={true}
               onSubmitEditing={onSubmit}
               ref={confirmPasswordInputRef}

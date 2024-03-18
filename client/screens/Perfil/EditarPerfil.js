@@ -93,16 +93,7 @@ const EditarPerfil = () => {
   return (
     <ScrollView>
       <View style={styles.editarPerfil}>
-        <View
-          style={{
-            paddingTop: 30,
-            paddingHorizontal: 15,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            width: '100%'
-          }}
-        >
+        <View style={styles.topContainer}>
           <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
             {`GESTIONA TU
 CUENTA`}
@@ -131,34 +122,14 @@ CUENTA`}
                 : require('../../assets/unsplashn6gnca77urc.png')
             }
           />
-          <View
-            style={{
-              borderBottomLeftRadius: 5,
-              borderBottomRightRadius: 5,
-              width: 132,
-              height: 30,
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              overflow: 'hidden'
-            }}
-          >
+          <View style={styles.editar}>
             <LinearGradient
               colors={['#BA08F9', 'transparent']}
               start={{ x: 0, y: 0 }}
               end={{ x: 0.8, y: 0.5 }}
               style={{ flex: 1 }}
             >
-              <Text
-                style={{
-                  color: 'white',
-                  alignSelf: 'center',
-                  fontFamily: FontFamily.inputPlaceholder,
-                  marginTop: 5
-                }}
-              >
-                Editar
-              </Text>
+              <Text style={styles.editarText}>Editar</Text>
             </LinearGradient>
           </View>
         </Pressable>
@@ -223,7 +194,6 @@ CUENTA`}
                   </View>
                 </View>
                 <Pressable style={[styles.top, styles.inputBorderDate]}>
-                  <View></View>
                   <View
                     style={[styles.inputContent3, styles.groupParentFlexBox]}
                   >
@@ -289,6 +259,7 @@ CUENTA`}
                     onChangeText={(value) =>
                       settingValuesUser('telefono', value)
                     }
+                    keyboardType="numeric"
                   />
                 </View>
               </View>
@@ -352,6 +323,14 @@ const styles = StyleSheet.create({
     marginTop: 24,
     alignSelf: 'stretch',
     justifyContent: 'center'
+  },
+  topContainer: {
+    paddingTop: 30,
+    paddingHorizontal: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%'
   },
   groupParentFlexBox: {
     flexDirection: 'row',
@@ -429,11 +408,6 @@ const styles = StyleSheet.create({
     top: 50,
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  favoriteIActiveIcon: {
-    width: 16,
-    height: 35,
-    display: 'none'
   },
   userIcon: {
     height: 22,
@@ -631,6 +605,22 @@ const styles = StyleSheet.create({
     backgroundColor: Color.blanco,
     alignItems: 'center',
     justifyContent: 'flex-start'
+  },
+  editar: {
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
+    width: 132,
+    height: 30,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    overflow: 'hidden'
+  },
+  editarText: {
+    color: 'white',
+    alignSelf: 'center',
+    fontFamily: FontFamily.inputPlaceholder,
+    marginTop: 5
   }
 })
 

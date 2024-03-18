@@ -10,11 +10,17 @@ import {
   TouchableWithoutFeedback
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { FontFamily, Padding, FontSize, Color, Border } from '../GlobalStyles'
-import PopupAlerta from '../components/PopupAlerta'
-import BackArrowSVG from '../components/SVG/BackArrowSVG'
-import CorazonSVG from '../components/SVG/CorazonSVG'
-import { favorite } from '../redux/actions/events'
+import {
+  FontFamily,
+  Padding,
+  FontSize,
+  Color,
+  Border
+} from '../../GlobalStyles'
+import PopupAlerta from '../../components/PopupAlerta'
+import BackArrowSVG from '../../components/SVG/BackArrowSVG'
+import CorazonSVG from '../../components/SVG/CorazonSVG'
+import { favorite } from '../../redux/actions/events'
 
 const Favoritos = ({ route }) => {
   const navigation = useNavigation()
@@ -79,12 +85,10 @@ const Favoritos = ({ route }) => {
                     <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
                       {prueba.description}
                     </Text>
-                    {/* <Pressable onPress={() => alert('hola')}> */}
                     <CorazonSVG
                       isFavorite={true}
                       handle={() => toggleFavorite(sport[0].id)}
                     />
-                    {/* </Pressable> */}
                   </View>
                   <Text style={styles.imGoingToContainer}>
                     <Text style={styles.modalidadMontaaLocalizaci}>
@@ -115,7 +119,7 @@ const Favoritos = ({ route }) => {
                   <Image
                     style={styles.vectorIcon}
                     contentFit="cover"
-                    source={require('../assets/vector5.png')}
+                    source={require('../../assets/vector5.png')}
                   />
                   <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
                     Crear alerta
