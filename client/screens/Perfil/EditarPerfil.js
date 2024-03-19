@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   Text,
   StyleSheet,
@@ -7,7 +7,8 @@ import {
   Modal,
   Image,
   ScrollView,
-  TextInput
+  TextInput,
+  TouchableOpacity
 } from 'react-native'
 import Calendar from '../../components/Calendar'
 import * as ImagePicker from 'expo-image-picker'
@@ -35,7 +36,7 @@ const EditarPerfil = () => {
   const { user } = useSelector((state) => state.users)
   const [topContainerVisible, setTopContainerVisible] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
-  const [, setDate] = useState('')
+  const [date, setDate] = useState('')
   const [valuesUser, setValuesUser] = useState({
     name: user?.name || '',
     apellido: user?.apellido || '',
@@ -44,6 +45,10 @@ const EditarPerfil = () => {
     direccion: user?.direccion || '',
     telefono: user?.telefono || ''
   })
+
+  useEffect(() => {
+    dispatch(getUser(user.id))
+  }, [])
 
   const settingValuesUser = (field, value) => {
     setValuesUser((prev) => ({
@@ -65,7 +70,6 @@ const EditarPerfil = () => {
       id: user.id,
       valuesUser
     }
-
     dispatch(updateUser(data))
     dispatch(getUser(user.id))
   }
@@ -157,7 +161,10 @@ CUENTA`}
                       Nombre
                     </Text>
                     <TextInput
-                      placeholder={user?.name || 'Nombre'}
+                      placeholder={user.name || 'Nombre'}
+                      placeholderTextColor={
+                        user.name ? Color.sportsVioleta : 'gray'
+                      }
                       value={valuesUser?.name}
                       onChangeText={(value) => settingValuesUser('name', value)}
                     />
@@ -172,6 +179,9 @@ CUENTA`}
                     </Text>
                     <TextInput
                       placeholder={user?.apellido || 'Apellido'}
+                      placeholderTextColor={
+                        user.apellido ? Color.sportsVioleta : 'gray'
+                      }
                       value={valuesUser?.apellido}
                       onChangeText={(value) =>
                         settingValuesUser('apellido', value)
@@ -188,6 +198,9 @@ CUENTA`}
                     </Text>
                     <TextInput
                       placeholder={user?.sexo || '-'}
+                      placeholderTextColor={
+                        user.sexo ? Color.sportsVioleta : 'gray'
+                      }
                       value={valuesUser.sexo}
                       onChangeText={(value) => settingValuesUser('sexo', value)}
                     />
@@ -203,10 +216,14 @@ CUENTA`}
                       </Text>
                       <TextInput
                         placeholder={user?.fechaNacimiento || '12/12/2020'}
-                        value={valuesUser.fechaNacimiento}
+                        placeholderTextColor={
+                          user.fechaNacimiento ? Color.sportsVioleta : 'gray'
+                        }
+                        value={date || '2020/12/12'}
                         onChangeText={(value) =>
                           settingValuesUser('fechaNacimiento', value)
                         }
+                        editable={false}
                       />
                     </View>
                     <Pressable onPress={openTopContainer}>
@@ -245,7 +262,11 @@ CUENTA`}
               <View style={styles.input}>
                 <View style={[styles.inputContent, styles.inputContentFlexBox]}>
                   <Text style={[styles.label, styles.labelFlexBox]}>Email</Text>
-                  <TextInput placeholder={user?.email || 'ejemplo@gmail.com'} />
+                  <Text
+                    style={{ color: user.email ? Color.sportsVioleta : 'gray' }}
+                  >
+                    {user?.email || 'ejemplo@gmail.com'}
+                  </Text>
                 </View>
               </View>
               <View style={styles.inputCel}>
@@ -255,6 +276,9 @@ CUENTA`}
                   </Text>
                   <TextInput
                     placeholder={user?.telefono || 'Escribe aqui...'}
+                    placeholderTextColor={
+                      user.telefono ? Color.sportsVioleta : 'gray'
+                    }
                     value={valuesUser.telefono}
                     onChangeText={(value) =>
                       settingValuesUser('telefono', value)
@@ -270,6 +294,9 @@ CUENTA`}
                   </Text>
                   <TextInput
                     placeholder={user?.direccion || 'Escribe aqui...'}
+                    placeholderTextColor={
+                      user.direccion ? Color.sportsVioleta : 'gray'
+                    }
                     value={valuesUser.direccion}
                     onChangeText={(value) =>
                       settingValuesUser('direccion', value)
@@ -277,14 +304,14 @@ CUENTA`}
                   />
                 </View>
               </View>
-              <View style={styles.helloAshfakWrapper}>
-                <Text
-                  style={[styles.helloAshfak, styles.kmTypo]}
-                  onPress={onSubmit}
-                >
+              <TouchableOpacity
+                style={styles.helloAshfakWrapper}
+                onPress={onSubmit}
+              >
+                <Text style={[styles.helloAshfak, styles.kmTypo]}>
                   Actualizar
                 </Text>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -296,7 +323,11 @@ CUENTA`}
             style={styles.topContainerBg}
             onPress={closeTopContainer}
           />
-          <Calendar onClose={closeTopContainer} setDate={setDate} />
+          <Calendar
+            onClose={closeTopContainer}
+            setSelected={setDate}
+            setEventsFilter={setValuesUser}
+          />
         </View>
       </Modal>
     </ScrollView>
@@ -318,10 +349,9 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_31xl,
     backgroundColor: Color.sportsNaranja,
     height: 42,
-    width: '100%',
+    width: '93%',
     alignItems: 'center',
-    marginTop: 24,
-    alignSelf: 'stretch',
+    marginTop: 30,
     justifyContent: 'center'
   },
   topContainer: {
@@ -345,7 +375,7 @@ const styles = StyleSheet.create({
   },
   inputFlexBox: {
     alignItems: 'flex-end',
-    width: 298,
+    width: '95%',
     flexWrap: 'wrap',
     flexDirection: 'row'
   },
@@ -442,7 +472,6 @@ const styles = StyleSheet.create({
   inputContentDate: {
     justifyContent: 'space-between',
     alignSelf: 'stretch',
-    marginLeft: 15,
     flex: 1
   },
   input: {
@@ -488,7 +517,7 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_5xs
   },
   input2: {
-    width: 82
+    width: '40%'
   },
   topContainerOverlay: {
     flex: 1,
@@ -514,13 +543,13 @@ const styles = StyleSheet.create({
     flex: 1
   },
   top: {
-    width: 197
+    width: '52.5%'
   },
   inputParent: {
     gap: 15
   },
   card1: {
-    width: 324,
+    width: '100%',
     paddingHorizontal: Padding.p_smi,
     paddingVertical: Padding.p_5xs,
     flexWrap: 'wrap',
@@ -538,7 +567,8 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   card1Wrapper: {
-    height: '45%'
+    height: '45%',
+    gap: 5
   },
   card11Wrapper: {
     borderRadius: Border.br_base,
@@ -578,7 +608,6 @@ const styles = StyleSheet.create({
     left: '3.36%'
   },
   card11: {
-    width: 327,
     height: 245,
     shadowColor: '#000',
     shadowOffset: {
@@ -587,14 +616,15 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5
+    elevation: 5,
+    top: 5
   },
   inputGroup: {
-    top: 48,
+    top: 52,
     left: 18,
     zIndex: 1,
     position: 'absolute',
-    gap: 15
+    gap: 20
   },
   frameParent: {
     top: 80

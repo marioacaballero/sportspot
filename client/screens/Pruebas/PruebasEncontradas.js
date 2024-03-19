@@ -10,16 +10,22 @@ import {
   Modal
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { FontFamily, FontSize, Color, Border, Padding } from '../GlobalStyles'
-import PopupOrdenarPor from '../components/PopupOrdenarPor'
-import PruebasEncontradasFiltros from '../components/PruebasEncontradasFiltros'
-import CorazonSVG from '../components/SVG/CorazonSVG'
+import {
+  FontFamily,
+  FontSize,
+  Color,
+  Border,
+  Padding
+} from '../../GlobalStyles'
+import PopupOrdenarPor from '../../components/PopupOrdenarPor'
+import PruebasEncontradasFiltros from '../../components/PruebasEncontradasFiltros'
+import CorazonSVG from '../../components/SVG/CorazonSVG'
 import {
   getAllEvents,
   getEventById,
   favorite,
   getFavorites
-} from '../redux/actions/events'
+} from '../../redux/actions/events'
 
 const PruebasEncontradas = () => {
   const navigation = useNavigation()
@@ -77,7 +83,7 @@ const PruebasEncontradas = () => {
           <Image
             style={styles.cilarrowTopIcon}
             contentFit="cover"
-            source={require('../assets/cilarrowtop1.png')}
+            source={require('../../assets/cilarrowtop1.png')}
           />
           <Text style={[styles.badajozCilcismo22, styles.filtrosTypo]}>
             {`${nameEventsFilters.sportName}${
@@ -101,7 +107,7 @@ const PruebasEncontradas = () => {
               <Image
                 style={styles.frameChild}
                 contentFit="cover"
-                source={require('../assets/ellipse-7189.png')}
+                source={require('../../assets/ellipse-7189.png')}
               />
             </Pressable>
             <View style={styles.filtrosParent}>
@@ -118,7 +124,7 @@ const PruebasEncontradas = () => {
               <Image
                 style={styles.frameChild}
                 contentFit="cover"
-                source={require('../assets/ellipse-7190.png')}
+                source={require('../../assets/ellipse-7190.png')}
               />
             </View>
           </View>

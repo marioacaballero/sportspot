@@ -8,7 +8,7 @@ import { store } from './redux/store'
 import { StatusBar } from 'expo-status-bar'
 import { StripeProvider } from '@stripe/stripe-react-native'
 
-import PruebasEncontradasDetalle from './screens/PruebasEncontradasDetalle'
+import PruebasEncontradasDetalle from './screens/Pruebas/PruebasEncontradasDetalle'
 import EditarPerfil from './screens/Perfil/EditarPerfil'
 import Seguridad from './screens/Perfil/Seguridad'
 import Metodo from './screens/Perfil/Pago/Metodo'
@@ -26,9 +26,8 @@ import Registrarse from './screens/InicioSesion/Registrarse'
 import InicioDeportista from './screens/InicioDeportista'
 import InicioOrganizador from './screens/Organizador/InicioOrganizador'
 import Directorio from './screens/Organizador/Directorio'
-import PruebasEncontradas from './screens/PruebasEncontradas'
+import PruebasEncontradas from './screens/Pruebas/PruebasEncontradas'
 import InicioBUSCADOR from './screens/InicioBUSCADOR'
-import PruebasEncontradasDetalle1 from './screens/PruebasEncontradasDetalle1'
 import InicioSUSCRIPCIONES from './screens/Suscripciones/InicioSUSCRIPCIONES'
 import SignIn from './screens/InicioSesion/SignIn'
 import Popupfiltros from './components/PopupOrdenarPor'
@@ -216,11 +215,6 @@ export default function App() {
               <Stack.Screen
                 name="PopupAlerta"
                 component={PopupAlerta}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="PruebasEncontradasDetalle1"
-                component={PruebasEncontradasDetalle1}
                 options={{ headerShown: false }}
               />
               <Stack.Screen

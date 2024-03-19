@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllSports } from '../redux/actions/sports'
 import {
@@ -7,8 +7,7 @@ import {
   Modal,
   StyleSheet,
   TouchableOpacity,
-  Pressable,
-  TextInput
+  Pressable
 } from 'react-native'
 import { Color, FontSize, FontFamily } from '../GlobalStyles'
 import FutbolSVG from './SVG/Sports/FutbolSVG'
@@ -19,6 +18,7 @@ import RugbySVG from './SVG/Sports/RugbySVG'
 import HandballSVG from './SVG/Sports/HandballSVG'
 import BasketSVG from './SVG/Sports/BasketSVG'
 import TenisSVG from './SVG/Sports/TenisSVG'
+import Maps from './Maps'
 
 const DatosDeportista = ({ modalSport, setModalSport }) => {
   const dispatch = useDispatch()
@@ -26,8 +26,11 @@ const DatosDeportista = ({ modalSport, setModalSport }) => {
   const { sports } = useSelector((state) => state.sports)
 
   const [showColor, setShowColor] = useState([])
-  const [city, setCity] = useState(false)
   const [selectedValue, setSelectedValue] = useState(null)
+  const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
+  const [eventsFilter, setEventsFilter] = useState({
+    location: ''
+  })
 
   useEffect(() => {
     dispatch(getAllSports())
@@ -58,6 +61,13 @@ const DatosDeportista = ({ modalSport, setModalSport }) => {
     setSelectedValue(value)
   }
 
+  const openFrameContainer6 = useCallback(() => {
+    setFrameContainer6Visible(true)
+  }, [])
+
+  const closeFrameContainer6 = useCallback(() => {
+    setFrameContainer6Visible(false)
+  }, [])
   return (
     <Modal visible={modalSport} transparent animationType="slide">
       <View style={styles.container}>
@@ -115,14 +125,12 @@ const DatosDeportista = ({ modalSport, setModalSport }) => {
         <Text style={styles.containerText2}>
           Establece tu radio de notificaciones
         </Text>
-        <View style={styles.button}>
-          <Text style={styles.buttonText}>Tu localidad</Text>
-          <TextInput
-            placeholder="Escribe tu localidad"
-            value={city}
-            onChangeText={setCity}
-          />
-        </View>
+        <Pressable style={styles.button} onPress={openFrameContainer6}>
+          <Text style={styles.buttonText}>Localidad</Text>
+          <Text style={styles.locationText}>
+            {eventsFilter.location ? eventsFilter.location : 'Localización'}
+          </Text>
+        </Pressable>
 
         <View style={styles.radioContainer}>
           <Text>Radio km</Text>
@@ -198,6 +206,19 @@ const DatosDeportista = ({ modalSport, setModalSport }) => {
           <Text style={styles.saveText}>Guardar</Text>
         </Pressable>
       </View>
+
+      <Modal animationType="fade" transparent visible={frameContainer6Visible}>
+        <View style={styles.frameContainer6Overlay}>
+          <Pressable
+            style={styles.frameContainer6Bg}
+            onPress={closeFrameContainer6}
+          />
+          <Maps
+            onClose={closeFrameContainer6}
+            setEventsFilter={setEventsFilter}
+          />
+        </View>
+      </Modal>
     </Modal>
   )
 }
@@ -317,6 +338,24 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputLabel_size,
     fontFamily: FontFamily.inputPlaceholder,
     right: 1
+  },
+  frameContainer6Overlay: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(113, 113, 113, 0.3)'
+  },
+  frameContainer6Bg: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    left: 0,
+    top: 0
+  },
+  locationText: {
+    color: Color.sportsVioleta,
+    fontSize: FontSize.size_sm,
+    fontFamily: FontFamily.inputPlaceholder
   }
 })
 

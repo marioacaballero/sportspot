@@ -6,17 +6,24 @@ import {
   Pressable,
   Image,
   Modal,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  ScrollView
 } from 'react-native'
 // import { useNavigation } from '@react-navigation/native'
-import CorazonSVG from '../components/SVG/CorazonSVG'
-import { Color, FontSize, FontFamily, Padding, Border } from '../GlobalStyles'
+import CorazonSVG from '../../components/SVG/CorazonSVG'
+import {
+  Color,
+  FontSize,
+  FontFamily,
+  Padding,
+  Border
+} from '../../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
-import ModalSuscription from '../components/ModalSuscription'
-import EditEvent from '../components/EditEvent'
+import ModalSuscription from '../../components/ModalSuscription'
+import EditEvent from '../../components/EditEvent'
 import { ActivityIndicator } from 'react-native-paper'
 import { LinearGradient } from 'expo-linear-gradient'
-import { favorite, getFavorites } from '../redux/actions/events'
+import { favorite, getFavorites } from '../../redux/actions/events'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
   // const navigation = useNavigation()
@@ -74,7 +81,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     )
   } else {
     return (
-      <View style={styles.pruebasEncontradasDetalle}>
+      <ScrollView style={styles.pruebasEncontradasDetalle}>
         <View style={[styles.unsplashon4qwhhjcemParent, styles.parentPosition]}>
           <Image
             style={styles.unsplashon4qwhhjcemIcon}
@@ -140,12 +147,12 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                 <Image
                   style={styles.alertIcon}
                   contentFit="cover"
-                  source={require('../assets/alert.png')}
+                  source={require('../../assets/alert.png')}
                 />
                 <Image
                   style={[styles.clarityshareSolidIcon, styles.containerLayout]}
                   contentFit="cover"
-                  source={require('../assets/claritysharesolid.png')}
+                  source={require('../../assets/claritysharesolid.png')}
                 />
                 <CorazonSVG
                   isFavorite={favorites?.some(
@@ -169,7 +176,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
             <Image
               style={styles.cilarrowTopIcon}
               contentFit="cover"
-              source={require('../assets/cilarrowtop.png')}
+              source={require('../../assets/cilarrowtop.png')}
             />
             <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
               {event.sport?.name}
@@ -218,33 +225,23 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
           {/* </View> */}
           {/* </TouchableWithoutFeedback> */}
         </Modal>
-      </View>
+      </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  parentPosition: {
-    // left: 0,
-    // position: 'absolute'
-  },
   linearGradient: {
     flex: 1,
     width: '100%'
   },
   modalOverlay: {
-    // flex: 1,
-    // top: -100,
     height: '100%',
     width: '100%'
-    // backgroundColor: 'white'
-    // justifyContent: 'center',
-    // alignItems: 'center'
   },
   reseasDeLaTypo: {
     color: Color.sportsNaranja,
     fontSize: FontSize.size_3xl,
-
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
@@ -300,24 +297,13 @@ const styles = StyleSheet.create({
   frameGroup: {
     justifyContent: 'center',
     alignItems: 'center',
-    // flexDirection: 'row',
     width: '100%'
-    // backgroundColor: 'red'
-    // alignSelf: 'stretch'
   },
   loremIpsumDolor: {
     fontWeight: '300',
     fontFamily: FontFamily.inputPlaceholderLight,
     marginTop: 20,
     textAlign: 'left'
-  },
-  laInscripcinDe: {
-    textAlign: 'justify',
-    marginTop: 20,
-    fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '700',
-    color: Color.violeta2,
-    fontSize: FontSize.inputPlaceholder_size
   },
   reseasDeLa: {
     marginTop: 20,
@@ -327,14 +313,6 @@ const styles = StyleSheet.create({
     backgroundColor: Color.naranja3,
     padding: Padding.p_xl,
     zIndex: 1,
-    height: '100%'
-  },
-  frameParentBlur: {
-    opacity: 0.5,
-    backgroundColor: Color.naranja3,
-    padding: Padding.p_xl,
-    zIndex: 1,
-    alignSelf: 'stretch',
     height: '100%'
   },
   cilarrowTopIcon: {
@@ -361,53 +339,8 @@ const styles = StyleSheet.create({
     top: 0,
     width: '100%'
   },
-  icon: {
-    height: '100%',
-    width: '100%'
-  },
-  wrapper: {
-    width: 22,
-    height: 25
-  },
-  vector: {
-    width: 23,
-    marginLeft: 47,
-    height: 20
-  },
-  capturaDePantalla20231124: {
-    width: 33,
-    height: 33,
-    marginLeft: 47
-  },
-  container: {
-    marginLeft: 47,
-    height: 20
-  },
-  frame: {
-    marginLeft: 47,
-    height: 20,
-    width: 19
-  },
-  groupParent: {
-    top: 10,
-    backgroundColor: Color.gris,
-    height: 65,
-    justifyContent: 'center',
-    paddingVertical: Padding.p_3xs,
-    paddingHorizontal: Padding.p_xl,
-    alignItems: 'center',
-    flexDirection: 'row'
-  },
   pruebasEncontradasDetalle: {
     flex: 1,
-    height: 800,
-    overflow: 'hidden',
-    width: '100%',
-    backgroundColor: Color.blanco
-  },
-  pruebasEncontradasDetalleBlur: {
-    flex: 1,
-    opacity: 0.5,
     height: 800,
     overflow: 'hidden',
     width: '100%',

@@ -57,10 +57,7 @@ const Maps = ({ onClose, setEventsFilter }) => {
   }
 
   return (
-    <ScrollView
-      style={[styles.maps, styles.mapsLayout]}
-      contentContainerStyle={{ paddingBottom: 50 }}
-    >
+    <View style={[styles.maps, styles.mapsLayout]}>
       <View style={styles.mapsInner}>
         <View>
           <View style={styles.items}>
@@ -99,14 +96,14 @@ const Maps = ({ onClose, setEventsFilter }) => {
           </Text>
         </View>
       </View>
-    </ScrollView>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   mapsLayout: {
     maxWidth: '90%',
-    maxHeight: '60%',
+    maxHeight: '70%',
     borderRadius: Border.br_5xs
   },
   items: {

@@ -49,9 +49,7 @@ const Metodo = () => {
           <Text style={[styles.label, styles.labelFlexBox]}>
             Nombre del titular
           </Text>
-          <Text style={[styles.placehoder, styles.labelFlexBox]}>
-            Lara Macías Blanco Carrillo
-          </Text>
+          <Text style={[styles.placehoder, styles.labelFlexBox]}>Nombre</Text>
         </View>
         <View style={styles.input}>
           <Text style={[styles.label, styles.labelFlexBox]}>
@@ -117,7 +115,7 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_xl,
     borderWidth: 1,
     borderStyle: 'solid',
-    width: 120
+    width: 110
   },
   walletIcon: {
     width: 32,
@@ -163,7 +161,8 @@ const styles = StyleSheet.create({
     height: 290,
     flexDirection: 'row',
     borderStyle: 'solid',
-    width: 300
+    width: 300,
+    backgroundColor: Color.blanco
   },
   gestionaTuCuentaContainer: {
     fontSize: FontSize.size_11xl,

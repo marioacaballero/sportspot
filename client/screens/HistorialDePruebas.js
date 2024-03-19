@@ -5,7 +5,7 @@ import {
   View,
   Pressable,
   Modal,
-  Image,
+  // Image,
   ScrollView
 } from 'react-native'
 import EscribirResea from '../components/EscribirResea'
@@ -28,7 +28,7 @@ const HistorialDePruebas = () => {
     <>
       <ScrollView
         style={styles.historialDePruebas}
-        contentContainerStyle={{ paddingBottom: 150 }}
+        contentContainerStyle={{ paddingBottom: 50 }}
       >
         <View style={[styles.frameParent, styles.frameParentPosition]}>
           <View>
@@ -40,12 +40,16 @@ const HistorialDePruebas = () => {
             <View style={styles.frameContainer}>
               <View style={styles.groupParentFlexBox}>
                 <Text style={[styles.todasLasPruebas, styles.ciclismoTypo]}>
-                  Todas las pruebas (4)
+                  Todas las pruebas
                 </Text>
               </View>
             </View>
           </View>
-          <View style={[styles.frameGroup, styles.frameSpaceBlock1]}>
+          <Text style={styles.text2}>
+            ¡Aquí podrás ver los eventos en los que has participado y dejarles
+            una reseña sobre tu experiencia!
+          </Text>
+          {/* <View style={[styles.frameGroup, styles.frameSpaceBlock1]}>
             <View style={[styles.image84Parent, styles.parentFlexBox]}>
               <Image
                 style={styles.image84Icon}
@@ -95,8 +99,8 @@ Fecha de la prueba: `}</Text>
               />
               <Text style={styles.helloAshfak}>Escribe una reseña</Text>
             </Pressable>
-          </View>
-          <View style={[styles.frameGroup, styles.frameSpaceBlock1]}>
+          </View> */}
+          {/* <View style={[styles.frameGroup, styles.frameSpaceBlock1]}>
             <View style={[styles.image84Parent, styles.parentFlexBox]}>
               <Image
                 style={styles.image84Icon}
@@ -146,8 +150,8 @@ Fecha de la prueba: `}</Text>
               />
               <Text style={styles.helloAshfak}>Escribe una reseña</Text>
             </Pressable>
-          </View>
-          <View style={[styles.frameGroup, styles.frameSpaceBlock1]}>
+          </View> */}
+          {/* <View style={[styles.frameGroup, styles.frameSpaceBlock1]}>
             <View style={[styles.image84Parent, styles.parentFlexBox]}>
               <Image
                 style={styles.image84Icon}
@@ -186,8 +190,8 @@ Fecha de la prueba: `}</Text>
                 </Text>
               </View>
             </View>
-          </View>
-          <View style={[styles.frameGroup, styles.frameSpaceBlock1]}>
+          </View> */}
+          {/* <View style={[styles.frameGroup, styles.frameSpaceBlock1]}>
             <View style={[styles.image84Parent, styles.parentFlexBox]}>
               <Image
                 style={styles.image84Icon}
@@ -226,7 +230,7 @@ Fecha de la prueba: `}</Text>
                 </Text>
               </View>
             </View>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
 
@@ -433,10 +437,18 @@ const styles = StyleSheet.create({
   },
   historialDePruebas: {
     backgroundColor: Color.blanco,
-    height: 800,
+    // height: 800,
     overflow: 'hidden',
     width: '100%',
     flex: 1
+  },
+  text2: {
+    color: Color.sportsVioleta,
+    fontFamily: FontFamily.inputPlaceholder,
+    fontSize: FontSize.size_xl,
+    fontWeight: '700',
+    textAlign: 'center',
+    marginTop: 20
   }
 })
 

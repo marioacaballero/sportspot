@@ -31,11 +31,8 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
         // markedDates={generateMarkedDates()}
         // Otras propiedades de configuración de tu calendario
       />
-      <Pressable
-        onPress={onClose}
-        style={[styles.helloAshfakWrapper, styles.captionFlexBox]}
-      >
-        <Text style={[styles.helloAshfak, styles.digit27Clr]}>Listo</Text>
+      <Pressable onPress={onClose} style={styles.helloAshfakWrapper}>
+        <Text style={styles.helloAshfak}>Listo</Text>
       </Pressable>
     </View>
   )
@@ -220,7 +217,8 @@ const styles = StyleSheet.create({
     width: 320,
     height: 42,
     marginTop: 14,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   calendar: {
     borderTopRightRadius: Border.br_5xs,
