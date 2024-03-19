@@ -39,7 +39,7 @@ export const usersSlices = createSlice({
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.loading = false
-        state.user = action.payload.user
+        state.user = action.payload
         state.error = null
       })
       .addCase(getUser.rejected, (state, action) => {

@@ -1,5 +1,12 @@
 import React from 'react'
-import { View, StyleSheet, Text, Pressable, TextInput } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  Text,
+  Pressable,
+  TextInput,
+  TouchableOpacity
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import {
   Color,
@@ -13,6 +20,11 @@ import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 const Contacta = () => {
   const navigation = useNavigation()
 
+  const handlePress = () => {
+    alert('¡Gracias por contactarnos! Te responderemos a la brevedad')
+    navigation.goBack()
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -22,22 +34,23 @@ const Contacta = () => {
         </Pressable>
       </View>
       <View style={styles.innerContainer}>
+        <View style={styles.messageContainer}>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Escribe un mensaje..."
+            multiline
+            numberOfLines={10}
+          />
+        </View>
         <View style={styles.textContainer}>
           <TextInput placeholder="Nombre" />
         </View>
         <View style={styles.textContainer}>
           <TextInput placeholder="Email" />
         </View>
-        <View style={styles.messageContainer}>
-          <TextInput
-            placeholder="Escribe un mensaje..."
-            multiline
-            numberOfLines={10}
-          />
-        </View>
-        <Pressable style={styles.sendContainer}>
+        <TouchableOpacity style={styles.sendContainer} onPress={handlePress}>
           <Text style={styles.send}>Enviar</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   )
@@ -59,7 +72,6 @@ const styles = StyleSheet.create({
       height: 2
     },
     shadowOpacity: 0.25,
-    shadowRadius: 3.84,
     elevation: 5,
     backgroundColor: Color.blanco,
     borderStyle: 'solid',
@@ -105,6 +117,10 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     paddingVertical: Padding.p_5xs,
     marginTop: 20
+  },
+  textInput: {
+    textAlign: 'left',
+    bottom: 30
   },
   sendContainer: {
     paddingVertical: Padding.p_6xs,

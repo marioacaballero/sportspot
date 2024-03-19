@@ -83,15 +83,6 @@ const Registrarse = () => {
             />
           </View>
 
-          <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
-            <TextInput
-              style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
-              placeholder="Nombre de usuario"
-              value={registerUser.nickname}
-              onChangeText={(value) => onValuesUser('nickname', value)}
-            />
-          </View>
-
           <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={[styles.nombreDeUsuario, styles.registrarse1Typo]}

@@ -24,7 +24,6 @@ import DatosDeportista from '../components/DatosDeportista'
 const InicioDeportista = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
-  // const { user } = useSelector((state) => state.users)
   const { events, loadingGet } = useSelector((state) => state.events)
 
   const [modalPremium, setModalPremium] = useState(false)

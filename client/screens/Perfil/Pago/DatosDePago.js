@@ -131,7 +131,8 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: Color.blanco,
     alignSelf: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: Color.blanco
   },
   gestionaTuCuentaContainer: {
     fontSize: FontSize.size_11xl,

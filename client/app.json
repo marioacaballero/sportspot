@@ -2,7 +2,7 @@
   "expo": {
     "runtimeVersion": "1.0.1",
     "name": "SpotSportv1",
-    "slug": "pruebaapk",
+    "slug": "spotsport",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/spotsport.png",
@@ -44,12 +44,12 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "eb1bc1b8-9cfe-4242-a8ed-974f7e366c4c"
+        "projectId": "d88586a8-1975-4f6f-8faf-c1868ce59d87"
       }
     },
     "updates": {
       "url": "https://u.expo.dev/ac124ba8-62c5-44ac-ab0e-8da7a8b8e646"
     },
-    "owner": "crisper1988"
+    "owner": "mauriidg"
   }
 }

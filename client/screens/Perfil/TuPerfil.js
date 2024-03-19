@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
   StyleSheet,
@@ -19,11 +19,16 @@ import {
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearUser } from '../../redux/slices/users.slices'
+import { getUser } from '../../redux/actions/users'
 
 const TuPerfil = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.users)
+
+  useEffect(() => {
+    dispatch(getUser(user.id))
+  })
 
   return (
     <ScrollView

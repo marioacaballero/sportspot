@@ -320,8 +320,8 @@ const styles = StyleSheet.create({
       width: 0,
       height: 8
     },
-    shadowRadius: 25,
-    elevation: 25,
+    shadowRadius: 5,
+    elevation: 5,
     shadowOpacity: 1,
     width: 324,
     paddingHorizontal: Padding.p_smi,
@@ -338,8 +338,8 @@ const styles = StyleSheet.create({
       width: 0,
       height: 8
     },
-    shadowRadius: 25,
-    elevation: 25,
+    shadowRadius: 5,
+    elevation: 5,
     shadowOpacity: 1,
     width: 324,
     paddingHorizontal: Padding.p_smi,
@@ -365,7 +365,7 @@ const styles = StyleSheet.create({
   },
   eliminarCuenta: {
     fontWeight: '600',
-    fontFamily: FontFamily.inputPlaceholderSemiBold,
+    fontFamily: FontFamily.inputPlaceholder,
     color: Color.rojoUbiqum
   },
   eliminarCuentaWrapper: {
@@ -384,22 +384,16 @@ const styles = StyleSheet.create({
   },
   container: {
     width: 20
-    // marginLeft: 47
   },
   frame: {
     width: 19
-    // marginLeft: 47
   },
   groupParent: {
     top: 10,
-    // left: 0,
     backgroundColor: Color.gris,
     height: 65,
-    // paddingHorizontal: Padding.p_xl,
-    // paddingVertical: Padding.p_3xs,
     alignItems: 'center',
     flexDirection: 'row'
-    // justifyContent: 'center'
   },
   seguridad: {
     paddingTop: 20,
@@ -411,7 +405,6 @@ const styles = StyleSheet.create({
   },
   viewContainer: {
     paddingTop: 10,
-    // paddingHorizontal: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
