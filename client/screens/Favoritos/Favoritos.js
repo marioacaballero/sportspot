@@ -7,7 +7,8 @@ import {
   Image,
   Pressable,
   Modal,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  ScrollView
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import {
@@ -45,116 +46,93 @@ const Favoritos = ({ route }) => {
   }
 
   return (
-    <View style={styles.favoritos}>
-      <View style={[styles.frameParent, styles.frameParentPosition]}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-          }}
-        >
-          <Text style={styles.tusFavoritos}>TUS FAVORITOS</Text>
-          <Pressable onPress={() => navigation.goBack()}>
-            <BackArrowSVG />
-          </Pressable>
-        </View>
-        <View style={[styles.backParent, styles.backParentSpaceBlock]}>
-          <View style={styles.frameWrapper}>
-            <View style={styles.groupParentFlexBox}>
-              <Text style={[styles.pruebasDeCiclismo, styles.ciclismoTypo]}>
-                {`Pruebas de ${sport[0].title} (${sport.length})`}
+    <ScrollView style={styles.favoritos} showsVerticalScrollIndicator={false}>
+      <View style={styles.topContainer}>
+        <Text style={styles.tusFavoritos}>TUS FAVORITOS</Text>
+        <Pressable onPress={() => navigation.goBack()}>
+          <BackArrowSVG />
+        </Pressable>
+      </View>
+      <View style={styles.backParentSpaceBlock}>
+        <Text style={[styles.pruebasDeCiclismo, styles.ciclismoTypo]}>
+          {`Pruebas de ${sport[0].title} (${sport.length})`}
+        </Text>
+      </View>
+      {sport.map((prueba, index) => (
+        <View key={index} style={styles.frameGroup}>
+          <View style={styles.parentFlexBox}>
+            <Image
+              style={styles.image84Icon}
+              contentFit="cover"
+              source={{ uri: prueba.image }}
+            />
+            <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
+              <View style={styles.ciclismoParent}>
+                <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
+                  {prueba.description}
+                </Text>
+                <CorazonSVG
+                  isFavorite={true}
+                  handle={() => toggleFavorite(sport[0].id)}
+                />
+              </View>
+              <Text style={styles.imGoingToContainer}>
+                <Text style={styles.modalidadMontaaLocalizaci}>
+                  -Modalidad: {prueba.modality} {'\n'}
+                </Text>
+                <Text>
+                  -Localización: {prueba.location} {'\n'}
+                </Text>
+                <Text>
+                  -Fecha de la prueba: {prueba.dateStart} {'\n'}
+                </Text>
+                <Text style={styles.modalidadMontaaLocalizaci}>
+                  -Fecha límite de inscripción: {prueba.dateInscription}
+                </Text>
+              </Text>
+              <Text style={styles.imGoingToContainer1}>
+                <Text style={styles.precioDeInscripcin}>
+                  {'PRECIO DE INSCRIPCIÓN: '}
+                </Text>
+                <Text
+                  style={[styles.text, styles.textTypo]}
+                >{`${prueba.price}€`}</Text>
               </Text>
             </View>
           </View>
-        </View>
-        {sport.map((prueba, index) => (
-          <View
-            key={index}
-            style={[styles.backParent, styles.backParentSpaceBlock]}
-          >
-            <View style={[styles.frameGroup, styles.backParentSpaceBlock]}>
-              <View style={[styles.image84Parent, styles.parentFlexBox]}>
-                <Image
-                  style={styles.image84Icon}
-                  contentFit="cover"
-                  source={{ uri: prueba.image }}
-                />
-                <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
-                  <View style={styles.ciclismoParent}>
-                    <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
-                      {prueba.description}
-                    </Text>
-                    <CorazonSVG
-                      isFavorite={true}
-                      handle={() => toggleFavorite(sport[0].id)}
+          <Pressable style={styles.vectorParent} onPress={toggleModal}>
+            <Image
+              style={styles.vectorIcon}
+              contentFit="cover"
+              source={require('../../assets/vector5.png')}
+            />
+            <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
+              Crear alerta
+            </Text>
+            <Modal
+              animationType="fade"
+              transparent={true}
+              visible={modalVisible}
+            >
+              <TouchableWithoutFeedback onPress={toggleModal}>
+                <View style={styles.modalOverlay}>
+                  <View>
+                    <PopupAlerta
+                      // onClose={toggleModal}
+                      setModalVisible={setModalVisible}
                     />
                   </View>
-                  <Text style={styles.imGoingToContainer}>
-                    <Text style={styles.modalidadMontaaLocalizaci}>
-                      -Modalidad: {prueba.modality} {'\n'}
-                    </Text>
-                    <Text>
-                      -Localización: {prueba.location} {'\n'}
-                    </Text>
-                    <Text>
-                      -Fecha de la prueba: {prueba.dateStart} {'\n'}
-                    </Text>
-                    <Text style={styles.modalidadMontaaLocalizaci}>
-                      -Fecha límite de inscripción: {prueba.dateInscription}
-                    </Text>
-                  </Text>
-                  <Text style={styles.imGoingToContainer1}>
-                    <Text style={styles.precioDeInscripcin}>
-                      {'PRECIO DE INSCRIPCIÓN: '}
-                    </Text>
-                    <Text
-                      style={[styles.text, styles.textTypo]}
-                    >{`${prueba.price}€`}</Text>
-                  </Text>
                 </View>
-              </View>
-              <Pressable onPress={toggleModal}>
-                <View style={[styles.vectorParent, styles.parentFlexBox]}>
-                  <Image
-                    style={styles.vectorIcon}
-                    contentFit="cover"
-                    source={require('../../assets/vector5.png')}
-                  />
-                  <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
-                    Crear alerta
-                  </Text>
-                  <Modal
-                    animationType="fade"
-                    transparent={true}
-                    visible={modalVisible}
-                  >
-                    <TouchableWithoutFeedback onPress={toggleModal}>
-                      <View style={styles.modalOverlay}>
-                        <View>
-                          <PopupAlerta
-                            // onClose={toggleModal}
-                            setModalVisible={setModalVisible}
-                          />
-                        </View>
-                      </View>
-                    </TouchableWithoutFeedback>
-                  </Modal>
-                </View>
-              </Pressable>
-            </View>
-          </View>
-        ))}
-      </View>
-    </View>
+              </TouchableWithoutFeedback>
+            </Modal>
+          </Pressable>
+        </View>
+      ))}
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
-  frameParentPosition: {
-    // left: '50%',
-    // marginLeft: -180
-  },
   ciclismoTypo: {
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
@@ -162,12 +140,16 @@ const styles = StyleSheet.create({
   },
   backParentSpaceBlock: {
     marginTop: 25,
-    alignItems: 'center'
-  },
-  parentFlexBox: {
-    width: 320,
     alignItems: 'center',
     flexDirection: 'row'
+  },
+  parentFlexBox: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderRadius: Border.br_3xs,
+    borderStyle: 'solid',
+    borderColor: Color.colorGainsboro_100,
+    borderWidth: 1
   },
   frameSpaceBlock: {
     paddingVertical: Padding.p_8xs,
@@ -178,42 +160,20 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100'
   },
-  frameLayout: {
-    height: 20,
-    marginLeft: 47
-  },
-  frameParentPosition1: {
-    top: 0,
-    position: 'absolute'
-  },
   tusFavoritos: {
     fontSize: FontSize.size_5xl,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
-    // width: 186,
-    // textAlign: 'left',
     color: Color.sportsVioleta
-  },
-  backIcon: {
-    width: 24,
-    height: 24,
-    overflow: 'hidden'
   },
   pruebasDeCiclismo: {
     fontSize: FontSize.size_sm,
     textAlign: 'left',
     color: Color.sportsVioleta
   },
-  groupParentFlexBox: {
-    alignItems: 'center',
-    flexDirection: 'row'
-  },
   frameWrapper: {
     marginLeft: 10,
     justifyContent: 'center'
-  },
-  backParent: {
-    flexDirection: 'row'
   },
   image84Icon: {
     borderTopLeftRadius: Border.br_3xs,
@@ -225,11 +185,6 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputLabel_size,
     color: Color.sportsNaranja,
     textAlign: 'left'
-  },
-  heartIcon: {
-    width: 14,
-    height: 14,
-    marginLeft: 119
   },
   ciclismoParent: {
     flexDirection: 'row',
@@ -259,12 +214,6 @@ const styles = StyleSheet.create({
   frameContainer: {
     justifyContent: 'center'
   },
-  image84Parent: {
-    borderRadius: Border.br_3xs,
-    borderStyle: 'solid',
-    borderColor: Color.colorGainsboro_100,
-    borderWidth: 1
-  },
   vectorIcon: {
     width: 15,
     height: 16
@@ -280,63 +229,17 @@ const styles = StyleSheet.create({
     backgroundColor: Color.sportsNaranja,
     height: 42,
     marginTop: 10,
-    justifyContent: 'center'
-  },
-  frameGroup: {
-    justifyContent: 'center'
-  },
-  heartIcon1: {
-    width: 17,
-    height: 17,
-    marginLeft: 119
-  },
-  frameParent: {
-    paddingTop: 30,
-    paddingHorizontal: 15,
-    // paddingHorizontal: Padding.p_xl,
-    justifyContent: 'center'
-    // top: 0,
-    // position: 'absolute'
-  },
-  icon: {
-    height: '100%',
-    width: '100%'
-  },
-  wrapper: {
-    width: 22,
-    height: 25
-  },
-  vector: {
-    width: 23,
-    marginLeft: 47
-  },
-  capturaDePantalla20231124: {
-    width: 33,
-    height: 33,
-    marginLeft: 47
-  },
-  container: {
-    width: 20,
-    marginLeft: 47
-  },
-  frame: {
-    width: 19,
-    marginLeft: 47
-  },
-  groupParent: {
-    top: 10,
-    left: 0,
-    backgroundColor: Color.gris,
-    height: 65,
-    paddingVertical: Padding.p_3xs,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingHorizontal: Padding.p_xl
+    width: '100%'
+  },
+  frameGroup: {
+    justifyContent: 'center',
+    marginTop: 25,
+    alignItems: 'center'
   },
   modalOverlay: {
-    // flex: 1,
-    // top: -100,
     height: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
@@ -344,10 +247,15 @@ const styles = StyleSheet.create({
   },
   favoritos: {
     backgroundColor: Color.blanco,
-    height: 800,
     overflow: 'hidden',
-    width: '100%',
-    flex: 1
+    flex: 1,
+    paddingTop: 30,
+    paddingHorizontal: 15
+  },
+  topContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   }
 })
 

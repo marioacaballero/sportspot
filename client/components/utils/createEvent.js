@@ -11,15 +11,17 @@ export const onSubmit = async (
 ) => {
   const data = {
     title: event.title,
-    description: event?.description,
+    // description: event?.description,
+    description: 'Evento',
     sportId: sport && sport?.id,
-    price: event?.price,
+    price: event?.price.slice(0, -1),
     modality: sport.type,
     location: event?.location,
     dateStart,
     dateInscription: dateSuscription,
     creator: user?.id,
-    timeStart: event?.timeStart,
+    // timeStart: event?.timeStart,
+    timeStart: '00:00',
     image: selectedImage
   }
 

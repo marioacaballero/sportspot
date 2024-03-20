@@ -51,7 +51,6 @@ const Favoritos1 = () => {
             width: '100%',
             height: '100%',
             backgroundColor: 'rgba(0, 0, 0, 0.1)'
-            // backdropFilter: 'blur(5px)'
           }}
           animating={true}
           size="large"
@@ -62,58 +61,47 @@ const Favoritos1 = () => {
   } else {
     return (
       <View style={styles.favoritos}>
-        <View style={[styles.frameParent, styles.parentSpaceBlock]}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center'
-            }}
-          >
-            <Text style={[styles.tusFavoritos, styles.imGoingToFlexBox]}>
-              TUS FAVORITOS
-            </Text>
-            <Pressable onPress={() => navigation.goBack()}>
-              <BackArrowSVG />
-            </Pressable>
-          </View>
-          <View style={[styles.frameWrapper, styles.frameSpaceBlock]}>
-            <View style={styles.groupParentFlexBox}>
-              <Text style={styles.tusListasTypo}>Tus listas</Text>
-            </View>
-          </View>
-          <FlatList
-            data={Object.entries(groupedFavorites)}
-            keyExtractor={(item) => item[0]}
-            renderItem={({ item }) => (
-              <Pressable
-                style={[styles.frameContainer, styles.frameSpaceBlock]}
-                onPress={() =>
-                  navigation.navigate('Favoritos', { sport: item[1] })
-                }
-              >
-                <View style={styles.frameGroup}>
-                  <View style={styles.pruebasDeCiclismoWrapper}>
-                    <Text style={styles.tusListasTypo}>{item[0]}</Text>
-                  </View>
-                  <Text style={[styles.imGoingTo, styles.imGoingToFlexBox]}>
-                    ({item[1].length}) Pruebas añadidas
-                  </Text>
-                </View>
-              </Pressable>
-            )}
-          />
+        <View style={styles.topContainer}>
+          <Text style={[styles.tusFavoritos, styles.imGoingToFlexBox]}>
+            TUS FAVORITOS
+          </Text>
+          <Pressable onPress={() => navigation.goBack()}>
+            <BackArrowSVG />
+          </Pressable>
         </View>
+        <View style={[styles.frameWrapper, styles.frameSpaceBlock]}>
+          <View style={styles.groupParentFlexBox}>
+            <Text style={styles.tusListasTypo}>Tus listas</Text>
+          </View>
+        </View>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={Object.entries(groupedFavorites)}
+          keyExtractor={(item) => item[0]}
+          renderItem={({ item }) => (
+            <Pressable
+              style={[styles.frameContainer, styles.frameSpaceBlock]}
+              onPress={() =>
+                navigation.navigate('Favoritos', { sport: item[1] })
+              }
+            >
+              <View style={styles.frameGroup}>
+                <View style={styles.pruebasDeCiclismoWrapper}>
+                  <Text style={styles.tusListasTypo}>{item[0]}</Text>
+                </View>
+                <Text style={[styles.imGoingTo, styles.imGoingToFlexBox]}>
+                  ({item[1].length}) Pruebas añadidas
+                </Text>
+              </View>
+            </Pressable>
+          )}
+        />
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  parentSpaceBlock: {
-    paddingHorizontal: Padding.p_xl,
-    width: '100%'
-  },
   linearGradient: {
     flex: 1,
     width: '100%'
@@ -169,35 +157,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     flexDirection: 'row'
   },
-  frameParent: {
-    paddingTop: 30,
-    paddingHorizontal: Padding.p_xl,
-    top: 0
-  },
-  wrapper: {
-    width: 22,
-    height: 25
-  },
-  container: {
-    width: 20
-  },
-  frame: {
-    width: 19
-  },
-  groupParent: {
-    backgroundColor: Color.gris,
-    height: 65,
-    paddingVertical: Padding.p_3xs,
-    justifyContent: 'center',
-    paddingHorizontal: Padding.p_xl,
-    width: 360
-  },
   favoritos: {
     backgroundColor: Color.blanco,
     height: 800,
     overflow: 'hidden',
-    width: '100%',
-    flex: 1
+    flex: 1,
+    paddingHorizontal: Padding.p_xl,
+    paddingTop: 30
+  },
+  topContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   }
 })
 

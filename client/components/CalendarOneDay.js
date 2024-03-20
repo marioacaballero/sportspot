@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Calendar } from 'react-native-calendars'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
 import { useDispatch } from 'react-redux'
@@ -31,9 +31,9 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
         // markedDates={generateMarkedDates()}
         // Otras propiedades de configuración de tu calendario
       />
-      <Pressable onPress={onClose} style={styles.helloAshfakWrapper}>
+      <TouchableOpacity onPress={onClose} style={styles.helloAshfakWrapper}>
         <Text style={styles.helloAshfak}>Listo</Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   )
 }

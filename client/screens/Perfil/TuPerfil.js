@@ -28,7 +28,7 @@ const TuPerfil = () => {
 
   useEffect(() => {
     dispatch(getUser(user.id))
-  })
+  }, [])
 
   return (
     <ScrollView

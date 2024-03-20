@@ -199,12 +199,12 @@ const DatosDeportista = ({ modalSport, setModalSport }) => {
           </View>
         </View>
 
-        <Pressable
+        <TouchableOpacity
           style={styles.buttonSave}
           onPress={() => setModalSport(false)}
         >
           <Text style={styles.saveText}>Guardar</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
 
       <Modal animationType="fade" transparent visible={frameContainer6Visible}>

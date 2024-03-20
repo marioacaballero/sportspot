@@ -5,7 +5,8 @@ import {
   View,
   SafeAreaView,
   ScrollView,
-  StyleSheet
+  StyleSheet,
+  Pressable
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Color } from '../../GlobalStyles'
@@ -55,17 +56,14 @@ export default function SignIn({ navigation }) {
               <Text style={styles.buttonText}>Iniciar sesión con Apple</Text>
             </View>
 
-            <View style={styles.button}>
-              <Text
-                style={styles.buttonText}
-                onPress={() => navigation.navigate('Registrarse')}
-              >
-                Registrarse
-              </Text>
-            </View>
+            <Pressable
+              style={styles.button}
+              onPress={() => navigation.navigate('Registrarse')}
+            >
+              <Text style={styles.buttonText}>Registrarse</Text>
+            </Pressable>
             <View
               style={{
-                // alignItems: 'center',
                 paddingVertical: 10,
                 marginHorizontal: 21
               }}

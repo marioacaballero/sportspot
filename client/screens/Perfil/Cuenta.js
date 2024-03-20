@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderStyle: 'solid',
     shadowOpacity: 1,
-    elevation: 4,
+    elevation: 5,
     shadowRadius: 2,
     shadowOffset: {
       width: 1,
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     },
     shadowColor: 'rgba(0, 0, 0, 0.25)',
     borderRadius: Border.br_3xs,
-    marginTop: 15,
+    marginTop: 20,
     flexDirection: 'row',
     width: '100%',
     paddingHorizontal: 40

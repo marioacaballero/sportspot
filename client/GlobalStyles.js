@@ -32,6 +32,7 @@ export const Color = {
   gris: '#f2f1f8',
   violeta2: '#642794',
   sportsVioleta: '#40036f',
+  violetaPlaceholder: '#9481a3',
   colorLinen_100: '#fdf0e7',
   colorLinen_200: '#feeee7',
   naranja3: '#fcece7',

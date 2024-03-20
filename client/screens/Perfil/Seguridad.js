@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   Text,
@@ -24,8 +24,10 @@ import { clearUser } from '../../redux/slices/users.slices'
 const Seguridad = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
+  const newPasswordInputRef = useRef(null)
+  const passwordInputRef = useRef(null)
 
-  const { user, isOkay } = useSelector((state) => state.users)
+  const { user } = useSelector((state) => state.users)
 
   const [mostrarCamposExtras, setMostrarCamposExtras] = useState(false)
   const [password, setPassword] = useState({
@@ -41,21 +43,40 @@ const Seguridad = () => {
     }))
   }
 
+  // const handleChangePassword = () => {
+  //   if (password.newPassword === password.confirmPassword) {
+  //     if (isOkay) {
+  //       if (password.newPassword.length >= 3) {
+  //         const data = {
+  //           id: user.id,
+  //           oldPassword: password.oldPassword,
+  //           newPassword: password.confirmPassword
+  //         }
+  //         dispatch(changePassword(data))
+  //       } else {
+  //         alert('La nueva contraseña debe tener al menos 3 caracteres')
+  //       }
+  //     } else {
+  //       alert('Contraseña actual incorrecta')
+  //     }
+  //   } else {
+  //     alert('Las contraseñas no coinciden')
+  //   }
+  // }
+
   const handleChangePassword = () => {
     if (password.newPassword === password.confirmPassword) {
-      if (isOkay) {
-        if (password.newPassword.length >= 3) {
-          const data = {
-            id: user.id,
-            oldPassword: password.oldPassword,
-            newPassword: password.confirmPassword
-          }
-          dispatch(changePassword(data))
-        } else {
-          alert('La nueva contraseña debe tener al menos 3 caracteres')
+      if (password.newPassword.length >= 3) {
+        const data = {
+          id: user.id,
+          oldPassword: password.oldPassword,
+          newPassword: password.confirmPassword
         }
+        dispatch(changePassword(data))
+        alert('Contraseña cambiada exitosamente')
+        navigation.goBack()
       } else {
-        alert('Contraseña actual incorrecta')
+        alert('La nueva contraseña debe tener al menos 3 caracteres')
       }
     } else {
       alert('Las contraseñas no coinciden')
@@ -131,6 +152,7 @@ CUENTA`}
                     value={password.oldPassword}
                     onChangeText={(value) => valuesLogin('oldPassword', value)}
                     secureTextEntry={true}
+                    onSubmitEditing={() => newPasswordInputRef.current.focus()}
                   />
                 </View>
               </View>
@@ -149,6 +171,8 @@ CUENTA`}
                     onChangeText={(value) => valuesLogin('newPassword', value)}
                     value={password.newPassword}
                     secureTextEntry={true}
+                    onSubmitEditing={() => passwordInputRef.current.focus()}
+                    ref={newPasswordInputRef}
                   />
                 </View>
               </View>
@@ -165,6 +189,8 @@ CUENTA`}
                     }
                     value={password.confirmPassword}
                     secureTextEntry={true}
+                    ref={passwordInputRef}
+                    onSubmitEditing={() => handleChangePassword()}
                   />
                 </View>
               </View>
@@ -174,7 +200,7 @@ CUENTA`}
         <View style={{ marginTop: mostrarCamposExtras ? '25%' : '8%' }}>
           <Pressable
             style={[styles.cambiarContraseaWrapper, styles.wrapperLayout]}
-            onPress={() => handleChangePassword()}
+            onPress={handleChangePassword}
           >
             <Text style={[styles.cambiarContrasea, styles.eliminarCuentaTypo]}>
               Cambiar contraseña
@@ -283,7 +309,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputLabel_size,
     textTransform: 'capitalize',
     fontWeight: '500',
-    fontFamily: FontFamily.inputPlaceholderMedium,
+    fontFamily: FontFamily.inputPlaceholder,
     display: 'flex',
     alignItems: 'center',
     textAlign: 'left',
@@ -323,7 +349,6 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 5,
     shadowOpacity: 1,
-    width: 324,
     paddingHorizontal: Padding.p_smi,
     paddingVertical: Padding.p_5xs,
     flexWrap: 'wrap',
@@ -341,7 +366,6 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 5,
     shadowOpacity: 1,
-    width: 324,
     paddingHorizontal: Padding.p_smi,
     paddingVertical: Padding.p_5xs,
     flexWrap: 'wrap',

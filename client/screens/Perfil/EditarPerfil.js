@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
   Text,
   StyleSheet,
@@ -45,10 +45,6 @@ const EditarPerfil = () => {
     direccion: user?.direccion || '',
     telefono: user?.telefono || ''
   })
-
-  useEffect(() => {
-    dispatch(getUser(user.id))
-  }, [])
 
   const settingValuesUser = (field, value) => {
     setValuesUser((prev) => ({
