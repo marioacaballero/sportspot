@@ -18,6 +18,7 @@ import SportsPopUp from './SportsPopUp'
 import { onSubmit } from './utils/createEvent'
 import { Checkbox } from 'react-native-paper'
 import Maps from './Maps'
+import { getUser } from '../redux/actions/users'
 
 const FomularioEventos = () => {
   const dispatch = useDispatch()
@@ -26,20 +27,17 @@ const FomularioEventos = () => {
   const { dateStart, dateSuscription } = useSelector((state) => state.events)
   const { sport } = useSelector((state) => state.sports)
   const { user } = useSelector((state) => state.users)
-  // const [date, setDate] = useState(null)
-  // const [dateInscription, setDateInscription] = useState(null)
+
   const [calendar, setCalendar] = useState(null)
   const [calendarInscription, setCalendarInscription] = useState(null)
   const [selectedImage, setSelectedImage] = useState(null)
   const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
-
   const [sportsModal, setSportsModal] = useState(false)
   const [event, setEvent] = useState({
     title: '',
     price: '',
     location: '',
     timeStart: '',
-    // place: '',
     eventLink: '',
     inscriptionLink: '',
     space: '',
@@ -48,18 +46,35 @@ const FomularioEventos = () => {
   })
   const [checked, setChecked] = useState(false)
 
+  useEffect(() => {
+    dispatch(getAllSports())
+    dispatch(getUser(user.id))
+  }, [])
+
   const onCloseModalSports = () => {
     setSportsModal(false)
   }
 
-  useEffect(() => {
-    dispatch(getAllSports())
-  }, [])
-
   const onValuesEvent = (field, value) => {
+    if (field === 'price') {
+      // Actualiza temporalmente el valor del precio
+      setEvent((prevState) => ({
+        ...prevState,
+        price: value // Sin el símbolo del euro
+      }))
+    } else {
+      // Actualiza los otros campos del evento
+      setEvent((prevState) => ({
+        ...prevState,
+        [field]: value
+      }))
+    }
+  }
+
+  const handlePriceConfirmation = () => {
     setEvent((prevState) => ({
       ...prevState,
-      [field]: value
+      price: event.price + '€'
     }))
   }
 
@@ -101,22 +116,28 @@ const FomularioEventos = () => {
           value={event.title}
           onChangeText={(value) => onValuesEvent('title', value)}
           placeholder="Escriba el nombre del evento"
-          placeholderTextColor={Color.sportsVioleta}
+          placeholderTextColor={Color.violetaPlaceholder}
         />
       </View>
 
       <Pressable style={styles.items} onPress={() => setSportsModal(true)}>
         <Text style={styles.text}>Deporte</Text>
-        <Text style={styles.helloTypoScroll}>
+        <Text
+          style={sport.name ? styles.helloTypoScroll : styles.helloTypoScroll2}
+        >
           {sport?.name?.slice(0, 1).toUpperCase()}
           {sport?.name?.slice(1)}{' '}
-          {sport.type ? sport?.type : 'Elije tu deporte'}
+          {sport.name ? sport?.type : 'Elije tu deporte'}
         </Text>
       </Pressable>
 
       <Pressable style={styles.items} onPress={openFrameContainer6}>
         <Text style={styles.text}>Lugar del evento</Text>
-        <Text style={styles.helloTypoScroll}>
+        <Text
+          style={
+            event.location ? styles.helloTypoScroll : styles.helloTypoScroll2
+          }
+        >
           {event.location ? event.location : 'Elija el lugar del evento'}
         </Text>
       </Pressable>
@@ -128,7 +149,7 @@ const FomularioEventos = () => {
           value={event.eventLink}
           onChangeText={(value) => onValuesEvent('eventLink', value)}
           placeholder="https://www.deportedeporte.com/"
-          placeholderTextColor={Color.sportsVioleta}
+          placeholderTextColor={Color.violetaPlaceholder}
         />
       </View>
 
@@ -139,13 +160,15 @@ const FomularioEventos = () => {
           value={event.inscriptionLink}
           onChangeText={(value) => onValuesEvent('inscriptionLink', value)}
           placeholder="https://www.deportedeporte.com/inscripción/"
-          placeholderTextColor={Color.sportsVioleta}
+          placeholderTextColor={Color.violetaPlaceholder}
         />
       </View>
 
       <Pressable style={styles.items} onPress={() => setCalendar(true)}>
         <Text style={styles.text}>Fecha de inicio</Text>
-        <Text style={styles.helloTypoScroll}>
+        <Text
+          style={dateStart ? styles.helloTypoScroll : styles.helloTypoScroll2}
+        >
           {dateStart || 'Seleccione la fecha de inicio'}
         </Text>
       </Pressable>
@@ -155,7 +178,11 @@ const FomularioEventos = () => {
         onPress={() => setCalendarInscription(true)}
       >
         <Text style={styles.text}>Fecha de inscripcion</Text>
-        <Text style={styles.helloTypoScroll}>
+        <Text
+          style={
+            dateSuscription ? styles.helloTypoScroll : styles.helloTypoScroll2
+          }
+        >
           {dateSuscription || 'Fecha límite de inscripción'}
         </Text>
       </Pressable>
@@ -168,8 +195,10 @@ const FomularioEventos = () => {
               style={styles.helloTypoScrollPrecio}
               value={event.price}
               onChangeText={(value) => onValuesEvent('price', value)}
+              onBlur={handlePriceConfirmation}
               placeholder="35€"
-              placeholderTextColor={Color.sportsVioleta}
+              placeholderTextColor={Color.violetaPlaceholder}
+              keyboardType="numeric"
             />
           </View>
         </View>
@@ -182,7 +211,8 @@ const FomularioEventos = () => {
               value={event.space}
               onChangeText={(value) => onValuesEvent('space', value)}
               placeholder="XXXX"
-              placeholderTextColor={Color.sportsVioleta}
+              placeholderTextColor={Color.violetaPlaceholder}
+              keyboardType="numeric"
             />
           </View>
         </View>
@@ -195,7 +225,13 @@ const FomularioEventos = () => {
               contentFit="cover"
               source={selectedImage && { uri: selectedImage }}
             /> */}
-            <Text style={styles.subirArchivo}>Subir archivo</Text>
+            <Text
+              style={
+                selectedImage ? styles.subirArchivoNuevo : styles.subirArchivo
+              }
+            >
+              {selectedImage ? 'Cambiar' : 'Subir archivo'}
+            </Text>
           </Pressable>
         </View>
       </View>
@@ -222,7 +258,7 @@ const FomularioEventos = () => {
           value={event.mail}
           onChangeText={(value) => onValuesEvent('mail', value)}
           placeholder="organizador@gmail.com"
-          placeholderTextColor={Color.sportsVioleta}
+          placeholderTextColor={Color.violetaPlaceholder}
         />
       </View>
 
@@ -233,68 +269,13 @@ const FomularioEventos = () => {
           value={event.phone}
           onChangeText={(value) => onValuesEvent('phone', value)}
           placeholder="XXX-XXX-XXX"
-          placeholderTextColor={Color.sportsVioleta}
+          keyboardType="numeric"
+          placeholderTextColor={Color.violetaPlaceholder}
         />
       </View>
 
-      {/* <View style={[styles.itemsTextArea]}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10, marginTop: 6 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-        <Text
-          style={{
-            fontSize: FontSize.inputPlaceholder_size,
-            fontFamily: FontFamily.inputPlaceholder,
-            fontWeight: '700',
-            color: Color.sportsVioleta
-          }}
-        >
-          Descripcion:
-        </Text>
-        <TextInput
-          style={styles.textArea}
-          multiline={true} // Permitir múltiples líneas
-          numberOfLines={2} // Número de líneas visibles inicia
-          value={event.description}
-          onChangeText={(value) => onValuesEvent('description', value)}
-        />
-      </View> */}
-
-      {/* <View style={styles.items}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-
-        <Text
-          style={{
-            fontSize: FontSize.inputPlaceholder_size,
-            fontFamily: FontFamily.inputPlaceholder,
-            fontWeight: '700',
-            color: Color.sportsVioleta
-          }}
-        >
-          Hora:
-        </Text>
-        <TextInput
-          style={styles.helloTypoScroll}
-          value={event.timeStart}
-          onChangeText={(value) => onValuesEvent('timeStart', value)}
-        />
-      </View> */}
-
       <TouchableOpacity
-        style={{
-          //   width: 100,
-          height: 52,
-          width: '100%',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 50,
-          marginTop: 10,
-          backgroundColor: Color.sportsNaranja
-        }}
+        style={styles.submit}
         onPress={() => {
           onSubmit(
             event,
@@ -333,11 +314,7 @@ const FomularioEventos = () => {
             style={styles.frameContainer10Bg}
             onPress={onCloseModalSports}
           />
-          <SportsPopUp
-            onClose={onCloseModalSports}
-            // setDate={setDate}
-            // date={date}
-          />
+          <SportsPopUp onClose={onCloseModalSports} />
         </View>
       </Modal>
 
@@ -397,6 +374,13 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.sportsVioleta
   },
+  helloTypoScroll2: {
+    width: '100%',
+    marginLeft: 5,
+    fontSize: 12,
+    fontFamily: FontFamily.inputPlaceholder,
+    color: Color.violetaPlaceholder
+  },
   helloTypoScrollDate: {
     width: '90%',
     fontSize: FontSize.inputPlaceholder_size,
@@ -405,6 +389,14 @@ const styles = StyleSheet.create({
     color: Color.sportsVioleta
   },
   subirArchivo: {
+    width: '100%',
+    marginLeft: 5,
+    fontSize: 12,
+    fontFamily: FontFamily.inputPlaceholder,
+    color: Color.violetaPlaceholder,
+    top: 6
+  },
+  subirArchivoNuevo: {
     width: '100%',
     marginLeft: 5,
     fontSize: 12,
@@ -518,6 +510,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(113, 113, 113, 0.3)'
+  },
+  submit: {
+    height: 52,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
+    marginTop: 10,
+    backgroundColor: Color.sportsNaranja
   }
 })
 

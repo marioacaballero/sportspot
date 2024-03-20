@@ -6,7 +6,8 @@ import {
   Pressable,
   Image,
   TextInput,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation } from '@react-navigation/native'
@@ -21,8 +22,9 @@ import { useDispatch } from 'react-redux'
 import { register } from '../../redux/actions/users'
 
 const Registrarse = () => {
-  const confirmPasswordInputRef = useRef(null)
+  const emailInputRef = useRef(null)
   const passwordInputRef = useRef(null)
+  const confirmPasswordRef = useRef(null)
 
   const dispatch = useDispatch()
 
@@ -33,6 +35,7 @@ const Registrarse = () => {
     email: '',
     nickname: ''
   })
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   const onValuesUser = (field, value) => {
     setRegisterUser((prevState) => ({
@@ -45,8 +48,8 @@ const Registrarse = () => {
     if (
       registerUser.email &&
       registerUser.password &&
-      registerUser.nickname
-      // registerUser.password === registerUser.confirmPassword
+      registerUser.nickname &&
+      registerUser.password === confirmPassword
     ) {
       dispatch(register(registerUser))
       navigation.navigate('IniciarSesin')
@@ -72,7 +75,18 @@ const Registrarse = () => {
           />
           <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>
         </View>
+
         <View style={styles.frameGroup}>
+          <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
+            <TextInput
+              style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
+              placeholder="Nombre de usuario"
+              value={registerUser.nickname}
+              onChangeText={(value) => onValuesUser('nickname', value)}
+              onSubmitEditing={() => emailInputRef.current.focus()}
+            />
+          </View>
+
           <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
@@ -80,29 +94,32 @@ const Registrarse = () => {
               value={registerUser.email}
               onChangeText={(value) => onValuesUser('email', value)}
               onSubmitEditing={() => passwordInputRef.current.focus()}
+              ref={emailInputRef}
+              autoCapitalize="none"
             />
           </View>
 
           <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
-            <TextInput
-              style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
-              placeholder="Nombre de usuario"
-              value={registerUser.nickname}
-              onChangeText={(value) => onValuesUser('nickname', value)}
-              onSubmitEditing={() => confirmPasswordInputRef.current.focus()} // Mover al siguiente campo al presionar "Enter"
-              ref={passwordInputRef} // Referencia al campo de texto actual
-            />
-          </View>
-
-          <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={styles.nombreDeUsuario}
               placeholder="Contraseña"
               value={registerUser.password}
               onChangeText={(value) => onValuesUser('password', value)}
               secureTextEntry={true}
+              ref={passwordInputRef}
+              onSubmitEditing={() => confirmPasswordRef.current.focus()}
+            />
+          </View>
+
+          <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
+            <TextInput
+              style={styles.nombreDeUsuario}
+              placeholder="Confirmar contraseña"
+              value={confirmPassword}
+              onChangeText={(value) => setConfirmPassword(value)}
+              secureTextEntry={true}
               onSubmitEditing={onSubmit}
-              ref={confirmPasswordInputRef}
+              ref={confirmPasswordRef}
             />
           </View>
           <Pressable
@@ -115,11 +132,11 @@ const Registrarse = () => {
               Registrarse
             </Text>
           </Pressable>
-          <Pressable onPress={() => navigation.navigate('IniciarSesin')}>
+          <TouchableOpacity onPress={() => navigation.navigate('IniciarSesin')}>
             <Text style={[styles.hasOlvidadoTu, styles.registrarse1Typo]}>
               ¿Ya tenes cuenta?
             </Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </LinearGradient>
@@ -179,7 +196,6 @@ const styles = StyleSheet.create({
     backgroundColor: Color.gris,
     paddingVertical: Padding.p_xs,
     flexDirection: 'row',
-    height: 55,
     borderRadius: Border.br_31xl,
     alignSelf: 'stretch'
   },
@@ -207,10 +223,10 @@ const styles = StyleSheet.create({
   frameGroup: {
     width: '100%',
     alignItems: 'center',
-    marginTop: '15%'
+    marginTop: '10%'
   },
   frameParent: {
-    paddingVertical: '40%',
+    paddingVertical: '25%',
     paddingHorizontal: 15
   },
   registrarse: {

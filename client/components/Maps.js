@@ -90,11 +90,9 @@ const Maps = ({ onClose, setEventsFilter }) => {
             ))}
           </ScrollView>
         </View>
-        <View style={styles.helloAshfakWrapper}>
-          <Text style={[styles.helloAshfak, styles.kmTypo]} onPress={onClose}>
-            Listo
-          </Text>
-        </View>
+        <TouchableOpacity style={styles.helloAshfakWrapper} onPress={onClose}>
+          <Text style={[styles.helloAshfak, styles.kmTypo]}>Listo</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
@@ -103,13 +101,12 @@ const Maps = ({ onClose, setEventsFilter }) => {
 const styles = StyleSheet.create({
   mapsLayout: {
     maxWidth: '90%',
-    maxHeight: '70%',
+    maxHeight: 380,
     borderRadius: Border.br_5xs
   },
   items: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10,
     marginBottom: 15,
     borderRadius: 30,
     borderWidth: 1,
@@ -126,51 +123,13 @@ const styles = StyleSheet.create({
   },
   helloTypo: {
     marginTop: 9,
-    width: '100%',
     fontFamily: FontFamily.inputPlaceholder,
     fontSize: FontSize.inputPlaceholder_size,
-    // textAlign: 'center',
     color: Color.sportsVioleta
-  },
-  helloAshfakTypo1: {
-    textAlign: 'left',
-    fontSize: FontSize.inputPlaceholder_size
   },
   kmTypo: {
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
-  },
-  mapViewIcon: {
-    height: 405,
-    width: '100%',
-    alignSelf: 'stretch'
-  },
-  rangoDeDistancia: {
-    fontWeight: '500',
-    fontFamily: FontFamily.inputPlaceholder,
-    color: Color.sportsVioleta,
-    lineHeight: 34,
-    textAlign: 'left',
-    fontSize: FontSize.inputPlaceholder_size
-  },
-  km: {
-    fontSize: FontSize.size_lg,
-    textAlign: 'right',
-    color: Color.sportsVioleta,
-    lineHeight: 34,
-    fontWeight: '700'
-  },
-  rangoDeDistanciaParent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignSelf: 'stretch'
-  },
-  frameChild: {
-    height: 66,
-    marginTop: 15
-  },
-  frameParent: {
-    marginTop: 24
   },
   helloAshfak: {
     color: Color.blanco,
@@ -182,32 +141,23 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_31xl,
     backgroundColor: Color.sportsNaranja,
     height: 42,
-    width: '100%',
     alignItems: 'center',
-    marginTop: 25,
+    marginTop: 30,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
   mapViewParent: {
     alignSelf: 'stretch',
     height: 170
-    // justifyContent: 'center'
   },
   mapsInner: {
     justifyContent: 'center',
-    minWidth: '100%'
+    minWidth: '100%',
+    marginBottom: 25
   },
   maps: {
     backgroundColor: Color.blanco,
     padding: Padding.p_xl
-    // maxHeight: '100%'
-  },
-  mapView: {
-    minHeight: 450,
-    width: '100%'
-  },
-  markerIcon: {
-    color: 'blue'
   }
 })
 
