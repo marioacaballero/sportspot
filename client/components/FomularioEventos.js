@@ -19,6 +19,7 @@ import { onSubmit } from './utils/createEvent'
 import { Checkbox } from 'react-native-paper'
 import Maps from './Maps'
 import { getUser } from '../redux/actions/users'
+import BoxSVG from './SVG/BoxSVG'
 
 const FomularioEventos = () => {
   const dispatch = useDispatch()
@@ -110,6 +111,7 @@ const FomularioEventos = () => {
   return (
     <View>
       <View style={styles.items}>
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M96.5039'} />
         <Text style={styles.text}>Nombre del evento</Text>
         <TextInput
           style={styles.helloTypoScroll}
@@ -121,6 +123,7 @@ const FomularioEventos = () => {
       </View>
 
       <Pressable style={styles.items} onPress={() => setSportsModal(true)}>
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M57.5039'} />
         <Text style={styles.text}>Deporte</Text>
         <Text
           style={sport.name ? styles.helloTypoScroll : styles.helloTypoScroll2}
@@ -132,6 +135,7 @@ const FomularioEventos = () => {
       </Pressable>
 
       <Pressable style={styles.items} onPress={openFrameContainer6}>
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M87.5039'} />
         <Text style={styles.text}>Lugar del evento</Text>
         <Text
           style={
@@ -143,6 +147,7 @@ const FomularioEventos = () => {
       </Pressable>
 
       <View style={styles.items}>
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M81.5039'} />
         <Text style={styles.text}>Link del evento</Text>
         <TextInput
           style={styles.helloTypoScroll}
@@ -154,6 +159,7 @@ const FomularioEventos = () => {
       </View>
 
       <View style={styles.items}>
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M103.5039'} />
         <Text style={styles.text}>Link de la inscripción</Text>
         <TextInput
           style={styles.helloTypoScroll}
@@ -165,6 +171,7 @@ const FomularioEventos = () => {
       </View>
 
       <Pressable style={styles.items} onPress={() => setCalendar(true)}>
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M81.5039'} />
         <Text style={styles.text}>Fecha de inicio</Text>
         <Text
           style={dateStart ? styles.helloTypoScroll : styles.helloTypoScroll2}
@@ -177,6 +184,7 @@ const FomularioEventos = () => {
         style={styles.items}
         onPress={() => setCalendarInscription(true)}
       >
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M102.5039'} />
         <Text style={styles.text}>Fecha de inscripcion</Text>
         <Text
           style={
@@ -252,6 +260,7 @@ const FomularioEventos = () => {
       <Text style={styles.contactoText}>Datos de contacto del organizador</Text>
 
       <View style={styles.items}>
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M47.5039'} />
         <Text style={styles.text}>Email</Text>
         <TextInput
           style={styles.helloTypoScroll}
@@ -263,6 +272,7 @@ const FomularioEventos = () => {
       </View>
 
       <View style={styles.items}>
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M60.5039'} />
         <Text style={styles.text}>Telefono</Text>
         <TextInput
           style={styles.helloTypoScroll}
@@ -369,15 +379,15 @@ const styles = StyleSheet.create({
   },
   helloTypoScroll: {
     width: '100%',
-    marginLeft: 5,
-    fontSize: 12,
+    marginLeft: 3,
+    fontSize: 13,
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.sportsVioleta
   },
   helloTypoScroll2: {
     width: '100%',
-    marginLeft: 5,
-    fontSize: 12,
+    marginLeft: 3,
+    fontSize: 13,
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.violetaPlaceholder
   },
@@ -390,7 +400,7 @@ const styles = StyleSheet.create({
   },
   subirArchivo: {
     width: '100%',
-    marginLeft: 5,
+    marginLeft: 3,
     fontSize: 12,
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.violetaPlaceholder,
@@ -417,11 +427,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
     borderRadius: 30,
-    // borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderRightWidth: 1,
-    borderLeftWidth: 1,
-    borderColor: Color.sportsVioleta,
     height: 45,
     padding: 8
   },
@@ -464,7 +469,7 @@ const styles = StyleSheet.create({
   },
   textArea: {
     width: '60%',
-    marginLeft: 5,
+    marginLeft: 3,
     fontSize: FontSize.inputPlaceholder_size,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
@@ -476,8 +481,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: Color.sportsVioleta,
     position: 'absolute',
-    left: 30,
-    bottom: 38.5
+    left: 18,
+    bottom: 39.5
   },
   text2: {
     fontSize: FontSize.size_5xs,

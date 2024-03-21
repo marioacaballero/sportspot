@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import {
   StyleSheet,
   Text,
@@ -18,8 +18,8 @@ import {
   FontSize,
   Color
 } from '../../GlobalStyles'
-import { useDispatch } from 'react-redux'
-import { register } from '../../redux/actions/users'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllUsers, register } from '../../redux/actions/users'
 
 const Registrarse = () => {
   const emailInputRef = useRef(null)
@@ -30,12 +30,18 @@ const Registrarse = () => {
 
   const navigation = useNavigation()
 
+  const { users } = useSelector((state) => state.users)
+
   const [registerUser, setRegisterUser] = useState({
     password: '',
     email: '',
     nickname: ''
   })
   const [confirmPassword, setConfirmPassword] = useState('')
+
+  useEffect(() => {
+    dispatch(getAllUsers())
+  }, [])
 
   const onValuesUser = (field, value) => {
     setRegisterUser((prevState) => ({
@@ -46,15 +52,27 @@ const Registrarse = () => {
 
   const onSubmit = () => {
     if (
+      registerUser.nickname &&
       registerUser.email &&
       registerUser.password &&
-      registerUser.nickname &&
-      registerUser.password === confirmPassword
+      confirmPassword
     ) {
-      dispatch(register(registerUser))
-      navigation.navigate('IniciarSesin')
+      const emailExists = users.some(
+        (user) => user.email === registerUser.email
+      )
+
+      if (emailExists) {
+        alert('El correo electrónico ya está en uso')
+      } else {
+        if (registerUser.password === confirmPassword) {
+          dispatch(register(registerUser))
+          navigation.navigate('IniciarSesin')
+        } else {
+          alert('Las contraseñas no coinciden')
+        }
+      }
     } else {
-      alert('Las contraseñas no coinciden')
+      alert('Todos los campos son obligatorios')
     }
   }
 

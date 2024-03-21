@@ -28,6 +28,7 @@ import { favorite, getFavorites } from '../../redux/actions/events'
 const PruebasEncontradasDetalle = ({ navigation }) => {
   // const navigation = useNavigation()
   const dispatch = useDispatch()
+
   const { user } = useSelector((state) => state.users)
   const {
     event,
@@ -35,6 +36,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     allFavorites,
     favorites: favoritesRedux
   } = useSelector((state) => state.events)
+
   const [modalSuscription, setModalSuscription] = useState(false)
   const [modalEditEvent, setModalEditEvent] = useState(false)
   const [favorites, setFavorites] = useState()
@@ -45,7 +47,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
 
   useEffect(() => {
     setFavorites(allFavorites)
-  }, [allFavorites]) // Ejecutar cuando allFavorites cambie
+  }, [allFavorites])
+
   const isEventAlreadyAdded = user.events?.some(
     (userEvent) => userEvent.id === event.id
   )
@@ -100,31 +103,15 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               >
                 <Text style={styles.reseasDeLaTypo}>{event.title}</Text>
                 <Text style={[styles.modalidadMontaa, styles.ciclismoTypo]}>
-                  {event.sport?.type}
+                  {event.sport?.name?.slice(0, 1).toUpperCase()}
+                  {event.sport?.name?.slice(1)} {event.sport?.type}
                 </Text>
               </View>
               <View style={styles.alertParent}>
-                <View
-                  style={{
-                    // padding: 5,
-                    height: 30,
-                    width: 110,
-
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 50,
-                    marginRight: 10,
-                    // marginTop: 30,
-                    backgroundColor: Color.sportsNaranja
-                  }}
-                >
+                <View style={styles.editButton}>
                   {event?.creator?.id === user?.id ? (
                     <Text
-                      style={{
-                        color: 'white',
-                        width: '100%',
-                        textAlign: 'center'
-                      }}
+                      style={styles.modalText}
                       onPress={() => {
                         setModalEditEvent(true)
                       }}
@@ -133,11 +120,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                     </Text>
                   ) : (
                     <Text
-                      style={{
-                        color: 'white',
-                        width: '100%',
-                        textAlign: 'center'
-                      }}
+                      style={styles.modalText}
                       onPress={() => setModalSuscription(true)}
                     >
                       {isEventAlreadyAdded ? 'Desuscribirse' : 'Suscribrirse'}
@@ -178,9 +161,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               contentFit="cover"
               source={require('../../assets/cilarrowtop.png')}
             />
-            <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
-              {event.sport?.name}
-            </Text>
+            <Text style={[styles.ciclismo, styles.ciclismoTypo]}>Atrás</Text>
           </Pressable>
         </View>
 
@@ -209,21 +190,9 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
           transparent={true}
           visible={modalEditEvent}
         >
-          {/* <TouchableWithoutFeedback
-          onPress={() => {
-            setModalEditEvent(false)
-          }}
-        > */}
           <View style={styles.modalOverlay}>
-            {/* <View> */}
-            <EditEvent
-              // user={user}
-              event={event}
-              onClose={() => setModalEditEvent(false)}
-            />
+            <EditEvent event={event} onClose={() => setModalEditEvent(false)} />
           </View>
-          {/* </View> */}
-          {/* </TouchableWithoutFeedback> */}
         </Modal>
       </ScrollView>
     )
@@ -318,7 +287,8 @@ const styles = StyleSheet.create({
   cilarrowTopIcon: {
     width: 21,
     height: 21,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    top: 2
   },
   ciclismo: {
     fontSize: FontSize.size_xl,
@@ -345,6 +315,20 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     width: '100%',
     backgroundColor: Color.blanco
+  },
+  modalText: {
+    color: 'white',
+    width: '100%',
+    textAlign: 'center'
+  },
+  editButton: {
+    height: 30,
+    width: 110,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
+    marginRight: 10,
+    backgroundColor: Color.sportsNaranja
   }
 })
 

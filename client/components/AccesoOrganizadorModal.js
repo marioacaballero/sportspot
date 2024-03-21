@@ -74,8 +74,7 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
     marginTop: '25%',
     borderRadius: 30,
-    borderWidth: 1,
-    borderColor: Color.sportsNaranja,
+    elevation: 4,
     alignItems: 'center'
   },
   topContainer: {
@@ -99,13 +98,13 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderWidth: 1.5,
     borderColor: Color.sportsVioleta,
-    width: '70%',
-    height: '15%',
+    width: '80%',
+    height: '18%',
     justifyContent: 'center',
-    marginBottom: 10
+    marginBottom: 15
   },
   inputText: {
-    fontSize: 12,
+    fontSize: 14,
     color: Color.sportsVioleta,
     textAlign: 'center'
   },
