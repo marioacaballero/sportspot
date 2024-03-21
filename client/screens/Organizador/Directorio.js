@@ -1,80 +1,86 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   View,
   StyleSheet,
   Text,
   Pressable,
   TextInput,
-  Image
+  ScrollView,
+  TouchableOpacity
 } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { Color, FontFamily, FontSize } from '../../GlobalStyles'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import FolderSVG from '../../components/SVG/FolderSVG'
+import LupaSVG from '../../components/SVG/LupaSVG'
+import { getAllEvents, getEventById } from '../../redux/actions/events'
 
 const Directorio = () => {
   const navigation = useNavigation()
+  const dispatch = useDispatch()
+
+  const { events } = useSelector((state) => state.events)
+  const { user } = useSelector((state) => state.users)
+
+  const [searchText, setSearchText] = useState('')
+
+  useEffect(() => {
+    dispatch(getAllEvents())
+  }, [])
+
+  const userEvents = events.filter(
+    (event) => event.event_creator_id === user.id
+  )
+
+  const filteredEvents = userEvents.filter((event) =>
+    event.event_title.toLowerCase().includes(searchText.toLowerCase())
+  )
+
+  const handleSearch = (text) => {
+    setSearchText(text)
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Directorio de organizadores</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('PublicarEvento')}>
+          <Text style={styles.masEvento}>+</Text>
+        </TouchableOpacity>
         <Pressable onPress={() => navigation.goBack()}>
           <BackArrowSVG />
         </Pressable>
       </View>
       <View style={styles.innerContainer}>
         <View style={styles.search}>
-          <Image
-            source={require('../../assets/menu.png')}
-            style={styles.image}
-            contentFit="cover"
-          />
+          <LupaSVG />
           <TextInput
-            placeholder="Buscar en el directorio"
+            placeholder="Buscar"
             placeholderTextColor={Color.sportsVioleta}
+            onChangeText={handleSearch}
           />
         </View>
-        <View>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 20 }}
+        >
           <View style={styles.foldersContainer}>
-            <View>
-              <FolderSVG />
-              <Text style={styles.folderText}>EVENTO X</Text>
-            </View>
-            <View>
-              <FolderSVG />
-              <Text style={styles.folderText}>EVENTO X</Text>
-            </View>
-            <View>
-              <FolderSVG />
-              <Text style={styles.folderText}>EVENTO X</Text>
-            </View>
+            {filteredEvents.map((event) => (
+              <TouchableOpacity
+                key={event.event_id}
+                style={styles.folder}
+                onPress={() => {
+                  dispatch(getEventById(event.event_id))
+                  navigation.navigate('PruebasEncontradasDetalle')
+                }}
+              >
+                <FolderSVG />
+                <Text style={styles.folderText}>{event.event_title}</Text>
+              </TouchableOpacity>
+            ))}
           </View>
-        </View>
-        <View>
-          <View style={styles.foldersContainer}>
-            <View>
-              <FolderSVG />
-              <Text style={styles.folderText}>EVENTO H</Text>
-            </View>
-            <View>
-              <FolderSVG />
-              <Text style={styles.folderText}>EVENTO Z</Text>
-            </View>
-            <View>
-              <FolderSVG />
-              <Text style={styles.folderText}>EVENTO R</Text>
-            </View>
-          </View>
-        </View>
-        <View>
-          <View style={styles.foldersContainer}>
-            <View>
-              <FolderSVG />
-              <Text style={styles.folderText}>EVENTO A</Text>
-            </View>
-          </View>
-        </View>
+        </ScrollView>
       </View>
     </View>
   )
@@ -103,9 +109,15 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     width: '80%'
   },
+  masEvento: {
+    color: Color.sportsVioleta,
+    fontFamily: FontFamily.inputPlaceholder,
+    fontSize: 35,
+    marginRight: 10
+  },
   innerContainer: {
     marginTop: '40%',
-    padding: 20,
+    padding: 15,
     width: '90%'
   },
   search: {
@@ -117,7 +129,7 @@ const styles = StyleSheet.create({
     elevation: 4,
     backgroundColor: Color.blanco,
     alignItems: 'center',
-    gap: 20,
+    gap: 5,
     padding: 10,
     flexDirection: 'row'
   },
@@ -128,9 +140,15 @@ const styles = StyleSheet.create({
   },
   foldersContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20
+    marginBottom: 20,
+    marginTop: 10,
+    gap: 20
+  },
+  folder: {
+    width: '28.7%',
+    alignItems: 'center'
   },
   folderText: {
     fontSize: FontSize.inputLabel_size,

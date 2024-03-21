@@ -1,9 +1,9 @@
 {
   "expo": {
-    "runtimeVersion": "1.0.1",
+    "runtimeVersion": "1.0.2",
     "name": "SpotSport",
     "slug": "spotsport",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/spotsport.png",
     "userInterfaceStyle": "light",
@@ -21,7 +21,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.mauriidg.AythenSport",
+      "package": "com.mauriidg.SpotSport",
       "versionCode": 1,
       "config": {
         "googleMaps": {
@@ -44,7 +44,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "d88586a8-1975-4f6f-8faf-c1868ce59d87"
+        "projectId": "7ad800b0-c423-4888-8bc5-a810cdc98994"
       }
     },
     "updates": {

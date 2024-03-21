@@ -97,11 +97,12 @@ const Sports = ({ onClose, setEventsFilter, setLocalSport }) => {
             </Text>
           </View>
         ))}
-        <View style={styles.helloAshfakWrapper}>
-          <Text style={styles.helloAshfak} onPress={handleClose}>
-            Listo
-          </Text>
-        </View>
+        <TouchableOpacity
+          style={styles.helloAshfakWrapper}
+          onPress={handleClose}
+        >
+          <Text style={styles.helloAshfak}>Listo</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )

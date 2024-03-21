@@ -19,6 +19,7 @@ import HandballSVG from './SVG/Sports/HandballSVG'
 import BasketSVG from './SVG/Sports/BasketSVG'
 import TenisSVG from './SVG/Sports/TenisSVG'
 import Maps from './Maps'
+import BoxSVG from './SVG/BoxSVG'
 
 const DatosDeportista = ({ modalSport, setModalSport }) => {
   const dispatch = useDispatch()
@@ -68,6 +69,19 @@ const DatosDeportista = ({ modalSport, setModalSport }) => {
   const closeFrameContainer6 = useCallback(() => {
     setFrameContainer6Visible(false)
   }, [])
+
+  const handleSubmit = () => {
+    if (
+      showColor.length > 0 &&
+      selectedValue !== null &&
+      eventsFilter.location !== ''
+    ) {
+      setModalSport(false)
+    } else {
+      alert('Por favor, rellena todos los campos')
+    }
+  }
+
   return (
     <Modal visible={modalSport} transparent animationType="slide">
       <View style={styles.container}>
@@ -126,6 +140,7 @@ const DatosDeportista = ({ modalSport, setModalSport }) => {
           Establece tu radio de notificaciones
         </Text>
         <Pressable style={styles.button} onPress={openFrameContainer6}>
+          <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M69.5039'} />
           <Text style={styles.buttonText}>Localidad</Text>
           <Text style={styles.locationText}>
             {eventsFilter.location ? eventsFilter.location : 'Localización'}
@@ -199,10 +214,7 @@ const DatosDeportista = ({ modalSport, setModalSport }) => {
           </View>
         </View>
 
-        <TouchableOpacity
-          style={styles.buttonSave}
-          onPress={() => setModalSport(false)}
-        >
+        <TouchableOpacity style={styles.buttonSave} onPress={handleSubmit}>
           <Text style={styles.saveText}>Guardar</Text>
         </TouchableOpacity>
       </View>
@@ -230,9 +242,8 @@ const styles = StyleSheet.create({
     height: 510,
     left: '5%',
     top: '6%',
-    borderWidth: 1,
     borderRadius: 20,
-    elevation: 4,
+    elevation: 5,
     backgroundColor: Color.blanco
   },
   containerText: {
@@ -265,11 +276,11 @@ const styles = StyleSheet.create({
     marginTop: 6
   },
   button: {
-    borderBottomWidth: 1,
-    borderRightWidth: 1,
-    borderLeftWidth: 1,
-    borderRadius: 30,
-    borderColor: Color.sportsVioleta,
+    // borderBottomWidth: 1,
+    // borderRightWidth: 1,
+    // borderLeftWidth: 1,
+    // borderRadius: 30,
+    // borderColor: Color.sportsVioleta,
     width: '85%',
     height: 40,
     marginTop: 20,
@@ -278,8 +289,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     position: 'absolute',
-    bottom: 30,
-    left: 30,
+    bottom: 35,
+    left: 18,
     fontSize: 10
   },
   buttonSave: {
@@ -355,7 +366,8 @@ const styles = StyleSheet.create({
   locationText: {
     color: Color.sportsVioleta,
     fontSize: FontSize.size_sm,
-    fontFamily: FontFamily.inputPlaceholder
+    fontFamily: FontFamily.inputPlaceholder,
+    top: 1
   }
 })
 

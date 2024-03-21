@@ -302,8 +302,6 @@ const InicioDeportista = () => {
                 </Text>
 
                 <ScrollView
-                  // style={styles.frameParent1}
-                  // style={{ marginBottom: 10 }}
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
                 >
@@ -444,19 +442,6 @@ const InicioDeportista = () => {
 }
 
 const styles = StyleSheet.create({
-  // image94IconLayout: {
-  //   width: '100%',
-  //   overflow: 'hidden'
-  // },
-  frameParentFlexBox: {
-    // paddingHorizontal: Padding.p_xl,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // // width: 360,
-    // width: '100%',
-    // left: 0,
-    // position: 'absolute'
-  },
   linearGradient: {
     flex: 1,
     width: '100%'
@@ -518,10 +503,6 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     alignSelf: 'stretch'
   },
-  frameLayout: {
-    height: 20,
-    marginLeft: 47
-  },
   helloAshfak: {
     fontSize: FontSize.size_5xl,
     color: Color.sportsVioleta
@@ -565,12 +546,6 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center'
-  },
-
-  frameChild: {
-    width: 6,
-    height: 6,
-    marginTop: 5
   },
   helloAshfakGroup: {
     alignItems: 'center'
@@ -631,7 +606,6 @@ const styles = StyleSheet.create({
       height: 4
     },
     shadowColor: 'black',
-    // borderRadius: 15,
     alignItems: 'center',
     backgroundColor: 'white',
     borderRadius: Border.br_sm,
@@ -648,7 +622,6 @@ const styles = StyleSheet.create({
       height: 4
     },
     shadowColor: 'black',
-    // borderRadius: 15,
     alignItems: 'center',
     backgroundColor: 'white',
     borderRadius: Border.br_sm,
@@ -659,27 +632,13 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputLabel_size,
     color: Color.sportsNaranja
   },
-  min4: {
-    fontSize: FontSize.size_3xs,
-    color: Color.sportsVioleta
-  },
-  frameParent1: {
-    width: 328,
-    marginTop: 25,
-    flexDirection: 'row'
-  },
   min10: {
     color: Color.colorGray_100,
     fontSize: FontSize.size_3xs
   },
-  helloAshfakParent1: {
-    marginTop: 19
-  },
   frameContainer: {
-    // height: 549,
     display: 'flex',
     width: '100%',
-
     marginTop: 19,
     justifyContent: 'center'
   },
@@ -687,47 +646,12 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingLeft: 15,
     paddingRight: 15,
-    // paddingBottom: Padding.p_6xl,
     top: 0,
     height: '100%'
   },
-  container: {
-    width: 22,
-    height: 25
-  },
-  vector: {
-    width: 23,
-    marginLeft: 47
-  },
-  capturaDePantalla20231124: {
-    width: 33,
-    height: 33,
-    marginLeft: 47
-  },
-  frame: {
-    width: 20,
-    marginLeft: 47
-  },
-  groupPressable: {
-    width: 19,
-    marginLeft: 47
-  },
-  groupContainer: {
-    top: 10,
-    backgroundColor: Color.gris,
-    height: 65,
-    paddingVertical: Padding.p_3xs,
-    flexDirection: 'row'
-  },
   icbaselineSearchIcon: {
-    // marginTop: -278,
-    // marginLeft: -152,
-    // top: '50%',
-    // left: '50%',
     height: 29,
     width: 29
-    // position: 'absolute',
-    // overflow: 'hidden'
   },
   inicioDeportista: {
     flex: 1,
@@ -736,8 +660,6 @@ const styles = StyleSheet.create({
     zIndex: 0
   },
   modalOverlay: {
-    // flex: 1,
-    // top: -100,
     height: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
