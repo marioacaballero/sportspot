@@ -9,7 +9,6 @@ import {
   ScrollView,
   TouchableOpacity
 } from 'react-native'
-import { LinearGradient } from 'expo-linear-gradient'
 import { useNavigation } from '@react-navigation/native'
 import {
   Padding,
@@ -77,13 +76,12 @@ const Registrarse = () => {
   }
 
   return (
-    <LinearGradient
-      style={styles.registrarse}
-      colors={['#F25910', '#F6B99C', '#FFF', '#FEF8F5', '#40036F']}
-      locations={[0, 0.2, 0.5, 0.8, 1]}
-      start={{ x: 0.3, y: 0 }}
-      end={{ x: 1, y: 0.8 }}
-    >
+    <View style={styles.registrarse}>
+      <Image
+        style={styles.background}
+        source={require('../../assets/BGInicio.png')}
+        contentFit="cover"
+      />
       <ScrollView style={styles.frameParent}>
         <View style={styles.capturaDePantalla20231024Parent}>
           <Image
@@ -157,7 +155,7 @@ const Registrarse = () => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </LinearGradient>
+    </View>
   )
 }
 
@@ -244,12 +242,19 @@ const styles = StyleSheet.create({
     marginTop: '10%'
   },
   frameParent: {
-    paddingVertical: '25%',
-    paddingHorizontal: 15
+    paddingVertical: '20%',
+    paddingHorizontal: 15,
+    flex: 1,
+    width: '100%'
   },
   registrarse: {
     flex: 1,
     width: '100%'
+  },
+  background: {
+    height: '100%',
+    width: '100%',
+    position: 'absolute'
   }
 })
 

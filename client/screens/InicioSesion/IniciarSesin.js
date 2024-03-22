@@ -9,7 +9,6 @@ import {
   TouchableOpacity
 } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { LinearGradient } from 'expo-linear-gradient'
 import {
   Padding,
   Border,
@@ -76,13 +75,12 @@ const IniciarSesin = ({ navigation }) => {
   }
 
   return (
-    <LinearGradient
-      style={styles.iniciarSesin}
-      colors={['#F25910', '#F6B99C', '#FFF', '#FEF8F5', '#40036F']}
-      locations={[0, 0.2, 0.5, 0.8, 1]}
-      start={{ x: 0.3, y: 0 }}
-      end={{ x: 1, y: 0.8 }}
-    >
+    <View style={styles.iniciarSesin}>
+      <Image
+        style={styles.background}
+        source={require('../../assets/BGInicio.png')}
+        contentFit="cover"
+      />
       <Pressable
         style={{ position: 'absolute', top: 30, right: 20 }}
         onPress={() => navigation.navigate('SignIn')}
@@ -154,7 +152,7 @@ const IniciarSesin = ({ navigation }) => {
           </Pressable>
         </View>
       </View>
-    </LinearGradient>
+    </View>
   )
 }
 
@@ -259,6 +257,11 @@ const styles = StyleSheet.create({
     // overflow: 'hidden',
     // backgroundColor: 'transparent',
     // height: 700
+  },
+  background: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute'
   }
 })
 
