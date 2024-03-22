@@ -10,7 +10,6 @@ import {
   Alert
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { LinearGradient } from 'expo-linear-gradient'
 import {
   Padding,
   Border,
@@ -102,13 +101,12 @@ const RecuperarContraseña = () => {
   }
 
   return (
-    <LinearGradient
-      style={styles.iniciarSesin}
-      colors={['#F25910', '#F6B99C', '#FFF', '#FEF8F5', '#40036F']}
-      locations={[0, 0.2, 0.5, 0.8, 1]}
-      start={{ x: 0.3, y: 0 }}
-      end={{ x: 1, y: 0.8 }}
-    >
+    <View style={styles.iniciarSesin}>
+      <Image
+        style={styles.background}
+        source={require('../../assets/BGInicio.png')}
+        contentFit="cover"
+      />
       <View style={styles.frameParent}>
         <View style={styles.capturaDePantalla20231024Parent}>
           <Image
@@ -186,7 +184,7 @@ const RecuperarContraseña = () => {
           </View>
         )}
       </View>
-    </LinearGradient>
+    </View>
   )
 }
 
@@ -293,6 +291,11 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: 'transparent',
     height: 700
+  },
+  background: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%'
   }
 })
 

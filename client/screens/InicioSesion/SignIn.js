@@ -8,19 +8,17 @@ import {
   StyleSheet,
   Pressable
 } from 'react-native'
-import { LinearGradient } from 'expo-linear-gradient'
 import { Color } from '../../GlobalStyles'
 
 export default function SignIn({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient
-        colors={['#F25910', '#F6B99C', '#FFF', '#FEF8F5', '#40036F']}
-        locations={[0, 0.2, 0.5, 0.8, 1]}
-        start={{ x: 0.3, y: 0 }}
-        end={{ x: 1, y: 0.8 }}
-        style={styles.linearGradient}
-      >
+      <View style={styles.linearGradient}>
+        <Image
+          style={styles.background}
+          source={require('../../assets/BGInicio.png')}
+          contentFit="cover"
+        />
         <ScrollView>
           <Image
             style={styles.image}
@@ -81,7 +79,7 @@ export default function SignIn({ navigation }) {
             </View>
           </View>
         </ScrollView>
-      </LinearGradient>
+      </View>
     </SafeAreaView>
   )
 }
@@ -116,5 +114,10 @@ const styles = StyleSheet.create({
     color: '#40036F',
     fontSize: 18,
     textAlign: 'center'
+  },
+  background: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute'
   }
 })
