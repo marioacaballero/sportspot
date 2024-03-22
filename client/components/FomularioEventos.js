@@ -20,6 +20,8 @@ import { Checkbox } from 'react-native-paper'
 import Maps from './Maps'
 import { getUser } from '../redux/actions/users'
 import BoxSVG from './SVG/BoxSVG'
+import { setSport } from '../redux/slices/sports.slices'
+import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
 
 const FomularioEventos = () => {
   const dispatch = useDispatch()
@@ -90,6 +92,12 @@ const FomularioEventos = () => {
       base64: true
     })
     setSelectedImage(`data:image/jpeg;base64,${result?.assets[0].base64}`)
+  }
+
+  const clearRedux = () => {
+    dispatch(setSport(''))
+    dispatch(setDateStart(''))
+    dispatch(setDateSuscription(''))
   }
 
   const closeCalendar = () => {
@@ -297,6 +305,7 @@ const FomularioEventos = () => {
             dateStart
           )
           navigation.navigate('InicioDeportista')
+          clearRedux()
         }}
       >
         <Text style={{ color: 'white' }}>Enviar</Text>
@@ -312,8 +321,6 @@ const FomularioEventos = () => {
             onClose={closeCalendar}
             start={true}
             suscription={false}
-            // setDate={setDate}
-            // date={date}
           />
         </View>
       </Modal>
@@ -338,8 +345,6 @@ const FomularioEventos = () => {
             onClose={closeCalendarInscription}
             start={false}
             suscription={true}
-            // setDate={setDateInscription}
-            // date={dateInscription}
           />
         </View>
       </Modal>
@@ -360,7 +365,6 @@ const FomularioEventos = () => {
 const styles = StyleSheet.create({
   picker: {
     height: 50,
-    // width: 200,
     borderColor: 'gray',
     borderWidth: 1
   },

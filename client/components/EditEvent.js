@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import * as ImagePicker from 'expo-image-picker'
 import {
   Alert,
-  Image,
   Modal,
   Pressable,
   ScrollView,
@@ -19,27 +18,34 @@ import { deleteEvent, getAllEvents, updateEvent } from '../redux/actions/events'
 import { useNavigation } from '@react-navigation/native'
 import CalendarOneDay from './CalendarOneDay'
 import SportsPopUp from './SportsPopUp'
+import Maps from './Maps'
+import BoxSVG from './SVG/BoxSVG'
+import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
 
 const EditEvent = ({ event: eventRedux, onClose }) => {
   const dispatch = useDispatch()
+
   const navigation = useNavigation()
+
   const { user } = useSelector((state) => state.users)
-  // const [date, setDate] = useState(null)
-  // const [dateInscription, setDateInscription] = useState(null)
+  const { dateStart, dateSuscription } = useSelector((state) => state.events)
+  // const { sport: sportRedux } = useSelector((state) => state.sports)
+
   const [calendar, setCalendar] = useState(null)
   const [calendarInscription, setCalendarInscription] = useState(null)
   const [selectedImage, setSelectedImage] = useState(null)
-
   const [sportsModal, setSportsModal] = useState(false)
   const [event, setEvent] = useState({
     title: eventRedux.title,
     description: eventRedux.description,
+    // sport: 'prueba',
     price: eventRedux.price,
-    location: eventRedux.location,
-    timeStart: eventRedux.timeStart
-    // dateStart,
-    // dateInscription: dataSuscription
+    timeStart: eventRedux.timeStart,
+    location: null
   })
+  const [dateChange, setDateChange] = useState(false)
+  const [dateSuscriptionChange, setDateSuscriptionChange] = useState(false)
+  const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
 
   const onCloseModalSports = () => {
     setSportsModal(false)
@@ -50,10 +56,33 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
   }, [])
 
   const onValuesEvent = (field, value) => {
-    setEvent((prevState) => ({
-      ...prevState,
-      [field]: value
-    }))
+    if (field === 'timeStart') {
+      const cleanedValue = value.replace(/[^0-9]/g, '')
+
+      // Obtener las primeras 4 cifras
+      const formattedValue = cleanedValue.slice(0, 4)
+
+      // Formatear en HH:MM si hay suficientes caracteres
+      let formattedTime = ''
+      if (formattedValue.length > 1) {
+        const hours = formattedValue.slice(0, 2)
+        const minutes = formattedValue.slice(2, 4)
+        formattedTime = `${hours}:${minutes}`
+      } else {
+        formattedTime = formattedValue // Dejar el valor tal cual si tiene 1 o menos caracteres
+      }
+
+      // Actualizar el estado
+      setEvent((prevState) => ({
+        ...prevState,
+        [field]: formattedTime
+      }))
+    } else {
+      setEvent((prevState) => ({
+        ...prevState,
+        [field]: value
+      }))
+    }
   }
 
   const uploadImage = async () => {
@@ -66,12 +95,7 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
       quality: 1,
       base64: true
     })
-    // const resultImage = result.assets[0].base64
-    // if (result?.assets[0].base64.startWith('data:image/jpeg;base64,')) {
-    //   setSelectedImage(result?.assets[0].base64)
-    // } else {
     setSelectedImage(`data:image/jpeg;base64,${result?.assets[0].base64}`)
-    // }
   }
 
   const onSubmit = () => {
@@ -82,10 +106,13 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
         description: event?.description,
         sportId: eventRedux.sportId,
         price: event?.price,
-        // modality: sport.type,
-        location: event?.location,
-        dateStart: eventRedux.dateStart,
-        dateInscription: eventRedux.dateInscription,
+        // modality: eventRedux.sport.type,
+        // name: event.sport,
+        location: event.location || eventRedux.location,
+        dateStart: dateChange ? dateStart : eventRedux.dateStart,
+        dateInscription: dateSuscriptionChange
+          ? dateSuscription
+          : eventRedux.dateInscription,
         creator: user?.id,
         timeStart: event?.timeStart,
         image: selectedImage || eventRedux.image
@@ -94,6 +121,11 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
 
     dispatch(updateEvent(data))
     dispatch(getAllEvents())
+    dispatch(setDateStart(''))
+    dispatch(setDateSuscription(''))
+    onClose()
+    navigation.goBack()
+    alert('Evento editado correctamente')
   }
 
   const closeCalendar = () => {
@@ -116,8 +148,9 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
         {
           text: 'Eliminar',
           onPress: () => {
-            navigation.goBack()
             dispatch(deleteEvent(eventRedux.id))
+            dispatch(getAllEvents())
+            navigation.navigate('InicioDeportista')
           }
         }
       ],
@@ -125,102 +158,80 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
     )
   }
 
+  const openFrameContainer6 = useCallback(() => {
+    setFrameContainer6Visible(true)
+  }, [])
+
+  const closeFrameContainer6 = useCallback(() => {
+    setFrameContainer6Visible(false)
+  }, [])
+
   return (
-    <ScrollView
-      style={{
-        flex: 1,
-        marginTop: 30,
-        paddingHorizontal: 15,
-        backgroundColor: 'white'
-      }}
-    >
-      <Text style={{ textAlign: 'right', fontSize: 20 }} onPress={onClose}>
+    <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+      <Text
+        style={{ textAlign: 'right', fontSize: 20, marginTop: 10 }}
+        onPress={onClose}
+      >
         X
       </Text>
+
       <Pressable style={styles.items} onPress={uploadImage}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M95.5039'} />
+        <Text style={styles.text}>Portada del evento</Text>
         <Text style={styles.helloTypoScroll}>Portada</Text>
-        <Image
-          // style={styles.unsplashn6gnca77urcIcon}
+        {/* <Image
           style={{ width: 20, height: 20 }}
           contentFit="cover"
           source={
             selectedImage ? { uri: selectedImage } : { uri: user?.avatar }
           }
-        />
+        /> */}
       </Pressable>
+
       <View style={styles.items}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-        <Text
-          style={{
-            fontSize: FontSize.inputPlaceholder_size,
-            fontFamily: FontFamily.inputPlaceholder,
-            fontWeight: '700',
-            color: Color.sportsVioleta
-          }}
-        >
-          Titulo:
-        </Text>
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M95.5039'} />
+        <Text style={styles.text}>Nombre del evento</Text>
         <TextInput
           style={styles.helloTypoScroll}
           value={event.title}
           onChangeText={(value) => onValuesEvent('title', value)}
+          placeholderTextColor={Color.violetaPlaceholder}
         />
       </View>
-      <View style={[styles.itemsTextArea]}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10, marginTop: 6 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-        <Text
-          style={{
-            fontSize: FontSize.inputPlaceholder_size,
-            fontFamily: FontFamily.inputPlaceholder,
-            fontWeight: '700',
-            color: Color.sportsVioleta
-          }}
-        >
-          Descripcion:
-        </Text>
+
+      <View style={[styles.items]}>
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M72.5039'} />
+        <Text style={styles.text}>Descripcion</Text>
         <TextInput
-          style={styles.textArea}
+          style={styles.helloTypoScroll}
           value={event.description}
           onChangeText={(value) => onValuesEvent('description', value)}
         />
       </View>
+
       <View style={styles.items}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-        <Text
-          style={{
-            fontSize: FontSize.inputPlaceholder_size,
-            fontFamily: FontFamily.inputPlaceholder,
-            fontWeight: '700',
-            color: Color.sportsVioleta
-          }}
-        >
-          Entrada / Precio:
-        </Text>
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M52.5039'} />
+        <Text style={styles.text}>Precio</Text>
         <TextInput
           style={styles.helloTypoScroll}
           value={event.price}
           onChangeText={(value) => onValuesEvent('price', value)}
         />
       </View>
-      <View style={styles.items}>
+
+      <Pressable style={styles.items} onPress={openFrameContainer6}>
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M74.5039'} />
+        <Text style={styles.text}>Localizacion</Text>
+        <Text style={styles.helloTypoScroll}>
+          {event.location || eventRedux.location}{' '}
+        </Text>
+      </Pressable>
+
+      {/* <Pressable style={styles.items} onPress={() => setSportsModal(true)}>
         <Image
           style={{ width: 25, height: 25, marginRight: 10 }}
           source={require('../assets/frame-1547755976.png')}
         />
-
         <Text
           style={{
             fontSize: FontSize.inputPlaceholder_size,
@@ -229,115 +240,60 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
             color: Color.sportsVioleta
           }}
         >
-          Localizacion:
+          Deporte:{' '}
         </Text>
-        <TextInput
-          style={styles.helloTypoScroll}
-          value={event.location}
-          onChangeText={(value) => onValuesEvent('location', value)}
-        />
-      </View>
-      <Pressable style={styles.items} onPress={() => setSportsModal(true)}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-        <Text style={styles.helloTypoScroll}>Deporte</Text>
-      </Pressable>
-
-      {/* <View style={styles.items}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-
-        <Text
-          style={{
-            fontSize: FontSize.inputPlaceholder_size,
-            fontFamily: FontFamily.inputPlaceholder,
-            fontWeight: '700',
-            color: Color.sportsVioleta
-          }}
-        >
-          Modalidad:
+        <Text style={styles.helloTypoScroll}>
+          {event?.sport.slice(0, 1).toUpperCase()}
+          {event?.sport.slice(1)}
         </Text>
-        <TextInput
-          style={styles.helloTypoScroll}
-          value={event.location}
-          onChangeText={(value) => onValuesEvent('modality', value)}
-        />
-      </View> */}
+      </Pressable> */}
 
-      <Pressable style={styles.items} onPress={() => setCalendar(true)}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-        <Text style={styles.helloTypoScroll}>Fecha</Text>
-      </Pressable>
       <Pressable
         style={styles.items}
-        onPress={() => setCalendarInscription(true)}
+        onPress={() => {
+          setDateChange(true)
+          setCalendar(true)
+        }}
       >
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-        <Text style={styles.helloTypoScroll}>Fecha de inscripcion</Text>
-      </Pressable>
-      <View style={styles.items}>
-        <Image
-          style={{ width: 25, height: 25, marginRight: 10 }}
-          source={require('../assets/frame-1547755976.png')}
-        />
-
-        <Text
-          style={{
-            fontSize: FontSize.inputPlaceholder_size,
-            fontFamily: FontFamily.inputPlaceholder,
-            fontWeight: '700',
-            color: Color.sportsVioleta
-          }}
-        >
-          Hora:
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M81.5039'} />
+        <Text style={styles.text}>Fecha de inicio</Text>
+        <Text style={styles.helloTypoScroll}>
+          {dateChange ? dateStart : eventRedux.dateStart}
         </Text>
+      </Pressable>
+
+      <Pressable
+        style={styles.items}
+        onPress={() => {
+          setDateSuscriptionChange(true)
+          setCalendarInscription(true)
+        }}
+      >
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M102.5039'} />
+        <Text style={styles.text}>Fecha de inscripción</Text>
+        <Text style={styles.helloTypoScroll}>
+          {dateSuscriptionChange ? dateSuscription : eventRedux.dateInscription}
+        </Text>
+      </Pressable>
+
+      <View style={styles.items}>
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M46.5039'} />
+        <Text style={styles.text}>Hora</Text>
         <TextInput
           style={styles.helloTypoScroll}
           value={event.timeStart}
           onChangeText={(value) => onValuesEvent('timeStart', value)}
+          keyboardType="numeric"
+          maxLength={5}
         />
       </View>
 
-      <TouchableOpacity
-        style={{
-          //   width: 100,
-          height: 52,
-          width: '100%',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 50,
-          marginTop: 30,
-          backgroundColor: Color.colorGray_100
-        }}
-        onPress={handleDelete}
-      >
-        <Text style={{ color: 'white' }}>Cancelar evento</Text>
+      <TouchableOpacity style={styles.cancelButton} onPress={handleDelete}>
+        <Text style={styles.whiteText}>Cancelar evento</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={{
-          //   width: 100,
-          height: 52,
-          width: '100%',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 50,
-          marginTop: 15,
-          backgroundColor: Color.sportsNaranja
-        }}
-        onPress={onSubmit}
-      >
-        <Text style={{ color: 'white' }}>Confirmar</Text>
+      <TouchableOpacity style={styles.confirmButton} onPress={onSubmit}>
+        <Text style={styles.whiteText}>Confirmar</Text>
       </TouchableOpacity>
 
       <Modal animationType="slide" transparent visible={calendar}>
@@ -350,8 +306,6 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
             onClose={closeCalendar}
             start={true}
             suscription={false}
-            // setDate={setDate}
-            // date={date}
           />
         </View>
       </Modal>
@@ -362,11 +316,7 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
             style={styles.frameContainer10Bg}
             onPress={onCloseModalSports}
           />
-          <SportsPopUp
-            onClose={onCloseModalSports}
-            // setDate={setDate}
-            // date={date}
-          />
+          <SportsPopUp onClose={onCloseModalSports} />
         </View>
       </Modal>
 
@@ -380,9 +330,17 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
             onClose={closeCalendarInscription}
             start={false}
             suscription={true}
-            // setDate={setDateInscription}
-            // date={dateInscription}
           />
+        </View>
+      </Modal>
+
+      <Modal animationType="fade" transparent visible={frameContainer6Visible}>
+        <View style={styles.frameContainer6Overlay}>
+          <Pressable
+            style={styles.frameContainer6Bg}
+            onPress={closeFrameContainer6}
+          />
+          <Maps onClose={closeFrameContainer6} setEventsFilter={setEvent} />
         </View>
       </Modal>
     </ScrollView>
@@ -390,11 +348,13 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
 }
 
 const styles = StyleSheet.create({
-  picker: {
-    height: 50,
-    // width: 200,
-    borderColor: 'gray',
-    borderWidth: 1
+  scrollView: {
+    flex: 1,
+    paddingHorizontal: 15,
+    backgroundColor: 'white',
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    elevation: 5
   },
   frameContainer10Overlay: {
     flex: 1,
@@ -403,7 +363,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(113, 113, 113, 0.3)'
   },
   frameContainer10Bg: {
-    // position: 'absolute',
+    position: 'absolute',
     width: '100%',
     height: '100%',
     left: 0,
@@ -411,42 +371,65 @@ const styles = StyleSheet.create({
   },
   helloTypoScroll: {
     width: '100%',
-    fontSize: FontSize.inputPlaceholder_size,
+    marginLeft: 3,
+    fontSize: 13,
     fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '700',
     color: Color.sportsVioleta
   },
   items: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10,
+    marginBottom: 20,
+    marginTop: 5,
     borderRadius: 30,
-    borderWidth: 1,
-    borderColor: Color.blanco,
-    height: 52,
-    padding: 8
-  },
-  itemsTextArea: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginTop: 10,
-    borderRadius: 30,
-    borderWidth: 1,
-    borderColor: Color.blanco,
-    // height: 52,
+    height: 45,
     padding: 8,
-    height: 100
+    marginLeft: 10
   },
-  textArea: {
-    marginTop: -2,
+  confirmButton: {
+    height: 48,
+    width: '95%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
+    marginTop: 15,
+    marginLeft: 10,
+    backgroundColor: Color.sportsNaranja
+  },
+  cancelButton: {
+    height: 48,
+    width: '95%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
+    marginTop: 20,
+    marginLeft: 10,
+    backgroundColor: Color.colorGray_100
+  },
+  whiteText: {
+    color: 'white'
+  },
+  frameContainer6Bg: {
+    position: 'absolute',
     width: '100%',
-    fontSize: FontSize.inputPlaceholder_size,
+    height: '100%',
+    left: 0,
+    top: 0
+  },
+  frameContainer6Overlay: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(113, 113, 113, 0.3)'
+  },
+  text: {
+    fontSize: FontSize.size_5xs,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
-    color: Color.sportsVioleta
-  },
-  textAreaInput: {
-    alignSelf: 'flex-start'
+    color: Color.sportsVioleta,
+    position: 'absolute',
+    left: 18,
+    bottom: 39.5
   }
 })
 

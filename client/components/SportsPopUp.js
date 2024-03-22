@@ -89,7 +89,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: Padding.p_xl,
     marginTop: 15,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    height: 445
   },
   touchable: {
     alignItems: 'center',

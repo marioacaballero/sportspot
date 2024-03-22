@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Calendar } from 'react-native-calendars'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
@@ -7,29 +7,34 @@ import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
 
 const CalendarOneDay = ({ onClose, start, suscription }) => {
   const dispatch = useDispatch()
+  const [selected, setSelected] = useState('')
+
+  const generateMarkedDates = () => {
+    const markedDates = {}
+    if (selected) {
+      markedDates[selected] = {
+        selected: true,
+        selectedColor: '#f25910'
+      }
+    }
+    return markedDates
+  }
+
+  const handleDayPress = (day) => {
+    if (start && !suscription) {
+      setSelected(day.dateString)
+      dispatch(setDateStart(day.dateString))
+    } else {
+      setSelected(day.dateString)
+      dispatch(setDateSuscription(day.dateString))
+    }
+  }
+
   return (
     <View style={styles.calendar}>
       <Calendar
-        onDayPress={(day) => {
-          if (start && !suscription) {
-            dispatch(setDateStart(day.dateString))
-          } else {
-            dispatch(setDateSuscription(day.dateString))
-          }
-          // start && !suscription && dispath(setDateStart(day.dateString))
-          // start && !suscription && dispath(setDateStart(day.dateString))
-
-          // setDate(day.dateString)
-        }}
-        // markedDates={{
-        //   [date]: {
-        //     selected: true,
-        //     disableTouchEvent: true,
-        //     selectedDotColor: 'orange'
-        //   }
-        // }}
-        // markedDates={generateMarkedDates()}
-        // Otras propiedades de configuración de tu calendario
+        onDayPress={handleDayPress}
+        markedDates={generateMarkedDates()}
       />
       <TouchableOpacity onPress={onClose} style={styles.helloAshfakWrapper}>
         <Text style={styles.helloAshfak}>Listo</Text>

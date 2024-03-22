@@ -7,7 +7,8 @@ import {
   Image,
   Modal,
   TouchableWithoutFeedback,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native'
 // import { useNavigation } from '@react-navigation/native'
 import CorazonSVG from '../../components/SVG/CorazonSVG'
@@ -108,25 +109,26 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                 </Text>
               </View>
               <View style={styles.alertParent}>
-                <View style={styles.editButton}>
-                  {event?.creator?.id === user?.id ? (
-                    <Text
-                      style={styles.modalText}
-                      onPress={() => {
-                        setModalEditEvent(true)
-                      }}
-                    >
-                      Editar
-                    </Text>
-                  ) : (
-                    <Text
-                      style={styles.modalText}
-                      onPress={() => setModalSuscription(true)}
-                    >
+                {event?.creator?.id === user?.id ? (
+                  <TouchableOpacity
+                    style={styles.editButton}
+                    onPress={() => {
+                      setModalEditEvent(true)
+                    }}
+                  >
+                    <Text style={styles.modalText}>Editar</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    style={styles.editButton}
+                    onPress={() => setModalSuscription(true)}
+                  >
+                    <Text style={styles.modalText}>
                       {isEventAlreadyAdded ? 'Desuscribirse' : 'Suscribrirse'}
                     </Text>
-                  )}
-                </View>
+                  </TouchableOpacity>
+                )}
+
                 <Image
                   style={styles.alertIcon}
                   contentFit="cover"
@@ -206,7 +208,8 @@ const styles = StyleSheet.create({
   },
   modalOverlay: {
     height: '100%',
-    width: '100%'
+    width: '90%',
+    marginLeft: '5%'
   },
   reseasDeLaTypo: {
     color: Color.sportsNaranja,
