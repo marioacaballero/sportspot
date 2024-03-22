@@ -11,8 +11,6 @@ export const sportsSlices = createSlice({
   reducers: {
     setSport: (state, action) => {
       state.sport = action.payload
-      // const filterSports = state.sports.filter((el) => el.name === state.sport)
-      // state.sport = filterSports
     }
   },
 

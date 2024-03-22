@@ -15,6 +15,8 @@ const Maps = ({ onClose, setEventsFilter }) => {
   const [searchText, setSearchText] = useState('')
   const [eventsLocal, setEventsLocal] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
+  const [selected, setSelected] = useState(false)
+
   const itemsPerPage = 50
 
   useEffect(() => {
@@ -83,9 +85,18 @@ const Maps = ({ onClose, setEventsFilter }) => {
                     ...prevState,
                     location: event.label
                   }))
+                  setSelected(event.label)
                 }}
               >
-                <Text style={styles.helloTypo}>{event.label}</Text>
+                <Text
+                  style={
+                    selected === event.label
+                      ? styles.helloTypoSelected
+                      : styles.helloTypo
+                  }
+                >
+                  {event.label}
+                </Text>
               </TouchableOpacity>
             ))}
           </ScrollView>
@@ -126,6 +137,12 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.inputPlaceholder,
     fontSize: FontSize.inputPlaceholder_size,
     color: Color.sportsVioleta
+  },
+  helloTypoSelected: {
+    marginTop: 9,
+    fontFamily: FontFamily.inputPlaceholder,
+    fontSize: FontSize.inputPlaceholder_size,
+    color: Color.sportsNaranja
   },
   kmTypo: {
     fontFamily: FontFamily.inputPlaceholder,
