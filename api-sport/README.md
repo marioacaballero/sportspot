@@ -96,9 +96,13 @@ Esto abrirá un nuevo archivo .env en el editor Nano.
 3 - Agregar las variables de entorno: Dentro del archivo .env, añade tus variables de entorno en el formato NOMBRE_VARIABLE=valor. Por ejemplo:
 
 ```plaintext
-PORT=3000
-MONGODB_URI=mongodb://usuario:contraseña@localhost:27017/base_de_datos
-OTRO_VARIABLE=valor
+
+DB_NAME=api_sport
+DB_USER=postgres
+DB_PASS=admin
+DB_PORT=5432
+DB_DIALECT=postgres
+DB_HOST=localhost
 ```
 
 Puedes agregar todas las variables de entorno necesarias para tu aplicación.
