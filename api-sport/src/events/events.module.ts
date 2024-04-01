@@ -10,10 +10,12 @@ import { NotificationsService } from 'src/notifications/notifications.service'
 import { JwtService } from '@nestjs/jwt'
 import { JsonwebtokenService } from 'src/jsonwebtoken/jsonwebtoken.service'
 import { SendMailsService } from 'src/send-mails/send-mails.service'
+import { UserEventHistoryEntity } from './entities/userEvent.entity'
+
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([EventEntity, UserEntity, NotificationEntity])
+    TypeOrmModule.forFeature([EventEntity, UserEntity,NotificationEntity,UserEventHistoryEntity])
   ],
   controllers: [EventsController],
   providers: [
