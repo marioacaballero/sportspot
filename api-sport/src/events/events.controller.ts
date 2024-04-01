@@ -15,15 +15,29 @@ import { UpdateEventDto } from './dto/update-event.dto'
 @Controller('events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
+ 
 
-  @Post()
+  @Post('/')
   public async create(@Body() createEventDto: CreateEventDto) {
     return this.eventsService.createService(createEventDto)
+  }
+
+  @Post('/visit')
+  public async visitEvent(@Body() { eventId, userId}) {
+    console.log('que paso',eventId,userId)
+    return this.eventsService.visitEvent(eventId, userId)
   }
 
   @Get()
   public async findAll(@Query() query: any) {
     return this.eventsService.getAllService(query)
+  }
+
+  
+  @Get('/visit-event')
+  public async getVisitEvent(@Query() query: any) {
+    const {userId, filter} = query
+    return this.eventsService.getLastVisitedEvents(userId, filter)
   }
 
   @Get('/favorites/:id')
