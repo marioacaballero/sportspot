@@ -11,6 +11,8 @@ import { BaseEntity } from 'src/config/base.entity'
 import { SportEntity } from 'src/sports/entities/sport.entity'
 import { UserEntity } from 'src/users/entities/users.entity'
 import { NotificationEntity } from 'src/notifications/entities/notification.entity'
+import { UserEventHistoryEntity } from './userEvent.entity'
+
 
 @Entity({ name: 'event' })
 export class EventEntity extends BaseEntity {
@@ -62,4 +64,9 @@ export class EventEntity extends BaseEntity {
 
   @OneToMany(() => NotificationEntity, (notification) => notification.event)
   notifications: NotificationEntity[]
+
+  @OneToMany(() => UserEventHistoryEntity, (history) => history.event)
+userHistory: UserEventHistoryEntity[]
+
+ 
 }
