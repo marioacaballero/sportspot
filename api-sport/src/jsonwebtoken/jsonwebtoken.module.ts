@@ -10,6 +10,8 @@ import { EventEntity } from 'src/events/entities/event.entity'
 import { NotificationsService } from 'src/notifications/notifications.service'
 import { EventsService } from 'src/events/events.service'
 import { SendMailsService } from 'src/send-mails/send-mails.service'
+import { UserEventHistoryEntity } from 'src/events/entities/userEvent.entity'
+
 
 @Module({
   imports: [
@@ -17,7 +19,7 @@ import { SendMailsService } from 'src/send-mails/send-mails.service'
       secret: 'secreto_supersecreto',
       signOptions: { expiresIn: '1h' } // Opciones de firma, puedes ajustar el tiempo de expiración
     }),
-    TypeOrmModule.forFeature([UserEntity, EventEntity, NotificationEntity])
+    TypeOrmModule.forFeature([UserEntity, EventEntity,NotificationEntity,UserEventHistoryEntity])
   ],
   controllers: [JsonwebtokenController],
   exports: [JsonwebtokenService],

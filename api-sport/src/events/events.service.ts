@@ -6,6 +6,9 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { EventEntity } from './entities/event.entity'
 import { UserEntity } from 'src/users/entities/users.entity'
 import { SendMailsService } from 'src/send-mails/send-mails.service'
+import { UserEventHistoryEntity } from './entities/userEvent.entity'
+
+
 
 @Injectable()
 export class EventsService {
@@ -15,6 +18,9 @@ export class EventsService {
 
     @InjectRepository(UserEntity)
     private readonly usersRepository: Repository<UserEntity>,
+
+    @InjectRepository(UserEventHistoryEntity)
+    private readonly usersEventRepository: Repository<UserEventHistoryEntity>,
 
     private readonly sendMailsService: SendMailsService
   ) {}
@@ -145,5 +151,53 @@ export class EventsService {
     return await this.eventsRepository.find({
       where: { id: In(user.eventFavorites) }
     })
+  }
+
+
+
+  public async visitEvent(eventId: string, userId: string) {
+    const user = await this.usersRepository.findOne({ where: { id: userId } });
+    const event = await this.eventsRepository.findOne({ where: { id: eventId } });
+  
+    if (!user || !event) {
+      throw new HttpException(`Usuario o evento no encontrado`, 404)
+    }
+  
+    const history = new UserEventHistoryEntity();
+    history.user = user;
+    history.event = event;
+    history.visitDate = new Date().toISOString(); // Puedes cambiar esto por la fecha que quieras
+  
+    await this.usersEventRepository.save(history);
+  
+    return user;
+  }
+
+  public async getLastVisitedEvents(userId: string, filter: 'day' | 'week' | 'month') {
+    const date = new Date();
+    switch (filter) {
+      case 'day':
+        date.setDate(date.getDate() - 1);
+        break;
+      case 'week':
+        date.setDate(date.getDate() - 7);
+        break;
+      case 'month':
+        date.setMonth(date.getMonth() - 1);
+        break;
+      default:
+        throw new Error('Invalid filter');
+    }
+  
+    const lastVisitedEvents = await this.usersEventRepository
+      .createQueryBuilder('history')
+      .innerJoinAndSelect('history.event', 'event')
+      .where('history.userId = :userId', { userId: userId })
+      .andWhere('history.visitDate > :date', { date: date.toISOString() })
+      .orderBy('history.visitDate', 'DESC')
+      .limit(5)
+      .getMany();
+  
+    return lastVisitedEvents;
   }
 }

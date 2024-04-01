@@ -15,6 +15,8 @@ import { JwtService } from '@nestjs/jwt'
 import { UserEntity } from 'src/users/entities/users.entity'
 import { NotificationEntity } from 'src/notifications/entities/notification.entity'
 import { EventEntity } from 'src/events/entities/event.entity'
+import { UserEventHistoryEntity } from 'src/events/entities/userEvent.entity'
+
 
 @Module({
   imports: [
@@ -43,7 +45,9 @@ import { EventEntity } from 'src/events/entities/event.entity'
       ResetCodeEntity,
       UserEntity,
       NotificationEntity,
-      EventEntity
+      EventEntity,
+      UserEventHistoryEntity
+  
     ])
   ],
   controllers: [SendMailsController, ResetCodeController],

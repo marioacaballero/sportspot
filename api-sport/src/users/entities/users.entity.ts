@@ -1,6 +1,8 @@
 // usuario.entity.ts
 import { BaseEntity } from 'src/config/base.entity'
 import { EventEntity } from 'src/events/entities/event.entity'
+import { UserEventHistoryEntity } from 'src/events/entities/userEvent.entity'
+
 import { NotificationEntity } from 'src/notifications/entities/notification.entity'
 import { Entity, Column, OneToMany, ManyToMany } from 'typeorm'
 
@@ -59,4 +61,9 @@ export class UserEntity extends BaseEntity {
   // Relación de muchos a muchos con los eventos suscritos
   @ManyToMany(() => EventEntity, (event) => event.suscribers)
   events: EventEntity[]
+
+  @OneToMany(() => UserEventHistoryEntity, (history) => history.user)
+eventHistory: UserEventHistoryEntity[]
+
+ 
 }

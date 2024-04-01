@@ -11,10 +11,12 @@ import { SendMailsService } from 'src/send-mails/send-mails.service'
 import { JsonwebtokenService } from 'src/jsonwebtoken/jsonwebtoken.service'
 //import { JsonwebtokenModule } from 'src/jsonwebtoken/jsonwebtoken.module'
 import { JwtService } from '@nestjs/jwt'
+import { UserEventHistoryEntity } from 'src/events/entities/userEvent.entity'
+
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserEntity, EventEntity, NotificationEntity])
+    TypeOrmModule.forFeature([UserEntity, EventEntity, UserEventHistoryEntity,NotificationEntity])
   ],
   controllers: [UsersController],
   exports: [] /* [que quiero exportar] */,
