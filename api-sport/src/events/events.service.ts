@@ -8,8 +8,6 @@ import { UserEntity } from 'src/users/entities/users.entity'
 import { SendMailsService } from 'src/send-mails/send-mails.service'
 import { UserEventHistoryEntity } from './entities/userEvent.entity'
 
-
-
 @Injectable()
 export class EventsService {
   constructor(
@@ -95,7 +93,6 @@ export class EventsService {
     id: string,
     updateEventDto: UpdateEventDto
   ): Promise<EventEntity> {
-
     const event = await this.eventsRepository
       .createQueryBuilder('event')
       .where({ id })
@@ -153,51 +150,72 @@ export class EventsService {
     })
   }
 
-
-
   public async visitEvent(eventId: string, userId: string) {
-    const user = await this.usersRepository.findOne({ where: { id: userId } });
-    const event = await this.eventsRepository.findOne({ where: { id: eventId } });
-  
+    const user = await this.usersRepository.findOne({ where: { id: userId } })
+    const event = await this.eventsRepository.findOne({
+      where: { id: eventId }
+    })
+
     if (!user || !event) {
       throw new HttpException(`Usuario o evento no encontrado`, 404)
     }
-  
-    const history = new UserEventHistoryEntity();
-    history.user = user;
-    history.event = event;
-    history.visitDate = new Date().toISOString(); // Puedes cambiar esto por la fecha que quieras
-  
-    await this.usersEventRepository.save(history);
-  
-    return user;
+
+    const eventUserHistory = await this.getUserEventHistory(userId, eventId)
+
+    if (!eventUserHistory) {
+      const history = new UserEventHistoryEntity()
+      history.user = user
+      history.event = event
+      history.visitDate = new Date().toISOString() // Puedes cambiar esto por la fecha que quieras
+      await this.usersEventRepository.save(history)
+      return history
+    } else {
+      eventUserHistory.visitDate = new Date().toISOString()
+      await this.usersEventRepository.save(eventUserHistory)
+      return eventUserHistory
+    }
   }
 
-  public async getLastVisitedEvents(userId: string, filter: 'day' | 'week' | 'month') {
-    const date = new Date();
+  public async getLastVisitedEvents(
+    userId: string,
+    filter: 'day' | 'week' | 'month'
+  ) {
+    const date = new Date()
     switch (filter) {
       case 'day':
-        date.setDate(date.getDate() - 1);
-        break;
+        date.setDate(date.getDate() - 1)
+        break
       case 'week':
-        date.setDate(date.getDate() - 7);
-        break;
+        date.setDate(date.getDate() - 7)
+        break
       case 'month':
-        date.setMonth(date.getMonth() - 1);
-        break;
+        date.setMonth(date.getMonth() - 1)
+        break
       default:
-        throw new Error('Invalid filter');
+        throw new Error('Invalid filter')
     }
-  
+
     const lastVisitedEvents = await this.usersEventRepository
-      .createQueryBuilder('history')
-      .innerJoinAndSelect('history.event', 'event')
-      .where('history.userId = :userId', { userId: userId })
-      .andWhere('history.visitDate > :date', { date: date.toISOString() })
-      .orderBy('history.visitDate', 'DESC')
+      .createQueryBuilder('userEventHistory')
+      .innerJoinAndSelect('userEventHistory.event', 'event')
+      .where('userEventHistory.user = :userId', { userId: userId })
+      .andWhere('userEventHistory.visitDate > :date', {
+        date: date.toISOString()
+      })
+      .orderBy('userEventHistory.visitDate', 'DESC')
       .limit(5)
-      .getMany();
-  
-    return lastVisitedEvents;
+      .getMany()
+
+    return lastVisitedEvents
+  }
+
+  public async getUserEventHistory(userId: string, eventId: string) {
+    const userEventHistory = await this.usersEventRepository
+      .createQueryBuilder('userEventHistory')
+      .where('userEventHistory.user = :userId', { userId: userId })
+      .andWhere('userEventHistory.event = :eventId', { eventId: eventId })
+      .getOne()
+
+    return userEventHistory
   }
 }
