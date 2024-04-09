@@ -19,6 +19,7 @@ import {
 } from '../../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllUsers, register } from '../../redux/actions/users'
+import CustomAlert from '../../components/CustomAlert'
 
 const Registrarse = () => {
   const emailInputRef = useRef(null)
@@ -37,6 +38,8 @@ const Registrarse = () => {
     nickname: ''
   })
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [showAlert, setShowAlert] = useState(false)
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
     dispatch(getAllUsers())
@@ -47,6 +50,15 @@ const Registrarse = () => {
       ...prevState,
       [field]: value
     }))
+  }
+
+  const handleShowAlert = (message) => {
+    setMessage(message)
+    setShowAlert(true)
+  }
+
+  const handleCloseAlert = () => {
+    setShowAlert(false)
   }
 
   const onSubmit = () => {
@@ -61,17 +73,17 @@ const Registrarse = () => {
       )
 
       if (emailExists) {
-        alert('El correo electrónico ya está en uso')
+        handleShowAlert('El correo electrónico ya está en uso')
       } else {
         if (registerUser.password === confirmPassword) {
           dispatch(register(registerUser))
           navigation.navigate('IniciarSesin')
         } else {
-          alert('Las contraseñas no coinciden')
+          handleShowAlert('Las contraseñas no coinciden')
         }
       }
     } else {
-      alert('Todos los campos son obligatorios')
+      handleShowAlert('Rellene todos los campos')
     }
   }
 
@@ -155,6 +167,12 @@ const Registrarse = () => {
           </TouchableOpacity>
         </View>
       </ScrollView>
+
+      <CustomAlert
+        visible={showAlert}
+        message={message}
+        onClose={handleCloseAlert}
+      />
     </View>
   )
 }

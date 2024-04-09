@@ -21,6 +21,7 @@ import SportsPopUp from './SportsPopUp'
 import Maps from './Maps'
 import BoxSVG from './SVG/BoxSVG'
 import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
+import CustomAlert from './CustomAlert'
 
 const EditEvent = ({ event: eventRedux, onClose }) => {
   const dispatch = useDispatch()
@@ -46,14 +47,25 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
   const [dateChange, setDateChange] = useState(false)
   const [dateSuscriptionChange, setDateSuscriptionChange] = useState(false)
   const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+
+  useEffect(() => {
+    dispatch(getAllSports())
+  }, [])
 
   const onCloseModalSports = () => {
     setSportsModal(false)
   }
 
-  useEffect(() => {
-    dispatch(getAllSports())
-  }, [])
+  const handleShowAlert = () => {
+    setShowAlert(true)
+  }
+
+  const handleCloseAlert = () => {
+    onClose()
+    setShowAlert(false)
+    navigation.goBack()
+  }
 
   const onValuesEvent = (field, value) => {
     if (field === 'timeStart') {
@@ -123,9 +135,7 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
     dispatch(getAllEvents())
     dispatch(setDateStart(''))
     dispatch(setDateSuscription(''))
-    onClose()
-    navigation.goBack()
-    alert('Evento editado correctamente')
+    handleShowAlert()
   }
 
   const closeCalendar = () => {
@@ -343,6 +353,14 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
           <Maps onClose={closeFrameContainer6} setEventsFilter={setEvent} />
         </View>
       </Modal>
+
+      {showAlert && (
+        <CustomAlert
+          visible={showAlert}
+          message="Evento editado correctamente"
+          onClose={handleCloseAlert}
+        />
+      )}
     </ScrollView>
   )
 }

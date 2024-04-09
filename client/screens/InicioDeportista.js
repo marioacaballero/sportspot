@@ -18,7 +18,6 @@ import InicioOrganizador from './Organizador/InicioOrganizador'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllEvents, getEventById } from '../redux/actions/events'
 import { ActivityIndicator } from 'react-native-paper'
-import { LinearGradient } from 'expo-linear-gradient'
 import DatosDeportista from '../components/DatosDeportista'
 
 const InicioDeportista = () => {
@@ -51,7 +50,6 @@ const InicioDeportista = () => {
 
   const toggleModalOrganizador = () => {
     setModalOrganizador(!modalOrganizador)
-    // dispatch(getAllEvents())
   }
 
   const eventos = events.map((event) => {
@@ -88,25 +86,23 @@ const InicioDeportista = () => {
 
   if (loadingGet) {
     return (
-      <LinearGradient
-        colors={['#F25910', '#F6B99C', '#FFF', '#FEF8F5', '#40036F']}
-        locations={[0, 0.2, 0.5, 0.8, 1]}
-        start={{ x: 0.3, y: 0 }}
-        end={{ x: 1, y: 0.8 }}
-        style={styles.linearGradient}
-      >
+      <View>
+        <Image
+          style={styles.background}
+          source={require('../assets/BGInicio.png')}
+          contentFit="cover"
+        />
         <ActivityIndicator
           style={{
             width: '100%',
             height: '100%',
             backgroundColor: 'rgba(0, 0, 0, 0.1)'
-            // backdropFilter: 'blur(5px)'
           }}
           animating={true}
           size="large"
           color={Color.violeta2}
         />
-      </LinearGradient>
+      </View>
     )
   } else {
     return (
@@ -117,7 +113,6 @@ const InicioDeportista = () => {
         />
         <View style={[styles.frameParent, styles.frameParentFlexBox]}>
           <View style={[styles.helloAshfakParent, styles.frameGroupFlexBox]}>
-            {/* <Text style={[styles.helloAshfak, styles.imGoingToTypo]}>INICIO</Text> */}
             <Image
               style={styles.imageTop}
               source={require('../assets/spotsport.png')}
@@ -219,10 +214,7 @@ const InicioDeportista = () => {
             </Pressable>
             <Pressable
               style={styles.helloAshfakGroup}
-              onPress={
-                () => toggleModalOrganizador()
-                // navigation.navigate('Organizador')
-              }
+              onPress={() => toggleModalOrganizador()}
             >
               <Text style={[styles.helloAshfak2, styles.helloTypo]}>
                 Organizador
@@ -609,7 +601,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     borderRadius: Border.br_sm,
-    marginBottom: 20
+    marginBottom: 20,
+    marginLeft: 10
   },
   image94ParentShadowBox: {
     height: 162,
@@ -644,7 +637,7 @@ const styles = StyleSheet.create({
   },
   frameParent: {
     paddingTop: 30,
-    paddingLeft: 15,
+    paddingLeft: 10,
     paddingRight: 15,
     top: 0,
     height: '100%'
@@ -664,6 +657,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  background: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute'
   }
 })
 

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-// import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
   StyleSheet,
   View,
@@ -23,7 +22,9 @@ import { getUser } from '../../redux/actions/users'
 
 const TuPerfil = () => {
   const navigation = useNavigation()
+
   const dispatch = useDispatch()
+
   const { user } = useSelector((state) => state.users)
 
   useEffect(() => {
@@ -54,7 +55,6 @@ const TuPerfil = () => {
           <Image
             style={styles.unsplashn6gnca77urcIcon}
             contentFit="cover"
-            // require('../assets/unsplashn6gnca77urc.png')
             source={
               user?.avatar
                 ? { uri: user?.avatar }
@@ -63,9 +63,9 @@ const TuPerfil = () => {
           />
           <View style={styles.laraMacasBlancoCarrrilhoParent}>
             <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
-              {user?.nickname}
+              {user?.name}
             </Text>
-            <Text style={styles.mujer23Aos}>{user?.sexo}</Text>
+            <Text style={styles.mujer23Aos}>{user?.apellido}</Text>
           </View>
         </View>
         <View style={styles.frameParent}>

@@ -1,8 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-// import { apiBackend } from '../../utils/config'
-// import { events } from '../utils/events'
 import axiosInstance from '../../utils/apiBackend'
-// import axios from 'axios'
 
 export const getAllEvents = createAsyncThunk('events/getAll', async () => {
   try {
@@ -85,3 +82,28 @@ export const favorite = createAsyncThunk('users/favorite', async (body) => {
     throw new Error(error)
   }
 })
+
+export const visitEvent = createAsyncThunk('events/visit', async (body) => {
+  try {
+    const { data } = await axiosInstance.post('/events/visit', body)
+    return data
+  } catch (error) {
+    throw new Error(error)
+  }
+})
+
+export const getAllVisitedEvents = createAsyncThunk(
+  'events/getAllVisited',
+  async (body) => {
+    try {
+      console.log('body todos los eventos visitados', body)
+      const { userId, filter } = body
+      const { data } = await axiosInstance.get(
+        `/events/visit-event?userId=${userId}&filter=${filter}`
+      )
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+)

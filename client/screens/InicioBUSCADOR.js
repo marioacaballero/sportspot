@@ -284,8 +284,9 @@ const styles = StyleSheet.create({
     marginLeft: 47
   },
   icon: {
-    width: 24,
-    height: 10
+    width: 20,
+    height: 9,
+    top: 1
   }
 })
 

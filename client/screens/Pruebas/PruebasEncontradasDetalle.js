@@ -23,8 +23,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ModalSuscription from '../../components/ModalSuscription'
 import EditEvent from '../../components/EditEvent'
 import { ActivityIndicator } from 'react-native-paper'
-import { LinearGradient } from 'expo-linear-gradient'
-import { favorite, getFavorites } from '../../redux/actions/events'
+import { favorite, getFavorites, visitEvent } from '../../redux/actions/events'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
   // const navigation = useNavigation()
@@ -50,6 +49,16 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     setFavorites(allFavorites)
   }, [allFavorites])
 
+  useEffect(() => {
+    if (!loading) {
+      const body = {
+        eventId: event.id,
+        userId: user.id
+      }
+      dispatch(visitEvent(body))
+    }
+  }, [loading])
+
   const isEventAlreadyAdded = user.events?.some(
     (userEvent) => userEvent.id === event.id
   )
@@ -64,13 +73,12 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
 
   if (loading) {
     return (
-      <LinearGradient
-        colors={['#F25910', '#F6B99C', '#FFF', '#FEF8F5', '#40036F']}
-        locations={[0, 0.2, 0.5, 0.8, 1]}
-        start={{ x: 0.3, y: 0 }}
-        end={{ x: 1, y: 0.8 }}
-        style={styles.linearGradient}
-      >
+      <View>
+        <Image
+          style={styles.background}
+          source={require('../../assets/BGInicio.png')}
+          contentFit="cover"
+        />
         <ActivityIndicator
           style={{
             width: '100%',
@@ -81,7 +89,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
           size="large"
           color={Color.violeta2}
         />
-      </LinearGradient>
+      </View>
     )
   } else {
     return (
@@ -207,9 +215,10 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   modalOverlay: {
-    height: '100%',
+    height: '85%',
     width: '90%',
-    marginLeft: '5%'
+    marginLeft: '5%',
+    alignItems: 'center'
   },
   reseasDeLaTypo: {
     color: Color.sportsNaranja,
@@ -332,6 +341,11 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginRight: 10,
     backgroundColor: Color.sportsNaranja
+  },
+  background: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute'
   }
 })
 

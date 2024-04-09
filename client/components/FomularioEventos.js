@@ -22,6 +22,7 @@ import { getUser } from '../redux/actions/users'
 import BoxSVG from './SVG/BoxSVG'
 import { setSport } from '../redux/slices/sports.slices'
 import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
+import CustomAlert from './CustomAlert'
 
 const FomularioEventos = () => {
   const dispatch = useDispatch()
@@ -48,6 +49,7 @@ const FomularioEventos = () => {
     phone: ''
   })
   const [checked, setChecked] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
 
   useEffect(() => {
     dispatch(getAllSports())
@@ -56,6 +58,12 @@ const FomularioEventos = () => {
 
   const onCloseModalSports = () => {
     setSportsModal(false)
+  }
+
+  const handleCloseAlert = () => {
+    setShowAlert(false)
+    navigation.navigate('InicioDeportista')
+    clearRedux()
   }
 
   const onValuesEvent = (field, value) => {
@@ -302,10 +310,9 @@ const FomularioEventos = () => {
             selectedImage,
             dispatch,
             dateSuscription,
-            dateStart
+            dateStart,
+            setShowAlert
           )
-          navigation.navigate('InicioDeportista')
-          clearRedux()
         }}
       >
         <Text style={{ color: 'white' }}>Enviar</Text>
@@ -358,6 +365,16 @@ const FomularioEventos = () => {
           <Maps onClose={closeFrameContainer6} setEventsFilter={setEvent} />
         </View>
       </Modal>
+
+      {showAlert && (
+        <View>
+          <CustomAlert
+            visible={showAlert}
+            message="Evento creado"
+            onClose={handleCloseAlert}
+          />
+        </View>
+      )}
     </View>
   )
 }

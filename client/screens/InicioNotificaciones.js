@@ -33,6 +33,7 @@ const InicioNotificaciones = () => {
         </Text>
         <Switch
           trackColor={{ false: '#767577', true: '#F25910' }}
+          thumbColor={'#ffffff'}
           ios_backgroundColor="#3e3e3e"
           onValueChange={toggleSwitch}
           value={isEnabled}
@@ -110,10 +111,9 @@ const InicioNotificaciones = () => {
               />
             </View>
             <View style={styles.helloAshfakWrapper}>
-              <Text
-                style={[styles.helloAshfak10, styles.helloTypo4]}
-              >{`¡El Club Lorem Ipsum acaba de
-                  publicar una nueva prueba!`}</Text>
+              <Text style={[styles.helloAshfak10, styles.helloTypo4]}>
+                ¡El Club Lorem Ipsum acaba de publicar una nueva prueba!
+              </Text>
             </View>
           </View>
           <Text style={styles.helloTypo}>1 nov, a las 20:05</Text>
@@ -131,10 +131,9 @@ const InicioNotificaciones = () => {
               />
             </View>
             <View style={styles.helloAshfakWrapper}>
-              <Text
-                style={[styles.helloAshfak10, styles.helloTypo4]}
-              >{`¡El Club Lorem Ipsum acaba de
-                  publicar una nueva prueba!`}</Text>
+              <Text style={[styles.helloAshfak10, styles.helloTypo4]}>
+                ¡El Club Lorem Ipsum acaba de publicar una nueva prueba!
+              </Text>
             </View>
           </View>
           <Text style={styles.helloTypo}>25 oct, a las 15:16</Text>
@@ -209,17 +208,6 @@ const InicioNotificaciones = () => {
 }
 
 const styles = StyleSheet.create({
-  frameParentPosition: {
-    paddingHorizontal: Padding.p_xl,
-    justifyContent: 'center',
-    width: 360,
-    left: 0,
-    position: 'absolute'
-  },
-  frameGroupFlexBox: {
-    justifyContent: 'space-between',
-    flexDirection: 'row'
-  },
   helloTypo4: {
     textAlign: 'left',
     color: Color.sportsVioleta,
@@ -230,37 +218,9 @@ const styles = StyleSheet.create({
     width: 27,
     height: 24
   },
-  iconLayout: {
-    height: '100%',
-    width: '100%'
-  },
-  frameGroupSpaceBlock: {
-    paddingVertical: 0,
-    alignSelf: 'stretch'
-  },
-  helloTypo2: {
-    fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '100'
-  },
   imGoingToClr: {
     color: Color.sportsNaranja,
     textAlign: 'left'
-  },
-  minTypo: {
-    fontSize: FontSize.size_3xs,
-    fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '100',
-    textAlign: 'left',
-    alignSelf: 'stretch'
-  },
-  menPosition: {
-    width: 360,
-    left: 0,
-    position: 'absolute'
-  },
-  vectorLayout: {
-    width: 23,
-    height: 20
   },
   frameChildBorder: {
     height: 1,
@@ -295,144 +255,6 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
-  helloAshfak: {
-    fontSize: FontSize.size_5xl
-  },
-  frameChild: {
-    width: 29,
-    height: 22
-  },
-  icon: {
-    overflow: 'hidden'
-  },
-  materialSymbolsnotifications: {
-    marginLeft: 7,
-    height: 24
-  },
-  groupParent: {
-    alignItems: 'center',
-    flexDirection: 'row'
-  },
-  helloAshfakParent: {
-    alignItems: 'center',
-    alignSelf: 'stretch'
-  },
-  helloAshfak1: {
-    color: Color.violeta3,
-    fontSize: FontSize.inputPlaceholder_size,
-    fontWeight: '100',
-    textAlign: 'left'
-  },
-  frameItem: {
-    width: 6,
-    height: 6,
-    marginTop: 5
-  },
-  helloAshfakGroup: {
-    alignItems: 'center'
-  },
-  frameGroup: {
-    paddingHorizontal: Padding.p_31xl,
-    marginTop: 19,
-    justifyContent: 'space-between',
-    flexDirection: 'row'
-  },
-  helloAshfak3: {
-    fontSize: FontSize.inputPlaceholder_size,
-    fontWeight: '100',
-    textAlign: 'left',
-    color: Color.sportsVioleta
-  },
-  image94Icon: {
-    borderTopLeftRadius: Border.br_7xs,
-    borderTopRightRadius: Border.br_7xs,
-    maxWidth: '100%',
-    height: 95,
-    overflow: 'hidden',
-    alignSelf: 'stretch',
-    width: '100%'
-  },
-  imGoingTo: {
-    fontSize: FontSize.inputLabel_size,
-    fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '100',
-    alignSelf: 'stretch'
-  },
-  min: {
-    color: Color.sportsVioleta
-  },
-  minParent: {
-    marginTop: 2,
-    alignSelf: 'stretch'
-  },
-  imGoingToShakeYParent: {
-    height: 44,
-    paddingHorizontal: Padding.p_8xs,
-    marginTop: 5
-  },
-  image94ShadowBox: {
-    height: 162,
-    width: 187,
-    shadowColor: 'rgba(39, 39, 39, 0.2)',
-    borderRadius: Border.br_sm,
-    shadowOpacity: 1,
-    elevation: 10,
-    shadowRadius: 10,
-    shadowOffset: {
-      width: 2,
-      height: 4
-    },
-    alignItems: 'center',
-    backgroundColor: Color.blanco
-  },
-  frameWrapper: {
-    width: 328,
-    marginTop: 10,
-    flexDirection: 'row'
-  },
-  frameView: {
-    marginTop: 19
-  },
-  min2: {
-    color: Color.colorGray_100
-  },
-  frameParent: {
-    paddingTop: Padding.p_48xl,
-    paddingBottom: Padding.p_6xl,
-    top: 0,
-    height: 800
-  },
-  wrapper: {
-    height: 25,
-    width: 22
-  },
-  vector: {
-    marginLeft: 47,
-    height: 20
-  },
-  capturaDePantalla20231124: {
-    width: 33,
-    height: 33,
-    marginLeft: 47
-  },
-  container: {
-    width: 20,
-    marginLeft: 47,
-    height: 20
-  },
-  frame: {
-    width: 19,
-    marginLeft: 47,
-    height: 20
-  },
-  groupContainer: {
-    top: 10,
-    backgroundColor: Color.gris,
-    height: 65,
-    paddingVertical: Padding.p_3xs,
-    alignItems: 'center',
-    flexDirection: 'row'
-  },
   materialSymbolsnotificationsIcon: {
     overflow: 'hidden',
     height: 24
@@ -445,7 +267,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   materialSymbolsnotificationsParent: {
-    alignItems: 'flex-end',
+    alignItems: 'center',
     height: 30,
     flexDirection: 'row',
     alignSelf: 'stretch'
@@ -505,7 +327,8 @@ const styles = StyleSheet.create({
     height: 19
   },
   helloAshfak10: {
-    fontSize: FontSize.inputLabel_size
+    fontSize: FontSize.inputLabel_size,
+    width: '80%'
   },
   helloAshfakWrapper: {
     marginLeft: 10
@@ -514,7 +337,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   frameChild2: {
-    width: 281,
     marginTop: 5
   },
   frameParent5: {
@@ -530,13 +352,8 @@ const styles = StyleSheet.create({
     height: 20,
     width: 23
   },
-  materialSymbolshikingSharpIcon: {
-    marginLeft: -11,
-    height: 20,
-    width: 22
-  },
   frameParent1: {
-    minWidth: '80%',
+    maxWidth: '90%',
     borderRadius: Border.br_3xs,
     shadowColor: 'rgba(69, 68, 68, 0.47)',
     paddingHorizontal: Padding.p_lgi,
@@ -553,7 +370,7 @@ const styles = StyleSheet.create({
     marginTop: '10%'
   },
   switch: {
-    top: 12
+    top: 1.5
   }
 })
 
