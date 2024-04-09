@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   Text,
   StyleSheet,
@@ -11,12 +12,27 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Color, Border, FontSize, Padding } from '../GlobalStyles'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
+import { getAllVisitedEvents } from '../redux/actions/events'
+import CorazonSVG from '../components/SVG/CorazonSVG'
 
 const UltimasConsultas = () => {
   const navigation = useNavigation()
 
+  const dispatch = useDispatch()
+
+  const { user } = useSelector((state) => state.users)
+  const { visitedEvents } = useSelector((state) => state.events)
+
   const [switchStates, setSwitchStates] = useState([false, false, false])
   const [showSwitch, setshowSwitch] = useState(false)
+
+  useEffect(() => {
+    const body = {
+      userId: user.id,
+      filter: 'day'
+    }
+    dispatch(getAllVisitedEvents(body))
+  }, [])
 
   const toggleSwitch = (index) => {
     const newSwitchStates = [...switchStates]
@@ -28,17 +44,9 @@ const UltimasConsultas = () => {
     <ScrollView style={styles.ultimasConsultas}>
       <View style={styles.frameParent}>
         <View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              width: '100%'
-            }}
-          >
+          <View style={styles.titleContainer}>
             <Text style={[styles.ltimasConsultas, styles.ciclismoTypo]}>
-              {`ÚLTIMAS
-CONSULTAS`}
+              ÚLTIMAS CONSULTAS
             </Text>
             <Pressable onPress={() => navigation.goBack()}>
               <BackArrowSVG />
@@ -76,7 +84,6 @@ CONSULTAS`}
                     ios_backgroundColor="#3e3e3e"
                     onValueChange={() => toggleSwitch(0)}
                     value={switchStates[0]}
-                    style={styles.switch}
                   />
                 </View>
                 <View
@@ -91,7 +98,6 @@ CONSULTAS`}
                     ios_backgroundColor="#3e3e3e"
                     onValueChange={() => toggleSwitch(1)}
                     value={switchStates[1]}
-                    style={styles.switch}
                   />
                 </View>
                 <View
@@ -106,94 +112,56 @@ CONSULTAS`}
                     ios_backgroundColor="#3e3e3e"
                     onValueChange={() => toggleSwitch(2)}
                     value={switchStates[2]}
-                    style={styles.switch}
                   />
                 </View>
               </View>
             )}
           </View>
         </View>
-        <View style={styles.consultaContainer}>
-          <Text style={styles.ultimasConsultas1}>
-            ¡Aqui podras volver a visitar los eventos vistos recientemente!
-          </Text>
-        </View>
-        {/* <View style={[styles.image84Parent, styles.parentBorder]}>
-          <Image
-            style={styles.image84Icon}
-            contentFit="cover"
-            source={require('../assets/image-84.png')}
-          />
-          <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
-            <View style={styles.ciclismoParent}>
-              <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
-                Ciclismo
-              </Text>
-              <Image
-                style={[styles.heartIcon, styles.iconLayout]}
-                contentFit="cover"
-                source={require('../assets/heart.png')}
-              />
-            </View>
-            <Text style={styles.imGoingToContainer}>
-              <Text
-                style={styles.modalidadMontaaLocalizaci}
-              >{`Modalidad: Montaña
-Localización: Hornachos, Badajoz
-Fecha de la prueba: `}</Text>
-              <Text style={styles.textTypo}>{`01 feb 2024
-`}</Text>
-              <Text style={styles.modalidadMontaaLocalizaci}>
-                Fecha límite de inscripción:
-              </Text>
-              <Text style={styles.textTypo}>22 ene 2024</Text>
-            </Text>
-            <Text style={styles.imGoingToContainer1}>
-              <Text style={styles.precioDeInscripcin}>
-                PRECIO DE INSCRIPCIÓN:
-              </Text>
-              <Text style={[styles.text, styles.textTypo]}>22€</Text>
+        {visitedEvents && visitedEvents.length === 0 ? (
+          <View style={styles.consultaContainer}>
+            <Text style={styles.ultimasConsultas1}>
+              ¡Aqui podras volver a visitar los eventos vistos recientemente!
             </Text>
           </View>
-        </View> */}
-        {/* <View style={[styles.image84Parent, styles.parentBorder]}>
-          <Image
-            style={styles.image84Icon}
-            contentFit="cover"
-            source={require('../assets/image-94.png')}
-          />
-          <View style={styles.frameSpaceBlock}>
-            <View style={styles.groupParentFlexBox}>
-              <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
-                Ciclismo
-              </Text>
+        ) : (
+          visitedEvents.map((event, i) => (
+            <View key={i} style={[styles.image84Parent, styles.parentBorder]}>
               <Image
-                style={styles.heartIcon1}
-                contentFit="cover"
-                source={require('../assets/heart2.png')}
+                style={styles.image84Icon}
+                source={{ uri: event.event.image }}
               />
+              <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
+                <View style={styles.ciclismoParent}>
+                  <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
+                    {event.event.title}
+                  </Text>
+                  <CorazonSVG />
+                </View>
+                <Text style={styles.imGoingToContainer}>
+                  <Text style={styles.modalidadMontaaLocalizaci}>
+                    {event.event.modality}
+                  </Text>
+                  <Text style={styles.textTypo}>{event.event.dateStart}</Text>
+                  <Text style={styles.modalidadMontaaLocalizaci}>
+                    Fecha límite de inscripción:
+                  </Text>
+                  <Text style={styles.textTypo}>
+                    {event.event.dateInscription}
+                  </Text>
+                </Text>
+                <Text style={styles.imGoingToContainer1}>
+                  <Text style={styles.precioDeInscripcin}>
+                    PRECIO DE INSCRIPCIÓN:
+                  </Text>
+                  <Text style={[styles.text, styles.textTypo]}>
+                    {event.event.price}
+                  </Text>
+                </Text>
+              </View>
             </View>
-            <Text style={styles.imGoingToContainer}>
-              <Text
-                style={styles.modalidadMontaaLocalizaci}
-              >{`Modalidad: Montaña
-Localización: Aceuchal, Badajoz
-Fecha de la prueba: `}</Text>
-              <Text style={styles.textTypo}>{`03 feb 2024
-`}</Text>
-              <Text style={styles.modalidadMontaaLocalizaci}>
-                Fecha límite de inscripción:
-              </Text>
-              <Text style={styles.textTypo}>25 ene 2024</Text>
-            </Text>
-            <Text style={styles.imGoingToContainer1}>
-              <Text style={styles.precioDeInscripcin}>
-                PRECIO DE INSCRIPCIÓN:
-              </Text>
-              <Text style={[styles.text, styles.textTypo]}>18€</Text>
-            </Text>
-          </View>
-        </View> */}
+          ))
+        )}
       </View>
     </ScrollView>
   )
@@ -206,7 +174,6 @@ const styles = StyleSheet.create({
     textAlign: 'left'
   },
   switches: {
-    // backgroundColor: 'red',
     width: '100%',
     padding: 15,
     borderRadius: Border.br_3xs,
@@ -239,28 +206,6 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderRadius: Border.br_3xs
   },
-  iconLayout: {
-    height: 14,
-    width: 14
-  },
-  togglePosition: {
-    borderRadius: Border.br_xl,
-    left: '0%',
-    bottom: '0%',
-    right: '0%',
-    top: '0%',
-    height: '100%',
-    width: '100%'
-  },
-  toggleItemLayout: {
-    maxHeight: '100%',
-    maxWidth: '100%',
-    bottom: '8.19%',
-    top: '8.19%',
-    width: '47.67%',
-    height: '83.63%',
-    overflow: 'hidden'
-  },
   ltimaSemanaTypo: {
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '500',
@@ -279,19 +224,9 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100'
   },
-  menInferiorLayout: {
-    width: 360
-  },
-  frameLayout: {
-    height: 20,
-    marginLeft: 47
-  },
-  frameParentPosition1: {
-    top: 0
-  },
   ltimasConsultas: {
     fontSize: FontSize.size_11xl,
-    // width: 186,
+    width: '60%',
     textAlign: 'left',
     color: Color.sportsVioleta
   },
@@ -312,61 +247,17 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     paddingHorizontal: Padding.p_xl
   },
-  xMarkIcon: {
-    overflow: 'hidden'
-  },
-  toggleChild: {
-    backgroundColor: Color.sportsNaranja
-  },
-  toggleItem: {
-    right: '4.67%',
-    left: '47.67%'
-  },
-  toggle: {
-    width: 30,
-    marginLeft: 100,
-    height: 17
-  },
-  ltimas24HorasParent: {
-    paddingRight: Padding.p_5xs,
-    marginTop: 10
-  },
   ltimaSemana: {
     width: 120
-  },
-  toggleInner: {
-    backgroundColor: Color.gris
-  },
-  ellipseIcon: {
-    right: '44.67%',
-    left: '7.67%'
   },
   ltimaSemanaParent: {
     width: 258,
     height: 25,
     marginTop: 10
   },
-  xMarkParent: {
-    shadowColor: 'rgba(0, 0, 0, 0.8)',
-    shadowOffset: {
-      width: 1,
-      height: 4
-    },
-    shadowRadius: 5,
-    elevation: 5,
-    shadowOpacity: 1,
-    width: 322,
-    paddingHorizontal: Padding.p_16xl,
-    paddingTop: Padding.p_6xs,
-    paddingBottom: Padding.p_mini,
-    marginTop: 10,
-    justifyContent: 'space-between',
-    alignSelf: 'flex-end'
-  },
   frameGroup: {
     marginTop: 25
   },
-
   image84Icon: {
     borderTopLeftRadius: Border.br_3xs,
     borderBottomLeftRadius: Border.br_3xs,
@@ -377,9 +268,6 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputLabel_size,
     color: Color.sportsNaranja,
     textAlign: 'left'
-  },
-  heartIcon: {
-    marginLeft: 119
   },
   ciclismoParent: {
     flexDirection: 'row'
@@ -414,52 +302,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%'
   },
-  heartIcon1: {
-    width: 17,
-    marginLeft: 119,
-    height: 17
-  },
   frameParent: {
     paddingTop: 30,
     paddingHorizontal: 15,
     justifyContent: 'center',
     alignItems: 'center'
   },
-  icon: {
-    height: '100%',
-    width: '100%'
-  },
-  wrapper: {
-    width: 22,
-    height: 25
-  },
-  vector: {
-    width: 23,
-    marginLeft: 47
-  },
-  capturaDePantalla20231124: {
-    width: 33,
-    height: 33,
-    marginLeft: 47
-  },
-  container: {
-    width: 20,
-    marginLeft: 47
-  },
-  frame: {
-    width: 19,
-    marginLeft: 47
-  },
-  groupParent: {
-    top: 10,
-    left: 0,
-    height: 65,
-    paddingVertical: Padding.p_3xs,
-    justifyContent: 'center',
-    backgroundColor: Color.gris,
-    alignItems: 'center',
+  titleContainer: {
     flexDirection: 'row',
-    paddingHorizontal: Padding.p_xl
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%'
   },
   ultimasConsultas: {
     backgroundColor: Color.blanco,

@@ -7,11 +7,11 @@ export const onSubmit = async (
   selectedImage,
   dispatch,
   dateSuscription,
-  dateStart
+  dateStart,
+  setShowAlert
 ) => {
   const data = {
     title: event.title,
-    // description: event?.description,
     description: 'Evento',
     sportId: sport && sport?.id,
     price: event?.price.slice(0, -1),
@@ -20,12 +20,11 @@ export const onSubmit = async (
     dateStart,
     dateInscription: dateSuscription,
     creator: user?.id,
-    // timeStart: event?.timeStart,
     timeStart: '00:00',
     image: selectedImage
   }
 
   await dispatch(createEvent(data))
+  setShowAlert(true)
   dispatch(getAllEvents())
-  alert('Evento creado')
 }

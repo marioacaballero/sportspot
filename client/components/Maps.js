@@ -112,7 +112,7 @@ const Maps = ({ onClose, setEventsFilter }) => {
 const styles = StyleSheet.create({
   mapsLayout: {
     maxWidth: '90%',
-    maxHeight: 380,
+    maxHeight: 350,
     borderRadius: Border.br_5xs
   },
   items: {
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   mapsInner: {
     justifyContent: 'center',
     minWidth: '100%',
-    marginBottom: 25
+    marginBottom: 40
   },
   maps: {
     backgroundColor: Color.blanco,

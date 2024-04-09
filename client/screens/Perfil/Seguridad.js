@@ -20,6 +20,7 @@ import {
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import { changePassword, deleteUser } from '../../redux/actions/users'
 import { clearUser } from '../../redux/slices/users.slices'
+import CustomAlert from '../../components/CustomAlert'
 
 const Seguridad = () => {
   const navigation = useNavigation()
@@ -35,6 +36,8 @@ const Seguridad = () => {
     newPassword: '',
     confirmPassword: ''
   })
+  const [showAlert, setShowAlert] = useState(false)
+  const [message, setMessage] = useState('')
 
   const valuesLogin = (field, value) => {
     setPassword((prev) => ({
@@ -43,26 +46,14 @@ const Seguridad = () => {
     }))
   }
 
-  // const handleChangePassword = () => {
-  //   if (password.newPassword === password.confirmPassword) {
-  //     if (isOkay) {
-  //       if (password.newPassword.length >= 3) {
-  //         const data = {
-  //           id: user.id,
-  //           oldPassword: password.oldPassword,
-  //           newPassword: password.confirmPassword
-  //         }
-  //         dispatch(changePassword(data))
-  //       } else {
-  //         alert('La nueva contraseña debe tener al menos 3 caracteres')
-  //       }
-  //     } else {
-  //       alert('Contraseña actual incorrecta')
-  //     }
-  //   } else {
-  //     alert('Las contraseñas no coinciden')
-  //   }
-  // }
+  const handleShowAlert = (message) => {
+    setMessage(message)
+    setShowAlert(true)
+  }
+
+  const handleCloseAlert = () => {
+    setShowAlert(false)
+  }
 
   const handleChangePassword = () => {
     if (password.newPassword === password.confirmPassword) {
@@ -76,10 +67,10 @@ const Seguridad = () => {
         alert('Contraseña cambiada exitosamente')
         navigation.goBack()
       } else {
-        alert('La nueva contraseña debe tener al menos 3 caracteres')
+        handleShowAlert('La nueva contraseña debe tener al menos 3 caracteres')
       }
     } else {
-      alert('Las contraseñas no coinciden')
+      handleShowAlert('Las contraseñas no coinciden')
     }
   }
 
@@ -216,6 +207,11 @@ CUENTA`}
           </Pressable>
         </View>
       </View>
+      <CustomAlert
+        visible={showAlert}
+        message={message}
+        onClose={handleCloseAlert}
+      />
     </ScrollView>
   )
 }

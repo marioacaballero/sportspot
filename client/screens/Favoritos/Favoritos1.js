@@ -1,9 +1,15 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Text, StyleSheet, View, Pressable, FlatList } from 'react-native'
+import {
+  Text,
+  StyleSheet,
+  View,
+  Pressable,
+  FlatList,
+  Image
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { ActivityIndicator } from 'react-native-paper'
-import { LinearGradient } from 'expo-linear-gradient'
 import {
   Padding,
   FontSize,
@@ -39,13 +45,12 @@ const Favoritos1 = () => {
 
   if (loadingGet) {
     return (
-      <LinearGradient
-        colors={['#F25910', '#F6B99C', '#FFF', '#FEF8F5', '#40036F']}
-        locations={[0, 0.2, 0.5, 0.8, 1]}
-        start={{ x: 0.3, y: 0 }}
-        end={{ x: 1, y: 0.8 }}
-        style={styles.linearGradient}
-      >
+      <View>
+        <Image
+          style={styles.background}
+          source={require('../../assets/BGInicio.png')}
+          contentFit="cover"
+        />
         <ActivityIndicator
           style={{
             width: '100%',
@@ -56,7 +61,7 @@ const Favoritos1 = () => {
           size="large"
           color={Color.violeta2}
         />
-      </LinearGradient>
+      </View>
     )
   } else {
     return (
@@ -169,6 +174,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
+  },
+  background: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute'
   }
 })
 

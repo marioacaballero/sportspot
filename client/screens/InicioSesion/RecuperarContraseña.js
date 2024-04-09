@@ -6,8 +6,7 @@ import {
   View,
   Pressable,
   Image,
-  TextInput,
-  Alert
+  TextInput
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import {
@@ -22,6 +21,7 @@ import {
   resetPasswordMail,
   validateResetPassword
 } from '../../redux/actions/users'
+import CustomAlert from '../../components/CustomAlert'
 
 const RecuperarContraseña = () => {
   const navigation = useNavigation()
@@ -34,6 +34,9 @@ const RecuperarContraseña = () => {
   const [verificationCode, setVerificationCode] = useState('')
   const [password1, setPassword1] = useState('')
   const [password2, setPassword2] = useState('')
+  const [showAlert, setShowAlert] = useState(false)
+  const [message, setMessage] = useState('')
+  const [stateNavigate, setStateNavigate] = useState(false)
 
   useEffect(() => {
     dispatch(getAllUsers())
@@ -46,6 +49,19 @@ const RecuperarContraseña = () => {
     setEmail(text)
   }
 
+  const handleShowAlert = (message) => {
+    setMessage(message)
+    setShowAlert(true)
+  }
+
+  const handleCloseAlert = () => {
+    setShowAlert(false)
+    if (stateNavigate) {
+      navigation.navigate('IniciarSesin')
+    }
+    setStateNavigate(false)
+  }
+
   const handleSendEmail = () => {
     const emailExists = users.some((userObj) => userObj.email === email)
 
@@ -53,11 +69,7 @@ const RecuperarContraseña = () => {
       setCurrentStage(2)
       dispatch(resetPasswordMail({ email }))
     } else {
-      Alert.alert('Email no registrado', 'El email no esta registrado', [
-        {
-          text: 'Ok'
-        }
-      ])
+      handleShowAlert('El email no existe')
     }
   }
 
@@ -81,22 +93,10 @@ const RecuperarContraseña = () => {
         password: password2
       }
       dispatch(validateResetPassword(data))
-      Alert.alert(
-        'Contraseña Restablecida',
-        'Tu contraseña ha sido restablecida exitosamente',
-        [
-          {
-            text: 'Ok',
-            onPress: () => navigation.navigate('IniciarSesin')
-          }
-        ]
-      )
+      setStateNavigate(true)
+      handleShowAlert('Tu contraseña se ha restablecido')
     } else {
-      Alert.alert('Contraseñas no coinciden', 'Las contraseñas no coinciden', [
-        {
-          text: 'Ok'
-        }
-      ])
+      handleShowAlert('Las contraseñas no coinciden')
     }
   }
 
@@ -184,6 +184,12 @@ const RecuperarContraseña = () => {
           </View>
         )}
       </View>
+
+      <CustomAlert
+        visible={showAlert}
+        message={message}
+        onClose={handleCloseAlert}
+      />
     </View>
   )
 }

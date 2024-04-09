@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { Color, FontFamily, FontSize } from '../GlobalStyles'
+import { Color } from '../GlobalStyles'
 // import { useDispatch } from 'react-redux'
 // import { suscriptionEventUser } from '../redux/actions/users'
 import { useNavigation } from '@react-navigation/native'
@@ -20,65 +20,52 @@ const ModalSuscription = ({ user, event, onClose }) => {
 
   return (
     <View style={styles.container}>
-      <Text
-        style={{ marginBottom: 30, color: Color.blanco }}
-      >{`${user.nickname} Seguro que deseas inscribirte?`}</Text>
+      <Text style={styles.text}>¿Seguro que deseas inscribirte?</Text>
       <TouchableOpacity
-        style={{
-          //   width: 100,
-          height: 52,
-          width: '100%',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 50,
-          backgroundColor: Color.sportsNaranja
-        }}
+        style={styles.touchable}
         onPress={() => {
           // onSubmit()
           onClose()
           navigation.navigate('stripe')
         }}
       >
-        <Text style={{ color: 'white', width: '100%', textAlign: 'center' }}>
-          Confirmar
-        </Text>
+        <Text style={styles.confirmText}>Confirmar</Text>
       </TouchableOpacity>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  items: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10,
-    borderRadius: 30,
-    borderWidth: 1,
-    borderColor: Color.sportsNaranja,
-    height: 52,
-    width: '100%',
-    padding: 8
-  },
-  modalOverlay: {
-    height: '100%',
-    width: '100%'
-  },
-  helloTypoScroll: {
-    width: '100%',
-    fontSize: FontSize.inputPlaceholder_size,
-    fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '700',
-    color: Color.sportsVioleta
-  },
   container: {
-    width: '100%',
+    width: '90%',
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 15,
-    paddingVertical: 50,
-    backgroundColor: Color.colorGray_100,
+    paddingVertical: 35,
     position: 'absolute',
-    bottom: 0
+    backgroundColor: Color.naranja3,
+    bottom: 50,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: Color.sportsNaranja,
+    elevation: 10
+  },
+  text: {
+    marginBottom: 30,
+    color: Color.sportsVioleta
+  },
+  touchable: {
+    height: 45,
+    width: '95%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
+    backgroundColor: Color.sportsNaranja
+  },
+  confirmText: {
+    color: Color.sportsVioleta,
+    textAlign: 'center',
+    fontSize: 16
   }
 })
 

@@ -20,6 +20,7 @@ import BasketSVG from './SVG/Sports/BasketSVG'
 import TenisSVG from './SVG/Sports/TenisSVG'
 import Maps from './Maps'
 import BoxSVG from './SVG/BoxSVG'
+import CustomAlert from './CustomAlert'
 
 const DatosDeportista = ({ modalSport, setModalSport }) => {
   const dispatch = useDispatch()
@@ -32,6 +33,7 @@ const DatosDeportista = ({ modalSport, setModalSport }) => {
   const [eventsFilter, setEventsFilter] = useState({
     location: ''
   })
+  const [showAlert, setShowAlert] = useState(false)
 
   useEffect(() => {
     dispatch(getAllSports())
@@ -70,6 +72,14 @@ const DatosDeportista = ({ modalSport, setModalSport }) => {
     setFrameContainer6Visible(false)
   }, [])
 
+  const handleShowAlert = () => {
+    setShowAlert(true)
+  }
+
+  const handleCloseAlert = () => {
+    setShowAlert(false)
+  }
+
   const handleSubmit = () => {
     if (
       showColor.length > 0 &&
@@ -78,7 +88,7 @@ const DatosDeportista = ({ modalSport, setModalSport }) => {
     ) {
       setModalSport(false)
     } else {
-      alert('Por favor, rellena todos los campos')
+      handleShowAlert()
     }
   }
 
@@ -231,6 +241,12 @@ const DatosDeportista = ({ modalSport, setModalSport }) => {
           />
         </View>
       </Modal>
+
+      <CustomAlert
+        visible={showAlert}
+        message="Por favor rellena todos los campos"
+        onClose={handleCloseAlert}
+      />
     </Modal>
   )
 }

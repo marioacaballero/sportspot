@@ -5,7 +5,9 @@ import {
   favorite,
   getAllEventsFilters,
   getFavorites,
-  createEvent
+  createEvent,
+  visitEvent,
+  getAllVisitedEvents
 } from '../actions/events'
 
 export const eventsSlices = createSlice({
@@ -21,7 +23,8 @@ export const eventsSlices = createSlice({
     favorites: [],
     allFavorites: [],
     dateStart: '',
-    dateSuscription: ''
+    dateSuscription: '',
+    visitedEvents: []
   },
   reducers: {
     setEvent: (state, action) => {
@@ -173,6 +176,34 @@ export const eventsSlices = createSlice({
         state.error = null
       })
       .addCase(getAllEventsFilters.rejected, (state, action) => {
+        state.loadingGet = false
+        state.error = action.payload
+      })
+      // Evento visitado
+      .addCase(visitEvent.pending, (state) => {
+        state.loadingGet = true
+        state.error = null
+      })
+      .addCase(visitEvent.fulfilled, (state, action) => {
+        state.loadingGet = false
+        state.visitedEvents = action.payload
+        state.error = null
+      })
+      .addCase(visitEvent.rejected, (state, action) => {
+        state.loadingGet = false
+        state.error = action.payload
+      })
+      // Todos los eventos visitados
+      .addCase(getAllVisitedEvents.pending, (state) => {
+        state.loadingGet = true
+        state.error = null
+      })
+      .addCase(getAllVisitedEvents.fulfilled, (state, action) => {
+        state.loadingGet = false
+        state.visitedEvents = action.payload
+        state.error = null
+      })
+      .addCase(getAllVisitedEvents.rejected, (state, action) => {
         state.loadingGet = false
         state.error = action.payload
       })

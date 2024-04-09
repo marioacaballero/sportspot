@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   Text,
   StyleSheet,
@@ -10,7 +10,6 @@ import {
   TextInput,
   TouchableOpacity
 } from 'react-native'
-import Calendar from '../../components/Calendar'
 import * as ImagePicker from 'expo-image-picker'
 import { useNavigation } from '@react-navigation/native'
 import {
@@ -28,23 +27,33 @@ import {
   updateUserAvatar
 } from '../../redux/actions/users'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
+import CalendarOneDay from '../../components/CalendarOneDay'
+import { setDateStart } from '../../redux/slices/events.slices'
 
 const EditarPerfil = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
+  const { dateStart } = useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
+
   const [topContainerVisible, setTopContainerVisible] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
-  const [date, setDate] = useState('')
   const [valuesUser, setValuesUser] = useState({
     name: user?.name || '',
     apellido: user?.apellido || '',
     sexo: user?.sexo || '',
-    fechaNacimiento: user?.fechaNacimiento || '',
+    fechaNacimiento: '',
     direccion: user?.direccion || '',
     telefono: user?.telefono || ''
   })
+
+  useEffect(() => {
+    setValuesUser((prevValues) => ({
+      ...prevValues,
+      fechaNacimiento: dateStart || ''
+    }))
+  }, [dateStart])
 
   const settingValuesUser = (field, value) => {
     setValuesUser((prev) => ({
@@ -61,13 +70,14 @@ const EditarPerfil = () => {
     setTopContainerVisible(false)
   }, [])
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const data = {
       id: user.id,
       valuesUser
     }
-    dispatch(updateUser(data))
+    await dispatch(updateUser(data))
     dispatch(getUser(user.id))
+    dispatch(setDateStart(''))
   }
 
   const uploadImage = async () => {
@@ -215,10 +225,10 @@ CUENTA`}
                         placeholderTextColor={
                           user.fechaNacimiento ? Color.sportsVioleta : 'gray'
                         }
-                        value={date || '2020/12/12'}
-                        onChangeText={(value) =>
-                          settingValuesUser('fechaNacimiento', value)
-                        }
+                        value={dateStart || '2020/12/12'}
+                        // onChangeText={(value) =>
+                        //   settingValuesUser('fechaNacimiento', value)
+                        // }
                         editable={false}
                       />
                     </View>
@@ -319,10 +329,10 @@ CUENTA`}
             style={styles.topContainerBg}
             onPress={closeTopContainer}
           />
-          <Calendar
+          <CalendarOneDay
             onClose={closeTopContainer}
-            setSelected={setDate}
-            setEventsFilter={setValuesUser}
+            start={true}
+            suscription={false}
           />
         </View>
       </Modal>
