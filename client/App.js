@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { loadFonts } from './GlobalStyles'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { View } from 'react-native'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
-import { StatusBar } from 'expo-status-bar'
 import { StripeProvider } from '@stripe/stripe-react-native'
 
 import PruebasEncontradasDetalle from './screens/Pruebas/PruebasEncontradasDetalle'
@@ -39,6 +37,8 @@ import RecuperarContraseña from './screens/InicioSesion/RecuperarContraseña'
 import StripeComponent from './screens/StripeComponent'
 import VentajasSuscripciones from './screens/Suscripciones/VentajasSuscripciones'
 import PublicarEvento from './screens/Organizador/PublicarEvento'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { StatusBar } from 'react-native'
 // import PaymentScreen from './screens/StripeComponent'
 
 // import { StripeProvider } from '@stripe/stripe-react-native'
@@ -57,8 +57,12 @@ export default function App() {
     'pk_test_51OpBGEEOUHrYS47YxO9vPqjLLRu9F387GV3jMcc4rEtayJX9n7hKCyXw0cGlJCk7foCP89YpQUT4gD02XoGVK50l005VwrZaGC'
 
   return (
-    <View style={{ flex: 1 }}>
-      <StatusBar style="auto" />
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar
+        hidden={!isFooterShow}
+        barStyle={'dark-content'}
+        backgroundColor="#fff"
+      />
       <Provider store={store}>
         {/* <StripeProvider publishableKey={KEY}> */}
         <NavigationContainer>
@@ -232,6 +236,6 @@ export default function App() {
           </StripeProvider>
         </NavigationContainer>
       </Provider>
-    </View>
+    </SafeAreaView>
   )
 }

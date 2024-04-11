@@ -39,8 +39,10 @@ const MenuInferior = () => {
         <Pressable
           style={styles.container}
           onPress={() => {
-            handleIconPress('UltimasConsultas')
-            navigation.navigate('UltimasConsultas')
+            if (selectedIcon !== 'UltimasConsultas') {
+              handleIconPress('UltimasConsultas')
+              navigation.navigate('UltimasConsultas')
+            }
           }}
         >
           <UltimasSVG
@@ -50,8 +52,10 @@ const MenuInferior = () => {
         <Pressable
           style={[styles.vector, styles.frameLayout]}
           onPress={() => {
-            handleIconPress('Favoritos1')
-            navigation.navigate('Favoritos1')
+            if (selectedIcon !== 'Favoritos1') {
+              handleIconPress('Favoritos1')
+              navigation.navigate('Favoritos1')
+            }
           }}
         >
           <CorazonMenuInferiorSVG
@@ -60,8 +64,10 @@ const MenuInferior = () => {
         </Pressable>
         <Pressable
           onPress={() => {
-            setSelectedIcon(null)
-            navigation.navigate('InicioDeportista')
+            if (selectedIcon !== null) {
+              setSelectedIcon(null)
+              navigation.navigate('InicioDeportista')
+            }
           }}
           style={styles.homeIcon}
         >
@@ -70,8 +76,10 @@ const MenuInferior = () => {
         <Pressable
           style={styles.container2}
           onPress={() => {
-            handleIconPress('HistorialDePruebas')
-            navigation.navigate('HistorialDePruebas')
+            if (selectedIcon !== 'HistorialDePruebas') {
+              handleIconPress('HistorialDePruebas')
+              navigation.navigate('HistorialDePruebas')
+            }
           }}
         >
           <HistorialSVG
@@ -83,8 +91,10 @@ const MenuInferior = () => {
         <Pressable
           style={styles.container2}
           onPress={() => {
-            handleIconPress('TuPerfil')
-            navigation.navigate('TuPerfil')
+            if (selectedIcon !== 'TuPerfil') {
+              handleIconPress('TuPerfil')
+              navigation.navigate('TuPerfil')
+            }
           }}
         >
           <PerfilSVG

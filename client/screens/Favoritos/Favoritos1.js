@@ -19,6 +19,7 @@ import {
 } from '../../GlobalStyles'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import { getFavorites } from '../../redux/actions/events'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Favoritos1 = () => {
   const navigation = useNavigation()

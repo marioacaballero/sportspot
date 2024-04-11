@@ -19,6 +19,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllEvents, getEventById } from '../redux/actions/events'
 import { ActivityIndicator } from 'react-native-paper'
 import DatosDeportista from '../components/DatosDeportista'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const InicioDeportista = () => {
   const navigation = useNavigation()
@@ -30,8 +32,17 @@ const InicioDeportista = () => {
   const [modalOrganizador, setModalOrganizador] = useState(false)
   const [mostrarInicioBuscador, setMostrarInicioBuscador] = useState(false)
   const [modalSport, setModalSport] = useState(false)
+  const [modalState, setModalState] = useState()
+
+  const getModalState = async () => {
+    const data = await AsyncStorage.getItem('modalSport')
+    console.log('data:', data)
+    setModalState(data)
+  }
 
   useEffect(() => {
+    console.log('on useEffect!')
+    getModalState()
     dispatch(getAllEvents())
     setModalSport(true)
   }, [])
@@ -107,10 +118,12 @@ const InicioDeportista = () => {
   } else {
     return (
       <ScrollView style={styles.inicioDeportista}>
-        <DatosDeportista
-          modalSport={modalSport}
-          setModalSport={setModalSport}
-        />
+        {modalState !== 'alreadyShowed' && (
+          <DatosDeportista
+            modalSport={modalSport}
+            setModalSport={setModalSport}
+          />
+        )}
         <View style={[styles.frameParent, styles.frameParentFlexBox]}>
           <View style={[styles.helloAshfakParent, styles.frameGroupFlexBox]}>
             <Image
@@ -245,6 +258,7 @@ const InicioDeportista = () => {
                   Últimas horas de inscripción
                 </Text>
                 <ScrollView
+                  style={{ alignSelf: 'flex-start' }}
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
                 >

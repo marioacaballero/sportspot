@@ -7,13 +7,15 @@ import {
   Image,
   Switch,
   ScrollView,
-  Pressable
+  Pressable,
+  TouchableOpacity
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Color, Border, FontSize, Padding } from '../GlobalStyles'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
 import { getAllVisitedEvents } from '../redux/actions/events'
-import CorazonSVG from '../components/SVG/CorazonSVG'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const UltimasConsultas = () => {
   const navigation = useNavigation()
@@ -22,6 +24,7 @@ const UltimasConsultas = () => {
 
   const { user } = useSelector((state) => state.users)
   const { visitedEvents } = useSelector((state) => state.events)
+  const [liked, setLiked] = useState([0])
 
   const [switchStates, setSwitchStates] = useState([false, false, false])
   const [showSwitch, setshowSwitch] = useState(false)
@@ -41,129 +44,225 @@ const UltimasConsultas = () => {
   }
 
   return (
-    <ScrollView style={styles.ultimasConsultas}>
-      <View style={styles.frameParent}>
-        <View>
-          <View style={styles.titleContainer}>
-            <Text style={[styles.ltimasConsultas, styles.ciclismoTypo]}>
-              ÚLTIMAS CONSULTAS
-            </Text>
-            <Pressable onPress={() => navigation.goBack()}>
-              <BackArrowSVG />
-            </Pressable>
-          </View>
-          <View style={styles.frameGroup}>
-            <View style={[styles.path3391Parent, styles.groupParentFlexBox1]}>
-              <Pressable onPress={() => setshowSwitch(!showSwitch)}>
-                <Image
-                  style={[
-                    styles.path3391Icon,
-
-                    showSwitch && styles.path3391IconRotate
-                  ]}
-                  contentFit="cover"
-                  source={require('../assets/path-3391.png')}
-                />
+    <View style={styles.ultimasConsultas}>
+      <ScrollView>
+        <View style={styles.frameParent}>
+          <View>
+            <View style={styles.titleContainer}>
+              <Text style={[styles.ltimasConsultas, styles.ciclismoTypo]}>
+                ÚLTIMAS CONSULTAS
+              </Text>
+              <Pressable onPress={() => navigation.goBack()}>
+                <BackArrowSVG />
               </Pressable>
-              <Text
-                onPress={() => setshowSwitch(!showSwitch)}
-                style={[styles.ltimas24Horas, styles.ciclismoTypo]}
-              >
-                Últimas 24 horas
+            </View>
+            <View style={styles.frameGroup}>
+              <View style={[styles.path3391Parent, styles.groupParentFlexBox1]}>
+                <Pressable onPress={() => setshowSwitch(!showSwitch)}>
+                  <Image
+                    style={[
+                      styles.path3391Icon,
+
+                      showSwitch && styles.path3391IconRotate
+                    ]}
+                    contentFit="cover"
+                    source={require('../assets/path-3391.png')}
+                  />
+                </Pressable>
+                <Text
+                  onPress={() => setshowSwitch(!showSwitch)}
+                  style={[styles.ltimas24Horas, styles.ciclismoTypo]}
+                >
+                  Últimas 24 horas
+                </Text>
+              </View>
+              {showSwitch && (
+                <View style={styles.switches}>
+                  <View
+                    style={[
+                      styles.ltimaSemanaParent,
+                      styles.groupParentFlexBox
+                    ]}
+                  >
+                    <Text style={styles.ltimaSemanaTypo}>Últimas 24 horas</Text>
+                    <Switch
+                      trackColor={{ false: '#767577', true: '#F25910' }}
+                      thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
+                      ios_backgroundColor="#3e3e3e"
+                      onValueChange={() => toggleSwitch(0)}
+                      value={switchStates[0]}
+                    />
+                  </View>
+                  <View
+                    style={[
+                      styles.ltimaSemanaParent,
+                      styles.groupParentFlexBox
+                    ]}
+                  >
+                    <Text style={[styles.ltimaSemana, styles.ltimaSemanaTypo]}>
+                      Última semana
+                    </Text>
+                    <Switch
+                      trackColor={{ false: '#767577', true: '#F25910' }}
+                      thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
+                      ios_backgroundColor="#3e3e3e"
+                      onValueChange={() => toggleSwitch(1)}
+                      value={switchStates[1]}
+                    />
+                  </View>
+                  <View
+                    style={[
+                      styles.ltimaSemanaParent,
+                      styles.groupParentFlexBox
+                    ]}
+                  >
+                    <Text style={[styles.ltimaSemana, styles.ltimaSemanaTypo]}>
+                      Último mes
+                    </Text>
+                    <Switch
+                      trackColor={{ false: '#767577', true: '#F25910' }}
+                      thumbColor={switchStates[2] ? '#FFFFFF' : '#FFFFFF'}
+                      ios_backgroundColor="#3e3e3e"
+                      onValueChange={() => toggleSwitch(2)}
+                      value={switchStates[2]}
+                    />
+                  </View>
+                </View>
+              )}
+            </View>
+          </View>
+          {visitedEvents && visitedEvents?.length === 0 ? (
+            <View style={styles.consultaContainer}>
+              <Text style={styles.ultimasConsultas1}>
+                ¡Aqui podras volver a visitar los eventos vistos recientemente!
               </Text>
             </View>
-            {showSwitch && (
-              <View style={styles.switches}>
-                <View
-                  style={[styles.ltimaSemanaParent, styles.groupParentFlexBox]}
+          ) : (
+            visitedEvents &&
+            Array.isArray(visitedEvents) &&
+            visitedEvents?.map((event, i) => (
+              <View key={i} style={[styles.image84Parent, styles.parentBorder]}>
+                <TouchableOpacity
+                  style={{ position: 'absolute', top: 7, right: 13 }}
+                  onPress={() => {
+                    const likedCards = liked.includes(i)
+                      ? [...liked].filter((like) => like !== i)
+                      : [...liked, i]
+                    console.log('likedCards:', likedCards)
+                    setLiked(likedCards)
+                  }}
                 >
-                  <Text style={styles.ltimaSemanaTypo}>Últimas 24 horas</Text>
-                  <Switch
-                    trackColor={{ false: '#767577', true: '#F25910' }}
-                    thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
-                    ios_backgroundColor="#3e3e3e"
-                    onValueChange={() => toggleSwitch(0)}
-                    value={switchStates[0]}
+                  <MaterialCommunityIcons
+                    name={
+                      liked.includes(i) ? 'cards-heart' : 'cards-heart-outline'
+                    }
+                    color="#F25910"
+                    size={22}
                   />
-                </View>
-                <View
-                  style={[styles.ltimaSemanaParent, styles.groupParentFlexBox]}
-                >
-                  <Text style={[styles.ltimaSemana, styles.ltimaSemanaTypo]}>
-                    Última semana
-                  </Text>
-                  <Switch
-                    trackColor={{ false: '#767577', true: '#F25910' }}
-                    thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
-                    ios_backgroundColor="#3e3e3e"
-                    onValueChange={() => toggleSwitch(1)}
-                    value={switchStates[1]}
-                  />
-                </View>
-                <View
-                  style={[styles.ltimaSemanaParent, styles.groupParentFlexBox]}
-                >
-                  <Text style={[styles.ltimaSemana, styles.ltimaSemanaTypo]}>
-                    Último mes
-                  </Text>
-                  <Switch
-                    trackColor={{ false: '#767577', true: '#F25910' }}
-                    thumbColor={switchStates[2] ? '#FFFFFF' : '#FFFFFF'}
-                    ios_backgroundColor="#3e3e3e"
-                    onValueChange={() => toggleSwitch(2)}
-                    value={switchStates[2]}
-                  />
+                </TouchableOpacity>
+                <Image
+                  style={styles.image84Icon}
+                  source={{ uri: event.event.image }}
+                />
+                <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
+                  <View style={styles.ciclismoParent}>
+                    <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
+                      {event.event.title}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      width: '100%'
+                    }}
+                  >
+                    <View style={{ flexDirection: 'row', gap: 3 }}>
+                      <Text
+                        style={{
+                          color: Color.sportsVioleta,
+                          fontSize: 12
+                        }}
+                      >
+                        Modalidad:
+                      </Text>
+                      <Text
+                        style={{
+                          color: Color.sportsVioleta,
+                          fontSize: 12
+                        }}
+                      >
+                        {event.event.modality}
+                      </Text>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', gap: 3 }}>
+                      <Text
+                        style={{
+                          fontWeight: 400,
+                          fontSize: 12,
+                          color: Color.sportsVioleta
+                        }}
+                      >
+                        Fecha de la prueba:
+                      </Text>
+                      <Text
+                        style={{
+                          fontWeight: 300,
+                          color: Color.sportsVioleta
+                        }}
+                      >
+                        {event.event.dateStart}
+                      </Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', gap: 3 }}>
+                      <Text
+                        style={{ color: Color.sportsVioleta, fontSize: 12 }}
+                      >
+                        Fecha límite de inscripción:
+                      </Text>
+                      <Text
+                        style={{
+                          fontWeight: 300,
+                          fontSize: 12,
+                          color: Color.sportsVioleta
+                        }}
+                      >
+                        {event.event.dateInscription}
+                      </Text>
+                    </View>
+                  </View>
+                  <View
+                    style={{
+                      ...styles.imGoingToContainer1,
+                      gap: 3,
+                      flexDirection: 'row'
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontWeight: 600,
+                        color: Color.sportsVioleta,
+                        fontSize: 12
+                      }}
+                    >
+                      PRECIO DE INSCRIPCIÓN:
+                    </Text>
+                    <Text
+                      style={{
+                        color: Color.sportsNaranja,
+                        fontWeight: 500,
+                        fontSize: 12
+                      }}
+                    >
+                      {event.event.price + '€'}
+                    </Text>
+                  </View>
                 </View>
               </View>
-            )}
-          </View>
+            ))
+          )}
         </View>
-        {visitedEvents && visitedEvents.length === 0 ? (
-          <View style={styles.consultaContainer}>
-            <Text style={styles.ultimasConsultas1}>
-              ¡Aqui podras volver a visitar los eventos vistos recientemente!
-            </Text>
-          </View>
-        ) : (
-          visitedEvents.map((event, i) => (
-            <View key={i} style={[styles.image84Parent, styles.parentBorder]}>
-              <Image
-                style={styles.image84Icon}
-                source={{ uri: event.event.image }}
-              />
-              <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
-                <View style={styles.ciclismoParent}>
-                  <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
-                    {event.event.title}
-                  </Text>
-                  <CorazonSVG />
-                </View>
-                <Text style={styles.imGoingToContainer}>
-                  <Text style={styles.modalidadMontaaLocalizaci}>
-                    {event.event.modality}
-                  </Text>
-                  <Text style={styles.textTypo}>{event.event.dateStart}</Text>
-                  <Text style={styles.modalidadMontaaLocalizaci}>
-                    Fecha límite de inscripción:
-                  </Text>
-                  <Text style={styles.textTypo}>
-                    {event.event.dateInscription}
-                  </Text>
-                </Text>
-                <Text style={styles.imGoingToContainer1}>
-                  <Text style={styles.precioDeInscripcin}>
-                    PRECIO DE INSCRIPCIÓN:
-                  </Text>
-                  <Text style={[styles.text, styles.textTypo]}>
-                    {event.event.price}
-                  </Text>
-                </Text>
-              </View>
-            </View>
-          ))
-        )}
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   )
 }
 
@@ -261,16 +360,17 @@ const styles = StyleSheet.create({
   image84Icon: {
     borderTopLeftRadius: Border.br_3xs,
     borderBottomLeftRadius: Border.br_3xs,
-    width: 110,
-    height: 110
+    width: 113,
+    height: 113
   },
   ciclismo: {
-    fontSize: FontSize.inputLabel_size,
+    fontSize: 14,
     color: Color.sportsNaranja,
     textAlign: 'left'
   },
   ciclismoParent: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginBottom: 5
   },
   modalidadMontaaLocalizaci: {
     fontFamily: FontFamily.inputPlaceholder
@@ -290,7 +390,7 @@ const styles = StyleSheet.create({
   },
   imGoingToContainer1: {
     fontSize: FontSize.size_2xs,
-    marginTop: 10,
+    marginTop: 5,
     textAlign: 'left'
   },
   frameContainer: {

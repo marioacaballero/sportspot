@@ -19,6 +19,7 @@ import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearUser } from '../../redux/slices/users.slices'
 import { getUser } from '../../redux/actions/users'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const TuPerfil = () => {
   const navigation = useNavigation()
@@ -32,150 +33,149 @@ const TuPerfil = () => {
   }, [])
 
   return (
-    <ScrollView
-      style={styles.tuPerfil}
-      contentContainerStyle={{ paddingBottom: 20 }}
-    >
-      <View style={styles.tuPerfilParent}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-          }}
-        >
-          <Text style={[styles.tuPerfil1, styles.tuPerfil1Typo]}>
-            TU PERFIL
-          </Text>
-          <Pressable onPress={() => navigation.goBack()}>
-            <BackArrowSVG />
-          </Pressable>
-        </View>
-        <View style={styles.unsplashn6gnca77urcParent}>
-          <Image
-            style={styles.unsplashn6gnca77urcIcon}
-            contentFit="cover"
-            source={
-              user?.avatar
-                ? { uri: user?.avatar }
-                : require('../../assets/unsplashn6gnca77urc.png')
-            }
-          />
-          <View style={styles.laraMacasBlancoCarrrilhoParent}>
-            <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
-              {user?.name}
-            </Text>
-            <Text style={styles.mujer23Aos}>{user?.apellido}</Text>
-          </View>
-        </View>
-        <View style={styles.frameParent}>
-          <Pressable
-            style={styles.solarsettingsBoldParent}
-            onPress={() => navigation.navigate('Cuenta')}
-          >
-            <Image
-              style={styles.solarsettingsBoldIcon}
-              contentFit="cover"
-              source={require('../../assets/solarsettingsbold.png')}
-            />
-            <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-              Gestiona tu cuenta
-            </Text>
-          </Pressable>
+    <View style={styles.tuPerfil}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
+        <View style={styles.tuPerfilParent}>
           <View
-            style={[
-              styles.solarsettingsBoldGroup,
-              styles.solarsettingsSpaceBlock
-            ]}
-          >
-            <Image
-              style={styles.solarsettingsBoldIcon}
-              contentFit="cover"
-              source={require('../../assets/solarsettingsbold1.png')}
-            />
-            <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-              Premios alcanzados
-            </Text>
-            <View style={styles.soonButton}>
-              <Text style={styles.soonText}>Soon</Text>
-            </View>
-          </View>
-          <View
-            style={[
-              styles.solarsettingsBoldGroup,
-              styles.solarsettingsSpaceBlock
-            ]}
-          >
-            <Image
-              style={styles.solarsettingsBoldIcon}
-              contentFit="cover"
-              source={require('../../assets/solarsettingsbold2.png')}
-            />
-            <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-              Entidades colaboradores
-            </Text>
-          </View>
-          <Pressable
-            style={[
-              styles.solarsettingsBoldGroup,
-              styles.solarsettingsSpaceBlock
-            ]}
-            onPress={() => navigation.navigate('Contacta')}
-          >
-            <Image
-              style={styles.solarsettingsBoldIcon}
-              contentFit="cover"
-              source={require('../../assets/solarsettingsbold3.png')}
-            />
-            <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-              Contactar con atención al cliente
-            </Text>
-          </Pressable>
-          <Pressable
-            style={[
-              styles.solarsettingsBoldGroup,
-              styles.solarsettingsSpaceBlock
-            ]}
-            onPress={() => navigation.navigate('Metodo1')}
-          >
-            <Image
-              style={styles.solarsettingsBoldIcon}
-              contentFit="cover"
-              source={require('../../assets/solarsettingsbold4.png')}
-            />
-            <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-              Trabaja con nosotros
-            </Text>
-          </Pressable>
-          <Pressable
-            style={[
-              styles.solarsettingsBoldParent1,
-              styles.solarsettingsSpaceBlock
-            ]}
-            onPress={() => {
-              // AsyncStorage.clear()
-              //   .then(() => {
-              //     navigation.navigate('IniciarSesin')
-              //   })
-              //   .catch((error) => {
-              //     console.error('Error al borrar AsyncStorage:', error)
-              //   })
-              dispatch(clearUser())
-              navigation.navigate('IniciarSesin')
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center'
             }}
           >
-            <Image
-              style={styles.solarsettingsBoldIcon}
-              contentFit="cover"
-              source={require('../../assets/solarsettingsbold5.png')}
-            />
-            <Text style={[styles.cerrarSesin, styles.cerrarSesinTypo]}>
-              Cerrar sesión
+            <Text style={[styles.tuPerfil1, styles.tuPerfil1Typo]}>
+              TU PERFIL
             </Text>
-          </Pressable>
+            <Pressable onPress={() => navigation.goBack()}>
+              <BackArrowSVG />
+            </Pressable>
+          </View>
+          <View style={styles.unsplashn6gnca77urcParent}>
+            <Image
+              style={styles.unsplashn6gnca77urcIcon}
+              contentFit="cover"
+              source={
+                user?.avatar
+                  ? { uri: user?.avatar }
+                  : require('../../assets/unsplashn6gnca77urc.png')
+              }
+            />
+            <View style={styles.laraMacasBlancoCarrrilhoParent}>
+              <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
+                {user?.name}
+              </Text>
+              <Text style={styles.mujer23Aos}>{user?.apellido}</Text>
+            </View>
+          </View>
+          <View style={styles.frameParent}>
+            <Pressable
+              style={styles.solarsettingsBoldParent}
+              onPress={() => navigation.navigate('Cuenta')}
+            >
+              <Image
+                style={styles.solarsettingsBoldIcon}
+                contentFit="cover"
+                source={require('../../assets/solarsettingsbold.png')}
+              />
+              <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
+                Gestiona tu cuenta
+              </Text>
+            </Pressable>
+            <View
+              style={[
+                styles.solarsettingsBoldGroup,
+                styles.solarsettingsSpaceBlock
+              ]}
+            >
+              <Image
+                style={styles.solarsettingsBoldIcon}
+                contentFit="cover"
+                source={require('../../assets/solarsettingsbold1.png')}
+              />
+              <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
+                Premios alcanzados
+              </Text>
+              <View style={styles.soonButton}>
+                <Text style={styles.soonText}>Soon</Text>
+              </View>
+            </View>
+            <View
+              style={[
+                styles.solarsettingsBoldGroup,
+                styles.solarsettingsSpaceBlock
+              ]}
+            >
+              <Image
+                style={styles.solarsettingsBoldIcon}
+                contentFit="cover"
+                source={require('../../assets/solarsettingsbold2.png')}
+              />
+              <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
+                Entidades colaboradores
+              </Text>
+            </View>
+            <Pressable
+              style={[
+                styles.solarsettingsBoldGroup,
+                styles.solarsettingsSpaceBlock
+              ]}
+              onPress={() => navigation.navigate('Contacta')}
+            >
+              <Image
+                style={styles.solarsettingsBoldIcon}
+                contentFit="cover"
+                source={require('../../assets/solarsettingsbold3.png')}
+              />
+              <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
+                Contactar con atención al cliente
+              </Text>
+            </Pressable>
+            <Pressable
+              style={[
+                styles.solarsettingsBoldGroup,
+                styles.solarsettingsSpaceBlock
+              ]}
+              onPress={() => navigation.navigate('Metodo1')}
+            >
+              <Image
+                style={styles.solarsettingsBoldIcon}
+                contentFit="cover"
+                source={require('../../assets/solarsettingsbold4.png')}
+              />
+              <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
+                Trabaja con nosotros
+              </Text>
+            </Pressable>
+            <Pressable
+              style={[
+                styles.solarsettingsBoldParent1,
+                styles.solarsettingsSpaceBlock
+              ]}
+              onPress={() => {
+                // AsyncStorage.clear()
+                //   .then(() => {
+                //     navigation.navigate('IniciarSesin')
+                //   })
+                //   .catch((error) => {
+                //     console.error('Error al borrar AsyncStorage:', error)
+                //   })
+                dispatch(clearUser())
+                navigation.navigate('IniciarSesin')
+              }}
+            >
+              <Image
+                style={styles.solarsettingsBoldIcon}
+                contentFit="cover"
+                source={require('../../assets/solarsettingsbold5.png')}
+              />
+              <Text style={[styles.cerrarSesin, styles.cerrarSesinTypo]}>
+                Cerrar sesión
+              </Text>
+            </Pressable>
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   )
 }
 

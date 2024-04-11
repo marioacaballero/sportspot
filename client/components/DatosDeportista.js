@@ -21,6 +21,7 @@ import TenisSVG from './SVG/Sports/TenisSVG'
 import Maps from './Maps'
 import BoxSVG from './SVG/BoxSVG'
 import CustomAlert from './CustomAlert'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const DatosDeportista = ({ modalSport, setModalSport }) => {
   const dispatch = useDispatch()
@@ -80,12 +81,14 @@ const DatosDeportista = ({ modalSport, setModalSport }) => {
     setShowAlert(false)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (
       showColor.length > 0 &&
       selectedValue !== null &&
       eventsFilter.location !== ''
     ) {
+      await AsyncStorage.setItem('modalSport', 'alreadyShowed')
+      console.log('Item "modalSport" has been successfully set.')
       setModalSport(false)
     } else {
       handleShowAlert()

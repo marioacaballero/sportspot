@@ -12,7 +12,7 @@ import { Color } from '../../GlobalStyles'
 
 export default function SignIn({ navigation }) {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.linearGradient}>
         <Image
           style={styles.background}
@@ -80,7 +80,7 @@ export default function SignIn({ navigation }) {
           </View>
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </View>
   )
 }
 
