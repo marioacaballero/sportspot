@@ -8,7 +8,8 @@ import {
   Pressable,
   Modal,
   TouchableWithoutFeedback,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import {
@@ -20,7 +21,7 @@ import {
 } from '../../GlobalStyles'
 import PopupAlerta from '../../components/PopupAlerta'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
-import CorazonSVG from '../../components/SVG/CorazonSVG'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { favorite } from '../../redux/actions/events'
 
 const Favoritos = ({ route }) => {
@@ -46,89 +47,159 @@ const Favoritos = ({ route }) => {
   }
 
   return (
-    <ScrollView style={styles.favoritos} showsVerticalScrollIndicator={false}>
-      <View style={styles.topContainer}>
-        <Text style={styles.tusFavoritos}>TUS FAVORITOS</Text>
-        <Pressable onPress={() => navigation.goBack()}>
-          <BackArrowSVG />
-        </Pressable>
-      </View>
-      <View style={styles.backParentSpaceBlock}>
-        <Text style={[styles.pruebasDeCiclismo, styles.ciclismoTypo]}>
-          {`Pruebas de ${sport[0].title} (${sport.length})`}
-        </Text>
-      </View>
-      {sport.map((prueba, index) => (
-        <View key={index} style={styles.frameGroup}>
-          <View style={styles.parentFlexBox}>
-            <Image
-              style={styles.image84Icon}
-              contentFit="cover"
-              source={{ uri: prueba.image }}
-            />
-            <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
-              <View style={styles.ciclismoParent}>
-                <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
-                  {prueba.description}
-                </Text>
-                <CorazonSVG
-                  isFavorite={true}
-                  handle={() => toggleFavorite(sport[0].id)}
-                />
-              </View>
-              <Text style={styles.imGoingToContainer}>
-                <Text style={styles.modalidadMontaaLocalizaci}>
-                  -Modalidad: {prueba.modality} {'\n'}
-                </Text>
-                <Text>
-                  -Localización: {prueba.location} {'\n'}
-                </Text>
-                <Text>
-                  -Fecha de la prueba: {prueba.dateStart} {'\n'}
-                </Text>
-                <Text style={styles.modalidadMontaaLocalizaci}>
-                  -Fecha límite de inscripción: {prueba.dateInscription}
-                </Text>
-              </Text>
-              <Text style={styles.imGoingToContainer1}>
-                <Text style={styles.precioDeInscripcin}>
-                  {'PRECIO DE INSCRIPCIÓN: '}
-                </Text>
-                <Text
-                  style={[styles.text, styles.textTypo]}
-                >{`${prueba.price}€`}</Text>
-              </Text>
-            </View>
-          </View>
-          <Pressable style={styles.vectorParent} onPress={toggleModal}>
-            <Image
-              style={styles.vectorIcon}
-              contentFit="cover"
-              source={require('../../assets/vector5.png')}
-            />
-            <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
-              Crear alerta
-            </Text>
-            <Modal
-              animationType="fade"
-              transparent={true}
-              visible={modalVisible}
-            >
-              <TouchableWithoutFeedback onPress={toggleModal}>
-                <View style={styles.modalOverlay}>
-                  <View>
-                    <PopupAlerta
-                      // onClose={toggleModal}
-                      setModalVisible={setModalVisible}
-                    />
-                  </View>
-                </View>
-              </TouchableWithoutFeedback>
-            </Modal>
+    <View style={styles.favoritos}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.topContainer}>
+          <Text style={styles.tusFavoritos}>TUS FAVORITOS</Text>
+          <Pressable onPress={() => navigation.goBack()}>
+            <BackArrowSVG />
           </Pressable>
         </View>
-      ))}
-    </ScrollView>
+        <View style={styles.backParentSpaceBlock}>
+          <Text style={[styles.pruebasDeCiclismo, styles.ciclismoTypo]}>
+            {`Pruebas de ${sport[0].title} (${sport.length})`}
+          </Text>
+        </View>
+        {sport.map((prueba, index) => (
+          <View key={index} style={styles.frameGroup}>
+            <View style={styles.parentFlexBox}>
+              <Image
+                style={styles.image84Icon}
+                contentFit="cover"
+                source={{ uri: prueba.image }}
+              />
+              <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
+                <View style={styles.ciclismoParent}>
+                  <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
+                    {prueba.description}
+                  </Text>
+                  <TouchableOpacity
+                    style={{ position: 'absolute', top: 5, right: 13 }}
+                    onPress={() => toggleFavorite(sport[0].id)}
+                  >
+                    <MaterialCommunityIcons
+                      name={'cards-heart'}
+                      color="#F25910"
+                      size={22}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.imGoingToContainer}>
+                  <View style={{ flexDirection: 'row', gap: 4 }}>
+                    <Text style={{ color: Color.sportsVioleta, fontSize: 12 }}>
+                      Modalidad:
+                    </Text>
+                    <Text
+                      style={{
+                        fontWeight: 300,
+                        fontSize: 12,
+                        color: Color.sportsVioleta
+                      }}
+                    >
+                      {prueba.modality}
+                    </Text>
+                  </View>
+                  <View style={{ flexDirection: 'row', gap: 3 }}>
+                    <Text style={{ color: Color.sportsVioleta, fontSize: 12 }}>
+                      Localización:
+                    </Text>
+                    <Text
+                      style={{
+                        fontWeight: 300,
+                        color: Color.sportsVioleta,
+                        fontSize: 12
+                      }}
+                    >
+                      {prueba.location}
+                    </Text>
+                  </View>
+                  <View style={{ flexDirection: 'row', gap: 3 }}>
+                    <Text style={{ color: Color.sportsVioleta, fontSize: 12 }}>
+                      Fecha de la prueba:
+                    </Text>
+                    <Text
+                      style={{
+                        fontWeight: 300,
+                        fontSize: 12,
+                        color: Color.sportsVioleta
+                      }}
+                    >
+                      {prueba.dateStart}
+                    </Text>
+                  </View>
+                  <View style={{ flexDirection: 'row', gap: 3 }}>
+                    <Text style={{ color: Color.sportsVioleta, fontSize: 12 }}>
+                      Fecha límite de inscripción:
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 300,
+                        color: Color.sportsVioleta
+                      }}
+                    >
+                      {prueba.dateInscription}
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    ...styles.imGoingToContainer1,
+                    gap: 3,
+                    flexDirection: 'row'
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontWeight: 700,
+                      fontSize: 12,
+                      color: Color.sportsVioleta
+                    }}
+                  >
+                    PRECIO DE INSCRIPCIÓN:
+                  </Text>
+                  <Text
+                    style={{
+                      color: Color.sportsNaranja,
+                      fontWeight: 500,
+                      fontSize: 12
+                    }}
+                  >
+                    {prueba.price + '€'}
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <Pressable style={styles.vectorParent} onPress={toggleModal}>
+              <Image
+                style={styles.vectorIcon}
+                contentFit="cover"
+                source={require('../../assets/vector5.png')}
+              />
+              <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
+                Crear alerta
+              </Text>
+              <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+              >
+                <TouchableWithoutFeedback onPress={toggleModal}>
+                  <View style={styles.modalOverlay}>
+                    <View>
+                      <PopupAlerta
+                        // onClose={toggleModal}
+                        setModalVisible={setModalVisible}
+                      />
+                    </View>
+                  </View>
+                </TouchableWithoutFeedback>
+              </Modal>
+            </Pressable>
+          </View>
+        ))}
+      </ScrollView>
+    </View>
   )
 }
 
@@ -178,11 +249,11 @@ const styles = StyleSheet.create({
   image84Icon: {
     borderTopLeftRadius: Border.br_3xs,
     borderBottomLeftRadius: Border.br_3xs,
-    width: 110,
-    height: 110
+    width: 114,
+    height: '100%'
   },
   ciclismo: {
-    fontSize: FontSize.inputLabel_size,
+    fontSize: 14,
     color: Color.sportsNaranja,
     textAlign: 'left'
   },
@@ -195,8 +266,10 @@ const styles = StyleSheet.create({
   },
   imGoingToContainer: {
     fontSize: FontSize.size_3xs,
-    marginTop: 10,
+    marginTop: 5,
     textAlign: 'left',
+    flexDirection: 'column',
+    gap: -3,
     color: Color.sportsVioleta
   },
   precioDeInscripcin: {
@@ -208,7 +281,7 @@ const styles = StyleSheet.create({
   },
   imGoingToContainer1: {
     fontSize: FontSize.size_2xs,
-    marginTop: 10,
+    marginTop: 5,
     textAlign: 'left'
   },
   frameContainer: {

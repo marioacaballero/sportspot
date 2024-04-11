@@ -10,8 +10,7 @@ import {
   ScrollView,
   TouchableOpacity
 } from 'react-native'
-// import { useNavigation } from '@react-navigation/native'
-import CorazonSVG from '../../components/SVG/CorazonSVG'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import {
   Color,
   FontSize,
@@ -147,12 +146,19 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   contentFit="cover"
                   source={require('../../assets/claritysharesolid.png')}
                 />
-                <CorazonSVG
-                  isFavorite={favorites?.some(
-                    (favorite) => favorite.id === event?.id
-                  )}
-                  handle={handleFavorite}
-                />
+                <TouchableOpacity onPress={handleFavorite}>
+                  <MaterialCommunityIcons
+                    name={
+                      favorites?.some(
+                        (favorite) => favorite.id === event?.id
+                      ) === true
+                        ? 'cards-heart'
+                        : 'cards-heart-outline'
+                    }
+                    color="#F25910"
+                    size={25}
+                  />
+                </TouchableOpacity>
               </View>
             </View>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
