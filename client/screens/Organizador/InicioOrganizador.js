@@ -20,9 +20,12 @@ import WebSVG from '../../components/SVG/WebSVG'
 import MensajeSVG from '../../components/SVG/MensajeSVG'
 import ContactoSVG from '../../components/SVG/ContactoSVG'
 import AccesoOrganizadorModal from '../../components/AccesoOrganizadorModal'
+import { useSelector } from 'react-redux'
 
 const InicioOrganizador = () => {
   const navigation = useNavigation()
+  const { user } = useSelector((state) => state.users)
+  console.log(user.rol)
 
   const [modalVisible, setModalVisible] = useState(false)
 
@@ -39,6 +42,7 @@ const InicioOrganizador = () => {
         <Pressable
           style={styles.helloAshfakWrapper}
           onPress={() => navigation.navigate('PublicarEvento')}
+          disabled={user.rol === 'sportsman'}
         >
           <Text style={styles.buttonsText}>Publicar un evento</Text>
         </Pressable>

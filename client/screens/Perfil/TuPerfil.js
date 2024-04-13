@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   StyleSheet,
   View,
@@ -19,23 +19,32 @@ import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearUser } from '../../redux/slices/users.slices'
 import { getUser } from '../../redux/actions/users'
-import { SafeAreaView } from 'react-native-safe-area-context'
+
+import OrganizadorModal from '../../components/AccesoOrganizadorModal'
+// import { SafeAreaView } from 'react-native-safe-area-context'
 
 const TuPerfil = () => {
+  const [rol, setRol] = useState(false)
   const navigation = useNavigation()
-
   const dispatch = useDispatch()
-
   const { user } = useSelector((state) => state.users)
 
   useEffect(() => {
     dispatch(getUser(user.id))
   }, [])
+  console.log(rol)
+
+  const onChangeRol = () => {
+    // if (user.rol === 'organizer') {
+    // }
+    setRol(!rol)
+  }
 
   return (
     <View style={styles.tuPerfil}>
       <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
         <View style={styles.tuPerfilParent}>
+          {rol && <OrganizadorModal toggleModal={onChangeRol} />}
           <View
             style={{
               flexDirection: 'row',
@@ -146,6 +155,27 @@ const TuPerfil = () => {
                 Trabaja con nosotros
               </Text>
             </Pressable>
+
+            <Pressable
+              style={[
+                styles.solarsettingsBoldGroup,
+                styles.solarsettingsSpaceBlock,
+                styles.organizer
+              ]}
+              onPress={onChangeRol}
+            >
+              <Image
+                style={[styles.solarsettingsBoldIcon, styles.logo]}
+                contentFit="cover"
+                source={require('../../assets/megafone.png')}
+              />
+              <Text style={[styles.cerrarSesin, styles.cerrarSesinTypo]}>
+                {user.rol === 'sportsman'
+                  ? 'Ser organizador'
+                  : 'Ser deportista'}
+              </Text>
+            </Pressable>
+
             <Pressable
               style={[
                 styles.solarsettingsBoldParent1,
@@ -191,6 +221,12 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
+  },
+  organizer: {
+    backgroundColor: Color.sportsNaranja
+  },
+  logo: {
+    backgroundColor: Color.blanco
   },
   solarsettingsSpaceBlock: {
     marginTop: 10,
