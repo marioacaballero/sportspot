@@ -127,3 +127,16 @@ export const deleteUser = createAsyncThunk('users/delete', async (id) => {
     throw new Error(error)
   }
 })
+
+export const updateUserRol = createAsyncThunk(
+  'users/updateRol',
+  async (body) => {
+    const { id, rol } = body
+    try {
+      const { data } = await axiosInstance.patch(`/users/${id}`, { rol })
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+)
