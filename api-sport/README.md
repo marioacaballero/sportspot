@@ -103,6 +103,8 @@ DB_PASS=admin
 DB_PORT=5432
 DB_DIALECT=postgres
 DB_HOST=localhost
+HASH_SALT=10
+JWT_SECRET=SecretoJWT123!
 ```
 
 Puedes agregar todas las variables de entorno necesarias para tu aplicación.
