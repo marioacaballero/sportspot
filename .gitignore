@@ -5,6 +5,8 @@ client/.env
 api-sport/node_modules/
 api-sport/dist/
 api-sport/.env
+*.env
+
 # Logs
 logs
 *.log
@@ -29,6 +31,7 @@ lerna-debug.log*
 *.launch
 .settings/
 *.sublime-workspace
+*.expo
 
 # IDE - VSCode
 .vscode/*
