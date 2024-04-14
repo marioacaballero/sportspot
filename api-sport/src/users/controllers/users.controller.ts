@@ -30,10 +30,23 @@ export class UsersController {
     return await this.userService.getOneService(id)
   }
 
+   @Get('eventsUser/:eventId')
+  public async getAllEventsUser(@Param('eventId') eventId: string) {
+    return await this.userService.getAllEventsUsersService(eventId)
+  }
+
   @Post()
   public async create(@Body() body: UserDTO) {
     //await this.sendMailsService.sendRegistrationNotification(body.email)
     return await this.userService.register(body)
+  }
+
+  @Post(':id')
+  async suscribeEvents(
+    @Param('id') id: string,
+    @Body("eventId") eventId: string
+  ): Promise<UserEntity> {
+    return this.userService.addSubscriptionService(id, eventId)
   }
 
   @Patch('unsuscribe/:id')
