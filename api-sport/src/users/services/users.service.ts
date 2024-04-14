@@ -1,5 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common'
 import { UserEntity } from '../entities/users.entity'
+import { UserEventHistoryEntity } from '../../events/entities/userEvent.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { UserDTO } from '../dto/user.dto'
@@ -15,12 +16,15 @@ export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-
+ 
     private readonly notificationsService: NotificationsService,
-
+    
     private readonly eventService: EventsService,
-
-    private readonly jsonwebtokenService: JsonwebtokenService
+    
+    private readonly jsonwebtokenService: JsonwebtokenService,
+    
+    @InjectRepository(UserEventHistoryEntity)
+    private readonly usersEventRepository: Repository<UserEventHistoryEntity>,
   ) {}
 
   public async register(userObject: UserDTO) {
@@ -79,6 +83,23 @@ export class UsersService {
   public async getAllService() {
     return await this.userRepository.find({ where: { isDelete: false } })
   }
+
+  public async getAllEventsUsersService(eventId: string): Promise<UserEntity[]> {
+  const event = await this.eventService.getOneService(eventId)
+  if (!event) {
+    throw new HttpException(`Evento con ID ${eventId} no encontrado`, 404)
+  }
+
+  // Cargar la relación de usuarios para el evento
+  const users = await this.usersEventRepository
+    .createQueryBuilder()
+    .relation(UserEntity, 'users')
+    .of(event)
+    .loadMany()
+
+  return users.filter(user => !user.isDelete)
+}
+
   public async getOneService(id: string) {
     const user = await this.userRepository
       .createQueryBuilder('user')
@@ -91,6 +112,7 @@ export class UsersService {
 
     return user
   }
+  
 
   public async getByEmailService(email) {
     return await this.userRepository
@@ -149,6 +171,30 @@ export class UsersService {
     }
 
     return await this.userRepository.save(user)
+  }
+
+  public async addSubscriptionService(
+    userId: string,
+    eventId: string
+  ): Promise<UserEntity> {
+    const user = await this.getOneService(userId)
+    if (!user) {
+      throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404)
+    }
+
+    const event = await this.eventService.getOneService(eventId)
+    // Cargar la relación de eventos para poder modificarla
+    await this.userRepository
+      .createQueryBuilder()
+      .relation(UserEntity, 'events')
+      .of(user)
+      .add(event)
+
+    // await this.notificationsService.createService({
+    //   recipientId: userId,
+    //   eventId: eventId
+    // })
+    return await this.getOneService(userId) // Recargar el usuario 
   }
 
   public async deleteSubscriptionService(

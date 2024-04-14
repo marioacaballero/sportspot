@@ -16,6 +16,7 @@ import {
   Color
 } from '../../GlobalStyles'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
+import Megafone from '../../components/SVG/Megafone'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearUser } from '../../redux/slices/users.slices'
 import { getUser } from '../../redux/actions/users'
@@ -164,11 +165,9 @@ const TuPerfil = () => {
               ]}
               onPress={onChangeRol}
             >
-              <Image
-                style={[styles.solarsettingsBoldIcon, styles.logo]}
-                contentFit="cover"
-                source={require('../../assets/megafone.png')}
-              />
+              <View style={styles.solarsettingsBoldIcon2}>
+                <Megafone style={styles.solarsettingsBoldIcon2} />
+              </View>
               <Text style={[styles.cerrarSesin, styles.cerrarSesinTypo]}>
                 {user.rol === 'sportsman'
                   ? 'Ser organizador'
@@ -278,6 +277,15 @@ const styles = StyleSheet.create({
     height: 30,
     borderRadius: Border.br_31xl,
     overflow: 'hidden'
+  },
+  solarsettingsBoldIcon2: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: Border.br_31xl,
+    width: 30,
+    height: 30,
+    backgroundColor: Color.blanco
   },
   gestionaTuCuenta: {
     color: Color.sportsVioleta
