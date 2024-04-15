@@ -9,4 +9,8 @@ export class SendMailsController {
   async sendRegistrationMail(@Body() body: { email: string }) {
     return this.sendMailsService.sendRegistrationNotification(body.email)
   }
+  @Post('register')
+  async sendMailRegister(@Body() body: { email: string }) {
+    return this.sendMailsService.sendMail(body.email)
+  }
 }
