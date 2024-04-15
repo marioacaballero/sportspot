@@ -2,7 +2,7 @@
   "expo": {
     "runtimeVersion": "1.0.2",
     "name": "SpotSport",
-    "slug": "sportspot",
+    "slug": "spotsports",
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/spotsport.png",
@@ -46,12 +46,12 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "e893ea82-bade-4f7d-aead-5db214b2f856"
+        "projectId": "314e02e8-7da2-459e-a601-e0ead6a8dd63"
       }
     },
     "updates": {
       "url": "https://u.expo.dev/ac124ba8-62c5-44ac-ab0e-8da7a8b8e646"
     },
-    "owner": "aythenapps"
+    "owner": "ferk94"
   }
 }
