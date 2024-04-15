@@ -6,15 +6,106 @@ import { UpdateEventDto } from 'src/events/dto/update-event.dto'
 import { EventEntity } from 'src/events/entities/event.entity'
 import { UserEntity } from 'src/users/entities/users.entity'
 import { Repository } from 'typeorm'
+import * as nodemailer from 'nodemailer';
+
 
 @Injectable()
 export class SendMailsService {
+  private transporter: nodemailer;
+
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-
     private readonly mailerService: MailerService
-  ) {}
+  ) {
+    this.transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        type: 'OAuth2',
+        user: 'tvhd36@gmail.com',
+        clientId: '407408718192.apps.googleusercontent.com',
+        clientSecret: '************',
+        refreshToken: '1//04XS9FtcvjzrHCgYIARAAGAQSNwF-L9IrjNNr1q6u-iNois592VHAjXktF59QuK7ILKRPhm_z6cFteqOTtcI6uHnIGfuW2pYaLUo',
+        accessToken: 'ya29.a0Ad52N39zSUHI0AXYcTDcjOLfdkBNbOOmruddH1aH3reZjxfGGNfym8Q8uxAOfQ3E0h2wdk4bjY2gC2IgVbi4FwzaH-Nh51DXeOVQq8AmezWAQXenEshKRAzUZLzkAitsFotJETn0FF_fdDbsy0lnO_5OA6dSGKY6Z3ihaCgYKAV0SARASFQHGX2Mi_kblqghlMLeaYp1dAG-iAA0171',
+  },
+    });
+  }
+
+  async sendMail(email: string) {
+    
+    const html = `
+    <html>
+    <head>
+      <style>
+        body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 150vh;
+          margin: 0;      
+        }
+        #container {
+          text-align: center;
+          padding: 20px;
+          background-color: #fcece7;
+        }
+        img {
+          width: 40%;
+          height: auto;
+          display: block;
+          margin: 0 auto;
+        }
+        p {
+          color: #642794;
+          text-align: center;,       
+        }
+        .title {
+          font-size: 2em;
+          font-weight: bold;
+        }
+        .social {
+          font-weight: 600;
+          font-size: 1.5em;
+        }
+        .icons {
+          display: flex;
+          flex-direction: row;
+          width: 40%;
+          justify-content: center;
+          align-items: center;
+          margin-left: 30%;
+        }
+        .iconImg {
+          width: 40px;
+        }
+      </style>
+    </head>
+    <body>
+    <div id="container">
+    <img src="cid:sportSpot" />
+        <p class='title'>¡Gracias por registrarte!</p>
+        <p>Ya estás listo para comenzar a participar en los mejores eventos deportivos en el área que desees</p>
+          <p class='social'>¡Síguenos en nuestras redes!</p>
+          <div class='icons'>
+            <img src="cid:facebookIcon" class='iconImg'/>
+            <img src="cid:twitterIcon" class='iconImg'/>
+            <img src="cid:instagramIcon" class='iconImg'/>
+          </div>
+      </div>
+    </body>
+    </html>
+    `;
+    
+    await this.transporter.sendMail({
+      from: 'tvhd36@gmail.com', // sender address
+      to: email, // mail of receivers
+      subject: 'Test mail',
+      html: html,  
+    });
+    return {
+      message: 'Mail sent successfully',
+    };
+  }
 
   async sendRegistrationNotification(email: string) {
     const sportspotLogo = join(

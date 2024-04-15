@@ -9,6 +9,8 @@ import { NotificationsService } from 'src/notifications/notifications.service'
 import { CreateNotificationDto } from 'src/notifications/dto/create-notification.dto'
 import { hash } from 'bcrypt'
 import { EventsService } from 'src/events/events.service'
+import { SendMailsService } from 'src/send-mails/send-mails.service'
+
 import { JsonwebtokenService } from 'src/jsonwebtoken/jsonwebtoken.service'
 
 @Injectable()
@@ -22,6 +24,8 @@ export class UsersService {
     private readonly eventService: EventsService,
     
     private readonly jsonwebtokenService: JsonwebtokenService,
+
+    private readonly sendMailsService: SendMailsService,
     
     @InjectRepository(UserEventHistoryEntity)
     private readonly usersEventRepository: Repository<UserEventHistoryEntity>,
@@ -50,6 +54,8 @@ export class UsersService {
 
     if (!newProfile) {
       throw new HttpException('The new profile is not created', 501)
+    } else {
+      await this.sendMailsService.sendRegistrationNotification(newProfile.email)
     }
 
     return newProfile

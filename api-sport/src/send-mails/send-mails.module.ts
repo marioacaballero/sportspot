@@ -26,8 +26,8 @@ import { UserEventHistoryEntity } from 'src/events/entities/userEvent.entity'
         port: 587,
         secure: false, // true para TLS; false para otros protocolos
         auth: {
-          user: 'judson.cremin36@ethereal.email', // Correo electrónico de origen
-          pass: 'suj5m3zpGjxFnfvHEB' // Contraseña del correo electrónico de origen
+          user: 'bradford.quitzon77@ethereal.email', // Correo electrónico de origen
+          pass: '6VQE2WFSmMnApFgmDc' // Contraseña del correo electrónico de origen
         }
       },
       defaults: {
