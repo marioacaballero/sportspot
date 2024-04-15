@@ -68,7 +68,7 @@ const Registrarse = () => {
       registerUser.password &&
       confirmPassword
     ) {
-      const emailExists = users.some(
+      const emailExists = users || [].some(
         (user) => user.email === registerUser.email
       )
 
