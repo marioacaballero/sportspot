@@ -49,7 +49,7 @@
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.33.2",
-    "expo": "^50.0.14"
+    "expo": "~50.0.15"
   },
   "private": true
 }
