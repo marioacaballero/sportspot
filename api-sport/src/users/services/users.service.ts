@@ -12,7 +12,6 @@ import { EventsService } from 'src/events/events.service'
 import { SendMailsService } from 'src/send-mails/send-mails.service'
 
 import { JsonwebtokenService } from 'src/jsonwebtoken/jsonwebtoken.service'
-
 @Injectable()
 export class UsersService {
   constructor(
@@ -105,7 +104,6 @@ export class UsersService {
 
   return users.filter(user => !user.isDelete)
 }
-
   public async getOneService(id: string) {
     const user = await this.userRepository
       .createQueryBuilder('user')

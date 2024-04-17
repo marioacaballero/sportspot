@@ -1,8 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common'
 import { JsonwebtokenService } from './jsonwebtoken.service'
 import { UsersService } from 'src/users/services/users.service'
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('jwt')
+@ApiTags("Jwt")
 export class JsonwebtokenController {
   constructor(
     private jsonwebtokenService: JsonwebtokenService,

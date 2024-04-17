@@ -1,7 +1,9 @@
 import { Body, Controller, Post } from '@nestjs/common'
 import { ResetCodeService } from './reset-code.service'
+import { ApiTags } from '@nestjs/swagger'
 
 @Controller('reset-code')
+  @ApiTags("ResetPassword")
 export class ResetCodeController {
   constructor(private readonly resetCodeService: ResetCodeService) {}
 

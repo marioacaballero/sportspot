@@ -105,6 +105,7 @@ DB_DIALECT=postgres
 DB_HOST=localhost
 HASH_SALT=10
 JWT_SECRET=SecretoJWT123!
+STRIPE_SECRET_KEY=pk_test_51OpBGEEOUH...
 ```
 
 Puedes agregar todas las variables de entorno necesarias para tu aplicación.
