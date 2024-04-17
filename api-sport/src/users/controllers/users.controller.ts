@@ -12,8 +12,10 @@ import { UserEntity } from '../entities/users.entity'
 import { UserDTO } from '../dto/user.dto'
 import { UpdateUserDto } from '../dto/update-user.dto'
 import { SendMailsService } from 'src/send-mails/send-mails.service'
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger'
 
 @Controller('users')
+  @ApiTags("Users")
 export class UsersController {
   constructor(
     private readonly userService: UsersService,
@@ -21,16 +23,23 @@ export class UsersController {
   ) {}
 
   @Get()
+  @ApiOperation({ summary: "Get all users" })
+    @ApiResponse({status:200, description: "Return all users"})
   public async getAll() {
     return await this.userService.getAllService()
   }
 
   @Get(':id')
+  @ApiOperation({ summary: "Get one user" })
+  @ApiParam({ name: 'id', description: 'The id of the user', required: true, type: String })
+  @ApiResponse({ status: 200, description: "Return all users" })
+  @ApiResponse({status: 404, description: "Return in not found of user"})
   public async getOne(@Param('id') id: string) {
     return await this.userService.getOneService(id)
   }
 
-   @Get('eventsUser/:eventId')
+  @Get('eventsUser/:eventId')
+  @ApiOperation({ summary: "Get event from a user by id event" })
   public async getAllEventsUser(@Param('eventId') eventId: string) {
     return await this.userService.getAllEventsUsersService(eventId)
   }

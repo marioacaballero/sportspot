@@ -11,8 +11,10 @@ import {
 import { SportsService } from './sports.service'
 import { CreateSportDto } from './dto/create-sport.dto'
 import { UpdateSportDto } from './dto/update-sport.dto'
+import { ApiTags } from '@nestjs/swagger'
 
 @Controller('sports')
+@ApiTags("Sports")  
 export class SportsController {
   constructor(private readonly sportsService: SportsService) {}
 
