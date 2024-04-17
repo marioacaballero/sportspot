@@ -3,7 +3,7 @@ import {
   Image,
   Text,
   View,
-  SafeAreaView,
+  // SafeAreaView,
   ScrollView,
   StyleSheet,
   Pressable

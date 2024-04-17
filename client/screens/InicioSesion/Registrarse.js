@@ -62,28 +62,36 @@ const Registrarse = () => {
   }
 
   const onSubmit = () => {
-    if (
-      registerUser.nickname &&
-      registerUser.email &&
-      registerUser.password &&
-      confirmPassword
-    ) {
-      const emailExists = users.some(
-        (user) => user.email === registerUser.email
-      )
-
-      if (emailExists) {
-        handleShowAlert('El correo electrónico ya está en uso')
-      } else {
-        if (registerUser.password === confirmPassword) {
-          dispatch(register(registerUser))
-          navigation.navigate('IniciarSesin')
+    try {
+      if (
+        registerUser.nickname &&
+        registerUser.email &&
+        registerUser.password &&
+        confirmPassword
+      ) {
+        const emailExists = users.some(
+          (user) => user.email === registerUser.email
+        )
+        console.log(emailExists)
+        if (emailExists) {
+          console.log('alert mail en uso')
+          handleShowAlert('El correo electrónico ya está en uso')
         } else {
-          handleShowAlert('Las contraseñas no coinciden')
+          if (registerUser.password === confirmPassword) {
+            console.log('camino positivo')
+            dispatch(register(registerUser))
+            navigation.navigate('IniciarSesin')
+          } else {
+            handleShowAlert('Las contraseñas no coinciden')
+          }
         }
+      } else {
+        console.log('todos los campos')
+        handleShowAlert('Rellene todos los campos')
       }
-    } else {
-      handleShowAlert('Rellene todos los campos')
+    } catch (error) {
+      console.log('caigo en error')
+      console.error('error: ', error)
     }
   }
 
