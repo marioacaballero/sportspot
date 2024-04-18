@@ -35,6 +35,9 @@ export class EventEntity extends BaseEntity {
   location: string
 
   @Column()
+  phoneNumber: number
+
+  @Column()
   dateStart: string
 
   @Column()
@@ -42,6 +45,9 @@ export class EventEntity extends BaseEntity {
 
   @Column()
   timeStart: string
+
+  @Column()
+  places: number
 
   @Column({
     type: 'text',

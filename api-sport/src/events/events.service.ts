@@ -139,6 +139,7 @@ export class EventsService {
     await this.sendMailsService.sendEventDeletedNotification(event)
     return await this.getOneService(id)
   }
+  
   public async getFavorites(id: string) {
     const user = await this.usersRepository
       .createQueryBuilder('user')

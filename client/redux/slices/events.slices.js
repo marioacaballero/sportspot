@@ -9,6 +9,7 @@ import {
   visitEvent,
   getAllVisitedEvents
 } from '../actions/events'
+import { offSuscription } from '../actions/suscriptions'
 
 export const eventsSlices = createSlice({
   name: 'events',
@@ -206,6 +207,21 @@ export const eventsSlices = createSlice({
       .addCase(getAllVisitedEvents.rejected, (state, action) => {
         state.loadingGet = false
         state.error = action.payload
+      })
+
+      // Actualizar los estados despues de desuscribir de un evento
+      .addCase(offSuscription.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(offSuscription.fulfilled, (state, action) => {
+        const idx = state.events.findIndex((e) => e.id === action.payload.id)
+        state.events[idx] = action.payload
+        state.event = action.payload
+      })
+      .addCase(offSuscription.rejected, (state, action) => {
+        state.events = false
+        state.error = action.payload
+        state.loading = false
       })
   }
 })

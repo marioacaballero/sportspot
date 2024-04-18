@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common'
 import { UsersService } from '../services/users.service'
 import { UserEntity } from '../entities/users.entity'
+import { EventEntity } from "../../events/entities/event.entity"
 import { UserDTO } from '../dto/user.dto'
 import { UpdateUserDto } from '../dto/update-user.dto'
 import { SendMailsService } from 'src/send-mails/send-mails.service'
@@ -45,12 +46,14 @@ export class UsersController {
   }
 
   @Post()
+  @ApiOperation({ summary: "Register user" })
   public async create(@Body() body: UserDTO) {
     //await this.sendMailsService.sendRegistrationNotification(body.email)
     return await this.userService.register(body)
   }
 
   @Post(':id')
+  @ApiOperation({ summary: "Relate a user to an event" })
   async suscribeEvents(
     @Param('id') id: string,
     @Body("eventId") eventId: string
@@ -59,13 +62,15 @@ export class UsersController {
   }
 
   @Patch('unsuscribe/:id')
+  @ApiOperation({ summary: "Unsubscribe a user with an event" })
   async deleteSubscription(
     @Param('id') id: string,
     @Body('eventId') eventId: string
-  ): Promise<UserEntity> {
+  ): Promise<EventEntity> {
     return this.userService.deleteSubscriptionService(id, eventId)
   }
   @Patch('favorite/:id')
+  @ApiOperation({ summary: "Add an event as a favorite to a user" }) 
   async favoriteEvent(
     @Param('id') id: string,
     @Body('eventId') eventId: string
@@ -74,6 +79,7 @@ export class UsersController {
   }
 
   @Patch('password/:id')
+  @ApiOperation({ summary: "Change user password" })
   async changePassword(
     @Param('id') id: string,
     @Body('oldPassword') oldPassword: string,
@@ -83,6 +89,7 @@ export class UsersController {
   }
 
   @Patch(':id')
+  @ApiOperation({ summary: "Update user by id" })
   async updateController(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto
@@ -91,6 +98,7 @@ export class UsersController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: "Delete user" })    
   delete(@Param('id') id: string) {
     return this.userService.deleteService(id)
   }

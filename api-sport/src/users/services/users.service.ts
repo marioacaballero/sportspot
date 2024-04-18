@@ -1,5 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common'
 import { UserEntity } from '../entities/users.entity'
+import { EventEntity } from '../../events/entities/event.entity'
 import { UserEventHistoryEntity } from '../../events/entities/userEvent.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
@@ -25,6 +26,9 @@ export class UsersService {
     private readonly jsonwebtokenService: JsonwebtokenService,
 
     private readonly sendMailsService: SendMailsService,
+
+     @InjectRepository(EventEntity)
+    private readonly eventsRepository: Repository<EventEntity>, 
     
     @InjectRepository(UserEventHistoryEntity)
     private readonly usersEventRepository: Repository<UserEventHistoryEntity>,
@@ -103,7 +107,8 @@ export class UsersService {
     .loadMany()
 
   return users.filter(user => !user.isDelete)
-}
+  }
+  
   public async getOneService(id: string) {
     const user = await this.userRepository
       .createQueryBuilder('user')
@@ -117,7 +122,20 @@ export class UsersService {
     return user
   }
   
+  public async getOneEvent(id: string) {
+    const event = await this.eventsRepository
+      .createQueryBuilder('event')
+      .where({ id })
+      .leftJoinAndSelect('event.creator', 'creator') // Incluimos la relación con el creador del evento
+      .leftJoinAndSelect('event.suscribers', 'suscribers') // Incluimos la relación con los suscriptores
+      .getOne()
 
+    if (!event)
+      throw new HttpException(`Evento con ID ${id} no encontrado`, 404)
+
+    return event
+  }
+  
   public async getByEmailService(email) {
     return await this.userRepository
       .createQueryBuilder('user')
@@ -204,7 +222,7 @@ export class UsersService {
   public async deleteSubscriptionService(
     userId: string,
     eventId: string
-  ): Promise<UserEntity> {
+  ): Promise<EventEntity> {
     const user = await this.getOneService(userId)
     if (!user) {
       throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404)
@@ -212,18 +230,18 @@ export class UsersService {
 
     const event = await this.eventService.getOneService(eventId)
     // Cargar la relación de eventos para poder modificarla
-    await this.userRepository
+    await this.eventsRepository
       .createQueryBuilder()
-      .relation(UserEntity, 'events')
-      .of(user)
-      .remove(event)
+      .relation(EventEntity, 'suscribers')
+      .of(event)
+      .remove(user)
 
     await this.notificationsService.destroyService({
       recipientId: userId,
       eventId: eventId
     })
 
-    return await this.getOneService(userId) // Recargar el usuario para reflejar los cambios
+    return await this.getOneEvent(eventId) // Recargar el usuario para reflejar los cambios
   }
 
   public async eventFavoritesService(

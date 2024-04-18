@@ -36,12 +36,10 @@ const InicioDeportista = () => {
 
   const getModalState = async () => {
     const data = await AsyncStorage.getItem('modalSport')
-    console.log('data:', data)
     setModalState(data)
   }
 
   useEffect(() => {
-    console.log('on useEffect!')
     getModalState()
     dispatch(getAllEvents())
     setModalSport(true)
@@ -77,15 +75,14 @@ const InicioDeportista = () => {
   const fechaActual = new Date()
 
   const latestEventsAdded = eventos.filter((evento) => {
-    const fechaEvento = new Date(evento.event_createdAt)
+    const fechaEvento = new Date(evento.createdAt)
     const diferenciaDias = functionDate(fechaActual, fechaEvento)
 
     return diferenciaDias < 7
   })
-
   // Filtro para las ultimas 48hs de inscripcion
   const lastHours = eventos.filter((evento) => {
-    const fechaEvento = new Date(evento.event_date_inscription)
+    const fechaEvento = new Date(evento.dateInscription)
 
     const diferenciaDias = functionDate(
       fechaActual,
@@ -271,14 +268,14 @@ const InicioDeportista = () => {
                           : styles.image94ParentShadowBox
                       }
                       onPress={() => {
-                        dispatch(getEventById(event.event_id))
+                        dispatch(getEventById(event.id))
                         navigation.navigate('PruebasEncontradasDetalle')
                       }}
                     >
                       <Image
                         style={[styles.image94Icon, styles.image94IconLayout]}
                         contentFit="cover"
-                        source={{ uri: event.event_image }}
+                        source={{ uri: event.image }}
                       />
                       <View
                         style={[
@@ -287,11 +284,11 @@ const InicioDeportista = () => {
                         ]}
                       >
                         <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                          {event?.event_title}
+                          {event?.title}
                         </Text>
                         <View style={styles.minParent}>
                           <Text style={[styles.min, styles.minClr]}>
-                            {event?.event_description}
+                            {event?.description}
                           </Text>
                           {/* <Text style={[styles.min1, styles.minTypo1]}>
                           {event?.header}
@@ -320,14 +317,14 @@ const InicioDeportista = () => {
                           : styles.image94ParentShadowBox
                       }
                       onPress={() => {
-                        dispatch(getEventById(event.event_id))
+                        dispatch(getEventById(event.id))
                         navigation.navigate('PruebasEncontradasDetalle')
                       }}
                     >
                       <Image
                         style={[styles.image94Icon, styles.image94IconLayout]}
                         contentFit="cover"
-                        source={{ uri: event.event_image }}
+                        source={{ uri: event.image }}
                       />
                       <View
                         style={[
@@ -336,11 +333,11 @@ const InicioDeportista = () => {
                         ]}
                       >
                         <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                          {event?.event_title}
+                          {event?.title}
                         </Text>
                         <View style={styles.minParent}>
                           <Text style={[styles.min, styles.minClr]}>
-                            {event?.event_description}
+                            {event?.description}
                           </Text>
                           {/* <Text style={[styles.min1, styles.minTypo1]}>
                           {event?.header}
