@@ -37,18 +37,18 @@
     "plugins": [
       "expo-font",
       [
-        "@stripe/stripe-react-native",
-        {
-          "merchantIdentifier": "",
-          "enableGooglePay": true
-        }
-      ],
-      [
         "expo-build-properties",
         {
           "android": {
             "usesCleartextTraffic": true
           }
+        }
+      ],
+      [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier": "",
+          "enableGooglePay": true
         }
       ]
     ],
