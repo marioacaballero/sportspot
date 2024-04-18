@@ -56,8 +56,8 @@ export class EventsService {
     })
     let queryBuilder = this.eventsRepository
       .createQueryBuilder('event')
-      .select(['event', 'sport.name AS sportName'])
-
+      .leftJoinAndSelect('event.creator', 'creator') // Incluimos la relación con el creador del evento
+      .leftJoinAndSelect('event.suscribers', 'suscribers') // Incluimos la relación con los suscriptores
       .where(where)
 
     if (sportName) {
@@ -70,7 +70,7 @@ export class EventsService {
       queryBuilder = queryBuilder.leftJoin('event.sport', 'sport')
     }
 
-    return await queryBuilder.getRawMany()
+    return await queryBuilder.getMany()
   }
 
   public async getOneService(id: string) {
