@@ -12,3 +12,18 @@ export const onSuscription = createAsyncThunk(
     }
   }
 )
+
+export const offSuscription = createAsyncThunk(
+  'events/unsuscription',
+  async (dataUser) => {
+    try {
+      const { data } = await axiosInstance.patch(
+        `/users/unsuscribe/${dataUser.id}`,
+        { eventId: dataUser.eventId }
+      )
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+)

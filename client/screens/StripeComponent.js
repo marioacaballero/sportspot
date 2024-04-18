@@ -14,8 +14,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { suscriptionEventUser } from '../redux/actions/users'
 import { useNavigation } from '@react-navigation/native'
 
-// const API_URL = 'http://localhost:3000'
-
 const StripeComponent = ({ onClose }) => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
@@ -112,7 +110,10 @@ const StripeComponent = ({ onClose }) => {
         />
 
         <TouchableOpacity
-          onPress={onSubmit}
+          onPress={() => {
+            onSubmit()
+            navigation.navigate('InicioDeportista')
+          }}
           style={{
             //   width: 100,
             height: 52,

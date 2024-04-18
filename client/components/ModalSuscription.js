@@ -1,24 +1,40 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Color } from '../GlobalStyles'
-// import { useDispatch } from 'react-redux'
-// import { suscriptionEventUser } from '../redux/actions/users'
+import { useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
+import { offSuscription } from '../redux/actions/suscriptions'
 
 const ModalSuscription = ({ user, event, onClose }) => {
   const navigation = useNavigation()
-  // const dispatch = useDispatch()
 
-  // const onSubmit = () => {
-  //   const data = {
-  //     id: user.id,
-  //     eventId: event.id
-  //   }
+  const userSuscribed = event.suscribers?.some(
+    (userEvent) => userEvent.id === user.id
+  )
+  const dispatch = useDispatch()
 
-  //   dispatch(suscriptionEventUser(data))
-  // }
-
-  return (
+  const onSubmit = () => {
+    const data = {
+      id: user.id,
+      eventId: event.id
+    }
+    dispatch(offSuscription(data))
+  }
+  return userSuscribed ? (
+    <View style={styles.container}>
+      <Text style={styles.text}>¿Seguro que deseas desuscribirte?</Text>
+      <TouchableOpacity
+        style={styles.touchable}
+        onPress={() => {
+          onSubmit()
+          onClose()
+          navigation.navigate('InicioDeportista')
+        }}
+      >
+        <Text style={styles.confirmText}>Confirmar</Text>
+      </TouchableOpacity>
+    </View>
+  ) : (
     <View style={styles.container}>
       <Text style={styles.text}>¿Seguro que deseas inscribirte?</Text>
       <TouchableOpacity

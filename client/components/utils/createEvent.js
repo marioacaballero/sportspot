@@ -12,11 +12,13 @@ export const onSubmit = async (
 ) => {
   const data = {
     title: event.title,
-    description: 'Evento',
+    description: 'Descripción del evento',
     sportId: sport && sport?.id,
     price: event?.price.slice(0, -1),
     modality: sport.type,
     location: event?.location,
+    phoneNumber: event.phoneNumber,
+    places: parseInt(event.places),
     dateStart,
     dateInscription: dateSuscription,
     creator: user?.id,

@@ -2,7 +2,9 @@ import { ApiProperty } from '@nestjs/swagger'
 import {
   IsBoolean,
   IsDecimal,
+  IsInt,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString
 } from 'class-validator'
@@ -16,7 +18,7 @@ export class CreateEventDto {
 
   @IsNotEmpty()
   @IsString()
-    @ApiProperty({description: "Descriptio", required: true})
+    @ApiProperty({description: "Description", required: true})
   description: string
 
   @IsNotEmpty()
@@ -40,6 +42,11 @@ export class CreateEventDto {
   location: string
 
   @IsNotEmpty()
+  @IsNumber()
+    @ApiProperty({description: "Phone Number", required: true})
+  phoneNumber: number
+
+  @IsNotEmpty()
   @IsString()
     @ApiProperty({description: "Start date", required: true})
   dateStart: string
@@ -53,6 +60,11 @@ export class CreateEventDto {
   @IsString()
     @ApiProperty({description: "Start time", required: true})
   timeStart: string
+
+  @IsNotEmpty()
+  @IsInt()
+    @ApiProperty({description: "Quantity places", required: true})
+  places: number
 
   @IsBoolean()
   @IsOptional()

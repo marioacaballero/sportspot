@@ -58,9 +58,17 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     }
   }, [loading])
 
-  const isEventAlreadyAdded = user.events?.some(
-    (userEvent) => userEvent.id === event.id
+  const isEventAlreadyAdded = event.suscribers?.some(
+    (userEvent) => userEvent.id === user.id
   )
+
+  const transformPlaces = (places) => {
+    if (places === event.suscribers.length) {
+      return `${places}/${places} : Full`
+    } else if (places > event.suscribers.length) {
+      return `${event.suscribers.length}/${places} -> Disponibles`
+    }
+  }
 
   const handleFavorite = () => {
     const data = {
@@ -162,7 +170,19 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               </View>
             </View>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              {event.description}
+              Descripción: {event.description}
+            </Text>
+            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+              Creador del evento: {event.creator.nickname}
+            </Text>
+            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+              Email del creador: {event.creator.email}
+            </Text>
+            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+              Número de contacto: {event.phoneNumber}
+            </Text>
+            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+              Plazas disponibles: {transformPlaces(event.places)}
             </Text>
             <Text style={[styles.reseasDeLa, styles.reseasDeLaTypo]}>
               Reseñas de la prueba

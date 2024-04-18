@@ -28,19 +28,19 @@ export class UserEntity extends BaseEntity {
   name: string
 
   @Column({ nullable: true })
-  apellido: string
+  lastName: string
 
   @Column({ nullable: true })
-  sexo: string
+  genres: string
 
   @Column({ nullable: true })
-  fechaNacimiento: string
+  birthDate: string
 
   @Column({ nullable: true })
-  telefono: string
+  phoneNumber: string
 
   @Column({ nullable: true })
-  direccion: string
+  address: string
 
   @Column({ type: 'text', nullable: true })
   avatar: string

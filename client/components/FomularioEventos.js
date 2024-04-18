@@ -44,9 +44,9 @@ const FomularioEventos = () => {
     timeStart: '',
     eventLink: '',
     inscriptionLink: '',
-    space: '',
+    places: '',
     mail: '',
-    phone: ''
+    phoneNumber: ''
   })
   const [checked, setChecked] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
@@ -232,8 +232,8 @@ const FomularioEventos = () => {
           <View style={styles.items2}>
             <TextInput
               style={styles.helloTypoScrollPrecio}
-              value={event.space}
-              onChangeText={(value) => onValuesEvent('space', value)}
+              value={event.places}
+              onChangeText={(value) => onValuesEvent('places', value)}
               placeholder="XXXX"
               placeholderTextColor={Color.violetaPlaceholder}
               keyboardType="numeric"
@@ -289,11 +289,11 @@ const FomularioEventos = () => {
 
       <View style={styles.items}>
         <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M60.5039'} />
-        <Text style={styles.text}>Telefono</Text>
+        <Text style={styles.text}>Teléfono</Text>
         <TextInput
           style={styles.helloTypoScroll}
-          value={event.phone}
-          onChangeText={(value) => onValuesEvent('phone', value)}
+          value={event.phoneNumber}
+          onChangeText={(value) => onValuesEvent('phoneNumber', value)}
           placeholder="XXX-XXX-XXX"
           keyboardType="numeric"
           placeholderTextColor={Color.violetaPlaceholder}
