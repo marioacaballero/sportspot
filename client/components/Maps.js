@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Border, Color, FontFamily, FontSize, Padding } from '../GlobalStyles'
 
 import {
@@ -9,43 +9,79 @@ import {
   TextInput,
   TouchableOpacity
 } from 'react-native'
-import { data } from '../utils/ciudadesEspaña'
+// import { data } from '../utils/townesEspaña'
+import cities from '../utils/cities.json'
+import BackArrowSVG from './SVG/BackArrowSVG'
 
 const Maps = ({ onClose, setEventsFilter }) => {
   const [searchText, setSearchText] = useState('')
-  const [eventsLocal, setEventsLocal] = useState([])
-  const [currentPage, setCurrentPage] = useState(1)
-  const [selected, setSelected] = useState(false)
+  // const [eventsLocal, setEventsLocal] = useState([])
+  // const [currentPage, setCurrentPage] = useState(1)
+  // const [selected, setSelected] = useState(false)
+  const [comunities, setComunities] = useState({})
+  const [provinces, setProvinces] = useState({})
+  const [town, setTown] = useState({})
+  const [comunitiesState, setComunitiesState] = useState(cities)
+  const [provincesState, setProvincesState] = useState([])
+  const [townState, setTownState] = useState([])
 
-  const itemsPerPage = 50
+  console.log({ comunities, provinces, town })
+  // const itemsPerPage = 50
 
-  useEffect(() => {
-    setEventsLocal(data.slice(0, itemsPerPage))
-  }, [])
+  // useEffect(() => {
+  //   setEventsLocal(data.slice(0, itemsPerPage))
+  // }, [])
 
-  const filterEventsByLetter = (letter) => {
-    return data.filter((event) =>
-      event.label.toLowerCase().startsWith(letter.toLowerCase())
-    )
-  }
+  // const filterEventsByLetter = (letter) => {
+  //   return data.filter((event) =>
+  //     event.label.toLowerCase().startsWith(letter.toLowerCase())
+  //   )
+  // }
 
   const handleTextChange = (text) => {
     setSearchText(text)
-    const filtereEvents = filterEventsByLetter(text)
-    setEventsLocal(filtereEvents.slice(0, itemsPerPage))
-    setCurrentPage(1)
+    if (!comunities.label) {
+      if (text === '') {
+        setComunitiesState(cities)
+      } else {
+        const filtercomunities = cities.filter((p) =>
+          p.label.toLowerCase().includes(text.toLowerCase())
+        )
+        setComunitiesState(filtercomunities)
+      }
+    }
+    if (comunities.label && !provinces.label) {
+      if (text === '') {
+        setProvincesState(comunities.provinces)
+      } else {
+        const filterprovinces = comunities.provinces.filter((p) =>
+          p.label.toLowerCase().includes(text.toLowerCase())
+        )
+        setProvincesState(filterprovinces)
+      }
+    }
+    if (comunities.label && provinces.label) {
+      if (text === '') {
+        setTownState(provinces.towns)
+      } else {
+        const filtertowns = provinces.towns.filter((p) =>
+          p.label.toLowerCase().includes(text.toLowerCase())
+        )
+        setTownState(filtertowns)
+      }
+    }
   }
 
-  const handleLoadMore = () => {
-    const nextPage = currentPage + 1
-    const startIndex = (nextPage - 1) * itemsPerPage
-    const endIndex = nextPage * itemsPerPage
-    setEventsLocal([
-      ...eventsLocal,
-      ...filterEventsByLetter(searchText).slice(startIndex, endIndex)
-    ])
-    setCurrentPage(nextPage)
-  }
+  // const handleLoadMore = () => {
+  //   const nextPage = currentPage + 1
+  //   const startIndex = (nextPage - 1) * itemsPerPage
+  //   const endIndex = nextPage * itemsPerPage
+  //   setEventsLocal([
+  //     ...eventsLocal,
+  //     ...filterEventsByLetter(searchText).slice(startIndex, endIndex)
+  //   ])
+  //   setCurrentPage(nextPage)
+  // }
 
   const handleScroll = (event) => {
     const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent
@@ -54,7 +90,111 @@ const Maps = ({ onClose, setEventsFilter }) => {
       layoutMeasurement.height + contentOffset.y >=
       contentSize.height - paddingToBottom
     ) {
-      handleLoadMore()
+      // handleLoadMore()
+    }
+  }
+
+  const verify = () => {
+    if (!comunities.label) {
+      return comunitiesState.map((c, i) => {
+        return (
+          <TouchableOpacity
+            key={i}
+            style={{ paddingHorizontal: 20 }}
+            onPress={() => {
+              handleSelect(c.label)
+            }}
+          >
+            <Text key={i} style={styles.helloTypo}>
+              {c.label}
+            </Text>
+          </TouchableOpacity>
+        )
+      })
+    }
+    if (comunities.label && !provinces.label) {
+      return (
+        <>
+          {provincesState.map((c, i) => {
+            return (
+              <TouchableOpacity
+                key={i}
+                style={{ paddingHorizontal: 20 }}
+                onPress={() => {
+                  handleSelect(c.label)
+                }}
+              >
+                <Text key={i} style={styles.helloTypo}>
+                  {c.label}
+                </Text>
+              </TouchableOpacity>
+            )
+          })}
+        </>
+      )
+    }
+    if (comunities.label && provinces.label && !town.label) {
+      return (
+        <>
+          {townState.map((c, i) => {
+            return (
+              <TouchableOpacity
+                key={i}
+                style={{ paddingHorizontal: 20 }}
+                onPress={() => {
+                  handleSelect(c.label)
+                }}
+              >
+                <Text key={i} style={styles.helloTypo}>
+                  {c.label}
+                </Text>
+              </TouchableOpacity>
+            )
+          })}
+        </>
+      )
+    }
+  }
+
+  const handleSelect = (label) => {
+    if (!comunities.label) {
+      const foundcomunities = cities.find((c) => c.label === label)
+      setComunities(foundcomunities)
+      setProvincesState(foundcomunities.provinces)
+      setSearchText('')
+    } else if (comunities.label && !provinces.label) {
+      const foundprovinces = comunities.provinces.find((c) => c.label === label)
+      setProvinces(foundprovinces)
+      setTownState(foundprovinces.towns)
+      setSearchText('')
+    } else if (comunities.label && provinces.label) {
+      const foundtown = provinces.towns.find((c) => c.label === label)
+      setTown(foundtown)
+      setSearchText('')
+    }
+  }
+
+  const channgeState = () => {
+    if (comunities.label && !provinces.label) {
+      setComunities({})
+    }
+    if (provinces.label && !town.label) {
+      setProvinces({})
+    }
+    if (town.label) {
+      setTown({})
+    }
+  }
+
+  const finalLocation = () => {
+    if (!comunities.label) {
+      return 'Localización'
+    } else if (comunities.label && !provinces.label) {
+      return comunities.label
+    } else if (provinces.label && !town.label) {
+      return comunities.label + '/' + provinces.label
+    } else if (town.label) {
+      return comunities.label + '/' + provinces.label + '/' + town.label
     }
   }
 
@@ -70,38 +210,36 @@ const Maps = ({ onClose, setEventsFilter }) => {
               onChangeText={handleTextChange}
             />
           </View>
+          <View>
+            <Text>
+              {comunities.label && comunities.label + ' /'}
+              {provinces.label && provinces.label + ' /'} {town.label}
+            </Text>
+            {comunities.label && (
+              <TouchableOpacity onPress={channgeState}>
+                <BackArrowSVG />
+              </TouchableOpacity>
+            )}
+          </View>
           <ScrollView
             style={styles.mapViewParent}
             onScroll={handleScroll}
             scrollEventThrottle={16}
             showsVerticalScrollIndicator={false}
           >
-            {eventsLocal.map((event, i) => (
-              <TouchableOpacity
-                key={i}
-                style={{ paddingHorizontal: 20 }}
-                onPress={() => {
-                  setEventsFilter((prevState) => ({
-                    ...prevState,
-                    location: event.label
-                  }))
-                  setSelected(event.label)
-                }}
-              >
-                <Text
-                  style={
-                    selected === event.label
-                      ? styles.helloTypoSelected
-                      : styles.helloTypo
-                  }
-                >
-                  {event.label}
-                </Text>
-              </TouchableOpacity>
-            ))}
+            {verify()}
           </ScrollView>
         </View>
-        <TouchableOpacity style={styles.helloAshfakWrapper} onPress={onClose}>
+        <TouchableOpacity
+          style={styles.helloAshfakWrapper}
+          onPress={() => {
+            onClose()
+            setEventsFilter((prevState) => ({
+              ...prevState,
+              location: finalLocation()
+            }))
+          }}
+        >
           <Text style={[styles.helloAshfak, styles.kmTypo]}>Listo</Text>
         </TouchableOpacity>
       </View>

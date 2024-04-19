@@ -6,10 +6,10 @@ import { IsNotEmpty, IsOptional, IsString } from 'class-validator'
   Organizer = 'organizer',
 }
 export class UserDTO {
-  @IsNotEmpty()
-  @IsString()
-    @ApiProperty({ description: 'User nickname', required:true})
-  nickname: string
+  // @IsNotEmpty()
+  // @IsString()
+  //   @ApiProperty({ description: 'User nickname', required:true})
+  // nickname: string
 
   @IsNotEmpty()
   @IsString()
