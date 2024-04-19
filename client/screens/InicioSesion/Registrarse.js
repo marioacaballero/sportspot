@@ -34,8 +34,8 @@ const Registrarse = () => {
 
   const [registerUser, setRegisterUser] = useState({
     password: '',
-    email: '',
-    nickname: ''
+    email: ''
+    // nickname: ''
   })
   const [confirmPassword, setConfirmPassword] = useState('')
   const [showAlert, setShowAlert] = useState(false)
@@ -64,7 +64,6 @@ const Registrarse = () => {
   const onSubmit = () => {
     try {
       if (
-        registerUser.nickname &&
         registerUser.email &&
         registerUser.password &&
         confirmPassword
@@ -113,7 +112,7 @@ const Registrarse = () => {
         </View>
 
         <View style={styles.frameGroup}>
-          <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
+          {/* <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
               placeholder="Nombre de usuario"
@@ -121,7 +120,7 @@ const Registrarse = () => {
               onChangeText={(value) => onValuesUser('nickname', value)}
               onSubmitEditing={() => emailInputRef.current.focus()}
             />
-          </View>
+          </View> */}
 
           <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
             <TextInput
