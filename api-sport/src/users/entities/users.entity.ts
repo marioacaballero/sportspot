@@ -42,8 +42,8 @@ export class UserEntity extends BaseEntity {
   @Column({ nullable: true })
   address: string
 
-  @Column({ nullable: true })
-  preferences: JSON
+  @Column({ nullable: true, type: 'json' })
+  preferences: object
 
   @Column({ type: 'text', nullable: true })
   avatar: string

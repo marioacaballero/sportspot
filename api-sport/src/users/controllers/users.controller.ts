@@ -61,6 +61,15 @@ export class UsersController {
     return this.userService.addSubscriptionService(id, eventId)
   }
 
+  @Patch('/userPreferences/:id')
+  @ApiOperation({ summary: "change the user preferences" })
+  async changeUserPreferences(
+    @Param('id') id: string,
+    @Body('userPreferences') userPreferences: JSON
+  ):Promise<UserEntity> {
+    return this.userService.changeUserPreferences(id, userPreferences)
+  }
+
   @Patch('unsuscribe/:id')
   @ApiOperation({ summary: "Unsubscribe a user with an event" })
   async deleteSubscription(

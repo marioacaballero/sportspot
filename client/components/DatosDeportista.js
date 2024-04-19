@@ -22,12 +22,13 @@ import Maps from './Maps'
 import BoxSVG from './SVG/BoxSVG'
 import CustomAlert from './CustomAlert'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { postUserPreferences } from '../redux/actions/users'
 
-const DatosDeportista = ({ modalSport, setModalSport }) => {
+const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
   const dispatch = useDispatch()
 
   const { sports } = useSelector((state) => state.sports)
-
+  const { user } = useSelector((state) => state.users)
   const [showColor, setShowColor] = useState([])
   const [selectedValue, setSelectedValue] = useState(null)
   const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
@@ -88,8 +89,16 @@ const DatosDeportista = ({ modalSport, setModalSport }) => {
       eventsFilter.location !== ''
     ) {
       await AsyncStorage.setItem('modalSport', 'alreadyShowed')
-      console.log('Item "modalSport" has been successfully set.')
+      const userPreferences = {
+        sport: showColor,
+        location: eventsFilter.location,
+        ratio: selectedValue
+      }
+      dispatch(postUserPreferences({ userPreferences, id: user.id }))
       setModalSport(false)
+      if (setModalState) {
+        setModalState(false)
+      }
     } else {
       handleShowAlert()
     }

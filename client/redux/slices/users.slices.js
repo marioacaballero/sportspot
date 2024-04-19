@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getAllUsers, getUser, login, updateUserRol } from '../actions/users'
+import { getAllUsers, getUser, login, updateUserRol, postUserPreferences } from '../actions/users'
 
 export const usersSlices = createSlice({
   name: 'users',
@@ -69,6 +69,20 @@ export const usersSlices = createSlice({
         state.error = null
       })
       .addCase(updateUserRol.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(postUserPreferences.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(postUserPreferences.fulfilled, (state, action) => {
+        console.log(action.payload)
+        state.loading = false
+        state.user = action.payload
+        state.error = null
+      })
+      .addCase(postUserPreferences.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

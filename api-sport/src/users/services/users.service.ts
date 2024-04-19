@@ -144,7 +144,9 @@ export class UsersService {
         'user.nickname',
         'user.name',
         'user.password',
-        'user.email'
+        'user.email',
+        'user.rol',
+        'user.preferences'
       ])
       .where({ email })
       .getOne()
@@ -191,6 +193,20 @@ export class UsersService {
         user[key] = updateUserDto[key]
       }
     }
+
+    return await this.userRepository.save(user)
+  }
+
+  public async changeUserPreferences(
+    id: string,
+    userPreferences: JSON
+  ): Promise<UserEntity> {
+    const user = await this.getOneService(id)
+    if (!user) {
+      throw new HttpException(`Usuario con ID ${id} no encontrado`, 404)
+    }
+
+    user.preferences = userPreferences
 
     return await this.userRepository.save(user)
   }

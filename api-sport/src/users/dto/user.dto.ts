@@ -35,6 +35,10 @@ export class UserDTO {
   apellido: string
 
   @IsOptional()
+  @ApiProperty({description: 'user preferences', required: false })
+  preferences: object
+
+  @IsOptional()
   @ApiProperty({description: 'User sex', required: false })
   sexo: string
 

@@ -22,10 +22,13 @@ import { clearUser } from '../../redux/slices/users.slices'
 import { getUser } from '../../redux/actions/users'
 
 import OrganizadorModal from '../../components/AccesoOrganizadorModal'
+import DatosDeportista from '../../components/DatosDeportista'
 // import { SafeAreaView } from 'react-native-safe-area-context'
 
 const TuPerfil = () => {
   const [rol, setRol] = useState(false)
+  const [modalState, setModalState] = useState(false)
+  const [modalSport, setModalSport] = useState(false)
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.users)
@@ -33,7 +36,11 @@ const TuPerfil = () => {
   useEffect(() => {
     dispatch(getUser(user.id))
   }, [])
-  console.log(rol)
+
+  const getModalState = () => {
+    setModalState(true)
+    setModalSport(true)
+  }
 
   const onChangeRol = () => {
     // if (user.rol === 'organizer') {
@@ -44,6 +51,13 @@ const TuPerfil = () => {
   return (
     <View style={styles.tuPerfil}>
       <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
+      {modalState && (
+          <DatosDeportista
+            modalSport={modalSport}
+            setModalSport={setModalSport}
+            setModalState={setModalState}
+          />
+      )}
         <View style={styles.tuPerfilParent}>
           {rol && <OrganizadorModal toggleModal={onChangeRol} />}
           <View
@@ -154,6 +168,23 @@ const TuPerfil = () => {
               />
               <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
                 Trabaja con nosotros
+              </Text>
+            </Pressable>
+
+            <Pressable
+              style={[
+                styles.solarsettingsBoldGroup,
+                styles.solarsettingsSpaceBlock
+              ]}
+              onPress={() => getModalState()}
+            >
+              <Image
+                style={styles.solarsettingsBoldIcon}
+                contentFit="cover"
+                source={require('../../assets/solarsettingsbold4.png')}
+              />
+              <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
+                Ajustar preferencias de usuario
               </Text>
             </Pressable>
 

@@ -19,13 +19,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllEvents, getEventById } from '../redux/actions/events'
 import { ActivityIndicator } from 'react-native-paper'
 import DatosDeportista from '../components/DatosDeportista'
-import { SafeAreaView } from 'react-native-safe-area-context'
+// import { SafeAreaView } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const InicioDeportista = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const { events, loadingGet } = useSelector((state) => state.events)
+  const { user } = useSelector((state) => state.users)
 
   const [modalPremium, setModalPremium] = useState(false)
   const [modalNotifications, setModalNotifications] = useState(false)
@@ -40,9 +41,11 @@ const InicioDeportista = () => {
   }
 
   useEffect(() => {
-    getModalState()
+    if (!user.preferences?.location) {
+      getModalState()
+      setModalSport(true)
+    }
     dispatch(getAllEvents())
-    setModalSport(true)
   }, [])
 
   const handleBuscarPress = () => {
