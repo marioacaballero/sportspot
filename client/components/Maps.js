@@ -15,9 +15,6 @@ import BackArrowSVG from './SVG/BackArrowSVG'
 
 const Maps = ({ onClose, setEventsFilter }) => {
   const [searchText, setSearchText] = useState('')
-  // const [eventsLocal, setEventsLocal] = useState([])
-  // const [currentPage, setCurrentPage] = useState(1)
-  // const [selected, setSelected] = useState(false)
   const [comunities, setComunities] = useState({})
   const [provinces, setProvinces] = useState({})
   const [town, setTown] = useState({})
@@ -25,7 +22,7 @@ const Maps = ({ onClose, setEventsFilter }) => {
   const [provincesState, setProvincesState] = useState([])
   const [townState, setTownState] = useState([])
 
-  console.log({ comunities, provinces, town })
+  // console.log({ comunities, provinces, town })
   // const itemsPerPage = 50
 
   // useEffect(() => {

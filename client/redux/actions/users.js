@@ -70,6 +70,7 @@ export const register = createAsyncThunk('users/register', async (body) => {
 export const login = createAsyncThunk('users/login', async (body) => {
   try {
     const { data } = await axiosInstance.post('/jwt/login', body)
+    console.log(data, 'la data al loguear del user')
     return data
   } catch (error) {
     throw new Error(error)
@@ -137,6 +138,19 @@ export const updateUserRol = createAsyncThunk(
     const { id, rol } = body
     try {
       const { data } = await axiosInstance.patch(`/users/${id}`, { rol })
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+)
+
+// preferencias de usuario, se ejecuta la primera vez y cada vez que configure el usuario
+export const postUserPreferences = createAsyncThunk(
+  'users/postUserPreferences',
+  async ({ userPreferences, id }) => {
+    try {
+      const { data } = await axiosInstance.patch(`/users/userPreferences/${id}`, { userPreferences })
       return data
     } catch (error) {
       throw new Error(error)

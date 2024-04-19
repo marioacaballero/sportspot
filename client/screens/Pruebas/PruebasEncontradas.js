@@ -35,6 +35,7 @@ const PruebasEncontradas = () => {
     useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
 
+  // console.log(user, 'user en encontradas pruebas')
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
   const [favoriteEvents, setFavoriteEvents] = useState([])
