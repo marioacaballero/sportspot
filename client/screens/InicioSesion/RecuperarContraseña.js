@@ -131,9 +131,7 @@ const RecuperarContraseña = () => {
             </View>
             {mostrarBotonEnviar && (
               <Pressable style={styles.enviarWrapper} onPress={handleSendEmail}>
-                <Text style={styles.enviar}>
-                  Enviar código de restablecimiento
-                </Text>
+                <Text style={styles.enviar}>Enviar código</Text>
               </Pressable>
             )}
           </View>
@@ -271,7 +269,16 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   enviarWrapper: {
-    marginTop: '5%'
+    marginTop: '5%',
+    borderRadius: 50,
+    borderStyle: 'solid',
+    padding: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: Color.sportsNaranja,
+    cursor: 'pointer'
   },
   enviar: {
     color: Color.sportsVioleta,

@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   eresDeportista: {
-    fontSize: FontSize.size_sm,
+    fontSize: FontSize.size_mid,
     display: 'flex',
     color: Color.sportsVioleta,
     textAlign: 'left',
@@ -88,14 +88,14 @@ const styles = StyleSheet.create({
     flex: 1
   },
   frameWrapper: {
-    width: 154,
+    width: 180,
     height: 69,
     paddingTop: Padding.p_4xl,
     paddingBottom: Padding.p_3xs,
     paddingRight: Padding.p_3xs
   },
   pencillineParent: {
-    top: 172,
+    top: 130,
     borderRadius: Border.br_3xs,
     shadowColor: '#000',
     shadowOffset: {
@@ -106,13 +106,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     borderStyle: 'solid',
     width: '100%',
-    height: 247,
+    height: 280,
     backgroundColor: Color.blanco,
     alignItems: 'center'
   },
   trabajaConNosotrosContainer: {
     width: '85%',
-    fontSize: FontSize.inputLabel_size,
+    fontSize: FontSize.size_mini,
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.colorBlack,
     textAlign: 'center',
@@ -137,7 +137,8 @@ const styles = StyleSheet.create({
   },
   metodo: {
     backgroundColor: Color.blanco,
-    height: 800,
+    minHeight: '100%',
+    height: '790',
     overflow: 'hidden',
     width: '100%',
     flex: 1,
@@ -146,12 +147,12 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     position: 'absolute',
-    top: 67,
+    top: 15,
     left: '6%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: '90%'
+    width: '97%'
   },
   title: {
     fontSize: FontSize.size_5xl,
