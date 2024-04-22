@@ -1,4 +1,5 @@
 import { MailerService } from '@nestjs-modules/mailer'
+// import { SendMailsModule } from './send-mails.module'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { join } from 'path'
@@ -6,30 +7,17 @@ import { UpdateEventDto } from 'src/events/dto/update-event.dto'
 import { EventEntity } from 'src/events/entities/event.entity'
 import { UserEntity } from 'src/users/entities/users.entity'
 import { Repository } from 'typeorm'
-import * as nodemailer from 'nodemailer';
+// import * as nodemailer from 'nodemailer';
 
 
 @Injectable()
 export class SendMailsService {
-  private transporter: nodemailer;
 
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly mailerService: MailerService
-  ) {
-    this.transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        type: 'OAuth2',
-        user: 'tvhd36@gmail.com',
-        clientId: '407408718192.apps.googleusercontent.com',
-        clientSecret: '************',
-        refreshToken: '1//04XS9FtcvjzrHCgYIARAAGAQSNwF-L9IrjNNr1q6u-iNois592VHAjXktF59QuK7ILKRPhm_z6cFteqOTtcI6uHnIGfuW2pYaLUo',
-        accessToken: 'ya29.a0Ad52N39zSUHI0AXYcTDcjOLfdkBNbOOmruddH1aH3reZjxfGGNfym8Q8uxAOfQ3E0h2wdk4bjY2gC2IgVbi4FwzaH-Nh51DXeOVQq8AmezWAQXenEshKRAzUZLzkAitsFotJETn0FF_fdDbsy0lnO_5OA6dSGKY6Z3ihaCgYKAV0SARASFQHGX2Mi_kblqghlMLeaYp1dAG-iAA0171',
-  },
-    });
-  }
+  ) {}
 
   async sendMail(email: string) {
     
@@ -96,7 +84,7 @@ export class SendMailsService {
     </html>
     `;
     
-    await this.transporter.sendMail({
+    await this.mailerService.sendMail({
       from: 'tvhd36@gmail.com', // sender address
       to: email, // mail of receivers
       subject: 'Test mail',
@@ -209,7 +197,8 @@ export class SendMailsService {
     </body>
     </html>
     `
-    await this.mailerService.sendMail({
+  const result = await this.mailerService.sendMail({
+      from: 'fernando.kaganovicz.94@gmail.com',
       to: email,
       subject: 'Registro exitoso',
       html: htmlTemplate, // Archivo de plantilla de correo electrónico
@@ -233,8 +222,7 @@ export class SendMailsService {
         }
       ]
     })
-
-    return 'Correo enviado exitosamente'
+    return result
   }
 
   async sendEventDeletedNotification(event: EventEntity) {
@@ -370,7 +358,6 @@ export class SendMailsService {
         ]
       })
     }
-
     return 'Correo enviado exitosamente'
   }
 

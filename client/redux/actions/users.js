@@ -57,12 +57,9 @@ export const getAllUsers = createAsyncThunk('users/getAllUsers', async () => {
 
 export const register = createAsyncThunk('users/register', async (body) => {
   try {
-    console.log(body, 'body que se envia en el registro')
     const { data } = await axiosInstance.post('/users', body)
-    console.log(data, 'data en action')
     return data
   } catch (error) {
-    console.log(error, 'error en action')
     throw new Error(error)
   }
 })

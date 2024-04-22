@@ -58,7 +58,11 @@ export class UsersService {
     if (!newProfile) {
       throw new HttpException('The new profile is not created', 501)
     } else {
-      await this.sendMailsService.sendRegistrationNotification(newProfile.email)
+      try {
+        await this.sendMailsService.sendRegistrationNotification(newProfile.email)
+      } catch(error) {
+        console.log('cae en el error ->',error)
+      }
     }
 
     return newProfile
