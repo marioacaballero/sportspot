@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { SendMailsService } from './send-mails.service'
 import { SendMailsController } from './send-mails.controller'
+import { UsersController } from 'src/users/controllers/users.controller'
 import { MailerModule } from '@nestjs-modules/mailer'
 import { join } from 'path'
 import { ResetCodeController } from './reset-code.controller'
@@ -26,8 +27,8 @@ import { UserEventHistoryEntity } from 'src/events/entities/userEvent.entity'
         port: 587,
         secure: false, // true para TLS; false para otros protocolos
         auth: {
-          user: 'bradford.quitzon77@ethereal.email', // Correo electrónico de origen
-          pass: '6VQE2WFSmMnApFgmDc' // Contraseña del correo electrónico de origen
+          user: 'jakayla.collins@ethereal.email', // Correo electrónico de origen
+          pass: 'VRPzSkjB9KQDZucGRT' // Contraseña del correo electrónico de origen
         }
       },
       defaults: {
@@ -50,14 +51,14 @@ import { UserEventHistoryEntity } from 'src/events/entities/userEvent.entity'
   
     ])
   ],
-  controllers: [SendMailsController, ResetCodeController],
+  controllers: [SendMailsController, UsersController, ResetCodeController],
   providers: [
     SendMailsService,
     ResetCodeService,
     UsersService,
     NotificationsService,
     EventsService,
-    SendMailsService,
+    // SendMailsService,
     JsonwebtokenService,
     JwtService
   ]

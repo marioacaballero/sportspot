@@ -9,10 +9,12 @@ export class SendMailsController {
 
   @Post('registration-mail')
   async sendRegistrationMail(@Body() body: { email: string }) {
+    console.log(body.email, 'q llega de email???')
     return this.sendMailsService.sendRegistrationNotification(body.email)
   }
   @Post('register')
   async sendMailRegister(@Body() body: { email: string }) {
+    console.log('entra acá?????')
     return this.sendMailsService.sendMail(body.email)
   }
 }

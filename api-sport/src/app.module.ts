@@ -8,7 +8,6 @@ import { NotificationsModule } from './notifications/notifications.module'
 import { SportsModule } from './sports/sports.module'
 import { JsonwebtokenModule } from './jsonwebtoken/jsonwebtoken.module'
 import { SendMailsModule } from './send-mails/send-mails.module'
-
 import { join } from 'path'
 import { PassportModule } from '@nestjs/passport'
 import { StripeModule } from './stripe/stripe.module'
@@ -25,6 +24,9 @@ console.log(join(__dirname, 'template'))
     NotificationsModule,
     SportsModule,
     JsonwebtokenModule,
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
     SendMailsModule,
     StripeModule
     //GoogleStrategyModule
