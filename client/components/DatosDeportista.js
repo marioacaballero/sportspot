@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 510,
     left: '5%',
-    top: '6%',
+    top: '3%',
     borderRadius: 20,
     elevation: 5,
     backgroundColor: Color.blanco
@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
   ftbol: {
     fontSize: FontSize.size_sm,
     lineHeight: 23,
-    fontWeight: '100',
+    fontWeight: '900',
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.colorGray_200,
     textAlign: 'center',

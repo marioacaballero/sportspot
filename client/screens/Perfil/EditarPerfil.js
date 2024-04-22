@@ -78,6 +78,7 @@ const EditarPerfil = () => {
     await dispatch(updateUser(data))
     dispatch(getUser(user.id))
     dispatch(setDateStart(''))
+    navigation.goBack()
   }
 
   const uploadImage = async () => {
@@ -411,7 +412,8 @@ const styles = StyleSheet.create({
     maxHeight: '100%',
     maxWidth: '100%',
     position: 'absolute',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    marginTop: 6
   },
   gestionaTuCuentaContainer: {
     fontSize: FontSize.size_11xl,
@@ -448,6 +450,7 @@ const styles = StyleSheet.create({
   userIcon: {
     height: 22,
     marginLeft: 4,
+    marginTop: 21,
     width: 22
   },
   datosPersonales: {
@@ -458,12 +461,14 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     textAlign: 'left',
-    color: Color.sportsVioleta
+    color: Color.sportsVioleta,
+    marginTop: 6
   },
   datosPersonalesWrapper: {
     width: 195,
-    height: 35,
+    height: 30,
     marginLeft: 11,
+    marginTop: 15,
     alignItems: 'center'
   },
   label: {
@@ -556,6 +561,7 @@ const styles = StyleSheet.create({
   },
   card1: {
     width: '100%',
+    height: 250,
     paddingHorizontal: Padding.p_smi,
     paddingVertical: Padding.p_5xs,
     flexWrap: 'wrap',
@@ -577,6 +583,7 @@ const styles = StyleSheet.create({
     gap: 5
   },
   card11Wrapper: {
+    height: 270,
     borderRadius: Border.br_base,
     backgroundColor: Color.blanco,
     shadowColor: '#000',

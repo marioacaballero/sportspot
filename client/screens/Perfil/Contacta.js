@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   innerContainer: {
-    top: 122,
+    top: 99,
     borderRadius: Border.br_base,
     shadowColor: '#000',
     shadowOffset: {
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     position: 'absolute',
-    top: 67,
+    top: 20,
     left: '6%',
     flexDirection: 'row',
     alignItems: 'center',

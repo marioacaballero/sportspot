@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react'
 import { View, Text, Modal, StyleSheet } from 'react-native'
 import { Color, FontFamily } from '../GlobalStyles'
+import { useNavigation } from '@react-navigation/native'
 
 const CustomAlert = ({ visible, message, onClose }) => {
+  const navigation = useNavigation()
   useEffect(() => {
     let timeoutId
 
     if (visible) {
       timeoutId = setTimeout(() => {
         onClose()
-      }, 1800)
+        navigation.goBack()
+      }, 2400)
     }
 
     return () => clearTimeout(timeoutId)

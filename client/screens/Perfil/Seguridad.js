@@ -39,6 +39,8 @@ const Seguridad = () => {
   const [showAlert, setShowAlert] = useState(false)
   const [message, setMessage] = useState('')
 
+  console.log(showAlert)
+
   const valuesLogin = (field, value) => {
     setPassword((prev) => ({
       ...prev,
@@ -47,6 +49,8 @@ const Seguridad = () => {
   }
 
   const handleShowAlert = (message) => {
+    console.log('show', showAlert)
+
     setMessage(message)
     setShowAlert(true)
   }
@@ -64,8 +68,8 @@ const Seguridad = () => {
           newPassword: password.confirmPassword
         }
         dispatch(changePassword(data))
-        alert('Contraseña cambiada exitosamente')
-        navigation.goBack()
+        handleShowAlert('Contraseña cambiada exitosamente')
+        // navigation.goBack()
       } else {
         handleShowAlert('La nueva contraseña debe tener al menos 3 caracteres')
       }
