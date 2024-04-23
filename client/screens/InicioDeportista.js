@@ -27,7 +27,7 @@ const InicioDeportista = () => {
   const dispatch = useDispatch()
   const { events, loadingGet } = useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
-
+  console.log(user, 'user en deportista')
   const [modalPremium, setModalPremium] = useState(false)
   const [modalNotifications, setModalNotifications] = useState(false)
   const [modalOrganizador, setModalOrganizador] = useState(false)

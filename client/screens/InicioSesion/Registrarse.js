@@ -68,6 +68,7 @@ const Registrarse = () => {
         registerUser.password &&
         confirmPassword
       ) {
+        console.log(users)
         const emailExists = users.some(
           (user) => user.email === registerUser.email
         )

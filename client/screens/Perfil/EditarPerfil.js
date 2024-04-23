@@ -41,17 +41,17 @@ const EditarPerfil = () => {
   const [selectedImage, setSelectedImage] = useState(null)
   const [valuesUser, setValuesUser] = useState({
     name: user?.name || '',
-    apellido: user?.apellido || '',
-    sexo: user?.sexo || '',
-    fechaNacimiento: '',
-    direccion: user?.direccion || '',
-    telefono: user?.telefono || ''
+    lastName: user?.lastName || '',
+    genres: user?.genres || '',
+    birthDate: user.birthDate,
+    address: user?.address || '',
+    phoneNumber: user?.phoneNumber || ''
   })
 
   useEffect(() => {
     setValuesUser((prevValues) => ({
       ...prevValues,
-      fechaNacimiento: dateStart || ''
+      birthDate: dateStart || ''
     }))
   }, [dateStart])
 
@@ -75,6 +75,7 @@ const EditarPerfil = () => {
       id: user.id,
       valuesUser
     }
+    console.log(data)
     await dispatch(updateUser(data))
     dispatch(getUser(user.id))
     dispatch(setDateStart(''))
@@ -185,13 +186,13 @@ CUENTA`}
                       Apellido
                     </Text>
                     <TextInput
-                      placeholder={user?.apellido || 'Apellido'}
+                      placeholder={user?.lastName || 'Apellido'}
                       placeholderTextColor={
-                        user.apellido ? Color.sportsVioleta : 'gray'
+                        user.lastName ? Color.sportsVioleta : 'gray'
                       }
-                      value={valuesUser?.apellido}
+                      value={valuesUser?.lastName}
                       onChangeText={(value) =>
-                        settingValuesUser('apellido', value)
+                        settingValuesUser('lastName', value)
                       }
                     />
                   </View>
@@ -204,12 +205,12 @@ CUENTA`}
                       Género
                     </Text>
                     <TextInput
-                      placeholder={user?.sexo || '-'}
+                      placeholder={user?.genres || '-'}
                       placeholderTextColor={
-                        user.sexo ? Color.sportsVioleta : 'gray'
+                        user.genres ? Color.sportsVioleta : 'gray'
                       }
-                      value={valuesUser.sexo}
-                      onChangeText={(value) => settingValuesUser('sexo', value)}
+                      value={valuesUser.genres}
+                      onChangeText={(value) => settingValuesUser('genres', value)}
                     />
                   </View>
                 </View>
@@ -222,9 +223,9 @@ CUENTA`}
                         Fecha de nacimiento
                       </Text>
                       <TextInput
-                        placeholder={user?.fechaNacimiento || '12/12/2020'}
+                        placeholder={user?.birthDate || '12/12/2020'}
                         placeholderTextColor={
-                          user.fechaNacimiento ? Color.sportsVioleta : 'gray'
+                          user.birthDate ? Color.sportsVioleta : 'gray'
                         }
                         value={dateStart || '2020/12/12'}
                         // onChangeText={(value) =>
@@ -282,13 +283,13 @@ CUENTA`}
                     Teléfono
                   </Text>
                   <TextInput
-                    placeholder={user?.telefono || 'Escribe aqui...'}
+                    placeholder={user?.phoneNumber || 'Escribe aqui...'}
                     placeholderTextColor={
-                      user.telefono ? Color.sportsVioleta : 'gray'
+                      user.phoneNumber ? Color.sportsVioleta : 'gray'
                     }
-                    value={valuesUser.telefono}
+                    value={valuesUser.phoneNumber}
                     onChangeText={(value) =>
-                      settingValuesUser('telefono', value)
+                      settingValuesUser('phoneNumber', value)
                     }
                     keyboardType="numeric"
                   />
@@ -300,13 +301,13 @@ CUENTA`}
                     Dirección
                   </Text>
                   <TextInput
-                    placeholder={user?.direccion || 'Escribe aqui...'}
+                    placeholder={user?.address || 'Escribe aqui...'}
                     placeholderTextColor={
-                      user.direccion ? Color.sportsVioleta : 'gray'
+                      user.address ? Color.sportsVioleta : 'gray'
                     }
-                    value={valuesUser.direccion}
+                    value={valuesUser.address}
                     onChangeText={(value) =>
-                      settingValuesUser('direccion', value)
+                      settingValuesUser('address', value)
                     }
                   />
                 </View>
