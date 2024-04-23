@@ -103,6 +103,7 @@ export class UsersController {
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto
   ): Promise<UserEntity> {
+    console.log(updateUserDto, 'que tenemos?')
     return this.userService.updateService(id, updateUserDto)
   }
 
