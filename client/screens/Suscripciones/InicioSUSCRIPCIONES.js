@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Text,
   StyleSheet,
@@ -16,132 +16,143 @@ import {
   Padding
 } from '../../GlobalStyles'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
+import StripeComponent from '../StripeComponent'
 
 const InicioSUSCRIPCIONES = () => {
   const navigation = useNavigation()
+  const [show, setShow] = useState(false)
+
+  const handleStripe = () => {
+    setShow(!show)
+  }
 
   return (
-    <ScrollView
-      style={styles.inicioSuscripciones2}
-      contentContainerStyle={{ paddingBottom: 200 }}
-    >
-      <View style={styles.helloAshfakParent}>
-        <Text style={[styles.helloAshfak2, styles.helloClr]}>
-          PLANES DE SUSCRIPCIÓN
-        </Text>
-        <Pressable
-          style={styles.groupParent}
-          onPress={() => navigation.goBack()}
-        >
-          <BackArrowSVG />
-        </Pressable>
-      </View>
-      <View style={styles.div2CardsWrapper}>
-        <View style={styles.div2Cards}>
-          <View style={styles.card}>
-            <View style={styles.content}>
-              <View>
-                <Text style={[styles.estasSonLasContainer, styles.helloClr]}>
-                  <Text style={styles.estasSonLasVentajasQueObt}>
-                    <Text style={styles.helloTypo}>
-                      ¡Estas son algunas de las ventajas que obtendrías al
-                      hacerte Premium!
+    <>
+      <ScrollView
+        style={styles.inicioSuscripciones2}
+        contentContainerStyle={{ paddingBottom: 200 }}
+      >
+        <View style={styles.helloAshfakParent}>
+          <Text style={[styles.helloAshfak2, styles.helloClr]}>
+            PLANES DE SUSCRIPCIÓN
+          </Text>
+          <Pressable
+            style={styles.groupParent}
+            onPress={() => navigation.goBack()}
+          >
+            <BackArrowSVG />
+          </Pressable>
+        </View>
+        <View style={styles.div2CardsWrapper}>
+          <View style={styles.div2Cards}>
+            <View style={styles.card}>
+              <View style={styles.content}>
+                <View>
+                  <Text style={[styles.estasSonLasContainer, styles.helloClr]}>
+                    <Text style={styles.estasSonLasVentajasQueObt}>
+                      <Text style={styles.helloTypo}>
+                        ¡Estas son algunas de las ventajas que obtendrías al
+                        hacerte Premium!
+                      </Text>
                     </Text>
                   </Text>
-                </Text>
+                </View>
+
+                <View style={styles.groupWrapper}>
+                  <View style={styles.groupContainer}>
+                    <View style={styles.container}>
+                      <Image
+                        style={styles.imageIcon}
+                        contentFit="cover"
+                        source={require('../../assets/nuevo.png')}
+                      />
+                      <Text style={styles.textos}>Sistema de alertas</Text>
+                    </View>
+                    <View style={styles.container}>
+                      <Image
+                        style={styles.imageIcon}
+                        contentFit="cover"
+                        source={require('../../assets/reembolso.png')}
+                      />
+                      <Text style={styles.textos}>
+                        Reembolso por cancelación
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={styles.groupContainer}>
+                    <View style={styles.container}>
+                      <Image
+                        style={styles.imageIcon}
+                        contentFit="cover"
+                        source={require('../../assets/reseña.png')}
+                      />
+                      <Text style={styles.textos}>Reseñas de valor</Text>
+                    </View>
+                    <View style={styles.container}>
+                      <Image
+                        style={styles.imageIcon}
+                        contentFit="cover"
+                        source={require('../../assets/descuento.png')}
+                      />
+                      <Text style={styles.textos}>Descuentos especiales</Text>
+                    </View>
+                  </View>
+                </View>
+
+                <Pressable
+                  style={styles.contentInner}
+                  onPress={() => navigation.navigate('VentajasSuscripciones')}
+                >
+                  <View style={styles.helloAshfakWrapper}>
+                    <Text style={[styles.helloAshfak7, styles.helloTypo]}>
+                      Consulta todas las ventajas
+                    </Text>
+                  </View>
+                </Pressable>
+
+                <View style={styles.contentInner}>
+                  <View style={styles.helloAshfakWrapper1}>
+                    <Text style={styles.helloAshfak}>
+                      Adquiere tu plan ahora!
+                    </Text>
+                  </View>
+                </View>
+
+                <Pressable onPress={handleStripe} style={styles.contentInner}>
+                  <View style={styles.helloAshfakWrapper4}>
+                    <Text style={[styles.helloAshfak7, styles.helloTypo]}>
+                      Plan mensual 5,99€
+                    </Text>
+                  </View>
+                </Pressable>
+                <Pressable onPress={handleStripe} style={styles.contentInner}>
+                  <View style={styles.helloAshfakWrapper4}>
+                    <Text style={[styles.helloAshfak7, styles.helloTypo]}>
+                      Plan trimestral 15,99€
+                    </Text>
+                  </View>
+                </Pressable>
+                <Pressable onPress={handleStripe} style={styles.contentInner}>
+                  <View style={styles.helloAshfakWrapper4}>
+                    <Text style={[styles.helloAshfak7, styles.helloTypo]}>
+                      Plan semestral 25,99€
+                    </Text>
+                  </View>
+                </Pressable>
+                <Pressable onPress={handleStripe} style={styles.contentInner}>
+                  <View style={styles.helloAshfakWrapper4}>
+                    <Text style={[styles.helloAshfak7, styles.helloTypo]}>
+                      Plan anual 45,99€
+                    </Text>
+                  </View>
+                </Pressable>
               </View>
-
-              <View style={styles.groupWrapper}>
-                <View style={styles.groupContainer}>
-                  <View style={styles.container}>
-                    <Image
-                      style={styles.imageIcon}
-                      contentFit="cover"
-                      source={require('../../assets/nuevo.png')}
-                    />
-                    <Text style={styles.textos}>Sistema de alertas</Text>
-                  </View>
-                  <View style={styles.container}>
-                    <Image
-                      style={styles.imageIcon}
-                      contentFit="cover"
-                      source={require('../../assets/reembolso.png')}
-                    />
-                    <Text style={styles.textos}>Reembolso por cancelación</Text>
-                  </View>
-                </View>
-                <View style={styles.groupContainer}>
-                  <View style={styles.container}>
-                    <Image
-                      style={styles.imageIcon}
-                      contentFit="cover"
-                      source={require('../../assets/reseña.png')}
-                    />
-                    <Text style={styles.textos}>Reseñas de valor</Text>
-                  </View>
-                  <View style={styles.container}>
-                    <Image
-                      style={styles.imageIcon}
-                      contentFit="cover"
-                      source={require('../../assets/descuento.png')}
-                    />
-                    <Text style={styles.textos}>Descuentos especiales</Text>
-                  </View>
-                </View>
-              </View>
-
-              <Pressable
-                style={styles.contentInner}
-                onPress={() => navigation.navigate('VentajasSuscripciones')}
-              >
-                <View style={styles.helloAshfakWrapper}>
-                  <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-                    Consulta todas las ventajas
-                  </Text>
-                </View>
-              </Pressable>
-
-              <View style={styles.contentInner}>
-                <View style={styles.helloAshfakWrapper1}>
-                  <Text style={styles.helloAshfak}>
-                    Adquiere tu plan ahora!
-                  </Text>
-                </View>
-              </View>
-
-              <Pressable style={styles.contentInner}>
-                <View style={styles.helloAshfakWrapper4}>
-                  <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-                    Plan mensual 5,99€
-                  </Text>
-                </View>
-              </Pressable>
-              <Pressable style={styles.contentInner}>
-                <View style={styles.helloAshfakWrapper4}>
-                  <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-                    Plan trimestral 15,99€
-                  </Text>
-                </View>
-              </Pressable>
-              <Pressable style={styles.contentInner}>
-                <View style={styles.helloAshfakWrapper4}>
-                  <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-                    Plan semestral 25,99€
-                  </Text>
-                </View>
-              </Pressable>
-              <Pressable style={styles.contentInner}>
-                <View style={styles.helloAshfakWrapper4}>
-                  <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-                    Plan anual 45,99€
-                  </Text>
-                </View>
-              </Pressable>
             </View>
           </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+      {show && <StripeComponent />}
+    </>
   )
 }
 
@@ -258,7 +269,7 @@ const styles = StyleSheet.create({
     marginRight: '6%'
   },
   inicioSuscripciones2: {
-    paddingTop: Padding.p_48xl,
+    paddingTop: Padding.p_xs,
     paddingBottom: Padding.p_5xl,
     paddingHorizontal: Padding.p_xl,
     width: '100%',

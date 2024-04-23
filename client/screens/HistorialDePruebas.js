@@ -6,15 +6,17 @@ import {
   Pressable,
   Modal,
   // Image,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native'
 import EscribirResea from '../components/EscribirResea'
-// import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
+import BackArrowSVG from '../components/SVG/BackArrowSVG'
 import { FontFamily, Padding, FontSize, Color, Border } from '../GlobalStyles'
 
 const HistorialDePruebas = () => {
   const [frameContainer7Visible, setFrameContainer7Visible] = useState(false)
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
 
   const openFrameContainer7 = useCallback(() => {
     setFrameContainer7Visible(true)
@@ -31,10 +33,13 @@ const HistorialDePruebas = () => {
         contentContainerStyle={{ paddingBottom: 50 }}
       >
         <View style={[styles.frameParent, styles.frameParentPosition]}>
-          <View>
+          <View style={styles.containerHistorial}>
             <Text style={[styles.tuHistorialDe, styles.ciclismoTypo]}>
               TU HISTORIAL DE PRUEBAS
             </Text>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <BackArrowSVG />
+            </TouchableOpacity>
           </View>
           <View style={[styles.frameWrapper, styles.frameSpaceBlock1]}>
             <View style={styles.frameContainer}>
@@ -308,6 +313,11 @@ const styles = StyleSheet.create({
   frameWrapper: {
     flexDirection: 'row'
   },
+  containerHistorial: {
+    display: 'flex',
+    flexDirection: 'row',
+    paddingRight: 30
+  },
   image84Icon: {
     borderTopLeftRadius: Border.br_3xs,
     borderBottomLeftRadius: Border.br_3xs,
@@ -395,7 +405,7 @@ const styles = StyleSheet.create({
   },
   frameParent: {
     height: 685,
-    paddingTop: Padding.p_48xl,
+    paddingTop: 18,
     paddingHorizontal: Padding.p_xl,
     top: 0
   },
@@ -439,8 +449,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.blanco,
     // height: 800,
     overflow: 'hidden',
-    width: '100%',
-    flex: 1
+    width: '100%'
   },
   text2: {
     color: Color.sportsVioleta,
@@ -448,7 +457,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_xl,
     fontWeight: '700',
     textAlign: 'center',
-    marginTop: 20
+    marginTop: 90
   }
 })
 

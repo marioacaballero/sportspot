@@ -51,13 +51,13 @@ const TuPerfil = () => {
   return (
     <View style={styles.tuPerfil}>
       <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
-      {modalState && (
+        {modalState && (
           <DatosDeportista
             modalSport={modalSport}
             setModalSport={setModalSport}
             setModalState={setModalState}
           />
-      )}
+        )}
         <View style={styles.tuPerfilParent}>
           {rol && <OrganizadorModal toggleModal={onChangeRol} />}
           <View
@@ -85,70 +85,70 @@ const TuPerfil = () => {
               }
             />
             <View style={styles.laraMacasBlancoCarrrilhoParent}>
-  {user?.name || user?.lastName ? (
-    <>
-      <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
-        Nombre Completo:
-      </Text>
-      <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-        {user?.name}
-      </Text>
-      <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-        {user?.lastName}
-      </Text>
-    </>
-  ) : (
-    <></>
-  )}
-  {user?.genres ? (
-    <>
-      <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
-        Género:
-      </Text>
-      <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-        {user?.genres}
-      </Text>
-    </>
-  ) : (
-    <></>
-  )}
-  {user?.phoneNumber ? (
-    <>
-      <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
-        Número de teléfono:
-      </Text>
-      <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-        {user?.phoneNumber}
-      </Text>
-    </>
-  ) : (
-    <></>
-  )}
-  {user?.address ? (
-    <>
-      <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
-        Dirección:
-      </Text>
-      <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-        {user?.address}
-      </Text>
-    </>
-  ) : (
-    <></>
-  )}
-  {user?.birthDate ? (
-    <>
-      <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
-        Fecha de nacimiento:
-      </Text>
-      <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-        {user?.birthDate}
-      </Text>
-    </>
-  ) : (
-    <></>
-  )}
-</View>
+              {user?.name || user?.lastName ? (
+                <>
+                  <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
+                    Nombre Completo:
+                  </Text>
+                  <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
+                    {user?.name}
+                  </Text>
+                  <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
+                    {user?.lastName}
+                  </Text>
+                </>
+              ) : (
+                <></>
+              )}
+              {user?.genres ? (
+                <>
+                  <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
+                    Género:
+                  </Text>
+                  <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
+                    {user?.genres}
+                  </Text>
+                </>
+              ) : (
+                <></>
+              )}
+              {user?.phoneNumber ? (
+                <>
+                  <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
+                    Número de teléfono:
+                  </Text>
+                  <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
+                    {user?.phoneNumber}
+                  </Text>
+                </>
+              ) : (
+                <></>
+              )}
+              {user?.address ? (
+                <>
+                  <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
+                    Dirección:
+                  </Text>
+                  <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
+                    {user?.address}
+                  </Text>
+                </>
+              ) : (
+                <></>
+              )}
+              {user?.birthDate ? (
+                <>
+                  <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
+                    Fecha de nacimiento:
+                  </Text>
+                  <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
+                    {user?.birthDate}
+                  </Text>
+                </>
+              ) : (
+                <></>
+              )}
+            </View>
           </View>
           <View style={styles.frameParent}>
             <Pressable
@@ -344,12 +344,12 @@ const styles = StyleSheet.create({
     height: 122
   },
   laraMacasBlanco: {
-    fontSize: FontSize.size_xl,
+    fontSize: FontSize.size_mini,
     color: Color.sportsNaranja
   },
   tuPerfilDato: {
-    fontSize: FontSize.size_mid,
-    color: Color.colorDarkgray_100
+    fontSize: FontSize.inputLabel_size,
+    color: Color.sportsVioleta
   },
   mujer23Aos: {
     fontFamily: FontFamily.inputPlaceholder,
