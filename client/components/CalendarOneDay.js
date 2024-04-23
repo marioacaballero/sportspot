@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { Calendar } from 'react-native-calendars'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+  Pressable
+} from 'react-native'
+import { Calendar, LocaleConfig } from 'react-native-calendars'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
 import { useDispatch } from 'react-redux'
 import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
@@ -8,7 +15,63 @@ import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
 const CalendarOneDay = ({ onClose, start, suscription }) => {
   const dispatch = useDispatch()
   const [selected, setSelected] = useState('')
+  const dateInitial = new Date()
+  const year = dateInitial.getFullYear()
+  let month = dateInitial.getMonth() + 1
+  let date = dateInitial.getDate()
+  if (month < 10) month = '0' + month
+  if (date < 10) date = '0' + date
 
+  const dateEnd = `${year}-${month}-${date}`
+  const [calendarDate, setCalendarDate] = useState(dateEnd)
+  const [openModal, setOpenModal] = useState(false)
+  const [inputValue, setInputValue] = useState(year)
+
+  console.log(inputValue)
+
+  LocaleConfig.locales['es'] = {
+    monthNames: [
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre'
+    ],
+    monthNamesShort: [
+      'Ene',
+      'Feb',
+      'Mar',
+      'Abr',
+      'May',
+      'Jun',
+      'Jul',
+      'Ago',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dic'
+    ],
+    dayNames: [
+      'Domingo',
+      'Lunes',
+      'Martes',
+      'Miercoles',
+      'Jueves',
+      'Viernes',
+      'Sabado'
+    ],
+    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+    today: 'Hoy'
+  }
+
+  LocaleConfig.defaultLocale = 'es'
   const generateMarkedDates = () => {
     const markedDates = {}
     if (selected) {
@@ -29,12 +92,55 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
       dispatch(setDateSuscription(day.dateString))
     }
   }
+  const handleInputChange = (value) => {
+    console.log('e.t', value)
+
+    setInputValue(value)
+  }
+  const sumbitYear = () => {
+    const year = inputValue
+    let month = dateInitial.getMonth() + 1
+    let date = dateInitial.getDate()
+    if (month < 10) month = '0' + month
+    if (date < 10) date = '0' + date
+    const dateEnd = `${year}-${month}-${date}`
+
+    setCalendarDate(dateEnd)
+    setOpenModal(false)
+  }
 
   return (
     <View style={styles.calendar}>
+      <TouchableOpacity
+        onPress={() => setOpenModal(true)}
+        style={styles.calendar1}
+      >
+        <Text>📆 Cambiar año</Text>
+      </TouchableOpacity>
+      {openModal && (
+        <View style={styles.inputModal}>
+          <TextInput
+            minLength={4}
+            value={inputValue}
+            placeholder="2024"
+            onChangeText={(value) => handleInputChange(value)}
+          />
+          <Pressable onPress={sumbitYear}>
+            <Text>ok</Text>
+          </Pressable>
+        </View>
+      )}
       <Calendar
         onDayPress={handleDayPress}
         markedDates={generateMarkedDates()}
+        firstDay={1}
+        initialDate={calendarDate}
+        theme={{
+          calendarBackground: '#ffffff',
+          todayTextColor: 'orange',
+          selectedDayTextColor: '#ffffff',
+          arrowColor: 'orange'
+        }}
       />
       <TouchableOpacity onPress={onClose} style={styles.helloAshfakWrapper}>
         <Text style={styles.helloAshfak}>Listo</Text>
@@ -82,7 +188,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: FontFamily.inputPlaceholder
   },
-
+  inputModal: {
+    position: 'absolute',
+    backgroundColor: Color.sportsNaranja,
+    color: Color.blanco,
+    zIndex: 30,
+    width: 120,
+    height: 48,
+    borderRadius: Border.br_5xl,
+    paddingHorizontal: Padding.p_3xs,
+    paddingVertical: Padding.p_xs,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   weekFlexBox: {
     opacity: 0.35,
     flexDirection: 'row',

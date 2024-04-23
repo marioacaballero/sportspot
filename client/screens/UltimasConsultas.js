@@ -32,13 +32,19 @@ const UltimasConsultas = () => {
   useEffect(() => {
     const body = {
       userId: user.id,
-      filter: 'day'
+      filter: switchStates[0]
+        ? 'day'
+        : switchStates[1]
+        ? 'week'
+        : switchStates[2]
+        ? 'month'
+        : 'day'
     }
     dispatch(getAllVisitedEvents(body))
-  }, [])
+  }, [switchStates])
 
   const toggleSwitch = (index) => {
-    const newSwitchStates = [...switchStates]
+    const newSwitchStates = [false, false, false]
     newSwitchStates[index] = !newSwitchStates[index]
     setSwitchStates(newSwitchStates)
   }
@@ -217,13 +223,14 @@ const UltimasConsultas = () => {
                       <Text
                         style={{ color: Color.sportsVioleta, fontSize: 12 }}
                       >
-                        Fecha límite de inscripción:
+                        Fecha límite de insc.:
                       </Text>
                       <Text
                         style={{
                           fontWeight: 300,
                           fontSize: 12,
-                          color: Color.sportsVioleta
+                          color: Color.sportsVioleta,
+                          textOverflow: 'ellipsis'
                         }}
                       >
                         {event.event.dateInscription}
@@ -278,15 +285,12 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_3xs,
     shadowColor: 'rgba(0, 0, 0, 0.25)',
     shadowOffset: {
-      width: 2,
-      height: 2
+      width: 10,
+      height: 10
     },
-    shadowRadius: 4,
+    shadowRadius: 1,
     elevation: 4,
-    shadowOpacity: 1,
-    borderStyle: 'solid',
-    borderColor: Color.colorGainsboro_100,
-    borderWidth: 1,
+    shadowOpacity: 0.5,
     justifyContent: 'center',
     alignItems: 'center'
   },

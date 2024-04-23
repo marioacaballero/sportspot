@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { Color } from '../GlobalStyles'
+import { Color, FontSize } from '../GlobalStyles'
 import { useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { offSuscription } from '../redux/actions/suscriptions'
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 35,
     position: 'absolute',
-    backgroundColor: Color.naranja3,
+    backgroundColor: Color.blanco,
     bottom: 50,
     borderRadius: 20,
     borderWidth: 1,
@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
   },
   text: {
     marginBottom: 30,
+    fontSize: FontSize.size_mini,
     color: Color.sportsVioleta
   },
   touchable: {

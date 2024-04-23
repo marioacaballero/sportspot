@@ -27,7 +27,6 @@ const InicioDeportista = () => {
   const dispatch = useDispatch()
   const { events, loadingGet } = useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
-  console.log(user, 'user en deportista')
   const [modalPremium, setModalPremium] = useState(false)
   const [modalNotifications, setModalNotifications] = useState(false)
   const [modalOrganizador, setModalOrganizador] = useState(false)
@@ -544,7 +543,7 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_31xl,
     backgroundColor: Color.naranja3,
     width: '100%',
-    paddingLeft: Padding.p_31xl,
+    paddingLeft: Padding.p_3xs,
     paddingTop: Padding.p_3xs,
     paddingRight: Padding.p_3xs,
     paddingBottom: Padding.p_3xs,

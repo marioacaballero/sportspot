@@ -49,11 +49,9 @@ CUENTA`}
             </Text>
           </View>
 
-          <Image
-            style={styles.vectorIconLayout}
-            contentFit="cover"
-            source={require('../../assets/vector4.png')}
-          />
+          <View style={styles.vectorIconLayout}>
+            <BackArrowSVG color={'#FF6F00'} />
+          </View>
         </Pressable>
 
         <Pressable
@@ -76,11 +74,9 @@ CUENTA`}
             </Text>
           </View>
 
-          <Image
-            style={styles.vectorIconLayout}
-            contentFit="cover"
-            source={require('../../assets/vector4.png')}
-          />
+          <View style={styles.vectorIconLayout}>
+            <BackArrowSVG color={'#FF6F00'} />
+          </View>
         </Pressable>
 
         <Pressable
@@ -103,11 +99,9 @@ CUENTA`}
             </Text>
           </View>
 
-          <Image
-            style={styles.vectorIconLayout}
-            contentFit="cover"
-            source={require('../../assets/vector4.png')}
-          />
+          <View style={styles.vectorIconLayout}>
+            <BackArrowSVG color={'#FF6F00'} />
+          </View>
         </Pressable>
       </View>
     </View>
@@ -150,8 +144,7 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   vectorIconLayout: {
-    height: 13,
-    width: 15
+    transform: 'rotate(-180deg)'
   },
   pencillineParent: {
     height: 80,

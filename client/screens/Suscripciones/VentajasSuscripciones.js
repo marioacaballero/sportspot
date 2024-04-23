@@ -149,19 +149,19 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_3xs,
     backgroundColor: Color.colorMistyrose,
     padding: Padding.p_xl,
-    marginTop: 20
+    marginTop: 10
   },
   boxContent: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 20,
-    height: 100,
+    height: 140,
     width: '100%'
   },
   boxText: {
     color: Color.sportsVioleta,
     fontSize: 13,
-    width: '80%'
+    width: '83%'
   },
   imageIcon: {
     width: 25,

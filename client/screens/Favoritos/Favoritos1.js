@@ -80,28 +80,34 @@ const Favoritos1 = () => {
             <Text style={styles.tusListasTypo}>Tus listas</Text>
           </View>
         </View>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={Object.entries(groupedFavorites)}
-          keyExtractor={(item) => item[0]}
-          renderItem={({ item }) => (
-            <Pressable
-              style={[styles.frameContainer, styles.frameSpaceBlock]}
-              onPress={() =>
-                navigation.navigate('Favoritos', { sport: item[1] })
-              }
-            >
-              <View style={styles.frameGroup}>
-                <View style={styles.pruebasDeCiclismoWrapper}>
-                  <Text style={styles.tusListasTypo}>{item[0]}</Text>
+        {groupedFavorites.length > 0 ? (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={Object.entries(groupedFavorites)}
+            keyExtractor={(item) => item[0]}
+            renderItem={({ item }) => (
+              <Pressable
+                style={[styles.frameContainer, styles.frameSpaceBlock]}
+                onPress={() =>
+                  navigation.navigate('Favoritos', { sport: item[1] })
+                }
+              >
+                <View style={styles.frameGroup}>
+                  <View style={styles.pruebasDeCiclismoWrapper}>
+                    <Text style={styles.tusListasTypo}>{item[0]}</Text>
+                  </View>
+                  <Text style={[styles.imGoingTo, styles.imGoingToFlexBox]}>
+                    ({item[1].length}) Pruebas añadidas
+                  </Text>
                 </View>
-                <Text style={[styles.imGoingTo, styles.imGoingToFlexBox]}>
-                  ({item[1].length}) Pruebas añadidas
-                </Text>
-              </View>
-            </Pressable>
-          )}
-        />
+              </Pressable>
+            )}
+          />
+        ) : (
+          <Text style={styles.favorites}>
+            Todavía no has guardado ningún evento
+          </Text>
+        )}
       </View>
     )
   }
@@ -180,6 +186,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     position: 'absolute'
+  },
+  favorites: {
+    paddingTop: '45%',
+    color: Color.sportsVioleta,
+    fontFamily: FontFamily.inputPlaceholder,
+    fontSize: FontSize.size_xl,
+    fontWeight: '600',
+    textAlign: 'center'
   }
 })
 

@@ -75,7 +75,7 @@ const InicioOrganizador = () => {
             <Text style={[styles.helloAshfak6, styles.helloLayout]}>
               AUMENTO DE INSCRIPCIONES
             </Text>
-            <Text style={[styles.helloAshfak7, styles.helloLayout]}>
+            <Text style={[styles.helloAshfak7, styles.helloTypo]}>
               En las competiciones ofrecidas por los organizadores
             </Text>
           </View>
@@ -145,17 +145,15 @@ const InicioOrganizador = () => {
         <View style={styles.buttonsContainer}>
           <View style={styles.helloAshfakWrapper}>
             <WebSVG />
-            <Text style={styles.buttonsText}>www.spotsport.es</Text>
+            <Text style={styles.buttonsText}>spotsport.eu</Text>
           </View>
           <View style={styles.helloAshfakWrapper}>
             <MensajeSVG />
-            <Text style={styles.buttonsText}>
-              inforganizadores@spotsport.com
-            </Text>
+            <Text style={styles.buttonsText}>organizadores@spotsport.eu</Text>
           </View>
           <View style={styles.helloAshfakWrapper}>
             <ContactoSVG />
-            <Text style={styles.buttonsText}>6XX XX XX XX</Text>
+            <Text style={styles.buttonsText}>600014747</Text>
           </View>
         </View>
       </View>
@@ -234,7 +232,7 @@ const styles = StyleSheet.create({
     color: Color.violeta2,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100',
-    fontSize: FontSize.inputLabel_size
+    fontSize: FontSize.size_mini
   },
   helloLayout: {
     width: 189,

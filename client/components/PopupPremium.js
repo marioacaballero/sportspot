@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   helloTypo: {
-    fontSize: FontSize.size_sm,
+    fontSize: FontSize.size_mini,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
@@ -68,12 +68,12 @@ const styles = StyleSheet.create({
     marginLeft: 47
   },
   helloAshfak6: {
-    fontSize: FontSize.size_lg,
-    width: 90,
-    height: 25,
-    marginLeft: 13,
+    fontSize: FontSize.size_3xl,
+    width: '100%',
+    height: 30,
     color: Color.sportsNaranja,
-    textAlign: 'left',
+    textAlign: 'center',
+    paddingRight: 33,
     fontWeight: '500'
   },
   groupParent1: {
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   helloAshfak7: {
-    fontSize: FontSize.size_2xs,
+    fontSize: FontSize.size_mini,
     textAlign: 'center',
     marginTop: 14,
     color: Color.sportsVioleta,
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   helloAshfak8: {
     fontFamily: FontFamily.inputPlaceholder,
-    fontSize: FontSize.size_3xs,
+    fontSize: FontSize.size_sm,
     textAlign: 'left',
     color: Color.sportsVioleta
   },
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     // right: 20,
     borderRadius: Border.br_3xs,
     shadowColor: 'rgba(69, 68, 68, 0.47)',
-    width: 320,
+    width: 330,
     paddingHorizontal: Padding.p_lgi,
     paddingVertical: Padding.p_xl,
     shadowOpacity: 1,

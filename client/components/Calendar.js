@@ -82,6 +82,12 @@ const Calendario = ({ onClose, setEventsFilter, setSelected }) => {
         onDayPress={handleDayPress}
         markingType={'period'}
         markedDates={generateMarkedDates()}
+        theme={{
+          calendarBackground: '#ffffff',
+          todayTextColor: 'orange',
+          selectedDayTextColor: '#ffffff',
+          arrowColor: 'orange'
+        }}
       />
       {startDate && endDate && (
         <Pressable
