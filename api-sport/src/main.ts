@@ -1,11 +1,11 @@
+import { ValidationPipe } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { AppModule } from './app.module'
-import * as morgan from 'morgan'
-import { ValidationPipe } from '@nestjs/common'
-import { CORS } from './config/cors'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { json, urlencoded } from 'express'
+import * as morgan from 'morgan'
+import { AppModule } from './app.module'
+import { CORS } from './config/cors'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -32,12 +32,12 @@ async function bootstrap() {
     .setTitle('Spot Sport')
     .setDescription('Spot Sport API description')
     .setVersion('1.0')
-    .build();
+    .build()
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  const document = SwaggerModule.createDocument(app, config)
+  SwaggerModule.setup('api', app, document)
 
   await app.listen(+configService.get('PORT') || 3000)
-  console.log(`Api running on: localhost:3000`)
+  console.log(`Api running on: localhost:${configService.get('PORT')}`)
 }
 bootstrap()
