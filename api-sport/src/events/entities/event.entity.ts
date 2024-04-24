@@ -49,7 +49,10 @@ export class EventEntity extends BaseEntity {
   @Column()
   timeStart: string
 
-  @Column()
+  @Column({
+    type: 'integer',
+    nullable: true
+  })
   places: number
 
   @Column({
