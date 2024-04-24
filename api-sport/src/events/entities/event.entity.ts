@@ -34,7 +34,10 @@ export class EventEntity extends BaseEntity {
   @Column()
   location: string
 
-  @Column()
+  @Column({
+    type: 'text',
+    nullable: true
+  })
   phoneNumber: number
 
   @Column()
