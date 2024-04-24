@@ -1,6 +1,6 @@
-import { createEvent, getAllEvents } from '../../redux/actions/events'
+import { createEvent } from '../../redux/actions/events'
 
-export const onSubmit = async (
+export const onSubmit = (
   event,
   sport,
   user,
@@ -25,8 +25,6 @@ export const onSubmit = async (
     timeStart: '00:00',
     image: selectedImage
   }
-
-  await dispatch(createEvent(data))
+  dispatch(createEvent(data))
   setShowAlert(true)
-  dispatch(getAllEvents())
 }

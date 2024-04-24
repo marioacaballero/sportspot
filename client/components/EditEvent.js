@@ -367,11 +367,11 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
 
 const styles = StyleSheet.create({
   scrollView: {
+    top: 6,
     flex: 1,
     paddingHorizontal: 15,
     backgroundColor: 'white',
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
+    borderRadius: 24,
     elevation: 5
   },
   frameContainer10Overlay: {
@@ -411,6 +411,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 50,
     marginTop: 15,
+    marginBottom: 15,
     marginLeft: 10,
     backgroundColor: Color.sportsNaranja
   },

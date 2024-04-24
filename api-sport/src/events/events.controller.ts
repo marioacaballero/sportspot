@@ -28,7 +28,6 @@ export class EventsController {
   @Post('/visit')
     @ApiOperation({ summary: "Events visited by a user" })
   public async visitEvent(@Body() { eventId, userId}) {
-    console.log('que paso',eventId,userId)
     return this.eventsService.visitEvent(eventId, userId)
   }
 

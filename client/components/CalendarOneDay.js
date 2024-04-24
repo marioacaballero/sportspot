@@ -93,8 +93,6 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
     }
   }
   const handleInputChange = (value) => {
-    console.log('e.t', value)
-
     setInputValue(value)
   }
   const sumbitYear = () => {
@@ -137,9 +135,9 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
         initialDate={calendarDate}
         theme={{
           calendarBackground: '#ffffff',
-          todayTextColor: 'orange',
+          todayTextColor: '#f25910',
           selectedDayTextColor: '#ffffff',
-          arrowColor: 'orange'
+          arrowColor: '#f25910'
         }}
       />
       <TouchableOpacity onPress={onClose} style={styles.helloAshfakWrapper}>
