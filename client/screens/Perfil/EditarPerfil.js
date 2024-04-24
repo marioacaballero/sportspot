@@ -11,6 +11,7 @@ import {
   TouchableOpacity
 } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
+import { Picker } from '@react-native-picker/picker'
 import { useNavigation } from '@react-navigation/native'
 import {
   Color,
@@ -75,7 +76,6 @@ const EditarPerfil = () => {
       id: user.id,
       valuesUser
     }
-    console.log(data)
     await dispatch(updateUser(data))
     dispatch(getUser(user.id))
     dispatch(setDateStart(''))
@@ -204,14 +204,19 @@ CUENTA`}
                     <Text style={[styles.label, styles.labelFlexBox]}>
                       Género
                     </Text>
-                    <TextInput
-                      placeholder={user?.genres || '-'}
-                      placeholderTextColor={
-                        user.genres ? Color.sportsVioleta : 'gray'
+                    <Picker
+                      style={styles.inputGenre}
+                      dropdownIconColor={'white'}
+                      mode={'dropdown'}
+                      selectedValue={valuesUser.genres}
+                      onValueChange={(itemValue, itemIndex) =>
+                        settingValuesUser('genres', itemValue)
                       }
-                      value={valuesUser.genres}
-                      onChangeText={(value) => settingValuesUser('genres', value)}
-                    />
+                    >
+                      <Picker.Item label="Hombre" value="Hombre" />
+                      <Picker.Item label="Mujer" value="Mujer" />
+                      <Picker.Item label="Otros" value="Otros" />
+                    </Picker>
                   </View>
                 </View>
                 <Pressable style={[styles.top, styles.inputBorderDate]}>
@@ -414,7 +419,13 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
     position: 'absolute',
     overflow: 'hidden',
-    marginTop: 6
+    marginTop: 1
+  },
+  inputGenre: {
+    width: 155,
+    position: 'absolute',
+    left: -15,
+    top: -6
   },
   gestionaTuCuentaContainer: {
     fontSize: FontSize.size_11xl,
@@ -451,7 +462,7 @@ const styles = StyleSheet.create({
   userIcon: {
     height: 22,
     marginLeft: 4,
-    marginTop: 21,
+    marginTop: 6,
     width: 22
   },
   datosPersonales: {
@@ -463,13 +474,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'left',
     color: Color.sportsVioleta,
-    marginTop: 6
+    marginTop: 3
   },
   datosPersonalesWrapper: {
     width: 195,
     height: 30,
     marginLeft: 11,
-    marginTop: 15,
+    marginTop: 3,
+    marginBottom: 12,
     alignItems: 'center'
   },
   label: {
@@ -580,11 +592,11 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   card1Wrapper: {
-    height: '45%',
+    height: '43%',
     gap: 5
   },
   card11Wrapper: {
-    height: 270,
+    height: 260,
     borderRadius: Border.br_base,
     backgroundColor: Color.blanco,
     shadowColor: '#000',
@@ -599,9 +611,9 @@ const styles = StyleSheet.create({
   favoriteIActiveIcon1: {
     height: '14.29%',
     width: '4.92%',
-    top: '12.49%',
+    position: 'absolute',
+    top: '15.49%',
     right: '4.25%',
-    bottom: '73.22%',
     left: '90.83%',
     display: 'none'
   },
@@ -609,7 +621,7 @@ const styles = StyleSheet.create({
     height: '13.63%',
     width: '59.6%',
     right: '26.02%',
-    marginBottom: '82.9%',
+    marginBottom: '45%',
     left: '14.37%',
     position: 'absolute'
   },

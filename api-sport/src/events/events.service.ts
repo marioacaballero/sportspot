@@ -24,6 +24,8 @@ export class EventsService {
   ) {}
 
   public async createService(createEventDto: CreateEventDto) {
+    console.log('eventDTO', createEventDto)
+    
     return await this.eventsRepository.save(createEventDto)
   }
 

@@ -15,12 +15,13 @@ import { getAllSports } from '../redux/actions/sports'
 import { useNavigation } from '@react-navigation/native'
 import CalendarOneDay from './CalendarOneDay'
 import SportsPopUp from './SportsPopUp'
-import { onSubmit } from './utils/createEvent'
+// import { onSubmit } from './utils/createEvent'
 import { Checkbox } from 'react-native-paper'
 import Maps from './Maps'
 import { getUser } from '../redux/actions/users'
 import BoxSVG from './SVG/BoxSVG'
 import { setSport } from '../redux/slices/sports.slices'
+import { createEvent } from '../redux/actions/events'
 import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
 import CustomAlert from './CustomAlert'
 
@@ -39,6 +40,7 @@ const FomularioEventos = () => {
   const [sportsModal, setSportsModal] = useState(false)
   const [event, setEvent] = useState({
     title: '',
+    description: '',
     price: '',
     location: '',
     timeStart: '',
@@ -62,7 +64,7 @@ const FomularioEventos = () => {
 
   const handleCloseAlert = () => {
     setShowAlert(false)
-    navigation.navigate('InicioDeportista')
+    navigation.goBack()
     clearRedux()
   }
 
@@ -124,6 +126,27 @@ const FomularioEventos = () => {
     setFrameContainer6Visible(false)
   }, [])
 
+  const onSubmit = () => {
+    const data = {
+      title: event.title,
+      description: event.description,
+      sportId: sport && sport?.id,
+      price: event?.price.slice(0, -1),
+      modality: sport.type,
+      location: event?.location,
+      phoneNumber: event.phoneNumber,
+      places: parseInt(event.places),
+      dateStart,
+      dateInscription: dateSuscription,
+      creator: user?.id,
+      timeStart: '00:00',
+      image: selectedImage
+    }
+    dispatch(createEvent(data))
+    navigation.goBack()
+    // setShowAlert(true)
+  }
+
   return (
     <View>
       <View style={styles.items}>
@@ -149,6 +172,18 @@ const FomularioEventos = () => {
           {sport.name ? sport?.type : 'Elije tu deporte'}
         </Text>
       </Pressable>
+
+      <View style={styles.items}>
+        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M96.5039'} />
+        <Text style={styles.text}>Descripción del evento</Text>
+        <TextInput
+          style={styles.helloTypoScroll}
+          value={event.description}
+          onChangeText={(value) => onValuesEvent('description', value)}
+          placeholder="Descripción del evento"
+          placeholderTextColor={Color.violetaPlaceholder}
+        />
+      </View>
 
       <Pressable style={styles.items} onPress={openFrameContainer6}>
         <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M87.5039'} />

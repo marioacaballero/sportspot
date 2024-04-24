@@ -114,8 +114,10 @@ export const eventsSlices = createSlice({
         state.loading = true
         state.error = null
       })
-      .addCase(createEvent.fulfilled, (state) => {
+      .addCase(createEvent.fulfilled, (state, action) => {
+        console.log(action.payload)
         state.loading = false
+        state.events = [...state.events, action.payload]
         state.error = null
       })
       .addCase(createEvent.rejected, (state, action) => {
