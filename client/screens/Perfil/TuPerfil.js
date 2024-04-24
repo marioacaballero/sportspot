@@ -91,10 +91,7 @@ const TuPerfil = () => {
                     Nombre Completo:
                   </Text>
                   <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-                    {user?.name}
-                  </Text>
-                  <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-                    {user?.lastName}
+                    {user.name} {user.lastName}
                   </Text>
                 </>
               ) : (

@@ -28,7 +28,7 @@ import {
   updateUserAvatar
 } from '../../redux/actions/users'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
-import CalendarOneDay from '../../components/CalendarOneDay'
+import CalendarOneDay from '../../components/CalendarOneDay.1'
 import { setDateStart } from '../../redux/slices/events.slices'
 
 const EditarPerfil = () => {
@@ -130,8 +130,8 @@ CUENTA`}
               selectedImage
                 ? { uri: selectedImage }
                 : user?.avatar
-                ? { uri: user.avatar }
-                : require('../../assets/unsplashn6gnca77urc.png')
+                  ? { uri: user.avatar }
+                  : require('../../assets/unsplashn6gnca77urc.png')
             }
           />
           <View style={styles.editar}>
