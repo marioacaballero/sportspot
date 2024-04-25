@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
   Text,
   StyleSheet,
@@ -35,7 +35,7 @@ const EditarPerfil = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
-  const { dateStart } = useSelector((state) => state.events)
+  // const { dateStart } = useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
 
   const [topContainerVisible, setTopContainerVisible] = useState(false)
@@ -44,17 +44,17 @@ const EditarPerfil = () => {
     name: user?.name || '',
     lastName: user?.lastName || '',
     genres: user?.genres || '',
-    birthDate: user.birthDate,
+    birthDate: user.birthDate || '',
     address: user?.address || '',
     phoneNumber: user?.phoneNumber || ''
   })
 
-  useEffect(() => {
-    setValuesUser((prevValues) => ({
-      ...prevValues,
-      birthDate: dateStart || ''
-    }))
-  }, [dateStart])
+  // useEffect(() => {
+  //   setValuesUser((prevValues) => ({
+  //     ...prevValues,
+  //     birthDate: dateStart || ''
+  //   }))
+  // }, [dateStart])
 
   const settingValuesUser = (field, value) => {
     setValuesUser((prev) => ({
@@ -232,7 +232,7 @@ CUENTA`}
                         placeholderTextColor={
                           user.birthDate ? Color.sportsVioleta : 'gray'
                         }
-                        value={dateStart || '2020/12/12'}
+                        value={valuesUser.birthDate || '2020/12/12'}
                         // onChangeText={(value) =>
                         //   settingValuesUser('fechaNacimiento', value)
                         // }

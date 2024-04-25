@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import {
   View,
   Text,
@@ -16,6 +16,7 @@ import { LeftYearArrowSvg, RightYearArrowSvg } from './SVG/YearArrowSvg'
 const CalendarOneDay = ({ onClose, start, suscription }) => {
   const dispatch = useDispatch()
   const [selected, setSelected] = useState('')
+  const inputRef = useRef()
   const dateInitial = new Date()
   const year = dateInitial.getFullYear()
   let month = dateInitial.getMonth() + 1
@@ -27,8 +28,7 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
   const [calendarDate, setCalendarDate] = useState(dateEnd)
   const [openModal, setOpenModal] = useState(false)
   const [inputValue, setInputValue] = useState(parseInt(year))
-
-  console.log(inputValue)
+  const [yearVisible, setYearVisible] = useState(true)
 
   LocaleConfig.locales['es'] = {
     monthNames: [
@@ -110,6 +110,7 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
 
     setCalendarDate(dateEnd)
     setOpenModal(false)
+    setYearVisible(true)
   }
 
   const handleArrowYear = (side) => {
@@ -120,6 +121,11 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
     if (side === 'right') {
       setInputValue(parseInt(inputValue) + 1)
     }
+  }
+
+  const onPressValue = () => {
+    setYearVisible(false)
+    inputRef.current.focus()
   }
 
   return (
@@ -137,8 +143,10 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
               <LeftYearArrowSvg color={'#f25910'} />
             </Pressable>
             <TextInput
+              style={styles.inputYear}
               minLength={4}
               value={inputValue}
+              ref={inputRef}
               // placeholder={inputValue.toString().length > 3 ? inputValue.toString() || '2024' : ''}
               onChangeText={(value) => handleInputChange(value)}
             />
@@ -146,15 +154,14 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
               <RightYearArrowSvg color={'#f25910'} />
             </Pressable>
          </View>
-          <View>
-            <Text style={styles.value}>{inputValue || '2024'}</Text>
+         <View>
+            <Text onPress={onPressValue} id='value' style={styles.value}>{ yearVisible ? inputValue || '2024' : ''}</Text>
           </View>
         <View>
-
           </View>
-          <Pressable style={styles.ok} onPress={sumbitYear}>
+          <TouchableOpacity style={styles.ok} onPress={sumbitYear}>
             <Text>ok</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       )}
       <Calendar
@@ -181,13 +188,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  inputYear: {
+    // backgroundColor: 'red',
+    position: 'relative',
+    top: 20,
+    left: 0
+  },
   value: {
     position: 'relative',
+    // backgroundColor: 'red',
     top: 0
   },
   pressable: {
-    position: 'relative',
-    top: 10,
+    position: 'fixed',
+    top: 20,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -199,8 +213,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'red',
+    backgroundColor: 'transparent',
     width: 40,
+    height: 20,
     position: 'relative',
     top: 15
   },
@@ -405,6 +420,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_3xs,
     paddingVertical: Padding.p_xl,
     width: '100%',
+    height: '65%',
+    // justifyContent: yearVisible ? 'flex-start' : 'flex-end',
     alignItems: 'center',
     backgroundColor: Color.blanco,
     position: 'absolute',
@@ -413,7 +430,7 @@ const styles = StyleSheet.create({
   fatherYear: {
     display: 'flex',
     flexDirection: 'row',
-    gap: 50,
+    gap: 60,
     alignItems: 'center'
     // height: 120
     // justifyContent: 'center'
