@@ -68,6 +68,21 @@ export class UsersService {
     return newProfile
   }
 
+  public async changeRolUser(id: string) {
+    const user = await this.getOneService(id)
+
+     if (!user) {
+      throw new HttpException('User not found', 501)
+    } else {
+      try {
+        await this.sendMailsService.sendUserRolNotification(user)
+      } catch(error) {
+        console.error(error)
+      }
+    }
+
+  }
+
   public async changePasswordService(
     id: string,
     oldPassword: string,
@@ -287,6 +302,19 @@ export class UsersService {
     }
 
     return await this.userRepository.save(user)
+  }
+  public async mailOrganizer(id: string) {
+    const user = await this.getOneService(id)
+    if (!user) {
+      throw new HttpException(`Usuario con ID ${id} no encontrado`, 404)
+    } else {
+       try {
+        await this.sendMailsService.sendOrganizerNotification(user.email)
+      } catch(error) {
+        console.error(error)
+      }
+
+    }
   }
 
   public async findOneByEmail(email: string): Promise<UserEntity> {

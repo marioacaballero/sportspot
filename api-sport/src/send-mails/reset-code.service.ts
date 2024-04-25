@@ -21,28 +21,23 @@ export class ResetCodeService {
       __dirname,
       '..',
       '..',
-      '..',
-      'client',
-      'assets',
+      'public',
+      'icons',
       'spotsport.png'
     )
     const facebookIcon = join(
       __dirname,
       '..',
       '..',
-      '..',
-      'client',
-      'assets',
+      'public',
       'icons',
-      'facebook_icon.png'
+      'facebook_icon.webp'
     )
     const twitterIcon = join(
       __dirname,
       '..',
       '..',
-      '..',
-      'client',
-      'assets',
+      'public',
       'icons',
       'twitter_icon.png'
     )
@@ -50,9 +45,7 @@ export class ResetCodeService {
       __dirname,
       '..',
       '..',
-      '..',
-      'client',
-      'assets',
+      'public',
       'icons',
       'instagram_icon.png'
     )
@@ -103,9 +96,9 @@ export class ResetCodeService {
         }
         .icons {
           display: flex;
+          gap: 10px;
           flex-direction: row;
-          width: 40%;
-          justify-content: center;
+          justify-content: space-around;
           align-items: center;
           margin-left: 30%;
         }
@@ -121,10 +114,12 @@ export class ResetCodeService {
         <p>Ya estás listo para comenzar a participar en los mejores eventos deportivos en el área que desees</p>
           <p class='social'>¡Síguenos en nuestras redes!</p>
           <div class='icons'>
-            <img src="cid:facebookIcon" class='iconImg'/>
-            <img src="cid:twitterIcon" class='iconImg'/>
-            <img src="cid:instagramIcon" class='iconImg'/>
-          </div>
+            <a href="https://www.facebook.com/profile.php?id=61557312863138" target=_blank rel="noopener noreferrer"><img src="cid:facebookIcon" class='iconImg' width=30 height=30 style="margin-left:5"/></a>
+            <a href="#" target=_blank rel="noopener noreferrer"> 
+            <img src="cid:twitterIcon" class='iconImg' width=30 height=30 style="margin-left:5"/>
+            </a>
+            <a href="https://www.instagram.com/spotsport_app/" target=_blank rel="noopener noreferrer"><img src="cid:instagramIcon" class='iconImg' width=30 height=30 style="margin-left:5"/></a>
+        </div>
       </div>
     </body>
     </html>

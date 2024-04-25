@@ -134,7 +134,7 @@ export class EventsService {
       .getOne()
 
     if (!event) {
-      throw new HttpException(`Evento con ID gato ${id} no encontrado`, 404)
+      throw new HttpException(`Evento con ID ${id} no encontrado`, 404)
     }
 
     await this.eventsRepository.update(id, { isDelete: true })

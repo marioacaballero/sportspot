@@ -52,6 +52,14 @@ export class UsersController {
     return await this.userService.register(body)
   }
 
+  @Post("rol/:id")
+  @ApiOperation({ summary: "Change user rol" })
+  public async changeRol(
+    @Param('id') id: string,
+    ) {
+    return await this.userService.changeRolUser(id)
+  }
+
   @Post(':id')
   @ApiOperation({ summary: "Relate a user to an event" })
   async suscribeEvents(
@@ -103,8 +111,19 @@ export class UsersController {
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto
   ): Promise<UserEntity> {
-    console.log(updateUserDto, 'que tenemos?')
+    
     return this.userService.updateService(id, updateUserDto)
+  }
+
+  @Get('rol/:id')
+  @ApiOperation({ summary: "Update user rol" })
+  updateUserRolController(
+    @Param('id') id: string,
+  ): string {
+    const updateUserDto  = { rol: "organizer" } as any
+    this.userService.updateService(id, updateUserDto)
+    this.userService.mailOrganizer(id)
+    return "<h1>Usuario cambiado a ORGANIZADOR satisfactoriamente</h1>"
   }
 
   @Delete(':id')
