@@ -237,7 +237,7 @@ const TuPerfil = () => {
               <Image
                 style={styles.solarsettingsBoldIcon}
                 contentFit="cover"
-                source={require('../../assets/solarsettingsbold4.png')}
+                source={require('../../assets/solarsettingsbold.png')}
               />
               <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
                 Ajustar preferencias de usuario

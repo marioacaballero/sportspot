@@ -189,9 +189,9 @@ const Maps = ({ onClose, setEventsFilter }) => {
     } else if (comunities.label && !provinces.label) {
       return comunities.label
     } else if (provinces.label && !town.label) {
-      return comunities.label + '/' + provinces.label
+      return comunities.label + ',' + provinces.label
     } else if (town.label) {
-      return comunities.label + '/' + provinces.label + '/' + town.label
+      return comunities.label + ',' + provinces.label + ',' + town.label
     }
   }
 
@@ -207,13 +207,13 @@ const Maps = ({ onClose, setEventsFilter }) => {
               onChangeText={handleTextChange}
             />
           </View>
-          <View>
-            <Text>
-              {comunities.label && comunities.label + ' /'}
-              {provinces.label && provinces.label + ' /'} {town.label}
+          <View style={styles.towns}>
+            <Text style={styles.text}>
+              {comunities.label && comunities.label + ' ,'}
+              {provinces.label && provinces.label + ' ,'} {town.label}
             </Text>
             {comunities.label && (
-              <TouchableOpacity onPress={channgeState}>
+              <TouchableOpacity style={styles.arrow} onPress={channgeState}>
                 <BackArrowSVG />
               </TouchableOpacity>
             )}
@@ -247,18 +247,19 @@ const Maps = ({ onClose, setEventsFilter }) => {
 const styles = StyleSheet.create({
   mapsLayout: {
     maxWidth: '90%',
-    maxHeight: 350,
+    top: -12,
+    maxHeight: 390,
     borderRadius: Border.br_5xs
   },
   items: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: 5,
     borderRadius: 30,
     borderWidth: 1,
     borderColor: Color.sportsNaranja,
     height: 45,
-    padding: 7
+    padding: 6
   },
   helloTypoScroll: {
     width: '100%',
@@ -289,6 +290,18 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputPlaceholder_size,
     fontWeight: '700'
   },
+  towns: {
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  arrow: {
+    position: 'absolute',
+    top: 18,
+    right: 3
+  },
+  text: {
+    color: Color.sportsVioleta
+  },
   helloAshfakWrapper: {
     borderRadius: Border.br_31xl,
     backgroundColor: Color.sportsNaranja,
@@ -300,7 +313,7 @@ const styles = StyleSheet.create({
   },
   mapViewParent: {
     alignSelf: 'stretch',
-    height: 170
+    height: 180
   },
   mapsInner: {
     justifyContent: 'center',

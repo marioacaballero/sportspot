@@ -229,8 +229,7 @@ const UltimasConsultas = () => {
                         style={{
                           fontWeight: 300,
                           fontSize: 12,
-                          color: Color.sportsVioleta,
-                          textOverflow: 'ellipsis'
+                          color: Color.sportsVioleta
                         }}
                       >
                         {event.event.dateInscription}

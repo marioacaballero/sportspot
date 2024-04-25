@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StyleSheet, View, Text, Image, Pressable } from 'react-native'
+import { StyleSheet, View, Text, Image, Pressable, Linking } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import {
   FontFamily,
@@ -12,6 +12,10 @@ import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 
 const Metodo1 = () => {
   const navigation = useNavigation()
+
+  const handlebutton = () => {
+    Linking.openURL('mailto:organizadores@spotsport.eu')
+  }
 
   return (
     <View style={styles.metodo}>
@@ -43,9 +47,11 @@ const Metodo1 = () => {
         </Text>
       </View>
       <View style={[styles.trabajaConNosotrosFrame, styles.groupParentFlexBox]}>
-        <Text style={[styles.trabajaConNosotros1, styles.trabajaTypo]}>
-          Trabaja con nosotros
-        </Text>
+        <Pressable onPress={handlebutton}>
+          <Text style={[styles.trabajaConNosotros1, styles.trabajaTypo]}>
+            Trabaja con nosotros
+          </Text>
+        </Pressable>
       </View>
     </View>
   )
@@ -70,7 +76,7 @@ const styles = StyleSheet.create({
   pencilline: {
     paddingLeft: Padding.p_mini,
     paddingTop: Padding.p_mini,
-    paddingBottom: Padding.p_mini,
+    paddingBottom: Padding.p_3xs,
     paddingRight: Padding.p_3xs,
     alignItems: 'center',
     gap: 10,
@@ -95,7 +101,7 @@ const styles = StyleSheet.create({
     paddingRight: Padding.p_3xs
   },
   pencillineParent: {
-    top: 130,
+    top: 110,
     borderRadius: Border.br_3xs,
     shadowColor: '#000',
     shadowOffset: {
@@ -106,7 +112,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     borderStyle: 'solid',
     width: '100%',
-    height: 280,
+    height: 320,
     backgroundColor: Color.blanco,
     alignItems: 'center'
   },
@@ -116,7 +122,8 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.colorBlack,
     textAlign: 'center',
-    lineHeight: 13
+    letterSpacing: 0.3,
+    lineHeight: 18
   },
   trabajaConNosotros1: {
     fontSize: FontSize.inputPlaceholder_size,
