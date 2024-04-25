@@ -3,6 +3,7 @@ import { Text, StyleSheet, View, Pressable, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Color, FontFamily, FontSize, Border } from '../../GlobalStyles'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
+import RightArrowGrueso from '../../components/SVG/RightArrowGrueso'
 
 const Cuenta = () => {
   const navigation = useNavigation()
@@ -20,8 +21,7 @@ const Cuenta = () => {
           <Text
             style={[styles.gestionaTuCuentaContainer, styles.editarPerfilTypo]}
           >
-            {`GESTIONA TU 
-CUENTA`}
+            GESTIONA TU CUENTA
           </Text>
           <Pressable onPress={() => navigation.goBack()}>
             <BackArrowSVG />
@@ -33,75 +33,73 @@ CUENTA`}
           style={styles.pencillineParent}
           onPress={() => navigation.navigate('EditarPerfil')}
         >
-          <Image
-            style={styles.vectorIcon}
-            contentFit="cover"
-            source={require('../../assets/vector3.png')}
-          />
-          <View style={styles.frameGroup}>
-            <View style={styles.editarPerfilWrapper}>
-              <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
-                Editar perfil
+          <View style={styles.baseText}>
+            <Image
+              style={styles.vectorIcon}
+              contentFit="cover"
+              source={require('../../assets/vector3.png')}
+            />
+            <View style={styles.frameGroup}>
+              <View style={styles.editarPerfilWrapper}>
+                <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
+                  Editar perfil
+                </Text>
+              </View>
+              <Text style={[styles.imGoingTo, styles.goingTypo]}>
+                Actualiza los datos de tu cuenta
               </Text>
             </View>
-            <Text style={[styles.imGoingTo, styles.goingTypo]}>
-              Actualiza los datos de tu cuenta
-            </Text>
           </View>
 
-          <View style={styles.vectorIconLayout}>
-            <BackArrowSVG color={'#FF6F00'} />
-          </View>
+          <RightArrowGrueso color={'#FF6F00'} />
         </Pressable>
 
         <Pressable
           style={styles.pencillineParent}
           onPress={() => navigation.navigate('Seguridad')}
         >
-          <Image
-            style={styles.shieldcheckIcon}
-            contentFit="cover"
-            source={require('../../assets/shieldcheck.png')}
-          />
-          <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
-            <View style={styles.editarPerfilWrapper}>
-              <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
-                Seguridad
+          <View style={styles.baseText}>
+            <Image
+              style={styles.shieldcheckIcon}
+              contentFit="cover"
+              source={require('../../assets/shieldcheck.png')}
+            />
+            <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
+              <View style={styles.editarPerfilWrapper}>
+                <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
+                  Seguridad
+                </Text>
+              </View>
+              <Text style={[styles.imGoingTo, styles.goingTypo]}>
+                Mantén segura tu cuenta, elimina tu cuenta
               </Text>
             </View>
-            <Text style={[styles.imGoingTo, styles.goingTypo]}>
-              Mantén segura tu cuenta, elimina tu cuenta
-            </Text>
           </View>
-
-          <View style={styles.vectorIconLayout}>
-            <BackArrowSVG color={'#FF6F00'} />
-          </View>
+          <RightArrowGrueso color={'#FF6F00'} />
         </Pressable>
 
         <Pressable
           style={styles.pencillineParent}
           onPress={() => navigation.navigate('DatosDePago')}
         >
-          <Image
-            style={styles.shieldcheckIcon}
-            contentFit="cover"
-            source={require('../../assets/wallet.png')}
-          />
-          <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
-            <View style={styles.editarPerfilWrapper}>
-              <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
-                Datos de pago
+          <View style={styles.baseText}>
+            <Image
+              style={styles.shieldcheckIcon}
+              contentFit="cover"
+              source={require('../../assets/wallet.png')}
+            />
+            <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
+              <View style={styles.editarPerfilWrapper}>
+                <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
+                  Datos de pago
+                </Text>
+              </View>
+              <Text style={[styles.imGoingTo, styles.goingTypo]}>
+                Elimina o añade métodos de pago
               </Text>
             </View>
-            <Text style={[styles.imGoingTo, styles.goingTypo]}>
-              Elimina o añade métodos de pago
-            </Text>
           </View>
-
-          <View style={styles.vectorIconLayout}>
-            <BackArrowSVG color={'#FF6F00'} />
-          </View>
+          <RightArrowGrueso color={'#FF6F00'} />
         </Pressable>
       </View>
     </View>
@@ -140,16 +138,18 @@ const styles = StyleSheet.create({
   },
   frameGroup: {
     flexDirection: 'column',
-    width: '100%',
     marginLeft: 10
   },
-  vectorIconLayout: {
-    transform: 'rotate(-180deg)'
+
+  baseText: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row'
   },
   pencillineParent: {
     height: 80,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     borderColor: Color.blanco,
     backgroundColor: 'white',
     borderStyle: 'solid',
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     flexDirection: 'row',
     width: '100%',
-    paddingHorizontal: 40
+    paddingHorizontal: 10
   },
   shieldcheckIcon: {
     width: 32,
