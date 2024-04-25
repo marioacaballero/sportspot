@@ -28,7 +28,7 @@ import {
   updateUserAvatar
 } from '../../redux/actions/users'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
-import CalendarOneDay from '../../components/CalendarOneDay.1'
+import CalendarOneDay from '../../components/CalendarOneDay'
 import { setDateStart } from '../../redux/slices/events.slices'
 
 const EditarPerfil = () => {

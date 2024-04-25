@@ -11,6 +11,7 @@ import { Calendar, LocaleConfig } from 'react-native-calendars'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
 import { useDispatch } from 'react-redux'
 import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
+import { LeftYearArrowSvg, RightYearArrowSvg } from './SVG/YearArrowSvg'
 
 const CalendarOneDay = ({ onClose, start, suscription }) => {
   const dispatch = useDispatch()
@@ -25,7 +26,7 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
   const dateEnd = `${year}-${month}-${date}`
   const [calendarDate, setCalendarDate] = useState(dateEnd)
   const [openModal, setOpenModal] = useState(false)
-  const [inputValue, setInputValue] = useState(year)
+  const [inputValue, setInputValue] = useState(parseInt(year))
 
   console.log(inputValue)
 
@@ -93,7 +94,11 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
     }
   }
   const handleInputChange = (value) => {
-    setInputValue(value)
+    if (value === '') {
+      setInputValue(parseInt(year))
+    } else {
+      setInputValue(parseInt(value))
+    }
   }
   const sumbitYear = () => {
     const year = inputValue
@@ -107,23 +112,47 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
     setOpenModal(false)
   }
 
+  const handleArrowYear = (side) => {
+    console.log(side, 'side dentro de handleArrowYear')
+    if (side === 'left') {
+      setInputValue(parseInt(inputValue) - 1)
+    }
+    if (side === 'right') {
+      setInputValue(parseInt(inputValue) + 1)
+    }
+  }
+
   return (
     <View style={styles.calendar}>
-      <TouchableOpacity
+      <Pressable
         onPress={() => setOpenModal(true)}
         style={styles.calendar1}
       >
-        <Text>📆 Cambiar año</Text>
-      </TouchableOpacity>
+        {/* <Text>📆 Cambiar año</Text> */}
+      </Pressable>
       {openModal && (
         <View style={styles.inputModal}>
-          <TextInput
-            minLength={4}
-            value={inputValue}
-            placeholder="2024"
-            onChangeText={(value) => handleInputChange(value)}
-          />
-          <Pressable onPress={sumbitYear}>
+          <View style={styles.fatherYear}>
+            <Pressable style={styles.pressable} onPress={() => handleArrowYear('left')}>
+              <LeftYearArrowSvg color={'#f25910'} />
+            </Pressable>
+            <TextInput
+              minLength={4}
+              value={inputValue}
+              // placeholder={inputValue.toString().length > 3 ? inputValue.toString() || '2024' : ''}
+              onChangeText={(value) => handleInputChange(value)}
+            />
+            <Pressable style={styles.pressable} onPress={() => handleArrowYear('right')}>
+              <RightYearArrowSvg color={'#f25910'} />
+            </Pressable>
+         </View>
+          <View>
+            <Text style={styles.value}>{inputValue || '2024'}</Text>
+          </View>
+        <View>
+
+          </View>
+          <Pressable style={styles.ok} onPress={sumbitYear}>
             <Text>ok</Text>
           </Pressable>
         </View>
@@ -151,6 +180,29 @@ const styles = StyleSheet.create({
   captionFlexBox: {
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  value: {
+    position: 'relative',
+    top: 0
+  },
+  pressable: {
+    position: 'relative',
+    top: 10,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    height: 20,
+    width: 20
+  },
+  ok: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red',
+    width: 40,
+    position: 'relative',
+    top: 15
   },
   week4FlexBox: {
     flexDirection: 'row',
@@ -188,7 +240,9 @@ const styles = StyleSheet.create({
   },
   inputModal: {
     position: 'absolute',
-    backgroundColor: Color.sportsNaranja,
+    backgroundColor: Color.blanco,
+    borderColor: Color.sportsNaranja,
+    borderWidth: 2,
     color: Color.blanco,
     zIndex: 30,
     width: 120,
@@ -322,8 +376,12 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_base,
     padding: Padding.p_5xs,
     justifyContent: 'center',
-    backgroundColor: Color.blanco,
-    alignItems: 'center'
+    backgroundColor: 'transparent',
+    width: 100,
+    height: 30,
+    alignItems: 'center',
+    top: 37,
+    zIndex: 999
   },
   helloAshfak: {
     fontSize: FontSize.inputPlaceholder_size,
@@ -351,6 +409,14 @@ const styles = StyleSheet.create({
     backgroundColor: Color.blanco,
     position: 'absolute',
     bottom: 0
+  },
+  fatherYear: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 50,
+    alignItems: 'center'
+    // height: 120
+    // justifyContent: 'center'
   }
 })
 
