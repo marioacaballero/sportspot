@@ -132,9 +132,9 @@ export const deleteUser = createAsyncThunk('users/delete', async (id) => {
 export const updateUserRol = createAsyncThunk(
   'users/updateRol',
   async (body) => {
-    const { id, rol } = body
+    const { id } = body
     try {
-      const { data } = await axiosInstance.patch(`/users/${id}`, { rol })
+      const { data } = await axiosInstance.post(`/users/rol/${id}`)
       return data
     } catch (error) {
       throw new Error(error)
@@ -147,7 +147,10 @@ export const postUserPreferences = createAsyncThunk(
   'users/postUserPreferences',
   async ({ userPreferences, id }) => {
     try {
-      const { data } = await axiosInstance.patch(`/users/userPreferences/${id}`, { userPreferences })
+      const { data } = await axiosInstance.patch(
+        `/users/userPreferences/${id}`,
+        { userPreferences }
+      )
       return data
     } catch (error) {
       throw new Error(error)

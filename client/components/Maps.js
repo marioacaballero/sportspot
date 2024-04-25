@@ -297,7 +297,8 @@ const styles = StyleSheet.create({
   arrow: {
     position: 'absolute',
     top: 18,
-    right: 3
+    right: 3,
+    zIndex: 9
   },
   text: {
     color: Color.sportsVioleta

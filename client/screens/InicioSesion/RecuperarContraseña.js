@@ -288,13 +288,13 @@ const styles = StyleSheet.create({
   },
   frameGroup: {
     width: 318,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center'
   },
   frameParent: {
     justifyContent: 'space-between',
     paddingHorizontal: Padding.p_2xl,
-    marginTop: '35%',
+    marginTop: '30%',
     paddingBottom: Padding.p_152xl,
     alignItems: 'center'
   },

@@ -28,10 +28,6 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
       rol: user.rol === 'sportsman' ? 'organizer' : 'sportsman'
     }
     dispatch(updateUserRol(data))
-
-    navigation.navigate(
-      user.rol === 'sportsman' ? 'Directorio' : 'InicioDeportista'
-    )
     toggleModal()
   }
 

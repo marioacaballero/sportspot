@@ -5,7 +5,8 @@ import {
   View,
   Image,
   ScrollView,
-  Pressable
+  Pressable,
+  Linking
 } from 'react-native'
 // import FomularioEventos from '../components/FomularioEventos'
 import {
@@ -143,18 +144,27 @@ const InicioOrganizador = () => {
 
         {/* <FomularioEventos /> */}
         <View style={styles.buttonsContainer}>
-          <View style={styles.helloAshfakWrapper}>
+          <Pressable
+            onPress={() => Linking.openURL('https://www.spotsport.eu/')}
+            style={styles.helloAshfakWrapper}
+          >
             <WebSVG />
             <Text style={styles.buttonsText}>spotsport.eu</Text>
-          </View>
-          <View style={styles.helloAshfakWrapper}>
+          </Pressable>
+          <Pressable
+            onPress={() => Linking.openURL('mailto:organizadores@spotsport.eu')}
+            style={styles.helloAshfakWrapper}
+          >
             <MensajeSVG />
             <Text style={styles.buttonsText}>organizadores@spotsport.eu</Text>
-          </View>
-          <View style={styles.helloAshfakWrapper}>
+          </Pressable>
+          <Pressable
+            onPress={() => Linking.openURL('tel:organizadores@spotsport.eu')}
+            style={styles.helloAshfakWrapper}
+          >
             <ContactoSVG />
             <Text style={styles.buttonsText}>600014747</Text>
-          </View>
+          </Pressable>
         </View>
       </View>
       {modalVisible && <AccesoOrganizadorModal toggleModal={toggleModal} />}

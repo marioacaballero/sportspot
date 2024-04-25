@@ -84,7 +84,7 @@ export const usersSlices = createSlice({
       })
       .addCase(updateUserRol.fulfilled, (state, action) => {
         state.loading = false
-        state.user = action.payload
+        // state.user = action.payload
         state.error = null
       })
       .addCase(updateUserRol.rejected, (state, action) => {

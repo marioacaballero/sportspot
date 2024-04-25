@@ -96,7 +96,7 @@ Esto abrirá un nuevo archivo .env en el editor Nano.
 3 - Agregar las variables de entorno: Dentro del archivo .env, añade tus variables de entorno en el formato NOMBRE_VARIABLE=valor. Por ejemplo:
 
 ```plaintext
-
+PORT=3000
 DB_NAME=api_sport
 DB_USER=postgres
 DB_PASS=admin
