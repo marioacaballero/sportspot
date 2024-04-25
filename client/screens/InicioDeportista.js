@@ -94,6 +94,16 @@ const InicioDeportista = () => {
     return diferenciaDias < 7
   })
 
+  const eventsExpired = eventos.filter((evento) => {
+    const fechaEvento = new Date(evento.dateStart) // 2024/04/24
+
+    const diferenciaDias = functionDate(
+      fechaActual,
+      fechaEvento <= fechaActual ? fechaEvento : ''
+    )
+    return diferenciaDias >= 1
+  })
+
   if (loadingGet) {
     return (
       <View>
@@ -355,6 +365,49 @@ const InicioDeportista = () => {
                   Resultados de las útlimas pruebas
                 </Text>
                 <ScrollView
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                >
+                  {eventsExpired?.map((event, i) => (
+                    <Pressable
+                      key={i}
+                      style={
+                        i === 0
+                          ? styles.image94ParentShadowBox1
+                          : styles.image94ParentShadowBox
+                      }
+                      onPress={() => {
+                        dispatch(getEventById(event.id))
+                        navigation.navigate('PruebasEncontradasDetalle')
+                      }}
+                    >
+                      <Image
+                        style={[styles.image94Icon, styles.image94IconLayout]}
+                        contentFit="cover"
+                        source={{ uri: event.image }}
+                      />
+                      <View
+                        style={[
+                          styles.imGoingToShakeYParent,
+                          styles.frameGroupSpaceBlock
+                        ]}
+                      >
+                        <Text style={[styles.imGoingTo, styles.goingTypo]}>
+                          {event?.title}
+                        </Text>
+                        <View style={styles.minParent}>
+                          <Text style={[styles.min, styles.minClr]}>
+                            {event?.description}
+                          </Text>
+                          {/* <Text style={[styles.min1, styles.minTypo1]}>
+                          {event?.header}
+                        </Text> */}
+                        </View>
+                      </View>
+                    </Pressable>
+                  ))}
+                </ScrollView>
+                {/* <ScrollView
                   // style={{ marginBottom: 10 }}
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
@@ -436,7 +489,7 @@ const InicioDeportista = () => {
                       </View>
                     </View>
                   </View>
-                </ScrollView>
+                </ScrollView> */}
               </View>
             </View>
           )}

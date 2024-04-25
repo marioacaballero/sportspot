@@ -85,6 +85,8 @@ const styles = StyleSheet.create({
     height: 250,
     width: '90%',
     backgroundColor: Color.blanco,
+    borderColor: Color.sportsNaranja,
+    borderWidth: 1,
     marginLeft: '5%',
     marginTop: '25%',
     borderRadius: 30,
