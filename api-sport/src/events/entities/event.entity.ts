@@ -1,19 +1,18 @@
-import {
-  Entity,
-  Column,
-  NumericType,
-  ManyToOne,
-  ManyToMany,
-  JoinTable,
-  OneToMany
-} from 'typeorm'
 import { BaseEntity } from 'src/config/base.entity'
+import { NotificationEntity } from 'src/notifications/entities/notification.entity'
 import { SportEntity } from 'src/sports/entities/sport.entity'
 import { UserEntity } from 'src/users/entities/users.entity'
-import { NotificationEntity } from 'src/notifications/entities/notification.entity'
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  NumericType,
+  OneToMany
+} from 'typeorm'
 import { UserEventHistoryEntity } from './userEvent.entity'
 import { ReviewEntity } from 'src/reviews/entities/reviews.entity'
-
 
 @Entity({ name: 'event' })
 export class EventEntity extends BaseEntity {
@@ -60,7 +59,7 @@ export class EventEntity extends BaseEntity {
     type: 'text',
     default:
       'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA+gAAAABCAYAAABNAIQzAAAAIElEQVR42u3BMQEAAAgDIM3vuW7mMYYP0JlsAQAAAK8OmrgCiekCissAAAAASUVORK5CYII=',
-      nullable: true
+    nullable: true
   })
   image: string
 
