@@ -2,7 +2,6 @@
 import { BaseEntity } from 'src/config/base.entity'
 import { EventEntity } from 'src/events/entities/event.entity'
 import { UserEventHistoryEntity } from 'src/events/entities/userEvent.entity'
-
 import { NotificationEntity } from 'src/notifications/entities/notification.entity'
 import { ReviewEntity } from 'src/reviews/entities/reviews.entity'
 import { Entity, Column, OneToMany, ManyToMany } from 'typeorm'

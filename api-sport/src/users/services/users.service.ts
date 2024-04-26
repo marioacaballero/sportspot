@@ -11,8 +11,8 @@ import { CreateNotificationDto } from 'src/notifications/dto/create-notification
 import { hash } from 'bcrypt'
 import { EventsService } from 'src/events/events.service'
 import { SendMailsService } from 'src/send-mails/send-mails.service'
-
 import { JsonwebtokenService } from 'src/jsonwebtoken/jsonwebtoken.service'
+
 @Injectable()
 export class UsersService {
   constructor(
@@ -303,6 +303,7 @@ export class UsersService {
 
     return await this.userRepository.save(user)
   }
+
   public async mailOrganizer(id: string) {
     const user = await this.getOneService(id)
     if (!user) {

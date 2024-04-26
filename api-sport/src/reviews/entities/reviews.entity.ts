@@ -6,9 +6,6 @@ import {
   import { BaseEntity } from 'src/config/base.entity'
   import { EventEntity } from 'src/events/entities/event.entity'
   import { UserEntity } from 'src/users/entities/users.entity'
-//   import { NotificationEntity } from 'src/notifications/entities/notification.entity'
-//   import { UserEventHistoryEntity } from './userEvent.entity'
-  
   
   @Entity({ name: 'review' })
   export class ReviewEntity extends BaseEntity {
@@ -30,7 +27,6 @@ import {
     reviewCreator: UserEntity
     
     @ManyToOne(() => EventEntity, (event) => event.reviews)
-    eventReview: EventEntity
-   
+    eventReview: EventEntity   
   }
   

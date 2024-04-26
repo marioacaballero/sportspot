@@ -11,6 +11,8 @@ import { SendMailsModule } from './send-mails/send-mails.module'
 import { join } from 'path'
 import { PassportModule } from '@nestjs/passport'
 import { StripeModule } from './stripe/stripe.module'
+import { ReviewModule } from './reviews/reviews.module'
+
 
 //import { GoogleStrategyModule } from './google/google.module'
 console.log(join(__dirname, 'template'))
@@ -28,7 +30,8 @@ console.log(join(__dirname, 'template'))
       isGlobal: true
     }),
     SendMailsModule,
-    StripeModule
+    StripeModule,
+    ReviewModule
     //GoogleStrategyModule
   ],
   controllers: [],

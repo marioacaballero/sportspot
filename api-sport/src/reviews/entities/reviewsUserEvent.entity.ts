@@ -1,16 +1,11 @@
 import {
     Entity,
-    Column,
-  
-    ManyToOne,
-   
+    Column,  
+    ManyToOne,   
   } from 'typeorm'
-  import { BaseEntity } from 'src/config/base.entity'
-  
+  import { BaseEntity } from 'src/config/base.entity'  
   import { UserEntity } from 'src/users/entities/users.entity'
-  import { EventEntity } from '../../events/entities/event.entity'
-  
-  
+  import { EventEntity } from '../../events/entities/event.entity'  
   
   @Entity({ name: 'user_event_review' })
   export class UserEventReviewEntity extends BaseEntity {

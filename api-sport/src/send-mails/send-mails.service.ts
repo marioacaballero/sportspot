@@ -350,7 +350,7 @@ export class SendMailsService {
       button.addEventListener('click', function () {
         async function changeRol() {
           try {
-            await fetch("http://192.168.1.179:3000/api/users/${user.id}", {
+            await fetch("http://c5e7a731-cc55-4137-a1e8-04915e54dee9.pub.instances.scw.cloud:3000/api/users/${user.id}", {
               method: 'PATCH',
               headers: {
                 'Content-Type': 'application/json'
@@ -555,6 +555,7 @@ export class SendMailsService {
     }
     return 'Correo enviado exitosamente'
   }
+
   public async sendOrganizerNotification(email: string): Promise<string> {
     const sportspotLogo = join(
       __dirname,

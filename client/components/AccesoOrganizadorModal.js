@@ -5,15 +5,16 @@ import {
   Text,
   TextInput,
   View,
-  Modal
+  Modal,
+  Alert
 } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+// import { useNavigation } from '@react-navigation/native'
 import { Color } from '../GlobalStyles'
 import { updateUserRol } from '../redux/actions/users'
 import { useDispatch, useSelector } from 'react-redux'
 
 const AccesoOrganizadorModal = ({ toggleModal }) => {
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.users)
 
@@ -23,6 +24,7 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
   })
 
   const onChangeRol = () => {
+    if (user.rol === 'organizer') return Alert('Ya eres organizador')
     const data = {
       id: user.id,
       rol: user.rol === 'sportsman' ? 'organizer' : 'sportsman'
