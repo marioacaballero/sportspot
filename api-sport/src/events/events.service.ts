@@ -1,32 +1,28 @@
-import { Injectable, HttpException } from '@nestjs/common'
+import { HttpException } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { SendMailsService } from 'src/send-mails/send-mails.service'
+import { UserEntity } from 'src/users/entities/users.entity'
+import { Between, In, Repository } from 'typeorm'
 import { CreateEventDto } from './dto/create-event.dto'
 import { UpdateEventDto } from './dto/update-event.dto'
-import { Between, In, Repository } from 'typeorm'
-import { InjectRepository } from '@nestjs/typeorm'
 import { EventEntity } from './entities/event.entity'
-import { UserEntity } from 'src/users/entities/users.entity'
-import { SendMailsService } from 'src/send-mails/send-mails.service'
 import { UserEventHistoryEntity } from './entities/userEvent.entity'
 
-@Injectable()
 export class EventsService {
   constructor(
     @InjectRepository(EventEntity)
     private readonly eventsRepository: Repository<EventEntity>,
-
     @InjectRepository(UserEntity)
     private readonly usersRepository: Repository<UserEntity>,
-
     @InjectRepository(UserEventHistoryEntity)
     private readonly usersEventRepository: Repository<UserEventHistoryEntity>,
-
     private readonly sendMailsService: SendMailsService
   ) {}
 
   public async createService(createEventDto: CreateEventDto) {
-    console.log('eventDTO', createEventDto)
-    
-    return await this.eventsRepository.save(createEventDto)
+    const event = await this.eventsRepository.save(createEventDto)
+
+    return event
   }
 
   public async getAllService(query: { [key: string]: any }) {
@@ -85,7 +81,7 @@ export class EventsService {
       .getOne()
 
     if (!event) {
-      throw new HttpException(`Evento con ID iguana ${id} no encontrado`, 404)
+      throw new HttpException(`Evento con ID igual a ${id} no encontrado`, 404)
     }
 
     return event
@@ -141,7 +137,7 @@ export class EventsService {
     await this.sendMailsService.sendEventDeletedNotification(event)
     return await this.getOneService(id)
   }
-  
+
   public async getFavorites(id: string) {
     const user = await this.usersRepository
       .createQueryBuilder('user')
