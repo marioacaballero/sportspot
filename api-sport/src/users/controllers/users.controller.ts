@@ -21,7 +21,7 @@ export class UsersController {
   constructor(
     private readonly userService: UsersService,
     private readonly sendMailsService: SendMailsService
-  ) {}
+  ) { }
 
   @Get()
   @ApiOperation({ summary: "Get all users" })
@@ -120,7 +120,7 @@ export class UsersController {
   updateUserRolController(
     @Param('id') id: string,
   ): string {
-    const updateUserDto  = { rol: "organizer" } as any
+    const updateUserDto: UpdateUserDto  = { rol: "organizer" }
     this.userService.updateService(id, updateUserDto)
     this.userService.mailOrganizer(id)
     return "<h1>Usuario cambiado a ORGANIZADOR satisfactoriamente</h1>"

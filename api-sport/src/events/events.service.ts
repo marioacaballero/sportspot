@@ -56,6 +56,7 @@ export class EventsService {
       .createQueryBuilder('event')
       .leftJoinAndSelect('event.creator', 'creator') // Incluimos la relación con el creador del evento
       .leftJoinAndSelect('event.suscribers', 'suscribers') // Incluimos la relación con los suscriptores
+      .leftJoinAndSelect('event.reviews', 'reviews')
       .where(where)
 
     if (sportName) {
@@ -78,6 +79,7 @@ export class EventsService {
       .leftJoinAndSelect('event.sport', 'sport')
       .leftJoinAndSelect('event.creator', 'creator')
       .leftJoinAndSelect('event.suscribers', 'suscribers')
+      .leftJoinAndSelect('event.reviews', 'reviews')
       .getOne()
 
     if (!event) {

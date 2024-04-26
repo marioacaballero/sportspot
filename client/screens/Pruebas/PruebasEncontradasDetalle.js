@@ -36,6 +36,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     favorites: favoritesRedux
   } = useSelector((state) => state.events)
 
+  console.log(event?.reviews)
+
   const [modalSuscription, setModalSuscription] = useState(false)
   const [modalEditEvent, setModalEditEvent] = useState(false)
   const [favorites, setFavorites] = useState()
@@ -187,6 +189,11 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
             <Text style={[styles.reseasDeLa, styles.reseasDeLaTypo]}>
               Reseñas de la prueba
             </Text>
+            {event.reviews &&
+              event.reviews.length &&
+              event.reviews.map((event) => (
+                <Text key={event.id}>{event.description}</Text>
+              ))}
           </View>
           <Pressable
             style={[styles.cilarrowTopParent, styles.parentSpaceBlock]}
