@@ -4,6 +4,7 @@ import { EventEntity } from 'src/events/entities/event.entity'
 import { UserEventHistoryEntity } from 'src/events/entities/userEvent.entity'
 
 import { NotificationEntity } from 'src/notifications/entities/notification.entity'
+import { ReviewEntity } from 'src/reviews/entities/reviews.entity'
 import { Entity, Column, OneToMany, ManyToMany } from 'typeorm'
 
 @Entity({ name: 'user' })
@@ -66,7 +67,9 @@ export class UserEntity extends BaseEntity {
   events: EventEntity[]
 
   @OneToMany(() => UserEventHistoryEntity, (history) => history.user)
-eventHistory: UserEventHistoryEntity[]
+  eventHistory: UserEventHistoryEntity[]
 
+  @OneToMany(() => ReviewEntity, (review) => review.reviewCreator)
+  reviews: ReviewEntity
  
 }
