@@ -37,20 +37,25 @@ const InicioOrganizador = () => {
   return (
     <ScrollView style={[styles.inicioOrganizador]}>
       <View style={styles.topContainer}>
-        <Pressable style={styles.helloAshfakWrapper2} onPress={toggleModal}>
-          <Text style={styles.buttonsText}>Acceso como organizador</Text>
-        </Pressable>
-        <Pressable
-          style={styles.helloAshfakWrapper}
-          onPress={() => navigation.navigate('PublicarEvento')}
-          disabled={user.rol === 'sportsman'}
-        >
-          <Text style={styles.buttonsText}>Publicar un evento</Text>
-        </Pressable>
+        {user.rol === 'sportsman' && (
+          <Pressable style={styles.helloAshfakWrapper2} onPress={toggleModal}>
+            <Text style={styles.buttonsText}>Acceso como organizador</Text>
+          </Pressable>
+        )}
+        {user.rol === 'organizer' && (
+          <Pressable
+            style={styles.helloAshfakWrapper}
+            onPress={() => navigation.navigate('PublicarEvento')}
+            disabled={user.rol === 'sportsman'}
+          >
+            <Text style={styles.buttonsText}>Publicar un evento</Text>
+          </Pressable>
+        )}
       </View>
       <View style={styles.frameView}>
-        <Text style={styles.helloAshfak3}>{`Breve descripción del servicio a
-        organizadores`}</Text>
+        <Text style={styles.helloAshfak3}>
+          Breve descripción del servicio a organizadores
+        </Text>
         <View style={[styles.healthiconsmegaphoneParent]}>
           <Image
             style={styles.healthiconsmegaphone}
@@ -219,21 +224,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_xl
   },
   helloTypoScroll: {
-    fontSize: FontSize.inputPlaceholder_size,
+    fontSize: FontSize.size_mid,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     color: Color.sportsVioleta
   },
 
   helloTypo2: {
-    fontSize: FontSize.inputPlaceholder_size,
+    fontSize: FontSize.size_mid,
     textAlign: 'left',
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
   helloTypo1: {
     color: Color.sportsNaranja,
-    fontSize: FontSize.size_sm,
+    fontSize: FontSize.size_mid,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
@@ -242,7 +247,7 @@ const styles = StyleSheet.create({
     color: Color.violeta2,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '100',
-    fontSize: FontSize.size_mini
+    fontSize: FontSize.size_mid
   },
   helloLayout: {
     width: 189,
@@ -323,7 +328,7 @@ const styles = StyleSheet.create({
   },
   helloAshfak3: {
     textAlign: 'center',
-    fontSize: FontSize.size_sm,
+    fontSize: FontSize.size_xl,
     color: Color.sportsVioleta,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
@@ -337,11 +342,13 @@ const styles = StyleSheet.create({
   helloAshfak4: {
     textAlign: 'left',
     alignSelf: 'stretch',
-    width: '60%'
+    width: '60%',
+    fontSize: FontSize.size_mid
   },
   helloAshfak5: {
     textAlign: 'left',
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    fontSize: FontSize.size_mid
   },
   helloAshfakParent1: {
     marginLeft: 27,
@@ -354,7 +361,7 @@ const styles = StyleSheet.create({
   },
   helloAshfak6: {
     color: Color.sportsNaranja,
-    fontSize: FontSize.size_sm,
+    fontSize: FontSize.size_mid,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
