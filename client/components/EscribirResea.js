@@ -1,15 +1,45 @@
+import { Picker } from '@react-native-picker/picker'
 import * as React from 'react'
 import {
-  View,
+  Image,
+  Pressable,
   StyleSheet,
   Text,
-  Image,
   TextInput,
-  Pressable
+  View
 } from 'react-native'
-import { FontFamily, FontSize, Color, Border, Padding } from '../GlobalStyles'
+import { useDispatch, useSelector } from 'react-redux'
+import { Border, Color, FontSize, Padding } from '../GlobalStyles'
+import { addReview } from '../redux/actions/events'
 
 const EscribirResea = ({ onClose }) => {
+  const dispatch = useDispatch()
+  const [inputs, setInputs] = React.useState({
+    title: '',
+    description: '',
+    qualification: 1
+  })
+
+  const { user } = useSelector((state) => state.users)
+  const { event } = useSelector((state) => state.events)
+
+  const onChangeText = (key, value) => {
+    setInputs({ ...inputs, [key]: value })
+  }
+
+  const onSubmit = () => {
+    const body = {
+      userId: user.id,
+      eventId: event.id,
+      review: {
+        title: inputs.title,
+        description: inputs.description,
+        qualification: inputs.qualification
+      }
+    }
+    dispatch(addReview(body))
+  }
+
   return (
     <View style={styles.escribirResea}>
       <View style={styles.frameParent}>
@@ -19,31 +49,56 @@ const EscribirResea = ({ onClose }) => {
             contentFit="cover"
             source={require('../assets/clarityeditsolid.png')}
           />
-          <Text style={[styles.escribeUnaResea, styles.helloAshfakTypo]}>
-            Escribe una reseña aquí
-          </Text>
+          <TextInput
+            style={[styles.escribeUnaResea, styles.helloAshfakTypo]}
+            placeholder="Título de la reseña"
+            onChangeText={(value) => onChangeText('title', value)}
+            value={inputs.title}
+          />
         </View>
         <View style={[styles.frameWrapper, styles.frameSpaceBlock1]}>
-          {/* <View style={styles.frameChild} /> */}
           <TextInput
             style={styles.frameChild}
             placeholder="Escribe una reseña aquí"
-            // value={reseña}
-            // onChangeText={(text) => setReseña(text)}
             multiline={true}
             numberOfLines={4}
+            onChangeText={(value) => onChangeText('description', value)}
+            value={inputs.description}
           />
+        </View>
+        <View style={styles.cajita}>
+          <Text style={styles.cajitaText}>Puntaje otorgado</Text>
+          <Picker
+            mode="dropdown"
+            dropdownIconColor={'red'}
+            onValueChange={(itemValue) =>
+              onChangeText('qualification', itemValue)
+            }
+            selectedValue={inputs.qualification}
+          >
+            <Picker.Item label="1" value={1} />
+            <Picker.Item label="2" value={2} />
+            <Picker.Item label="3" value={3} />
+            <Picker.Item label="4" value={4} />
+            <Picker.Item label="5" value={5} />
+          </Picker>
         </View>
         <View style={[styles.frameGroup, styles.frameSpaceBlock1]}>
           <Pressable
             style={[styles.helloAshfakWrapper, styles.helloFlexBox]}
-            onPress={onClose}
+            onPress={() => onClose(false)}
           >
             <Text style={[styles.helloAshfak, styles.helloAshfakTypo]}>
               Cancelar
             </Text>
           </Pressable>
-          <Pressable style={[styles.helloAshfakContainer, styles.helloFlexBox]}>
+          <Pressable
+            style={[styles.helloAshfakContainer, styles.helloFlexBox]}
+            onPress={() => {
+              onSubmit()
+              onClose(false)
+            }}
+          >
             <Text style={[styles.helloAshfak, styles.helloAshfakTypo]}>
               Publicar
             </Text>
@@ -57,10 +112,9 @@ const EscribirResea = ({ onClose }) => {
 const styles = StyleSheet.create({
   helloAshfakTypo: {
     textAlign: 'left',
-    fontFamily: FontFamily.inputPlaceholder,
-
-    fontWeight: '700',
-    fontSize: FontSize.size_sm
+    fontWeight: '900',
+    fontSize: FontSize.size_mid,
+    width: '70%'
   },
   frameSpaceBlock1: {
     marginTop: 20,
@@ -87,17 +141,20 @@ const styles = StyleSheet.create({
   },
   clarityeditSolidParent: {
     alignSelf: 'stretch',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   frameChild: {
     borderRadius: Border.br_xs,
     backgroundColor: Color.naranja3,
-    height: 100,
+    height: 300,
     alignSelf: 'stretch',
-    padding: 15
+    padding: 15,
+    textAlignVertical: 'top',
+    fontSize: FontSize.size_mid
   },
   frameWrapper: {
-    height: 100
+    height: 300
   },
   helloAshfak: {
     color: Color.blanco
@@ -131,12 +188,22 @@ const styles = StyleSheet.create({
     borderColor: Color.colorGainsboro_100,
     borderWidth: 1,
     width: 320,
+    // height: 500,
     paddingHorizontal: 0,
     paddingVertical: Padding.p_xl,
-    // maxWidth: '100%',
-    // maxHeight: '100%',
     flexDirection: 'row',
-    bottom: '100%'
+    alignSelf: 'center',
+    top: '40%',
+    zIndex: 6
+  },
+  cajita: {
+    marginTop: 20,
+    width: '70%'
+  },
+  cajitaText: {
+    fontWeight: '600',
+    color: Color.sportsVioleta,
+    fontSize: FontSize.size_lg
   }
 })
 

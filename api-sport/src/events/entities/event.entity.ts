@@ -83,5 +83,4 @@ export class EventEntity extends BaseEntity {
 
   @OneToMany(() => ReviewEntity, (review) => review.eventReview)
   reviews: ReviewEntity
- 
 }

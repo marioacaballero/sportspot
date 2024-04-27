@@ -7,7 +7,8 @@ import {
   getFavorites,
   createEvent,
   visitEvent,
-  getAllVisitedEvents
+  getAllVisitedEvents,
+  addReview
 } from '../actions/events'
 import { offSuscription } from '../actions/suscriptions'
 
@@ -19,6 +20,7 @@ export const eventsSlices = createSlice({
     nameEventsFilters: {},
     event: {},
     loading: false,
+    loadingId: false,
     loadingGet: false,
     error: {},
     favorites: [],
@@ -127,16 +129,16 @@ export const eventsSlices = createSlice({
 
       // UN EVENTO
       .addCase(getEventById.pending, (state) => {
-        state.loading = true
+        state.loadingId = true
         state.error = null
       })
       .addCase(getEventById.fulfilled, (state, action) => {
-        state.loading = false
+        state.loadingId = false
         state.event = action.payload
         state.error = null
       })
       .addCase(getEventById.rejected, (state, action) => {
-        state.loading = false
+        state.loadingId = false
         state.error = action.payload
       })
 
@@ -224,6 +226,20 @@ export const eventsSlices = createSlice({
         state.events = false
         state.error = action.payload
         state.loading = false
+      })
+
+      // Agregar una reseña
+      .addCase(addReview.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(addReview.fulfilled, (state, action) => {
+        state.loading = false
+        state.error = null
+      })
+      .addCase(addReview.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
       })
   }
 })
