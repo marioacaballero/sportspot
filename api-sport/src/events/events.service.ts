@@ -80,6 +80,7 @@ export class EventsService {
       .leftJoinAndSelect('event.creator', 'creator')
       .leftJoinAndSelect('event.suscribers', 'suscribers')
       .leftJoinAndSelect('event.reviews', 'reviews')
+      .leftJoinAndSelect('reviews.reviewCreator', 'reviewCreator')
       .getOne()
 
     if (!event) {
