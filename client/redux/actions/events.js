@@ -107,3 +107,16 @@ export const getAllVisitedEvents = createAsyncThunk(
     }
   }
 )
+
+export const addReview = createAsyncThunk('events/addReview', async (body) => {
+  const { userId, eventId, review } = body
+  try {
+    const { data } = await axiosInstance.post(
+      `/reviews/${userId}/${eventId}`,
+      review
+    )
+    return data
+  } catch (error) {
+    throw new Error(error)
+  }
+})
