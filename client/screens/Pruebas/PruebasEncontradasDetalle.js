@@ -1,31 +1,36 @@
 import React, { useEffect, useState } from 'react'
 import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
   Image,
   Modal,
-  TouchableWithoutFeedback,
+  Pressable,
   ScrollView,
-  TouchableOpacity
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View
 } from 'react-native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import {
-  Color,
-  FontSize,
-  FontFamily,
-  Padding,
-  Border
-} from '../../GlobalStyles'
-import { useDispatch, useSelector } from 'react-redux'
-import ModalSuscription from '../../components/ModalSuscription'
-import EditEvent from '../../components/EditEvent'
 import { ActivityIndicator } from 'react-native-paper'
-import { favorite, getFavorites, visitEvent } from '../../redux/actions/events'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  Border,
+  Color,
+  FontFamily,
+  FontSize,
+  Padding
+} from '../../GlobalStyles'
+import EditEvent from '../../components/EditEvent'
+import EscribirResea from '../../components/EscribirResea'
+import ModalSuscription from '../../components/ModalSuscription'
+import {
+  favorite,
+  getEventById,
+  getFavorites
+} from '../../redux/actions/events'
+import CardReview from './CardReview'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
-  // const navigation = useNavigation()
   const dispatch = useDispatch()
 
   const { user } = useSelector((state) => state.users)
@@ -36,11 +41,10 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     favorites: favoritesRedux
   } = useSelector((state) => state.events)
 
-  console.log(event?.reviews)
-
   const [modalSuscription, setModalSuscription] = useState(false)
   const [modalEditEvent, setModalEditEvent] = useState(false)
   const [favorites, setFavorites] = useState()
+  const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
     dispatch(getFavorites(user.id))
@@ -51,13 +55,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   }, [allFavorites])
 
   useEffect(() => {
-    if (!loading) {
-      const body = {
-        eventId: event.id,
-        userId: user.id
-      }
-      dispatch(visitEvent(body))
-    }
+    dispatch(getEventById(event.id))
   }, [loading])
 
   const isEventAlreadyAdded = event.suscribers?.some(
@@ -189,11 +187,25 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
             <Text style={[styles.reseasDeLa, styles.reseasDeLaTypo]}>
               Reseñas de la prueba
             </Text>
-            {event.reviews &&
-              event.reviews.length &&
-              event.reviews.map((event) => (
-                <Text key={event.id}>{event.description}</Text>
-              ))}
+            {isEventAlreadyAdded && (
+              <TouchableOpacity
+                onPress={() => setShowModal(true)}
+                style={styles.review}
+              >
+                <Text style={styles.reviewText}>Dar mi reseña</Text>
+              </TouchableOpacity>
+            )}
+            {event.reviews.length > 0 &&
+              event.reviews
+                .slice(0, 5)
+                .map((event) => (
+                  <CardReview
+                    key={event.id}
+                    title={event.title}
+                    description={event.description}
+                    qualification={event.qualification}
+                  />
+                ))}
           </View>
           <Pressable
             style={[styles.cilarrowTopParent, styles.parentSpaceBlock]}
@@ -207,6 +219,10 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
             <Text style={[styles.ciclismo, styles.ciclismoTypo]}>Atrás</Text>
           </Pressable>
         </View>
+
+        <Modal animationType="slide" transparent={true} visible={showModal}>
+          <EscribirResea onClose={setShowModal} />
+        </Modal>
 
         <Modal
           animationType="slide"
@@ -243,6 +259,22 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
+  review: {
+    backgroundColor: Color.sportsNaranja,
+    borderColor: Color.sportsNaranja,
+    borderWidth: 1,
+    borderRadius: 20,
+    padding: 5,
+    width: 130,
+    marginVertical: 10,
+    marginLeft: 10
+  },
+  reviewText: {
+    textAlign: 'center',
+    color: Color.blanco,
+    fontWeight: '500',
+    fontSize: FontSize.size_mid
+  },
   linearGradient: {
     flex: 1,
     width: '100%'
@@ -255,7 +287,7 @@ const styles = StyleSheet.create({
   },
   reseasDeLaTypo: {
     color: Color.sportsNaranja,
-    fontSize: FontSize.size_3xl,
+    fontSize: FontSize.size_11xl,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
   },
@@ -272,7 +304,7 @@ const styles = StyleSheet.create({
   laInscripcinDeLayout: {
     width: 320,
     color: Color.violeta2,
-    fontSize: FontSize.inputPlaceholder_size,
+    fontSize: FontSize.size_mid,
     marginTop: 20
   },
   parentSpaceBlock: {
@@ -364,7 +396,8 @@ const styles = StyleSheet.create({
   modalText: {
     color: 'white',
     width: '100%',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: FontSize.size_mid
   },
   editButton: {
     height: 30,
