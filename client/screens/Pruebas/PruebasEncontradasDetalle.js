@@ -41,6 +41,14 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     favorites: favoritesRedux
   } = useSelector((state) => state.events)
 
+  const isUserPostReview = () => {
+    const newEvents = event.reviews.map((review) => {
+      return { ...review, reviewCreator: review.reviewCreator.id }
+    })
+
+    return newEvents.some((review) => review.reviewCreator === user.id)
+  }
+
   const [modalSuscription, setModalSuscription] = useState(false)
   const [modalEditEvent, setModalEditEvent] = useState(false)
   const [favorites, setFavorites] = useState()
@@ -173,7 +181,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               Descripción: {event.description}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              Creador del evento: {event.creator.nickname}
+              Creador del evento: {event.creator.email}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
               Email del creador: {event.creator.email}
@@ -187,7 +195,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
             <Text style={[styles.reseasDeLa, styles.reseasDeLaTypo]}>
               Reseñas de la prueba
             </Text>
-            {isEventAlreadyAdded && (
+            {isEventAlreadyAdded && !isUserPostReview() && (
               <TouchableOpacity
                 onPress={() => setShowModal(true)}
                 style={styles.review}
