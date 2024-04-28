@@ -49,6 +49,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     return newEvents.some((review) => review.reviewCreator === user.id)
   }
 
+  const [eventState, setEventState] = useState(event)
   const [modalSuscription, setModalSuscription] = useState(false)
   const [modalEditEvent, setModalEditEvent] = useState(false)
   const [favorites, setFavorites] = useState()
@@ -56,15 +57,15 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(getFavorites(user.id))
-  }, [dispatch, favoritesRedux])
+  }, [favoritesRedux])
 
   useEffect(() => {
     setFavorites(allFavorites)
   }, [allFavorites])
 
   useEffect(() => {
-    dispatch(getEventById(event.id))
-  }, [loading])
+    setEventState(event)
+  }, [loading, event])
 
   const isEventAlreadyAdded = event.suscribers?.some(
     (userEvent) => userEvent.id === user.id
@@ -107,6 +108,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       </View>
     )
   } else {
+    console.log(event.creator.email, 'nos sacamos dudas')
     return (
       <ScrollView style={styles.pruebasEncontradasDetalle}>
         <View style={[styles.unsplashon4qwhhjcemParent, styles.parentPosition]}>
