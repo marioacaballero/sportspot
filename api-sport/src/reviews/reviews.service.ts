@@ -47,7 +47,9 @@ export class ReviewsService {
     reviewEntity.reviewCreator = user
     reviewEntity.eventReview = event
 
-    return await this.reviewsRepository.save(reviewEntity)
+    const reviewReturn = await this.reviewsRepository.save(reviewEntity)
+    console.log(reviewReturn)
+    return reviewReturn
   }
 
   public async getReviewsByEvent(eventId: string): Promise<ReviewEntity> {
