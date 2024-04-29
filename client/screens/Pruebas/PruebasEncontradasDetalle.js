@@ -183,10 +183,10 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               Descripción: {event.description}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              Creador del evento: {event.creator.email}
+              Creador del evento: {event?.creator?.email}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              Email del creador: {event.creator.email}
+              Email del creador: {event?.creator?.email}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
               Número de contacto: {event.phoneNumber}
