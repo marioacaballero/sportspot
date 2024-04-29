@@ -48,7 +48,6 @@ export class ReviewsService {
     reviewEntity.eventReview = event
 
     const reviewReturn = await this.reviewsRepository.save(reviewEntity)
-    console.log(reviewReturn)
     return reviewReturn
   }
 
