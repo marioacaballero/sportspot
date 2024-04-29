@@ -91,6 +91,10 @@ export const eventsSlices = createSlice({
         return false
       })
       state.eventsFilter = filteredEvents
+    },
+    getEventByIdRedux: (state, action) => {
+      const event = state.events.find(e => e.id === action.payload)
+      state.event = event
     }
   },
 
@@ -234,6 +238,10 @@ export const eventsSlices = createSlice({
         state.error = null
       })
       .addCase(addReview.fulfilled, (state, action) => {
+        state.event = {
+          ...state.event,
+          reviews: [...state.event.reviews, action.payload]
+        }
         state.loading = false
         state.error = null
       })
@@ -251,7 +259,8 @@ export const {
   setDateSuscription,
   setEventFromPrice,
   setOrderEvents,
-  setFiltersToFilters
+  setFiltersToFilters,
+  getEventByIdRedux
 } = eventsSlices.actions
 
 export default eventsSlices.reducer

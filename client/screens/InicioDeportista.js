@@ -17,6 +17,7 @@ import InicioBUSCADOR from './InicioBUSCADOR'
 import InicioOrganizador from './Organizador/InicioOrganizador'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllEvents, getEventById } from '../redux/actions/events'
+import { getEventByIdRedux } from '../redux/slices/events.slices'
 import { ActivityIndicator } from 'react-native-paper'
 import DatosDeportista from '../components/DatosDeportista'
 // import { SafeAreaView } from 'react-native-safe-area-context'
@@ -280,7 +281,7 @@ const InicioDeportista = () => {
                           : styles.image94ParentShadowBox
                       }
                       onPress={() => {
-                        dispatch(getEventById(event.id))
+                        dispatch(getEventByIdRedux(event.id))
                         navigation.navigate('PruebasEncontradasDetalle')
                       }}
                     >
@@ -329,7 +330,7 @@ const InicioDeportista = () => {
                           : styles.image94ParentShadowBox
                       }
                       onPress={() => {
-                        dispatch(getEventById(event.id))
+                        dispatch(getEventByIdRedux(event.id))
                         navigation.navigate('PruebasEncontradasDetalle')
                       }}
                     >
@@ -377,7 +378,7 @@ const InicioDeportista = () => {
                           : styles.image94ParentShadowBox
                       }
                       onPress={() => {
-                        dispatch(getEventById(event.id))
+                        dispatch(getEventByIdRedux(event.id))
                         navigation.navigate('PruebasEncontradasDetalle')
                       }}
                     >

@@ -36,6 +36,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   const { user } = useSelector((state) => state.users)
   const {
     event,
+    events,
     loading,
     allFavorites,
     favorites: favoritesRedux
@@ -108,7 +109,6 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       </View>
     )
   } else {
-    console.log(event.creator.email, 'nos sacamos dudas')
     return (
       <ScrollView style={styles.pruebasEncontradasDetalle}>
         <View style={[styles.unsplashon4qwhhjcemParent, styles.parentPosition]}>
@@ -205,7 +205,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                 <Text style={styles.reviewText}>Dar mi reseña</Text>
               </TouchableOpacity>
             )}
-            {event.reviews.length > 0 &&
+            {event.reviews && event.reviews.length > 0 &&
               event.reviews
                 .slice(0, 5)
                 .map((event) => (
