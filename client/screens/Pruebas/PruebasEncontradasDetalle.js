@@ -108,7 +108,6 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       </View>
     )
   } else {
-    console.log(event.creator.email, 'nos sacamos dudas')
     return (
       <ScrollView style={styles.pruebasEncontradasDetalle}>
         <View style={[styles.unsplashon4qwhhjcemParent, styles.parentPosition]}>
@@ -183,10 +182,10 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               Descripción: {event.description}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              Creador del evento: {event.creator.email}
+              Creador del evento: {event?.creator?.email}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              Email del creador: {event.creator.email}
+              Email del creador: {event?.creator?.email}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
               Número de contacto: {event.phoneNumber}
