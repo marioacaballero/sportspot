@@ -8,7 +8,8 @@ import {
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View
+  View,
+  Share
 } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -20,14 +21,11 @@ import {
   FontSize,
   Padding
 } from '../../GlobalStyles'
+import { getFavorites } from '../../redux/actions/events'
+import { favorite } from '../../redux/actions/users'
 import EditEvent from '../../components/EditEvent'
 import EscribirResea from '../../components/EscribirResea'
 import ModalSuscription from '../../components/ModalSuscription'
-import {
-  favorite,
-  getEventById,
-  getFavorites
-} from '../../redux/actions/events'
 import CardReview from './CardReview'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
@@ -36,25 +34,24 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   const { user } = useSelector((state) => state.users)
   const {
     event,
-    events,
     loading,
     allFavorites,
     favorites: favoritesRedux
   } = useSelector((state) => state.events)
-
-  const isUserPostReview = () => {
-    const newEvents = event.reviews.map((review) => {
-      return { ...review, reviewCreator: review.reviewCreator.id }
-    })
-
-    return newEvents.some((review) => review.reviewCreator === user.id)
-  }
 
   const [eventState, setEventState] = useState(event)
   const [modalSuscription, setModalSuscription] = useState(false)
   const [modalEditEvent, setModalEditEvent] = useState(false)
   const [favorites, setFavorites] = useState()
   const [showModal, setShowModal] = useState(false)
+  const stateName = favorites && favorites?.some((fav) => fav.id === event?.id)
+
+  const nameState = () => {
+    if (stateName !== undefined) {
+      return stateName
+    }
+  }
+  const [name, setName] = useState(nameState() || false)
 
   useEffect(() => {
     dispatch(getFavorites(user.id))
@@ -68,24 +65,66 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     setEventState(event)
   }, [loading, event])
 
-  const isEventAlreadyAdded = event.suscribers?.some(
+  const isUserPostReview = () => {
+    const newEvents =
+      eventState.reviews &&
+      eventState.reviews.map((review) => {
+        return { ...review, reviewCreator: review?.reviewCreator?.id }
+      })
+
+    return newEvents.some((review) => review.reviewCreator === user.id)
+  }
+
+  const isEventAlreadyAdded = eventState.suscribers?.some(
     (userEvent) => userEvent.id === user.id
   )
 
   const transformPlaces = (places) => {
-    if (places === event.suscribers.length) {
+    if (places === eventState.suscribers?.length) {
       return `${places}/${places} : Full`
-    } else if (places > event.suscribers.length) {
-      return `${event.suscribers.length}/${places} -> Disponibles`
+    } else if (places > eventState.suscribers?.length) {
+      return `${eventState.suscribers?.length}/${places} -> Disponibles`
     }
   }
 
   const handleFavorite = () => {
     const data = {
       id: user.id,
-      eventId: event.id
+      eventId: eventState.id
     }
     dispatch(favorite(data))
+    setName(!name)
+  }
+
+  const onShare = async (eventLink) => {
+    try {
+      const result = await Share.share(
+        {
+          message: `Disfruta de éste nuevo evento deportivo aquí: 👇🏻 \n ${eventLink}`,
+          title: 'Mira éste evento increíble'
+        },
+        {
+          // Android only:
+          dialogTitle: 'Compartir esta aplicación',
+          // iOS only:
+          excludedActivityTypes: ['com.apple.UIKit.activity.PostToTwitter']
+        }
+      )
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // compartido con el tipo de actividad de result.activityType
+          console.log('evento conmpartido con ', result.activityType)
+        } else {
+          // compartido
+          console.log('evento conmpartido')
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // descartado
+      }
+    } catch (error) {
+      alert(error.message)
+    }
   }
 
   if (loading) {
@@ -115,7 +154,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
           <Image
             style={styles.unsplashon4qwhhjcemIcon}
             contentFit="cover"
-            source={{ uri: event.image }}
+            source={{ uri: eventState.image }}
           />
 
           <View style={styles.frameParent}>
@@ -127,14 +166,14 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   marginBottom: 15
                 }}
               >
-                <Text style={styles.reseasDeLaTypo}>{event.title}</Text>
+                <Text style={styles.reseasDeLaTypo}>{eventState.title}</Text>
                 <Text style={[styles.modalidadMontaa, styles.ciclismoTypo]}>
-                  {event.sport?.name?.slice(0, 1).toUpperCase()}
-                  {event.sport?.name?.slice(1)} {event.sport?.type}
+                  {eventState.sport?.name?.slice(0, 1).toUpperCase()}
+                  {eventState.sport?.name?.slice(1)} {eventState.sport?.type}
                 </Text>
               </View>
               <View style={styles.alertParent}>
-                {event?.creator?.id === user?.id ? (
+                {eventState?.creator?.id === user?.id ? (
                   <TouchableOpacity
                     style={styles.editButton}
                     onPress={() => {
@@ -159,20 +198,19 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   contentFit="cover"
                   source={require('../../assets/alert.png')}
                 />
-                <Image
-                  style={[styles.clarityshareSolidIcon, styles.containerLayout]}
-                  contentFit="cover"
-                  source={require('../../assets/claritysharesolid.png')}
-                />
+                <TouchableOpacity onPress={() => onShare(eventState.eventLink)}>
+                  <Image
+                    style={[
+                      styles.clarityshareSolidIcon,
+                      styles.containerLayout
+                    ]}
+                    contentFit="cover"
+                    source={require('../../assets/claritysharesolid.png')}
+                  />
+                </TouchableOpacity>
                 <TouchableOpacity onPress={handleFavorite}>
                   <MaterialCommunityIcons
-                    name={
-                      favorites?.some(
-                        (favorite) => favorite.id === event?.id
-                      ) === true
-                        ? 'cards-heart'
-                        : 'cards-heart-outline'
-                    }
+                    name={name ? 'cards-heart' : 'cards-heart-outline'}
                     color="#F25910"
                     size={25}
                   />
@@ -180,19 +218,19 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               </View>
             </View>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              Descripción: {event.description}
+              Descripción: {eventState.description}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              Creador del evento: {event?.creator?.email}
+              Creador del evento: {eventState?.creator?.email}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              Email del creador: {event?.creator?.email}
+              Email del creador: {eventState?.creator?.email}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              Número de contacto: {event.phoneNumber}
+              Número de contacto: {eventState.phoneNumber}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              Plazas disponibles: {transformPlaces(event.places)}
+              Plazas disponibles: {transformPlaces(eventState.places)}
             </Text>
             <Text style={[styles.reseasDeLa, styles.reseasDeLaTypo]}>
               Reseñas de la prueba
@@ -205,8 +243,9 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                 <Text style={styles.reviewText}>Dar mi reseña</Text>
               </TouchableOpacity>
             )}
-            {event.reviews && event.reviews.length > 0 &&
-              event.reviews
+            {eventState.reviews &&
+              eventState.reviews?.length > 0 &&
+              eventState.reviews
                 .slice(0, 5)
                 .map((event) => (
                   <CardReview
@@ -247,7 +286,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
             <View style={styles.modalOverlay}>
               <ModalSuscription
                 user={user}
-                event={event}
+                event={eventState}
                 onClose={() => setModalSuscription(false)}
               />
             </View>
@@ -260,7 +299,10 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
           visible={modalEditEvent}
         >
           <View style={styles.modalOverlay}>
-            <EditEvent event={event} onClose={() => setModalEditEvent(false)} />
+            <EditEvent
+              event={eventState}
+              onClose={() => setModalEditEvent(false)}
+            />
           </View>
         </Modal>
       </ScrollView>
@@ -411,7 +453,7 @@ const styles = StyleSheet.create({
   },
   editButton: {
     height: 30,
-    width: 110,
+    width: 130,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 50,

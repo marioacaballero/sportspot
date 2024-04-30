@@ -93,7 +93,7 @@ export const eventsSlices = createSlice({
       state.eventsFilter = filteredEvents
     },
     getEventByIdRedux: (state, action) => {
-      const event = state.events.find(e => e.id === action.payload)
+      const event = state.events.find((e) => e.id === action.payload)
       state.event = event
     }
   },
@@ -147,19 +147,19 @@ export const eventsSlices = createSlice({
       })
 
       // FAVORITOS
-      .addCase(favorite.pending, (state) => {
-        state.loadingGet = true
-        state.error = null
-      })
-      .addCase(favorite.fulfilled, (state, action) => {
-        state.loadingGet = false
-        state.favorites = action.payload
-        state.error = null
-      })
-      .addCase(favorite.rejected, (state, action) => {
-        state.loadingGet = false
-        state.error = action.payload
-      })
+      // .addCase(favorite.pending, (state) => {
+      //   state.loadingGet = true
+      //   state.error = null
+      // })
+      // .addCase(favorite.fulfilled, (state, action) => {
+      //   state.loadingGet = false
+      //   state.favorites = action.payload
+      //   state.error = null
+      // })
+      // .addCase(favorite.rejected, (state, action) => {
+      //   state.loadingGet = false
+      //   state.error = action.payload
+      // })
       .addCase(getFavorites.pending, (state) => {
         state.loadingGet = true
         state.error = null

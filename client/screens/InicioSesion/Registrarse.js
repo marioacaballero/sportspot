@@ -63,12 +63,7 @@ const Registrarse = () => {
 
   const onSubmit = () => {
     try {
-      if (
-        registerUser.email &&
-        registerUser.password &&
-        confirmPassword
-      ) {
-        console.log(users)
+      if (registerUser.email && registerUser.password && confirmPassword) {
         const emailExists = users.some(
           (user) => user.email === registerUser.email
         )
@@ -78,7 +73,6 @@ const Registrarse = () => {
           handleShowAlert('El correo electrónico ya está en uso')
         } else {
           if (registerUser.password === confirmPassword) {
-            console.log('camino positivo')
             dispatch(register(registerUser))
             navigation.navigate('IniciarSesin')
           } else {
@@ -86,7 +80,6 @@ const Registrarse = () => {
           }
         }
       } else {
-        console.log('todos los campos')
         handleShowAlert('Rellene todos los campos')
       }
     } catch (error) {
