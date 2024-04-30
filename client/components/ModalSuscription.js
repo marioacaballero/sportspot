@@ -4,6 +4,7 @@ import { Color, FontSize } from '../GlobalStyles'
 import { useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { offSuscription } from '../redux/actions/suscriptions'
+import { suscriptionEventUser } from '../redux/actions/users'
 
 const ModalSuscription = ({ user, event, onClose }) => {
   const navigation = useNavigation()
@@ -19,6 +20,14 @@ const ModalSuscription = ({ user, event, onClose }) => {
       eventId: event.id
     }
     dispatch(offSuscription(data))
+  }
+  const onSuscribed = () => {
+    const data = {
+      id: user.id,
+      eventId: event.id
+    }
+    dispatch(suscriptionEventUser(data))
+    navigation.goBack()
   }
   return userSuscribed ? (
     <View style={styles.container}>
@@ -40,9 +49,9 @@ const ModalSuscription = ({ user, event, onClose }) => {
       <TouchableOpacity
         style={styles.touchable}
         onPress={() => {
-          // onSubmit()
+          onSuscribed()
           onClose()
-          navigation.navigate('stripe')
+          // navigation.navigate('stripe')
         }}
       >
         <Text style={styles.confirmText}>Confirmar</Text>

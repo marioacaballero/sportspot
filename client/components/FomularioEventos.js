@@ -131,6 +131,7 @@ const FomularioEventos = () => {
       title: event.title,
       description: event.description,
       sportId: sport && sport?.id,
+      eventLink: event.eventLink,
       price: event?.price.slice(0, -1),
       modality: sport.type,
       location: event?.location,

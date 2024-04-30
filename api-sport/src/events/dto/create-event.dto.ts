@@ -70,6 +70,11 @@ export class CreateEventDto {
   @IsOptional()
     @ApiProperty({description: "Favorite", required: false})
   favorite: boolean
+  
+  @IsOptional()
+  @IsString()
+    @ApiProperty({description: "Link event", required: false})
+  eventLink: string
 
   @IsString()
   @IsOptional() // Hacemos la propiedad image opcional

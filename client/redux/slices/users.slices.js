@@ -5,7 +5,8 @@ import {
   login,
   updateUser,
   updateUserRol,
-  postUserPreferences
+  postUserPreferences,
+  favorite
 } from '../actions/users'
 
 export const usersSlices = createSlice({
@@ -101,6 +102,24 @@ export const usersSlices = createSlice({
         state.error = null
       })
       .addCase(postUserPreferences.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(favorite.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(favorite.fulfilled, (state, action) => {
+        state.loading = false
+        if (state.user && state.user.eventFavorites) {
+          state.user = {
+            ...state.user,
+            eventFavorites: [...state.user.eventFavorites, action.payload]
+          }
+        }
+        state.error = null
+      })
+      .addCase(favorite.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

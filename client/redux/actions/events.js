@@ -71,18 +71,6 @@ export const getFavorites = createAsyncThunk(
   }
 )
 
-export const favorite = createAsyncThunk('users/favorite', async (body) => {
-  const { id, eventId } = body
-  try {
-    const { data } = await axiosInstance.patch(`/users/favorite/${id}`, {
-      eventId
-    })
-    return data
-  } catch (error) {
-    throw new Error(error)
-  }
-})
-
 export const visitEvent = createAsyncThunk('events/visit', async (body) => {
   try {
     const { data } = await axiosInstance.post('/events/visit', body)

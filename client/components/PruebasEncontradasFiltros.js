@@ -175,9 +175,9 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
                   marginTop: 5
                 }}
                 titleStyle={[styles.ciclsmo, styles.ciclsmoTypo]}
-                title={`${sport.sportname
+                title={`${sport?.sportname
                   .slice(0, 1)
-                  .toUpperCase()}${sport.sportname.slice(1)}`}
+                  .toUpperCase()}${sport?.sportname.slice(1)}`}
               >
                 <List.Accordion
                   onPress={() => handlePress(sport.sportname)}

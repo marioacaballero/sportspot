@@ -1,13 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  Text,
-  StyleSheet,
-  View,
-  Pressable,
-  FlatList,
-  Image
-} from 'react-native'
+import { Text, StyleSheet, View, Pressable, FlatList } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { ActivityIndicator } from 'react-native-paper'
 import {
@@ -19,24 +12,34 @@ import {
 } from '../../GlobalStyles'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import { getFavorites } from '../../redux/actions/events'
-import { SafeAreaView } from 'react-native-safe-area-context'
+// import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Favoritos1 = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
   const { user } = useSelector((state) => state.users)
-  const { allFavorites, favorites, loadingGet } = useSelector(
-    (state) => state.events
-  )
+  const { sports } = useSelector((state) => state.sports)
 
+  const { allFavorites, loadingGet } = useSelector((state) => state.events)
   useEffect(() => {
     dispatch(getFavorites(user.id))
-  }, [favorites])
+  }, [])
 
+  // const sport = [
+  //   'futbol',
+  //   'basket',
+  //   'rugby',
+  //   'tenis',
+  //   'handball',
+  //   'ciclismo',
+  //   'running',
+  //   'hockey'
+  // ]
   // Agrupar favoritos por deporte
   const groupedFavorites = allFavorites.reduce((grouped, favorite) => {
-    const sportName = favorite.title
+    const sportName = sports.find((sport) => sport.id === favorite.sportId).name
+
     if (!grouped[sportName]) {
       grouped[sportName] = []
     }
@@ -46,17 +49,23 @@ const Favoritos1 = () => {
 
   if (loadingGet) {
     return (
-      <View>
-        <Image
-          style={styles.background}
-          source={require('../../assets/BGInicio.png')}
-          contentFit="cover"
-        />
+      <View style={styles.favoritos}>
+        <View style={styles.topContainer}>
+          <Text style={[styles.tusFavoritos, styles.imGoingToFlexBox]}>
+            TUS FAVORITOS
+          </Text>
+          <BackArrowSVG />
+        </View>
+        <View style={[styles.frameWrapper, styles.frameSpaceBlock]}>
+          <View style={styles.groupParentFlexBox}>
+            <Text style={styles.tusListasTypo}>Tus listas</Text>
+          </View>
+        </View>
         <ActivityIndicator
           style={{
             width: '100%',
             height: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.1)'
+            backgroundColor: 'white'
           }}
           animating={true}
           size="large"
@@ -80,7 +89,7 @@ const Favoritos1 = () => {
             <Text style={styles.tusListasTypo}>Tus listas</Text>
           </View>
         </View>
-        {groupedFavorites.length > 0 ? (
+        {Object.keys(groupedFavorites).length > 0 ? (
           <FlatList
             showsVerticalScrollIndicator={false}
             data={Object.entries(groupedFavorites)}

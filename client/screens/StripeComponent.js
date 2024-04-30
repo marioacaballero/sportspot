@@ -11,7 +11,6 @@ import {
 import { CardField /*, useConfirmPayment */ } from '@stripe/stripe-react-native'
 import { Color } from '../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
-import { suscriptionEventUser } from '../redux/actions/users'
 import { useNavigation } from '@react-navigation/native'
 
 const StripeComponent = ({ onClose }) => {
@@ -28,8 +27,8 @@ const StripeComponent = ({ onClose }) => {
       id: user.id,
       eventId: event.id
     }
+    console.log(data)
 
-    dispatch(suscriptionEventUser(data))
     navigation.goBack()
   }
 

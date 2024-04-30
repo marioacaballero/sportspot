@@ -55,6 +55,9 @@ export class EventEntity extends BaseEntity {
   })
   places: number
 
+  @Column({ nullable: true })
+  eventLink: string
+
   @Column({
     type: 'text',
     default:
