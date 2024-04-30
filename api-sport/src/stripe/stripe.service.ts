@@ -1,26 +1,23 @@
-import { Injectable } from '@nestjs/common'
-import Stripe from 'stripe'
-import { Cart } from './Cart.model'
+import { Inject, Injectable } from '@nestjs/common';
+import Stripe from 'stripe';
 
 @Injectable()
 export class StripeService {
-  private stripe
+  private stripe: Stripe;
 
-  constructor() {
-    this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: null
-    })
+  constructor(@Inject('STRIPE_SECRET_KEY') private readonly apiKey: string) {
+    this.stripe = new Stripe(this.apiKey, {
+      apiVersion: '2024-04-10', // Use whatever API latest version
+    });
   }
 
-  checkout(cart: Cart) {
-    const totalPrice = cart.reduce(
-      (acc, item) => acc + item.quantity * item.price,
-      0
-    )
-    return this.stripe.paymentIntents.create({
-      amount: totalPrice * 100,
-      currency: 'usd',
-      payment_method_types: ['card']
-    })
+  async getProducts(): Promise<Stripe.Product[]> {
+    const products = await this.stripe.products.list();
+    return products.data;
+  }
+
+  async getCustomers() {
+    const customers = await this.stripe.customers.list({});
+    return customers.data;
   }
 }
