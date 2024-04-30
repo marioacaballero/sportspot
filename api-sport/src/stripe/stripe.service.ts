@@ -16,8 +16,61 @@ export class StripeService {
     return products.data;
   }
 
+  async getSubscriptions(): Promise<Stripe.Subscription[]> {
+    const subscriptions = await this.stripe.subscriptions.list();
+    return subscriptions.data;
+  }
+
   async getCustomers() {
     const customers = await this.stripe.customers.list({});
     return customers.data;
+  }
+
+  async createCustomer(name: string, email: string ) {
+    console.log(email)
+    const customer = await this.stripe.customers.create({
+      email,
+      name,
+      shipping: {
+        address: {
+          city: 'Brothers',
+          country: 'US',
+          line1: '27 Fredrick Ave',
+          postal_code: '97712',
+          state: 'CA',
+        },
+        name,
+      },
+      address: {
+        city: 'Brothers',
+        country: 'US',
+        line1: '27 Fredrick Ave',
+        postal_code: '97712',
+        state: 'CA',
+      },
+    });
+
+    console.log(customer)
+    return 'customer creado exitosamente'
+  }
+
+  async createSubscription(priceId: string, customerId: string) {
+    const newSubscription = await this.stripe.subscriptions.create({
+      customer: customerId,
+      items: [{
+        price: priceId,
+      }],
+      payment_behavior: 'default_incomplete',
+      payment_settings: { save_default_payment_method: 'on_subscription' },
+      expand: ['latest_invoice.payment_intent'],
+    }) as any
+
+    console.log(newSubscription.latest_invoice.payment_intent.client_secret)
+
+    const data = {
+      subscriptionId: newSubscription.id,
+      clientSecret: newSubscription.latest_invoice.payment_intent.client_secret
+    }
+    return data
   }
 }

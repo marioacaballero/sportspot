@@ -1,5 +1,8 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Param, Controller, Get, Post } from '@nestjs/common';
 import { StripeService } from './stripe.service';
+// import { CreateCustomerDto } from './dto/create-customer-dto';
+import { ApiOperation } from '@nestjs/swagger'
+
 
 @Controller('stripe')
 export class StripeController {
@@ -12,6 +15,24 @@ export class StripeController {
 
   @Get('customers')
   async getCustomers() {
-    return await this.stripeService.getProducts();
+    return await this.stripeService.getCustomers();
+  }
+
+  @Post('customer')
+  @ApiOperation({ summary: "create stripe customer" })
+  public async postCustomer(      
+    @Body('name') name: string,
+    @Body('email') email: string,
+  ) {
+    return this.stripeService.createCustomer(name, email)
+  }
+
+  @Post('subscription/:priceId')
+  @ApiOperation({ summary: "create stripe subscription" })
+  public async postSubscription(
+    @Param('priceId') priceId: string,
+    @Body('customerId') customerId: string
+  ) {
+    return this.stripeService.createSubscription(priceId, customerId)
   }
 }
