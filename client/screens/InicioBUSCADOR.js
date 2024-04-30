@@ -53,7 +53,13 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
   }, [])
 
   const onSubmit = () => {
-    dispatch(getAllEventsFilters(eventsFilter))
+    const resQuery = {}
+    for (let p in eventsFilter) {
+      if (eventsFilter[p].length > 0) {
+        resQuery[p] = eventsFilter[p]
+      }
+    }
+    dispatch(getAllEventsFilters(resQuery))
   }
 
   return (

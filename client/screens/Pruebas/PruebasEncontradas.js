@@ -26,6 +26,7 @@ import {
   favorite,
   getFavorites
 } from '../../redux/actions/events'
+import { getEventByIdRedux } from '../../redux/slices/events.slices'
 
 const PruebasEncontradas = () => {
   const navigation = useNavigation()
@@ -134,7 +135,7 @@ const PruebasEncontradas = () => {
               <Pressable
                 key={i}
                 onPress={() => {
-                  dispatch(getEventById(event.event_id))
+                  dispatch(getEventByIdRedux(event.id))
                   navigation.navigate('PruebasEncontradasDetalle')
                 }}
                 style={styles.unsplashon4qwhhjcemParentShadowBox}
@@ -142,20 +143,20 @@ const PruebasEncontradas = () => {
                 <Image
                   style={styles.unsplashon4qwhhjcemIcon}
                   contentFit="cover"
-                  source={{ uri: event.event_image }}
+                  source={{ uri: event.image }}
                 />
 
                 <View style={styles.frameView}>
                   <View style={styles.frameGroupFlexBox}>
                     <Text style={[styles.senderismo, styles.textTypo]}>
-                      {event.event_title}
+                      {event.title}
                     </Text>
                     <View style={styles.likeSpotsport}>
                       <CorazonSVG
                         isFavorite={favoriteEvents?.some(
-                          (favorite) => favorite.id === event?.event_id
+                          (favorite) => favorite.id === event?.id
                         )}
-                        handle={() => toggleFavorite(event.event_id)}
+                        handle={() => toggleFavorite(event.id)}
                       />
                     </View>
                   </View>
@@ -166,23 +167,23 @@ const PruebasEncontradas = () => {
                     ]}
                   >
                     <Text style={styles.modalidad}>
-                      -Modalidad: {event.event_modality}
+                      -Modalidad: {event.modality}
                       {'\n'}
                     </Text>
                     <Text style={styles.modalidad}>
-                      -Localización: {event.event_location}
+                      -Localización: {event.location}
                       {'\n'}
                     </Text>
                     <Text style={styles.modalidad}>-Fecha de la prueba:</Text>
                     <Text style={styles.ene2024Typo}>
-                      {event.event_datestart} {'\n'}
+                      {event.datestart} {'\n'}
                     </Text>
 
                     <Text style={styles.modalidad}>
                       -Plazo límite de inscripción:
                     </Text>
                     <Text style={styles.ene2024Typo}>
-                      {event?.event_dateinscription} {'\n'}
+                      {event?.dateinscription} {'\n'}
                     </Text>
                   </Text>
                   <Text
@@ -194,7 +195,7 @@ const PruebasEncontradas = () => {
                     <Text style={styles.precioDeInscripcin}>
                       {'PRECIO DE INSCRIPCIÓN: '}
                     </Text>
-                    <Text style={styles.textTypo}>{event.event_price}</Text>
+                    <Text style={styles.textTypo}>{event.price}</Text>
                   </Text>
                 </View>
               </Pressable>

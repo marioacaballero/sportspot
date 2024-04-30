@@ -15,6 +15,7 @@ export const getAllEventsFilters = createAsyncThunk(
   async (query) => {
     try {
       const { data } = await axiosInstance.get('/events', { params: query })
+      console.log(data, 'que tenemos en la data?')
       return data
     } catch (error) {
       throw new Error(error)
