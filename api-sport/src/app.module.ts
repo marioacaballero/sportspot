@@ -30,7 +30,7 @@ console.log(join(__dirname, 'template'))
       isGlobal: true
     }),
     SendMailsModule,
-    StripeModule,
+    StripeModule.forRootAsync(),
     ReviewModule
     //GoogleStrategyModule
   ],

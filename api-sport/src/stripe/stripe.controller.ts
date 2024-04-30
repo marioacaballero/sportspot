@@ -1,21 +1,17 @@
-import { Body, Controller, Post } from '@nestjs/common'
-import { Cart } from './Cart.model'
-import { StripeService } from './stripe.service'
-import { ApiOperation, ApiTags } from '@nestjs/swagger'
+import { Controller, Get } from '@nestjs/common';
+import { StripeService } from './stripe.service';
 
 @Controller('stripe')
-  @ApiTags("Stripe")
-  
 export class StripeController {
-  constructor(private readonly stripeService: StripeService) {}
+  constructor(private stripeService: StripeService) {}
 
-  @Post()
-  @ApiOperation({ summary: "Payment gateway" })
-  checkout(@Body() body: { cart: Cart }) {
-    try {
-      return this.stripeService.checkout(body.cart)
-    } catch (error) {
-      return error
-    }
+  @Get('products')
+  async getProducts() {
+    return await this.stripeService.getProducts();
+  }
+
+  @Get('customers')
+  async getCustomers() {
+    return await this.stripeService.getProducts();
   }
 }
