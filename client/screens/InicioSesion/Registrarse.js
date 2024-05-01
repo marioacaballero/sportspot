@@ -18,7 +18,7 @@ import {
   Color
 } from '../../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllUsers, register } from '../../redux/actions/users'
+import { createCustomer, getAllUsers, register } from '../../redux/actions/users'
 import CustomAlert from '../../components/CustomAlert'
 
 const Registrarse = () => {
@@ -73,6 +73,11 @@ const Registrarse = () => {
           handleShowAlert('El correo electrónico ya está en uso')
         } else {
           if (registerUser.password === confirmPassword) {
+            const data = {
+              name: 'Minguito',
+              email: registerUser.email
+            }
+            dispatch(createCustomer(data))
             dispatch(register(registerUser))
             navigation.navigate('IniciarSesin')
           } else {
