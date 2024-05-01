@@ -82,4 +82,14 @@ export class StripeService {
     const allSubscriptions = await this.stripe.subscriptions.list()
     return allSubscriptions
   }
+
+  async getCustomerById(customerId: string) {
+   const customer = await this.stripe.customers.retrieve(customerId);
+   return customer
+  }
+
+  async getSubscriptionById(subscriptionId: string) {
+    const subscription = await this.stripe.subscriptions.retrieve(subscriptionId)
+    return subscription
+  }
 }
