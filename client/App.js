@@ -233,8 +233,11 @@ export default function App() {
     loadFonts()
   }, [])
 
-  const KEY =
-    'pk_test_51OpBGEEOUHrYS47YxO9vPqjLLRu9F387GV3jMcc4rEtayJX9n7hKCyXw0cGlJCk7foCP89YpQUT4gD02XoGVK50l005VwrZaGC'
+  const secretKEY =
+    'sk_test_51Ncu4UF0YK5c4Ih51TFFlCmu8i84l2KmnRMI2El3nBq6XMa9CyTDgGv1Tb4ASKznzHN35s36FebICMZLMd4AIKpa00hTZSBu7w'
+
+  const publicKey =
+  'pk_test_51Ncu4UF0YK5c4Ih575gkhkyXVuH7LTN4bXuEZbZmW15IqE4er7dL4JSsWqTCAO6L3t4c5jnhyB73t94vy2PkfsHN009RKoYrGv'
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -244,7 +247,7 @@ export default function App() {
         backgroundColor="#fff"
       />
       <Provider store={store}>
-        <StripeProvider publishableKey={KEY}>
+        <StripeProvider publishableKey={publicKey}>
           <NavigationContainer>
             <MyStackNavigator
               isFooterShow={isFooterShow}

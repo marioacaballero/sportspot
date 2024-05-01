@@ -65,12 +65,21 @@ export class StripeService {
       expand: ['latest_invoice.payment_intent'],
     }) as any
 
-    console.log(newSubscription.latest_invoice.payment_intent.client_secret)
-
     const data = {
       subscriptionId: newSubscription.id,
       clientSecret: newSubscription.latest_invoice.payment_intent.client_secret
     }
     return data
+  }
+
+  async deleteSubscription(subscriptionId: string) {
+    const deletedSubscription = await this.stripe.subscriptions.cancel(subscriptionId)
+
+    return deletedSubscription
+  }
+
+  async getAllSubscriptions() {
+    const allSubscriptions = await this.stripe.subscriptions.list()
+    return allSubscriptions
   }
 }
