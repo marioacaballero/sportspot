@@ -171,17 +171,3 @@ export const favorite = createAsyncThunk('users/favorite', async (body) => {
     throw new Error(error)
   }
 })
-
-export const createCustomer = createAsyncThunk(
-  'users/createCustomer',
-  async (userData) => {
-
-    console.log(userData)
-    try {
-      const { data } = await axiosInstance.post('/stripe/customer', {name: userData.name, email:  userData.email})
-      return data
-    } catch (error) {
-      throw new Error(error)
-    }
-  }
-)

@@ -50,4 +50,20 @@ export class StripeController {
   public async getAllSubscriptions() {
     return this.stripeService.getAllSubscriptions()
   }
+
+  @Get('customer/:customerId')
+  @ApiOperation({ summary: "get a customer" })
+  public async getOneCustomer(
+    @Param('customerId') customerId: string
+  ) {
+    return this.stripeService.getCustomerById(customerId)
+  }
+
+  @Get('subscription/:subscriptionId')
+  @ApiOperation({ summary: "get a subscription" })
+  public async getOneSubscription(
+    @Param('subscriptionId') subscriptionId: string
+  ) {
+    return this.stripeService.getSubscriptionById(subscriptionId)
+  }
 }
