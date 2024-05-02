@@ -4,7 +4,6 @@ import axiosInstance from '../../utils/apiBackend'
 export const createCustomer = createAsyncThunk(
   'stripe/createCustomer',
   async (userData) => {
-    console.log(userData)
     try {
       const { data } = await axiosInstance.post('/stripe/customer', {
         name: userData.name,
@@ -50,7 +49,8 @@ export const paymentSubscription = createAsyncThunk(
       const { data } = await axiosInstance.post(`stripe/payment/${priceId}`, {
         customerId
       })
-      return data
+      console.log(data, 'la data en action')
+      return { customer: data.customer, clientSecret: data.clientSecret }
     } catch (error) {
       throw new Error(error)
     }
@@ -59,11 +59,11 @@ export const paymentSubscription = createAsyncThunk(
 
 export const createSubscription = createAsyncThunk(
   'stripe/createSubscription',
-  async ({ priceId, customerId }) => {
+  async ({ priceId, customerId, paymentMethodId }) => {
     try {
       const { data } = await axiosInstance.post(
         `stripe/subscription/${priceId}`,
-        { customerId }
+        { customerId, paymentMethodId }
       )
       return data
     } catch (error) {

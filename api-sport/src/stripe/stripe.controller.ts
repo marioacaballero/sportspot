@@ -1,4 +1,4 @@
-import { Body, Param, Controller, Get, Post } from '@nestjs/common';
+import { Body, Param, Controller, Get, Post, Delete } from '@nestjs/common';
 import { StripeService } from './stripe.service';
 // import { CreateCustomerDto } from './dto/create-customer-dto';
 import { ApiTags, ApiOperation } from '@nestjs/swagger'
@@ -48,6 +48,12 @@ export class StripeController {
     return this.stripeService.createSubscription(priceId, customerId, paymentMethodId)
   }
 
+  @Get('paymentIntents')
+  @ApiOperation({ summary: "get all paymentIntents" })
+  public async getAllPaymentIntents() {
+    return this.stripeService.getAllPaymentIntents()
+  }
+
   @Post('cancel-subscription/:subscriptionId')
   @ApiOperation({ summary: "cancel a subscription" })
   public async deleteSubscription(
@@ -76,5 +82,13 @@ export class StripeController {
     @Param('customerId') customerId: string
   ) {
     return this.stripeService.getSubscriptionById(customerId)
+  }
+
+  @Delete('delete-customer/:customerId')
+  @ApiOperation({ summary: "delete a customer" })
+  public async deleteCustomer(
+    @Param('customerId') customerId: string
+  ) {
+    return this.stripeService.deleteCustomer(customerId)
   }
 }

@@ -44,7 +44,8 @@ export const stripeSlices = createSlice({
       })
       .addCase(paymentSubscription.fulfilled, (state, action) => {
         state.loadingGet = false
-        state.clientSecretPayment = action.payload
+        state.clientSecretPayment = action.payload.clientSecret
+        state.customer = action.payload.customer
         state.error = null
       })
       .addCase(paymentSubscription.rejected, (state, action) => {
