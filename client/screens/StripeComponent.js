@@ -1,29 +1,29 @@
 import React, { useState } from 'react'
 import { Modal, Pressable, Text } from 'react-native'
 import { CardField, useStripe } from '@stripe/stripe-react-native'
-import { paymentSubscription } from '../redux/actions/stripe'
+import { createSubscription, paymentSubscription } from '../redux/actions/stripe'
 import { useDispatch, useSelector } from 'react-redux'
 
 function StripeComponent() {
   const { confirmPayment } = useStripe()
-  const dispatch = useDispatch
+  const dispatch = useDispatch()
   const { customer, clientSecretPayment } = useSelector((state) => state.stripe)
   const [modal, setModal] = useState(false)
 
   const fetchPaymentIntent = () => {
-    const priceId = 'price_1PBjfrCArpM8BK01haO7nBfh'
+    const priceId = 'price_1PBNJ7F0YK5c4Ih5VBUaBISR'
     dispatch(paymentSubscription({ priceId, customerId: customer.id }))
     setModal(true)
   }
 
   // Confirma el pago
   const handlePay = async () => {
-    console.log('clientSecretPayment', clientSecretPayment)
 
     if (!clientSecretPayment) {
       return
     }
-    const { error } = await confirmPayment(clientSecretPayment, {
+    
+    const { error, paymentIntent } = await confirmPayment(clientSecretPayment, {
       paymentMethodType: 'Card'
     })
     if (error) {
@@ -31,6 +31,12 @@ function StripeComponent() {
     } else {
       console.log('Pago confirmado')
       // Aquí puedes llamar a tu API para crear la suscripción
+      const data = {
+        priceId: 'price_1PBNJ7F0YK5c4Ih5VBUaBISR',
+        customerId: customer.id,
+        paymentMethodId: paymentIntent.paymentMethod.id
+      }
+      dispatch(createSubscription(data))
     }
   }
 

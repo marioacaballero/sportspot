@@ -64,35 +64,24 @@ export class StripeService {
     return customer
   }
 
-  async createSubscriptions(priceId: string, customerId: string) {
-    const newSubscription = await this.stripe.subscriptions.create({
-      customer: customerId,
-      items: [{
-        price: priceId,
-      }],
-      payment_behavior: 'default_incomplete',
-      payment_settings: { save_default_payment_method: 'on_subscription' },
-      expand: ['latest_invoice.payment_intent'],
-    }) as any
-
-    const data = {
-      subscriptionId: newSubscription.id,
-      clientSecret: newSubscription.latest_invoice.payment_intent.client_secret
-    }
-    return data
-  }
-
   async createPaymentIntent(priceId: string, customerId: string) {
     try {
       // Crea un PaymentIntent
+
+      const newCustomer = await this.createCustomer('Fernando Kaganovicz', 'fernando.kaganovicz@gmail.com')
+
       const paymentIntent = await this.stripe.paymentIntents.create({
         amount: 599, // establece la cantidad
-        currency: 'usd', // establece la moneda
-        customer: customerId,
-        payment_method_types: ['card']
+        currency: 'eur', // establece la moneda
+        customer: newCustomer.id,
+        payment_method_types: ['card'],
+        // automatic_payment_methods: {
+        //   enabled: true,
+        // }
       });
 
       const data = {
+        customer: newCustomer,
         clientSecret: paymentIntent.client_secret
       }
       return data
@@ -104,12 +93,18 @@ export class StripeService {
 
   async createSubscription(priceId: string, customerId: string, paymentMethodId: string) {
   try {
+      // const paymentMethod = await this.stripe.paymentMethods.attach(
+      //   paymentMethodId,
+      //   { customer: customerId }
+      // );
+
+      // console.log(paymentMethod, 'que devuelve el method?')
+
     const newSubscription = await this.stripe.subscriptions.create({
       customer: customerId,
       items: [{
         price: priceId,
       }],
-      default_payment_method: paymentMethodId, // Usa el ID del método de pago
       expand: ['latest_invoice.payment_intent'],
     }) as any
 
@@ -122,6 +117,11 @@ export class StripeService {
     console.error(`Error al crear la suscripción: ${error.message}`);
     throw error;
   }
+  }
+
+  async getAllPaymentIntents() {
+    const allPaymentIntents = await this.stripe.paymentIntents.list()
+    return allPaymentIntents
   }
 
   async deleteSubscription(subscriptionId: string) {
@@ -152,5 +152,10 @@ export class StripeService {
     if (!subscription) return {}    
   
     return subscription
+  }
+
+  async deleteCustomer(customerId: string) {
+    const deletedCustomer = await this.stripe.customers.del(customerId)
+    return `customer con el id --> ${deletedCustomer.id} eliminado`
   }
 }
