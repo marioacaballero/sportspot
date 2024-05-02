@@ -161,11 +161,7 @@ const InicioSUSCRIPCIONES = () => {
           </View>
         </View>
       </ScrollView>
-      {show && (
-        <Modal>
-          <StripeComponent clientSecret={clientSecret} />
-        </Modal>
-      )}
+      {show && <StripeComponent clientSecret={clientSecret} />}
     </>
   )
 }

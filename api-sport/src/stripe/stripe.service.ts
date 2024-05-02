@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import Stripe from 'stripe';
+import { Cart } from './Cart.model'
 
 @Injectable()
 export class StripeService {
@@ -9,6 +10,17 @@ export class StripeService {
     this.stripe = new Stripe(this.apiKey, {
       apiVersion: '2024-04-10', // Use whatever API latest version
     });
+  }
+  checkout(cart: Cart) {
+    const totalPrice = cart.reduce(
+      (acc, item) => acc + item.quantity * item.price,
+      0
+    )
+    return this.stripe.paymentIntents.create({
+      amount: totalPrice * 100,
+      currency: 'usd',
+      payment_method_types: ['card']
+    })
   }
 
   async getProducts(): Promise<Stripe.Product[]> {
@@ -52,7 +64,7 @@ export class StripeService {
     return customer
   }
 
-  async createSubscription(priceId: string, customerId: string) {
+  async createSubscriptions(priceId: string, customerId: string) {
     const newSubscription = await this.stripe.subscriptions.create({
       customer: customerId,
       items: [{
@@ -68,6 +80,48 @@ export class StripeService {
       clientSecret: newSubscription.latest_invoice.payment_intent.client_secret
     }
     return data
+  }
+
+  async createPaymentIntent(priceId: string, customerId: string) {
+    try {
+      // Crea un PaymentIntent
+      const paymentIntent = await this.stripe.paymentIntents.create({
+        amount: 599, // establece la cantidad
+        currency: 'usd', // establece la moneda
+        customer: customerId,
+        payment_method_types: ['card']
+      });
+
+      const data = {
+        clientSecret: paymentIntent.client_secret
+      }
+      return data
+    } catch (error) {
+      console.error(`Error al crear el PaymentIntent: ${error.message}`);
+      throw error;
+    }
+  }
+
+  async createSubscription(priceId: string, customerId: string, paymentMethodId: string) {
+  try {
+    const newSubscription = await this.stripe.subscriptions.create({
+      customer: customerId,
+      items: [{
+        price: priceId,
+      }],
+      default_payment_method: paymentMethodId, // Usa el ID del método de pago
+      expand: ['latest_invoice.payment_intent'],
+    }) as any
+
+    const data = {
+      subscriptionId: newSubscription.id,
+      clientSecret: newSubscription.latest_invoice.payment_intent.client_secret
+    }
+    return data
+  } catch (error) {
+    console.error(`Error al crear la suscripción: ${error.message}`);
+    throw error;
+  }
   }
 
   async deleteSubscription(subscriptionId: string) {

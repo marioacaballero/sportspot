@@ -1,10 +1,11 @@
 import { Body, Param, Controller, Get, Post } from '@nestjs/common';
 import { StripeService } from './stripe.service';
 // import { CreateCustomerDto } from './dto/create-customer-dto';
-import { ApiOperation } from '@nestjs/swagger'
+import { ApiTags, ApiOperation } from '@nestjs/swagger'
 
 
 @Controller('stripe')
+  @ApiTags("Stripe Payments")  
 export class StripeController {
   constructor(private stripeService: StripeService) {}
 
@@ -24,17 +25,27 @@ export class StripeController {
     @Body('name') name: string,
     @Body('email') email: string,
   ) {
-    console.log(name, email)
     return this.stripeService.createCustomer(name, email)
+  }
+
+   @Post('payment/:priceId')
+  @ApiOperation({ summary: "payment stripe subscription" })
+  public async paymentSubscription(
+    @Param('priceId') priceId: string,
+    @Body('customerId') customerId: string,
+  ) {
+    return this.stripeService.createPaymentIntent(priceId, customerId )
   }
 
   @Post('subscription/:priceId')
   @ApiOperation({ summary: "create stripe subscription" })
   public async postSubscription(
     @Param('priceId') priceId: string,
-    @Body('customerId') customerId: string
+    @Body('customerId') customerId: string,
+    @Body('paymentMethodId') paymentMethodId: string
+
   ) {
-    return this.stripeService.createSubscription(priceId, customerId)
+    return this.stripeService.createSubscription(priceId, customerId, paymentMethodId)
   }
 
   @Post('cancel-subscription/:subscriptionId')
