@@ -1,81 +1,84 @@
-import React, { useEffect } from 'react'
-import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native'
-import { StyleSheet, View, Button } from 'react-native'
-import { Color } from '../GlobalStyles'
+import React, { useState } from 'react'
+import { Modal, Pressable, Text } from 'react-native'
+import { CardField, useStripe } from '@stripe/stripe-react-native'
+import { paymentSubscription } from '../redux/actions/stripe'
+import { useDispatch, useSelector } from 'react-redux'
 
-function StripeComponent({ clientSecret }) {
-  const { initPaymentSheet, presentPaymentSheet } = useStripe()
+function StripeComponent() {
+  const { confirmPayment } = useStripe()
+  const dispatch = useDispatch
+  const { customer, clientSecretPayment } = useSelector((state) => state.stripe)
+  const [modal, setModal] = useState(false)
 
-  useEffect(() => {
-    const initializePaymentSheet = async () => {
-      const { error } = await initPaymentSheet({
-        paymentIntentClientSecret: clientSecret,
-        returnURL: '/InicioDeportista',
-        merchantDisplayName: 'sportSport',
-        // Set `allowsDelayedPaymentMethods` to true if your business handles
-        // delayed notification payment methods like US bank accounts.
-        allowsDelayedPaymentMethods: true
-      })
-      if (error) {
-        // Handle error
-        console.log('error', error)
-      }
+  const fetchPaymentIntent = () => {
+    const priceId = 'price_1PBjfrCArpM8BK01haO7nBfh'
+    dispatch(paymentSubscription({ priceId, customerId: customer.id }))
+    setModal(true)
+  }
+
+  // Confirma el pago
+  const handlePay = async () => {
+    console.log('clientSecretPayment', clientSecretPayment)
+
+    if (!clientSecretPayment) {
+      return
     }
-    try {
-      initializePaymentSheet()
-    } catch (error) {
-      console.log(error)
+    const { error } = await confirmPayment(clientSecretPayment, {
+      paymentMethodType: 'Card'
+    })
+    if (error) {
+      console.log('Error al confirmar el pago', error.message)
+    } else {
+      console.log('Pago confirmado')
+      // Aquí puedes llamar a tu API para crear la suscripción
     }
-  }, [clientSecret, initPaymentSheet])
+  }
 
   return (
-    <View>
-      <Button
-        title="Subscribe"
-        onPress={async () => {
-          const { error } = await presentPaymentSheet()
-          if (error) {
-            if (error.code === PaymentSheetError.Failed) {
-              // Handle failed
-              console.log('Fallo pago ')
-            } else if (error.code === PaymentSheetError.Canceled) {
-              // Handle canceled
-              console.log('Pago cancelado ')
-            }
-          } else {
-            // Payment succeeded
-            console.log('Pago aceptado')
-          }
+    <>
+      <CardField
+        postalCodeEnabled={true}
+        placeholder={{
+          number: '4242 4242 4242 4242'
+        }}
+        cardStyle={{
+          backgroundColor: '#FFFFFF',
+          textColor: '#000000'
+        }}
+        style={{
+          width: '100%',
+          height: 50,
+          marginVertical: 30
         }}
       />
-    </View>
+      <Pressable
+        style={{
+          width: '100%',
+          height: 50,
+          backgroundColor: '#000000',
+          color: '#FFFFFF'
+        }}
+        onPress={fetchPaymentIntent}
+      >
+        <Text>Pagar</Text>
+      </Pressable>
+      {modal && (
+        <Modal>
+          <Pressable
+            style={{
+              width: '100%',
+              height: 50,
+              backgroundColor: '#000000',
+              color: '#FFFFFF'
+            }}
+            onPress={handlePay}
+          >
+            <Text>Confirmar pago</Text>
+          </Pressable>
+        </Modal>
+      )}
+    </>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    // margin: 20,
-    backgroundColor: Color.sportsVioleta
-  },
-  group: {
-    paddingHorizontal: 15
-  },
-  input: {
-    backgroundColor: '#efefefef',
-    borderRadius: 8,
-    fontSize: 20,
-    height: 50,
-    padding: 10
-  },
-  card: {
-    backgroundColor: '#efefefef',
-    borderRadius: 8
-  },
-  cardContainer: {
-    height: 50,
-    marginVertical: 30
-  }
-})
 export default StripeComponent

@@ -43,6 +43,20 @@ export const getSubscription = createAsyncThunk(
   }
 )
 
+export const paymentSubscription = createAsyncThunk(
+  'stripe/paymentSubscription',
+  async ({ priceId, customerId }) => {
+    try {
+      const { data } = await axiosInstance.post(`stripe/payment/${priceId}`, {
+        customerId
+      })
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+)
+
 export const createSubscription = createAsyncThunk(
   'stripe/createSubscription',
   async ({ priceId, customerId }) => {

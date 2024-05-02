@@ -4,15 +4,17 @@ import {
   createSubscription,
   deleteSubscription,
   getOneCustomer,
-  getSubscription
+  getSubscription,
+  paymentSubscription
 } from '../actions/stripe'
 
 export const stripeSlices = createSlice({
   name: 'stripe',
   initialState: {
-    clientSecret: '',
-    subscriptionId: '',
     customer: {},
+    subscriptionId: '',
+    clientSecretPayment: '',
+    clientSecretSubsription: '',
     subscription: {},
     loadingGet: false,
     error: null
@@ -36,13 +38,27 @@ export const stripeSlices = createSlice({
         state.error = action.payload
       })
 
+      .addCase(paymentSubscription.pending, (state) => {
+        state.loadingGet = true
+        state.error = null
+      })
+      .addCase(paymentSubscription.fulfilled, (state, action) => {
+        state.loadingGet = false
+        state.clientSecretPayment = action.payload
+        state.error = null
+      })
+      .addCase(paymentSubscription.rejected, (state, action) => {
+        state.loadingGet = false
+        state.error = action.payload
+      })
+
       .addCase(createSubscription.pending, (state) => {
         state.loadingGet = true
         state.error = null
       })
       .addCase(createSubscription.fulfilled, (state, action) => {
         state.loadingGet = false
-        state.clientSecret = action.payload.clientSecret
+        state.clientSecretSubsription = action.payload.clientSecret
         state.subscriptionId = action.payload.subscriptionId
         state.error = null
       })
