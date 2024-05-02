@@ -51,19 +51,19 @@ export class StripeController {
     return this.stripeService.getAllSubscriptions()
   }
 
-  @Get('customer/:customerId')
+  @Get('customer/:email')
   @ApiOperation({ summary: "get a customer" })
   public async getOneCustomer(
-    @Param('customerId') customerId: string
+    @Param('email') email: string
   ) {
-    return this.stripeService.getCustomerById(customerId)
-  }
+    return this.stripeService.getCustomerByEmail(email)
+  }  
 
-  @Get('subscription/:subscriptionId')
+  @Get('subscription/:customerId')
   @ApiOperation({ summary: "get a subscription" })
   public async getOneSubscription(
-    @Param('subscriptionId') subscriptionId: string
+    @Param('customerId') customerId: string
   ) {
-    return this.stripeService.getSubscriptionById(subscriptionId)
+    return this.stripeService.getSubscriptionById(customerId)
   }
 }

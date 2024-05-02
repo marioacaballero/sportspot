@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Text,
   StyleSheet,
   View,
   Pressable,
   Image,
-  ScrollView
+  ScrollView,
+  Modal
 } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import {
   Color,
@@ -17,14 +19,22 @@ import {
 } from '../../GlobalStyles'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import StripeComponent from '../StripeComponent'
+import { getSubscription } from '../../redux/actions/stripe'
 
 const InicioSUSCRIPCIONES = () => {
   const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const { customer, clientSecret } = useSelector((state) => state.stripe)
+
   const [show, setShow] = useState(false)
 
   const handleStripe = () => {
     setShow(!show)
   }
+
+  useEffect(() => {
+    dispatch(getSubscription(customer.id))
+  }, [])
 
   return (
     <>
@@ -151,7 +161,11 @@ const InicioSUSCRIPCIONES = () => {
           </View>
         </View>
       </ScrollView>
-      {show && <StripeComponent />}
+      {show && (
+        <Modal>
+          <StripeComponent clientSecret={clientSecret} />
+        </Modal>
+      )}
     </>
   )
 }

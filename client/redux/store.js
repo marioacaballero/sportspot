@@ -4,6 +4,7 @@ import eventsSlices from './slices/events.slices'
 import sportsSlices from './slices/sports.slices'
 import suscriptionsSlices from './slices/suscriptionsSlices'
 import notificationsSlices from './slices/notifications.slices'
+import stripeSlices from './slices/stripe.slices'
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     events: eventsSlices,
     sports: sportsSlices,
     suscriptions: suscriptionsSlices,
-    notifications: notificationsSlices
+    notifications: notificationsSlices,
+    stripe: stripeSlices
   }
 })

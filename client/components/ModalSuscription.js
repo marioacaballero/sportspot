@@ -8,11 +8,11 @@ import { suscriptionEventUser } from '../redux/actions/users'
 
 const ModalSuscription = ({ user, event, onClose }) => {
   const navigation = useNavigation()
+  const dispatch = useDispatch()
 
   const userSuscribed = event.suscribers?.some(
     (userEvent) => userEvent.id === user.id
   )
-  const dispatch = useDispatch()
 
   const onSubmit = () => {
     const data = {
@@ -29,6 +29,7 @@ const ModalSuscription = ({ user, event, onClose }) => {
     dispatch(suscriptionEventUser(data))
     navigation.goBack()
   }
+
   return userSuscribed ? (
     <View style={styles.container}>
       <Text style={styles.text}>¿Seguro que deseas desuscribirte?</Text>

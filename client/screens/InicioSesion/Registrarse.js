@@ -18,7 +18,9 @@ import {
   Color
 } from '../../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
-import { createCustomer, getAllUsers, register } from '../../redux/actions/users'
+import { getAllUsers, register } from '../../redux/actions/users'
+import { createCustomer } from '../../redux/actions/stripe'
+
 import CustomAlert from '../../components/CustomAlert'
 
 const Registrarse = () => {

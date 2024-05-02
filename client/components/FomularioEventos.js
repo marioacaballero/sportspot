@@ -144,6 +144,19 @@ const FomularioEventos = () => {
       image: selectedImage
     }
     dispatch(createEvent(data))
+    setEvent({
+      title: '',
+      description: '',
+      price: '',
+      location: '',
+      timeStart: '',
+      eventLink: '',
+      inscriptionLink: '',
+      places: '',
+      mail: '',
+      phoneNumber: '',
+      image: null
+    })
     navigation.goBack()
     // setShowAlert(true)
   }
