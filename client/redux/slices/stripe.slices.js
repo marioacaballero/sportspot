@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit'
 import {
   createCustomer,
   createSubscription,
-  deleteSubscription
+  deleteSubscription,
+  getOneCustomer,
+  getSubscription
 } from '../actions/stripe'
 
 export const stripeSlices = createSlice({
@@ -11,9 +13,11 @@ export const stripeSlices = createSlice({
     clientSecret: '',
     subscriptionId: '',
     customer: {},
+    subscription: {},
+    loadingGet: false,
+    error: null
   },
-  reducers: {
-  },
+  reducers: {},
 
   extraReducers: (builder) => {
     builder
@@ -61,6 +65,32 @@ export const stripeSlices = createSlice({
         state.loadingGet = false
         state.error = action.payload
       })
+      .addCase(getOneCustomer.pending, (state) => {
+        state.loadingGet = true
+        state.error = null
+      })
+      .addCase(getOneCustomer.fulfilled, (state, action) => {
+        state.loadingGet = false
+        state.customer = action.payload
+        state.error = null
+      })
+      .addCase(getOneCustomer.rejected, (state, action) => {
+        state.loadingGet = false
+        state.error = action.payload
+      })
+      .addCase(getSubscription.pending, (state) => {
+        state.loadingGet = true
+        state.error = null
+      })
+      .addCase(getSubscription.fulfilled, (state, action) => {
+        state.loadingGet = false
+        state.subscription = action.payload
+        state.error = null
+      })
+      .addCase(getSubscription.rejected, (state, action) => {
+        state.loadingGet = false
+        state.error = action.payload
+      })
   }
 })
 
@@ -75,4 +105,4 @@ export const stripeSlices = createSlice({
 //   getEventByIdRedux
 // } = eventsSlices.actions
 
-export default eventsSlices.reducer
+export default stripeSlices.reducer

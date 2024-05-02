@@ -42,6 +42,8 @@ import VentajasSuscripciones from './screens/Suscripciones/VentajasSuscripciones
 import PublicarEvento from './screens/Organizador/PublicarEvento'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'react-native'
+import { API_PUBLIC_STRIPE } from '@env'
+
 // import PaymentScreen from './screens/StripeComponent'
 
 // import { StripeProvider } from '@stripe/stripe-react-native'
@@ -237,7 +239,7 @@ export default function App() {
     'sk_test_51Ncu4UF0YK5c4Ih51TFFlCmu8i84l2KmnRMI2El3nBq6XMa9CyTDgGv1Tb4ASKznzHN35s36FebICMZLMd4AIKpa00hTZSBu7w'
 
   const publicKey =
-  'pk_test_51Ncu4UF0YK5c4Ih575gkhkyXVuH7LTN4bXuEZbZmW15IqE4er7dL4JSsWqTCAO6L3t4c5jnhyB73t94vy2PkfsHN009RKoYrGv'
+    'pk_test_51PBJ3MCArpM8BK01XJXHXCxHBJnGAH5JYBnMAhEdHkMB6dpwyQJj3O0KsPo9CGH5JC2tWsofNAD03nluCUOSk6I200RsyWloFq'
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -247,7 +249,7 @@ export default function App() {
         backgroundColor="#fff"
       />
       <Provider store={store}>
-        <StripeProvider publishableKey={publicKey}>
+        <StripeProvider publishableKey={API_PUBLIC_STRIPE}>
           <NavigationContainer>
             <MyStackNavigator
               isFooterShow={isFooterShow}

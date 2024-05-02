@@ -27,7 +27,6 @@ export class StripeService {
   }
 
   async createCustomer(name: string, email: string ) {
-    console.log(email)
     const customer = await this.stripe.customers.create({
       email,
       name,
@@ -50,8 +49,7 @@ export class StripeService {
       },
     });
 
-    console.log(customer)
-    return 'customer creado exitosamente'
+    return customer
   }
 
   async createSubscription(priceId: string, customerId: string) {
@@ -88,8 +86,17 @@ export class StripeService {
    return customer
   }
 
-  async getSubscriptionById(subscriptionId: string) {
-    const subscription = await this.stripe.subscriptions.retrieve(subscriptionId)
+  async getCustomerByEmail(email: string) {
+  const customers = await this.stripe.customers.list();
+  const customer = customers.data.find(cust => cust.email === email);
+  return customer;
+}
+
+  async getSubscriptionById(customerId: string) {
+    const subscriptionList = await this.stripe.subscriptions.list()
+    const subscription = subscriptionList.data.find(susc => susc.customer === customerId);
+    if (!subscription) return {}    
+  
     return subscription
   }
 }

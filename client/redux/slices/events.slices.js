@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit'
 import {
   getAllEvents,
   getEventById,
-  favorite,
   getAllEventsFilters,
   getFavorites,
   createEvent,

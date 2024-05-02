@@ -1,137 +1,56 @@
-import React, { useState } from 'react'
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  // Button,
-  // Alert,
-  TouchableOpacity,
-  Text
-} from 'react-native'
-import { CardField /*, useConfirmPayment */ } from '@stripe/stripe-react-native'
+import React, { useEffect } from 'react'
+import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native'
+import { StyleSheet, View, Button } from 'react-native'
 import { Color } from '../GlobalStyles'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigation } from '@react-navigation/native'
 
-const StripeComponent = ({ onClose }) => {
-  const dispatch = useDispatch()
-  const navigation = useNavigation()
-  const { user } = useSelector((state) => state.users)
-  const { event } = useSelector((state) => state.events)
-  const [email, setEmail] = useState()
-  const [cardDetails, setCardDetails] = useState()
-  // const { confirmPayment, loading } = useConfirmPayment()
+function StripeComponent({ clientSecret }) {
+  const { initPaymentSheet, presentPaymentSheet } = useStripe()
 
-  const onSubmit = () => {
-    const data = {
-      id: user.id,
-      eventId: event.id
+  useEffect(() => {
+    const initializePaymentSheet = async () => {
+      const { error } = await initPaymentSheet({
+        paymentIntentClientSecret: clientSecret,
+        returnURL: '/InicioDeportista',
+        merchantDisplayName: 'sportSport',
+        // Set `allowsDelayedPaymentMethods` to true if your business handles
+        // delayed notification payment methods like US bank accounts.
+        allowsDelayedPaymentMethods: true
+      })
+      if (error) {
+        // Handle error
+        console.log('error', error)
+      }
     }
-    console.log(data)
-
-    navigation.goBack()
-  }
-
-  // const fetchPaymentIntentClientSecret = async () => {
-  //   const response = await fetch(`${API_URL}/create-payment-intent`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }
-  //   })
-  //   const { clientSecret, error } = await response.json()
-  //   console.log(error)
-  //   return { clientSecret, error }
-  // }
-
-  // const handlePayPress = async () => {
-  //   if (!cardDetails?.complete || !email) {
-  //     Alert.alert('Please enter Complete card details and Email')
-  //     return
-  //   }
-  //   const billingDetails = {
-  //     email
-  //   }
-  //   try {
-  //     const { clientSecret, error } = await fetchPaymentIntentClientSecret()
-  //     if (error) {
-  //       console.log('Unable to process payment')
-  //     } else {
-  //       const { paymentIntent, error } = await confirmPayment(clientSecret, {
-  //         type: 'Card',
-  //         billingDetails
-  //       })
-  //       if (error) {
-  //         alert(`Payment Confirmation Error ${error.message}`)
-  //       } else if (paymentIntent) {
-  //         alert('Payment Successful')
-  //         console.log('Payment successful ', paymentIntent)
-  //       }
-  //     }
-  //   } catch (e) {
-  //     alert('ultimo')
-  //     console.log(e.message)
-  //   }
-  // }
+    try {
+      initializePaymentSheet()
+    } catch (error) {
+      console.log(error)
+    }
+  }, [clientSecret, initPaymentSheet])
 
   return (
-    <View style={styles.container}>
-      <Text
-        style={{
-          color: 'white',
-          position: 'absolute',
-          top: 30,
-          right: 25,
-          fontSize: 20
+    <View>
+      <Button
+        title="Subscribe"
+        onPress={async () => {
+          const { error } = await presentPaymentSheet()
+          if (error) {
+            if (error.code === PaymentSheetError.Failed) {
+              // Handle failed
+              console.log('Fallo pago ')
+            } else if (error.code === PaymentSheetError.Canceled) {
+              // Handle canceled
+              console.log('Pago cancelado ')
+            }
+          } else {
+            // Payment succeeded
+            console.log('Pago aceptado')
+          }
         }}
-        onPress={() => navigation.goBack()}
-      >
-        X
-      </Text>
-      <View style={styles.group}>
-        <TextInput
-          autoCapitalize="none"
-          placeholder="E-mail"
-          keyboardType="email-address"
-          onChange={(value) => setEmail(value.nativeEvent.text)}
-          style={styles.input}
-        />
-        <CardField
-          postalCodeEnabled={true}
-          placeholder={{
-            number: '4242 4242 4242 4242'
-          }}
-          cardStyle={styles.card}
-          style={styles.cardContainer}
-          onCardChange={(cardDetails) => {
-            setCardDetails(cardDetails)
-          }}
-        />
-
-        <TouchableOpacity
-          onPress={() => {
-            onSubmit()
-            navigation.navigate('InicioDeportista')
-          }}
-          style={{
-            //   width: 100,
-            height: 52,
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 50,
-            backgroundColor: Color.sportsNaranja
-          }}
-        >
-          <Text style={{ color: 'white', width: '100%', textAlign: 'center' }}>
-            Pagar
-          </Text>
-        </TouchableOpacity>
-      </View>
+      />
     </View>
   )
 }
-export default StripeComponent
 
 const styles = StyleSheet.create({
   container: {
@@ -159,3 +78,4 @@ const styles = StyleSheet.create({
     marginVertical: 30
   }
 })
+export default StripeComponent

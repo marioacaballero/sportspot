@@ -22,6 +22,7 @@ import { ActivityIndicator } from 'react-native-paper'
 import DatosDeportista from '../components/DatosDeportista'
 // import { SafeAreaView } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { getOneCustomer } from '../redux/actions/stripe'
 
 const InicioDeportista = () => {
   const navigation = useNavigation()
@@ -46,6 +47,7 @@ const InicioDeportista = () => {
       setModalSport(true)
     }
     dispatch(getAllEvents())
+    dispatch(getOneCustomer(user.email))
   }, [])
 
   const handleBuscarPress = () => {
