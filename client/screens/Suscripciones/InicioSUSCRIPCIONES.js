@@ -17,19 +17,31 @@ import {
   Padding
 } from '../../GlobalStyles'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
-import StripeComponent from '../StripeComponent'
-import { getSubscription } from '../../redux/actions/stripe'
+// import StripeComponent from '../StripeComponent'
+import { createSubscription, getSubscription } from '../../redux/actions/stripe'
+import SubscribeView from '../../components/SuscribeView'
+// import SubscribedPlan from '../../components/SubscribedPlan'
+import { prices } from '../../utils/prices.stripe'
 
 const InicioSUSCRIPCIONES = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
-  const { customer, clientSecret } = useSelector((state) => state.stripe)
+  const { customer, clientSecretSubscription } = useSelector((state) => state.stripe)
 
   const [show, setShow] = useState(false)
+  console.log('clientSecret en inicio susc', clientSecretSubscription)
 
-  const handleStripe = () => {
+  const handleStripe = (plan) => {
+    
+    const priceId = prices[`${plan}PriceId`]
+    console.log(priceId)
+    dispatch(createSubscription({ priceId, customerId: customer.id }))
     setShow(!show)
   }
+
+  // useEffect(() => {
+  //   console.log(clientSecretSubscription, 'en useEffect')
+  // }, [clientSecretSubscription])
 
   useEffect(() => {
     dispatch(getSubscription(customer.id))
@@ -39,18 +51,18 @@ const InicioSUSCRIPCIONES = () => {
     <>
       <ScrollView
         style={styles.inicioSuscripciones2}
-        contentContainerStyle={{ paddingBottom: 40 }}
+        contentContainerStyle={{ paddingBottom: 200 }}
       >
         <View style={styles.helloAshfakParent}>
           <Text style={[styles.helloAshfak2, styles.helloClr]}>
             PLANES DE SUSCRIPCIÓN
           </Text>
-          {/* <Pressable
+          <Pressable
             style={styles.groupParent}
             onPress={() => navigation.goBack()}
           >
             <BackArrowSVG />
-          </Pressable> */}
+          </Pressable>
         </View>
         <View style={styles.div2CardsWrapper}>
           <View style={styles.div2Cards}>
@@ -127,28 +139,28 @@ const InicioSUSCRIPCIONES = () => {
                   </View>
                 </View>
 
-                <Pressable onPress={handleStripe} style={styles.contentInner}>
+                <Pressable onPress={() => handleStripe('month')} style={styles.contentInner}>
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
                       Plan mensual 5,99€
                     </Text>
                   </View>
                 </Pressable>
-                <Pressable onPress={handleStripe} style={styles.contentInner}>
+                <Pressable onPress={() => handleStripe('triMonth')} style={styles.contentInner}>
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
                       Plan trimestral 15,99€
                     </Text>
                   </View>
                 </Pressable>
-                <Pressable onPress={handleStripe} style={styles.contentInner}>
+                <Pressable onPress={() => handleStripe('sixMonth')} style={styles.contentInner}>
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
                       Plan semestral 25,99€
                     </Text>
                   </View>
                 </Pressable>
-                <Pressable onPress={handleStripe} style={styles.contentInner}>
+                <Pressable onPress={() => handleStripe('year')} style={styles.contentInner}>
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
                       Plan anual 45,99€
@@ -159,8 +171,15 @@ const InicioSUSCRIPCIONES = () => {
             </View>
           </View>
         </View>
+        {/* <SubscribedPlan customerId={customer.id} setShow={setShow} /> */}
       </ScrollView>
-      {show && <StripeComponent clientSecret={clientSecret} />}
+      {show && (
+        <SubscribeView
+          clientSecret={
+           clientSecretSubscription
+          }
+        />
+      )}
     </>
   )
 }
@@ -202,13 +221,11 @@ const styles = StyleSheet.create({
   },
   helloAshfak7: {
     fontSize: FontSize.inputPlaceholder_size,
-    color: Color.blanco,
-    fontWeight: 'bold'
+    color: Color.blanco
   },
   helloAshfak: {
     fontSize: FontSize.inputPlaceholder_size,
     color: Color.sportsVioleta,
-    fontWeight: 'bold',
     fontFamily: FontFamily.inputPlaceholder
   },
   helloAshfak2: {
@@ -236,7 +253,7 @@ const styles = StyleSheet.create({
   helloAshfakWrapper4: {
     borderRadius: Border.br_31xl,
     backgroundColor: Color.sportsNaranja,
-    height: 50,
+    height: 38,
     padding: Padding.p_3xs,
     flex: 1,
     justifyContent: 'center',
@@ -262,7 +279,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: Border.br_3xs,
-    backgroundColor: '#FCDDCF',
+    backgroundColor: Color.colorMistyrose,
     padding: Padding.p_xl
   },
   div2Cards: {
@@ -281,6 +298,7 @@ const styles = StyleSheet.create({
   },
   inicioSuscripciones2: {
     paddingTop: Padding.p_xs,
+    paddingBottom: Padding.p_5xl,
     paddingHorizontal: Padding.p_xl,
     width: '100%',
     flex: 1,
