@@ -37,9 +37,9 @@ const HistorialDePruebas = () => {
             <Text style={[styles.tuHistorialDe, styles.ciclismoTypo]}>
               TU HISTORIAL DE PRUEBAS
             </Text>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            {/* <TouchableOpacity onPress={() => navigation.goBack()}>
               <BackArrowSVG />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <View style={[styles.frameWrapper, styles.frameSpaceBlock1]}>
             <View style={styles.frameContainer}>

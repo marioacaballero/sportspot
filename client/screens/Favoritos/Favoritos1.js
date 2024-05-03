@@ -80,9 +80,9 @@ const Favoritos1 = () => {
           <Text style={[styles.tusFavoritos, styles.imGoingToFlexBox]}>
             TUS FAVORITOS
           </Text>
-          <Pressable onPress={() => navigation.goBack()}>
+          {/* <Pressable onPress={() => navigation.goBack()}>
             <BackArrowSVG />
-          </Pressable>
+          </Pressable> */}
         </View>
         <View style={[styles.frameWrapper, styles.frameSpaceBlock]}>
           <View style={styles.groupParentFlexBox}>

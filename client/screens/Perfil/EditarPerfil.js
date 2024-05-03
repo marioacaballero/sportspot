@@ -130,8 +130,8 @@ CUENTA`}
               selectedImage
                 ? { uri: selectedImage }
                 : user?.avatar
-                  ? { uri: user.avatar }
-                  : require('../../assets/unsplashn6gnca77urc.png')
+                ? { uri: user.avatar }
+                : require('../../assets/unsplashn6gnca77urc.png')
             }
           />
           <View style={styles.editar}>
@@ -153,7 +153,7 @@ CUENTA`}
                 contentFit="cover"
                 source={require('../../assets/user.png')}
               />
-              <View style={styles.datosPersonalesWrapper}>
+              <View style={{ ...styles.datosPersonalesWrapper }}>
                 <Text
                   style={[styles.datosPersonales, styles.card1ChildPosition]}
                 >
@@ -271,7 +271,7 @@ CUENTA`}
                 source={require('../../assets/addressbook.png')}
               />
             </View>
-            <View style={[styles.inputGroup, styles.inputFlexBox]}>
+            <View style={[styles.inputGroup, styles.inputFlexBox2]}>
               <View style={styles.input}>
                 <View style={[styles.inputContent, styles.inputContentFlexBox]}>
                   <Text style={[styles.label, styles.labelFlexBox]}>Email</Text>
@@ -362,7 +362,7 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_31xl,
     backgroundColor: Color.sportsNaranja,
     height: 42,
-    width: '93%',
+    width: '100%',
     alignItems: 'center',
     marginTop: 30,
     justifyContent: 'center'
@@ -387,6 +387,13 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   inputFlexBox: {
+    alignItems: 'flex-end',
+    width: '95%',
+    marginLeft: '2.5%',
+    flexWrap: 'wrap',
+    flexDirection: 'row'
+  },
+  inputFlexBox2: {
     alignItems: 'flex-end',
     width: '95%',
     flexWrap: 'wrap',
@@ -505,7 +512,7 @@ const styles = StyleSheet.create({
     borderColor: Color.sportsVioleta,
     borderStyle: 'solid',
     borderRadius: Border.br_xl,
-    width: 295,
+    width: '100%',
     paddingVertical: Padding.p_5xs
   },
   inputCel: {
@@ -515,7 +522,7 @@ const styles = StyleSheet.create({
     borderColor: Color.sportsVioleta,
     borderStyle: 'solid',
     borderRadius: Border.br_xl,
-    width: 295,
+    width: '100%',
     paddingVertical: Padding.p_5xs,
     top: 10
   },
@@ -526,14 +533,14 @@ const styles = StyleSheet.create({
     borderColor: Color.sportsVioleta,
     borderStyle: 'solid',
     borderRadius: Border.br_xl,
-    width: 295,
+    width: '100%',
     paddingVertical: Padding.p_5xs,
     top: 20
   },
   input1: {
     paddingHorizontal: Padding.p_base,
     height: 46,
-    width: 295,
+    width: '100%',
     borderWidth: 1,
     borderColor: Color.sportsVioleta,
     borderStyle: 'solid',
@@ -541,7 +548,7 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_5xs
   },
   input2: {
-    width: '40%'
+    width: '36%'
   },
   topContainerOverlay: {
     flex: 1,
@@ -567,7 +574,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   top: {
-    width: '52.5%'
+    width: '60%'
   },
   inputParent: {
     gap: 15
@@ -575,7 +582,6 @@ const styles = StyleSheet.create({
   card1: {
     width: '100%',
     height: 250,
-    paddingHorizontal: Padding.p_smi,
     paddingVertical: Padding.p_5xs,
     flexWrap: 'wrap',
     borderRadius: Border.br_base,
@@ -647,7 +653,7 @@ const styles = StyleSheet.create({
   },
   inputGroup: {
     top: 52,
-    left: 18,
+    left: 9,
     zIndex: 1,
     position: 'absolute',
     gap: 20

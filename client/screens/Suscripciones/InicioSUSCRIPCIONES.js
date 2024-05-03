@@ -5,8 +5,7 @@ import {
   View,
   Pressable,
   Image,
-  ScrollView,
-  Modal
+  ScrollView
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
@@ -40,18 +39,18 @@ const InicioSUSCRIPCIONES = () => {
     <>
       <ScrollView
         style={styles.inicioSuscripciones2}
-        contentContainerStyle={{ paddingBottom: 200 }}
+        contentContainerStyle={{ paddingBottom: 40 }}
       >
         <View style={styles.helloAshfakParent}>
           <Text style={[styles.helloAshfak2, styles.helloClr]}>
             PLANES DE SUSCRIPCIÓN
           </Text>
-          <Pressable
+          {/* <Pressable
             style={styles.groupParent}
             onPress={() => navigation.goBack()}
           >
             <BackArrowSVG />
-          </Pressable>
+          </Pressable> */}
         </View>
         <View style={styles.div2CardsWrapper}>
           <View style={styles.div2Cards}>
@@ -203,11 +202,13 @@ const styles = StyleSheet.create({
   },
   helloAshfak7: {
     fontSize: FontSize.inputPlaceholder_size,
-    color: Color.blanco
+    color: Color.blanco,
+    fontWeight: 'bold'
   },
   helloAshfak: {
     fontSize: FontSize.inputPlaceholder_size,
     color: Color.sportsVioleta,
+    fontWeight: 'bold',
     fontFamily: FontFamily.inputPlaceholder
   },
   helloAshfak2: {
@@ -235,7 +236,7 @@ const styles = StyleSheet.create({
   helloAshfakWrapper4: {
     borderRadius: Border.br_31xl,
     backgroundColor: Color.sportsNaranja,
-    height: 38,
+    height: 50,
     padding: Padding.p_3xs,
     flex: 1,
     justifyContent: 'center',
@@ -261,7 +262,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: Border.br_3xs,
-    backgroundColor: Color.colorMistyrose,
+    backgroundColor: '#FCDDCF',
     padding: Padding.p_xl
   },
   div2Cards: {
@@ -280,7 +281,6 @@ const styles = StyleSheet.create({
   },
   inicioSuscripciones2: {
     paddingTop: Padding.p_xs,
-    paddingBottom: Padding.p_5xl,
     paddingHorizontal: Padding.p_xl,
     width: '100%',
     flex: 1,
