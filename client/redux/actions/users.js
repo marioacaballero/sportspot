@@ -46,6 +46,18 @@ export const getUser = createAsyncThunk('users/getUser', async (id) => {
   }
 })
 
+export const getUserByEmail = createAsyncThunk(
+  'users/getUserByEmail',
+  async (email) => {
+    try {
+      const { data } = await axiosInstance.get(`/users/email?email${email}`)
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+)
+
 export const getAllUsers = createAsyncThunk('users/getAllUsers', async () => {
   try {
     const { data } = await axiosInstance.get('/users')
