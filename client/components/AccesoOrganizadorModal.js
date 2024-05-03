@@ -6,7 +6,8 @@ import {
   TextInput,
   View,
   Modal,
-  Alert
+  Alert,
+  TouchableWithoutFeedback
 } from 'react-native'
 // import { useNavigation } from '@react-navigation/native'
 import { Color } from '../GlobalStyles'
@@ -42,38 +43,46 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
 
   return (
     <Modal visible={true} transparent={true}>
-      <View style={styles.container}>
-        <View style={styles.topContainer}>
-          <Text style={styles.titleText}>
-            Acceso como{' '}
-            {user.rol === 'sportsman' ? 'organizador' : 'deportista'}
-          </Text>
-          <Pressable onPress={toggleModal}>
-            <Text style={styles.close}>X</Text>
-          </Pressable>
+      <TouchableWithoutFeedback onPress={toggleModal}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0,0,0,0.4)',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          <View style={styles.container}>
+            <View style={styles.topContainer}>
+              <Text style={styles.titleText}>
+                Acceso como{' '}
+                {user.rol === 'sportsman' ? 'organizador' : 'deportista'}
+              </Text>
+            </View>
+            <View style={styles.borderBox}>
+              <TextInput
+                placeholder="Email"
+                onChangeText={(value) => onValuesInput('email', value)}
+                value={input.email}
+                placeholderTextColor={Color.sportsVioleta}
+                style={styles.inputText}
+              />
+            </View>
+            <View style={styles.borderBox}>
+              <TextInput
+                placeholder="Contraseña"
+                onChangeText={(value) => onValuesInput('password', value)}
+                value={input.password}
+                placeholderTextColor={Color.sportsVioleta}
+                style={styles.inputText}
+              />
+            </View>
+            <Pressable style={styles.pressableBox} onPress={onChangeRol}>
+              <Text style={styles.enterText}>Entrar</Text>
+            </Pressable>
+          </View>
         </View>
-        <View style={styles.borderBox}>
-          <TextInput
-            placeholder="Email"
-            onChangeText={(value) => onValuesInput('email', value)}
-            value={input.email}
-            placeholderTextColor={Color.sportsVioleta}
-            style={styles.inputText}
-          />
-        </View>
-        <View style={styles.borderBox}>
-          <TextInput
-            placeholder="Contraseña"
-            onChangeText={(value) => onValuesInput('password', value)}
-            value={input.password}
-            placeholderTextColor={Color.sportsVioleta}
-            style={styles.inputText}
-          />
-        </View>
-        <Pressable style={styles.pressableBox} onPress={onChangeRol}>
-          <Text style={styles.enterText}>Entrar</Text>
-        </Pressable>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   )
 }
@@ -83,10 +92,6 @@ const styles = StyleSheet.create({
     height: 250,
     width: '90%',
     backgroundColor: Color.blanco,
-    borderColor: Color.sportsNaranja,
-    borderWidth: 1,
-    marginLeft: '5%',
-    marginTop: '25%',
     borderRadius: 30,
     elevation: 4,
     alignItems: 'center'

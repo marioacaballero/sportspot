@@ -70,9 +70,9 @@ const TuPerfil = () => {
             <Text style={[styles.tuPerfil1, styles.tuPerfil1Typo]}>
               TU PERFIL
             </Text>
-            <Pressable onPress={() => navigation.goBack()}>
+            {/* <Pressable onPress={() => navigation.goBack()}>
               <BackArrowSVG />
-            </Pressable>
+            </Pressable> */}
           </View>
           <View style={styles.unsplashn6gnca77urcParent}>
             <Image
