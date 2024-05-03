@@ -1,10 +1,10 @@
-import * as Google from 'expo-auth-session/providers/google'
-import * as WebBrowser from 'expo-web-browser'
-import {
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signInWithCredential
-} from 'firebase/auth'
+// import * as Google from 'expo-auth-session/providers/google'
+// import * as WebBrowser from 'expo-web-browser'
+// import {
+//   GoogleAuthProvider,
+//   onAuthStateChanged,
+//   signInWithCredential
+// } from 'firebase/auth'
 import React from 'react'
 import {
   Image,
@@ -16,64 +16,64 @@ import {
   View
 } from 'react-native'
 import { Color } from '../../GlobalStyles'
-import { auth } from '../../firebaseConfig'
+// import { auth } from '../../utils/config.google'
 
-WebBrowser.maybeCompleteAuthSession()
+// WebBrowser.maybeCompleteAuthSession()
 
 export default function SignIn({ navigation }) {
-  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    iosClientId: 'iosId',
-    androidClientId: process.env.CLIENT_ID
-  })
+  // const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+  //   iosClientId: 'iosId',
+  //   androidClientId: process.env.CLIENT_ID
+  // })
 
-  useEffect(() => {
-    getLocalUser()
-    const unsub = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        await AsyncStorage.setItem('@user', JSON.stringify(user))
-        setUserInfo(user)
-        if (user.providerData[0].providerId === 'google.com') {
-          console.log('=====LOGIN WITH GOOGLE=====')
-          // acá se crea el usurio (cambiar por el de SpotSport)
-          // dispatch(
-          //   create({
-          //     nickname: user.displayName,
-          //     email: '',
-          //     googleId: user.uid,
-          //     type: isSportman ? 'sportman' : 'club'
-          //   })
-          // ).then(async (data) => {
-          //   // console.log('data from back:', data);
-          //   try {
-          //     const response = await dispatch(login({ googleId: user.uid }))
-          //     console.log('response google:', response.payload)
-          //     dispatch(setIsSpotMan(response.payload.user.type === !'club'))
-          //     await AsyncStorage.setItem(
-          //       'userToken',
-          //       response?.payload?.accesToken
-          //     )
-          //     await AsyncStorage.setItem('userType', response.payload.user.type)
-          //     dispatch(setClub(response))
-          //   } catch (error) {
-          //     console.log('Error:', error)
-          //   }
-          // })
-        }
-      } else {
-        console.log('user not authenticated')
-      }
-    })
-    return () => unsub()
-  }, [response])
+  // useEffect(() => {
+  //   getLocalUser()
+  //   const unsub = onAuthStateChanged(auth, async (user) => {
+  //     if (user) {
+  //       await AsyncStorage.setItem('@user', JSON.stringify(user))
+  //       setUserInfo(user)
+  //       if (user.providerData[0].providerId === 'google.com') {
+  //         console.log('=====LOGIN WITH GOOGLE=====')
+  //         // acá se crea el usurio (cambiar por el de SpotSport)
+  //         // dispatch(
+  //         //   create({
+  //         //     nickname: user.displayName,
+  //         //     email: '',
+  //         //     googleId: user.uid,
+  //         //     type: isSportman ? 'sportman' : 'club'
+  //         //   })
+  //         // ).then(async (data) => {
+  //         //   // console.log('data from back:', data);
+  //         //   try {
+  //         //     const response = await dispatch(login({ googleId: user.uid }))
+  //         //     console.log('response google:', response.payload)
+  //         //     dispatch(setIsSpotMan(response.payload.user.type === !'club'))
+  //         //     await AsyncStorage.setItem(
+  //         //       'userToken',
+  //         //       response?.payload?.accesToken
+  //         //     )
+  //         //     await AsyncStorage.setItem('userType', response.payload.user.type)
+  //         //     dispatch(setClub(response))
+  //         //   } catch (error) {
+  //         //     console.log('Error:', error)
+  //         //   }
+  //         // })
+  //       }
+  //     } else {
+  //       console.log('user not authenticated')
+  //     }
+  //   })
+  //   return () => unsub()
+  // }, [response])
 
-  useEffect(() => {
-    if (response?.type === 'success') {
-      const { id_token } = response.params
-      const credential = GoogleAuthProvider.credential(id_token)
-      signInWithCredential(auth, credential)
-      console.log('deberia crear el usuario')
-    }
-  }, [response])
+  // useEffect(() => {
+  //   if (response?.type === 'success') {
+  //     const { id_token } = response.params
+  //     const credential = GoogleAuthProvider.credential(id_token)
+  //     signInWithCredential(auth, credential)
+  //     console.log('deberia crear el usuario')
+  //   }
+  // }, [response])
 
   return (
     <View style={styles.container}>
@@ -114,7 +114,7 @@ export default function SignIn({ navigation }) {
             <View style={styles.button}>
               <Pressable
                 style={styles.buttonText}
-                onPress={() => promptAsync()}
+                onPress={() => console.log('lala')}
               >
                 <Text>Iniciar sesión con Google</Text>
               </Pressable>
