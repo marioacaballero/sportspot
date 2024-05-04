@@ -68,15 +68,12 @@ export class StripeService {
     try {
       // Crea un PaymentIntent
 
-      const newCustomer = await this.createCustomer(
-        'Fernando Kaganovicz',
-        'fernando.kaganovicz@gmail.com'
-      )
+      // const newCustomer = await this.createCustomer('Fernando Kaganovicz', 'fernando.kaganovicz@gmail.com')
 
       const paymentIntent = await this.stripe.paymentIntents.create({
         amount: 599, // establece la cantidad
         currency: 'eur', // establece la moneda
-        customer: newCustomer.id,
+        customer: customerId,
         payment_method_types: ['card']
         // automatic_payment_methods: {
         //   enabled: true,
@@ -84,7 +81,7 @@ export class StripeService {
       })
 
       const data = {
-        customer: newCustomer,
+        customer: customerId,
         clientSecret: paymentIntent.client_secret
       }
       return data
@@ -94,11 +91,41 @@ export class StripeService {
     }
   }
 
-  async createSubscription(
-    priceId: string,
-    customerId: string,
-    paymentMethodId: string
-  ) {
+  async createSubscription(priceId: string, customerId: string) {
+    try {
+      const subscription = await this.stripe.subscriptions.create({
+        customer: customerId,
+        items: [
+          {
+            price: priceId
+          }
+        ],
+        payment_behavior: 'default_incomplete',
+        payment_settings: { save_default_payment_method: 'on_subscription' },
+        expand: ['latest_invoice.payment_intent']
+      })
+
+      if (!subscription) {
+        console.error('Error al crear subscricion')
+      } else {
+        // Asegúrate de que latest_invoice y payment_intent están presentes
+        const latestInvoice = subscription.latest_invoice as Stripe.Invoice
+        const paymentIntent =
+          latestInvoice.payment_intent as Stripe.PaymentIntent
+
+        const data = {
+          subscriptionId: subscription.id,
+          clientSecret: paymentIntent.client_secret
+        }
+
+        return data
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async createSubscriptions(priceId: string, customerId: string) {
     try {
       // const paymentMethod = await this.stripe.paymentMethods.attach(
       //   paymentMethodId,

@@ -20,7 +20,7 @@ import { Color } from '../../GlobalStyles'
 import { getUserByEmail, login, register } from '../../redux/actions/users'
 import { auth } from '../../utils/config.google'
 
-WebBrowser.maybeCompleteAuthSession()
+// WebBrowser.maybeCompleteAuthSession()
 
 export default function SignIn({ navigation }) {
   const dispatch = useDispatch()
@@ -69,14 +69,14 @@ export default function SignIn({ navigation }) {
     return () => unsub()
   }, [response])
 
-  useEffect(() => {
-    if (response?.type === 'success') {
-      const { id_token } = response.params
-      const credential = GoogleAuthProvider.credential(id_token)
-      signInWithCredential(auth, credential)
-      console.log('deberia crear el usuario')
-    }
-  }, [response])
+  // useEffect(() => {
+  //   if (response?.type === 'success') {
+  //     const { id_token } = response.params
+  //     const credential = GoogleAuthProvider.credential(id_token)
+  //     signInWithCredential(auth, credential)
+  //     console.log('deberia crear el usuario')
+  //   }
+  // }, [response])
 
   return (
     <View style={styles.container}>
