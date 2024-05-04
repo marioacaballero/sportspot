@@ -85,7 +85,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
               contentFit="cover"
               source={require('../assets/frame-1547755976.png')}
             />
-            <Text style={[styles.helloAshfak3, styles.helloTypo]}>
+            <Text style={[styles.helloAshfak3, styles.helloTypo,{fontWeight:"bold"}]}>
               {eventsFilter.location ? eventsFilter.location : 'Localización'}
             </Text>
           </View>
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
   helloTypo: {
     marginLeft: 11,
     fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '500',
+    fontWeight: 'bold',
     fontSize: FontSize.size_sm,
     textAlign: 'left',
     color: Color.sportsVioleta

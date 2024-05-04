@@ -42,10 +42,9 @@ export class StripeController {
   public async postSubscription(
     @Param('priceId') priceId: string,
     @Body('customerId') customerId: string,
-    @Body('paymentMethodId') paymentMethodId: string
 
   ) {
-    return this.stripeService.createSubscription(priceId, customerId, paymentMethodId)
+    return this.stripeService.createSubscription(priceId, customerId )
   }
 
   @Get('paymentIntents')

@@ -105,8 +105,10 @@ const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
   }
 
   return (
+    
     <Modal visible={modalSport} transparent animationType="slide">
-      <View style={styles.container}>
+    <View style={{height:"100%",width:"100%",backgroundColor:'rgba(113, 113, 113, 0.9)'}}>
+    <View style={styles.container}>
         <Text style={styles.containerText}>¿Qué deporte practicas?</Text>
         <View style={styles.containerSport}>
           {filteredSports?.map((sport) => (
@@ -115,10 +117,13 @@ const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
                 style={{
                   alignItems: 'center',
                   border: '1px solid #E5E5E5',
+                  // borderWidth: 1,
+                  elevation:6,
+                  shadowColor:'#0426ba',
                   borderRadius: 50,
                   padding: 15,
                   backgroundColor: showColor.includes(sport?.name)
-                    ? '#40036F'
+                    ? Color.sportsNaranja
                     : 'white'
                 }}
                 onPress={() => sportSelectStyle(sport?.name)}
@@ -162,15 +167,17 @@ const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
           Establece tu radio de notificaciones
         </Text>
         <Pressable style={styles.button} onPress={openFrameContainer6}>
-          <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M69.5039'} />
+        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} width={500} /> */}
+
           <Text style={styles.buttonText}>Localidad</Text>
           <Text style={styles.locationText}>
-            {eventsFilter.location ? eventsFilter.location : 'Localización'}
+            {eventsFilter.location ? eventsFilter.location : 'Selecciona tu localidad'}
           </Text>
         </Pressable>
 
         <View style={styles.radioContainer}>
-          <Text>Radio km</Text>
+    
+          <Text style={{alignSelf:"flex-start",paddingLeft:20,fontWeight:"bold",color: Color.sportsVioleta}}>Radio km</Text>
           <View style={styles.line}></View>
           <View style={styles.kmContainer}>
             <Pressable onPress={() => handlePress(0)}>
@@ -259,6 +266,7 @@ const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
         message="Por favor rellena todos los campos"
         onClose={handleCloseAlert}
       />
+    </View>
     </Modal>
   )
 }
@@ -267,16 +275,19 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     width: '90%',
-    height: 510,
+    height: "auto",
     left: '5%',
-    top: '3%',
+    top: '18%',
     borderRadius: 20,
     elevation: 5,
+    paddingBottom:20,
     backgroundColor: Color.blanco
   },
   containerText: {
+    paddingTop:10,
     fontSize: 22,
     marginTop: 10,
+    fontWeight: 'bold',
     color: Color.sportsVioleta,
     textAlign: 'center'
   },
@@ -284,22 +295,26 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginTop: 10,
     color: Color.sportsVioleta,
-    width: '60%',
-    textAlign: 'center'
+    width: '55%',
+    textAlign: 'center',
+    fontWeight:'bold'
   },
   containerSport: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    gap: 10,
-    marginTop: 10
+    gap: 19,
+    marginTop: 10,
+    paddingHorizontal:20,
+    marginBottom:10
   },
   ftbol: {
     fontSize: FontSize.size_sm,
     lineHeight: 23,
     fontWeight: '900',
     fontFamily: FontFamily.inputPlaceholder,
-    color: Color.colorGray_200,
+    color: Color.sportsVioleta,
+
     textAlign: 'center',
     marginTop: 6
   },
@@ -307,9 +322,10 @@ const styles = StyleSheet.create({
     // borderBottomWidth: 1,
     // borderRightWidth: 1,
     // borderLeftWidth: 1,
-    // borderRadius: 30,
-    // borderColor: Color.sportsVioleta,
-    width: '85%',
+    borderRadius: 30,
+    borderColor: "#c9c9c9",
+    borderWidth: 1,
+    width: '90%',
     height: 40,
     marginTop: 20,
     justifyContent: 'center',
@@ -317,7 +333,9 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     position: 'absolute',
-    bottom: 35,
+    bottom: 28,
+    backgroundColor:"white",
+    padding:3,
     left: 18,
     fontSize: 10
   },
@@ -328,21 +346,25 @@ const styles = StyleSheet.create({
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20
+    marginTop: 20,
   },
   saveText: {
     color: Color.blanco,
     fontSize: 17
   },
   radioContainer: {
+    width:"100%",
+    justifyContent:"center",
+    alignItems:"center",
     marginTop: 15
   },
   line: {
     height: 3,
-    width: 250,
+    width: "85%",
     backgroundColor: Color.sportsVioleta,
     color: Color.sportsVioleta,
-    marginTop: 30
+    marginTop: 30,
+    marginBottom: 10
   },
   circle: {
     height: 10,
@@ -359,12 +381,11 @@ const styles = StyleSheet.create({
     marginTop: 5
   },
   kmContainer: {
+    width:"90%",
     position: 'absolute',
     top: 26,
-    alignItems: 'center',
-    gap: 48,
     flexDirection: 'row',
-    left: -1
+    justifyContent:"space-between",
   },
   km: {
     color: Color.sportsVioleta,
@@ -395,6 +416,8 @@ const styles = StyleSheet.create({
     color: Color.sportsVioleta,
     fontSize: FontSize.size_sm,
     fontFamily: FontFamily.inputPlaceholder,
+    backgroundColor:"#FFFFFF",
+    zIndex:999,
     top: 1
   }
 })

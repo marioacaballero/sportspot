@@ -6,7 +6,8 @@ import {
   updateUser,
   updateUserRol,
   postUserPreferences,
-  favorite
+  favorite,
+  getUserByEmail
 } from '../actions/users'
 
 export const usersSlices = createSlice({
@@ -50,6 +51,19 @@ export const usersSlices = createSlice({
         state.error = null
       })
       .addCase(getUser.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(getUserByEmail.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(getUserByEmail.fulfilled, (state, action) => {
+        state.loading = false
+        state.user = action.payload
+        state.error = null
+      })
+      .addCase(getUserByEmail.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

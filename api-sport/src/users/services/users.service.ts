@@ -1,37 +1,31 @@
 import { HttpException, Injectable } from '@nestjs/common'
-import { UserEntity } from '../entities/users.entity'
-import { EventEntity } from '../../events/entities/event.entity'
-import { UserEventHistoryEntity } from '../../events/entities/userEvent.entity'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
-import { UserDTO } from '../dto/user.dto'
-import { UpdateUserDto } from '../dto/update-user.dto'
-import { NotificationsService } from 'src/notifications/notifications.service'
-import { CreateNotificationDto } from 'src/notifications/dto/create-notification.dto'
 import { hash } from 'bcrypt'
 import { EventsService } from 'src/events/events.service'
-import { SendMailsService } from 'src/send-mails/send-mails.service'
 import { JsonwebtokenService } from 'src/jsonwebtoken/jsonwebtoken.service'
+import { CreateNotificationDto } from 'src/notifications/dto/create-notification.dto'
+import { NotificationsService } from 'src/notifications/notifications.service'
+import { SendMailsService } from 'src/send-mails/send-mails.service'
+import { Repository } from 'typeorm'
+import { EventEntity } from '../../events/entities/event.entity'
+import { UserEventHistoryEntity } from '../../events/entities/userEvent.entity'
+import { UpdateUserDto } from '../dto/update-user.dto'
+import { UserDTO } from '../dto/user.dto'
+import { UserEntity } from '../entities/users.entity'
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
- 
     private readonly notificationsService: NotificationsService,
-    
     private readonly eventService: EventsService,
-    
     private readonly jsonwebtokenService: JsonwebtokenService,
-
     private readonly sendMailsService: SendMailsService,
-
-     @InjectRepository(EventEntity)
-    private readonly eventsRepository: Repository<EventEntity>, 
-    
+    @InjectRepository(EventEntity)
+    private readonly eventsRepository: Repository<EventEntity>,
     @InjectRepository(UserEventHistoryEntity)
-    private readonly usersEventRepository: Repository<UserEventHistoryEntity>,
+    private readonly usersEventRepository: Repository<UserEventHistoryEntity>
   ) {}
 
   public async register(userObject: UserDTO) {
@@ -59,9 +53,11 @@ export class UsersService {
       throw new HttpException('The new profile is not created', 501)
     } else {
       try {
-        await this.sendMailsService.sendRegistrationNotification(newProfile.email)
-      } catch(error) {
-        console.log('cae en el error ->',error)
+        await this.sendMailsService.sendRegistrationNotification(
+          newProfile.email
+        )
+      } catch (error) {
+        console.log('cae en el error ->', error)
       }
     }
 
@@ -71,16 +67,15 @@ export class UsersService {
   public async changeRolUser(id: string) {
     const user = await this.getOneService(id)
 
-     if (!user) {
+    if (!user) {
       throw new HttpException('User not found', 501)
     } else {
       try {
         await this.sendMailsService.sendUserRolNotification(user)
-      } catch(error) {
+      } catch (error) {
         console.error(error)
       }
     }
-
   }
 
   public async changePasswordService(
@@ -112,22 +107,24 @@ export class UsersService {
     return await this.userRepository.find({ where: { isDelete: false } })
   }
 
-  public async getAllEventsUsersService(eventId: string): Promise<UserEntity[]> {
-  const event = await this.eventService.getOneService(eventId)
-  if (!event) {
-    throw new HttpException(`Evento con ID ${eventId} no encontrado`, 404)
+  public async getAllEventsUsersService(
+    eventId: string
+  ): Promise<UserEntity[]> {
+    const event = await this.eventService.getOneService(eventId)
+    if (!event) {
+      throw new HttpException(`Evento con ID ${eventId} no encontrado`, 404)
+    }
+
+    // Cargar la relación de usuarios para el evento
+    const users = await this.usersEventRepository
+      .createQueryBuilder()
+      .relation(UserEntity, 'users')
+      .of(event)
+      .loadMany()
+
+    return users.filter((user) => !user.isDelete)
   }
 
-  // Cargar la relación de usuarios para el evento
-  const users = await this.usersEventRepository
-    .createQueryBuilder()
-    .relation(UserEntity, 'users')
-    .of(event)
-    .loadMany()
-
-  return users.filter(user => !user.isDelete)
-  }
-  
   public async getOneService(id: string) {
     const user = await this.userRepository
       .createQueryBuilder('user')
@@ -140,7 +137,7 @@ export class UsersService {
 
     return user
   }
-  
+
   public async getOneEvent(id: string) {
     const event = await this.eventsRepository
       .createQueryBuilder('event')
@@ -154,8 +151,8 @@ export class UsersService {
 
     return event
   }
-  
-  public async getByEmailService(email) {
+
+  public async getByEmailService(email: string) {
     return await this.userRepository
       .createQueryBuilder('user')
       .select([
@@ -251,7 +248,7 @@ export class UsersService {
     //   recipientId: userId,
     //   eventId: eventId
     // })
-    return await this.getOneService(userId) // Recargar el usuario 
+    return await this.getOneService(userId) // Recargar el usuario
   }
 
   public async deleteSubscriptionService(
@@ -309,12 +306,11 @@ export class UsersService {
     if (!user) {
       throw new HttpException(`Usuario con ID ${id} no encontrado`, 404)
     } else {
-       try {
+      try {
         await this.sendMailsService.sendOrganizerNotification(user.email)
-      } catch(error) {
+      } catch (error) {
         console.error(error)
       }
-
     }
   }
 

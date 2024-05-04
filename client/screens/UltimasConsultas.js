@@ -53,14 +53,12 @@ const UltimasConsultas = () => {
     <View style={styles.ultimasConsultas}>
       <ScrollView>
         <View style={styles.frameParent}>
-          <View>
+          <View style={{width:"100%"}}>
             <View style={styles.titleContainer}>
               <Text style={[styles.ltimasConsultas, styles.ciclismoTypo]}>
                 ÚLTIMAS CONSULTAS
               </Text>
-              <Pressable onPress={() => navigation.goBack()}>
-                <BackArrowSVG />
-              </Pressable>
+              <Pressable></Pressable>
             </View>
             <View style={styles.frameGroup}>
               <View style={[styles.path3391Parent, styles.groupParentFlexBox1]}>
@@ -412,10 +410,10 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   titleContainer: {
+    width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    width: '100%'
   },
   ultimasConsultas: {
     backgroundColor: Color.blanco,

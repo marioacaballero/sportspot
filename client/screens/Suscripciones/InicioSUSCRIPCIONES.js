@@ -5,8 +5,7 @@ import {
   View,
   Pressable,
   Image,
-  ScrollView,
-  Modal
+  ScrollView
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
@@ -18,19 +17,31 @@ import {
   Padding
 } from '../../GlobalStyles'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
-import StripeComponent from '../StripeComponent'
-import { getSubscription } from '../../redux/actions/stripe'
+// import StripeComponent from '../StripeComponent'
+import { createSubscription, getSubscription } from '../../redux/actions/stripe'
+import SubscribeView from '../../components/SuscribeView'
+// import SubscribedPlan from '../../components/SubscribedPlan'
+import { prices } from '../../utils/prices.stripe'
 
 const InicioSUSCRIPCIONES = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
-  const { customer, clientSecret } = useSelector((state) => state.stripe)
+  const { customer, clientSecretSubscription } = useSelector((state) => state.stripe)
 
   const [show, setShow] = useState(false)
+  console.log('clientSecret en inicio susc', clientSecretSubscription)
 
-  const handleStripe = () => {
+  const handleStripe = (plan) => {
+    
+    const priceId = prices[`${plan}PriceId`]
+    console.log(priceId)
+    dispatch(createSubscription({ priceId, customerId: customer.id }))
     setShow(!show)
   }
+
+  // useEffect(() => {
+  //   console.log(clientSecretSubscription, 'en useEffect')
+  // }, [clientSecretSubscription])
 
   useEffect(() => {
     dispatch(getSubscription(customer.id))
@@ -128,28 +139,28 @@ const InicioSUSCRIPCIONES = () => {
                   </View>
                 </View>
 
-                <Pressable onPress={handleStripe} style={styles.contentInner}>
+                <Pressable onPress={() => handleStripe('month')} style={styles.contentInner}>
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
                       Plan mensual 5,99€
                     </Text>
                   </View>
                 </Pressable>
-                <Pressable onPress={handleStripe} style={styles.contentInner}>
+                <Pressable onPress={() => handleStripe('triMonth')} style={styles.contentInner}>
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
                       Plan trimestral 15,99€
                     </Text>
                   </View>
                 </Pressable>
-                <Pressable onPress={handleStripe} style={styles.contentInner}>
+                <Pressable onPress={() => handleStripe('sixMonth')} style={styles.contentInner}>
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
                       Plan semestral 25,99€
                     </Text>
                   </View>
                 </Pressable>
-                <Pressable onPress={handleStripe} style={styles.contentInner}>
+                <Pressable onPress={() => handleStripe('year')} style={styles.contentInner}>
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
                       Plan anual 45,99€
@@ -160,8 +171,15 @@ const InicioSUSCRIPCIONES = () => {
             </View>
           </View>
         </View>
+        {/* <SubscribedPlan customerId={customer.id} setShow={setShow} /> */}
       </ScrollView>
-      {show && <StripeComponent clientSecret={clientSecret} />}
+      {show && (
+        <SubscribeView
+          clientSecret={
+           clientSecretSubscription
+          }
+        />
+      )}
     </>
   )
 }

@@ -1,16 +1,83 @@
-import React from 'react'
+import * as Google from 'expo-auth-session/providers/google'
+import * as WebBrowser from 'expo-web-browser'
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithCredential
+} from 'firebase/auth'
+import React, { useEffect } from 'react'
 import {
   Image,
-  Text,
-  View,
+  Pressable,
   // SafeAreaView,
   ScrollView,
   StyleSheet,
-  Pressable
+  Text,
+  View
 } from 'react-native'
+import { useDispatch } from 'react-redux'
 import { Color } from '../../GlobalStyles'
+import { getUserByEmail, login, register } from '../../redux/actions/users'
+import { auth } from '../../utils/config.google'
+
+// WebBrowser.maybeCompleteAuthSession()
 
 export default function SignIn({ navigation }) {
+  const dispatch = useDispatch()
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+    iosClientId: 'iosId',
+    androidClientId: process.env.CLIENT_ID
+  })
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        await AsyncStorage.setItem('@user', JSON.stringify(user))
+
+        if (user.providerData[0].providerId === 'google.com') {
+          console.log('=====LOGIN WITH GOOGLE=====')
+          // acá se crea el usurio (cambiar por el de SpotSport)
+          dispatch(getUserByEmail(user.email)).then((data) => {
+            if (data.payload.id) {
+              const { email, password } = data.payload
+              dispatch(login({ email, password }))
+            } else {
+              dispatch(
+                register({
+                  email: user.email,
+                  password: `${user.email}90`
+                  // nickname: user.displayName,
+                  // googleId: user.uid,
+                  // type: isSportman ? 'sportman' : 'club'
+                })
+              ).then(async (data) => {
+                // console.log('data from back:', data);
+                try {
+                  const { email, password } = data.payload
+                  dispatch(login({ email, password }))
+                } catch (error) {
+                  console.log('Error:', error)
+                }
+              })
+            }
+          })
+        }
+      } else {
+        console.log('user not authenticated')
+      }
+    })
+    return () => unsub()
+  }, [response])
+
+  // useEffect(() => {
+  //   if (response?.type === 'success') {
+  //     const { id_token } = response.params
+  //     const credential = GoogleAuthProvider.credential(id_token)
+  //     signInWithCredential(auth, credential)
+  //     console.log('deberia crear el usuario')
+  //   }
+  // }, [response])
+
   return (
     <View style={styles.container}>
       <View style={styles.linearGradient}>
@@ -19,7 +86,7 @@ export default function SignIn({ navigation }) {
           source={require('../../assets/BGInicio.png')}
           contentFit="cover"
         />
-        <ScrollView>
+        <ScrollView contentContainerStyle={{height:"100%",justifyContent:"center"}} style={{height:"100%"}}>
           <Image
             style={styles.image}
             contentFit="cover"
@@ -42,13 +109,17 @@ export default function SignIn({ navigation }) {
               fontSize: 40,
               width: '100%',
               textAlign: 'center'
+              ,fontWeight:600
+
             }}
           >
             Bienvenido/a
           </Text>
           <View style={{ marginTop: 20 }}>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>Iniciar sesión con Google</Text>
+              <Pressable onPress={() => promptAsync()}>
+                <Text style={styles.buttonText}>Iniciar sesión con Google</Text>
+              </Pressable>
             </View>
             <View style={styles.button}>
               <Text style={styles.buttonText}>Iniciar sesión con Apple</Text>
@@ -101,7 +172,9 @@ const styles = StyleSheet.create({
   },
   linearGradient: {
     flex: 1,
-    width: '100%'
+    width: '100%',
+    height: '100%',
+ 
   },
   button: {
     backgroundColor: '#E2DCEC',

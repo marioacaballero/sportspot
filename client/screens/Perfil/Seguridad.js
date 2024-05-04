@@ -7,7 +7,8 @@ import {
   Image,
   Pressable,
   TextInput,
-  ScrollView
+  ScrollView,
+  Dimensions
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import {
@@ -101,9 +102,9 @@ const Seguridad = () => {
             {`GESTIONA TU
 CUENTA`}
           </Text>
-          <Pressable onPress={() => navigation.goBack()}>
+          {/* <Pressable onPress={() => navigation.goBack()}>
             <BackArrowSVG />
-          </Pressable>
+          </Pressable> */}
         </View>
         <View style={{ width: '100%' }}>
           <Text style={[styles.seguridad1, styles.seguridad1Typo]}>
@@ -112,13 +113,31 @@ CUENTA`}
         </View>
         <View style={styles.seguridadChild}>
           <View style={styles.card1}>
-            <Image
-              style={[styles.passwordIcon, styles.passwordIconLayout]}
-              contentFit="cover"
-              source={require('../../assets/password.png')}
-            />
-            <View style={[styles.contraseaWrapper, styles.passwordIconLayout]}>
-              <Text style={[styles.contrasea, styles.iconLayout]}>
+            <View
+              style={{
+                width: '100%',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
+                flexDirection: 'row',
+                gap: 8
+              }}
+            >
+              <Image
+                style={{ height: 32, width: 32 }}
+                contentFit="cover"
+                source={require('../../assets/password.png')}
+              />
+              <Text
+                style={{
+                  fontSize: FontSize.inputLabel_size,
+                  textTransform: 'capitalize',
+                  fontWeight: 700,
+                  display: 'flex',
+                  alignItems: 'center',
+                  textAlign: 'left',
+                  color: Color.sportsVioleta
+                }}
+              >
                 Contraseña
               </Text>
             </View>
@@ -222,7 +241,8 @@ CUENTA`}
 
 const styles = StyleSheet.create({
   scrollView: {
-    height: '100%'
+    height: '100%',
+    backgroundColor: '#fff'
   },
   seguridadInnerPosition: {
     // left: 20,
@@ -237,10 +257,9 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   seguridad1Typo: {
-    fontSize: FontSize.size_sm,
+    fontSize: 17,
     textAlign: 'left',
-    fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: '700'
+    fontWeight: 700
   },
   passwordIconLayout: {
     height: 32
@@ -253,7 +272,7 @@ const styles = StyleSheet.create({
   inputLayout: {
     paddingHorizontal: Padding.p_base,
     height: 46,
-    width: 295,
+    width: '100%',
     borderColor: Color.sportsVioleta,
     borderRadius: Border.br_xl,
     borderWidth: 1,
@@ -266,7 +285,7 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_6xs,
     paddingHorizontal: 0,
     height: 43,
-    width: 281,
+    width: Dimensions.get('screen').width * 0.83,
     borderRadius: Border.br_31xl,
     // left: 31,
     alignItems: 'center',
@@ -332,7 +351,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   inputParent: {
-    width: 298,
+    width: '100%',
     height: 107,
     alignItems: 'flex-end',
     // marginLeft: 11,
