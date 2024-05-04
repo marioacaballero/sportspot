@@ -61,28 +61,24 @@ const styles = StyleSheet.create({
   frameChild: {
     width: 29,
     height: 22,
-    bottom: 3
+    marginBottom: 4
   },
   vector: {
     width: 23,
     marginLeft: 47
   },
   helloAshfak6: {
-    fontSize: FontSize.size_3xl,
-    width: '100%',
-    height: 30,
-    color: Color.sportsNaranja,
-    paddingRight: 33,
-    paddingLeft:10,
-    fontWeight: '500',
-    alignItems: 'center'
+    fontSize: 18,
+    fontFamily: 'normal',
+    fontWeight: 'bold',
+    color: Color.sportsNaranja
   },
   groupParent1: {
-    justifyContent: 'flex-start',
     alignItems: 'center',
     height: 30,
     flexDirection: 'row',
-    alignSelf: 'stretch'
+    justifyContent: 'flex-start',
+    gap: 10
   },
   helloAshfak7: {
     fontSize: FontSize.size_mini,

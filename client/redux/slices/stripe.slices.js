@@ -14,7 +14,7 @@ export const stripeSlices = createSlice({
     customer: {},
     subscriptionId: '',
     clientSecretPayment: '',
-    clientSecretSubsription: '',
+    clientSecretSubscription: '',
     subscription: {},
     loadingGet: false,
     error: null
@@ -58,8 +58,9 @@ export const stripeSlices = createSlice({
         state.error = null
       })
       .addCase(createSubscription.fulfilled, (state, action) => {
+        console.log(action.payload, 'que tenemos en el slice de create subs')
         state.loadingGet = false
-        state.clientSecretSubsription = action.payload.clientSecret
+        state.clientSecretSubscription = action.payload.clientSecret
         state.subscriptionId = action.payload.subscriptionId
         state.error = null
       })

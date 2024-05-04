@@ -58,7 +58,7 @@ const UltimasConsultas = () => {
               <Text style={[styles.ltimasConsultas, styles.ciclismoTypo]}>
                 ÚLTIMAS CONSULTAS
               </Text>
-       
+              <Pressable></Pressable>
             </View>
             <View style={styles.frameGroup}>
               <View style={[styles.path3391Parent, styles.groupParentFlexBox1]}>

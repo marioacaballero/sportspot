@@ -2,7 +2,7 @@
   "expo": {
     "runtimeVersion": "1.0.2",
     "name": "SpotSport",
-    "slug": "spotsports",
+    "slug": "aythen-test",
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/spotsport.png",
@@ -12,9 +12,12 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mauriidg.SpotSport"
     },
     "android": {
       "adaptiveIcon": {
@@ -52,12 +55,12 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "314e02e8-7da2-459e-a601-e0ead6a8dd63"
+        "projectId": "c3af58d1-fd42-40c3-ac71-34d52d9423a3"
       }
     },
     "updates": {
       "url": "https://u.expo.dev/ac124ba8-62c5-44ac-ab0e-8da7a8b8e646"
     },
-    "owner": "ferk94"
+    "owner": "caballeromarioa"
   }
 }
