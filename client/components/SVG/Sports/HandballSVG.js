@@ -3,7 +3,7 @@ import { Svg, G, Path, Defs, ClipPath, Rect } from 'react-native-svg'
 
 const HandballSVG = ({ showColor }) => {
   const color =
-    showColor && showColor.includes('handball') ? 'white' : '#B6B6B6'
+    showColor && showColor.includes('handball') ? 'white' : '#40036f'
   return (
     <Svg width="30" height="30" viewBox="0 0 30 30" fill="none">
       <G clipPath="url(#clip0_1419_29214)">

@@ -72,12 +72,13 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 30,
     color: Color.sportsNaranja,
-    textAlign: 'center',
     paddingRight: 33,
-    fontWeight: '500'
+    paddingLeft:10,
+    fontWeight: '500',
+    alignItems: 'center'
   },
   groupParent1: {
-    // justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     height: 30,
     flexDirection: 'row',
