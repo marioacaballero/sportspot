@@ -53,7 +53,7 @@ const UltimasConsultas = () => {
     <View style={styles.ultimasConsultas}>
       <ScrollView>
         <View style={styles.frameParent}>
-          <View>
+          <View style={{width:"100%"}}>
             <View style={styles.titleContainer}>
               <Text style={[styles.ltimasConsultas, styles.ciclismoTypo]}>
                 ÚLTIMAS CONSULTAS
@@ -410,10 +410,10 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   titleContainer: {
+    width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    width: '100%'
   },
   ultimasConsultas: {
     backgroundColor: Color.blanco,

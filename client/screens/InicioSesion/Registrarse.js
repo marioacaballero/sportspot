@@ -102,7 +102,7 @@ const Registrarse = () => {
         source={require('../../assets/BGInicio.png')}
         contentFit="cover"
       />
-      <ScrollView style={styles.frameParent}>
+      <ScrollView contentContainerStyle={{height:"100%",justifyContent:"center"}}style={styles.frameParent}>
         <View style={styles.capturaDePantalla20231024Parent}>
           <Image
             style={styles.capturaDePantalla20231024Icon}
@@ -122,7 +122,17 @@ const Registrarse = () => {
               onSubmitEditing={() => emailInputRef.current.focus()}
             />
           </View> */}
-
+<Text
+            style={{
+              color: '#F25910',
+              fontSize: 40,
+              width: '100%',
+              textAlign: 'center',marginBottom:20
+              ,fontWeight:600
+            }}
+          >
+            Nuevo usuario
+          </Text>
           <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={[styles.nombreDeUsuario, styles.registrarse1Typo]}

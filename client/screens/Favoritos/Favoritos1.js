@@ -54,7 +54,7 @@ const Favoritos1 = () => {
           <Text style={[styles.tusFavoritos, styles.imGoingToFlexBox]}>
             TUS FAVORITOS
           </Text>
-          <BackArrowSVG />
+          {/* <BackArrowSVG /> */}
         </View>
         <View style={[styles.frameWrapper, styles.frameSpaceBlock]}>
           <View style={styles.groupParentFlexBox}>

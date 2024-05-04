@@ -7,7 +7,7 @@ import HomeSVG from './SVG/HomeSVG'
 import HistorialSVG from './SVG/HistorialSVG'
 import PerfilSVG from './SVG/PerfilSVG'
 import CorazonMenuInferiorSVG from './SVG/CorazonMenuInferiosSVG'
-import { Ellipse, Svg } from 'react-native-svg'
+import { Ellipse, Line, Svg } from 'react-native-svg'
 
 const MenuInferior = () => {
   const navigation = useNavigation()
@@ -27,12 +27,15 @@ const MenuInferior = () => {
         <Svg
           style={styles.onda}
           width="77"
-          height="48"
-          viewBox="0 0 42 38"
+          height="40"
+          viewBox="0 5 42 38"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <Ellipse cx="18.5" rx="22.5" ry="12" fill="#F2F1F8" />
+          {/* Elipse exterior con borde celeste */}
+          <Ellipse cx="18.5" rx="34.5" ry="22" stroke="#a3b4ff" strokeWidth="1.6" fill="none" />
+          {/* Elipse interior */}
+          <Ellipse  cx="18.5" rx="34.5" ry="22" fill="#FFFF"  />
         </Svg>
       </View>
       <View style={styles.groupContainer}>
@@ -123,27 +126,19 @@ const styles = StyleSheet.create({
     height: 2,
     width: '100%',
     flexDirection: 'row',
-    backgroundColor: '#F2F1F8',
     position: 'relative'
   },
   onda: {
-    height: 60,
-    width: 80,
-    borderTopLeftRadius: 150,
-    borderTopRightRadius: 150,
-    borderBottomLeftRadius: 150,
-    borderBottomRightRadius: 150,
-    borderColor: Color.violeta3,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
+    height: "100px",
+    width: "100px",
+    borderColor: "black",
+    borderWidth:1,
     position: 'absolute',
     left: '50%',
     marginLeft: -40,
-    top: -46,
+    top: -40,
     transform: [{ rotate: '180deg' }],
-    zIndex: 5
+    zIndex: 999
   },
   container2: {
     width: 22,
@@ -168,7 +163,13 @@ const styles = StyleSheet.create({
     height: 50,
     width: '100%',
     paddingHorizontal: 20,
-    backgroundColor: '#F2F1F8'
+    backgroundColor: '#FFFF',
+    borderTopWidth:0.8,
+    borderColor:"#a3b4ff",
+    elevation: 3, // Agregamos una elevación para la sombra
+    shadowColor: '#243682', // Color de la sombra celeste
+    shadowOpacity: 0.1, // Opacidad de la sombra
+    shadowRadius: 10, // Radio de la sombra,
   },
   groupContainer: {
     height: 65,

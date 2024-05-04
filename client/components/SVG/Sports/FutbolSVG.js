@@ -2,7 +2,7 @@ import React from 'react'
 import { Svg, G, Path, Defs, ClipPath, Rect } from 'react-native-svg'
 
 const FutbolSVG = ({ showColor }) => {
-  const color = showColor && showColor.includes('futbol') ? 'white' : '#B6B6B6'
+  const color = showColor && showColor.includes('futbol') ? 'white' : '#40036f'
   return (
     <Svg width="30" height="30" viewBox="0 0 30 30" fill="none">
       <G clipPath="url(#clip0_1419_29214)">

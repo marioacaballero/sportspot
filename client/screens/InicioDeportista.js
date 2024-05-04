@@ -7,7 +7,9 @@ import {
   ScrollView,
   Image,
   Modal,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  Button,
+  TouchableOpacity
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Padding, FontFamily, FontSize, Color, Border } from '../GlobalStyles'
@@ -34,6 +36,8 @@ const InicioDeportista = () => {
   const [modalOrganizador, setModalOrganizador] = useState(false)
   const [mostrarInicioBuscador, setMostrarInicioBuscador] = useState(false)
   const [modalSport, setModalSport] = useState(false)
+  const [buscador, setBuscador] = useState(false)
+
   const [modalState, setModalState] = useState()
 
   const getModalState = async () => {
@@ -190,11 +194,7 @@ const InicioDeportista = () => {
             </View>
           </View>
 
-          {mostrarInicioBuscador ? (
-            <InicioBUSCADOR
-              setMostrarInicioBuscador={setMostrarInicioBuscador}
-            />
-          ) : (
+          {buscador && (
             <Pressable
               style={{
                 display: 'flex',
@@ -261,6 +261,23 @@ const InicioDeportista = () => {
               ></Text>
             </Pressable>
           </View>
+          {!buscador && !modalOrganizador && (
+            <InicioBUSCADOR
+              setMostrarInicioBuscador={setMostrarInicioBuscador}
+            />
+          )}
+        {!buscador && !modalOrganizador && (
+            <View style={{ flexDirection: "row", width: "100%", justifyContent: "space-around" }}>
+            <View style={{ alignItems: "center" }}>
+              <Text style={{ fontWeight: "bold",color:Color.sportsVioleta }}>Mis puntos</Text>
+              <Text style={{ fontSize: 28, color: Color.sportsNaranja}}>50</Text>
+
+            </View>
+            <View style={{ borderLeftWidth: 1, borderColor: "#6987ff", paddingHorizontal: 20, alignItems: "center", flexDirection: "column", justifyContent: "center" }}>
+              <TouchableOpacity style={{ borderRadius: 50, flexDirection: "row", alignItems: "center", backgroundColor: Color.sportsNaranja, paddingHorizontal: 20, paddingVertical: 10 }}><Text style={{ fontWeight: "bold", color: "white" }}>Acceder a premios</Text></TouchableOpacity>
+            </View>
+          </View>
+        )}
           {modalOrganizador ? (
             <InicioOrganizador />
           ) : (

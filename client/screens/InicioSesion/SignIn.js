@@ -86,7 +86,7 @@ export default function SignIn({ navigation }) {
           source={require('../../assets/BGInicio.png')}
           contentFit="cover"
         />
-        <ScrollView>
+        <ScrollView contentContainerStyle={{height:"100%",justifyContent:"center"}} style={{height:"100%"}}>
           <Image
             style={styles.image}
             contentFit="cover"
@@ -109,6 +109,8 @@ export default function SignIn({ navigation }) {
               fontSize: 40,
               width: '100%',
               textAlign: 'center'
+              ,fontWeight:600
+
             }}
           >
             Bienvenido/a
@@ -170,7 +172,9 @@ const styles = StyleSheet.create({
   },
   linearGradient: {
     flex: 1,
-    width: '100%'
+    width: '100%',
+    height: '100%',
+ 
   },
   button: {
     backgroundColor: '#E2DCEC',
