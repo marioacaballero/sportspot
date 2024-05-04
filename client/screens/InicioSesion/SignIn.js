@@ -1,11 +1,11 @@
-// import * as Google from 'expo-auth-session/providers/google'
-// import * as WebBrowser from 'expo-web-browser'
-// import {
-//   GoogleAuthProvider,
-//   onAuthStateChanged,
-//   signInWithCredential
-// } from 'firebase/auth'
-import React from 'react'
+import * as Google from 'expo-auth-session/providers/google'
+import * as WebBrowser from 'expo-web-browser'
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithCredential
+} from 'firebase/auth'
+import React, { useEffect } from 'react'
 import {
   Image,
   Pressable,
@@ -15,56 +15,59 @@ import {
   Text,
   View
 } from 'react-native'
+import { useDispatch } from 'react-redux'
 import { Color } from '../../GlobalStyles'
-// import { auth } from '../../utils/config.google'
+import { getUserByEmail, login, register } from '../../redux/actions/users'
+import { auth } from '../../utils/config.google'
 
 // WebBrowser.maybeCompleteAuthSession()
 
 export default function SignIn({ navigation }) {
-  // const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-  //   iosClientId: 'iosId',
-  //   androidClientId: process.env.CLIENT_ID
-  // })
+  const dispatch = useDispatch()
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+    iosClientId: 'iosId',
+    androidClientId: process.env.CLIENT_ID
+  })
 
-  // useEffect(() => {
-  //   getLocalUser()
-  //   const unsub = onAuthStateChanged(auth, async (user) => {
-  //     if (user) {
-  //       await AsyncStorage.setItem('@user', JSON.stringify(user))
-  //       setUserInfo(user)
-  //       if (user.providerData[0].providerId === 'google.com') {
-  //         console.log('=====LOGIN WITH GOOGLE=====')
-  //         // acá se crea el usurio (cambiar por el de SpotSport)
-  //         // dispatch(
-  //         //   create({
-  //         //     nickname: user.displayName,
-  //         //     email: '',
-  //         //     googleId: user.uid,
-  //         //     type: isSportman ? 'sportman' : 'club'
-  //         //   })
-  //         // ).then(async (data) => {
-  //         //   // console.log('data from back:', data);
-  //         //   try {
-  //         //     const response = await dispatch(login({ googleId: user.uid }))
-  //         //     console.log('response google:', response.payload)
-  //         //     dispatch(setIsSpotMan(response.payload.user.type === !'club'))
-  //         //     await AsyncStorage.setItem(
-  //         //       'userToken',
-  //         //       response?.payload?.accesToken
-  //         //     )
-  //         //     await AsyncStorage.setItem('userType', response.payload.user.type)
-  //         //     dispatch(setClub(response))
-  //         //   } catch (error) {
-  //         //     console.log('Error:', error)
-  //         //   }
-  //         // })
-  //       }
-  //     } else {
-  //       console.log('user not authenticated')
-  //     }
-  //   })
-  //   return () => unsub()
-  // }, [response])
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        await AsyncStorage.setItem('@user', JSON.stringify(user))
+
+        if (user.providerData[0].providerId === 'google.com') {
+          console.log('=====LOGIN WITH GOOGLE=====')
+          // acá se crea el usurio (cambiar por el de SpotSport)
+          dispatch(getUserByEmail(user.email)).then((data) => {
+            if (data.payload.id) {
+              const { email, password } = data.payload
+              dispatch(login({ email, password }))
+            } else {
+              dispatch(
+                register({
+                  email: user.email,
+                  password: `${user.email}90`
+                  // nickname: user.displayName,
+                  // googleId: user.uid,
+                  // type: isSportman ? 'sportman' : 'club'
+                })
+              ).then(async (data) => {
+                // console.log('data from back:', data);
+                try {
+                  const { email, password } = data.payload
+                  dispatch(login({ email, password }))
+                } catch (error) {
+                  console.log('Error:', error)
+                }
+              })
+            }
+          })
+        }
+      } else {
+        console.log('user not authenticated')
+      }
+    })
+    return () => unsub()
+  }, [response])
 
   // useEffect(() => {
   //   if (response?.type === 'success') {
@@ -112,11 +115,8 @@ export default function SignIn({ navigation }) {
           </Text>
           <View style={{ marginTop: 20 }}>
             <View style={styles.button}>
-              <Pressable
-                style={styles.buttonText}
-                onPress={() => console.log('lala')}
-              >
-                <Text>Iniciar sesión con Google</Text>
+              <Pressable onPress={() => promptAsync()}>
+                <Text style={styles.buttonText}>Iniciar sesión con Google</Text>
               </Pressable>
             </View>
             <View style={styles.button}>
