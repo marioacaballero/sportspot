@@ -1,4 +1,4 @@
-package com.spotsport
+package com.mauriidg.SpotSport
 
 import android.app.Application
 import android.content.res.Configuration

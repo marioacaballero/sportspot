@@ -23,10 +23,10 @@ import CorazonSVG from '../../components/SVG/CorazonSVG'
 import {
   getAllEvents,
   getEventById,
-  favorite,
   getFavorites
 } from '../../redux/actions/events'
 import { getEventByIdRedux } from '../../redux/slices/events.slices'
+import { favorite } from '../../redux/actions/users'
 
 const PruebasEncontradas = () => {
   const navigation = useNavigation()

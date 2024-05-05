@@ -105,188 +105,208 @@ const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
   }
 
   return (
-    
     <Modal visible={modalSport} transparent animationType="slide">
-    <View style={{height:"100%",width:"100%",backgroundColor:'rgba(113, 113, 113, 0.9)'}}>
-    <View style={styles.container}>
-        <Text style={styles.containerText}>¿Qué deporte practicas?</Text>
-        <View style={styles.containerSport}>
-          {filteredSports?.map((sport) => (
-            <View key={sport?.name} style={{ alignItems: 'center' }}>
-              <TouchableOpacity
-                style={{
-                  alignItems: 'center',
-                  border: '1px solid #E5E5E5',
-                  // borderWidth: 1,
-                  elevation:6,
-                  shadowColor:'#0426ba',
-                  borderRadius: 50,
-                  padding: 15,
-                  backgroundColor: showColor.includes(sport?.name)
-                    ? Color.sportsNaranja
-                    : 'white'
-                }}
-                onPress={() => sportSelectStyle(sport?.name)}
-              >
-                <View>
-                  {sport?.name === 'futbol' && (
-                    <FutbolSVG showColor={showColor} />
-                  )}
-                  {sport?.name === 'ciclismo' && (
-                    <CiclismoSVG showColor={showColor} />
-                  )}
-                  {sport?.name === 'hockey' && (
-                    <HockeySVG showColor={showColor} />
-                  )}
-                  {sport?.name === 'tenis' && (
-                    <TenisSVG showColor={showColor} />
-                  )}
-                  {sport?.name === 'running' && (
-                    <RunningSVG showColor={showColor} />
-                  )}
-                  {sport?.name === 'rugby' && (
-                    <RugbySVG showColor={showColor} />
-                  )}
-                  {sport?.name === 'handball' && (
-                    <HandballSVG showColor={showColor} />
-                  )}
-                  {sport?.name === 'basket' && (
-                    <BasketSVG showColor={showColor} />
-                  )}
-                </View>
-              </TouchableOpacity>
-              <Text style={styles.ftbol}>
-                {sport?.name.slice(0, 1).toUpperCase()}
-                {sport?.name.slice(1)}
-              </Text>
-            </View>
-          ))}
-        </View>
-
-        <Text style={styles.containerText2}>
-          Establece tu radio de notificaciones
-        </Text>
-        <Pressable style={styles.button} onPress={openFrameContainer6}>
-        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} width={500} /> */}
-
-          <Text style={styles.buttonText}>Localidad</Text>
-          <Text style={styles.locationText}>
-            {eventsFilter.location ? eventsFilter.location : 'Selecciona tu localidad'}
-          </Text>
-        </Pressable>
-
-        <View style={styles.radioContainer}>
-    
-          <Text style={{alignSelf:"flex-start",paddingLeft:20,fontWeight:"bold",color: Color.sportsVioleta}}>Radio km</Text>
-          <View style={styles.line}></View>
-          <View style={styles.kmContainer}>
-            <Pressable onPress={() => handlePress(0)}>
-              <Text
-                style={[selectedValue === 0 ? styles.kmSelected : styles.km]}
-              >
-                0
-              </Text>
-              <View
-                style={[
-                  selectedValue === 0 ? styles.circleSelected : styles.circle
-                ]}
-              ></View>
-            </Pressable>
-            <Pressable onPress={() => handlePress(25)}>
-              <Text
-                style={[selectedValue === 25 ? styles.kmSelected : styles.km]}
-              >
-                25
-              </Text>
-              <View
-                style={[
-                  selectedValue === 25 ? styles.circleSelected : styles.circle
-                ]}
-              ></View>
-            </Pressable>
-            <Pressable onPress={() => handlePress(50)}>
-              <Text
-                style={[selectedValue === 50 ? styles.kmSelected : styles.km]}
-              >
-                50
-              </Text>
-              <View
-                style={[
-                  selectedValue === 50 ? styles.circleSelected : styles.circle
-                ]}
-              ></View>
-            </Pressable>
-            <Pressable onPress={() => handlePress(75)}>
-              <Text
-                style={[selectedValue === 75 ? styles.kmSelected : styles.km]}
-              >
-                75
-              </Text>
-              <View
-                style={[
-                  selectedValue === 75 ? styles.circleSelected : styles.circle
-                ]}
-              ></View>
-            </Pressable>
-            <Pressable onPress={() => handlePress(100)}>
-              <Text
-                style={[selectedValue === 100 ? styles.kmSelected : styles.km]}
-              >
-                100
-              </Text>
-              <View
-                style={[
-                  selectedValue === 100 ? styles.circleSelected : styles.circle
-                ]}
-              ></View>
-            </Pressable>
+      <View
+        style={{
+          height: '100%',
+          width: '100%',
+          backgroundColor: 'rgba(113, 113, 113, 0.9)',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <View style={styles.container}>
+          <Text style={styles.containerText}>¿Qué deporte practicas?</Text>
+          <View style={styles.containerSport}>
+            {filteredSports?.map((sport) => (
+              <View key={sport?.name} style={{ alignItems: 'center' }}>
+                <TouchableOpacity
+                  style={{
+                    alignItems: 'center',
+                    border: '1px solid #E5E5E5',
+                    elevation: 6,
+                    shadowColor: '#0426ba',
+                    borderRadius: 100,
+                    padding: 15,
+                    backgroundColor: showColor.includes(sport?.name)
+                      ? Color.sportsNaranja
+                      : 'white'
+                  }}
+                  onPress={() => sportSelectStyle(sport?.name)}
+                >
+                  <View>
+                    {sport?.name === 'futbol' && (
+                      <FutbolSVG showColor={showColor} />
+                    )}
+                    {sport?.name === 'ciclismo' && (
+                      <CiclismoSVG showColor={showColor} />
+                    )}
+                    {sport?.name === 'hockey' && (
+                      <HockeySVG showColor={showColor} />
+                    )}
+                    {sport?.name === 'tenis' && (
+                      <TenisSVG showColor={showColor} />
+                    )}
+                    {sport?.name === 'running' && (
+                      <RunningSVG showColor={showColor} />
+                    )}
+                    {sport?.name === 'rugby' && (
+                      <RugbySVG showColor={showColor} />
+                    )}
+                    {sport?.name === 'handball' && (
+                      <HandballSVG showColor={showColor} />
+                    )}
+                    {sport?.name === 'basket' && (
+                      <BasketSVG showColor={showColor} />
+                    )}
+                  </View>
+                </TouchableOpacity>
+                <Text style={styles.ftbol}>
+                  {sport?.name.slice(0, 1).toUpperCase()}
+                  {sport?.name.slice(1)}
+                </Text>
+              </View>
+            ))}
           </View>
+
+          <Text style={styles.containerText2}>
+            Establece tu radio de notificaciones
+          </Text>
+          <Pressable style={styles.button} onPress={openFrameContainer6}>
+            {/* <BoxSVG style={{ left: -4, position: 'absolute' }} width={500} /> */}
+
+            <Text style={styles.buttonText}>Localidad</Text>
+            <Text style={styles.locationText}>
+              {eventsFilter.location
+                ? eventsFilter.location
+                : 'Selecciona tu localidad'}
+            </Text>
+          </Pressable>
+
+          <View style={styles.radioContainer}>
+            <Text
+              style={{
+                alignSelf: 'flex-start',
+                paddingLeft: 20,
+                fontWeight: 'bold',
+                color: Color.sportsVioleta
+              }}
+            >
+              Radio km
+            </Text>
+            <View style={styles.line}></View>
+            <View style={styles.kmContainer}>
+              <Pressable onPress={() => handlePress(0)}>
+                <Text
+                  style={[selectedValue === 0 ? styles.kmSelected : styles.km]}
+                >
+                  0
+                </Text>
+                <View
+                  style={[
+                    selectedValue === 0 ? styles.circleSelected : styles.circle
+                  ]}
+                ></View>
+              </Pressable>
+              <Pressable onPress={() => handlePress(25)}>
+                <Text
+                  style={[selectedValue === 25 ? styles.kmSelected : styles.km]}
+                >
+                  25
+                </Text>
+                <View
+                  style={[
+                    selectedValue === 25 ? styles.circleSelected : styles.circle
+                  ]}
+                ></View>
+              </Pressable>
+              <Pressable onPress={() => handlePress(50)}>
+                <Text
+                  style={[selectedValue === 50 ? styles.kmSelected : styles.km]}
+                >
+                  50
+                </Text>
+                <View
+                  style={[
+                    selectedValue === 50 ? styles.circleSelected : styles.circle
+                  ]}
+                ></View>
+              </Pressable>
+              <Pressable onPress={() => handlePress(75)}>
+                <Text
+                  style={[selectedValue === 75 ? styles.kmSelected : styles.km]}
+                >
+                  75
+                </Text>
+                <View
+                  style={[
+                    selectedValue === 75 ? styles.circleSelected : styles.circle
+                  ]}
+                ></View>
+              </Pressable>
+              <Pressable onPress={() => handlePress(100)}>
+                <Text
+                  style={[
+                    selectedValue === 100 ? styles.kmSelected : styles.km
+                  ]}
+                >
+                  100
+                </Text>
+                <View
+                  style={[
+                    selectedValue === 100
+                      ? styles.circleSelected
+                      : styles.circle
+                  ]}
+                ></View>
+              </Pressable>
+            </View>
+          </View>
+
+          <TouchableOpacity style={styles.buttonSave} onPress={handleSubmit}>
+            <Text style={styles.saveText}>Guardar</Text>
+          </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.buttonSave} onPress={handleSubmit}>
-          <Text style={styles.saveText}>Guardar</Text>
-        </TouchableOpacity>
+        <Modal
+          animationType="fade"
+          transparent
+          visible={frameContainer6Visible}
+        >
+          <View style={styles.frameContainer6Overlay}>
+            <Pressable
+              style={styles.frameContainer6Bg}
+              onPress={closeFrameContainer6}
+            />
+            <Maps
+              onClose={closeFrameContainer6}
+              setEventsFilter={setEventsFilter}
+            />
+          </View>
+        </Modal>
+
+        <CustomAlert
+          visible={showAlert}
+          message="Por favor rellena todos los campos"
+          onClose={handleCloseAlert}
+        />
       </View>
-
-      <Modal animationType="fade" transparent visible={frameContainer6Visible}>
-        <View style={styles.frameContainer6Overlay}>
-          <Pressable
-            style={styles.frameContainer6Bg}
-            onPress={closeFrameContainer6}
-          />
-          <Maps
-            onClose={closeFrameContainer6}
-            setEventsFilter={setEventsFilter}
-          />
-        </View>
-      </Modal>
-
-      <CustomAlert
-        visible={showAlert}
-        message="Por favor rellena todos los campos"
-        onClose={handleCloseAlert}
-      />
-    </View>
     </Modal>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
     width: '90%',
-    height: "auto",
-    left: '5%',
-    top: '18%',
     borderRadius: 20,
     elevation: 5,
-    paddingBottom:20,
-    backgroundColor: Color.blanco
+    backgroundColor: Color.blanco,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 15
   },
   containerText: {
-    paddingTop:10,
     fontSize: 22,
-    marginTop: 10,
     fontWeight: 'bold',
     color: Color.sportsVioleta,
     textAlign: 'center'
@@ -297,16 +317,15 @@ const styles = StyleSheet.create({
     color: Color.sportsVioleta,
     width: '55%',
     textAlign: 'center',
-    fontWeight:'bold'
+    fontWeight: 'bold'
   },
   containerSport: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    gap: 19,
+    gap: 10,
     marginTop: 10,
-    paddingHorizontal:20,
-    marginBottom:10
+    paddingHorizontal: 10
   },
   ftbol: {
     fontSize: FontSize.size_sm,
@@ -319,11 +338,8 @@ const styles = StyleSheet.create({
     marginTop: 6
   },
   button: {
-    // borderBottomWidth: 1,
-    // borderRightWidth: 1,
-    // borderLeftWidth: 1,
     borderRadius: 30,
-    borderColor: "#c9c9c9",
+    borderColor: '#c9c9c9',
     borderWidth: 1,
     width: '90%',
     height: 40,
@@ -334,8 +350,8 @@ const styles = StyleSheet.create({
   buttonText: {
     position: 'absolute',
     bottom: 28,
-    backgroundColor:"white",
-    padding:3,
+    backgroundColor: 'white',
+    padding: 3,
     left: 18,
     fontSize: 10
   },
@@ -346,21 +362,21 @@ const styles = StyleSheet.create({
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
+    marginTop: 20
   },
   saveText: {
     color: Color.blanco,
     fontSize: 17
   },
   radioContainer: {
-    width:"100%",
-    justifyContent:"center",
-    alignItems:"center",
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 15
   },
   line: {
     height: 3,
-    width: "85%",
+    width: '85%',
     backgroundColor: Color.sportsVioleta,
     color: Color.sportsVioleta,
     marginTop: 30,
@@ -381,11 +397,11 @@ const styles = StyleSheet.create({
     marginTop: 5
   },
   kmContainer: {
-    width:"90%",
+    width: '90%',
     position: 'absolute',
     top: 26,
     flexDirection: 'row',
-    justifyContent:"space-between",
+    justifyContent: 'space-between'
   },
   km: {
     color: Color.sportsVioleta,
@@ -416,8 +432,8 @@ const styles = StyleSheet.create({
     color: Color.sportsVioleta,
     fontSize: FontSize.size_sm,
     fontFamily: FontFamily.inputPlaceholder,
-    backgroundColor:"#FFFFFF",
-    zIndex:999,
+    backgroundColor: '#FFFFFF',
+    zIndex: 999,
     top: 1
   }
 })

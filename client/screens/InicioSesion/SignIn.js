@@ -15,19 +15,52 @@ import {
   Text,
   View
 } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Color } from '../../GlobalStyles'
 import { getUserByEmail, login, register } from '../../redux/actions/users'
 import { auth } from '../../utils/config.google'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 // WebBrowser.maybeCompleteAuthSession()
 
 export default function SignIn({ navigation }) {
+  const { userToken, user } = useSelector((state) => state.users)
   const dispatch = useDispatch()
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
     iosClientId: 'iosId',
-    androidClientId: process.env.CLIENT_ID
+    androidClientId:
+      '981049209549-b2d80rtev22jklna06n2j7ingp6tfjo1.apps.googleusercontent.com'
   })
+
+  useEffect(() => {
+    const clearAll = async () => {
+      try {
+        await AsyncStorage.clear()
+      } catch (e) {}
+    }
+
+    const storeTokenAndNavigate = async () => {
+      if (user) {
+        try {
+          await AsyncStorage.setItem('token', userToken)
+        } catch (error) {
+          console.error('Error al almacenar el token:', error)
+        }
+      }
+
+      try {
+        const storedToken = await AsyncStorage.getItem('token')
+        if (storedToken) {
+          navigation.navigate('InicioDeportista')
+        }
+      } catch (error) {
+        console.error('Error al recuperar el token:', error)
+      }
+    }
+
+    clearAll()
+    storeTokenAndNavigate()
+  }, [userToken])
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
@@ -86,7 +119,10 @@ export default function SignIn({ navigation }) {
           source={require('../../assets/BGInicio.png')}
           contentFit="cover"
         />
-        <ScrollView contentContainerStyle={{height:"100%",justifyContent:"center"}} style={{height:"100%"}}>
+        <ScrollView
+          contentContainerStyle={{ height: '100%', justifyContent: 'center' }}
+          style={{ height: '100%' }}
+        >
           <Image
             style={styles.image}
             contentFit="cover"
@@ -108,9 +144,8 @@ export default function SignIn({ navigation }) {
               color: '#F25910',
               fontSize: 40,
               width: '100%',
-              textAlign: 'center'
-              ,fontWeight:600
-
+              textAlign: 'center',
+              fontWeight: 600
             }}
           >
             Bienvenido/a
@@ -143,7 +178,15 @@ export default function SignIn({ navigation }) {
                   fontSize: 18,
                   textAlign: 'center'
                 }}
-                onPress={() => navigation.navigate('IniciarSesin')}
+                onPress={() => {
+                  dispatch(
+                    login({
+                      email: 'guestUser@gmail.com',
+                      password: 'guestuser1234'
+                    })
+                  )
+                  AsyncStorage.setItem('guest', JSON.stringify({ guest: true }))
+                }}
               >
                 Iniciar sesión sin registro
               </Text>
@@ -173,8 +216,7 @@ const styles = StyleSheet.create({
   linearGradient: {
     flex: 1,
     width: '100%',
-    height: '100%',
- 
+    height: '100%'
   },
   button: {
     backgroundColor: '#E2DCEC',

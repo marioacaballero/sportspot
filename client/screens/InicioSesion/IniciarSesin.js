@@ -104,17 +104,16 @@ const IniciarSesin = ({ navigation }) => {
             color={Color.violeta2}
           />
         )}
-        
+
         <View style={styles.frameGroup}>
-        <Text
+          <Text
             style={{
               color: '#F25910',
               fontSize: 40,
               width: '100%',
-              textAlign: 'center'
-              ,fontWeight:600,
-              marginBottom:20
-
+              textAlign: 'center',
+              fontWeight: 600,
+              marginBottom: 20
             }}
           >
             Tu cuenta

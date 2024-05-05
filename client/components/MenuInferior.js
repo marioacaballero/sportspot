@@ -1,17 +1,21 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Pressable, Image } from 'react-native'
+import { StyleSheet, View, Pressable, Image, Dimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { Color } from '../GlobalStyles'
 import UltimasSVG from './SVG/UltimasSVG'
 import HomeSVG from './SVG/HomeSVG'
 import HistorialSVG from './SVG/HistorialSVG'
 import PerfilSVG from './SVG/PerfilSVG'
 import CorazonMenuInferiorSVG from './SVG/CorazonMenuInferiosSVG'
-import { Ellipse, Line, Svg } from 'react-native-svg'
+import { useDispatch, useSelector } from 'react-redux'
+import { setShowGuestModal } from '../redux/slices/events.slices'
 
 const MenuInferior = () => {
+  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.users)
   const navigation = useNavigation()
   const [selectedIcon, setSelectedIcon] = useState(null)
+
+  const isGuest = user?.email === 'guestUser@gmail.com'
 
   const handleIconPress = (iconName) => {
     if (selectedIcon === iconName) {
@@ -21,27 +25,35 @@ const MenuInferior = () => {
     }
   }
 
+  // const getUserType = async () => {
+  //   const userType = await AsyncStorage.getItem('guest')
+  //   return JSON.parse(userType)
+  // esta puede ser una opcion para obtener el type guest pero es mas sencillo hacer condicionales en base al email del user.
+  // }
+  // console.log('users: ', user)
+  // useEffect(() => {
+  //   getUserType()
+  // }, [])
   return (
     <View style={styles.menInferior}>
-      <View style={styles.contenedor}>
-        <Svg
-          style={styles.onda}
-          width="77"
-          height="40"
-          viewBox="0 5 42 38"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {/* Elipse exterior con borde celeste */}
-          <Ellipse cx="18.5" rx="34.5" ry="22" stroke="#a3b4ff" strokeWidth="1.6" fill="none" />
-          {/* Elipse interior */}
-          <Ellipse  cx="18.5" rx="34.5" ry="22" fill="#FFFF"  />
-        </Svg>
-      </View>
+      <Image
+        style={{
+          width: 74,
+          height: 14,
+          position: 'absolute',
+          left: Dimensions.get('screen').width / 2 - 37,
+          bottom: 50
+        }}
+        source={require('../assets/midButtonCurve.png')}
+      />
       <View style={styles.groupContainer}>
         <Pressable
           style={styles.container}
           onPress={() => {
+            if (isGuest) {
+              dispatch(setShowGuestModal(true))
+              return
+            }
             if (selectedIcon !== 'UltimasConsultas') {
               handleIconPress('UltimasConsultas')
               navigation.navigate('UltimasConsultas')
@@ -55,6 +67,10 @@ const MenuInferior = () => {
         <Pressable
           style={[styles.vector, styles.frameLayout]}
           onPress={() => {
+            if (isGuest) {
+              dispatch(setShowGuestModal(true))
+              return
+            }
             if (selectedIcon !== 'Favoritos1') {
               handleIconPress('Favoritos1')
               navigation.navigate('Favoritos1')
@@ -79,6 +95,10 @@ const MenuInferior = () => {
         <Pressable
           style={styles.container2}
           onPress={() => {
+            if (isGuest) {
+              dispatch(setShowGuestModal(true))
+              return
+            }
             if (selectedIcon !== 'HistorialDePruebas') {
               handleIconPress('HistorialDePruebas')
               navigation.navigate('HistorialDePruebas')
@@ -94,6 +114,10 @@ const MenuInferior = () => {
         <Pressable
           style={styles.container2}
           onPress={() => {
+            if (isGuest) {
+              dispatch(setShowGuestModal(true))
+              return
+            }
             if (selectedIcon !== 'TuPerfil') {
               handleIconPress('TuPerfil')
               navigation.navigate('TuPerfil')
@@ -122,23 +146,15 @@ const styles = StyleSheet.create({
     height: 25,
     bottom: 3
   },
-  contenedor: {
-    height: 2,
-    width: '100%',
-    flexDirection: 'row',
-    position: 'relative'
-  },
   onda: {
-    height: "100px",
-    width: "100px",
-    borderColor: "black",
-    borderWidth:1,
+    height: '100px',
+    width: '100px',
     position: 'absolute',
     left: '50%',
     marginLeft: -40,
     top: -40,
     transform: [{ rotate: '180deg' }],
-    zIndex: 999
+    zIndex: 1000
   },
   container2: {
     width: 22,
@@ -163,13 +179,11 @@ const styles = StyleSheet.create({
     height: 50,
     width: '100%',
     paddingHorizontal: 20,
-    backgroundColor: '#FFFF',
-    borderTopWidth:0.8,
-    borderColor:"#a3b4ff",
-    elevation: 3, // Agregamos una elevación para la sombra
-    shadowColor: '#243682', // Color de la sombra celeste
-    shadowOpacity: 0.1, // Opacidad de la sombra
-    shadowRadius: 10, // Radio de la sombra,
+    backgroundColor: '#fff',
+    elevation: 5,
+    shadowColor: '#cecece',
+    shadowOpacity: 0.6,
+    shadowRadius: 15
   },
   groupContainer: {
     height: 65,

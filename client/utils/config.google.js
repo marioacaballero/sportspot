@@ -6,12 +6,12 @@ import { getAuth } from 'firebase/auth'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.API_KEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGE_BUCKET,
-  messagingSenderId: process.env.MESSAGIN_SENDER_ID,
-  appId: process.env.APP_ID
+  apiKey: 'AIzaSyDIfhL2U8KrnpT0aXprGAY24kc5j3CQcEw',
+  authDomain: 'sportsmatch-auth.firebaseapp.com',
+  projectId: 'sportsmatch-auth',
+  storageBucket: 'sportsmatch-auth.appspot.com',
+  messagingSenderId: '981049209549',
+  appId: '1:981049209549:web:bc67f4bc9f26de001eaf84'
 }
 
 // Initialize Firebase

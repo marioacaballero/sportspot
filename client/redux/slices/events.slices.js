@@ -22,6 +22,7 @@ export const eventsSlices = createSlice({
     loadingId: false,
     loadingGet: false,
     error: {},
+    showGuestModal: false,
     favorites: [],
     allFavorites: [],
     dateStart: '',
@@ -37,6 +38,10 @@ export const eventsSlices = createSlice({
     },
     setDateStart: (state, action) => {
       state.dateStart = action.payload
+    },
+    setShowGuestModal: (state, action) => {
+      console.log('action.payload: ', action.payload)
+      state.showGuestModal = action.payload
     },
     setDateSuscription: (state, action) => {
       state.dateSuscription = action.payload
@@ -258,6 +263,7 @@ export const {
   setDateSuscription,
   setEventFromPrice,
   setOrderEvents,
+  setShowGuestModal,
   setFiltersToFilters,
   getEventByIdRedux
 } = eventsSlices.actions
