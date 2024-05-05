@@ -6,12 +6,12 @@ import { getAuth } from 'firebase/auth'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.API_KEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGE_BUCKET,
-  messagingSenderId: process.env.MESSAGIN_SENDER_ID,
-  appId: process.env.APP_ID
+  apiKey: 'AIzaSyDpY_8__Dt6uFwUG5QZNKPiDhcWUc6bRsQ',
+  authDomain: 'aythen-spot.firebaseapp.com',
+  projectId: 'aythen-spot',
+  storageBucket: 'aythen-spot.appspot.com',
+  messagingSenderId: '195030108911',
+  appId: '1:195030108911:web:a27c228fd9d92412d2291a'
 }
 
 // Initialize Firebase

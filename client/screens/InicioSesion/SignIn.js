@@ -20,13 +20,14 @@ import { Color } from '../../GlobalStyles'
 import { getUserByEmail, login, register } from '../../redux/actions/users'
 import { auth } from '../../utils/config.google'
 
-// WebBrowser.maybeCompleteAuthSession()
+WebBrowser.maybeCompleteAuthSession()
 
 export default function SignIn({ navigation }) {
   const dispatch = useDispatch()
-  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+  const [request, response, promptAsync] = Google.useAuthRequest({
     iosClientId: 'iosId',
-    androidClientId: process.env.CLIENT_ID
+    androidClientId:
+      '195030108911-vpprilcikkcev6rmmjneblg6cd311b53.apps.googleusercontent.com'
   })
 
   useEffect(() => {
@@ -40,7 +41,9 @@ export default function SignIn({ navigation }) {
           dispatch(getUserByEmail(user.email)).then((data) => {
             if (data.payload.id) {
               const { email, password } = data.payload
-              dispatch(login({ email, password }))
+              dispatch(login({ email, password })).then(() =>
+                navigation.navigate('InicioDeportista')
+              )
             } else {
               dispatch(
                 register({
@@ -55,6 +58,7 @@ export default function SignIn({ navigation }) {
                 try {
                   const { email, password } = data.payload
                   dispatch(login({ email, password }))
+                  navigation.navigate('InicioDeportista')
                 } catch (error) {
                   console.log('Error:', error)
                 }
@@ -69,14 +73,14 @@ export default function SignIn({ navigation }) {
     return () => unsub()
   }, [response])
 
-  // useEffect(() => {
-  //   if (response?.type === 'success') {
-  //     const { id_token } = response.params
-  //     const credential = GoogleAuthProvider.credential(id_token)
-  //     signInWithCredential(auth, credential)
-  //     console.log('deberia crear el usuario')
-  //   }
-  // }, [response])
+  useEffect(() => {
+    if (response?.type === 'success') {
+      const { id_token } = response.params
+      const credential = GoogleAuthProvider.credential(id_token)
+      signInWithCredential(auth, credential)
+      console.log('deberia crear el usuario')
+    }
+  }, [response])
 
   return (
     <View style={styles.container}>
@@ -86,7 +90,10 @@ export default function SignIn({ navigation }) {
           source={require('../../assets/BGInicio.png')}
           contentFit="cover"
         />
-        <ScrollView contentContainerStyle={{height:"100%",justifyContent:"center"}} style={{height:"100%"}}>
+        <ScrollView
+          contentContainerStyle={{ height: '100%', justifyContent: 'center' }}
+          style={{ height: '100%' }}
+        >
           <Image
             style={styles.image}
             contentFit="cover"
@@ -108,9 +115,8 @@ export default function SignIn({ navigation }) {
               color: '#F25910',
               fontSize: 40,
               width: '100%',
-              textAlign: 'center'
-              ,fontWeight:600
-
+              textAlign: 'center',
+              fontWeight: 600
             }}
           >
             Bienvenido/a
@@ -173,8 +179,7 @@ const styles = StyleSheet.create({
   linearGradient: {
     flex: 1,
     width: '100%',
-    height: '100%',
- 
+    height: '100%'
   },
   button: {
     backgroundColor: '#E2DCEC',
