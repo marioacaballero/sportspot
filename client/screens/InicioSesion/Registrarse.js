@@ -102,7 +102,10 @@ const Registrarse = () => {
         source={require('../../assets/BGInicio.png')}
         contentFit="cover"
       />
-      <ScrollView contentContainerStyle={{height:"100%",justifyContent:"center"}}style={styles.frameParent}>
+      <ScrollView
+        contentContainerStyle={{ height: '100%', justifyContent: 'center' }}
+        style={styles.frameParent}
+      >
         <View style={styles.capturaDePantalla20231024Parent}>
           <Image
             style={styles.capturaDePantalla20231024Icon}
@@ -122,13 +125,14 @@ const Registrarse = () => {
               onSubmitEditing={() => emailInputRef.current.focus()}
             />
           </View> */}
-<Text
+          <Text
             style={{
               color: '#F25910',
               fontSize: 40,
               width: '100%',
-              textAlign: 'center',marginBottom:20
-              ,fontWeight:600
+              textAlign: 'center',
+              marginBottom: 20,
+              fontWeight: 600
             }}
           >
             Nuevo usuario
@@ -278,7 +282,6 @@ const styles = StyleSheet.create({
     marginTop: '10%'
   },
   frameParent: {
-    paddingVertical: '20%',
     paddingHorizontal: 15,
     flex: 1,
     width: '100%'

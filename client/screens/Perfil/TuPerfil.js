@@ -23,6 +23,7 @@ import { getUser } from '../../redux/actions/users'
 
 import OrganizadorModal from '../../components/AccesoOrganizadorModal'
 import DatosDeportista from '../../components/DatosDeportista'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 // import { SafeAreaView } from 'react-native-safe-area-context'
 
 const TuPerfil = () => {
@@ -34,7 +35,7 @@ const TuPerfil = () => {
   const { user } = useSelector((state) => state.users)
 
   useEffect(() => {
-    dispatch(getUser(user.id))
+    dispatch(getUser(user?.id))
   }, [])
 
   const getModalState = () => {
@@ -91,7 +92,7 @@ const TuPerfil = () => {
                     Nombre Completo:
                   </Text>
                   <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-                    {user.name} {user.lastName}
+                    {user?.name} {user?.lastName}
                   </Text>
                 </>
               ) : (
@@ -256,7 +257,7 @@ const TuPerfil = () => {
                 <Megafone style={styles.solarsettingsBoldIcon2} />
               </View>
               <Text style={[styles.cerrarSesin, styles.cerrarSesinTypo]}>
-                {user.rol === 'sportsman'
+                {user?.rol === 'sportsman'
                   ? 'Ser organizador'
                   : 'Ser deportista'}
               </Text>
@@ -267,15 +268,9 @@ const TuPerfil = () => {
                 styles.solarsettingsBoldParent1,
                 styles.solarsettingsSpaceBlock
               ]}
-              onPress={() => {
-                // AsyncStorage.clear()
-                //   .then(() => {
-                //     navigation.navigate('IniciarSesin')
-                //   })
-                //   .catch((error) => {
-                //     console.error('Error al borrar AsyncStorage:', error)
-                //   })
-                dispatch(clearUser())
+              onPress={async () => {
+                // await AsyncStorage.clear()
+                await dispatch(clearUser())
                 navigation.navigate('IniciarSesin')
               }}
             >

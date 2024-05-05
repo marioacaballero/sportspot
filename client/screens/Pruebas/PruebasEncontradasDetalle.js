@@ -27,6 +27,7 @@ import EditEvent from '../../components/EditEvent'
 import EscribirResea from '../../components/EscribirResea'
 import ModalSuscription from '../../components/ModalSuscription'
 import CardReview from './CardReview'
+import { setShowGuestModal } from '../../redux/slices/events.slices'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -45,6 +46,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   const [favorites, setFavorites] = useState()
   const [showModal, setShowModal] = useState(false)
   const stateName = favorites && favorites?.some((fav) => fav.id === event?.id)
+  const isGuest = user?.email === 'guestUser@gmail.com'
 
   const nameState = () => {
     if (stateName !== undefined) {
@@ -208,7 +210,15 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                     source={require('../../assets/claritysharesolid.png')}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={handleFavorite}>
+                <TouchableOpacity
+                  onPress={() => {
+                    if (isGuest) {
+                      dispatch(setShowGuestModal(true))
+                      return
+                    }
+                    handleFavorite()
+                  }}
+                >
                   <MaterialCommunityIcons
                     name={name ? 'cards-heart' : 'cards-heart-outline'}
                     color="#F25910"
@@ -283,7 +293,14 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               setModalSuscription(false)
             }}
           >
-            <View style={styles.modalOverlay}>
+            <View
+              style={{
+                backgroundColor: 'rgba(0,0,0,0.3)',
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
               <ModalSuscription
                 user={user}
                 event={eventState}
@@ -330,12 +347,6 @@ const styles = StyleSheet.create({
   linearGradient: {
     flex: 1,
     width: '100%'
-  },
-  modalOverlay: {
-    height: '85%',
-    width: '90%',
-    marginLeft: '5%',
-    alignItems: 'center'
   },
   reseasDeLaTypo: {
     color: Color.sportsNaranja,

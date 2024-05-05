@@ -22,7 +22,7 @@ import {
 import PopupAlerta from '../../components/PopupAlerta'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { favorite } from '../../redux/actions/events'
+import { favorite } from '../../redux/actions/users'
 
 const Favoritos = ({ route }) => {
   const navigation = useNavigation()

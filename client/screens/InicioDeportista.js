@@ -8,7 +8,6 @@ import {
   Image,
   Modal,
   TouchableWithoutFeedback,
-  Button,
   TouchableOpacity
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
@@ -19,17 +18,24 @@ import InicioBUSCADOR from './InicioBUSCADOR'
 import InicioOrganizador from './Organizador/InicioOrganizador'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllEvents } from '../redux/actions/events'
-import { getEventByIdRedux } from '../redux/slices/events.slices'
+import {
+  getEventByIdRedux,
+  setShowGuestModal
+} from '../redux/slices/events.slices'
 import { ActivityIndicator } from 'react-native-paper'
 import DatosDeportista from '../components/DatosDeportista'
 // import { SafeAreaView } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { getOneCustomer } from '../redux/actions/stripe'
+import { LinearGradient } from 'expo-linear-gradient'
+import GuestUserModal from '../components/utils/GuestUserModal'
 
 const InicioDeportista = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
-  const { events, loadingGet } = useSelector((state) => state.events)
+  const { events, loadingGet, showGuestModal } = useSelector(
+    (state) => state.events
+  )
   const { user } = useSelector((state) => state.users)
   const [modalPremium, setModalPremium] = useState(false)
   const [modalNotifications, setModalNotifications] = useState(false)
@@ -111,6 +117,8 @@ const InicioDeportista = () => {
     return diferenciaDias >= 1
   })
 
+  const isGuest = user?.email === 'guestUser@gmail.com'
+
   if (loadingGet) {
     return (
       <View>
@@ -133,388 +141,470 @@ const InicioDeportista = () => {
     )
   } else {
     return (
-      <ScrollView style={styles.inicioDeportista}>
-        {modalState !== 'alreadyShowed' && (
-          <DatosDeportista
-            modalSport={modalSport}
-            setModalSport={setModalSport}
-          />
-        )}
-        <View style={[styles.frameParent, styles.frameParentFlexBox]}>
-          <View style={[styles.helloAshfakParent, styles.frameGroupFlexBox]}>
-            <Image
-              style={styles.imageTop}
-              source={require('../assets/spotsport.png')}
-            />
-            <View style={styles.groupParent}>
-              <Pressable style={styles.wrapper} onPress={toggleModalPremium}>
-                <Image
-                  style={styles.iconLayout}
-                  contentFit="cover"
-                  source={require('../assets/group-11712766982.png')}
-                />
-                <Modal
-                  animationType="fade"
-                  transparent={true}
-                  visible={modalPremium}
-                >
-                  <TouchableWithoutFeedback onPress={toggleModalPremium}>
-                    <View style={styles.modalOverlay}>
-                      <View>
-                        <PopupPremium setModalVisible={setModalPremium} />
-                      </View>
-                    </View>
-                  </TouchableWithoutFeedback>
-                </Modal>
-              </Pressable>
-
-              <Pressable
-                style={styles.materialSymbolsnotifications}
-                onPress={toggleModalNotifications}
-              >
-                <Image
-                  style={[styles.icon1, styles.iconLayout]}
-                  contentFit="cover"
-                  source={require('../assets/materialsymbolsnotifications.png')}
-                />
-                <Modal
-                  animationType="fade"
-                  transparent={true}
-                  visible={modalNotifications}
-                >
-                  <TouchableWithoutFeedback onPress={toggleModalNotifications}>
-                    <View style={styles.modalOverlay}>
-                      <View>
-                        <InicioNotificaciones />
-                      </View>
-                    </View>
-                  </TouchableWithoutFeedback>
-                </Modal>
-              </Pressable>
-            </View>
-          </View>
-
-          {buscador && (
-            <Pressable
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}
-              onPress={handleBuscarPress}
-            >
-              <View style={styles.buscarWrapper}>
-                <Image
-                  style={styles.icbaselineSearchIcon}
-                  contentFit="cover"
-                  source={require('../assets/icbaselinesearch.png')}
-                />
-                <Text style={styles.buscar}>Buscar</Text>
-              </View>
-            </Pressable>
-          )}
-
-          <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
-            <Pressable
-              style={styles.helloAshfakGroup}
-              onPress={() => toggleModalOrganizador()}
-            >
-              <Text style={styles.helloTypo}>Deportista</Text>
-              <Text
-                style={{
-                  fontSize: 50,
-                  color: 'white',
-                  backgroundColor: !modalOrganizador
-                    ? Color.sportsNaranja
-                    : Color.naranja3,
-                  width: 6,
-                  height: 6,
-                  textAlign: 'center',
-                  lineHeight: 100,
-                  borderRadius: 50,
-                  overflow: 'hidden'
-                }}
-              ></Text>
-            </Pressable>
-            <Pressable
-              style={styles.helloAshfakGroup}
-              onPress={() => toggleModalOrganizador()}
-            >
-              <Text style={[styles.helloAshfak2, styles.helloTypo]}>
-                Organizador
-              </Text>
-              <Text
-                style={{
-                  fontSize: 50,
-                  color: 'white',
-                  backgroundColor: modalOrganizador
-                    ? Color.sportsNaranja
-                    : Color.naranja3,
-                  width: 6,
-                  height: 6,
-                  textAlign: 'center',
-                  lineHeight: 100,
-                  borderRadius: 50,
-                  overflow: 'hidden'
-                }}
-              ></Text>
-            </Pressable>
-          </View>
-          {!buscador && !modalOrganizador && (
-            <InicioBUSCADOR
-              setMostrarInicioBuscador={setMostrarInicioBuscador}
+      <LinearGradient
+        colors={['#fff', '#f1f1f1']}
+        style={{ flex: 1 }}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+      >
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {modalState !== 'alreadyShowed' && (
+            <DatosDeportista
+              modalSport={modalSport}
+              setModalSport={setModalSport}
             />
           )}
-        {!buscador && !modalOrganizador && (
-            <View style={{ flexDirection: "row", width: "100%", justifyContent: "space-around" }}>
-            <View style={{ alignItems: "center" }}>
-              <Text style={{ fontWeight: "bold",color:Color.sportsVioleta }}>Mis puntos</Text>
-              <Text style={{ fontSize: 28, color: Color.sportsNaranja}}>50</Text>
-
-            </View>
-            <View style={{ borderLeftWidth: 1, borderColor: "#6987ff", paddingHorizontal: 20, alignItems: "center", flexDirection: "column", justifyContent: "center" }}>
-              <TouchableOpacity style={{ borderRadius: 50, flexDirection: "row", alignItems: "center", backgroundColor: Color.sportsNaranja, paddingHorizontal: 20, paddingVertical: 10 }}><Text style={{ fontWeight: "bold", color: "white" }}>Acceder a premios</Text></TouchableOpacity>
-            </View>
-          </View>
-        )}
-          {modalOrganizador ? (
-            <InicioOrganizador />
-          ) : (
-            <View style={styles.frameContainer}>
-              <View style={{ alignItems: 'center' }}>
-                <Text style={styles.helloTypoScroll}>
-                  Últimas horas de inscripción
-                </Text>
-                <ScrollView
-                  style={{ alignSelf: 'flex-start' }}
-                  horizontal={true}
-                  showsHorizontalScrollIndicator={false}
+          <View style={[styles.frameParent, styles.frameParentFlexBox]}>
+            <View style={[styles.helloAshfakParent, styles.frameGroupFlexBox]}>
+              <Image
+                style={styles.imageTop}
+                source={require('../assets/spotsport.png')}
+              />
+              <View style={styles.groupParent}>
+                <Pressable
+                  style={styles.wrapper}
+                  onPress={() => {
+                    if (isGuest) {
+                      dispatch(setShowGuestModal(true))
+                      return
+                    }
+                    toggleModalPremium()
+                  }}
                 >
-                  {lastHours?.map((event, i) => (
-                    <Pressable
-                      key={i}
-                      style={
-                        i === 0
-                          ? styles.image94ParentShadowBox1
-                          : styles.image94ParentShadowBox
-                      }
-                      onPress={() => {
-                        dispatch(getEventByIdRedux(event.id))
-                        navigation.navigate('PruebasEncontradasDetalle')
-                      }}
-                    >
-                      <Image
-                        style={[styles.image94Icon, styles.image94IconLayout]}
-                        contentFit="cover"
-                        source={{ uri: event.image }}
-                      />
-                      <View
-                        style={[
-                          styles.imGoingToShakeYParent,
-                          styles.frameGroupSpaceBlock
-                        ]}
-                      >
-                        <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                          {event?.title}
-                        </Text>
-                        <View style={styles.minParent}>
-                          <Text style={[styles.min, styles.minClr]}>
-                            {event?.description}
-                          </Text>
-                          {/* <Text style={[styles.min1, styles.minTypo1]}>
-                          {event?.header}
-                        </Text> */}
-                        </View>
-                      </View>
-                    </Pressable>
-                  ))}
-                </ScrollView>
-              </View>
-              <View style={{ alignItems: 'center' }}>
-                <Text style={styles.helloTypoScroll}>
-                  Últimas pruebas añadidas
-                </Text>
-
-                <ScrollView
-                  horizontal={true}
-                  showsHorizontalScrollIndicator={false}
-                >
-                  {latestEventsAdded?.map((event, i) => (
-                    <Pressable
-                      key={i}
-                      style={
-                        i === 0
-                          ? styles.image94ParentShadowBox1
-                          : styles.image94ParentShadowBox
-                      }
-                      onPress={() => {
-                        dispatch(getEventByIdRedux(event.id))
-                        navigation.navigate('PruebasEncontradasDetalle')
-                      }}
-                    >
-                      <Image
-                        style={[styles.image94Icon, styles.image94IconLayout]}
-                        contentFit="cover"
-                        source={{ uri: event.image }}
-                      />
-                      <View
-                        style={[
-                          styles.imGoingToShakeYParent,
-                          styles.frameGroupSpaceBlock
-                        ]}
-                      >
-                        <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                          {event?.title}
-                        </Text>
-                        <View style={styles.minParent}>
-                          <Text style={[styles.min, styles.minClr]}>
-                            {event?.description}
-                          </Text>
-                          {/* <Text style={[styles.min1, styles.minTypo1]}>
-                          {event?.header}
-                        </Text> */}
-                        </View>
-                      </View>
-                    </Pressable>
-                  ))}
-                </ScrollView>
-              </View>
-              <View style={{ alignItems: 'center' }}>
-                <Text style={styles.helloTypoScroll}>
-                  Resultados de las útlimas pruebas
-                </Text>
-                <ScrollView
-                  horizontal={true}
-                  showsHorizontalScrollIndicator={false}
-                >
-                  {eventsExpired?.map((event, i) => (
-                    <Pressable
-                      key={i}
-                      style={
-                        i === 0
-                          ? styles.image94ParentShadowBox1
-                          : styles.image94ParentShadowBox
-                      }
-                      onPress={() => {
-                        dispatch(getEventByIdRedux(event.id))
-                        navigation.navigate('PruebasEncontradasDetalle')
-                      }}
-                    >
-                      <Image
-                        style={[styles.image94Icon, styles.image94IconLayout]}
-                        contentFit="cover"
-                        source={{ uri: event.image }}
-                      />
-                      <View
-                        style={[
-                          styles.imGoingToShakeYParent,
-                          styles.frameGroupSpaceBlock
-                        ]}
-                      >
-                        <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                          {event?.title}
-                        </Text>
-                        <View style={styles.minParent}>
-                          <Text style={[styles.min, styles.minClr]}>
-                            {event?.description}
-                          </Text>
-                          {/* <Text style={[styles.min1, styles.minTypo1]}>
-                          {event?.header}
-                        </Text> */}
-                        </View>
-                      </View>
-                    </Pressable>
-                  ))}
-                </ScrollView>
-                {/* <ScrollView
-                  // style={{ marginBottom: 10 }}
-                  horizontal={true}
-                  showsHorizontalScrollIndicator={false}
-                >
-                  <View style={styles.image94ParentShadowBox1}>
-                    <Image
-                      style={[styles.image94Icon, styles.image94IconLayout]}
-                      contentFit="cover"
-                      source={require('../assets/image-943.png')}
-                    />
-                    <View
-                      style={[
-                        styles.imGoingToShakeYParent,
-                        styles.frameGroupSpaceBlock
-                      ]}
-                    >
-                      <Text style={[styles.imGoingTo2, styles.minTypo]}>
-                        Lorem ipsum
-                      </Text>
-                      <View style={styles.minParent}>
-                        <Text style={[styles.min10, styles.minTypo]}>
-                          Lorem ipsum dolor sit amet.{' '}
-                        </Text>
-                        <Text style={[styles.min10, styles.minTypo]}>
-                          Lorem ipsum dolor sit amet.{' '}
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                  <View style={styles.image94ParentShadowBox}>
-                    <Image
-                      style={[styles.image94Icon, styles.image94IconLayout]}
-                      contentFit="cover"
-                      source={require('../assets/image-944.png')}
-                    />
-                    <View
-                      style={[
-                        styles.imGoingToShakeYParent,
-                        styles.frameGroupSpaceBlock
-                      ]}
-                    >
-                      <Text style={[styles.imGoingTo2, styles.minTypo]}>
-                        Lorem ipsum
-                      </Text>
-                      <View style={styles.minParent}>
-                        <Text style={[styles.min10, styles.minTypo]}>
-                          Lorem ipsum dolor sit amet.{' '}
-                        </Text>
-                        <Text style={[styles.min10, styles.minTypo]}>
-                          Lorem ipsum dolor sit amet.{' '}
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                  <View
-                    style={[styles.image94ParentShadowBox, styles.marginCard]}
+                  <Image
+                    style={styles.iconLayout}
+                    contentFit="cover"
+                    source={require('../assets/group-11712766982.png')}
+                  />
+                  <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={modalPremium}
                   >
-                    <Image
-                      style={styles.image94Icon}
-                      contentFit="cover"
-                      source={require('../assets/image-945.png')}
-                    />
-                    <View
-                      style={[
-                        styles.imGoingToShakeYParent,
-                        styles.frameGroupSpaceBlock
-                      ]}
-                    >
-                      <Text style={[styles.imGoingTo2, styles.minTypo]}>
-                        Lorem ipsum
-                      </Text>
-                      <View style={styles.minParent}>
-                        <Text style={[styles.min10, styles.minTypo]}>
-                          Lorem ipsum dolor sit amet
-                        </Text>
-                        <Text style={[styles.min10, styles.minTypo]}>
-                          Lorem ipsum dolor sit amet.{' '}
-                        </Text>
+                    <TouchableWithoutFeedback onPress={toggleModalPremium}>
+                      <View style={styles.modalOverlay}>
+                        <View>
+                          <PopupPremium setModalVisible={setModalPremium} />
+                        </View>
                       </View>
-                    </View>
-                  </View>
-                </ScrollView> */}
+                    </TouchableWithoutFeedback>
+                  </Modal>
+                </Pressable>
+
+                <Pressable
+                  style={styles.materialSymbolsnotifications}
+                  onPress={() => {
+                    if (isGuest) {
+                      dispatch(setShowGuestModal(true))
+                      return
+                    }
+                    toggleModalNotifications()
+                  }}
+                >
+                  <Image
+                    style={[styles.icon1, styles.iconLayout]}
+                    contentFit="cover"
+                    source={require('../assets/materialsymbolsnotifications.png')}
+                  />
+                  <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={modalNotifications}
+                  >
+                    <TouchableWithoutFeedback
+                      onPress={toggleModalNotifications}
+                    >
+                      <View style={styles.modalOverlay}>
+                        <View>
+                          <InicioNotificaciones />
+                        </View>
+                      </View>
+                    </TouchableWithoutFeedback>
+                  </Modal>
+                  <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={showGuestModal}
+                  >
+                    <TouchableWithoutFeedback
+                      onPress={() => {
+                        console.log('toggle guest modal')
+                        dispatch(setShowGuestModal(false))
+                      }}
+                    >
+                      <View
+                        style={{
+                          flex: 1,
+                          backgroundColor: 'rgba(0,0,0,0.3)',
+                          justifyContent: 'center',
+                          alignItems: 'center'
+                        }}
+                      >
+                        <GuestUserModal
+                          onClose={() => dispatch(setShowGuestModal(false))}
+                        />
+                      </View>
+                    </TouchableWithoutFeedback>
+                  </Modal>
+                </Pressable>
               </View>
             </View>
-          )}
-        </View>
-      </ScrollView>
+
+            {buscador && (
+              <Pressable
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+                onPress={handleBuscarPress}
+              >
+                <View style={styles.buscarWrapper}>
+                  <Image
+                    style={styles.icbaselineSearchIcon}
+                    contentFit="cover"
+                    source={require('../assets/icbaselinesearch.png')}
+                  />
+                  <Text style={styles.buscar}>Buscar</Text>
+                </View>
+              </Pressable>
+            )}
+
+            <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
+              <Pressable
+                style={styles.helloAshfakGroup}
+                onPress={() => toggleModalOrganizador()}
+              >
+                <Text style={styles.helloTypo}>Deportista</Text>
+                <Text
+                  style={{
+                    fontSize: 50,
+                    color: 'white',
+                    backgroundColor: !modalOrganizador
+                      ? Color.sportsNaranja
+                      : Color.naranja3,
+                    width: 6,
+                    height: 6,
+                    textAlign: 'center',
+                    lineHeight: 100,
+                    borderRadius: 50,
+                    overflow: 'hidden'
+                  }}
+                ></Text>
+              </Pressable>
+              <Pressable
+                style={styles.helloAshfakGroup}
+                onPress={() => toggleModalOrganizador()}
+              >
+                <Text style={[styles.helloAshfak2, styles.helloTypo]}>
+                  Organizador
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 50,
+                    color: 'white',
+                    backgroundColor: modalOrganizador
+                      ? Color.sportsNaranja
+                      : Color.naranja3,
+                    width: 6,
+                    height: 6,
+                    textAlign: 'center',
+                    lineHeight: 100,
+                    borderRadius: 50,
+                    overflow: 'hidden'
+                  }}
+                ></Text>
+              </Pressable>
+            </View>
+            {!buscador && !modalOrganizador && (
+              <InicioBUSCADOR
+                setMostrarInicioBuscador={setMostrarInicioBuscador}
+              />
+            )}
+            {!buscador && !modalOrganizador && (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  width: '100%',
+                  justifyContent: 'space-around'
+                }}
+              >
+                <View style={{ alignItems: 'center' }}>
+                  <Text
+                    style={{ fontWeight: 'bold', color: Color.sportsVioleta }}
+                  >
+                    Mis puntos
+                  </Text>
+                  <Text style={{ fontSize: 28, color: Color.sportsNaranja }}>
+                    50
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    borderLeftWidth: 1,
+                    borderColor: '#6987ff',
+                    paddingHorizontal: 20,
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <TouchableOpacity
+                    style={{
+                      borderRadius: 50,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      backgroundColor: Color.sportsNaranja,
+                      paddingHorizontal: 20,
+                      paddingVertical: 10
+                    }}
+                  >
+                    <Text style={{ fontWeight: 'bold', color: 'white' }}>
+                      Acceder a premios
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+            {modalOrganizador ? (
+              <InicioOrganizador />
+            ) : (
+              <View style={styles.frameContainer}>
+                <View style={{ alignItems: 'center' }}>
+                  <Text style={styles.helloTypoScroll}>
+                    Últimas horas de inscripción
+                  </Text>
+                  <ScrollView
+                    style={{ alignSelf: 'flex-start' }}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                  >
+                    {lastHours?.map((event, i) => (
+                      <Pressable
+                        key={i}
+                        style={
+                          i === 0
+                            ? styles.image94ParentShadowBox1
+                            : styles.image94ParentShadowBox
+                        }
+                        onPress={() => {
+                          dispatch(getEventByIdRedux(event.id))
+                          navigation.navigate('PruebasEncontradasDetalle')
+                        }}
+                      >
+                        <Image
+                          style={[styles.image94Icon, styles.image94IconLayout]}
+                          contentFit="cover"
+                          source={{ uri: event.image }}
+                        />
+                        <View
+                          style={[
+                            styles.imGoingToShakeYParent,
+                            styles.frameGroupSpaceBlock
+                          ]}
+                        >
+                          <Text style={[styles.imGoingTo, styles.goingTypo]}>
+                            {event?.title}
+                          </Text>
+                          <View style={styles.minParent}>
+                            <Text style={[styles.min, styles.minClr]}>
+                              {event?.description}
+                            </Text>
+                            {/* <Text style={[styles.min1, styles.minTypo1]}>
+                           {event?.header}
+                         </Text> */}
+                          </View>
+                        </View>
+                      </Pressable>
+                    ))}
+                  </ScrollView>
+                </View>
+                <View style={{ alignItems: 'center' }}>
+                  <Text style={styles.helloTypoScroll}>
+                    Últimas pruebas añadidas
+                  </Text>
+
+                  <ScrollView
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                  >
+                    {latestEventsAdded?.map((event, i) => (
+                      <Pressable
+                        key={i}
+                        style={
+                          i === 0
+                            ? styles.image94ParentShadowBox1
+                            : styles.image94ParentShadowBox
+                        }
+                        onPress={() => {
+                          dispatch(getEventByIdRedux(event.id))
+                          navigation.navigate('PruebasEncontradasDetalle')
+                        }}
+                      >
+                        <Image
+                          style={[styles.image94Icon, styles.image94IconLayout]}
+                          contentFit="cover"
+                          source={{ uri: event.image }}
+                        />
+                        <View
+                          style={[
+                            styles.imGoingToShakeYParent,
+                            styles.frameGroupSpaceBlock
+                          ]}
+                        >
+                          <Text style={[styles.imGoingTo, styles.goingTypo]}>
+                            {event?.title}
+                          </Text>
+                          <View style={styles.minParent}>
+                            <Text style={[styles.min, styles.minClr]}>
+                              {event?.description}
+                            </Text>
+                            {/* <Text style={[styles.min1, styles.minTypo1]}>
+                           {event?.header}
+                         </Text> */}
+                          </View>
+                        </View>
+                      </Pressable>
+                    ))}
+                  </ScrollView>
+                </View>
+                <View style={{ alignItems: 'center' }}>
+                  <Text style={styles.helloTypoScroll}>
+                    Resultados de las útlimas pruebas
+                  </Text>
+                  <ScrollView
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                  >
+                    {eventsExpired?.map((event, i) => (
+                      <Pressable
+                        key={i}
+                        style={
+                          i === 0
+                            ? styles.image94ParentShadowBox1
+                            : styles.image94ParentShadowBox
+                        }
+                        onPress={() => {
+                          dispatch(getEventByIdRedux(event.id))
+                          navigation.navigate('PruebasEncontradasDetalle')
+                        }}
+                      >
+                        <Image
+                          style={[styles.image94Icon, styles.image94IconLayout]}
+                          contentFit="cover"
+                          source={{ uri: event.image }}
+                        />
+                        <View
+                          style={[
+                            styles.imGoingToShakeYParent,
+                            styles.frameGroupSpaceBlock
+                          ]}
+                        >
+                          <Text style={[styles.imGoingTo, styles.goingTypo]}>
+                            {event?.title}
+                          </Text>
+                          <View style={styles.minParent}>
+                            <Text style={[styles.min, styles.minClr]}>
+                              {event?.description}
+                            </Text>
+                            {/* <Text style={[styles.min1, styles.minTypo1]}>
+                           {event?.header}
+                         </Text> */}
+                          </View>
+                        </View>
+                      </Pressable>
+                    ))}
+                  </ScrollView>
+                  {/* <ScrollView
+                   // style={{ marginBottom: 10 }}
+                   horizontal={true}
+                   showsHorizontalScrollIndicator={false}
+                 >
+                   <View style={styles.image94ParentShadowBox1}>
+                     <Image
+                       style={[styles.image94Icon, styles.image94IconLayout]}
+                       contentFit="cover"
+                       source={require('../assets/image-943.png')}
+                     />
+                     <View
+                       style={[
+                         styles.imGoingToShakeYParent,
+                         styles.frameGroupSpaceBlock
+                       ]}
+                     >
+                       <Text style={[styles.imGoingTo2, styles.minTypo]}>
+                         Lorem ipsum
+                       </Text>
+                       <View style={styles.minParent}>
+                         <Text style={[styles.min10, styles.minTypo]}>
+                           Lorem ipsum dolor sit amet.{' '}
+                         </Text>
+                         <Text style={[styles.min10, styles.minTypo]}>
+                           Lorem ipsum dolor sit amet.{' '}
+                         </Text>
+                       </View>
+                     </View>
+                   </View>
+                   <View style={styles.image94ParentShadowBox}>
+                     <Image
+                       style={[styles.image94Icon, styles.image94IconLayout]}
+                       contentFit="cover"
+                       source={require('../assets/image-944.png')}
+                     />
+                     <View
+                       style={[
+                         styles.imGoingToShakeYParent,
+                         styles.frameGroupSpaceBlock
+                       ]}
+                     >
+                       <Text style={[styles.imGoingTo2, styles.minTypo]}>
+                         Lorem ipsum
+                       </Text>
+                       <View style={styles.minParent}>
+                         <Text style={[styles.min10, styles.minTypo]}>
+                           Lorem ipsum dolor sit amet.{' '}
+                         </Text>
+                         <Text style={[styles.min10, styles.minTypo]}>
+                           Lorem ipsum dolor sit amet.{' '}
+                         </Text>
+                       </View>
+                     </View>
+                   </View>
+                   <View
+                     style={[styles.image94ParentShadowBox, styles.marginCard]}
+                   >
+                     <Image
+                       style={styles.image94Icon}
+                       contentFit="cover"
+                       source={require('../assets/image-945.png')}
+                     />
+                     <View
+                       style={[
+                         styles.imGoingToShakeYParent,
+                         styles.frameGroupSpaceBlock
+                       ]}
+                     >
+                       <Text style={[styles.imGoingTo2, styles.minTypo]}>
+                         Lorem ipsum
+                       </Text>
+                       <View style={styles.minParent}>
+                         <Text style={[styles.min10, styles.minTypo]}>
+                           Lorem ipsum dolor sit amet
+                         </Text>
+                         <Text style={[styles.min10, styles.minTypo]}>
+                           Lorem ipsum dolor sit amet.{' '}
+                         </Text>
+                       </View>
+                     </View>
+                   </View>
+                 </ScrollView> */}
+                </View>
+              </View>
+            )}
+          </View>
+        </ScrollView>
+      </LinearGradient>
     )
   }
 }
@@ -677,11 +767,11 @@ const styles = StyleSheet.create({
     height: 162,
     width: 187,
     shadowOpacity: 1,
-    elevation: 10,
-    shadowRadius: 10,
+    elevation: 4,
+    shadowRadius: 4,
     shadowOffset: {
       width: 2,
-      height: 4
+      height: 2
     },
     shadowColor: 'black',
     alignItems: 'center',
@@ -694,11 +784,11 @@ const styles = StyleSheet.create({
     height: 162,
     width: 187,
     shadowOpacity: 1,
-    elevation: 10,
-    shadowRadius: 10,
+    elevation: 4,
+    shadowRadius: 4,
     shadowOffset: {
       width: 2,
-      height: 4
+      height: 2
     },
     shadowColor: 'black',
     alignItems: 'center',
@@ -735,8 +825,7 @@ const styles = StyleSheet.create({
   inicioDeportista: {
     flex: 1,
     backgroundColor: Color.blanco,
-    width: '100%',
-    zIndex: 0
+    width: '100%'
   },
   modalOverlay: {
     height: '100%',

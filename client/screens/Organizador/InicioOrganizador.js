@@ -21,12 +21,15 @@ import WebSVG from '../../components/SVG/WebSVG'
 import MensajeSVG from '../../components/SVG/MensajeSVG'
 import ContactoSVG from '../../components/SVG/ContactoSVG'
 import AccesoOrganizadorModal from '../../components/AccesoOrganizadorModal'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setShowGuestModal } from '../../redux/slices/events.slices'
 
 const InicioOrganizador = () => {
   const navigation = useNavigation()
   const { user } = useSelector((state) => state.users)
-  console.log(user.rol)
+  console.log(user?.rol)
+  const isGuest = user?.email === 'guestUser@gmail.com'
+  const dispatch = useDispatch()
 
   const [modalVisible, setModalVisible] = useState(false)
 
@@ -38,7 +41,16 @@ const InicioOrganizador = () => {
     <ScrollView style={[styles.inicioOrganizador]}>
       <View style={styles.topContainer}>
         {user.rol === 'sportsman' && (
-          <Pressable style={styles.helloAshfakWrapper2} onPress={toggleModal}>
+          <Pressable
+            style={styles.helloAshfakWrapper2}
+            onPress={() => {
+              if (isGuest) {
+                dispatch(setShowGuestModal(true))
+                return
+              }
+              toggleModal()
+            }}
+          >
             <Text style={styles.buttonsText}>Acceso como organizador</Text>
           </Pressable>
         )}

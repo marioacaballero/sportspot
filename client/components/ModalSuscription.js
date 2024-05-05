@@ -1,12 +1,14 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Color, FontSize } from '../GlobalStyles'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { offSuscription } from '../redux/actions/suscriptions'
 import { suscriptionEventUser } from '../redux/actions/users'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const ModalSuscription = ({ user, event, onClose }) => {
+  const isGuest = user?.email === 'guestUser@gmail.com'
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
@@ -14,14 +16,41 @@ const ModalSuscription = ({ user, event, onClose }) => {
     (userEvent) => userEvent.id === user.id
   )
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
+    if (isGuest) {
+      const actualSuscriptions =
+        (await JSON.parse(AsyncStorage.getItem('guestSuscriptions'))
+          .actualSuscriptions) || []
+      const newSuscriptions = actualSuscriptions.filter(
+        (suscription) => suscription.id !== event.id
+      )
+      AsyncStorage.setItem(
+        'guestSuscriptions',
+        JSON.stringify({
+          actualSuscriptions: newSuscriptions
+        })
+      )
+    }
     const data = {
       id: user.id,
       eventId: event.id
     }
     dispatch(offSuscription(data))
   }
-  const onSuscribed = () => {
+  const onSuscribed = async () => {
+    if (isGuest) {
+      const actualSuscriptions =
+        (await JSON.parse(AsyncStorage.getItem('guestSuscriptions'))
+          .actualSuscriptions) || []
+      if (!actualSuscriptions.includes(event.id)) {
+        AsyncStorage.setItem(
+          'guestSuscriptions',
+          JSON.stringify({
+            actualSuscriptions: [...actualSuscriptions, event.id]
+          })
+        )
+      }
+    }
     const data = {
       id: user.id,
       eventId: event.id
@@ -68,16 +97,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 15,
     paddingVertical: 35,
-    position: 'absolute',
     backgroundColor: Color.blanco,
-    bottom: 50,
     borderRadius: 20,
-    borderWidth: 1,
-    borderColor: Color.sportsNaranja,
-    elevation: 10
+    elevation: 5
   },
   text: {
     marginBottom: 30,
+    fontWeight: 'bold',
     fontSize: FontSize.size_mini,
     color: Color.sportsVioleta
   },
@@ -92,6 +118,7 @@ const styles = StyleSheet.create({
   confirmText: {
     color: Color.sportsVioleta,
     textAlign: 'center',
+    fontWeight: 'bold',
     fontSize: 16
   }
 })
