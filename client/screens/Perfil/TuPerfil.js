@@ -396,7 +396,7 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   cerrarSesin: {
-    color: Color.violeta3
+    color: "#ffff"
   },
   solarsettingsBoldParent1: {
     backgroundColor: Color.sportsVioleta

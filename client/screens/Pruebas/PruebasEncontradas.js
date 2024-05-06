@@ -195,7 +195,7 @@ const PruebasEncontradas = () => {
                     <Text style={styles.precioDeInscripcin}>
                       {'PRECIO DE INSCRIPCIÓN: '}
                     </Text>
-                    <Text style={styles.textTypo}>{event.price}</Text>
+                    <Text style={styles.textTypo}>{event.price}€ </Text>
                   </Text>
                 </View>
               </Pressable>
@@ -241,8 +241,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Color.colorGainsboro_100,
     borderStyle: 'solid',
-    shadowOpacity: 1,
-    elevation: 4,
     shadowRadius: 4,
     shadowOffset: {
       width: 2,
@@ -295,7 +293,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     width: '100%',
     flex: 1,
-    height: 132
+    height: "100%"
   },
   senderismo: {
     fontSize: FontSize.size_sm,
@@ -307,11 +305,12 @@ const styles = StyleSheet.create({
   },
   likeSpotsport: {
     overflow: 'hidden',
-    right: '50%'
+    right: '10%'
   },
   modalidad: {
     fontFamily: FontFamily.inputPlaceholder,
-    marginLeft: 10
+    marginLeft: 10,
+    fontSize:12
   },
   imGoingToContainer: {
     fontSize: FontSize.size_3xs,
@@ -325,7 +324,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_2xs
   },
   frameView: {
-    width: 201,
+    width: 251,
     padding: Padding.p_3xs
   },
   frameContainer: {
