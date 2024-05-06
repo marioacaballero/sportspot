@@ -23,13 +23,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 // WebBrowser.maybeCompleteAuthSession()
 
+// credenciales ios: 
+// 37113049990-bbf2rvhho7uqa6pnfe4n46i6p766f00u.apps.googleusercontent.com
+
+// credenciales android: 
+// 37113049990-veui0lbk6sffhnefteii75hg1e9ncm9b.apps.googleusercontent.com
+
 export default function SignIn({ navigation }) {
   const { userToken, user } = useSelector((state) => state.users)
   const dispatch = useDispatch()
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    iosClientId: 'iosId',
+    iosClientId: '37113049990-bbf2rvhho7uqa6pnfe4n46i6p766f00u.apps.googleusercontent.com',
     androidClientId:
-      '981049209549-b2d80rtev22jklna06n2j7ingp6tfjo1.apps.googleusercontent.com'
+      '37113049990-veui0lbk6sffhnefteii75hg1e9ncm9b.apps.googleusercontent.com'
   })
 
   useEffect(() => {
@@ -70,6 +76,7 @@ export default function SignIn({ navigation }) {
         if (user.providerData[0].providerId === 'google.com') {
           console.log('=====LOGIN WITH GOOGLE=====')
           // acá se crea el usurio (cambiar por el de SpotSport)
+          console.log('aca entra cuando esta todo ok')
           dispatch(getUserByEmail(user.email)).then((data) => {
             if (data.payload.id) {
               const { email, password } = data.payload
