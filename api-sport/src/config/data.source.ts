@@ -20,9 +20,11 @@ export const DataSourceConfig: DataSourceOptions = {
   synchronize: true,
   migrationsRun: false,
   logging: false,
+  ssl:false,
   // dropSchema: true,
   //autoLoadEntities: true,
   namingStrategy: new SnakeNamingStrategy()
 }
+console.log(DataSourceConfig,"dataaaaaaaa")
 
 export const AppDataSource = new DataSource(DataSourceConfig)
