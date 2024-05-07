@@ -38,14 +38,34 @@ const MenuInferior = () => {
     <View style={styles.menInferior}>
       <Image
         style={{
-          width: 74,
-          height: 14,
+          width: Dimensions.get('screen').width,
+          height: 73,
           position: 'absolute',
-          left: Dimensions.get('screen').width / 2 - 37,
-          bottom: 50
+          left: 0,
+          bottom: 0
         }}
-        source={require('../assets/midButtonCurve.png')}
+        source={require('../assets/bottomBarPng.png')}
       />
+      <View
+        style={{
+          position: 'absolute',
+          width: 73,
+          height: 73,
+          shadowColor: '#3C006E',
+          shadowOffset: {
+            width: 20,
+            height: 20
+          },
+          shadowRadius: 10,
+          elevation: 40,
+          shadowOpacity: 1,
+          borderRadius: 100,
+          backgroundColor: '#fdfdfd',
+          zIndex: -1000,
+          bottom: 0,
+          left: Dimensions.get('screen').width / 2 - 36.5
+        }}
+      ></View>
       <View style={styles.groupContainer}>
         <Pressable
           style={styles.container}
@@ -176,14 +196,20 @@ const styles = StyleSheet.create({
     height: 33
   },
   menInferior: {
-    height: 50,
+    height: 62,
     width: '100%',
+    paddingTop: 5,
     paddingHorizontal: 20,
-    backgroundColor: '#fff',
-    elevation: 5,
-    shadowColor: '#cecece',
-    shadowOpacity: 0.6,
-    shadowRadius: 15
+    backgroundColor: '#fdfdfd',
+    shadowColor: '#3C006E',
+    zIndex: 9999999999,
+    shadowOffset: {
+      width: 20,
+      height: 20
+    },
+    shadowRadius: 10,
+    elevation: 40,
+    shadowOpacity: 1
   },
   groupContainer: {
     height: 65,

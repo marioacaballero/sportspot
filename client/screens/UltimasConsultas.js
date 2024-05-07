@@ -16,6 +16,7 @@ import BackArrowSVG from '../components/SVG/BackArrowSVG'
 import { getAllVisitedEvents } from '../redux/actions/events'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { LinearGradient } from 'expo-linear-gradient'
 
 const UltimasConsultas = () => {
   const navigation = useNavigation()
@@ -50,223 +51,244 @@ const UltimasConsultas = () => {
   }
 
   return (
-    <View style={styles.ultimasConsultas}>
-      <ScrollView>
-        <View style={styles.frameParent}>
-          <View style={{width:"100%"}}>
-            <View style={styles.titleContainer}>
-              <Text style={[styles.ltimasConsultas, styles.ciclismoTypo]}>
-                ÚLTIMAS CONSULTAS
-              </Text>
-              <Pressable></Pressable>
-            </View>
-            <View style={styles.frameGroup}>
-              <View style={[styles.path3391Parent, styles.groupParentFlexBox1]}>
-                <Pressable onPress={() => setshowSwitch(!showSwitch)}>
-                  <Image
-                    style={[
-                      styles.path3391Icon,
-
-                      showSwitch && styles.path3391IconRotate
-                    ]}
-                    contentFit="cover"
-                    source={require('../assets/path-3391.png')}
-                  />
-                </Pressable>
-                <Text
-                  onPress={() => setshowSwitch(!showSwitch)}
-                  style={[styles.ltimas24Horas, styles.ciclismoTypo]}
+    <LinearGradient
+      colors={['#fff', '#f9f9f9']}
+      style={{ flex: 1 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+    >
+      <View style={styles.ultimasConsultas}>
+        <ScrollView>
+          <View style={styles.frameParent}>
+            <View style={{ width: '100%' }}>
+              <View style={styles.titleContainer}>
+                <Text style={[styles.ltimasConsultas, styles.ciclismoTypo]}>
+                  ÚLTIMAS CONSULTAS
+                </Text>
+                <Pressable></Pressable>
+              </View>
+              <View style={styles.frameGroup}>
+                <View
+                  style={[styles.path3391Parent, styles.groupParentFlexBox1]}
                 >
-                  Últimas 24 horas
+                  <Pressable onPress={() => setshowSwitch(!showSwitch)}>
+                    <Image
+                      style={[
+                        styles.path3391Icon,
+
+                        showSwitch && styles.path3391IconRotate
+                      ]}
+                      contentFit="cover"
+                      source={require('../assets/path-3391.png')}
+                    />
+                  </Pressable>
+                  <Text
+                    onPress={() => setshowSwitch(!showSwitch)}
+                    style={[styles.ltimas24Horas, styles.ciclismoTypo]}
+                  >
+                    Últimas 24 horas
+                  </Text>
+                </View>
+                {showSwitch && (
+                  <View style={styles.switches}>
+                    <View
+                      style={[
+                        styles.ltimaSemanaParent,
+                        styles.groupParentFlexBox
+                      ]}
+                    >
+                      <Text style={styles.ltimaSemanaTypo}>
+                        Últimas 24 horas
+                      </Text>
+                      <Switch
+                        trackColor={{ false: '#767577', true: '#F25910' }}
+                        thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={() => toggleSwitch(0)}
+                        value={switchStates[0]}
+                      />
+                    </View>
+                    <View
+                      style={[
+                        styles.ltimaSemanaParent,
+                        styles.groupParentFlexBox
+                      ]}
+                    >
+                      <Text
+                        style={[styles.ltimaSemana, styles.ltimaSemanaTypo]}
+                      >
+                        Última semana
+                      </Text>
+                      <Switch
+                        trackColor={{ false: '#767577', true: '#F25910' }}
+                        thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={() => toggleSwitch(1)}
+                        value={switchStates[1]}
+                      />
+                    </View>
+                    <View
+                      style={[
+                        styles.ltimaSemanaParent,
+                        styles.groupParentFlexBox
+                      ]}
+                    >
+                      <Text
+                        style={[styles.ltimaSemana, styles.ltimaSemanaTypo]}
+                      >
+                        Último mes
+                      </Text>
+                      <Switch
+                        trackColor={{ false: '#767577', true: '#F25910' }}
+                        thumbColor={switchStates[2] ? '#FFFFFF' : '#FFFFFF'}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={() => toggleSwitch(2)}
+                        value={switchStates[2]}
+                      />
+                    </View>
+                  </View>
+                )}
+              </View>
+            </View>
+            {visitedEvents && visitedEvents?.length === 0 ? (
+              <View style={styles.consultaContainer}>
+                <Text style={styles.ultimasConsultas1}>
+                  ¡Aqui podras volver a visitar los eventos vistos
+                  recientemente!
                 </Text>
               </View>
-              {showSwitch && (
-                <View style={styles.switches}>
-                  <View
-                    style={[
-                      styles.ltimaSemanaParent,
-                      styles.groupParentFlexBox
-                    ]}
-                  >
-                    <Text style={styles.ltimaSemanaTypo}>Últimas 24 horas</Text>
-                    <Switch
-                      trackColor={{ false: '#767577', true: '#F25910' }}
-                      thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
-                      ios_backgroundColor="#3e3e3e"
-                      onValueChange={() => toggleSwitch(0)}
-                      value={switchStates[0]}
-                    />
-                  </View>
-                  <View
-                    style={[
-                      styles.ltimaSemanaParent,
-                      styles.groupParentFlexBox
-                    ]}
-                  >
-                    <Text style={[styles.ltimaSemana, styles.ltimaSemanaTypo]}>
-                      Última semana
-                    </Text>
-                    <Switch
-                      trackColor={{ false: '#767577', true: '#F25910' }}
-                      thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
-                      ios_backgroundColor="#3e3e3e"
-                      onValueChange={() => toggleSwitch(1)}
-                      value={switchStates[1]}
-                    />
-                  </View>
-                  <View
-                    style={[
-                      styles.ltimaSemanaParent,
-                      styles.groupParentFlexBox
-                    ]}
-                  >
-                    <Text style={[styles.ltimaSemana, styles.ltimaSemanaTypo]}>
-                      Último mes
-                    </Text>
-                    <Switch
-                      trackColor={{ false: '#767577', true: '#F25910' }}
-                      thumbColor={switchStates[2] ? '#FFFFFF' : '#FFFFFF'}
-                      ios_backgroundColor="#3e3e3e"
-                      onValueChange={() => toggleSwitch(2)}
-                      value={switchStates[2]}
-                    />
-                  </View>
-                </View>
-              )}
-            </View>
-          </View>
-          {visitedEvents && visitedEvents?.length === 0 ? (
-            <View style={styles.consultaContainer}>
-              <Text style={styles.ultimasConsultas1}>
-                ¡Aqui podras volver a visitar los eventos vistos recientemente!
-              </Text>
-            </View>
-          ) : (
-            visitedEvents &&
-            Array.isArray(visitedEvents) &&
-            visitedEvents?.map((event, i) => (
-              <View key={i} style={[styles.image84Parent, styles.parentBorder]}>
-                <TouchableOpacity
-                  style={{ position: 'absolute', top: 7, right: 13 }}
-                  onPress={() => {
-                    const likedCards = liked.includes(i)
-                      ? [...liked].filter((like) => like !== i)
-                      : [...liked, i]
-                    console.log('likedCards:', likedCards)
-                    setLiked(likedCards)
-                  }}
+            ) : (
+              visitedEvents &&
+              Array.isArray(visitedEvents) &&
+              visitedEvents?.map((event, i) => (
+                <View
+                  key={i}
+                  style={[styles.image84Parent, styles.parentBorder]}
                 >
-                  <MaterialCommunityIcons
-                    name={
-                      liked.includes(i) ? 'cards-heart' : 'cards-heart-outline'
-                    }
-                    color="#F25910"
-                    size={22}
+                  <TouchableOpacity
+                    style={{ position: 'absolute', top: 7, right: 13 }}
+                    onPress={() => {
+                      const likedCards = liked.includes(i)
+                        ? [...liked].filter((like) => like !== i)
+                        : [...liked, i]
+                      console.log('likedCards:', likedCards)
+                      setLiked(likedCards)
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name={
+                        liked.includes(i)
+                          ? 'cards-heart'
+                          : 'cards-heart-outline'
+                      }
+                      color="#F25910"
+                      size={22}
+                    />
+                  </TouchableOpacity>
+                  <Image
+                    style={styles.image84Icon}
+                    source={{ uri: event.event.image }}
                   />
-                </TouchableOpacity>
-                <Image
-                  style={styles.image84Icon}
-                  source={{ uri: event.event.image }}
-                />
-                <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
-                  <View style={styles.ciclismoParent}>
-                    <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
-                      {event.event.title}
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      width: '100%'
-                    }}
-                  >
-                    <View style={{ flexDirection: 'row', gap: 3 }}>
-                      <Text
-                        style={{
-                          color: Color.sportsVioleta,
-                          fontSize: 12
-                        }}
-                      >
-                        Modalidad:
-                      </Text>
-                      <Text
-                        style={{
-                          color: Color.sportsVioleta,
-                          fontSize: 12
-                        }}
-                      >
-                        {event.event.modality}
+                  <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
+                    <View style={styles.ciclismoParent}>
+                      <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
+                        {event.event.title}
                       </Text>
                     </View>
+                    <View
+                      style={{
+                        width: '100%'
+                      }}
+                    >
+                      <View style={{ flexDirection: 'row', gap: 3 }}>
+                        <Text
+                          style={{
+                            color: Color.sportsVioleta,
+                            fontSize: 12
+                          }}
+                        >
+                          Modalidad:
+                        </Text>
+                        <Text
+                          style={{
+                            color: Color.sportsVioleta,
+                            fontSize: 12
+                          }}
+                        >
+                          {event.event.modality}
+                        </Text>
+                      </View>
 
-                    <View style={{ flexDirection: 'row', gap: 3 }}>
-                      <Text
-                        style={{
-                          fontWeight: 400,
-                          fontSize: 12,
-                          color: Color.sportsVioleta
-                        }}
-                      >
-                        Fecha de la prueba:
-                      </Text>
-                      <Text
-                        style={{
-                          fontWeight: 300,
-                          color: Color.sportsVioleta
-                        }}
-                      >
-                        {event.event.dateStart}
-                      </Text>
+                      <View style={{ flexDirection: 'row', gap: 3 }}>
+                        <Text
+                          style={{
+                            fontWeight: 400,
+                            fontSize: 12,
+                            color: Color.sportsVioleta
+                          }}
+                        >
+                          Fecha de la prueba:
+                        </Text>
+                        <Text
+                          style={{
+                            fontWeight: 300,
+                            color: Color.sportsVioleta
+                          }}
+                        >
+                          {event.event.dateStart}
+                        </Text>
+                      </View>
+                      <View style={{ flexDirection: 'row', gap: 3 }}>
+                        <Text
+                          style={{ color: Color.sportsVioleta, fontSize: 12 }}
+                        >
+                          Fecha límite de insc.:
+                        </Text>
+                        <Text
+                          style={{
+                            fontWeight: 300,
+                            fontSize: 12,
+                            color: Color.sportsVioleta
+                          }}
+                        >
+                          {event.event.dateInscription}
+                        </Text>
+                      </View>
                     </View>
-                    <View style={{ flexDirection: 'row', gap: 3 }}>
-                      <Text
-                        style={{ color: Color.sportsVioleta, fontSize: 12 }}
-                      >
-                        Fecha límite de insc.:
-                      </Text>
-                      <Text
-                        style={{
-                          fontWeight: 300,
-                          fontSize: 12,
-                          color: Color.sportsVioleta
-                        }}
-                      >
-                        {event.event.dateInscription}
-                      </Text>
-                    </View>
-                  </View>
-                  <View
-                    style={{
-                      ...styles.imGoingToContainer1,
-                      gap: 3,
-                      flexDirection: 'row'
-                    }}
-                  >
-                    <Text
+                    <View
                       style={{
-                        fontWeight: 600,
-                        color: Color.sportsVioleta,
-                        fontSize: 12
+                        ...styles.imGoingToContainer1,
+                        gap: 3,
+                        flexDirection: 'row'
                       }}
                     >
-                      PRECIO DE INSCRIPCIÓN:
-                    </Text>
-                    <Text
-                      style={{
-                        color: Color.sportsNaranja,
-                        fontWeight: 500,
-                        fontSize: 12
-                      }}
-                    >
-                      {event.event.price + '€'}
-                    </Text>
+                      <Text
+                        style={{
+                          fontWeight: 600,
+                          color: Color.sportsVioleta,
+                          fontSize: 12
+                        }}
+                      >
+                        PRECIO DE INSCRIPCIÓN:
+                      </Text>
+                      <Text
+                        style={{
+                          color: Color.sportsNaranja,
+                          fontWeight: 500,
+                          fontSize: 12
+                        }}
+                      >
+                        {event.event.price + '€'}
+                      </Text>
+                    </View>
                   </View>
                 </View>
-              </View>
-            ))
-          )}
-        </View>
-      </ScrollView>
-    </View>
+              ))
+            )}
+          </View>
+        </ScrollView>
+      </View>
+    </LinearGradient>
   )
 }
 
@@ -413,11 +435,9 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   ultimasConsultas: {
-    backgroundColor: Color.blanco,
-    height: 800,
     overflow: 'hidden',
     width: '100%',
     flex: 1

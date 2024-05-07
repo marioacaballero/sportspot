@@ -9,63 +9,71 @@ import {
   Border
 } from '../../../GlobalStyles'
 import BackArrowSVG from '../../../components/SVG/BackArrowSVG'
+import { LinearGradient } from 'expo-linear-gradient'
 
 const DatosDePago = () => {
   const navigation = useNavigation()
 
   return (
-    <View style={styles.datosDePago}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          width: '100%'
-        }}
-      >
-        <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
-          {`GESTIONA TU
+    <LinearGradient
+      colors={['#fff', '#f9f9f9']}
+      style={{ flex: 1 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+    >
+      <View style={styles.datosDePago}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '100%'
+          }}
+        >
+          <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
+            {`GESTIONA TU
 CUENTA`}
-        </Text>
-        <Pressable onPress={() => navigation.goBack()}>
-          <BackArrowSVG />
-        </Pressable>
-      </View>
-      <View
-        style={{
-          width: '100%',
-          marginTop: 15
-        }}
-      >
-        <Text style={styles.datosDePago2}>Datos de pago</Text>
-      </View>
-      <View style={styles.pencillineParent}>
-        <View style={styles.pencilline}>
-          <Image
-            style={styles.walletIcon}
-            contentFit="cover"
-            source={require('../../../assets/wallet.png')}
-          />
-          <Text style={[styles.datosDePago1, styles.imGoingToFlexBox]}>
-            Datos de pago
           </Text>
-        </View>
-        <View style={styles.frameParent}>
-          <Text style={[styles.imGoingTo, styles.imGoingToFlexBox]}>
-            Añade o elimina métdos de pago de forma segura para agilizar el
-            proceso de inscripción
-          </Text>
-          <Pressable
-            style={styles.aadirTarjetaWrapper}
-            onPress={() => navigation.navigate('Metodo')}
-          >
-            <Text style={[styles.aadirTarjeta, styles.datosTypo]}>
-              Añadir tarjeta
-            </Text>
+          <Pressable onPress={() => navigation.goBack()}>
+            <BackArrowSVG />
           </Pressable>
         </View>
+        <View
+          style={{
+            width: '100%',
+            marginTop: 15
+          }}
+        >
+          <Text style={styles.datosDePago2}>Datos de pago</Text>
+        </View>
+        <View style={styles.pencillineParent}>
+          <View style={styles.pencilline}>
+            <Image
+              style={styles.walletIcon}
+              contentFit="cover"
+              source={require('../../../assets/wallet.png')}
+            />
+            <Text style={[styles.datosDePago1, styles.imGoingToFlexBox]}>
+              Datos de pago
+            </Text>
+          </View>
+          <View style={styles.frameParent}>
+            <Text style={[styles.imGoingTo, styles.imGoingToFlexBox]}>
+              Añade o elimina métdos de pago de forma segura para agilizar el
+              proceso de inscripción
+            </Text>
+            <Pressable
+              style={styles.aadirTarjetaWrapper}
+              onPress={() => navigation.navigate('Metodo')}
+            >
+              <Text style={[styles.aadirTarjeta, styles.datosTypo]}>
+                Añadir tarjeta
+              </Text>
+            </Pressable>
+          </View>
+        </View>
       </View>
-    </View>
+    </LinearGradient>
   )
 }
 
@@ -166,7 +174,6 @@ const styles = StyleSheet.create({
     // right: 30
   },
   datosDePago: {
-    backgroundColor: Color.blanco,
     paddingTop: 30,
     paddingHorizontal: 15,
     width: '100%',

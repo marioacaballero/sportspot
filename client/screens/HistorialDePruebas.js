@@ -13,6 +13,7 @@ import EscribirResea from '../components/EscribirResea'
 import { useNavigation } from '@react-navigation/native'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
 import { FontFamily, Padding, FontSize, Color, Border } from '../GlobalStyles'
+import { LinearGradient } from 'expo-linear-gradient'
 
 const HistorialDePruebas = () => {
   const [frameContainer7Visible, setFrameContainer7Visible] = useState(false)
@@ -27,7 +28,12 @@ const HistorialDePruebas = () => {
   }, [])
 
   return (
-    <>
+    <LinearGradient
+      colors={['#fff', '#f9f9f9']}
+      style={{ flex: 1 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+    >
       <ScrollView
         style={styles.historialDePruebas}
         contentContainerStyle={{ paddingBottom: 50 }}
@@ -248,7 +254,7 @@ Fecha de la prueba: `}</Text>
           <EscribirResea onClose={closeFrameContainer7} />
         </View>
       </Modal>
-    </>
+    </LinearGradient>
   )
 }
 
@@ -446,8 +452,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_xl
   },
   historialDePruebas: {
-    backgroundColor: Color.blanco,
-    // height: 800,
     overflow: 'hidden',
     width: '100%'
   },

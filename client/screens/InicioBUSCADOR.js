@@ -65,7 +65,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
   return (
     <>
       <View style={styles.frameContainer}>
-        <Pressable
+        {/* <Pressable
           onPress={() => setMostrarInicioBuscador(false)}
           style={styles.arrowContainer}
         >
@@ -74,7 +74,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
             contentFit="cover"
             source={require('../assets/up-arrow.png')}
           />
-        </Pressable>
+        </Pressable> */}
         <Pressable
           style={[styles.frameWrapper, styles.frameWrapperSpaceBlock]}
           onPress={openFrameContainer6}
@@ -85,7 +85,13 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
               contentFit="cover"
               source={require('../assets/frame-1547755976.png')}
             />
-            <Text style={[styles.helloAshfak3, styles.helloTypo,{fontWeight:"bold"}]}>
+            <Text
+              style={[
+                styles.helloAshfak3,
+                styles.helloTypo,
+                { fontWeight: 'bold' }
+              ]}
+            >
               {eventsFilter.location ? eventsFilter.location : 'Localización'}
             </Text>
           </View>
@@ -195,6 +201,7 @@ const styles = StyleSheet.create({
     marginLeft: 11,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: 'bold',
+    maxWidth: '90%',
     fontSize: FontSize.size_sm,
     textAlign: 'left',
     color: Color.sportsVioleta
@@ -281,7 +288,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   frameContainer: {
-    width: '97%',
+    width: '100%',
     padding: 20,
     marginTop: 19
   },

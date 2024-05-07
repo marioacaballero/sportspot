@@ -152,7 +152,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   } else {
     return (
       <ScrollView style={styles.pruebasEncontradasDetalle}>
-        <View style={[styles.unsplashon4qwhhjcemParent, styles.parentPosition]}>
+        <View style={[styles.unsplashon4qwhhjcemParent]}>
           <Image
             style={styles.unsplashon4qwhhjcemIcon}
             contentFit="cover"
@@ -451,10 +451,8 @@ const styles = StyleSheet.create({
   },
   pruebasEncontradasDetalle: {
     flex: 1,
-    height: 800,
     overflow: 'hidden',
-    width: '100%',
-    backgroundColor: Color.blanco
+    width: '100%'
   },
   modalText: {
     color: 'white',

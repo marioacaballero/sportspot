@@ -23,6 +23,7 @@ import PopupAlerta from '../../components/PopupAlerta'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { favorite } from '../../redux/actions/users'
+import { LinearGradient } from 'expo-linear-gradient'
 
 const Favoritos = ({ route }) => {
   const navigation = useNavigation()
@@ -47,159 +48,174 @@ const Favoritos = ({ route }) => {
   }
 
   return (
-    <View style={styles.favoritos}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.topContainer}>
-          <Text style={styles.tusFavoritos}>TUS FAVORITOS</Text>
-          <Pressable onPress={() => navigation.goBack()}>
-            <BackArrowSVG />
-          </Pressable>
-        </View>
-        <View style={styles.backParentSpaceBlock}>
-          <Text style={[styles.pruebasDeCiclismo, styles.ciclismoTypo]}>
-            {`Pruebas de ${sport[0].title} (${sport.length})`}
-          </Text>
-        </View>
-        {sport.map((prueba, index) => (
-          <View key={index} style={styles.frameGroup}>
-            <View style={styles.parentFlexBox}>
-              <Image
-                style={styles.image84Icon}
-                contentFit="cover"
-                source={{ uri: prueba.image }}
-              />
-              <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
-                <View style={styles.ciclismoParent}>
-                  <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
-                    {prueba.description}
-                  </Text>
-                  <TouchableOpacity
-                    style={{ position: 'absolute', top: 5, right: 13 }}
-                    onPress={() => toggleFavorite(sport[0].id)}
-                  >
-                    <MaterialCommunityIcons
-                      name={'cards-heart'}
-                      color="#F25910"
-                      size={22}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.imGoingToContainer}>
-                  <View style={{ flexDirection: 'row', gap: 4 }}>
-                    <Text style={{ color: Color.sportsVioleta, fontSize: 12 }}>
-                      Modalidad:
+    <LinearGradient
+      colors={['#fff', '#f9f9f9']}
+      style={{ flex: 1 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+    >
+      <View style={styles.favoritos}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.topContainer}>
+            <Text style={styles.tusFavoritos}>TUS FAVORITOS</Text>
+            <Pressable onPress={() => navigation.goBack()}>
+              <BackArrowSVG />
+            </Pressable>
+          </View>
+          <View style={styles.backParentSpaceBlock}>
+            <Text style={[styles.pruebasDeCiclismo, styles.ciclismoTypo]}>
+              {`Pruebas de ${sport[0].title} (${sport.length})`}
+            </Text>
+          </View>
+          {sport.map((prueba, index) => (
+            <View key={index} style={styles.frameGroup}>
+              <View style={styles.parentFlexBox}>
+                <Image
+                  style={styles.image84Icon}
+                  contentFit="cover"
+                  source={{ uri: prueba.image }}
+                />
+                <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
+                  <View style={styles.ciclismoParent}>
+                    <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
+                      {prueba.description}
                     </Text>
+                    <TouchableOpacity
+                      style={{ position: 'absolute', top: 5, right: 13 }}
+                      onPress={() => toggleFavorite(sport[0].id)}
+                    >
+                      <MaterialCommunityIcons
+                        name={'cards-heart'}
+                        color="#F25910"
+                        size={22}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.imGoingToContainer}>
+                    <View style={{ flexDirection: 'row', gap: 4 }}>
+                      <Text
+                        style={{ color: Color.sportsVioleta, fontSize: 12 }}
+                      >
+                        Modalidad:
+                      </Text>
+                      <Text
+                        style={{
+                          fontWeight: 300,
+                          fontSize: 12,
+                          color: Color.sportsVioleta
+                        }}
+                      >
+                        {prueba.modality}
+                      </Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', gap: 3 }}>
+                      <Text
+                        style={{ color: Color.sportsVioleta, fontSize: 12 }}
+                      >
+                        Localización:
+                      </Text>
+                      <Text
+                        style={{
+                          fontWeight: 300,
+                          color: Color.sportsVioleta,
+                          fontSize: 12
+                        }}
+                      >
+                        {prueba.location}
+                      </Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', gap: 3 }}>
+                      <Text
+                        style={{ color: Color.sportsVioleta, fontSize: 12 }}
+                      >
+                        Fecha de la prueba:
+                      </Text>
+                      <Text
+                        style={{
+                          fontWeight: 300,
+                          fontSize: 12,
+                          color: Color.sportsVioleta
+                        }}
+                      >
+                        {prueba.dateStart}
+                      </Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', gap: 3 }}>
+                      <Text
+                        style={{ color: Color.sportsVioleta, fontSize: 12 }}
+                      >
+                        Fecha límite de inscripción:
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: 300,
+                          color: Color.sportsVioleta
+                        }}
+                      >
+                        {prueba.dateInscription}
+                      </Text>
+                    </View>
+                  </View>
+                  <View
+                    style={{
+                      ...styles.imGoingToContainer1,
+                      gap: 3,
+                      flexDirection: 'row'
+                    }}
+                  >
                     <Text
                       style={{
-                        fontWeight: 300,
+                        fontWeight: 700,
                         fontSize: 12,
                         color: Color.sportsVioleta
                       }}
                     >
-                      {prueba.modality}
-                    </Text>
-                  </View>
-                  <View style={{ flexDirection: 'row', gap: 3 }}>
-                    <Text style={{ color: Color.sportsVioleta, fontSize: 12 }}>
-                      Localización:
+                      PRECIO DE INSCRIPCIÓN:
                     </Text>
                     <Text
                       style={{
-                        fontWeight: 300,
-                        color: Color.sportsVioleta,
+                        color: Color.sportsNaranja,
+                        fontWeight: 500,
                         fontSize: 12
                       }}
                     >
-                      {prueba.location}
+                      {prueba.price + '€'}
                     </Text>
                   </View>
-                  <View style={{ flexDirection: 'row', gap: 3 }}>
-                    <Text style={{ color: Color.sportsVioleta, fontSize: 12 }}>
-                      Fecha de la prueba:
-                    </Text>
-                    <Text
-                      style={{
-                        fontWeight: 300,
-                        fontSize: 12,
-                        color: Color.sportsVioleta
-                      }}
-                    >
-                      {prueba.dateStart}
-                    </Text>
-                  </View>
-                  <View style={{ flexDirection: 'row', gap: 3 }}>
-                    <Text style={{ color: Color.sportsVioleta, fontSize: 12 }}>
-                      Fecha límite de inscripción:
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 12,
-                        fontWeight: 300,
-                        color: Color.sportsVioleta
-                      }}
-                    >
-                      {prueba.dateInscription}
-                    </Text>
-                  </View>
-                </View>
-                <View
-                  style={{
-                    ...styles.imGoingToContainer1,
-                    gap: 3,
-                    flexDirection: 'row'
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontWeight: 700,
-                      fontSize: 12,
-                      color: Color.sportsVioleta
-                    }}
-                  >
-                    PRECIO DE INSCRIPCIÓN:
-                  </Text>
-                  <Text
-                    style={{
-                      color: Color.sportsNaranja,
-                      fontWeight: 500,
-                      fontSize: 12
-                    }}
-                  >
-                    {prueba.price + '€'}
-                  </Text>
                 </View>
               </View>
-            </View>
-            <Pressable style={styles.vectorParent} onPress={toggleModal}>
-              <Image
-                style={styles.vectorIcon}
-                contentFit="cover"
-                source={require('../../assets/vector5.png')}
-              />
-              <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
-                Crear alerta
-              </Text>
-              <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalVisible}
-              >
-                <TouchableWithoutFeedback onPress={toggleModal}>
-                  <View style={styles.modalOverlay}>
-                    <View>
-                      <PopupAlerta
-                        // onClose={toggleModal}
-                        setModalVisible={setModalVisible}
-                      />
+              <Pressable style={styles.vectorParent} onPress={toggleModal}>
+                <Image
+                  style={styles.vectorIcon}
+                  contentFit="cover"
+                  source={require('../../assets/vector5.png')}
+                />
+                <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
+                  Crear alerta
+                </Text>
+                <Modal
+                  animationType="fade"
+                  transparent={true}
+                  visible={modalVisible}
+                >
+                  <TouchableWithoutFeedback onPress={toggleModal}>
+                    <View style={styles.modalOverlay}>
+                      <View>
+                        <PopupAlerta
+                          // onClose={toggleModal}
+                          setModalVisible={setModalVisible}
+                        />
+                      </View>
                     </View>
-                  </View>
-                </TouchableWithoutFeedback>
-              </Modal>
-            </Pressable>
-          </View>
-        ))}
-      </ScrollView>
-    </View>
+                  </TouchableWithoutFeedback>
+                </Modal>
+              </Pressable>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+    </LinearGradient>
   )
 }
 
@@ -319,7 +335,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   favoritos: {
-    backgroundColor: Color.blanco,
     overflow: 'hidden',
     flex: 1,
     paddingTop: 30,

@@ -4,105 +4,116 @@ import { useNavigation } from '@react-navigation/native'
 import { Color, FontFamily, FontSize, Border } from '../../GlobalStyles'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import RightArrowGrueso from '../../components/SVG/RightArrowGrueso'
+import { LinearGradient } from 'expo-linear-gradient'
 
 const Cuenta = () => {
   const navigation = useNavigation()
 
   return (
-    <View style={styles.cuenta}>
-      <View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-          }}
-        >
-          <Text
-            style={[styles.gestionaTuCuentaContainer, styles.editarPerfilTypo]}
+    <LinearGradient
+      colors={['#fff', '#f9f9f9']}
+      style={{ flex: 1 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+    >
+      <View style={styles.cuenta}>
+        <View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
           >
-            GESTIONA TU CUENTA
-          </Text>
-          <Pressable onPress={() => navigation.goBack()}>
+            <Text
+              style={[
+                styles.gestionaTuCuentaContainer,
+                styles.editarPerfilTypo
+              ]}
+            >
+              GESTIONA TU CUENTA
+            </Text>
+            {/* <Pressable onPress={() => navigation.goBack()}>
             <BackArrowSVG />
+          </Pressable> */}
+          </View>
+        </View>
+        <View>
+          <Pressable
+            style={styles.pencillineParent}
+            onPress={() => navigation.navigate('EditarPerfil')}
+          >
+            <View style={styles.baseText}>
+              <Image
+                style={styles.vectorIcon}
+                contentFit="cover"
+                source={require('../../assets/vector3.png')}
+              />
+              <View style={styles.frameGroup}>
+                <View style={styles.editarPerfilWrapper}>
+                  <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
+                    Editar perfil
+                  </Text>
+                </View>
+                <Text style={[styles.imGoingTo, styles.goingTypo]}>
+                  Actualiza los datos de tu cuenta
+                </Text>
+              </View>
+            </View>
+
+            <RightArrowGrueso color={'#FF6F00'} />
+          </Pressable>
+
+          <Pressable
+            style={styles.pencillineParent}
+            onPress={() => navigation.navigate('Seguridad')}
+          >
+            <View style={styles.baseText}>
+              <Image
+                style={styles.shieldcheckIcon}
+                contentFit="cover"
+                source={require('../../assets/shieldcheck.png')}
+              />
+              <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
+                <View style={styles.editarPerfilWrapper}>
+                  <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
+                    Seguridad
+                  </Text>
+                </View>
+                <Text style={[styles.imGoingTo, styles.goingTypo]}>
+                  Mantén segura tu cuenta, elimina tu cuenta
+                </Text>
+              </View>
+            </View>
+            <RightArrowGrueso color={'#FF6F00'} />
+          </Pressable>
+
+          <Pressable
+            style={styles.pencillineParent}
+            onPress={() => navigation.navigate('DatosDePago')}
+          >
+            <View style={styles.baseText}>
+              <Image
+                style={styles.shieldcheckIcon}
+                contentFit="cover"
+                source={require('../../assets/wallet.png')}
+              />
+              <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
+                <View style={styles.editarPerfilWrapper}>
+                  <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
+                    Datos de pago
+                  </Text>
+                </View>
+                <Text style={[styles.imGoingTo, styles.goingTypo]}>
+                  Elimina o añade métodos de pago
+                </Text>
+              </View>
+            </View>
+            <RightArrowGrueso color={'#FF6F00'} />
           </Pressable>
         </View>
       </View>
-      <View>
-        <Pressable
-          style={styles.pencillineParent}
-          onPress={() => navigation.navigate('EditarPerfil')}
-        >
-          <View style={styles.baseText}>
-            <Image
-              style={styles.vectorIcon}
-              contentFit="cover"
-              source={require('../../assets/vector3.png')}
-            />
-            <View style={styles.frameGroup}>
-              <View style={styles.editarPerfilWrapper}>
-                <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
-                  Editar perfil
-                </Text>
-              </View>
-              <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                Actualiza los datos de tu cuenta
-              </Text>
-            </View>
-          </View>
-
-          <RightArrowGrueso color={'#FF6F00'} />
-        </Pressable>
-
-        <Pressable
-          style={styles.pencillineParent}
-          onPress={() => navigation.navigate('Seguridad')}
-        >
-          <View style={styles.baseText}>
-            <Image
-              style={styles.shieldcheckIcon}
-              contentFit="cover"
-              source={require('../../assets/shieldcheck.png')}
-            />
-            <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
-              <View style={styles.editarPerfilWrapper}>
-                <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
-                  Seguridad
-                </Text>
-              </View>
-              <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                Mantén segura tu cuenta, elimina tu cuenta
-              </Text>
-            </View>
-          </View>
-          <RightArrowGrueso color={'#FF6F00'} />
-        </Pressable>
-
-        <Pressable
-          style={styles.pencillineParent}
-          onPress={() => navigation.navigate('DatosDePago')}
-        >
-          <View style={styles.baseText}>
-            <Image
-              style={styles.shieldcheckIcon}
-              contentFit="cover"
-              source={require('../../assets/wallet.png')}
-            />
-            <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
-              <View style={styles.editarPerfilWrapper}>
-                <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
-                  Datos de pago
-                </Text>
-              </View>
-              <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                Elimina o añade métodos de pago
-              </Text>
-            </View>
-          </View>
-          <RightArrowGrueso color={'#FF6F00'} />
-        </Pressable>
-      </View>
-    </View>
+    </LinearGradient>
   )
 }
 
@@ -172,7 +183,6 @@ const styles = StyleSheet.create({
     height: 32
   },
   cuenta: {
-    backgroundColor: Color.blanco,
     paddingHorizontal: 15,
     paddingVertical: 30,
     flex: 1

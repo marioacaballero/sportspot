@@ -116,7 +116,6 @@ const InicioDeportista = () => {
     )
     return diferenciaDias >= 1
   })
-
   const isGuest = user?.email === 'guestUser@gmail.com'
 
   if (loadingGet) {
@@ -142,7 +141,7 @@ const InicioDeportista = () => {
   } else {
     return (
       <LinearGradient
-        colors={['#fff', '#f1f1f1']}
+        colors={['#fff', '#f9f9f9']}
         style={{ flex: 1 }}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
@@ -235,7 +234,7 @@ const InicioDeportista = () => {
                       <View
                         style={{
                           flex: 1,
-                          backgroundColor: 'rgba(0,0,0,0.3)',
+                          backgroundColor: 'rgba(0,0,0,0.7)',
                           justifyContent: 'center',
                           alignItems: 'center'
                         }}
@@ -394,7 +393,7 @@ const InicioDeportista = () => {
                         }}
                       >
                         <Image
-                          style={[styles.image94Icon, styles.image94IconLayout]}
+                          style={styles.image94Icon}
                           contentFit="cover"
                           source={{ uri: event.image }}
                         />
@@ -443,7 +442,7 @@ const InicioDeportista = () => {
                         }}
                       >
                         <Image
-                          style={[styles.image94Icon, styles.image94IconLayout]}
+                          style={styles.image94Icon}
                           contentFit="cover"
                           source={{ uri: event.image }}
                         />
@@ -491,7 +490,7 @@ const InicioDeportista = () => {
                         }}
                       >
                         <Image
-                          style={[styles.image94Icon, styles.image94IconLayout]}
+                          style={styles.image94Icon}
                           contentFit="cover"
                           source={{ uri: event.image }}
                         />
@@ -728,12 +727,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   image94Icon: {
-    borderTopLeftRadius: Border.br_7xs,
-    borderTopRightRadius: Border.br_7xs,
-    maxWidth: '100%',
+    borderWidth: 1,
     height: 95,
-    alignSelf: 'stretch',
-    overflow: 'hidden'
+    width: '100%'
   },
   imGoingTo: {
     textAlign: 'left',
@@ -776,6 +772,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     alignItems: 'center',
     backgroundColor: 'white',
+    overflow: 'hidden',
     borderRadius: Border.br_sm,
     marginBottom: 20,
     marginLeft: 10
@@ -794,6 +791,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     borderRadius: Border.br_sm,
+    overflow: 'hidden',
     marginLeft: 10,
     marginBottom: 20
   },

@@ -22,6 +22,7 @@ import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import { changePassword, deleteUser } from '../../redux/actions/users'
 import { clearUser } from '../../redux/slices/users.slices'
 import CustomAlert from '../../components/CustomAlert'
+import { LinearGradient } from 'expo-linear-gradient'
 
 const Seguridad = () => {
   const navigation = useNavigation()
@@ -95,154 +96,181 @@ const Seguridad = () => {
   }
 
   return (
-    <ScrollView style={styles.scrollView}>
-      <View style={styles.seguridad}>
-        <View style={styles.viewContainer}>
-          <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
-            {`GESTIONA TU
+    <LinearGradient
+      colors={['#fff', '#f9f9f9']}
+      style={{ flex: 1 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+    >
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.seguridad}>
+          <View style={styles.viewContainer}>
+            <Text
+              style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}
+            >
+              {`GESTIONA TU
 CUENTA`}
-          </Text>
-          {/* <Pressable onPress={() => navigation.goBack()}>
+            </Text>
+            {/* <Pressable onPress={() => navigation.goBack()}>
             <BackArrowSVG />
           </Pressable> */}
-        </View>
-        <View style={{ width: '100%' }}>
-          <Text style={[styles.seguridad1, styles.seguridad1Typo]}>
-            Seguridad
-          </Text>
-        </View>
-        <View style={styles.seguridadChild}>
-          <View style={styles.card1}>
-            <View
-              style={{
-                width: '100%',
-                justifyContent: 'flex-start',
-                alignItems: 'center',
-                flexDirection: 'row',
-                gap: 8
-              }}
-            >
-              <Image
-                style={{ height: 32, width: 32 }}
-                contentFit="cover"
-                source={require('../../assets/password.png')}
-              />
-              <Text
+          </View>
+          <View style={{ width: '100%' }}>
+            <Text style={[styles.seguridad1, styles.seguridad1Typo]}>
+              Seguridad
+            </Text>
+          </View>
+          <View style={styles.seguridadChild}>
+            <View style={styles.card1}>
+              <View
                 style={{
-                  fontSize: FontSize.inputLabel_size,
-                  textTransform: 'capitalize',
-                  fontWeight: 700,
-                  display: 'flex',
+                  width: '100%',
+                  justifyContent: 'flex-start',
                   alignItems: 'center',
-                  textAlign: 'left',
-                  color: Color.sportsVioleta
+                  flexDirection: 'row',
+                  gap: 8
                 }}
               >
-                Contraseña
-              </Text>
-            </View>
-            <View style={styles.inputParent}>
-              <View style={styles.inputLayout}>
-                <View style={styles.inputContent}>
-                  <Text style={[styles.label, styles.labelFlexBox]}>Email</Text>
-                  <Text style={[styles.placehoder, styles.seguridad1Typo]}>
-                    {user && user.email
-                      ? `${user.email.substring(0, 3)}****${user.email.slice(
-                          -7
-                        )}`
-                      : ''}
-                  </Text>
+                <Image
+                  style={{ height: 32, width: 32 }}
+                  contentFit="cover"
+                  source={require('../../assets/password.png')}
+                />
+                <Text
+                  style={{
+                    fontSize: FontSize.inputLabel_size,
+                    textTransform: 'capitalize',
+                    fontWeight: 700,
+                    display: 'flex',
+                    alignItems: 'center',
+                    textAlign: 'left',
+                    color: Color.sportsVioleta
+                  }}
+                >
+                  Contraseña
+                </Text>
+              </View>
+              <View style={styles.inputParent}>
+                <View style={styles.inputLayout}>
+                  <View style={styles.inputContent}>
+                    <Text style={[styles.label, styles.labelFlexBox]}>
+                      Email
+                    </Text>
+                    <Text style={[styles.placehoder, styles.seguridad1Typo]}>
+                      {user && user.email
+                        ? `${user.email.substring(0, 3)}****${user.email.slice(
+                            -7
+                          )}`
+                        : ''}
+                    </Text>
+                  </View>
+                </View>
+                <View style={[styles.inputLayout]}>
+                  <View style={styles.inputContent}>
+                    <Text style={[styles.label, styles.labelFlexBox]}>
+                      Contraseña actual
+                    </Text>
+                    <TextInput
+                      placeholder="********"
+                      style={styles.placehoder}
+                      onFocus={handleContraseñaFocus}
+                      value={password.oldPassword}
+                      onChangeText={(value) =>
+                        valuesLogin('oldPassword', value)
+                      }
+                      secureTextEntry={true}
+                      onSubmitEditing={() =>
+                        newPasswordInputRef.current.focus()
+                      }
+                    />
+                  </View>
                 </View>
               </View>
-              <View style={[styles.inputLayout]}>
-                <View style={styles.inputContent}>
-                  <Text style={[styles.label, styles.labelFlexBox]}>
-                    Contraseña actual
-                  </Text>
-                  <TextInput
-                    placeholder="********"
-                    style={styles.placehoder}
-                    onFocus={handleContraseñaFocus}
-                    value={password.oldPassword}
-                    onChangeText={(value) => valuesLogin('oldPassword', value)}
-                    secureTextEntry={true}
-                    onSubmitEditing={() => newPasswordInputRef.current.focus()}
-                  />
+              <Pressable
+                style={{
+                  backgroundColor: Color.sportsVioleta,
+                  marginTop: 10,
+                  paddingVertical: Padding.p_6xs,
+                  height: 43,
+                  width: '100%',
+                  borderRadius: Border.br_31xl,
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                onPress={handleChangePassword}
+              >
+                <Text
+                  style={[styles.cambiarContrasea, styles.eliminarCuentaTypo]}
+                >
+                  Cambiar contraseña
+                </Text>
+              </Pressable>
+            </View>
+            {mostrarCamposExtras && (
+              <View style={styles.card2}>
+                <View style={[styles.inputLayout]}>
+                  <View style={styles.inputContent}>
+                    <Text style={[styles.label, styles.labelFlexBox]}>
+                      Nueva contraseña
+                    </Text>
+                    <TextInput
+                      placeholder="********"
+                      style={styles.placehoder}
+                      onChangeText={(value) =>
+                        valuesLogin('newPassword', value)
+                      }
+                      value={password.newPassword}
+                      secureTextEntry={true}
+                      onSubmitEditing={() => passwordInputRef.current.focus()}
+                      ref={newPasswordInputRef}
+                    />
+                  </View>
+                </View>
+                <View style={[styles.inputLayout]}>
+                  <View style={styles.inputContent}>
+                    <Text style={[styles.label, styles.labelFlexBox]}>
+                      Repite la nueva contraseña
+                    </Text>
+                    <TextInput
+                      placeholder="********"
+                      style={styles.placehoder}
+                      onChangeText={(value) =>
+                        valuesLogin('confirmPassword', value)
+                      }
+                      value={password.confirmPassword}
+                      secureTextEntry={true}
+                      ref={passwordInputRef}
+                      onSubmitEditing={() => handleChangePassword()}
+                    />
+                  </View>
                 </View>
               </View>
-            </View>
+            )}
           </View>
-          {mostrarCamposExtras && (
-            <View style={styles.card2}>
-              <View style={[styles.inputLayout]}>
-                <View style={styles.inputContent}>
-                  <Text style={[styles.label, styles.labelFlexBox]}>
-                    Nueva contraseña
-                  </Text>
-                  <TextInput
-                    placeholder="********"
-                    style={styles.placehoder}
-                    onChangeText={(value) => valuesLogin('newPassword', value)}
-                    value={password.newPassword}
-                    secureTextEntry={true}
-                    onSubmitEditing={() => passwordInputRef.current.focus()}
-                    ref={newPasswordInputRef}
-                  />
-                </View>
-              </View>
-              <View style={[styles.inputLayout]}>
-                <View style={styles.inputContent}>
-                  <Text style={[styles.label, styles.labelFlexBox]}>
-                    Repite la nueva contraseña
-                  </Text>
-                  <TextInput
-                    placeholder="********"
-                    style={styles.placehoder}
-                    onChangeText={(value) =>
-                      valuesLogin('confirmPassword', value)
-                    }
-                    value={password.confirmPassword}
-                    secureTextEntry={true}
-                    ref={passwordInputRef}
-                    onSubmitEditing={() => handleChangePassword()}
-                  />
-                </View>
-              </View>
-            </View>
-          )}
+          <View style={{ marginTop: mostrarCamposExtras ? '25%' : '9%' }}>
+            <Pressable
+              onPress={handleDeleteUser}
+              style={[styles.eliminarCuentaWrapper, styles.wrapperLayout]}
+            >
+              <Text style={[styles.eliminarCuenta, styles.eliminarCuentaTypo]}>
+                Eliminar cuenta
+              </Text>
+            </Pressable>
+          </View>
         </View>
-        <View style={{ marginTop: mostrarCamposExtras ? '25%' : '8%' }}>
-          <Pressable
-            style={[styles.cambiarContraseaWrapper, styles.wrapperLayout]}
-            onPress={handleChangePassword}
-          >
-            <Text style={[styles.cambiarContrasea, styles.eliminarCuentaTypo]}>
-              Cambiar contraseña
-            </Text>
-          </Pressable>
-          <Pressable
-            onPress={handleDeleteUser}
-            style={[styles.eliminarCuentaWrapper, styles.wrapperLayout]}
-          >
-            <Text style={[styles.eliminarCuenta, styles.eliminarCuentaTypo]}>
-              Eliminar cuenta
-            </Text>
-          </Pressable>
-        </View>
-      </View>
-      <CustomAlert
-        visible={showAlert}
-        message={message}
-        onClose={handleCloseAlert}
-      />
-    </ScrollView>
+        <CustomAlert
+          visible={showAlert}
+          message={message}
+          onClose={handleCloseAlert}
+        />
+      </ScrollView>
+    </LinearGradient>
   )
 }
 
 const styles = StyleSheet.create({
   scrollView: {
-    height: '100%',
-    backgroundColor: '#fff'
+    height: '100%'
   },
   seguridadInnerPosition: {
     // left: 20,
@@ -285,7 +313,7 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_6xs,
     paddingHorizontal: 0,
     height: 43,
-    width: Dimensions.get('screen').width * 0.83,
+    width: Dimensions.get('screen').width * 0.9,
     borderRadius: Border.br_31xl,
     // left: 31,
     alignItems: 'center',
@@ -359,44 +387,32 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   card1: {
-    borderRadius: Border.br_base,
-    shadowColor: 'rgba(83, 89, 144, 0.07)',
-    shadowOffset: {
-      width: 0,
-      height: 8
-    },
-    shadowRadius: 5,
-    elevation: 5,
-    shadowOpacity: 1,
     paddingHorizontal: Padding.p_smi,
     paddingVertical: Padding.p_5xs,
     flexWrap: 'wrap',
-    flexDirection: 'row',
-    overflow: 'hidden',
-    backgroundColor: Color.blanco
+    flexDirection: 'row'
   },
   card2: {
-    borderRadius: Border.br_base,
-    shadowColor: 'rgba(83, 89, 144, 0.07)',
-    shadowOffset: {
-      width: 0,
-      height: 8
-    },
-    shadowRadius: 5,
-    elevation: 5,
-    shadowOpacity: 1,
     paddingHorizontal: Padding.p_smi,
     paddingVertical: Padding.p_5xs,
     flexWrap: 'wrap',
     flexDirection: 'row',
-    overflow: 'hidden',
-    backgroundColor: Color.blanco,
     marginTop: 10,
     flex: 1
   },
   seguridadChild: {
-    top: 30,
-    height: '50%'
+    backgroundColor: 'white',
+    paddingVertical: 5,
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 2,
+      height: 4
+    },
+    elevation: 5,
+    shadowRadius: 10,
+    shadowOpacity: 1,
+    top: 30
   },
   cambiarContrasea: {
     color: Color.violeta3,
@@ -404,10 +420,11 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   cambiarContraseaWrapper: {
-    backgroundColor: Color.sportsVioleta
+    backgroundColor: Color.sportsVioleta,
+    marginTop: 10
   },
   eliminarCuenta: {
-    fontWeight: '600',
+    fontWeight: 'bold',
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.rojoUbiqum
   },
@@ -442,7 +459,6 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingHorizontal: 15,
     width: '100%',
-    backgroundColor: Color.blanco,
     alignItems: 'center',
     paddingBottom: 160
   },
