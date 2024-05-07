@@ -487,8 +487,8 @@ const styles = StyleSheet.create({
   },
   inicioOrganizador: {
     height: '100%',
-
-    marginTop: 20
+    marginTop: 20,
+    paddingBottom: 15
   },
   buttonsContainer: {
     marginTop: 20

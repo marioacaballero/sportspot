@@ -12,6 +12,7 @@ import {
 } from '../../GlobalStyles'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import { getFavorites } from '../../redux/actions/events'
+import { LinearGradient } from 'expo-linear-gradient'
 // import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Favoritos1 = () => {
@@ -47,77 +48,93 @@ const Favoritos1 = () => {
     return grouped
   }, {})
 
+  console.log('grouped favorites', Object.entries(groupedFavorites))
   if (loadingGet) {
     return (
-      <View style={styles.favoritos}>
-        <View style={styles.topContainer}>
-          <Text style={[styles.tusFavoritos, styles.imGoingToFlexBox]}>
-            TUS FAVORITOS
-          </Text>
-          {/* <BackArrowSVG /> */}
-        </View>
-        <View style={[styles.frameWrapper, styles.frameSpaceBlock]}>
-          <View style={styles.groupParentFlexBox}>
-            <Text style={styles.tusListasTypo}>Tus listas</Text>
+      <LinearGradient
+        colors={['#fff', '#f9f9f9']}
+        style={{ flex: 1 }}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+      >
+        <View style={styles.favoritos}>
+          <View style={styles.topContainer}>
+            <Text style={[styles.tusFavoritos, styles.imGoingToFlexBox]}>
+              TUS FAVORITOS
+            </Text>
+            {/* <BackArrowSVG /> */}
           </View>
+          <View style={[styles.frameWrapper, styles.frameSpaceBlock]}>
+            <View style={styles.groupParentFlexBox}>
+              <Text style={styles.tusListasTypo}>Tus listas</Text>
+            </View>
+          </View>
+          <ActivityIndicator
+            style={{
+              width: '100%',
+              height: '100%'
+            }}
+            animating={true}
+            size="large"
+            color={Color.violeta2}
+          />
         </View>
-        <ActivityIndicator
-          style={{
-            width: '100%',
-            height: '100%',
-            backgroundColor: 'white'
-          }}
-          animating={true}
-          size="large"
-          color={Color.violeta2}
-        />
-      </View>
+      </LinearGradient>
     )
   } else {
     return (
-      <View style={styles.favoritos}>
-        <View style={styles.topContainer}>
-          <Text style={[styles.tusFavoritos, styles.imGoingToFlexBox]}>
-            TUS FAVORITOS
-          </Text>
-          {/* <Pressable onPress={() => navigation.goBack()}>
+      <LinearGradient
+        colors={['#fff', '#f9f9f9']}
+        style={{ flex: 1 }}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+      >
+        <View style={styles.favoritos}>
+          <View style={styles.topContainer}>
+            <Text style={[styles.tusFavoritos, styles.imGoingToFlexBox]}>
+              TUS FAVORITOS
+            </Text>
+            {/* <Pressable onPress={() => navigation.goBack()}>
             <BackArrowSVG />
           </Pressable> */}
-        </View>
-        <View style={[styles.frameWrapper, styles.frameSpaceBlock]}>
-          <View style={styles.groupParentFlexBox}>
-            <Text style={styles.tusListasTypo}>Tus listas</Text>
           </View>
-        </View>
-        {Object.keys(groupedFavorites).length > 0 ? (
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={Object.entries(groupedFavorites)}
-            keyExtractor={(item) => item[0]}
-            renderItem={({ item }) => (
-              <Pressable
-                style={[styles.frameContainer, styles.frameSpaceBlock]}
-                onPress={() =>
-                  navigation.navigate('Favoritos', { sport: item[1] })
-                }
-              >
-                <View style={styles.frameGroup}>
-                  <View style={styles.pruebasDeCiclismoWrapper}>
-                    <Text style={styles.tusListasTypo}>{item[0]}</Text>
+          <View style={[styles.frameWrapper, styles.frameSpaceBlock]}>
+            <View style={styles.groupParentFlexBox}>
+              <Text style={styles.tusListasTypo}>Tus listas</Text>
+            </View>
+          </View>
+          {Object.keys(groupedFavorites).length > 0 ? (
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={Object.entries(groupedFavorites)}
+              keyExtractor={(item) => item[0]}
+              renderItem={({ item }) => (
+                <Pressable
+                  style={[styles.frameContainer, styles.frameSpaceBlock]}
+                  onPress={() =>
+                    navigation.navigate('Favoritos', { sport: item[1] })
+                  }
+                >
+                  <View style={styles.frameGroup}>
+                    <View style={styles.pruebasDeCiclismoWrapper}>
+                      <Text style={styles.tusListasTypo}>
+                        {item[0].charAt(0).toUpperCase() + item[0].slice(1)}
+                      </Text>
+                    </View>
+                    <Text style={[styles.imGoingTo, styles.imGoingToFlexBox]}>
+                      ({item[1].length}) Pruebas añadidas
+                    </Text>
                   </View>
-                  <Text style={[styles.imGoingTo, styles.imGoingToFlexBox]}>
-                    ({item[1].length}) Pruebas añadidas
-                  </Text>
-                </View>
-              </Pressable>
-            )}
-          />
-        ) : (
-          <Text style={styles.favorites}>
-            Todavía no has guardado ningún evento
-          </Text>
-        )}
-      </View>
+                </Pressable>
+              )}
+            />
+          ) : (
+            <Text style={styles.favorites}>
+              Todavía no has guardado ningún evento
+            </Text>
+          )}
+        </View>
+      </LinearGradient>
     )
   }
 }
@@ -179,8 +196,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   favoritos: {
-    backgroundColor: Color.blanco,
-    height: 800,
     overflow: 'hidden',
     flex: 1,
     paddingHorizontal: Padding.p_xl,

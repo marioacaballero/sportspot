@@ -22,17 +22,19 @@ import { createSubscription, getSubscription } from '../../redux/actions/stripe'
 import SubscribeView from '../../components/SuscribeView'
 // import SubscribedPlan from '../../components/SubscribedPlan'
 import { prices } from '../../utils/prices.stripe'
+import { LinearGradient } from 'expo-linear-gradient'
 
 const InicioSUSCRIPCIONES = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
-  const { customer, clientSecretSubscription } = useSelector((state) => state.stripe)
+  const { customer, clientSecretSubscription } = useSelector(
+    (state) => state.stripe
+  )
 
   const [show, setShow] = useState(false)
   console.log('clientSecret en inicio susc', clientSecretSubscription)
 
   const handleStripe = (plan) => {
-    
     const priceId = prices[`${plan}PriceId`]
     console.log(priceId)
     dispatch(createSubscription({ priceId, customerId: customer.id }))
@@ -48,21 +50,26 @@ const InicioSUSCRIPCIONES = () => {
   }, [])
 
   return (
-    <>
+    <LinearGradient
+      colors={['#fff', '#f9f9f9']}
+      style={{ flex: 1 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+    >
       <ScrollView
         style={styles.inicioSuscripciones2}
-        contentContainerStyle={{ paddingBottom: 200 }}
+        contentContainerStyle={{ paddingBottom: 20 }}
       >
         <View style={styles.helloAshfakParent}>
           <Text style={[styles.helloAshfak2, styles.helloClr]}>
             PLANES DE SUSCRIPCIÓN
           </Text>
-          <Pressable
+          {/* <Pressable
             style={styles.groupParent}
             onPress={() => navigation.goBack()}
           >
             <BackArrowSVG />
-          </Pressable>
+          </Pressable> */}
         </View>
         <View style={styles.div2CardsWrapper}>
           <View style={styles.div2Cards}>
@@ -139,28 +146,40 @@ const InicioSUSCRIPCIONES = () => {
                   </View>
                 </View>
 
-                <Pressable onPress={() => handleStripe('month')} style={styles.contentInner}>
+                <Pressable
+                  onPress={() => handleStripe('month')}
+                  style={styles.contentInner}
+                >
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
                       Plan mensual 5,99€
                     </Text>
                   </View>
                 </Pressable>
-                <Pressable onPress={() => handleStripe('triMonth')} style={styles.contentInner}>
+                <Pressable
+                  onPress={() => handleStripe('triMonth')}
+                  style={styles.contentInner}
+                >
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
                       Plan trimestral 15,99€
                     </Text>
                   </View>
                 </Pressable>
-                <Pressable onPress={() => handleStripe('sixMonth')} style={styles.contentInner}>
+                <Pressable
+                  onPress={() => handleStripe('sixMonth')}
+                  style={styles.contentInner}
+                >
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
                       Plan semestral 25,99€
                     </Text>
                   </View>
                 </Pressable>
-                <Pressable onPress={() => handleStripe('year')} style={styles.contentInner}>
+                <Pressable
+                  onPress={() => handleStripe('year')}
+                  style={styles.contentInner}
+                >
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
                       Plan anual 45,99€
@@ -173,14 +192,8 @@ const InicioSUSCRIPCIONES = () => {
         </View>
         {/* <SubscribedPlan customerId={customer.id} setShow={setShow} /> */}
       </ScrollView>
-      {show && (
-        <SubscribeView
-          clientSecret={
-           clientSecretSubscription
-          }
-        />
-      )}
-    </>
+      {show && <SubscribeView clientSecret={clientSecretSubscription} />}
+    </LinearGradient>
   )
 }
 
@@ -190,7 +203,8 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   helloTypo: {
-    fontFamily: FontFamily.inputPlaceholder
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: 'bold'
   },
   frameChild: {
     width: 29,
@@ -226,7 +240,8 @@ const styles = StyleSheet.create({
   helloAshfak: {
     fontSize: FontSize.inputPlaceholder_size,
     color: Color.sportsVioleta,
-    fontFamily: FontFamily.inputPlaceholder
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: 'bold'
   },
   helloAshfak2: {
     fontSize: 22,
@@ -253,7 +268,7 @@ const styles = StyleSheet.create({
   helloAshfakWrapper4: {
     borderRadius: Border.br_31xl,
     backgroundColor: Color.sportsNaranja,
-    height: 38,
+    height: 45,
     padding: Padding.p_3xs,
     flex: 1,
     justifyContent: 'center',
@@ -298,11 +313,9 @@ const styles = StyleSheet.create({
   },
   inicioSuscripciones2: {
     paddingTop: Padding.p_xs,
-    paddingBottom: Padding.p_5xl,
     paddingHorizontal: Padding.p_xl,
     width: '100%',
-    flex: 1,
-    backgroundColor: Color.blanco
+    flex: 1
   },
   imageIcon: {
     width: 50,
@@ -321,7 +334,8 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.sportsVioleta,
     textAlign: 'center',
-    width: 100
+    width: 100,
+    fontWeight: 'bold'
   }
 })
 

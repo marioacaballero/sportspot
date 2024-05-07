@@ -51,7 +51,7 @@ const PopupPremium = ({ setModalVisible }) => {
 const styles = StyleSheet.create({
   helloSpaceBlock: {
     marginTop: 14,
-    alignSelf: 'stretch'
+    alignSelf: 'flex-start'
   },
   helloTypo: {
     fontSize: FontSize.size_mini,
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   helloAshfak7: {
     fontSize: FontSize.size_mini,
-    textAlign: 'center',
+    textAlign: 'flex-start',
     marginTop: 14,
     color: Color.sportsVioleta,
     fontFamily: FontFamily.inputPlaceholder,

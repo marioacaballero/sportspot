@@ -20,6 +20,7 @@ import { Color } from '../../GlobalStyles'
 import { getUserByEmail, login, register } from '../../redux/actions/users'
 import { auth } from '../../utils/config.google'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Entypo } from '@expo/vector-icons'
 
 // WebBrowser.maybeCompleteAuthSession()
 
@@ -169,20 +170,28 @@ export default function SignIn({ navigation }) {
 
             <Pressable
               style={styles.button}
+              onPress={() => navigation.navigate('IniciarSesin')}
+            >
+              <Text style={styles.buttonText}>Iniciar sesión con email</Text>
+            </Pressable>
+
+            {/* <Pressable
+              style={styles.button}
               onPress={() => navigation.navigate('Registrarse')}
             >
               <Text style={styles.buttonText}>Registrarse</Text>
-            </Pressable>
+            </Pressable> */}
             <View
               style={{
-                paddingVertical: 10,
+                paddingVertical: 0,
                 marginHorizontal: 21
               }}
             >
               <Text
                 style={{
-                  color: Color.sportsNaranja,
+                  color: '#40036F',
                   fontSize: 18,
+                  fontWeight: 'bold',
                   textAlign: 'center'
                 }}
                 onPress={() => {
@@ -195,8 +204,55 @@ export default function SignIn({ navigation }) {
                   AsyncStorage.setItem('guest', JSON.stringify({ guest: true }))
                 }}
               >
-                Iniciar sesión sin registro
+                Entrar sin registrar
               </Text>
+            </View>
+            {/* <View
+              style={{
+                paddingVertical: 5,
+                marginHorizontal: 21
+              }}
+            >
+              <Text
+                style={{
+                  color: '#40036F',
+                  fontSize: 18,
+                  fontWeight: 'bold',
+                  textAlign: 'center'
+                }}
+                onPress={() => navigation.navigate('Registrarse')}
+              >
+                Registrarse
+              </Text>
+            </View> */}
+
+            <View
+              style={{
+                borderRadius: 50,
+                marginTop: 50,
+                overflow: 'hidden',
+                backgroundColor: '#E2DCEC',
+                width: 120,
+                height: 40,
+                alignSelf: 'center',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
+                gap: 12
+              }}
+            >
+              <Text
+                style={{
+                  color: '#40036F',
+                  fontSize: 15,
+                  marginLeft: 2,
+                  fontWeight: 'bold',
+                  textAlign: 'center'
+                }}
+              >
+                Idioma
+              </Text>
+              <Entypo name="chevron-down" size={20} color={'#40036F'} />
             </View>
           </View>
         </ScrollView>
@@ -235,6 +291,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#40036F',
     fontSize: 18,
+    fontWeight: 'bold',
     textAlign: 'center'
   },
   background: {

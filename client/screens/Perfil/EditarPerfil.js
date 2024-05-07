@@ -103,247 +103,270 @@ const EditarPerfil = () => {
   }
 
   return (
-    <ScrollView>
-      <View style={styles.editarPerfil}>
-        <View style={styles.topContainer}>
-          <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
-            {`GESTIONA TU
-CUENTA`}
-          </Text>
-          <Pressable onPress={() => navigation.goBack()}>
-            <BackArrowSVG />
-          </Pressable>
-        </View>
-        <View style={styles.editarPerfilInner}>
-          <View style={[styles.editarPerfilWrapper, styles.groupParentFlexBox]}>
-            <Text style={styles.editarPerfil1}>Editar perfil</Text>
-          </View>
-        </View>
-        <Pressable
-          style={styles.unsplashn6gnca77urcWrapper}
-          onPress={() => uploadImage()}
-        >
-          <Image
-            style={styles.unsplashn6gnca77urcIcon}
-            contentFit="cover"
-            source={
-              selectedImage
-                ? { uri: selectedImage }
-                : user?.avatar
-                ? { uri: user.avatar }
-                : require('../../assets/unsplashn6gnca77urc.png')
-            }
-          />
-          <View style={styles.editar}>
-            <LinearGradient
-              colors={['#BA08F9', 'transparent']}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 0.8, y: 0.5 }}
-              style={{ flex: 1 }}
+    <LinearGradient
+      colors={['#fff', '#f9f9f9']}
+      style={{ flex: 1 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+    >
+      <ScrollView>
+        <View style={styles.editarPerfil}>
+          <View style={styles.topContainer}>
+            <Text
+              style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}
             >
-              <Text style={styles.editarText}>Editar</Text>
-            </LinearGradient>
+              {`GESTIONA TU
+CUENTA`}
+            </Text>
+            {/* <Pressable onPress={() => navigation.goBack()}>
+              <BackArrowSVG />
+            </Pressable> */}
           </View>
-        </Pressable>
-        <View style={styles.frameParent}>
-          <View style={styles.card1Wrapper}>
-            <View style={styles.card1}>
-              <Image
-                style={styles.userIcon}
-                contentFit="cover"
-                source={require('../../assets/user.png')}
-              />
-              <View style={{ ...styles.datosPersonalesWrapper }}>
-                <Text
-                  style={[styles.datosPersonales, styles.card1ChildPosition]}
-                >
-                  Datos personales
-                </Text>
+          <View style={styles.editarPerfilInner}>
+            <View
+              style={[styles.editarPerfilWrapper, styles.groupParentFlexBox]}
+            >
+              <Text style={styles.editarPerfil1}>Editar perfil</Text>
+            </View>
+          </View>
+          <Pressable
+            style={styles.unsplashn6gnca77urcWrapper}
+            onPress={() => uploadImage()}
+          >
+            <Image
+              style={styles.unsplashn6gnca77urcIcon}
+              contentFit="cover"
+              source={
+                selectedImage
+                  ? { uri: selectedImage }
+                  : user?.avatar
+                  ? { uri: user.avatar }
+                  : require('../../assets/unsplashn6gnca77urc.png')
+              }
+            />
+            <View style={styles.editar}>
+              <LinearGradient
+                colors={['#BA08F9', 'transparent']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 0.8, y: 0.5 }}
+                style={{ flex: 1 }}
+              >
+                <Text style={styles.editarText}>Editar</Text>
+              </LinearGradient>
+            </View>
+          </Pressable>
+          <View style={styles.frameParent}>
+            <View style={styles.card1Wrapper}>
+              <View style={styles.card1}>
+                <Image
+                  style={styles.userIcon}
+                  contentFit="cover"
+                  source={require('../../assets/user.png')}
+                />
+                <View style={{ ...styles.datosPersonalesWrapper }}>
+                  <Text
+                    style={[styles.datosPersonales, styles.card1ChildPosition]}
+                  >
+                    Datos personales
+                  </Text>
+                </View>
+                <View style={[styles.inputParent, styles.inputFlexBox]}>
+                  <View style={styles.input}>
+                    <View
+                      style={[styles.inputContent, styles.inputContentFlexBox]}
+                    >
+                      <Text style={[styles.label, styles.labelFlexBox]}>
+                        Nombre
+                      </Text>
+                      <TextInput
+                        placeholder={user.name || 'Nombre'}
+                        placeholderTextColor={
+                          user.name ? Color.sportsVioleta : 'gray'
+                        }
+                        value={valuesUser?.name}
+                        onChangeText={(value) =>
+                          settingValuesUser('name', value)
+                        }
+                      />
+                    </View>
+                  </View>
+                  <View style={styles.input1}>
+                    <View
+                      style={[styles.inputContent, styles.inputContentFlexBox]}
+                    >
+                      <Text style={[styles.label, styles.labelFlexBox]}>
+                        Apellido
+                      </Text>
+                      <TextInput
+                        placeholder={user?.lastName || 'Apellido'}
+                        placeholderTextColor={
+                          user.lastName ? Color.sportsVioleta : 'gray'
+                        }
+                        value={valuesUser?.lastName}
+                        onChangeText={(value) =>
+                          settingValuesUser('lastName', value)
+                        }
+                      />
+                    </View>
+                  </View>
+                  <View style={[styles.input2, styles.inputBorder]}>
+                    <View
+                      style={[styles.inputContent, styles.inputContentFlexBox]}
+                    >
+                      <Text style={[styles.label, styles.labelFlexBox]}>
+                        Género
+                      </Text>
+                      <Picker
+                        style={styles.inputGenre}
+                        dropdownIconColor={'white'}
+                        mode={'dropdown'}
+                        selectedValue={valuesUser.genres}
+                        onValueChange={(itemValue, itemIndex) =>
+                          settingValuesUser('genres', itemValue)
+                        }
+                      >
+                        <Picker.Item label="Hombre" value="Hombre" />
+                        <Picker.Item label="Mujer" value="Mujer" />
+                        <Picker.Item label="Otros" value="Otros" />
+                      </Picker>
+                    </View>
+                  </View>
+                  <Pressable style={[styles.top, styles.inputBorderDate]}>
+                    <View
+                      style={[styles.inputContent3, styles.groupParentFlexBox]}
+                    >
+                      <View style={[styles.inputContentDate]}>
+                        <Text style={[styles.label, styles.labelFlexBox]}>
+                          Fecha de nacimiento
+                        </Text>
+                        <TextInput
+                          placeholder={user?.birthDate || '12/12/2020'}
+                          placeholderTextColor={
+                            user.birthDate ? Color.sportsVioleta : 'gray'
+                          }
+                          value={valuesUser.birthDate || '2020/12/12'}
+                          // onChangeText={(value) =>
+                          //   settingValuesUser('fechaNacimiento', value)
+                          // }
+                          editable={false}
+                        />
+                      </View>
+                      <Pressable onPress={openTopContainer}>
+                        <Image
+                          style={styles.iconlylightcalendar}
+                          contentFit="cover"
+                          source={require('../../assets/iconlylightcalendar.png')}
+                        />
+                      </Pressable>
+                    </View>
+                  </Pressable>
+                </View>
               </View>
-              <View style={[styles.inputParent, styles.inputFlexBox]}>
+            </View>
+            <View style={styles.card11Wrapper}>
+              <View style={styles.card11}>
+                <Image
+                  style={[styles.favoriteIActiveIcon1, styles.iconLayout]}
+                  contentFit="cover"
+                  source={require('../../assets/favorite-iactive1.png')}
+                />
+                <View style={styles.datosDeContactoWrapper}>
+                  <Text
+                    style={[styles.datosPersonales, styles.card1ChildPosition]}
+                  >
+                    Datos de contacto
+                  </Text>
+                </View>
+                <Image
+                  style={[styles.addressbookIcon, styles.iconLayout]}
+                  contentFit="cover"
+                  source={require('../../assets/addressbook.png')}
+                />
+              </View>
+              <View style={[styles.inputGroup, styles.inputFlexBox2]}>
                 <View style={styles.input}>
                   <View
                     style={[styles.inputContent, styles.inputContentFlexBox]}
                   >
                     <Text style={[styles.label, styles.labelFlexBox]}>
-                      Nombre
+                      Email
                     </Text>
-                    <TextInput
-                      placeholder={user.name || 'Nombre'}
-                      placeholderTextColor={
-                        user.name ? Color.sportsVioleta : 'gray'
-                      }
-                      value={valuesUser?.name}
-                      onChangeText={(value) => settingValuesUser('name', value)}
-                    />
-                  </View>
-                </View>
-                <View style={styles.input1}>
-                  <View
-                    style={[styles.inputContent, styles.inputContentFlexBox]}
-                  >
-                    <Text style={[styles.label, styles.labelFlexBox]}>
-                      Apellido
-                    </Text>
-                    <TextInput
-                      placeholder={user?.lastName || 'Apellido'}
-                      placeholderTextColor={
-                        user.lastName ? Color.sportsVioleta : 'gray'
-                      }
-                      value={valuesUser?.lastName}
-                      onChangeText={(value) =>
-                        settingValuesUser('lastName', value)
-                      }
-                    />
-                  </View>
-                </View>
-                <View style={[styles.input2, styles.inputBorder]}>
-                  <View
-                    style={[styles.inputContent, styles.inputContentFlexBox]}
-                  >
-                    <Text style={[styles.label, styles.labelFlexBox]}>
-                      Género
-                    </Text>
-                    <Picker
-                      style={styles.inputGenre}
-                      dropdownIconColor={'white'}
-                      mode={'dropdown'}
-                      selectedValue={valuesUser.genres}
-                      onValueChange={(itemValue, itemIndex) =>
-                        settingValuesUser('genres', itemValue)
-                      }
+                    <Text
+                      style={{
+                        color: user.email ? Color.sportsVioleta : 'gray'
+                      }}
                     >
-                      <Picker.Item label="Hombre" value="Hombre" />
-                      <Picker.Item label="Mujer" value="Mujer" />
-                      <Picker.Item label="Otros" value="Otros" />
-                    </Picker>
+                      {user?.email || 'ejemplo@gmail.com'}
+                    </Text>
                   </View>
                 </View>
-                <Pressable style={[styles.top, styles.inputBorderDate]}>
+                <View style={styles.inputCel}>
                   <View
-                    style={[styles.inputContent3, styles.groupParentFlexBox]}
+                    style={[styles.inputContent, styles.inputContentFlexBox]}
                   >
-                    <View style={[styles.inputContentDate]}>
-                      <Text style={[styles.label, styles.labelFlexBox]}>
-                        Fecha de nacimiento
-                      </Text>
-                      <TextInput
-                        placeholder={user?.birthDate || '12/12/2020'}
-                        placeholderTextColor={
-                          user.birthDate ? Color.sportsVioleta : 'gray'
-                        }
-                        value={valuesUser.birthDate || '2020/12/12'}
-                        // onChangeText={(value) =>
-                        //   settingValuesUser('fechaNacimiento', value)
-                        // }
-                        editable={false}
-                      />
-                    </View>
-                    <Pressable onPress={openTopContainer}>
-                      <Image
-                        style={styles.iconlylightcalendar}
-                        contentFit="cover"
-                        source={require('../../assets/iconlylightcalendar.png')}
-                      />
-                    </Pressable>
+                    <Text style={[styles.label, styles.labelFlexBox]}>
+                      Teléfono
+                    </Text>
+                    <TextInput
+                      placeholder={user?.phoneNumber || 'Escribe aqui...'}
+                      placeholderTextColor={
+                        user.phoneNumber ? Color.sportsVioleta : 'gray'
+                      }
+                      value={valuesUser.phoneNumber}
+                      onChangeText={(value) =>
+                        settingValuesUser('phoneNumber', value)
+                      }
+                      keyboardType="numeric"
+                    />
                   </View>
-                </Pressable>
-              </View>
-            </View>
-          </View>
-          <View style={styles.card11Wrapper}>
-            <View style={styles.card11}>
-              <Image
-                style={[styles.favoriteIActiveIcon1, styles.iconLayout]}
-                contentFit="cover"
-                source={require('../../assets/favorite-iactive1.png')}
-              />
-              <View style={styles.datosDeContactoWrapper}>
-                <Text
-                  style={[styles.datosPersonales, styles.card1ChildPosition]}
-                >
-                  Datos de contacto
-                </Text>
-              </View>
-              <Image
-                style={[styles.addressbookIcon, styles.iconLayout]}
-                contentFit="cover"
-                source={require('../../assets/addressbook.png')}
-              />
-            </View>
-            <View style={[styles.inputGroup, styles.inputFlexBox2]}>
-              <View style={styles.input}>
-                <View style={[styles.inputContent, styles.inputContentFlexBox]}>
-                  <Text style={[styles.label, styles.labelFlexBox]}>Email</Text>
-                  <Text
-                    style={{ color: user.email ? Color.sportsVioleta : 'gray' }}
+                </View>
+                <View style={[styles.inputAdress, styles.inputBorder]}>
+                  <View
+                    style={[styles.inputContent, styles.inputContentFlexBox]}
                   >
-                    {user?.email || 'ejemplo@gmail.com'}
-                  </Text>
+                    <Text style={[styles.label, styles.labelFlexBox]}>
+                      Dirección
+                    </Text>
+                    <TextInput
+                      placeholder={user?.address || 'Escribe aqui...'}
+                      placeholderTextColor={
+                        user.address ? Color.sportsVioleta : 'gray'
+                      }
+                      value={valuesUser.address}
+                      onChangeText={(value) =>
+                        settingValuesUser('address', value)
+                      }
+                    />
+                  </View>
                 </View>
-              </View>
-              <View style={styles.inputCel}>
-                <View style={[styles.inputContent, styles.inputContentFlexBox]}>
-                  <Text style={[styles.label, styles.labelFlexBox]}>
-                    Teléfono
+                <TouchableOpacity
+                  style={styles.helloAshfakWrapper}
+                  onPress={onSubmit}
+                >
+                  <Text style={[styles.helloAshfak, styles.kmTypo]}>
+                    Actualizar
                   </Text>
-                  <TextInput
-                    placeholder={user?.phoneNumber || 'Escribe aqui...'}
-                    placeholderTextColor={
-                      user.phoneNumber ? Color.sportsVioleta : 'gray'
-                    }
-                    value={valuesUser.phoneNumber}
-                    onChangeText={(value) =>
-                      settingValuesUser('phoneNumber', value)
-                    }
-                    keyboardType="numeric"
-                  />
-                </View>
+                </TouchableOpacity>
               </View>
-              <View style={[styles.inputAdress, styles.inputBorder]}>
-                <View style={[styles.inputContent, styles.inputContentFlexBox]}>
-                  <Text style={[styles.label, styles.labelFlexBox]}>
-                    Dirección
-                  </Text>
-                  <TextInput
-                    placeholder={user?.address || 'Escribe aqui...'}
-                    placeholderTextColor={
-                      user.address ? Color.sportsVioleta : 'gray'
-                    }
-                    value={valuesUser.address}
-                    onChangeText={(value) =>
-                      settingValuesUser('address', value)
-                    }
-                  />
-                </View>
-              </View>
-              <TouchableOpacity
-                style={styles.helloAshfakWrapper}
-                onPress={onSubmit}
-              >
-                <Text style={[styles.helloAshfak, styles.kmTypo]}>
-                  Actualizar
-                </Text>
-              </TouchableOpacity>
             </View>
           </View>
         </View>
-      </View>
 
-      <Modal animationType="fade" transparent visible={topContainerVisible}>
-        <View style={styles.topContainerOverlay}>
-          <Pressable
-            style={styles.topContainerBg}
-            onPress={closeTopContainer}
-          />
-          <CalendarOneDay
-            onClose={closeTopContainer}
-            start={true}
-            suscription={false}
-          />
-        </View>
-      </Modal>
-    </ScrollView>
+        <Modal animationType="fade" transparent visible={topContainerVisible}>
+          <View style={styles.topContainerOverlay}>
+            <Pressable
+              style={styles.topContainerBg}
+              onPress={closeTopContainer}
+            />
+            <CalendarOneDay
+              onClose={closeTopContainer}
+              start={true}
+              suscription={false}
+            />
+          </View>
+        </Modal>
+      </ScrollView>
+    </LinearGradient>
   )
 }
 
@@ -664,7 +687,6 @@ const styles = StyleSheet.create({
   editarPerfil: {
     paddingBottom: 220,
     width: '100%',
-    backgroundColor: Color.blanco,
     alignItems: 'center',
     justifyContent: 'flex-start'
   },

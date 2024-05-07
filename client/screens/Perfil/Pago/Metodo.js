@@ -33,9 +33,9 @@ const Metodo = () => {
         <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
           GESTIONA TU CUENTA
         </Text>
-        <Pressable onPress={() => navigation.goBack()}>
+        {/* <Pressable onPress={() => navigation.goBack()}>
           <BackArrowSVG />
-        </Pressable>
+        </Pressable> */}
       </View>
       <View style={[styles.metodoInner, styles.metodoInnerPosition]}>
         <View style={styles.datosDePagoContainer}>

@@ -24,6 +24,7 @@ import { getUser } from '../../redux/actions/users'
 import OrganizadorModal from '../../components/AccesoOrganizadorModal'
 import DatosDeportista from '../../components/DatosDeportista'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { LinearGradient } from 'expo-linear-gradient'
 // import { SafeAreaView } from 'react-native-safe-area-context'
 
 const TuPerfil = () => {
@@ -50,243 +51,260 @@ const TuPerfil = () => {
   }
 
   return (
-    <View style={styles.tuPerfil}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
-        {modalState && (
-          <DatosDeportista
-            modalSport={modalSport}
-            setModalSport={setModalSport}
-            setModalState={setModalState}
-          />
-        )}
-        <View style={styles.tuPerfilParent}>
-          {rol && <OrganizadorModal toggleModal={onChangeRol} />}
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center'
-            }}
-          >
-            <Text style={[styles.tuPerfil1, styles.tuPerfil1Typo]}>
-              TU PERFIL
-            </Text>
-            {/* <Pressable onPress={() => navigation.goBack()}>
-              <BackArrowSVG />
-            </Pressable> */}
-          </View>
-          <View style={styles.unsplashn6gnca77urcParent}>
-            <Image
-              style={styles.unsplashn6gnca77urcIcon}
-              contentFit="cover"
-              source={
-                user?.avatar
-                  ? { uri: user?.avatar }
-                  : require('../../assets/unsplashn6gnca77urc.png')
-              }
+    <LinearGradient
+      colors={['#fff', '#f9f9f9']}
+      style={{ flex: 1 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+    >
+      <View style={styles.tuPerfil}>
+        <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
+          {modalState && (
+            <DatosDeportista
+              modalSport={modalSport}
+              setModalSport={setModalSport}
+              setModalState={setModalState}
             />
-            <View style={styles.laraMacasBlancoCarrrilhoParent}>
-              {user?.name || user?.lastName ? (
-                <>
-                  <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
-                    Nombre Completo:
-                  </Text>
-                  <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-                    {user?.name} {user?.lastName}
-                  </Text>
-                </>
-              ) : (
-                <></>
-              )}
-              {user?.genres ? (
-                <>
-                  <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
-                    Género:
-                  </Text>
-                  <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-                    {user?.genres}
-                  </Text>
-                </>
-              ) : (
-                <></>
-              )}
-              {user?.phoneNumber ? (
-                <>
-                  <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
-                    Número de teléfono:
-                  </Text>
-                  <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-                    {user?.phoneNumber}
-                  </Text>
-                </>
-              ) : (
-                <></>
-              )}
-              {user?.address ? (
-                <>
-                  <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
-                    Dirección:
-                  </Text>
-                  <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-                    {user?.address}
-                  </Text>
-                </>
-              ) : (
-                <></>
-              )}
-              {user?.birthDate ? (
-                <>
-                  <Text style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}>
-                    Fecha de nacimiento:
-                  </Text>
-                  <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-                    {user?.birthDate}
-                  </Text>
-                </>
-              ) : (
-                <></>
-              )}
-            </View>
-          </View>
-          <View style={styles.frameParent}>
-            <Pressable
-              style={styles.solarsettingsBoldParent}
-              onPress={() => navigation.navigate('Cuenta')}
-            >
-              <Image
-                style={styles.solarsettingsBoldIcon}
-                contentFit="cover"
-                source={require('../../assets/solarsettingsbold.png')}
-              />
-              <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                Gestiona tu cuenta
-              </Text>
-            </Pressable>
+          )}
+          <View style={styles.tuPerfilParent}>
+            {rol && <OrganizadorModal toggleModal={onChangeRol} />}
             <View
-              style={[
-                styles.solarsettingsBoldGroup,
-                styles.solarsettingsSpaceBlock
-              ]}
-            >
-              <Image
-                style={styles.solarsettingsBoldIcon}
-                contentFit="cover"
-                source={require('../../assets/solarsettingsbold1.png')}
-              />
-              <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                Premios alcanzados
-              </Text>
-              <View style={styles.soonButton}>
-                <Text style={styles.soonText}>Soon</Text>
-              </View>
-            </View>
-            <View
-              style={[
-                styles.solarsettingsBoldGroup,
-                styles.solarsettingsSpaceBlock
-              ]}
-            >
-              <Image
-                style={styles.solarsettingsBoldIcon}
-                contentFit="cover"
-                source={require('../../assets/solarsettingsbold2.png')}
-              />
-              <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                Entidades colaboradores
-              </Text>
-            </View>
-            <Pressable
-              style={[
-                styles.solarsettingsBoldGroup,
-                styles.solarsettingsSpaceBlock
-              ]}
-              onPress={() => navigation.navigate('Contacta')}
-            >
-              <Image
-                style={styles.solarsettingsBoldIcon}
-                contentFit="cover"
-                source={require('../../assets/solarsettingsbold3.png')}
-              />
-              <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                Contactar con atención al cliente
-              </Text>
-            </Pressable>
-            <Pressable
-              style={[
-                styles.solarsettingsBoldGroup,
-                styles.solarsettingsSpaceBlock
-              ]}
-              onPress={() => navigation.navigate('Metodo1')}
-            >
-              <Image
-                style={styles.solarsettingsBoldIcon}
-                contentFit="cover"
-                source={require('../../assets/solarsettingsbold4.png')}
-              />
-              <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                Trabaja con nosotros
-              </Text>
-            </Pressable>
-
-            <Pressable
-              style={[
-                styles.solarsettingsBoldGroup,
-                styles.solarsettingsSpaceBlock
-              ]}
-              onPress={() => getModalState()}
-            >
-              <Image
-                style={styles.solarsettingsBoldIcon}
-                contentFit="cover"
-                source={require('../../assets/solarsettingsbold.png')}
-              />
-              <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                Ajustar preferencias de usuario
-              </Text>
-            </Pressable>
-
-            <Pressable
-              style={[
-                styles.solarsettingsBoldGroup,
-                styles.solarsettingsSpaceBlock,
-                styles.organizer
-              ]}
-              onPress={onChangeRol}
-            >
-              <View style={styles.solarsettingsBoldIcon2}>
-                <Megafone style={styles.solarsettingsBoldIcon2} />
-              </View>
-              <Text style={[styles.cerrarSesin, styles.cerrarSesinTypo]}>
-                {user?.rol === 'sportsman'
-                  ? 'Ser organizador'
-                  : 'Ser deportista'}
-              </Text>
-            </Pressable>
-
-            <Pressable
-              style={[
-                styles.solarsettingsBoldParent1,
-                styles.solarsettingsSpaceBlock
-              ]}
-              onPress={async () => {
-                // await AsyncStorage.clear()
-                await dispatch(clearUser())
-                navigation.navigate('IniciarSesin')
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center'
               }}
             >
-              <Image
-                style={styles.solarsettingsBoldIcon}
-                contentFit="cover"
-                source={require('../../assets/solarsettingsbold5.png')}
-              />
-              <Text style={[styles.cerrarSesin, styles.cerrarSesinTypo]}>
-                Cerrar sesión
+              <Text style={[styles.tuPerfil1, styles.tuPerfil1Typo]}>
+                TU PERFIL
               </Text>
-            </Pressable>
+              {/* <Pressable onPress={() => navigation.goBack()}>
+              <BackArrowSVG />
+            </Pressable> */}
+            </View>
+            <View style={styles.unsplashn6gnca77urcParent}>
+              <Image
+                style={styles.unsplashn6gnca77urcIcon}
+                contentFit="cover"
+                source={
+                  user?.avatar
+                    ? { uri: user?.avatar }
+                    : require('../../assets/unsplashn6gnca77urc.png')
+                }
+              />
+              <View style={styles.laraMacasBlancoCarrrilhoParent}>
+                {user?.name || user?.lastName ? (
+                  <>
+                    <Text
+                      style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}
+                    >
+                      Nombre Completo:
+                    </Text>
+                    <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
+                      {user?.name} {user?.lastName}
+                    </Text>
+                  </>
+                ) : (
+                  <></>
+                )}
+                {user?.genres ? (
+                  <>
+                    <Text
+                      style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}
+                    >
+                      Género:
+                    </Text>
+                    <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
+                      {user?.genres}
+                    </Text>
+                  </>
+                ) : (
+                  <></>
+                )}
+                {user?.phoneNumber ? (
+                  <>
+                    <Text
+                      style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}
+                    >
+                      Número de teléfono:
+                    </Text>
+                    <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
+                      {user?.phoneNumber}
+                    </Text>
+                  </>
+                ) : (
+                  <></>
+                )}
+                {user?.address ? (
+                  <>
+                    <Text
+                      style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}
+                    >
+                      Dirección:
+                    </Text>
+                    <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
+                      {user?.address}
+                    </Text>
+                  </>
+                ) : (
+                  <></>
+                )}
+                {user?.birthDate ? (
+                  <>
+                    <Text
+                      style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}
+                    >
+                      Fecha de nacimiento:
+                    </Text>
+                    <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
+                      {user?.birthDate}
+                    </Text>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </View>
+            </View>
+            <View style={styles.frameParent}>
+              <Pressable
+                style={styles.solarsettingsBoldParent}
+                onPress={() => navigation.navigate('Cuenta')}
+              >
+                <Image
+                  style={styles.solarsettingsBoldIcon}
+                  contentFit="cover"
+                  source={require('../../assets/solarsettingsbold.png')}
+                />
+                <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
+                  Gestiona tu cuenta
+                </Text>
+              </Pressable>
+              <View
+                style={[
+                  styles.solarsettingsBoldGroup,
+                  styles.solarsettingsSpaceBlock
+                ]}
+              >
+                <Image
+                  style={styles.solarsettingsBoldIcon}
+                  contentFit="cover"
+                  source={require('../../assets/solarsettingsbold1.png')}
+                />
+                <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
+                  Premios alcanzados
+                </Text>
+                <View style={styles.soonButton}>
+                  <Text style={styles.soonText}>Soon</Text>
+                </View>
+              </View>
+              <View
+                style={[
+                  styles.solarsettingsBoldGroup,
+                  styles.solarsettingsSpaceBlock
+                ]}
+              >
+                <Image
+                  style={styles.solarsettingsBoldIcon}
+                  contentFit="cover"
+                  source={require('../../assets/solarsettingsbold2.png')}
+                />
+                <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
+                  Entidades colaboradores
+                </Text>
+              </View>
+              <Pressable
+                style={[
+                  styles.solarsettingsBoldGroup,
+                  styles.solarsettingsSpaceBlock
+                ]}
+                onPress={() => navigation.navigate('Contacta')}
+              >
+                <Image
+                  style={styles.solarsettingsBoldIcon}
+                  contentFit="cover"
+                  source={require('../../assets/solarsettingsbold3.png')}
+                />
+                <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
+                  Contactar con atención al cliente
+                </Text>
+              </Pressable>
+              <Pressable
+                style={[
+                  styles.solarsettingsBoldGroup,
+                  styles.solarsettingsSpaceBlock
+                ]}
+                onPress={() => navigation.navigate('Metodo1')}
+              >
+                <Image
+                  style={styles.solarsettingsBoldIcon}
+                  contentFit="cover"
+                  source={require('../../assets/solarsettingsbold4.png')}
+                />
+                <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
+                  Trabaja con nosotros
+                </Text>
+              </Pressable>
+
+              <Pressable
+                style={[
+                  styles.solarsettingsBoldGroup,
+                  styles.solarsettingsSpaceBlock
+                ]}
+                onPress={() => getModalState()}
+              >
+                <Image
+                  style={styles.solarsettingsBoldIcon}
+                  contentFit="cover"
+                  source={require('../../assets/solarsettingsbold.png')}
+                />
+                <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
+                  Ajustar preferencias de usuario
+                </Text>
+              </Pressable>
+
+              <Pressable
+                style={[
+                  styles.solarsettingsBoldGroup,
+                  styles.solarsettingsSpaceBlock,
+                  styles.organizer
+                ]}
+                onPress={onChangeRol}
+              >
+                <View style={styles.solarsettingsBoldIcon2}>
+                  <Megafone style={styles.solarsettingsBoldIcon2} />
+                </View>
+                <Text style={[styles.cerrarSesin, styles.cerrarSesinTypo]}>
+                  {user?.rol === 'sportsman'
+                    ? 'Ser organizador'
+                    : 'Ser deportista'}
+                </Text>
+              </Pressable>
+
+              <Pressable
+                style={[
+                  styles.solarsettingsBoldParent1,
+                  styles.solarsettingsSpaceBlock
+                ]}
+                onPress={async () => {
+                  // await AsyncStorage.clear()
+                  await dispatch(clearUser())
+                  navigation.navigate('IniciarSesin')
+                }}
+              >
+                <Image
+                  style={styles.solarsettingsBoldIcon}
+                  contentFit="cover"
+                  source={require('../../assets/solarsettingsbold5.png')}
+                />
+                <Text style={[styles.cerrarSesin, styles.cerrarSesinTypo]}>
+                  Cerrar sesión
+                </Text>
+              </Pressable>
+            </View>
           </View>
-        </View>
-      </ScrollView>
-    </View>
+        </ScrollView>
+      </View>
+    </LinearGradient>
   )
 }
 
@@ -406,9 +424,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_xl
   },
   tuPerfil: {
-    backgroundColor: Color.blanco,
     flex: 1,
-    height: 800,
     overflow: 'hidden',
     width: '100%'
   },

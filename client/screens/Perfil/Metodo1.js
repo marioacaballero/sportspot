@@ -9,6 +9,7 @@ import {
   Border
 } from '../../GlobalStyles'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
+import { LinearGradient } from 'expo-linear-gradient'
 
 const Metodo1 = () => {
   const navigation = useNavigation()
@@ -18,42 +19,51 @@ const Metodo1 = () => {
   }
 
   return (
-    <View style={styles.metodo}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>TRABAJA CON NOSOTROS</Text>
-        <Pressable onPress={() => navigation.goBack()}>
+    <LinearGradient
+      colors={['#fff', '#f9f9f9']}
+      style={{ flex: 1 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+    >
+      <View style={styles.metodo}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>TRABAJA CON NOSOTROS</Text>
+          {/* <Pressable onPress={() => navigation.goBack()}>
           <BackArrowSVG />
-        </Pressable>
-      </View>
-      <View style={styles.pencillineParent}>
-        <View style={styles.pencilline}>
-          <Image
-            style={styles.medalIcon}
-            contentFit="cover"
-            source={require('../../assets/medal.png')}
-          />
-          <View style={styles.frameWrapper}>
-            <Text style={[styles.eresDeportista, styles.trabajaTypo]}>
-              ¿Eres deportista?
-            </Text>
-          </View>
+        </Pressable> */}
         </View>
-        <Text style={styles.trabajaConNosotrosContainer}>
-          Trabaja con nosotros y vive la emoción de formar parte de una
-          plataforma deportiva innovadora! Valoramos la dedicación, la pasión y
-          el espíritu competitivo. Estamos en la búsqueda de individuos
-          apasionados por el mundo del deporte para unirse a nuestro portal y
-          contribuir al crecimiento continuo de nuestra plataforma.
-        </Text>
-      </View>
-      <View style={[styles.trabajaConNosotrosFrame, styles.groupParentFlexBox]}>
-        <Pressable onPress={handlebutton}>
-          <Text style={[styles.trabajaConNosotros1, styles.trabajaTypo]}>
-            Trabaja con nosotros
+        <View style={styles.pencillineParent}>
+          <View style={styles.pencilline}>
+            <Image
+              style={styles.medalIcon}
+              contentFit="cover"
+              source={require('../../assets/medal.png')}
+            />
+            <View style={styles.frameWrapper}>
+              <Text style={[styles.eresDeportista, styles.trabajaTypo]}>
+                ¿Eres deportista?
+              </Text>
+            </View>
+          </View>
+          <Text style={styles.trabajaConNosotrosContainer}>
+            Trabaja con nosotros y vive la emoción de formar parte de una
+            plataforma deportiva innovadora! Valoramos la dedicación, la pasión
+            y el espíritu competitivo. Estamos en la búsqueda de individuos
+            apasionados por el mundo del deporte para unirse a nuestro portal y
+            contribuir al crecimiento continuo de nuestra plataforma.
           </Text>
-        </Pressable>
+        </View>
+        <View
+          style={[styles.trabajaConNosotrosFrame, styles.groupParentFlexBox]}
+        >
+          <Pressable onPress={handlebutton}>
+            <Text style={[styles.trabajaConNosotros1, styles.trabajaTypo]}>
+              Trabaja con nosotros
+            </Text>
+          </Pressable>
+        </View>
       </View>
-    </View>
+    </LinearGradient>
   )
 }
 
@@ -143,9 +153,7 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_6xs
   },
   metodo: {
-    backgroundColor: Color.blanco,
     minHeight: '100%',
-    height: '790',
     overflow: 'hidden',
     width: '100%',
     flex: 1,
