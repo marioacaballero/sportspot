@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axiosInstance from '../../utils/apiBackend'
 
+console.log(createAsyncThunk, 'que hay en asyncThunk????')
 export const suscriptionEventUser = createAsyncThunk(
   'users/suscription',
   async (body) => {
