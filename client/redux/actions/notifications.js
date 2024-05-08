@@ -14,3 +14,15 @@ export const getAlNotificationsByUser = createAsyncThunk(
     }
   }
 )
+
+export const getAllNotifications = createAsyncThunk(
+  'notifications/getAllNotifications',
+  async (recipientId) => {
+    try {
+      const { data } = await axiosInstance.get('notifications')
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+)
