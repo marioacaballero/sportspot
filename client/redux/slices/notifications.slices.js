@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getAlNotificationsByUser } from '../actions/notifications'
+import { getAllNotifications } from '../actions/notifications'
 
 export const notificationsSlices = createSlice({
   name: 'notifications',
   initialState: {
-    notifications: [],
+    userNotifications: [],
+    allNotifications: [],
     loading: false
   },
   reducers: {},
@@ -17,10 +19,23 @@ export const notificationsSlices = createSlice({
       })
       .addCase(getAlNotificationsByUser.fulfilled, (state, action) => {
         state.loading = false
-        state.notifications = action.payload
+        state.userNotifications = action.payload
         state.error = null
       })
       .addCase(getAlNotificationsByUser.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(getAllNotifications.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(getAllNotifications.fulfilled, (state, action) => {
+        state.loading = false
+        state.allNotifications = action.payload
+        state.error = null
+      })
+      .addCase(getAllNotifications.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })
