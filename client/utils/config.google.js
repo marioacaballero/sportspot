@@ -6,13 +6,13 @@ import { getAuth } from 'firebase/auth'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCGOZZ3hE2CUelHveYmbzLo1NTetTL_-bs",
-  authDomain: "sportspot-61551.firebaseapp.com",
-  projectId: "sportspot-61551",
-  storageBucket: "sportspot-61551.appspot.com",
-  messagingSenderId: "942883653751",
-  appId: "1:942883653751:web:048014ae85eb9410cc1e72",
-  measurementId: "G-G6CXX1NG5J"
+  apiKey: "AIzaSyBkc0gjmFbYfNWA6yBqsVhbz75TtV-5iMI",
+  authDomain: "sportspot-2.firebaseapp.com",
+  projectId: "sportspot-2",
+  storageBucket: "sportspot-2.appspot.com",
+  messagingSenderId: "1099443948358",
+  appId: "1:1099443948358:web:ea0518dfa62ac8807af347",
+  measurementId: "G-9V5Y1942L4"
 };
 
 // Initialize Firebase
