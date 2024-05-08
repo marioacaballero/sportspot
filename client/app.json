@@ -2,7 +2,7 @@
   "expo": {
     "runtimeVersion": "1.0.2",
     "name": "SpotSport",
-    "slug": "spotsport",
+    "slug": "spotsports",
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/spotsport.png",
@@ -53,13 +53,13 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "d7893a40-5e4b-4559-8e1a-1afeb96df0e5"
+        "projectId": "314e02e8-7da2-459e-a601-e0ead6a8dd63"
       }
     },
     "updates": {
       "url": "https://u.expo.dev/ac124ba8-62c5-44ac-ab0e-8da7a8b8e646"
     },
-    "owner": "kraa",
-    "scheme": "spotsport"
+    "owner": "ferk94",
+    "scheme": ["spotsport"]
   }
 }

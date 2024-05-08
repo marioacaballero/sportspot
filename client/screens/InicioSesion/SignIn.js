@@ -22,7 +22,7 @@ import { auth } from '../../utils/config.google'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Entypo } from '@expo/vector-icons'
 
-// WebBrowser.maybeCompleteAuthSession()
+WebBrowser.maybeCompleteAuthSession()
 
 // credenciales ios: 
 // 37113049990-bbf2rvhho7uqa6pnfe4n46i6p766f00u.apps.googleusercontent.com
@@ -77,7 +77,6 @@ export default function SignIn({ navigation }) {
         if (user.providerData[0].providerId === 'google.com') {
           console.log('=====LOGIN WITH GOOGLE=====')
           // acá se crea el usurio (cambiar por el de SpotSport)
-          console.log('aca entra cuando esta todo ok')
           dispatch(getUserByEmail(user.email)).then((data) => {
             if (data.payload.id) {
               const { email, password } = data.payload
