@@ -186,27 +186,7 @@ CUENTA`}
                   </View>
                 </View>
               </View>
-              <Pressable
-                style={{
-                  backgroundColor: Color.sportsVioleta,
-                  marginTop: 10,
-                  paddingVertical: Padding.p_6xs,
-                  height: 43,
-                  width: '100%',
-                  borderRadius: Border.br_31xl,
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-                onPress={handleChangePassword}
-              >
-                <Text
-                  style={[styles.cambiarContrasea, styles.eliminarCuentaTypo]}
-                >
-                  Cambiar contraseña
-                </Text>
-              </Pressable>
-            </View>
-            {mostrarCamposExtras && (
+              {mostrarCamposExtras && (
               <View style={styles.card2}>
                 <View style={[styles.inputLayout]}>
                   <View style={styles.inputContent}>
@@ -246,8 +226,29 @@ CUENTA`}
                 </View>
               </View>
             )}
+              <Pressable
+                style={{
+                  backgroundColor: Color.sportsVioleta,
+                  marginTop: 10,
+                  paddingVertical: Padding.p_6xs,
+                  height: 43,
+                  width: '100%',
+                  borderRadius: Border.br_31xl,
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                onPress={handleChangePassword}
+              >
+                <Text
+                  style={[styles.cambiarContrasea, styles.eliminarCuentaTypo]}
+                >
+                  Cambiar contraseña
+                </Text>
+              </Pressable>
+            </View>
+        
           </View>
-          <View style={{ marginTop: mostrarCamposExtras ? '25%' : '9%' }}>
+          <View style={{ marginTop: mostrarCamposExtras ? '10%' : '10%' }}>
             <Pressable
               onPress={handleDeleteUser}
               style={[styles.eliminarCuentaWrapper, styles.wrapperLayout]}
@@ -393,12 +394,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   card2: {
-    paddingHorizontal: Padding.p_smi,
+    width:"100%",
     paddingVertical: Padding.p_5xs,
     flexWrap: 'wrap',
-    flexDirection: 'row',
-    marginTop: 10,
-    flex: 1
+    flexDirection: 'column',
   },
   seguridadChild: {
     backgroundColor: 'white',

@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   innerContainer: {
-    top: 99,
+    top: 76,
     borderRadius: Border.br_base,
     shadowColor: '#000',
     shadowOffset: {

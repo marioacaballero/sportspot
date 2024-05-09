@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     width: '80%',
     height: '18%',
     justifyContent: 'center',
-    marginBottom: 15
+    marginBottom: 12
   },
   inputText: {
     fontSize: 14,
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     width: '40%',
     height: '15%',
     justifyContent: 'center',
-    marginTop: 15
+    marginTop: 8
   },
   enterText: {
     fontSize: 13,

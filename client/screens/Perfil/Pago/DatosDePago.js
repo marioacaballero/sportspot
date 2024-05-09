@@ -34,9 +34,9 @@ const DatosDePago = () => {
             {`GESTIONA TU
 CUENTA`}
           </Text>
-          <Pressable onPress={() => navigation.goBack()}>
+          {/* <Pressable onPress={() => navigation.goBack()}>
             <BackArrowSVG />
-          </Pressable>
+          </Pressable> */}
         </View>
         <View
           style={{
@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
   pencilline: {
     paddingLeft: Padding.p_mini,
     paddingRight: Padding.p_3xs,
-    paddingBottom: Padding.p_mini,
-    paddingTop: Padding.p_mini,
+    paddingBottom: 0,
+    paddingTop: 0,
     alignItems: 'center',
     flexDirection: 'row'
   },
@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
   },
   frameParent: {
     paddingHorizontal: Padding.p_3xs,
-    paddingBottom: Padding.p_3xs,
-    paddingTop: Padding.p_mini
+    paddingBottom:0,
+    paddingTop: 8
   },
   pencillineParent: {
     padding: 20,
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     textAlign: 'left'
   },
   aadirTarjetaWrapper: {
-    marginTop: 50,
+    marginTop: 20,
     borderRadius: Border.br_31xl,
     backgroundColor: Color.sportsVioleta,
     width: '100%',

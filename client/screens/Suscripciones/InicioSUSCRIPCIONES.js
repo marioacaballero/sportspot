@@ -75,7 +75,7 @@ const InicioSUSCRIPCIONES = () => {
           <View style={styles.div2Cards}>
             <View style={styles.card}>
               <View style={styles.content}>
-                <View>
+                <View style={{width:"100%",alignItems:"center"}}>
                   <Text style={[styles.estasSonLasContainer, styles.helloClr]}>
                     <Text style={styles.estasSonLasVentajasQueObt}>
                       <Text style={styles.helloTypo}>
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   content: {
-    width: 296
+    width: "100%"
   },
   card: {
     display: 'flex',
@@ -306,10 +306,9 @@ const styles = StyleSheet.create({
   },
   groupContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
-    marginLeft: '6%',
-    marginRight: '6%'
+   
   },
   inicioSuscripciones2: {
     paddingTop: Padding.p_xs,

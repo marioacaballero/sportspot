@@ -147,9 +147,10 @@ CUENTA`}
             <View style={styles.editar}>
               <LinearGradient
                 colors={['#BA08F9', 'transparent']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 0.8, y: 0.5 }}
-                style={{ flex: 1 }}
+                start={{ x: 0, y: 2 }}
+                end={{ x: 2, y: 0 }}
+                
+                style={{ flex: 1 ,opacity:0.7}}
               >
                 <Text style={styles.editarText}>Editar</Text>
               </LinearGradient>
@@ -158,12 +159,12 @@ CUENTA`}
           <View style={styles.frameParent}>
             <View style={styles.card1Wrapper}>
               <View style={styles.card1}>
+                <View style={{ ...styles.datosPersonalesWrapper }}>
                 <Image
                   style={styles.userIcon}
                   contentFit="cover"
                   source={require('../../assets/user.png')}
                 />
-                <View style={{ ...styles.datosPersonalesWrapper }}>
                   <Text
                     style={[styles.datosPersonales, styles.card1ChildPosition]}
                   >
@@ -209,7 +210,8 @@ CUENTA`}
                       />
                     </View>
                   </View>
-                  <View style={[styles.input2, styles.inputBorder]}>
+                 <View style={{flexDirection:"row",width:"100%",justifyContent:"space-around"}}>
+                 <View style={[styles.input2, styles.inputBorder]}>
                     <View
                       style={[styles.inputContent, styles.inputContentFlexBox]}
                     >
@@ -260,28 +262,25 @@ CUENTA`}
                       </Pressable>
                     </View>
                   </Pressable>
+                 </View>
                 </View>
               </View>
             </View>
             <View style={styles.card11Wrapper}>
               <View style={styles.card11}>
-                <Image
-                  style={[styles.favoriteIActiveIcon1, styles.iconLayout]}
-                  contentFit="cover"
-                  source={require('../../assets/favorite-iactive1.png')}
-                />
                 <View style={styles.datosDeContactoWrapper}>
+                <Image
+                  style={[styles.addressbookIcon, styles.iconLayout]}
+                  contentFit="cover"
+                  source={require('../../assets/addressbook.png')}
+                />
                   <Text
                     style={[styles.datosPersonales, styles.card1ChildPosition]}
                   >
                     Datos de contacto
                   </Text>
                 </View>
-                <Image
-                  style={[styles.addressbookIcon, styles.iconLayout]}
-                  contentFit="cover"
-                  source={require('../../assets/addressbook.png')}
-                />
+               
               </View>
               <View style={[styles.inputGroup, styles.inputFlexBox2]}>
                 <View style={styles.input}>
@@ -403,18 +402,13 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   card1ChildPosition: {
-    left: '0%',
-    top: '10%',
-    height: '100%',
-    position: 'absolute',
-    width: '100%'
+  
   },
   inputFlexBox: {
     alignItems: 'flex-end',
-    width: '95%',
-    marginLeft: '2.5%',
-    flexWrap: 'wrap',
-    flexDirection: 'row'
+    width: '100%',
+    flexDirection: 'column',
+    paddingHorizontal:10
   },
   inputFlexBox2: {
     alignItems: 'flex-end',
@@ -445,11 +439,7 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_5xs
   },
   iconLayout: {
-    maxHeight: '100%',
-    maxWidth: '100%',
-    position: 'absolute',
-    overflow: 'hidden',
-    marginTop: 1
+
   },
   inputGenre: {
     width: 155,
@@ -465,6 +455,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   editarPerfil1: {
+    fontSize:19,
     color: Color.sportsNaranja,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
@@ -473,32 +464,32 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   editarPerfilInner: {
-    top: 20,
+    top: 2,
+    fontSize:24,
     width: '100%',
     paddingHorizontal: 15,
     justifyContent: 'center'
   },
   unsplashn6gnca77urcIcon: {
-    borderRadius: Border.br_5xs,
+    borderRadius: 20,
     width: 132,
     height: 122,
     position: 'relative'
   },
   unsplashn6gnca77urcWrapper: {
-    top: 50,
+    top: 30,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderRadius:20,overflow:"hidden"
   },
   userIcon: {
     height: 22,
-    marginLeft: 4,
-    marginTop: 6,
     width: 22
   },
   datosPersonales: {
     fontSize: FontSize.size_sm,
     textTransform: 'capitalize',
-    fontWeight: '500',
+    fontWeight: 'bold',
     fontFamily: FontFamily.inputPlaceholder,
     display: 'flex',
     alignItems: 'center',
@@ -507,12 +498,12 @@ const styles = StyleSheet.create({
     marginTop: 3
   },
   datosPersonalesWrapper: {
-    width: 195,
-    height: 30,
-    marginLeft: 11,
-    marginTop: 3,
-    marginBottom: 12,
-    alignItems: 'center'
+    width: "100%",
+    alignItems: 'center',
+    flexDirection:"row"
+    ,paddingHorizontal:12,
+    paddingBottom:10,
+    gap:6
   },
   label: {
     fontSize: FontSize.size_5xs,
@@ -604,7 +595,8 @@ const styles = StyleSheet.create({
   },
   card1: {
     width: '100%',
-    height: 250,
+    height: "auto",
+    paddingBottom:20,
     paddingVertical: Padding.p_5xs,
     flexWrap: 'wrap',
     borderRadius: Border.br_base,
@@ -621,7 +613,8 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   card1Wrapper: {
-    height: '43%',
+    height: 'auto',
+    marginBottom:20,
     gap: 5
   },
   card11Wrapper: {
@@ -647,20 +640,14 @@ const styles = StyleSheet.create({
     display: 'none'
   },
   datosDeContactoWrapper: {
-    height: '13.63%',
-    width: '59.6%',
-    right: '26.02%',
-    marginBottom: '45%',
-    left: '14.37%',
-    position: 'absolute'
+flexDirection:"row",
+width:"100%",
+paddingHorizontal:10,
+paddingVertical:5,
+gap:4
   },
   addressbookIcon: {
-    height: '11.06%',
-    width: '9.79%',
-    top: '2.86%',
-    right: '86.85%',
-    bottom: '84.08%',
-    left: '3.36%'
+   height:30,width:30
   },
   card11: {
     height: 245,
@@ -682,7 +669,8 @@ const styles = StyleSheet.create({
     gap: 20
   },
   frameParent: {
-    top: 80
+    top: 60,
+    paddingHorizontal:14
   },
   editarPerfil: {
     paddingBottom: 220,
