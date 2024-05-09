@@ -107,7 +107,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
         },
         {
           // Android only:
-          dialogTitle: 'Compartir esta aplicación',
+          dialogTitle: 'Compartir este evento con',
           // iOS only:
           excludedActivityTypes: ['com.apple.UIKit.activity.PostToTwitter']
         }

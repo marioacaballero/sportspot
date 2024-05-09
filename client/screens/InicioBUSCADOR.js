@@ -290,7 +290,8 @@ const styles = StyleSheet.create({
   frameContainer: {
     width: '100%',
     padding: 20,
-    marginTop: 19
+    paddingHorizontal:6,
+    marginTop: 0
   },
   frame: {
     width: 20,

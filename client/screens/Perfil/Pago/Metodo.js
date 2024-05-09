@@ -64,8 +64,7 @@ const Metodo = () => {
             display: 'flex',
             flexDirection: 'row',
             marginTop: 20,
-            width: 275,
-            gap: 58
+            width: "100%",
           }}
         >
           <View style={styles.inputBorder}>
@@ -86,7 +85,7 @@ const Metodo = () => {
 
 const styles = StyleSheet.create({
   metodoInnerPosition: {
-    width: 330,
+    width: "100%",
     position: 'absolute'
   },
   labelFlexBox: {
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_xl,
     borderWidth: 1,
     borderStyle: 'solid',
-    width: 80
+    width: "48%"
   },
   inputBorder2: {
     height: 47,
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_xl,
     borderWidth: 1,
     borderStyle: 'solid',
-    width: 110
+    width: "48%"
   },
   walletIcon: {
     width: 32,
@@ -208,7 +207,7 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_5xs,
     paddingHorizontal: Padding.p_base,
     height: 46,
-    width: 275,
+    width: "100%",
     borderColor: Color.sportsVioleta,
     borderRadius: Border.br_xl,
     borderWidth: 1,
@@ -223,22 +222,23 @@ const styles = StyleSheet.create({
   inputParent: {
     top: 210,
     // left: 31,
-    width: 298,
-    height: 167,
+    width: "100%",
+    height: "auto",
     flexWrap: 'wrap',
     justifyContent: 'center',
     // alignItems: 'flex-start',
     flexDirection: 'row',
     position: 'absolute',
-    padding: 15
+    padding: 14
   },
   metodo: {
     backgroundColor: Color.blanco,
-    height: 800,
+    height: "auto",
     overflow: 'hidden',
     width: '100%',
     flex: 1,
     justifyContent: 'center',
+    paddingHorizontal:14,
     alignItems: 'center'
   }
 })

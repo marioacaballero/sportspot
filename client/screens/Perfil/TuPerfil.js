@@ -95,13 +95,12 @@ const TuPerfil = () => {
               <View style={styles.laraMacasBlancoCarrrilhoParent}>
                 {user?.name || user?.lastName ? (
                   <>
-                    <Text
-                      style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}
-                    >
-                      Nombre Completo:
+                   
+                    <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
+                      {user?.name} 
                     </Text>
                     <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-                      {user?.name} {user?.lastName}
+                    {user?.lastName}
                     </Text>
                   </>
                 ) : (
@@ -109,12 +108,8 @@ const TuPerfil = () => {
                 )}
                 {user?.genres ? (
                   <>
-                    <Text
-                      style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}
-                    >
-                      Género:
-                    </Text>
-                    <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
+                  
+                    <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo,{color:Color.sportsVioleta,fontSize:12}]}>
                       {user?.genres}
                     </Text>
                   </>
@@ -358,8 +353,8 @@ const styles = StyleSheet.create({
     color: Color.sportsNaranja
   },
   tuPerfilDato: {
-    fontSize: FontSize.inputLabel_size,
-    color: Color.sportsVioleta
+    fontSize: 20,
+    color: Color.sportsNaranja
   },
   mujer23Aos: {
     fontFamily: FontFamily.inputPlaceholder,

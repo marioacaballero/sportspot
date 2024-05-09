@@ -24,9 +24,9 @@ const VentajasSuscripciones = () => {
     <ScrollView style={styles.container}>
       <View style={styles.helloAshfakParent}>
         <Text style={styles.helloAshfak2}>PLANES DE SUSCRIPCIÓN</Text>
-        <Pressable onPress={() => navigation.goBack()}>
+        {/* <Pressable onPress={() => navigation.goBack()}>
           <BackArrowSVG />
-        </Pressable>
+        </Pressable> */}
       </View>
       <View style={styles.box}>
         <View style={styles.boxContent}>
@@ -122,7 +122,7 @@ const VentajasSuscripciones = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Padding.p_48xl,
+    paddingTop: 10,
     paddingBottom: Padding.p_5xl,
     paddingHorizontal: Padding.p_xl,
     width: '100%',
@@ -149,23 +149,27 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_3xs,
     backgroundColor: Color.colorMistyrose,
     padding: Padding.p_xl,
+    paddingHorizontal:18,
     marginTop: 10
   },
   boxContent: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 20,
-    height: 140,
+    height: "auto",
+    paddingBottom:30,
     width: '100%'
   },
   boxText: {
     color: Color.sportsVioleta,
     fontSize: 13,
-    width: '83%'
+    width: '83%',
+    fontWeight:"500"
   },
   imageIcon: {
     width: 25,
-    height: 25
+    height: 25,
+    alignSelf:"center"
   },
   contentInner: {
     marginTop: 16,
@@ -173,20 +177,21 @@ const styles = StyleSheet.create({
   },
   helloAshfak7: {
     fontSize: FontSize.inputPlaceholder_size,
-    color: Color.blanco
+    color: Color.blanco,
+    fontWeight:"bold"
   },
   helloAshfakWrapper1: {
     borderRadius: Border.br_31xl,
-    height: 40,
-    padding: Padding.p_3xs,
     flex: 1,
+    marginTop:-20,
     justifyContent: 'center',
     alignItems: 'center'
   },
   helloAshfak: {
     fontSize: FontSize.inputPlaceholder_size,
     color: Color.sportsVioleta,
-    fontFamily: FontFamily.inputPlaceholder
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight:"bold"
   },
   helloAshfakWrapper4: {
     borderRadius: Border.br_31xl,

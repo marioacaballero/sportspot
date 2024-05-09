@@ -43,6 +43,8 @@ const InicioDeportista = () => {
   const [mostrarInicioBuscador, setMostrarInicioBuscador] = useState(false)
   const [modalSport, setModalSport] = useState(false)
   const [buscador, setBuscador] = useState(false)
+  const [premiosSoon, setPremiosSoon] = useState(false)
+
 
   const [modalState, setModalState] = useState()
 
@@ -325,8 +327,23 @@ const InicioDeportista = () => {
               <View
                 style={{
                   flexDirection: 'row',
-                  width: '100%',
-                  justifyContent: 'space-around'
+                  width: '96%',
+                  alignSelf:"center",
+                  justifyContent: 'space-evenly',
+                  height:80,
+                  alignItems:"center",
+                 backgroundColor:"white",
+                  overflow:"hidden",
+                  borderWidth:0,
+                  borderRadius:10,
+                  shadowOpacity: 1,
+                  elevation: 4,
+                  shadowRadius: 4,
+                  shadowOffset: {
+                    width: 2,
+                    height: 2
+                  },
+                  shadowColor: 'black',
                 }}
               >
                 <View style={{ alignItems: 'center' }}>
@@ -345,22 +362,25 @@ const InicioDeportista = () => {
                     borderColor: '#6987ff',
                     paddingHorizontal: 20,
                     alignItems: 'center',
+                    paddingLeft:40,
                     flexDirection: 'column',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
                   }}
                 >
                   <TouchableOpacity
+                  onPress={()=> setPremiosSoon(!premiosSoon)}
                     style={{
+                      alignSelf:"center",
                       borderRadius: 50,
                       flexDirection: 'row',
                       alignItems: 'center',
-                      backgroundColor: Color.sportsNaranja,
+                      backgroundColor: premiosSoon ? "gray" : Color.sportsNaranja,
                       paddingHorizontal: 20,
                       paddingVertical: 10
                     }}
                   >
                     <Text style={{ fontWeight: 'bold', color: 'white' }}>
-                      Acceder a premios
+                      {!premiosSoon ? "Acceder a premios" : "Soon"}
                     </Text>
                   </TouchableOpacity>
                 </View>
