@@ -249,7 +249,7 @@ export default function App() {
         backgroundColor="#fff"
       />
       <Provider store={store}>
-        <StripeProvider publishableKey={API_PUBLIC_STRIPE}>
+        <StripeProvider publishableKey="pk_test_51OocYQGmE60O5ob7ydu8u1BLMhlWf9F5C6TCuSu75y47X5yBRO8wcbIssEjFc95AferGwyiHNkNGwT25ywIoZahB009vDgPuYd">
           <NavigationContainer>
             <MyStackNavigator
               isFooterShow={isFooterShow}

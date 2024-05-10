@@ -59,7 +59,8 @@ const InicioDeportista = () => {
       setModalSport(true)
     }
     dispatch(getAllEvents())
-    dispatch(getOneCustomer(user.email))
+    dispatch(getOneCustomer(user.email)).then((e)=> console.log(e,"eeeeeee"))
+    console.log(user.email,"emailllll")
   }, [])
 
   const handleBuscarPress = () => {

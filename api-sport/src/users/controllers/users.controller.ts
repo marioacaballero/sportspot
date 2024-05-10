@@ -31,6 +31,33 @@ export class UsersController {
     return await this.userService.getAllService()
   }
 
+  @Post('stripe/create-customer')
+  @ApiOperation({ summary: 'crear customer user' })
+  async createCustomer(
+    @Body('email') email: string,
+    @Body('name') name: string,
+  ) {
+    try {
+      const customer = await this.userService.createCustomer(email, name);
+      return { success: true, customer };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  }
+  @Post('create-subscription')
+  @ApiOperation({ summary: 'create suscription' })
+  async createSubscription(
+    @Body('customerId') customerId: string,
+    @Body('priceId') priceId: string,
+  ) {
+    try {
+      const subscription = await this.userService.createSubscription(customerId, priceId);
+      return { success: true, subscription };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  }
+
   @Get('email')
   public async getUserEmail(@Query('email') email: string) {
     return await this.userService.getByEmailService(email)

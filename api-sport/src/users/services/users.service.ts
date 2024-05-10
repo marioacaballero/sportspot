@@ -12,9 +12,11 @@ import { UserEventHistoryEntity } from '../../events/entities/userEvent.entity'
 import { UpdateUserDto } from '../dto/update-user.dto'
 import { UserDTO } from '../dto/user.dto'
 import { UserEntity } from '../entities/users.entity'
+import Stripe from 'stripe';
 
 @Injectable()
 export class UsersService {
+  private readonly stripe: Stripe;
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
@@ -26,7 +28,65 @@ export class UsersService {
     private readonly eventsRepository: Repository<EventEntity>,
     @InjectRepository(UserEventHistoryEntity)
     private readonly usersEventRepository: Repository<UserEventHistoryEntity>
-  ) {}
+  ) {
+    this.stripe = new Stripe(
+      'sk_test_51OocYQGmE60O5ob7URy3YpGfHVIju6x3fuDdxXUy5R0rAdaorSHfskHNcBHToSoEfwJhFHtFDCguj7aGPlywD2pp00f2X9h9et',
+    )
+  }
+
+
+  async createSubscription(customerId: string, priceId: string): Promise<any> {
+    try {
+      const subscription = await this.stripe.subscriptions.create({
+        customer: customerId,
+        items: [{
+          price: priceId,
+        }],
+        payment_behavior: 'default_incomplete',
+        payment_settings: { save_default_payment_method: 'on_subscription' },
+        expand: ['latest_invoice.payment_intent'],
+      });
+      console.log("prueba")
+
+      return {
+        subscriptionId: subscription.id,
+        clientSecret: subscription,
+      };
+    } catch (error) {
+      throw new Error('Error creating subscription');
+    }
+  }
+
+  async createCustomer(email: string, name: string): Promise<any> {
+    try {
+      const customer = await this.stripe.customers.create({
+        email,
+        name,
+        shipping: {
+          address: {
+            city: 'Brothers',
+            country: 'US',
+            line1: '27 Fredrick Ave',
+            postal_code: '97712',
+            state: 'CA',
+          },
+          name,
+        },
+        address: {
+          city: 'Brothers',
+          country: 'US',
+          line1: '27 Fredrick Ave',
+          postal_code: '97712',
+          state: 'CA',
+        },
+      });
+      return customer;
+    } catch (error) {
+      throw new Error('Error creating customer');
+    }
+  }
+
+
 
   public async register(userObject: UserDTO) {
     //Hash password
@@ -34,6 +94,8 @@ export class UsersService {
       userObject.password,
       +process.env.HASH_SALT
     )
+
+    
 
     const existingUser: UserEntity = await this.userRepository
       .createQueryBuilder('user')

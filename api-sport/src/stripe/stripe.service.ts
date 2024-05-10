@@ -118,7 +118,7 @@ export class StripeService {
           clientSecret: paymentIntent.client_secret
         }
 
-        return data
+        return subscription
       }
     } catch (error) {
       console.error(error)
