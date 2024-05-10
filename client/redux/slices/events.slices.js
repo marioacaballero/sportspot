@@ -40,7 +40,6 @@ export const eventsSlices = createSlice({
       state.dateStart = action.payload
     },
     setShowGuestModal: (state, action) => {
-      console.log('action.payload: ', action.payload)
       state.showGuestModal = action.payload
     },
     setDateSuscription: (state, action) => {
@@ -125,7 +124,6 @@ export const eventsSlices = createSlice({
         state.error = null
       })
       .addCase(createEvent.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.loading = false
         state.events = [...state.events, action.payload]
         state.error = null

@@ -26,7 +26,7 @@ const CustomAlert = ({ visible, message, onClose }) => {
     >
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <Text style={styles.alert}>Alerta</Text>
+          <Text style={styles.alert}>{message}</Text>
           <Text style={styles.text}>{message}</Text>
           <TouchableOpacity onPress={onClose} style={styles.touchable}>
             <Text style={styles.closeText}>Aceptar</Text>

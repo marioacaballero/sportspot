@@ -50,16 +50,22 @@ const Seguridad = () => {
     }))
   }
 
-  const handleShowAlert = (message) => {
-    console.log('show', showAlert)
-
+  const handleShowAlert = (message, type) => {
     setMessage(message)
     setShowAlert(true)
+    if(type === 'account') {
+      navigation.navigate('SignIn')
+    }
   }
 
   const handleCloseAlert = () => {
     setShowAlert(false)
   }
+
+  // const handleShowAlertAccount = (message) => {
+  //   setMessageAccount(message)
+  //   setShowAlertAccount(true)
+  // }
 
   const handleChangePassword = () => {
     if (password.newPassword === password.confirmPassword) {
@@ -88,11 +94,12 @@ const Seguridad = () => {
     const confirmDelete = window.confirm(
       '¿Seguro que quieres borrar tu cuenta?'
     )
-    if (confirmDelete) {
-      dispatch(clearUser())
-      dispatch(deleteUser(user.id))
-      navigation.navigate('SignIn')
-    }
+    handleShowAlert('esta seguro de que desea eliminar su cuenta permantentemente? Si acepta no la podrá recuperar..')
+    // if (confirmDelete) {
+    //   dispatch(clearUser())
+    //   dispatch(deleteUser(user.id))
+    //   navigation.navigate('SignIn')
+    // }
   }
 
   return (

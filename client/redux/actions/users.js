@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axiosInstance from '../../utils/apiBackend'
 
-console.log(createAsyncThunk, 'que hay en asyncThunk????')
 export const suscriptionEventUser = createAsyncThunk(
   'users/suscription',
   async (body) => {
@@ -80,7 +79,6 @@ export const register = createAsyncThunk('users/register', async (body) => {
 export const login = createAsyncThunk('users/login', async (body) => {
   try {
     const { data } = await axiosInstance.post('/jwt/login', body)
-    console.log(data, 'la data al loguear del user')
     return data
   } catch (error) {
     throw new Error(error)
@@ -178,7 +176,6 @@ export const favorite = createAsyncThunk('users/favorite', async (body) => {
     const { data } = await axiosInstance.patch(`/users/favorite/${id}`, {
       eventId
     })
-    console.log('body', data)
     return data
   } catch (error) {
     throw new Error(error)
