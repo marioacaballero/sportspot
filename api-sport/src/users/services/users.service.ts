@@ -226,7 +226,7 @@ export class UsersService {
         'user.rol',
         'user.preferences'
       ])
-      .where({ email })
+      .where({ email, isDelete: false })
       .getOne()
   }
 

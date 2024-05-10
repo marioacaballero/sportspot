@@ -54,7 +54,7 @@ export class GoogleStrategyService {
   }
 
   async findUserByEmail(email: string) {
-    const user = await this.userRepository.findOne({ where: { email } })
+    const user = await this.userRepository.findOne({ where: { email, isDelete: false } })
 
     if (!user) {
       return null

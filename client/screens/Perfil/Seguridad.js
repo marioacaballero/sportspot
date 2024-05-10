@@ -40,6 +40,7 @@ const Seguridad = () => {
   })
   const [showAlert, setShowAlert] = useState(false)
   const [message, setMessage] = useState('')
+  const [type, setType] = useState('')
 
   console.log(showAlert)
 
@@ -51,15 +52,18 @@ const Seguridad = () => {
   }
 
   const handleShowAlert = (message, type) => {
+    setType(type)
     setMessage(message)
     setShowAlert(true)
-    if(type === 'account') {
-      navigation.navigate('SignIn')
-    }
   }
 
-  const handleCloseAlert = () => {
+  const handleCloseAlert = (button) => {
     setShowAlert(false)
+    if(type === 'account' && button === 'aceptar') {
+      dispatch(clearUser())
+      dispatch(deleteUser(user.id))
+      navigation.navigate('SignIn')
+    }
   }
 
   // const handleShowAlertAccount = (message) => {
@@ -76,13 +80,13 @@ const Seguridad = () => {
           newPassword: password.confirmPassword
         }
         dispatch(changePassword(data))
-        handleShowAlert('Contraseña cambiada exitosamente')
+        handleShowAlert('Contraseña cambiada exitosamente', 'pass')
         // navigation.goBack()
       } else {
-        handleShowAlert('La nueva contraseña debe tener al menos 3 caracteres')
+        handleShowAlert('La nueva contraseña debe tener al menos 3 caracteres', 'pass')
       }
     } else {
-      handleShowAlert('Las contraseñas no coinciden')
+      handleShowAlert('Las contraseñas no coinciden', 'pass')
     }
   }
 
@@ -91,10 +95,10 @@ const Seguridad = () => {
   }
 
   const handleDeleteUser = () => {
-    const confirmDelete = window.confirm(
-      '¿Seguro que quieres borrar tu cuenta?'
-    )
-    handleShowAlert('esta seguro de que desea eliminar su cuenta permantentemente? Si acepta no la podrá recuperar..')
+    // const confirmDelete = window.confirm(
+    //   '¿Seguro que quieres borrar tu cuenta?'
+    // )
+    handleShowAlert('esta seguro de que desea eliminar su cuenta permantentemente? Si acepta no la podrá recuperar..', 'account')
     // if (confirmDelete) {
     //   dispatch(clearUser())
     //   dispatch(deleteUser(user.id))
@@ -270,6 +274,7 @@ CUENTA`}
           visible={showAlert}
           message={message}
           onClose={handleCloseAlert}
+          type={type}
         />
       </ScrollView>
     </LinearGradient>
