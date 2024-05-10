@@ -77,7 +77,7 @@ export default function SignIn({ navigation }) {
 
         if (user.providerData[0].providerId === 'google.com') {
           console.log('=====LOGIN WITH GOOGLE=====')
-          console.log('user from google: ', user)
+          //  console.log('user from google: ', user)
           // acá se crea el usurio (cambiar por el de SpotSport)
           dispatch(getUserByEmail(`${user.uid}@gmail.com`)).then((data) => {
             if (data?.payload?.id) {
