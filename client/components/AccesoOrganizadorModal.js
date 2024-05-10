@@ -59,22 +59,51 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
                 {user.rol === 'sportsman' ? 'organizador' : 'deportista'}
               </Text>
             </View>
-            <View style={styles.borderBox}>
+            <View
+              style={{
+                borderRadius: 30,
+                borderWidth: 1.5,
+                borderColor: Color.sportsVioleta,
+                width: '80%',
+                paddingVertical: 5,
+                justifyContent: 'center',
+                marginBottom: 12,
+                alignItems: 'center'
+              }}
+            >
               <TextInput
                 placeholder="Email"
                 onChangeText={(value) => onValuesInput('email', value)}
                 value={input.email}
                 placeholderTextColor={Color.sportsVioleta}
-                style={styles.inputText}
+                style={{
+                  fontSize: 14,
+                  color: Color.sportsVioleta
+                }}
               />
             </View>
-            <View style={styles.borderBox}>
+            <View
+              style={{
+                borderRadius: 30,
+                borderWidth: 1.5,
+                borderColor: Color.sportsVioleta,
+                width: '80%',
+                paddingVertical: 5,
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 12
+              }}
+            >
               <TextInput
                 placeholder="Contraseña"
+                secureTextEntry={true}
                 onChangeText={(value) => onValuesInput('password', value)}
                 value={input.password}
                 placeholderTextColor={Color.sportsVioleta}
-                style={styles.inputText}
+                style={{
+                  fontSize: 14,
+                  color: Color.sportsVioleta
+                }}
               />
             </View>
             <Pressable style={styles.pressableBox} onPress={onChangeRol}>

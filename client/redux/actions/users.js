@@ -148,6 +148,7 @@ export const updateUserRol = createAsyncThunk(
     const { id } = body
     try {
       const { data } = await axiosInstance.post(`/users/rol/${id}`)
+      console.log('data from updateRol:', data)
       return data
     } catch (error) {
       throw new Error(error)

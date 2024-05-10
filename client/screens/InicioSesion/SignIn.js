@@ -24,19 +24,20 @@ import { Entypo } from '@expo/vector-icons'
 
 WebBrowser.maybeCompleteAuthSession()
 
-// credenciales ios: 
+// credenciales ios:
 // 37113049990-bbf2rvhho7uqa6pnfe4n46i6p766f00u.apps.googleusercontent.com
 
-// credenciales android: 
+// credenciales android:
 // 37113049990-veui0lbk6sffhnefteii75hg1e9ncm9b.apps.googleusercontent.com
 
 export default function SignIn({ navigation }) {
   const { userToken, user } = useSelector((state) => state.users)
   const dispatch = useDispatch()
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    iosClientId: '37113049990-bbf2rvhho7uqa6pnfe4n46i6p766f00u.apps.googleusercontent.com',
+    iosClientId:
+      '170387470104-s69t91p5e392jtmkigkpv98unin22641.apps.googleusercontent.com',
     androidClientId:
-      '37113049990-veui0lbk6sffhnefteii75hg1e9ncm9b.apps.googleusercontent.com'
+      '170387470104-gjbs1uunr7r3fodkv3gk4lncajgv8abc.apps.googleusercontent.com'
   })
 
   useEffect(() => {
@@ -76,16 +77,18 @@ export default function SignIn({ navigation }) {
 
         if (user.providerData[0].providerId === 'google.com') {
           console.log('=====LOGIN WITH GOOGLE=====')
+          console.log('user from google: ', user)
           // acá se crea el usurio (cambiar por el de SpotSport)
-          dispatch(getUserByEmail(user.email)).then((data) => {
-            if (data.payload.id) {
+          dispatch(getUserByEmail(`${user.uid}@gmail.com`)).then((data) => {
+            if (data?.payload?.id) {
+              console.log('data: ', data)
               const { email, password } = data.payload
               dispatch(login({ email, password }))
             } else {
               dispatch(
                 register({
-                  email: user.email,
-                  password: `${user.email}90`
+                  email: `${user.uid}@gmail.com`,
+                  password: `${user.uid}`
                   // nickname: user.displayName,
                   // googleId: user.uid,
                   // type: isSportman ? 'sportman' : 'club'
@@ -109,14 +112,14 @@ export default function SignIn({ navigation }) {
     return () => unsub()
   }, [response])
 
-  // useEffect(() => {
-  //   if (response?.type === 'success') {
-  //     const { id_token } = response.params
-  //     const credential = GoogleAuthProvider.credential(id_token)
-  //     signInWithCredential(auth, credential)
-  //     console.log('deberia crear el usuario')
-  //   }
-  // }, [response])
+  useEffect(() => {
+    if (response?.type === 'success') {
+      const { id_token } = response.params
+      const credential = GoogleAuthProvider.credential(id_token)
+      signInWithCredential(auth, credential)
+      console.log('deberia crear el usuario')
+    }
+  }, [response])
 
   return (
     <View style={styles.container}>
