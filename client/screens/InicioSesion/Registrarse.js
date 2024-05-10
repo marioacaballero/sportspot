@@ -36,7 +36,9 @@ const Registrarse = () => {
 
   const [registerUser, setRegisterUser] = useState({
     password: '',
-    email: ''
+    email: '',
+    name:"",
+    lastName:""
     // nickname: ''
   })
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -145,6 +147,24 @@ const Registrarse = () => {
               onChangeText={(value) => onValuesUser('email', value)}
               onSubmitEditing={() => passwordInputRef.current.focus()}
               ref={emailInputRef}
+              autoCapitalize="none"
+            />
+          </View>
+          <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
+            <TextInput
+              style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
+              placeholder="Nombre"
+              value={registerUser.name}
+              onChangeText={(value) => onValuesUser('name', value)}
+              autoCapitalize="none"
+            />
+          </View>
+          <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
+            <TextInput
+              style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
+              placeholder="Apellido"
+              value={registerUser.lastName}
+              onChangeText={(value) => onValuesUser('lastName', value)}
               autoCapitalize="none"
             />
           </View>
