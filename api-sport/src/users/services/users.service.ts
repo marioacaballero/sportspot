@@ -341,7 +341,7 @@ export class UsersService {
   public async eventFavoritesService(
     userId: string,
     eventId: string
-  ): Promise<UserEntity> {
+  ): Promise<EventEntity> {
     const user = await this.getOneService(userId)
     if (!user) {
       throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404)
@@ -360,7 +360,7 @@ export class UsersService {
       user.eventFavorites = user.eventFavorites.filter((e) => e !== eventId)
     }
 
-    return await this.userRepository.save(user)
+    return event
   }
 
   public async mailOrganizer(id: string) {

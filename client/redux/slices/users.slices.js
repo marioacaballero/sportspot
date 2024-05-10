@@ -15,6 +15,7 @@ export const usersSlices = createSlice({
   initialState: {
     user: {},
     users: [],
+    eventFavorites: [],
     userToken: '',
     loading: false,
     error: null
@@ -125,11 +126,12 @@ export const usersSlices = createSlice({
       })
       .addCase(favorite.fulfilled, (state, action) => {
         state.loading = false
-        if (state.user && state.user.eventFavorites) {
-          state.user = {
-            ...state.user,
-            eventFavorites: [...state.user.eventFavorites, action.payload]
-          }
+        const find = state?.eventFavorites?.find(e => e?.id === action.payload.id)
+        if(!find) {
+          state.eventFavorites = [...state.eventFavorites, action.payload]
+        } else {
+          const filterFavorites = state.eventFavorites.filter(e => e.id !== action.payload.id)
+          state.eventFavorites = filterFavorites
         }
         state.error = null
       })

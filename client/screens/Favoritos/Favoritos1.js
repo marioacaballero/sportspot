@@ -19,10 +19,10 @@ const Favoritos1 = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
-  const { user } = useSelector((state) => state.users)
+  const { user, eventFavorites } = useSelector((state) => state.users)
   const { sports } = useSelector((state) => state.sports)
 
-  const { allFavorites, loadingGet } = useSelector((state) => state.events)
+  const { loadingGet } = useSelector((state) => state.events)
   useEffect(() => {
     dispatch(getFavorites(user.id))
   }, [])
@@ -38,9 +38,10 @@ const Favoritos1 = () => {
   //   'hockey'
   // ]
   // Agrupar favoritos por deporte
-  const groupedFavorites = allFavorites.reduce((grouped, favorite) => {
-    const sportName = sports.find((sport) => sport.id === favorite.sportId).name
+  const groupedFavorites = eventFavorites?.reduce((grouped, favorite) => {
+    const sportName = sports.find((sport) => sport.id === favorite?.sportId)?.name
 
+    console.log(groupedFavorites, 'esto ya esta roto')
     if (!grouped[sportName]) {
       grouped[sportName] = []
     }
