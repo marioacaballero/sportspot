@@ -17,18 +17,30 @@ import { getAllVisitedEvents } from '../redux/actions/events'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { LinearGradient } from 'expo-linear-gradient'
+import { favorite } from '../redux/actions/users'
 
 const UltimasConsultas = () => {
   const navigation = useNavigation()
 
   const dispatch = useDispatch()
 
-  const { user } = useSelector((state) => state.users)
-  const { visitedEvents } = useSelector((state) => state.events)
-  const [liked, setLiked] = useState([0])
-
   const [switchStates, setSwitchStates] = useState([false, false, false])
   const [showSwitch, setshowSwitch] = useState(false)
+  const { user, eventFavorites } = useSelector((state) => state.users)
+  const { visitedEvents } = useSelector((state) => state.events)
+
+  const [isFavorite, setIsFavorite] = useState({})
+  
+  const initializeFavorites = () => {
+    const init = {}
+    visitedEvents?.forEach((visited, index) => {
+      const isEventFavorite = eventFavorites.some(e => {
+        return e?.id === visited.event?.id
+      })
+      init[index] = isEventFavorite
+    });
+    return init
+  };
 
   useEffect(() => {
     const body = {
@@ -43,11 +55,32 @@ const UltimasConsultas = () => {
     }
     dispatch(getAllVisitedEvents(body))
   }, [switchStates])
+  
+  
+  
+  useEffect(() => {
+    if(visitedEvents?.length > 0) setIsFavorite(initializeFavorites())
+  }, [visitedEvents])
 
   const toggleSwitch = (index) => {
     const newSwitchStates = [false, false, false]
     newSwitchStates[index] = !newSwitchStates[index]
     setSwitchStates(newSwitchStates)
+  }
+
+  const toggleFavorite = (pruebaId, i) => {
+    const data = {
+      id: user.id,
+      eventId: pruebaId
+    }
+
+    const newObj = {
+      ...isFavorite,
+      [i]: !isFavorite[i]
+    }
+    setIsFavorite(newObj)
+    dispatch(favorite(data))
+    // navigation.navigate('Favoritos1')
   }
 
   return (
@@ -168,16 +201,12 @@ const UltimasConsultas = () => {
                   <TouchableOpacity
                     style={{ position: 'absolute', top: 7, right: 13 }}
                     onPress={() => {
-                      const likedCards = liked.includes(i)
-                        ? [...liked].filter((like) => like !== i)
-                        : [...liked, i]
-                      console.log('likedCards:', likedCards)
-                      setLiked(likedCards)
+                      toggleFavorite(event.event.id, i)
                     }}
                   >
                     <MaterialCommunityIcons
                       name={
-                        liked.includes(i)
+                          isFavorite[i]
                           ? 'cards-heart'
                           : 'cards-heart-outline'
                       }

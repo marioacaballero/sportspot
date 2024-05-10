@@ -17,7 +17,7 @@ import InicioNotificaciones from './InicioNotificaciones'
 import InicioBUSCADOR from './InicioBUSCADOR'
 import InicioOrganizador from './Organizador/InicioOrganizador'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllEvents } from '../redux/actions/events'
+import { getAllEvents, visitEvent } from '../redux/actions/events'
 import {
   getEventByIdRedux,
   setShowGuestModal
@@ -58,8 +58,7 @@ const InicioDeportista = () => {
       setModalSport(true)
     }
     dispatch(getAllEvents())
-    dispatch(getOneCustomer(user.email)).then((e) => console.log(e, 'eeeeeee'))
-    console.log(user.email, 'emailllll')
+    dispatch(getOneCustomer(user.email)).then((e)=> console.log(e,"eeeeeee"))
   }, [])
 
   const handleBuscarPress = () => {
@@ -230,7 +229,6 @@ const InicioDeportista = () => {
                   >
                     <TouchableWithoutFeedback
                       onPress={() => {
-                        console.log('toggle guest modal')
                         dispatch(setShowGuestModal(false))
                       }}
                     >
@@ -411,6 +409,7 @@ const InicioDeportista = () => {
                             : styles.image94ParentShadowBox
                         }
                         onPress={() => {
+                          dispatch(visitEvent({eventId: event.id, userId: user.id}))
                           dispatch(getEventByIdRedux(event.id))
                           navigation.navigate('PruebasEncontradasDetalle')
                         }}
@@ -460,6 +459,7 @@ const InicioDeportista = () => {
                             : styles.image94ParentShadowBox
                         }
                         onPress={() => {
+                          dispatch(visitEvent({eventId: event.id, userId: user.id}))
                           dispatch(getEventByIdRedux(event.id))
                           navigation.navigate('PruebasEncontradasDetalle')
                         }}
@@ -508,6 +508,7 @@ const InicioDeportista = () => {
                             : styles.image94ParentShadowBox
                         }
                         onPress={() => {
+                          dispatch(visitEvent({eventId: event.id, userId: user.id}))
                           dispatch(getEventByIdRedux(event.id))
                           navigation.navigate('PruebasEncontradasDetalle')
                         }}

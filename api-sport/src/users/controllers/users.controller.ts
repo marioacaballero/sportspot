@@ -127,7 +127,7 @@ export class UsersController {
   async favoriteEvent(
     @Param('id') id: string,
     @Body('eventId') eventId: string
-  ): Promise<UserEntity> {
+  ): Promise<EventEntity> {
     return this.userService.eventFavoritesService(id, eventId)
   }
 

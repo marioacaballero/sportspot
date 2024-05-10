@@ -96,7 +96,7 @@ const Favoritos = ({ route }) => {
                       <Text
                         style={{ color: Color.sportsVioleta, fontSize: 12 }}
                       >
-                        Modalidad:
+                       ES ACÁ Modalidad:
                       </Text>
                       <Text
                         style={{
