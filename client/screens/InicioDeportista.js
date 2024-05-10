@@ -45,7 +45,6 @@ const InicioDeportista = () => {
   const [buscador, setBuscador] = useState(false)
   const [premiosSoon, setPremiosSoon] = useState(false)
 
-
   const [modalState, setModalState] = useState()
 
   const getModalState = async () => {
@@ -119,6 +118,7 @@ const InicioDeportista = () => {
     return diferenciaDias >= 1
   })
   const isGuest = user?.email === 'guestUser@gmail.com'
+  console.log('user: ', user)
 
   if (loadingGet) {
     return (
@@ -327,14 +327,14 @@ const InicioDeportista = () => {
                 style={{
                   flexDirection: 'row',
                   width: '96%',
-                  alignSelf:"center",
+                  alignSelf: 'center',
                   justifyContent: 'space-evenly',
-                  height:80,
-                  alignItems:"center",
-                 backgroundColor:"white",
-                  overflow:"hidden",
-                  borderWidth:0,
-                  borderRadius:10,
+                  height: 80,
+                  alignItems: 'center',
+                  backgroundColor: 'white',
+                  overflow: 'hidden',
+                  borderWidth: 0,
+                  borderRadius: 10,
                   shadowOpacity: 1,
                   elevation: 4,
                   shadowRadius: 4,
@@ -342,7 +342,7 @@ const InicioDeportista = () => {
                     width: 2,
                     height: 2
                   },
-                  shadowColor: 'black',
+                  shadowColor: 'black'
                 }}
               >
                 <View style={{ alignItems: 'center' }}>
@@ -361,25 +361,27 @@ const InicioDeportista = () => {
                     borderColor: '#6987ff',
                     paddingHorizontal: 20,
                     alignItems: 'center',
-                    paddingLeft:40,
+                    paddingLeft: 40,
                     flexDirection: 'column',
-                    justifyContent: 'center',
+                    justifyContent: 'center'
                   }}
                 >
                   <TouchableOpacity
-                  onPress={()=> setPremiosSoon(!premiosSoon)}
+                    onPress={() => setPremiosSoon(!premiosSoon)}
                     style={{
-                      alignSelf:"center",
+                      alignSelf: 'center',
                       borderRadius: 50,
                       flexDirection: 'row',
                       alignItems: 'center',
-                      backgroundColor: premiosSoon ? "gray" : Color.sportsNaranja,
+                      backgroundColor: premiosSoon
+                        ? 'gray'
+                        : Color.sportsNaranja,
                       paddingHorizontal: 20,
                       paddingVertical: 10
                     }}
                   >
                     <Text style={{ fontWeight: 'bold', color: 'white' }}>
-                      {!premiosSoon ? "Acceder a premios" : "Soon"}
+                      {!premiosSoon ? 'Acceder a premios' : 'Soon'}
                     </Text>
                   </TouchableOpacity>
                 </View>

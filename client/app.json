@@ -2,7 +2,7 @@
   "expo": {
     "runtimeVersion": "1.0.2",
     "name": "SpotSport",
-    "slug": "spotsports",
+    "slug": "spotsport",
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/spotsport.png",
@@ -15,14 +15,14 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.mauriidg.SpotSport"
+      "bundleIdentifier": "com.aythenapp.spotsport"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/spotsportadaptative.png",
+        "backgroundColor": "#000"
       },
-      "package": "com.mauriidg.SpotSport",
+      "package": "com.aythenapp.spotsport",
       "versionCode": 1,
       "config": {
         "googleMaps": {
@@ -53,13 +53,13 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "314e02e8-7da2-459e-a601-e0ead6a8dd63"
+        "projectId": "d7893a40-5e4b-4559-8e1a-1afeb96df0e5"
       }
     },
     "updates": {
       "url": "https://u.expo.dev/ac124ba8-62c5-44ac-ab0e-8da7a8b8e646"
     },
-    "owner": "ferk94",
+    "owner": "kraa",
     "scheme": ["spotsport"]
   }
 }

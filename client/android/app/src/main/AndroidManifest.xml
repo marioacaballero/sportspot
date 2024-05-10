@@ -29,10 +29,12 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="sportsmatch"/>
-        <data android:scheme="fb2654178301415308"/>
-        <data android:scheme="com.mauriidg.SpotSport"/>
         <data android:scheme="spotsport"/>
+        <data android:scheme="com.aythenapps.spotsport"/>
+        <data android:scheme="exp+spotsport"/>
+        <data android:scheme="SpotSport"/>
+        <data android:scheme="com.mauriidg.SpotSport"/>
+        <data android:scheme="com.aythenapp.spotsport"/>
       </intent-filter>
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" android:exported="false"/>
