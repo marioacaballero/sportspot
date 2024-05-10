@@ -98,7 +98,7 @@ const Seguridad = () => {
     // const confirmDelete = window.confirm(
     //   '¿Seguro que quieres borrar tu cuenta?'
     // )
-    handleShowAlert('esta seguro de que desea eliminar su cuenta permantentemente? Si acepta no la podrá recuperar..', 'account')
+    handleShowAlert('¿Desea borrar permanentemente su cuenta?', 'account')
     // if (confirmDelete) {
     //   dispatch(clearUser())
     //   dispatch(deleteUser(user.id))
