@@ -1,4 +1,4 @@
-package com.mauriidg.SpotSport
+package com.aythenapp.spotsport
 
 import android.os.Build
 import android.os.Bundle
