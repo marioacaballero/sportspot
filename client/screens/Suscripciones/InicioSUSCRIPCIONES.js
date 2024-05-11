@@ -36,7 +36,9 @@ const InicioSUSCRIPCIONES = () => {
   const { customer, clientSecretSubscription } = useSelector(
     (state) => state.stripe
   )
-
+  const { user } = useSelector(
+    (state) => state.users
+  )
 
   const { initPaymentSheet, presentPaymentSheet } = useStripe(null);
 
@@ -76,7 +78,7 @@ const InicioSUSCRIPCIONES = () => {
   }, [clientSecret, initPaymentSheet]);
 
   const [show, setShow] = useState(false)
-  console.log('clientSecret en inicio susc', clientSecretSubscription)
+  console.log('clientSecret en inicio susc', user)
  const customerId = customer.id
 
 
@@ -92,7 +94,7 @@ const InicioSUSCRIPCIONES = () => {
   //  const res = await dispatch(createSubscription({ priceId, customerId: customer.id }))
   const { data } = await axiosInstance.post(
     `stripe/subscription/${priceId}`,
-    { customerId : customer.id}
+    { customerId : user.stripeId}
   )
   if(data){
     console.log(data.latest_invoice.payment_intent.client_secret,"respuesta")

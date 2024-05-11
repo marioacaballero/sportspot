@@ -24,6 +24,8 @@ import { setSport } from '../redux/slices/sports.slices'
 import { createEvent } from '../redux/actions/events'
 import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
 import CustomAlert from './CustomAlert'
+import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native';
+import axiosInstance from '../utils/apiBackend'
 
 const FomularioEventos = () => {
   const dispatch = useDispatch()
@@ -52,11 +54,71 @@ const FomularioEventos = () => {
   })
   const [checked, setChecked] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
-
+  const [clientSecret, setClientSecret] = useState(null)
+ 
   useEffect(() => {
     dispatch(getAllSports())
     dispatch(getUser(user.id))
   }, [])
+
+  const { initPaymentSheet, presentPaymentSheet } = useStripe(null);
+
+  React.useEffect( () => {
+    const initializePaymentSheet = async () => {
+      const { error } = await initPaymentSheet({
+        paymentIntentClientSecret: clientSecret ,
+        merchantDisplayName:"Promocionar evento",
+        returnURL: 'stripe-example://payment-sheet',
+        // Set `allowsDelayedPaymentMethods` to true if your business handles
+        // delayed notification payment methods like US bank accounts.
+      });
+      if (error) {
+        // Handle error
+        console.log(error,"error")
+      }
+      else {
+      const {error} = await presentPaymentSheet()
+      if(error){
+        console.log(error,"error")
+      } else {
+      // const updUser = await axiosInstance.patch(`user/${user.user.id}`,{
+      //   plan:planSelected
+      // })
+      setClientSecret(null)
+      onSubmit(
+        event,
+        sport,
+        user,
+        selectedImage,
+        dispatch,
+        dateSuscription,
+        dateStart,
+        setShowAlert
+      )
+      }
+
+      }
+    };
+
+    if (
+      clientSecret
+    ) {
+      console.log("entra a la hoja")
+      initializePaymentSheet()
+    }
+  }, [clientSecret, initPaymentSheet]);
+
+  const handleStripe = async ()=>{
+    
+    const {data}  = await axiosInstance.post(
+      `stripe/payment/price_1PF84tGmE60O5ob7niadJ5hL`,
+      { customerId : user.stripeId}
+    )
+    if(data){
+      setClientSecret(data.clientSecret)
+      console.log(data,"esto es priceee")
+    }
+  }
 
   const onCloseModalSports = () => {
     setSportsModal(false)
@@ -162,102 +224,115 @@ const FomularioEventos = () => {
   }
 
   return (
-    <View>
+    <View style={{ width: "100%" }}>
       <View style={styles.items}>
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M96.5039'} />
-        <Text style={styles.text}>Nombre del evento</Text>
-        <TextInput
-          style={styles.helloTypoScroll}
-          value={event.title}
-          onChangeText={(value) => onValuesEvent('title', value)}
-          placeholder="Escriba el nombre del evento"
-          placeholderTextColor={Color.violetaPlaceholder}
-        />
+        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M96.5039'} /> */}
+        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+          <Text style={styles.text}>Nombre del evento</Text>
+          <TextInput
+            style={styles.helloTypoScroll}
+            value={event.title}
+            onChangeText={(value) => onValuesEvent('title', value)}
+            placeholder="Escriba el nombre del evento"
+            placeholderTextColor={Color.violetaPlaceholder}
+          />
+        </View>
       </View>
 
       <Pressable style={styles.items} onPress={() => setSportsModal(true)}>
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M57.5039'} />
-        <Text style={styles.text}>Deporte</Text>
-        <Text
-          style={sport.name ? styles.helloTypoScroll : styles.helloTypoScroll2}
-        >
-          {sport?.name?.slice(0, 1).toUpperCase()}
-          {sport?.name?.slice(1)}{' '}
-          {sport.name ? sport?.type : 'Elije tu deporte'}
-        </Text>
+        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M57.5039'} /> */}
+        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+          <Text style={styles.text}>Deporte</Text>
+          <Text
+            style={sport.name ? styles.helloTypoScroll : styles.helloTypoScroll2}
+          >
+            {sport?.name?.slice(0, 1).toUpperCase()}
+            {sport?.name?.slice(1)}{' '}
+            {sport.name ? sport?.type : 'Elije tu deporte'}
+          </Text>
+        </View>
       </Pressable>
 
       <View style={styles.items}>
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M96.5039'} />
-        <Text style={styles.text}>Descripción del evento</Text>
-        <TextInput
-          style={styles.helloTypoScroll}
-          value={event.description}
-          onChangeText={(value) => onValuesEvent('description', value)}
-          placeholder="Descripción del evento"
-          placeholderTextColor={Color.violetaPlaceholder}
-        />
+        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M96.5039'} /> */}
+        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+          <Text style={styles.text}>Descripción del evento</Text>
+          <TextInput
+            style={styles.helloTypoScroll}
+            value={event.description}
+            onChangeText={(value) => onValuesEvent('description', value)}
+            placeholder="Descripción del evento"
+            placeholderTextColor={Color.violetaPlaceholder}
+          />
+        </View>
       </View>
-
       <Pressable style={styles.items} onPress={openFrameContainer6}>
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M87.5039'} />
-        <Text style={styles.text}>Lugar del evento</Text>
-        <Text
-          style={
-            event.location ? styles.helloTypoScroll : styles.helloTypoScroll2
-          }
-        >
-          {event.location ? event.location : 'Elija el lugar del evento'}
-        </Text>
+        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M87.5039'} /> */}
+        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+          <Text style={styles.text}>Lugar del evento</Text>
+          <Text
+            style={
+              event.location ? styles.helloTypoScroll : styles.helloTypoScroll2
+            }
+          >
+            {event.location ? event.location : 'Elija el lugar del evento'}
+          </Text>
+        </View>
       </Pressable>
 
       <View style={styles.items}>
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M81.5039'} />
-        <Text style={styles.text}>Link del evento</Text>
-        <TextInput
-          style={styles.helloTypoScroll}
-          value={event.eventLink}
-          onChangeText={(value) => onValuesEvent('eventLink', value)}
-          placeholder="https://www.deportedeporte.com/"
-          placeholderTextColor={Color.violetaPlaceholder}
-        />
+        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M81.5039'} /> */}
+        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+          <Text style={styles.text}>Link del evento</Text>
+          <TextInput
+            style={styles.helloTypoScroll}
+            value={event.eventLink}
+            onChangeText={(value) => onValuesEvent('eventLink', value)}
+            placeholder="https://www.deportedeporte.com/"
+            placeholderTextColor={Color.violetaPlaceholder}
+          />
+        </View>
       </View>
-
       <View style={styles.items}>
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M103.5039'} />
-        <Text style={styles.text}>Link de la inscripción</Text>
-        <TextInput
-          style={styles.helloTypoScroll}
-          value={event.inscriptionLink}
-          onChangeText={(value) => onValuesEvent('inscriptionLink', value)}
-          placeholder="https://www.deportedeporte.com/inscripción/"
-          placeholderTextColor={Color.violetaPlaceholder}
-        />
+        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M103.5039'} /> */}
+        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+          <Text style={styles.text}>Link de la inscripción</Text>
+          <TextInput
+            style={styles.helloTypoScroll}
+            value={event.inscriptionLink}
+            onChangeText={(value) => onValuesEvent('inscriptionLink', value)}
+            placeholder="https://www.deportedeporte.com/inscripción/"
+            placeholderTextColor={Color.violetaPlaceholder}
+          />
+        </View>
       </View>
-
       <Pressable style={styles.items} onPress={() => setCalendar(true)}>
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M81.5039'} />
-        <Text style={styles.text}>Fecha de inicio</Text>
-        <Text
-          style={dateStart ? styles.helloTypoScroll : styles.helloTypoScroll2}
-        >
-          {dateStart || 'Seleccione la fecha de inicio'}
-        </Text>
+        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M81.5039'} /> */}
+        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+          <Text style={styles.text}>Fecha de inicio</Text>
+          <Text
+            style={dateStart ? styles.helloTypoScroll : styles.helloTypoScroll2}
+          >
+            {dateStart || 'Seleccione la fecha de inicio'}
+          </Text>
+        </View>
       </Pressable>
 
       <Pressable
         style={styles.items}
         onPress={() => setCalendarInscription(true)}
       >
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M102.5039'} />
-        <Text style={styles.text}>Fecha de inscripcion</Text>
-        <Text
-          style={
-            dateSuscription ? styles.helloTypoScroll : styles.helloTypoScroll2
-          }
-        >
-          {dateSuscription || 'Fecha límite de inscripción'}
-        </Text>
+        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M102.5039'} /> */}
+        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+          <Text style={styles.text}>Fecha de inscripcion</Text>
+          <Text
+            style={
+              dateSuscription ? styles.helloTypoScroll : styles.helloTypoScroll2
+            }
+          >
+            {dateSuscription || 'Fecha límite de inscripción'}
+          </Text>
+        </View>
       </Pressable>
 
       <View style={styles.items2Container}>
@@ -325,30 +400,50 @@ const FomularioEventos = () => {
       <Text style={styles.contactoText}>Datos de contacto del organizador</Text>
 
       <View style={styles.items}>
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M47.5039'} />
-        <Text style={styles.text}>Email</Text>
-        <TextInput
-          style={styles.helloTypoScroll}
-          value={event.mail}
-          onChangeText={(value) => onValuesEvent('mail', value)}
-          placeholder="organizador@gmail.com"
-          placeholderTextColor={Color.violetaPlaceholder}
-        />
+        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M47.5039'} /> */}
+        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+          <Text style={styles.text}>Email</Text>
+          <TextInput
+            style={styles.helloTypoScroll}
+            value={event.mail}
+            onChangeText={(value) => onValuesEvent('mail', value)}
+            placeholder="organizador@gmail.com"
+            placeholderTextColor={Color.violetaPlaceholder}
+          />
+        </View>
       </View>
-
       <View style={styles.items}>
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M60.5039'} />
-        <Text style={styles.text}>Teléfono</Text>
-        <TextInput
-          style={styles.helloTypoScroll}
-          value={event.phoneNumber}
-          onChangeText={(value) => onValuesEvent('phoneNumber', value)}
-          placeholder="XXX-XXX-XXX"
-          keyboardType="numeric"
-          placeholderTextColor={Color.violetaPlaceholder}
-        />
+        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M60.5039'} /> */}
+        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+          <Text style={styles.text}>Teléfono</Text>
+          <TextInput
+            style={styles.helloTypoScroll}
+            value={event.phoneNumber}
+            onChangeText={(value) => onValuesEvent('phoneNumber', value)}
+            placeholder="XXX-XXX-XXX"
+            keyboardType="numeric"
+            placeholderTextColor={Color.violetaPlaceholder}
+          />
+        </View>
       </View>
-
+      <TouchableOpacity
+        style={styles.submit}
+        onPress={() => {
+          // onSubmit(
+          //   event,
+          //   sport,
+          //   user,
+          //   selectedImage,
+          //   dispatch,
+          //   dateSuscription,
+          //   dateStart,
+          //   setShowAlert
+          // )
+          handleStripe()
+        }}
+      >
+        <Text style={{ color: 'white' }}>Publicar evento con promoción</Text>
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.submit}
         onPress={() => {
@@ -364,7 +459,7 @@ const FomularioEventos = () => {
           )
         }}
       >
-        <Text style={{ color: 'white' }}>Enviar</Text>
+        <Text style={{ color: 'white' }}>Publicar</Text>
       </TouchableOpacity>
 
       <Modal animationType="slide" transparent visible={calendar}>
@@ -449,15 +544,17 @@ const styles = StyleSheet.create({
   },
   helloTypoScroll: {
     width: '100%',
-    marginLeft: 3,
+    height: "100%",
+    textAlignVertical:"center",
     fontSize: 13,
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.sportsVioleta
   },
   helloTypoScroll2: {
     width: '100%',
-    marginLeft: 3,
+    height:"100%",
     fontSize: 13,
+    textAlignVertical:"center",
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.violetaPlaceholder
   },
@@ -497,8 +594,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
     borderRadius: 30,
+    width: "100%",
     height: 45,
-    padding: 8
   },
   items2Container: {
     flexDirection: 'row',
@@ -552,7 +649,9 @@ const styles = StyleSheet.create({
     color: Color.sportsVioleta,
     position: 'absolute',
     left: 18,
-    bottom: 39.5
+    bottom: 34.5,
+    backgroundColor: "white",
+    padding: 3
   },
   text2: {
     fontSize: FontSize.size_5xs,

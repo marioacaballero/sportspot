@@ -31,6 +31,9 @@ export class UserEntity extends BaseEntity {
   lastName: string
 
   @Column({ nullable: true })
+  stripeId: string
+
+  @Column({ nullable: true })
   genres: string
 
   @Column({ nullable: true })
