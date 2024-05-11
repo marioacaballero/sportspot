@@ -109,6 +109,14 @@ export class UsersService {
       )
     }
 
+    const stripeCustomer = await this.stripe.customers.create({
+      email: userObject.email,
+      name: userObject.name, // Puedes ajustar esto según tu lógica de aplicación
+    });
+
+    // Guardar el ID de cliente de Stripe en el DTO del usuario
+    userObject.stripeId = stripeCustomer.id;
+
     const newProfile = await this.userRepository.save(userObject)
 
     if (!newProfile) {

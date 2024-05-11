@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     position: 'absolute',
-    top: 67,
+    top: 22,
     left: '6%',
     flexDirection: 'row',
     alignItems: 'center',
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   innerContainer: {
-    marginTop: '35%',
+    marginTop: '15%',
     padding: 20,
     backgroundColor: Color.blanco,
     borderRadius: 10,
