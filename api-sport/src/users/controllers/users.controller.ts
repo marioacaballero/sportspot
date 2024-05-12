@@ -24,6 +24,22 @@ export class UsersController {
     private readonly sendMailsService: SendMailsService
   ) {}
 
+
+//   @Post()
+//   async create(@Body() createUserDto: UserDTO) {
+//  try {
+//   console.log("esto es createUserDto", createUserDto)
+//   if (createUserDto.googleId || createUserDto.appleId || createUserDto.facebookId) {
+//     console.log("entra con google")
+//     return this.userService.createUserAuth(createUserDto);
+//   } else {
+//     return this.userService.create(createUserDto);
+//   }
+//  } catch (error) {
+//   console.log(error)
+//  }
+//   }
+
   @Get()
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, description: 'Return all users' })
