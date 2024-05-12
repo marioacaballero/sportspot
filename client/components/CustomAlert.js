@@ -3,7 +3,7 @@ import { View, Text, Modal, StyleSheet, TouchableOpacity } from 'react-native'
 import { Color, FontFamily } from '../GlobalStyles'
 import { useNavigation } from '@react-navigation/native'
 
-const CustomAlert = ({ visible, message, onClose }) => {
+const CustomAlert = ({ visible, message, onClose, type }) => {
   const navigation = useNavigation()
   // useEffect(() => {
   //   let timeoutId
@@ -14,6 +14,9 @@ const CustomAlert = ({ visible, message, onClose }) => {
   //       navigation.goBack()
   //     }, 2400)
   //   }
+
+  const passAlert = 'Alerta'
+  const accountAlert = 'Alerta: acción irreversible'
 
   //   return () => clearTimeout(timeoutId)
   // }, [visible, onClose])
@@ -26,11 +29,16 @@ const CustomAlert = ({ visible, message, onClose }) => {
     >
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <Text style={styles.alert}>Alerta</Text>
+          <Text style={styles.alert}>{type === 'pass' ? passAlert : accountAlert}</Text>
           <Text style={styles.text}>{message}</Text>
-          <TouchableOpacity onPress={onClose} style={styles.touchable}>
+          <TouchableOpacity onPress={() => onClose('aceptar')} style={styles.touchable}>
             <Text style={styles.closeText}>Aceptar</Text>
           </TouchableOpacity>
+          {
+            type === 'account' ? (<TouchableOpacity onPress={() => onClose('cancelar')} style={styles.touchable}>
+              <Text style={styles.closeText}>Cancelar</Text>
+            </TouchableOpacity>) : (<></>)
+          }
         </View>
       </View>
     </Modal>

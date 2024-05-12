@@ -15,7 +15,6 @@ export const getAllEventsFilters = createAsyncThunk(
   async (query) => {
     try {
       const { data } = await axiosInstance.get('/events', { params: query })
-      console.log(data, 'que tenemos en la data?')
       return data
     } catch (error) {
       throw new Error(error)
@@ -85,7 +84,6 @@ export const getAllVisitedEvents = createAsyncThunk(
   'events/getAllVisited',
   async (body) => {
     try {
-      console.log('body todos los eventos visitados', body)
       const { userId, filter } = body
       const { data } = await axiosInstance.get(
         `/events/visit-event?userId=${userId}&filter=${filter}`

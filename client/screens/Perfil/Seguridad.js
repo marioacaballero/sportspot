@@ -40,6 +40,7 @@ const Seguridad = () => {
   })
   const [showAlert, setShowAlert] = useState(false)
   const [message, setMessage] = useState('')
+  const [type, setType] = useState('')
 
   console.log(showAlert)
 
@@ -50,16 +51,25 @@ const Seguridad = () => {
     }))
   }
 
-  const handleShowAlert = (message) => {
-    console.log('show', showAlert)
-
+  const handleShowAlert = (message, type) => {
+    setType(type)
     setMessage(message)
     setShowAlert(true)
   }
 
-  const handleCloseAlert = () => {
+  const handleCloseAlert = (button) => {
     setShowAlert(false)
+    if(type === 'account' && button === 'aceptar') {
+      dispatch(clearUser())
+      dispatch(deleteUser(user.id))
+      navigation.navigate('SignIn')
+    }
   }
+
+  // const handleShowAlertAccount = (message) => {
+  //   setMessageAccount(message)
+  //   setShowAlertAccount(true)
+  // }
 
   const handleChangePassword = () => {
     if (password.newPassword === password.confirmPassword) {
@@ -70,13 +80,13 @@ const Seguridad = () => {
           newPassword: password.confirmPassword
         }
         dispatch(changePassword(data))
-        handleShowAlert('Contraseña cambiada exitosamente')
+        handleShowAlert('Contraseña cambiada exitosamente', 'pass')
         // navigation.goBack()
       } else {
-        handleShowAlert('La nueva contraseña debe tener al menos 3 caracteres')
+        handleShowAlert('La nueva contraseña debe tener al menos 3 caracteres', 'pass')
       }
     } else {
-      handleShowAlert('Las contraseñas no coinciden')
+      handleShowAlert('Las contraseñas no coinciden', 'pass')
     }
   }
 
@@ -85,14 +95,15 @@ const Seguridad = () => {
   }
 
   const handleDeleteUser = () => {
-    const confirmDelete = window.confirm(
-      '¿Seguro que quieres borrar tu cuenta?'
-    )
-    if (confirmDelete) {
-      dispatch(clearUser())
-      dispatch(deleteUser(user.id))
-      navigation.navigate('SignIn')
-    }
+    // const confirmDelete = window.confirm(
+    //   '¿Seguro que quieres borrar tu cuenta?'
+    // )
+    handleShowAlert('¿Desea borrar permanentemente su cuenta?', 'account')
+    // if (confirmDelete) {
+    //   dispatch(clearUser())
+    //   dispatch(deleteUser(user.id))
+    //   navigation.navigate('SignIn')
+    // }
   }
 
   return (
@@ -263,6 +274,7 @@ CUENTA`}
           visible={showAlert}
           message={message}
           onClose={handleCloseAlert}
+          type={type}
         />
       </ScrollView>
     </LinearGradient>

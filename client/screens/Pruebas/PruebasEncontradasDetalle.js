@@ -21,7 +21,7 @@ import {
   FontSize,
   Padding
 } from '../../GlobalStyles'
-import { getFavorites } from '../../redux/actions/events'
+// import { getFavorites } from '../../redux/actions/events'
 import { favorite } from '../../redux/actions/users'
 import EditEvent from '../../components/EditEvent'
 import EscribirResea from '../../components/EscribirResea'
@@ -32,20 +32,20 @@ import { setShowGuestModal } from '../../redux/slices/events.slices'
 const PruebasEncontradasDetalle = ({ navigation }) => {
   const dispatch = useDispatch()
 
-  const { user } = useSelector((state) => state.users)
+  const { user, eventFavorites } = useSelector((state) => state.users)
   const {
     event,
     loading,
-    allFavorites,
-    favorites: favoritesRedux
+    // allFavorites,
+    // favorites: favoritesRedux
   } = useSelector((state) => state.events)
 
   const [eventState, setEventState] = useState(event)
   const [modalSuscription, setModalSuscription] = useState(false)
   const [modalEditEvent, setModalEditEvent] = useState(false)
-  const [favorites, setFavorites] = useState()
+  // const [favorites, setFavorites] = useState()
   const [showModal, setShowModal] = useState(false)
-  const stateName = favorites && favorites?.some((fav) => fav.id === event?.id)
+  const stateName = eventFavorites && eventFavorites?.some((fav) => fav?.id === event?.id)
   const isGuest = user?.email === 'guestUser@gmail.com'
 
   const nameState = () => {
@@ -53,15 +53,20 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       return stateName
     }
   }
+
   const [name, setName] = useState(nameState() || false)
 
   useEffect(() => {
-    dispatch(getFavorites(user.id))
-  }, [favoritesRedux])
+    setName(stateName)
+  }, [stateName])
 
-  useEffect(() => {
-    setFavorites(allFavorites)
-  }, [allFavorites])
+  // useEffect(() => {
+  //   dispatch(getFavorites(user.id))
+  // }, [favoritesRedux])
+
+  // useEffect(() => {
+  //   setFavorites(allFavorites)
+  // }, [allFavorites])
 
   useEffect(() => {
     setEventState(event)
