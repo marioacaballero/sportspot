@@ -82,11 +82,14 @@ export class UsersService {
 
   // Método para crear usuario con Firebase
   public async createUserAuth(createUserDto: UserDTO) {
+    console.log("entra")
     try {
       let existingUser: any;
 
       // Verificar si el usuario ya existe en tu base de datos local
       if (createUserDto.googleId) {
+        console.log("googleId", createUserDto.googleId)
+
         existingUser = await this.userRepository.findOne({ where: { googleId: createUserDto.googleId } });
       } else if (createUserDto.appleId) {
         existingUser = await this.userRepository.findOne({ where: { appleId: createUserDto.appleId } });
