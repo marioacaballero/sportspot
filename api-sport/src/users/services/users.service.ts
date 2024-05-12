@@ -497,4 +497,23 @@ export class UsersService {
     }
     return user
   }
+
+
+  async getByGoogleId(googleId: string): Promise<UserEntity> {
+
+    const user = await this.userRepository.findOne({
+      where: { googleId: googleId },
+    });
+    return user
+  }
+
+  async getByAppleId(appleId: string): Promise<UserEntity | undefined> {
+    return this.userRepository.findOne({ where: { appleId: appleId } });
+  }
+
+  async getByFacebookId(facebookId: string): Promise<UserEntity | undefined> {
+    return this.userRepository.findOne({ where: { facebookId: facebookId }});
+  }
+
+
 }
