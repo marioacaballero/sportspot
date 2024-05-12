@@ -74,4 +74,13 @@ export class UserEntity extends BaseEntity {
   @OneToMany(() => ReviewEntity, (review) => review.reviewCreator)
   reviews: ReviewEntity
  
+
+  @Column({nullable:true ,default:null} )
+  googleId: string | null 
+
+  @Column({ nullable:true ,default:null})
+  facebookId: string | null
+
+  @Column({ nullable:true ,default:null})
+  appleId: string | null
 }

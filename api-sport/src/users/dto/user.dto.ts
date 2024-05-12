@@ -67,7 +67,25 @@ export class UserDTO {
   @ApiProperty({ description: 'User avater', required: false })
   avatar: string
 
+
+  @IsOptional()
+ eventsCreated : any;
+ @IsOptional()
+ events : any;
+ @IsOptional()
+ notifications : any;
+ @IsOptional()
+ eventHistory : any;
+ @IsOptional()
+ reviews : any;
+
   @IsOptional()
   @ApiProperty({ required: false })
   eventFavorites: string[]
+  @IsOptional()
+  googleId?: string | null;
+  @IsOptional()
+  facebookId?: string | null;
+  @IsOptional()
+  appleId?: string | null;
 }

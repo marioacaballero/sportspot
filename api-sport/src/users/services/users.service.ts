@@ -33,6 +33,109 @@ export class UsersService {
       'sk_test_51OocYQGmE60O5ob7URy3YpGfHVIju6x3fuDdxXUy5R0rAdaorSHfskHNcBHToSoEfwJhFHtFDCguj7aGPlywD2pp00f2X9h9et',
     )
   }
+  public async create(createUserDto: UserDTO) {
+    try {
+      // Encriptar la contraseña del usuario
+      createUserDto.password = await hash(
+        createUserDto.password,
+        +process.env.HASH_SALT
+      );
+
+      // Verificar si el usuario ya existe en la base de datos
+      const existingUser: UserEntity = await this.userRepository
+        .createQueryBuilder('user')
+        .where({ email: createUserDto.email })
+        .getOne();
+      // Si el usuario ya existe, lanzar una excepción
+      if (existingUser) {
+        return ({
+          type: 'BAD_REQUEST',
+          message: 'The email is already registered in the database'
+        });
+      }
+      const stripeCustomer = await this.stripe.customers.create({
+        email: createUserDto.email,
+        name: createUserDto.name, // Puedes ajustar esto según tu lógica de aplicación
+      });
+
+      // Guardar el ID de cliente de Stripe en el DTO del usuario
+      createUserDto.stripeId = stripeCustomer.id;
+      // Guardar el nuevo perfil del usuario en la base de datos
+      const newProfile: UserEntity =
+        await this.userRepository.save(createUserDto);
+      // Si no se pudo crear el nuevo perfil, lanzar una excepción
+      if (!newProfile) {
+        return({
+          type: 'BAD_REQUEST',
+          message: 'The new profile is not created'
+        });
+      }
+      // Devolver el nuevo perfil del usuario
+      return newProfile;
+    } catch (error) {
+      return ({
+        type: 'BAD_REQUEST-CATCH',
+        message: 'CATCH CREATE USER'
+      });
+    }
+  }
+
+  // Método para crear usuario con Firebase
+  public async createUserAuth(createUserDto: UserDTO) {
+    try {
+      let existingUser: any;
+
+      // Verificar si el usuario ya existe en tu base de datos local
+      if (createUserDto.googleId) {
+        existingUser = await this.userRepository.findOne({ where: { googleId: createUserDto.googleId } });
+      } else if (createUserDto.appleId) {
+        existingUser = await this.userRepository.findOne({ where: { appleId: createUserDto.appleId } });
+      } else if (createUserDto.facebookId) {
+        existingUser = await this.userRepository.findOne({ where: { facebookId: createUserDto.facebookId } });
+      }
+
+      // Si el usuario ya existe, lanzar una excepción
+      if (existingUser) {
+       return {user:existingUser,message:"el usuario existe"}
+      }
+
+
+
+
+
+
+      // Crear el nuevo perfil del usuario en tu base de datos
+      createUserDto.eventsCreated = null
+      createUserDto.events = null
+      createUserDto.notifications = null
+      createUserDto.eventHistory = null
+      createUserDto.reviews = null
+      const newProfile: UserEntity = await this.userRepository.save(createUserDto);
+      // Si no se pudo crear el nuevo perfil, lanzar una excepción
+      if (!newProfile) {
+        return ({
+          type: 'BAD_REQUEST',
+          message: 'Failed to create new user profile'
+        });
+      }
+
+      // Enviar notificación de registro por correo electrónico
+      // if (newProfile.email) {
+      //   await this.sendMailService.sendRegistrationNotification(newProfile.email);
+      //   console.log(newProfile, "new profile")
+      // }
+      // Devolver el nuevo perfil del usuario
+      return newProfile;
+    } catch (error) {
+      console.log(error)
+      // Manejar errores
+      return ({
+        type: 'BAD_REQUEST-CATCH',
+        message: 'CATCH CREATE USER'
+      });
+    }
+  }
+
 
 
   async createSubscription(customerId: string, priceId: string): Promise<any> {
