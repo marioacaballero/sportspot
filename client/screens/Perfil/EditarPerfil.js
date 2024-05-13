@@ -145,15 +145,8 @@ CUENTA`}
               }
             />
             <View style={styles.editar}>
-              <LinearGradient
-                colors={['#BA08F9', 'transparent']}
-                start={{ x: 0, y: 2 }}
-                end={{ x: 2, y: 0 }}
-                
-                style={{ flex: 1 ,opacity:0.7}}
-              >
+           
                 <Text style={styles.editarText}>Editar</Text>
-              </LinearGradient>
             </View>
           </Pressable>
           <View style={styles.frameParent}>
@@ -180,6 +173,7 @@ CUENTA`}
                         Nombre
                       </Text>
                       <TextInput
+                      style={{fontWeight:"700",color:Color.sportsVioleta}}
                         placeholder={user.name || 'Nombre'}
                         placeholderTextColor={
                           user.name ? Color.sportsVioleta : 'gray'
@@ -199,6 +193,7 @@ CUENTA`}
                         Apellido
                       </Text>
                       <TextInput
+                        style={{fontWeight:"700",color:Color.sportsVioleta}}
                         placeholder={user?.lastName || 'Apellido'}
                         placeholderTextColor={
                           user.lastName ? Color.sportsVioleta : 'gray'
@@ -223,6 +218,8 @@ CUENTA`}
                         dropdownIconColor={'white'}
                         mode={'dropdown'}
                         selectedValue={valuesUser.genres}
+                        
+                        itemStyle={{fontWeight:"bold",color:"red"}}
                         onValueChange={(itemValue, itemIndex) =>
                           settingValuesUser('genres', itemValue)
                         }
@@ -244,8 +241,9 @@ CUENTA`}
                         <TextInput
                           placeholder={user?.birthDate || '12/12/2020'}
                           placeholderTextColor={
-                            user.birthDate ? Color.sportsVioleta : 'gray'
+                            user.birthDate ? Color.sportsVioleta : Color.sportsVioleta
                           }
+                          style={{color:Color.sportsVioleta,fontWeight:"700",paddingBottom:7}}
                           value={valuesUser.birthDate || '2020/12/12'}
                           // onChangeText={(value) =>
                           //   settingValuesUser('fechaNacimiento', value)
@@ -292,7 +290,8 @@ CUENTA`}
                     </Text>
                     <Text
                       style={{
-                        color: user.email ? Color.sportsVioleta : 'gray'
+                        color: user.email ? Color.sportsVioleta : 'gray',
+                        fontWeight:"700"
                       }}
                     >
                       {user?.email || 'ejemplo@gmail.com'}
@@ -307,6 +306,7 @@ CUENTA`}
                       Teléfono
                     </Text>
                     <TextInput
+                    style={{fontWeight:"700",color:Color.sportsVioleta}}
                       placeholder={user?.phoneNumber || 'Escribe aqui...'}
                       placeholderTextColor={
                         user.phoneNumber ? Color.sportsVioleta : 'gray'
@@ -327,6 +327,7 @@ CUENTA`}
                       Dirección
                     </Text>
                     <TextInput
+                    style={{fontWeight:"700",color:Color.sportsVioleta}}
                       placeholder={user?.address || 'Escribe aqui...'}
                       placeholderTextColor={
                         user.address ? Color.sportsVioleta : 'gray'
@@ -442,6 +443,8 @@ const styles = StyleSheet.create({
 
   },
   inputGenre: {
+    fontWeight:800,
+    color:Color.sportsVioleta,
     width: 155,
     position: 'absolute',
     left: -15,
@@ -471,7 +474,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   unsplashn6gnca77urcIcon: {
-    borderRadius: 20,
+    borderRadius: 10,
     width: 132,
     height: 122,
     position: 'relative'
@@ -480,7 +483,7 @@ const styles = StyleSheet.create({
     top: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius:20,overflow:"hidden"
+    borderRadius:10,overflow:"hidden"
   },
   userIcon: {
     height: 22,
@@ -506,11 +509,14 @@ const styles = StyleSheet.create({
     gap:6
   },
   label: {
+    textAlignVertical:"center",
     fontSize: FontSize.size_5xs,
     fontFamily: FontFamily.inputPlaceholder,
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    fontWeight:700
   },
   inputContent: {
+    paddingBottom:10,
     justifyContent: 'space-between',
     alignSelf: 'stretch'
   },
@@ -679,8 +685,9 @@ gap:4
     justifyContent: 'flex-start'
   },
   editar: {
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
+    backgroundColor: "rgba(186, 8, 249, 0.4)",
+    borderBottomLeftRadius: 1,
+    borderBottomRightRadius: 1,
     width: 132,
     height: 30,
     position: 'absolute',
@@ -691,8 +698,9 @@ gap:4
   editarText: {
     color: 'white',
     alignSelf: 'center',
-    fontFamily: FontFamily.inputPlaceholder,
-    marginTop: 5
+    fontSize:16,
+    fontFamily:FontFamily.proximaNova,
+    marginTop: 2
   }
 })
 

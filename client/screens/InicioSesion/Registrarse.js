@@ -150,24 +150,7 @@ const Registrarse = () => {
               autoCapitalize="none"
             />
           </View>
-          <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
-            <TextInput
-              style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
-              placeholder="Nombre"
-              value={registerUser.name}
-              onChangeText={(value) => onValuesUser('name', value)}
-              autoCapitalize="none"
-            />
-          </View>
-          <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
-            <TextInput
-              style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
-              placeholder="Apellido"
-              value={registerUser.lastName}
-              onChangeText={(value) => onValuesUser('lastName', value)}
-              autoCapitalize="none"
-            />
-          </View>
+        
 
           <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
             <TextInput
