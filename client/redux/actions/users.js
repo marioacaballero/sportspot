@@ -88,16 +88,19 @@ export const login = createAsyncThunk('users/login', async (body) => {
   }
 })
 
-export const googleLogin = createAsyncThunk('users/login', async (body) => {
-  try {
-    console.log('body from login: ', body)
-    const { data } = await axiosInstance.post('/jwt/google-login', body)
-    console.log('data from login', data)
-    return data
-  } catch (error) {
-    throw new Error(error)
+export const googleLogin = createAsyncThunk(
+  'users/googleLogin',
+  async (body) => {
+    try {
+      console.log('body from login: ', body)
+      const { data } = await axiosInstance.post('/jwt/google-login', body)
+      console.log('data from login', data)
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
   }
-})
+)
 
 export const changePassword = createAsyncThunk(
   'users/newPassword',
