@@ -58,7 +58,7 @@ const InicioDeportista = () => {
       setModalSport(true)
     }
     dispatch(getAllEvents())
-    dispatch(getOneCustomer(user.email)).then((e)=> console.log(e,"eeeeeee"))
+    dispatch(getOneCustomer(user.email)).then((e) => console.log(e, 'eeeeeee'))
   }, [])
 
   const handleBuscarPress = () => {
@@ -328,7 +328,7 @@ const InicioDeportista = () => {
                   flexDirection: 'row',
                   width: '96%',
                   alignSelf: 'center',
-                  justifyContent: 'space-evenly',
+                  justifyContent: 'flex-start',
                   height: 80,
                   alignItems: 'center',
                   backgroundColor: 'white',
@@ -345,7 +345,7 @@ const InicioDeportista = () => {
                   shadowColor: 'black'
                 }}
               >
-                <View style={{ alignItems: 'center' }}>
+                <View style={{ alignItems: 'center', width: '45%' }}>
                   <Text
                     style={{ fontWeight: 'bold', color: Color.sportsVioleta }}
                   >
@@ -358,12 +358,12 @@ const InicioDeportista = () => {
                 <View
                   style={{
                     borderLeftWidth: 1,
-                    borderColor: '#6987ff',
-                    paddingHorizontal: 20,
+                    borderColor: Color.sportsNaranja,
                     alignItems: 'center',
-                    paddingLeft: 40,
                     flexDirection: 'column',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    alignSelf: 'center',
+                    width: '55%'
                   }}
                 >
                   <TouchableOpacity
@@ -376,8 +376,8 @@ const InicioDeportista = () => {
                       backgroundColor: premiosSoon
                         ? 'gray'
                         : Color.sportsNaranja,
-                      paddingHorizontal: 20,
-                      paddingVertical: 10
+                      paddingHorizontal: 18,
+                      paddingVertical: 9
                     }}
                   >
                     <Text style={{ fontWeight: 'bold', color: 'white' }}>
@@ -409,7 +409,9 @@ const InicioDeportista = () => {
                             : styles.image94ParentShadowBox
                         }
                         onPress={() => {
-                          dispatch(visitEvent({eventId: event.id, userId: user.id}))
+                          dispatch(
+                            visitEvent({ eventId: event.id, userId: user.id })
+                          )
                           dispatch(getEventByIdRedux(event.id))
                           navigation.navigate('PruebasEncontradasDetalle')
                         }}
@@ -459,7 +461,9 @@ const InicioDeportista = () => {
                             : styles.image94ParentShadowBox
                         }
                         onPress={() => {
-                          dispatch(visitEvent({eventId: event.id, userId: user.id}))
+                          dispatch(
+                            visitEvent({ eventId: event.id, userId: user.id })
+                          )
                           dispatch(getEventByIdRedux(event.id))
                           navigation.navigate('PruebasEncontradasDetalle')
                         }}
@@ -508,7 +512,9 @@ const InicioDeportista = () => {
                             : styles.image94ParentShadowBox
                         }
                         onPress={() => {
-                          dispatch(visitEvent({eventId: event.id, userId: user.id}))
+                          dispatch(
+                            visitEvent({ eventId: event.id, userId: user.id })
+                          )
                           dispatch(getEventByIdRedux(event.id))
                           navigation.navigate('PruebasEncontradasDetalle')
                         }}

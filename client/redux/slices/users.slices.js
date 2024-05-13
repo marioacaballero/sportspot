@@ -7,7 +7,8 @@ import {
   updateUserRol,
   postUserPreferences,
   favorite,
-  getUserByEmail
+  getUserByEmail,
+  googleLogin
 } from '../actions/users'
 
 export const usersSlices = createSlice({
@@ -39,6 +40,20 @@ export const usersSlices = createSlice({
         state.error = null
       })
       .addCase(login.rejected, (state, action) => {
+        state.loading = false
+        state.error = true
+      })
+      .addCase(googleLogin.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(googleLogin.fulfilled, (state, action) => {
+        state.loading = false
+        state.userToken = action.payload.accesToken
+        state.user = action.payload.user
+        state.error = null
+      })
+      .addCase(googleLogin.rejected, (state, action) => {
         state.loading = false
         state.error = true
       })
@@ -126,11 +141,15 @@ export const usersSlices = createSlice({
       })
       .addCase(favorite.fulfilled, (state, action) => {
         state.loading = false
-        const find = state?.eventFavorites?.find(e => e?.id === action.payload.id)
-        if(!find) {
+        const find = state?.eventFavorites?.find(
+          (e) => e?.id === action.payload.id
+        )
+        if (!find) {
           state.eventFavorites = [...state.eventFavorites, action.payload]
         } else {
-          const filterFavorites = state.eventFavorites.filter(e => e.id !== action.payload.id)
+          const filterFavorites = state.eventFavorites.filter(
+            (e) => e.id !== action.payload.id
+          )
           state.eventFavorites = filterFavorites
         }
         state.error = null

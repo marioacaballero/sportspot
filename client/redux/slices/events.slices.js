@@ -227,6 +227,7 @@ export const eventsSlices = createSlice({
         const idx = state.events.findIndex((e) => e.id === action.payload.id)
         state.events[idx] = action.payload
         state.event = action.payload
+        state.loading = false
       })
       .addCase(offSuscription.rejected, (state, action) => {
         state.events = false

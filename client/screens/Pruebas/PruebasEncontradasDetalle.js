@@ -35,7 +35,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   const { user, eventFavorites } = useSelector((state) => state.users)
   const {
     event,
-    loading,
+    loading
     // allFavorites,
     // favorites: favoritesRedux
   } = useSelector((state) => state.events)
@@ -45,7 +45,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   const [modalEditEvent, setModalEditEvent] = useState(false)
   // const [favorites, setFavorites] = useState()
   const [showModal, setShowModal] = useState(false)
-  const stateName = eventFavorites && eventFavorites?.some((fav) => fav?.id === event?.id)
+  const stateName =
+    eventFavorites && eventFavorites?.some((fav) => fav?.id === event?.id)
   const isGuest = user?.email === 'guestUser@gmail.com'
 
   const nameState = () => {
@@ -195,7 +196,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                     onPress={() => setModalSuscription(true)}
                   >
                     <Text style={styles.modalText}>
-                      {isEventAlreadyAdded ? 'Desuscribirse' : 'Suscribrirse'}
+                      {isEventAlreadyAdded ? 'Desuscribirse' : 'Suscribirse'}
                     </Text>
                   </TouchableOpacity>
                 )}
@@ -233,22 +234,75 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               </View>
             </View>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              Descripción: {eventState.description}
+              <Text
+                style={{
+                  fontWeight: 700,
+                  color: Color.sportsVioleta,
+                  fontSize: 16
+                }}
+              >
+                Descripción:
+              </Text>{' '}
+              {eventState.description}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              Creador del evento: {eventState?.creator?.email}
+              <Text
+                style={{
+                  fontWeight: 700,
+                  color: Color.sportsVioleta,
+                  fontSize: 16
+                }}
+              >
+                Creador del evento:
+              </Text>{' '}
+              {eventState?.creator?.email}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              Email del creador: {eventState?.creator?.email}
+              <Text
+                style={{
+                  fontWeight: 700,
+                  color: Color.sportsVioleta,
+                  fontSize: 16
+                }}
+              >
+                Email del creador:
+              </Text>{' '}
+              {eventState?.creator?.email}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              Número de contacto: {eventState.phoneNumber}
+              <Text
+                style={{
+                  fontWeight: 700,
+                  color: Color.sportsVioleta,
+                  fontSize: 16
+                }}
+              >
+                Número de contacto:
+              </Text>{' '}
+              {eventState.phoneNumber}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              Plazas disponibles: {transformPlaces(eventState.places)}
+              <Text
+                style={{
+                  fontWeight: 700,
+                  color: Color.sportsVioleta,
+                  fontSize: 16
+                }}
+              >
+                Plazas disponibles:
+              </Text>{' '}
+              {transformPlaces(eventState.places)}
             </Text>
             <Text style={[styles.reseasDeLa, styles.reseasDeLaTypo]}>
-              Reseñas de la prueba
+              <Text
+                style={{
+                  fontWeight: 700,
+                  color: Color.sportsVioleta,
+                  fontSize: 20
+                }}
+              >
+                Reseñas de la prueba
+              </Text>{' '}
             </Text>
             {isEventAlreadyAdded && !isUserPostReview() && (
               <TouchableOpacity
@@ -427,7 +481,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.naranja3,
     padding: Padding.p_xl,
     zIndex: 1,
-    height: '100%'
+    paddingBottom: 50
   },
   cilarrowTopIcon: {
     width: 21,

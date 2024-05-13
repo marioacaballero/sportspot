@@ -30,10 +30,11 @@ const GuestUserModal = ({ onClose }) => {
     >
       <Text
         style={{
-          fontWeight: 500,
+          fontWeight: 700,
           fontSize: 20,
           color: '#F25910',
-          marginBottom: 10
+          marginBottom: 10,
+          textAlign: 'center'
         }}
       >
         Debes acceder o crearte una cuenta
@@ -55,7 +56,7 @@ const GuestUserModal = ({ onClose }) => {
           height: 50
         }}
       >
-        <Text style={{ fontWeight: 500, fontSize: 17, color: '#3C006E' }}>
+        <Text style={{ fontWeight: 600, fontSize: 17, color: '#3C006E' }}>
           Acceder
         </Text>
       </Pressable>
@@ -76,7 +77,7 @@ const GuestUserModal = ({ onClose }) => {
           height: 50
         }}
       >
-        <Text style={{ fontWeight: 500, fontSize: 17, color: '#3C006E' }}>
+        <Text style={{ fontWeight: 600, fontSize: 17, color: '#3C006E' }}>
           Crear cuenta
         </Text>
       </Pressable>

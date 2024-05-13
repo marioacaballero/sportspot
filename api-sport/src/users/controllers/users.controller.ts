@@ -25,20 +25,20 @@ export class UsersController {
   ) {}
 
 
-//   @Post()
-//   async create(@Body() createUserDto: UserDTO) {
-//  try {
-//   console.log("esto es createUserDto", createUserDto)
-//   if (createUserDto.googleId || createUserDto.appleId || createUserDto.facebookId) {
-//     console.log("entra con google")
-//     return this.userService.createUserAuth(createUserDto);
-//   } else {
-//     return this.userService.create(createUserDto);
-//   }
-//  } catch (error) {
-//   console.log(error)
-//  }
-//   }
+  @Post()
+  async create(@Body() createUserDto: UserDTO) {
+ try {
+  console.log("esto es createUserDto", createUserDto)
+  if (createUserDto.googleId || createUserDto.appleId || createUserDto.facebookId) {
+    console.log("entra con google")
+    return this.userService.createUserAuth(createUserDto);
+  } else {
+    return this.userService.create(createUserDto);
+  }
+ } catch (error) {
+  console.log(error)
+ }
+  }
 
   @Get()
   @ApiOperation({ summary: 'Get all users' })
@@ -99,12 +99,12 @@ export class UsersController {
     return await this.userService.getAllEventsUsersService(eventId)
   }
 
-  @Post()
-  @ApiOperation({ summary: 'Register user' })
-  public async create(@Body() body: UserDTO) {
-    //await this.sendMailsService.sendRegistrationNotification(body.email)
-    return await this.userService.register(body)
-  }
+  // @Post()
+  // @ApiOperation({ summary: 'Register user' })
+  // public async create(@Body() body: UserDTO) {
+  //   //await this.sendMailsService.sendRegistrationNotification(body.email)
+  //   return await this.userService.register(body)
+  // }
 
   @Post('rol/:id')
   @ApiOperation({ summary: 'Change user rol' })

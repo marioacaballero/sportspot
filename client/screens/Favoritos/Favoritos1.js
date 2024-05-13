@@ -39,7 +39,9 @@ const Favoritos1 = () => {
   // ]
   // Agrupar favoritos por deporte
   const groupedFavorites = eventFavorites?.reduce((grouped, favorite) => {
-    const sportName = sports.find((sport) => sport.id === favorite?.sportId)?.name
+    const sportName = sports.find(
+      (sport) => sport.id === favorite?.sportId
+    )?.name
 
     console.log(groupedFavorites, 'esto ya esta roto')
     if (!grouped[sportName]) {
@@ -131,7 +133,7 @@ const Favoritos1 = () => {
             />
           ) : (
             <Text style={styles.favorites}>
-              Todavía no has guardado ningún evento
+              ¡Todavía no has guardado ningún evento!
             </Text>
           )}
         </View>
@@ -213,12 +215,12 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   favorites: {
-    paddingTop: '45%',
-    color: Color.sportsVioleta,
+    padding: 20,
+    paddingHorizontal: 20,
+    fontSize: FontSize.size_lg,
     fontFamily: FontFamily.inputPlaceholder,
-    fontSize: FontSize.size_xl,
-    fontWeight: '600',
-    textAlign: 'center'
+    fontWeight: '700',
+    color: Color.sportsVioleta
   }
 })
 
