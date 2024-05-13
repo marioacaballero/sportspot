@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   datosDePago2: {
     color: Color.sportsNaranja,
     textAlign: 'left',
-    fontSize: FontSize.size_sm,
+    fontSize: 18,
     fontWeight: '700'
   },
   aadirTarjeta: {
