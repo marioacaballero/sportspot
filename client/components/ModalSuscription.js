@@ -51,10 +51,12 @@ const ModalSuscription = ({ user, event, onClose }) => {
         )
       }
     }
+    console.log('user: ', user)
     const data = {
       id: user.id,
       eventId: event.id
     }
+    console.log('sending suscription request to: ', data)
     dispatch(suscriptionEventUser(data))
     navigation.goBack()
   }
@@ -116,7 +118,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.sportsNaranja
   },
   confirmText: {
-    color: Color.sportsVioleta,
+    color: '#fff',
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 16

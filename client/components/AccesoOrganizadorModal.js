@@ -78,7 +78,8 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
                 placeholderTextColor={Color.sportsVioleta}
                 style={{
                   fontSize: 14,
-                  color: Color.sportsVioleta
+                  color: Color.sportsVioleta,
+                  textAlign: 'center'
                 }}
               />
             </View>
@@ -102,7 +103,8 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
                 placeholderTextColor={Color.sportsVioleta}
                 style={{
                   fontSize: 14,
-                  color: Color.sportsVioleta
+                  color: Color.sportsVioleta,
+                  textAlign: 'center'
                 }}
               />
             </View>

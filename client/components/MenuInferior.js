@@ -36,6 +36,102 @@ const MenuInferior = () => {
   // }, [])
   return (
     <View style={styles.menInferior}>
+      <Pressable
+        onPress={() => {
+          if (isGuest) {
+            dispatch(setShowGuestModal(true))
+            return
+          }
+          if (selectedIcon !== 'UltimasConsultas') {
+            handleIconPress('UltimasConsultas')
+            navigation.navigate('UltimasConsultas')
+          }
+        }}
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          height: 65,
+          zIndex: 999999999,
+          width: Dimensions.get('screen').width / 5
+        }}
+      />
+      <Pressable
+        onPress={() => {
+          if (isGuest) {
+            dispatch(setShowGuestModal(true))
+            return
+          }
+          if (selectedIcon !== 'Favoritos1') {
+            handleIconPress('Favoritos1')
+            navigation.navigate('Favoritos1')
+          }
+        }}
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: Dimensions.get('screen').width / 5,
+          height: 65,
+          zIndex: 9999999999,
+          width: Dimensions.get('screen').width / 5
+        }}
+      />
+      <Pressable
+        onPress={() => {
+          if (selectedIcon !== null) {
+            setSelectedIcon(null)
+            navigation.navigate('InicioDeportista')
+          }
+        }}
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: (Dimensions.get('screen').width / 5) * 2,
+          height: 65,
+          zIndex: 999999,
+          width: Dimensions.get('screen').width / 5
+        }}
+      />
+      <Pressable
+        onPress={() => {
+          if (isGuest) {
+            dispatch(setShowGuestModal(true))
+            return
+          }
+          if (selectedIcon !== 'HistorialDePruebas') {
+            handleIconPress('HistorialDePruebas')
+            navigation.navigate('HistorialDePruebas')
+          }
+        }}
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: (Dimensions.get('screen').width / 5) * 3,
+          height: 65,
+          zIndex: 999999,
+          width: Dimensions.get('screen').width / 5
+        }}
+      />
+      <Pressable
+        onPress={() => {
+          if (isGuest) {
+            dispatch(setShowGuestModal(true))
+            return
+          }
+          if (selectedIcon !== 'TuPerfil') {
+            handleIconPress('TuPerfil')
+            navigation.navigate('TuPerfil')
+          }
+        }}
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          right: 0,
+          height: 65,
+          zIndex: 99999999,
+          width: Dimensions.get('screen').width / 5
+        }}
+      />
       <Image
         style={{
           width: Dimensions.get('screen').width,
@@ -67,83 +163,27 @@ const MenuInferior = () => {
         }}
       ></View>
       <View style={styles.groupContainer}>
-        <Pressable
-          style={styles.container}
-          onPress={() => {
-            if (isGuest) {
-              dispatch(setShowGuestModal(true))
-              return
-            }
-            if (selectedIcon !== 'UltimasConsultas') {
-              handleIconPress('UltimasConsultas')
-              navigation.navigate('UltimasConsultas')
-            }
-          }}
-        >
+        <View style={styles.container}>
           <UltimasSVG
             color={selectedIcon === 'UltimasConsultas' ? '#F25910' : '#40036F'}
           />
-        </Pressable>
-        <Pressable
-          style={[styles.vector, styles.frameLayout]}
-          onPress={() => {
-            if (isGuest) {
-              dispatch(setShowGuestModal(true))
-              return
-            }
-            if (selectedIcon !== 'Favoritos1') {
-              handleIconPress('Favoritos1')
-              navigation.navigate('Favoritos1')
-            }
-          }}
-        >
+        </View>
+        <Pressable style={{ width: 26, height: 23 }}>
           <CorazonMenuInferiorSVG
             isFavorite={selectedIcon === 'Favoritos1' ? '#F25910' : '#40036F'}
           />
         </Pressable>
-        <Pressable
-          onPress={() => {
-            if (selectedIcon !== null) {
-              setSelectedIcon(null)
-              navigation.navigate('InicioDeportista')
-            }
-          }}
-          style={styles.homeIcon}
-        >
+        <Pressable style={styles.homeIcon}>
           <HomeSVG color={selectedIcon === null ? '#F25910' : '#40036F'} />
         </Pressable>
-        <Pressable
-          style={styles.container2}
-          onPress={() => {
-            if (isGuest) {
-              dispatch(setShowGuestModal(true))
-              return
-            }
-            if (selectedIcon !== 'HistorialDePruebas') {
-              handleIconPress('HistorialDePruebas')
-              navigation.navigate('HistorialDePruebas')
-            }
-          }}
-        >
+        <Pressable style={{ width: 22, height: 25, top: 3 }}>
           <HistorialSVG
             color={
               selectedIcon === 'HistorialDePruebas' ? '#F25910' : '#40036F'
             }
           />
         </Pressable>
-        <Pressable
-          style={styles.container2}
-          onPress={() => {
-            if (isGuest) {
-              dispatch(setShowGuestModal(true))
-              return
-            }
-            if (selectedIcon !== 'TuPerfil') {
-              handleIconPress('TuPerfil')
-              navigation.navigate('TuPerfil')
-            }
-          }}
-        >
+        <Pressable style={{ width: 22, height: 25, top: 3 }}>
           <PerfilSVG
             color={selectedIcon === 'TuPerfil' ? '#F25910' : '#40036F'}
           />
