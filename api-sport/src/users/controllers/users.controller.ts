@@ -130,6 +130,16 @@ export class UsersController {
     return this.userService.changeUserPreferences(id, userPreferences)
   }
 
+
+  @Post('subscribe/:userId')
+  @ApiOperation({ summary: 'Subscribe a user to an event' })
+  async subscribeToEvent(
+    @Param('userId') userId: string,
+    @Body('eventId') eventId: string
+  ): Promise<EventEntity> {
+    return this.userService.subscribeToEventService(userId, eventId);
+  }
+
   @Patch('unsuscribe/:id')
   @ApiOperation({ summary: 'Unsubscribe a user with an event' })
   async deleteSubscription(
@@ -180,4 +190,13 @@ export class UsersController {
   delete(@Param('id') id: string) {
     return this.userService.deleteService(id)
   }
+
+  @Get('subscriptions/:userId')
+@ApiOperation({ summary: 'Get all subscriptions for a user' })
+async getUserSubscriptions(
+  @Param('userId') userId: string
+): Promise<EventEntity[]> {
+  return this.userService.getUserSubscriptions(userId);
+}
+
 }
