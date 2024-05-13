@@ -174,22 +174,22 @@ const styles = StyleSheet.create({
     top: 30,
     left: 20,
     position: 'absolute',
-    flexDirection: 'row',
-    gap: 30,
-    alignItems: 'center'
+    height:200
+
   },
   datosDePago1: {
     color: Color.sportsNaranja,
     textAlign: 'left',
-    fontSize: FontSize.size_sm,
-    fontWeight: '700'
+    fontSize:18,
+    fontWeight: '700',
+    paddingLeft:10
   },
   datosDePagoContainer: {
     alignItems: 'center',
     flexDirection: 'row'
   },
   metodoInner: {
-    top: 140,
+    top: 130,
     justifyContent: 'center'
   },
   label: {

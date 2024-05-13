@@ -10,6 +10,9 @@ const PublicarEvento = () => {
 
   return (
     <ScrollView>
+      <View>
+
+      </View>
       <View style={styles.container}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Publicar un evento</Text>
