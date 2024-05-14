@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsBoolean, IsNotEmpty, IsString, IsDate } from 'class-validator'
+import { IsBoolean, IsNotEmpty, IsString, IsDate, IsOptional } from 'class-validator'
 import { UserEntity } from 'src/users/entities/users.entity'
 import { ManyToOne } from 'typeorm'
 
@@ -29,9 +29,10 @@ export class CreateNotificationDto {
     @ApiProperty({description: "Id event" , required: true})
   eventId: string
 
+  @IsOptional() // Hacer el campo recipientId opcional
   @IsNotEmpty()
   @IsString()
-    @ApiProperty({description: "Id recipient" , required: true})
+    @ApiProperty({description: "Id recipient" , required: false})
   recipientId: string
 
   @IsNotEmpty()
