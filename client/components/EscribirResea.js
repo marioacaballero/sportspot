@@ -111,10 +111,9 @@ const EscribirResea = ({ onClose }) => {
 
 const styles = StyleSheet.create({
   helloAshfakTypo: {
-    textAlign: 'left',
-    fontWeight: '900',
-    fontSize: FontSize.size_mid,
-    width: '70%'
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: FontSize.size_mid
   },
   frameSpaceBlock1: {
     marginTop: 20,
@@ -164,7 +163,9 @@ const styles = StyleSheet.create({
   },
   helloAshfakContainer: {
     paddingHorizontal: Padding.p_11xl,
-    marginLeft: 10
+    marginLeft: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   frameGroup: {
     flexDirection: 'row'
@@ -187,13 +188,12 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: Color.colorGainsboro_100,
     borderWidth: 1,
-    width: 320,
+    width: '90%',
     // height: 500,
     paddingHorizontal: 0,
     paddingVertical: Padding.p_xl,
     flexDirection: 'row',
     alignSelf: 'center',
-    top: '40%',
     zIndex: 6
   },
   cajita: {

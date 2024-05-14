@@ -2,13 +2,15 @@ import * as Font from 'expo-font'
 
 export const loadFonts = async () => {
   await Font.loadAsync({
-    'Proxima-Nova': require('./assets/fonts/Proxima-Nova-Font.otf')
+    'Proxima-Nova': require('./assets/fonts/Proxima-Nova-Font.otf'),
+    'Poppins-Medium': require('./assets/fonts/Poppins-Medium.ttf')
   })
 }
 
 /* fonts */
 export const FontFamily = {
-  inputPlaceholder: 'Proxima-Nova'
+  inputPlaceholder: 'Proxima-Nova',
+  proximaNova:'Poppins-Medium'
 }
 /* font sizes */
 export const FontSize = {

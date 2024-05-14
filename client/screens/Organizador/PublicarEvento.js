@@ -4,30 +4,37 @@ import { useNavigation } from '@react-navigation/native'
 import { Color, FontFamily, FontSize } from '../../GlobalStyles'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import FormularioEventos from '../../components/FomularioEventos'
+import { LinearGradient } from 'expo-linear-gradient'
 
 const PublicarEvento = () => {
   const navigation = useNavigation()
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Publicar un evento</Text>
-          <Pressable onPress={() => navigation.goBack()}>
-            <BackArrowSVG />
-          </Pressable>
+    <LinearGradient
+      colors={['#fff', '#f9f9f9']}
+      style={{ flex: 1 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+    >
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Publicar un evento</Text>
+            <Pressable onPress={() => navigation.goBack()}>
+              <BackArrowSVG />
+            </Pressable>
+          </View>
+          <View style={styles.innerContainer}>
+            <FormularioEventos />
+          </View>
         </View>
-        <View style={styles.innerContainer}>
-          <FormularioEventos />
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </LinearGradient>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Color.blanco,
     flex: 1,
     alignItems: 'center',
     paddingBottom: 20

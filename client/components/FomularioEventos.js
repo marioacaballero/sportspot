@@ -24,7 +24,7 @@ import { setSport } from '../redux/slices/sports.slices'
 import { createEvent } from '../redux/actions/events'
 import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
 import CustomAlert from './CustomAlert'
-import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native';
+import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native'
 import axiosInstance from '../utils/apiBackend'
 
 const FomularioEventos = () => {
@@ -52,71 +52,68 @@ const FomularioEventos = () => {
     mail: '',
     phoneNumber: ''
   })
+
+  console.log('sports: ', sport)
   const [checked, setChecked] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [clientSecret, setClientSecret] = useState(null)
- 
+
   useEffect(() => {
     dispatch(getAllSports())
     dispatch(getUser(user.id))
   }, [])
 
-  const { initPaymentSheet, presentPaymentSheet } = useStripe(null);
+  const { initPaymentSheet, presentPaymentSheet } = useStripe(null)
 
-  React.useEffect( () => {
+  React.useEffect(() => {
     const initializePaymentSheet = async () => {
       const { error } = await initPaymentSheet({
-        paymentIntentClientSecret: clientSecret ,
-        merchantDisplayName:"Promocionar evento",
-        returnURL: 'stripe-example://payment-sheet',
+        paymentIntentClientSecret: clientSecret,
+        merchantDisplayName: 'Promocionar evento',
+        returnURL: 'stripe-example://payment-sheet'
         // Set `allowsDelayedPaymentMethods` to true if your business handles
         // delayed notification payment methods like US bank accounts.
-      });
+      })
       if (error) {
         // Handle error
-        console.log(error,"error")
-      }
-      else {
-      const {error} = await presentPaymentSheet()
-      if(error){
-        console.log(error,"error")
+        console.log(error, 'error')
       } else {
-      // const updUser = await axiosInstance.patch(`user/${user.user.id}`,{
-      //   plan:planSelected
-      // })
-      setClientSecret(null)
-      onSubmit(
-        event,
-        sport,
-        user,
-        selectedImage,
-        dispatch,
-        dateSuscription,
-        dateStart,
-        setShowAlert
-      )
+        const { error } = await presentPaymentSheet()
+        if (error) {
+          console.log(error, 'error')
+        } else {
+          // const updUser = await axiosInstance.patch(`user/${user.user.id}`,{
+          //   plan:planSelected
+          // })
+          setClientSecret(null)
+          onSubmit(
+            event,
+            sport,
+            user,
+            selectedImage,
+            dispatch,
+            dateSuscription,
+            dateStart,
+            setShowAlert
+          )
+        }
       }
+    }
 
-      }
-    };
-
-    if (
-      clientSecret
-    ) {
-      console.log("entra a la hoja")
+    if (clientSecret) {
+      console.log('entra a la hoja')
       initializePaymentSheet()
     }
-  }, [clientSecret, initPaymentSheet]);
+  }, [clientSecret, initPaymentSheet])
 
-  const handleStripe = async ()=>{
-    
-    const {data}  = await axiosInstance.post(
+  const handleStripe = async () => {
+    const { data } = await axiosInstance.post(
       `stripe/payment/price_1PF84tGmE60O5ob7niadJ5hL`,
-      { customerId : user.stripeId}
+      { customerId: user.stripeId }
     )
-    if(data){
+    if (data) {
       setClientSecret(data.clientSecret)
-      console.log(data,"esto es priceee")
+      console.log(data, 'esto es priceee')
     }
   }
 
@@ -195,7 +192,7 @@ const FomularioEventos = () => {
       sportId: sport && sport?.id,
       eventLink: event.eventLink,
       price: event?.price.slice(0, -1),
-      modality: sport.type,
+      modality: sport?.type?.length ? sport.type : 'none',
       location: event?.location,
       phoneNumber: event.phoneNumber,
       places: parseInt(event.places),
@@ -205,6 +202,7 @@ const FomularioEventos = () => {
       timeStart: '00:00',
       image: selectedImage
     }
+    console.log('creating event with: ', data)
     dispatch(createEvent(data))
     setEvent({
       title: '',
@@ -224,10 +222,19 @@ const FomularioEventos = () => {
   }
 
   return (
-    <View style={{ width: "100%" }}>
+    <View style={{ width: '100%' }}>
       <View style={styles.items}>
         {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M96.5039'} /> */}
-        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+        <View
+          style={{
+            width: '100%',
+            borderWidth: 1,
+            borderColor: Color.sportsVioleta,
+            borderRadius: 20,
+            height: '100%',
+            paddingLeft: 10
+          }}
+        >
           <Text style={styles.text}>Nombre del evento</Text>
           <TextInput
             style={styles.helloTypoScroll}
@@ -241,10 +248,21 @@ const FomularioEventos = () => {
 
       <Pressable style={styles.items} onPress={() => setSportsModal(true)}>
         {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M57.5039'} /> */}
-        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+        <View
+          style={{
+            width: '100%',
+            borderWidth: 1,
+            borderColor: Color.sportsVioleta,
+            borderRadius: 20,
+            height: '100%',
+            paddingLeft: 10
+          }}
+        >
           <Text style={styles.text}>Deporte</Text>
           <Text
-            style={sport.name ? styles.helloTypoScroll : styles.helloTypoScroll2}
+            style={
+              sport.name ? styles.helloTypoScroll : styles.helloTypoScroll2
+            }
           >
             {sport?.name?.slice(0, 1).toUpperCase()}
             {sport?.name?.slice(1)}{' '}
@@ -255,7 +273,16 @@ const FomularioEventos = () => {
 
       <View style={styles.items}>
         {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M96.5039'} /> */}
-        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+        <View
+          style={{
+            width: '100%',
+            borderWidth: 1,
+            borderColor: Color.sportsVioleta,
+            borderRadius: 20,
+            height: '100%',
+            paddingLeft: 10
+          }}
+        >
           <Text style={styles.text}>Descripción del evento</Text>
           <TextInput
             style={styles.helloTypoScroll}
@@ -268,7 +295,16 @@ const FomularioEventos = () => {
       </View>
       <Pressable style={styles.items} onPress={openFrameContainer6}>
         {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M87.5039'} /> */}
-        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+        <View
+          style={{
+            width: '100%',
+            borderWidth: 1,
+            borderColor: Color.sportsVioleta,
+            borderRadius: 20,
+            height: '100%',
+            paddingLeft: 10
+          }}
+        >
           <Text style={styles.text}>Lugar del evento</Text>
           <Text
             style={
@@ -282,7 +318,16 @@ const FomularioEventos = () => {
 
       <View style={styles.items}>
         {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M81.5039'} /> */}
-        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+        <View
+          style={{
+            width: '100%',
+            borderWidth: 1,
+            borderColor: Color.sportsVioleta,
+            borderRadius: 20,
+            height: '100%',
+            paddingLeft: 10
+          }}
+        >
           <Text style={styles.text}>Link del evento</Text>
           <TextInput
             style={styles.helloTypoScroll}
@@ -295,7 +340,16 @@ const FomularioEventos = () => {
       </View>
       <View style={styles.items}>
         {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M103.5039'} /> */}
-        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+        <View
+          style={{
+            width: '100%',
+            borderWidth: 1,
+            borderColor: Color.sportsVioleta,
+            borderRadius: 20,
+            height: '100%',
+            paddingLeft: 10
+          }}
+        >
           <Text style={styles.text}>Link de la inscripción</Text>
           <TextInput
             style={styles.helloTypoScroll}
@@ -308,7 +362,16 @@ const FomularioEventos = () => {
       </View>
       <Pressable style={styles.items} onPress={() => setCalendar(true)}>
         {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M81.5039'} /> */}
-        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+        <View
+          style={{
+            width: '100%',
+            borderWidth: 1,
+            borderColor: Color.sportsVioleta,
+            borderRadius: 20,
+            height: '100%',
+            paddingLeft: 10
+          }}
+        >
           <Text style={styles.text}>Fecha de inicio</Text>
           <Text
             style={dateStart ? styles.helloTypoScroll : styles.helloTypoScroll2}
@@ -323,8 +386,17 @@ const FomularioEventos = () => {
         onPress={() => setCalendarInscription(true)}
       >
         {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M102.5039'} /> */}
-        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
-          <Text style={styles.text}>Fecha de inscripcion</Text>
+        <View
+          style={{
+            width: '100%',
+            borderWidth: 1,
+            borderColor: Color.sportsVioleta,
+            borderRadius: 20,
+            height: '100%',
+            paddingLeft: 10
+          }}
+        >
+          <Text style={styles.text}>Fecha límite de inscripción</Text>
           <Text
             style={
               dateSuscription ? styles.helloTypoScroll : styles.helloTypoScroll2
@@ -401,7 +473,16 @@ const FomularioEventos = () => {
 
       <View style={styles.items}>
         {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M47.5039'} /> */}
-        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+        <View
+          style={{
+            width: '100%',
+            borderWidth: 1,
+            borderColor: Color.sportsVioleta,
+            borderRadius: 20,
+            height: '100%',
+            paddingLeft: 10
+          }}
+        >
           <Text style={styles.text}>Email</Text>
           <TextInput
             style={styles.helloTypoScroll}
@@ -414,7 +495,16 @@ const FomularioEventos = () => {
       </View>
       <View style={styles.items}>
         {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M60.5039'} /> */}
-        <View style={{ width: "100%", borderWidth: 1, borderColor: Color.sportsVioleta, borderRadius: 20, height: "100%", paddingLeft: 10 }}>
+        <View
+          style={{
+            width: '100%',
+            borderWidth: 1,
+            borderColor: Color.sportsVioleta,
+            borderRadius: 20,
+            height: '100%',
+            paddingLeft: 10
+          }}
+        >
           <Text style={styles.text}>Teléfono</Text>
           <TextInput
             style={styles.helloTypoScroll}
@@ -442,7 +532,9 @@ const FomularioEventos = () => {
           handleStripe()
         }}
       >
-        <Text style={{ color: 'white' }}>Publicar evento con promoción</Text>
+        <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>
+          Publicar evento con promoción
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.submit}
@@ -459,7 +551,9 @@ const FomularioEventos = () => {
           )
         }}
       >
-        <Text style={{ color: 'white' }}>Publicar</Text>
+        <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>
+          Publicar
+        </Text>
       </TouchableOpacity>
 
       <Modal animationType="slide" transparent visible={calendar}>
@@ -544,17 +638,17 @@ const styles = StyleSheet.create({
   },
   helloTypoScroll: {
     width: '100%',
-    height: "100%",
-    textAlignVertical:"center",
+    height: '100%',
+    textAlignVertical: 'center',
     fontSize: 13,
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.sportsVioleta
   },
   helloTypoScroll2: {
     width: '100%',
-    height:"100%",
+    height: '100%',
     fontSize: 13,
-    textAlignVertical:"center",
+    textAlignVertical: 'center',
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.violetaPlaceholder
   },
@@ -594,8 +688,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
     borderRadius: 30,
-    width: "100%",
-    height: 45,
+    width: '100%',
+    height: 45
   },
   items2Container: {
     flexDirection: 'row',
@@ -650,7 +744,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 18,
     bottom: 34.5,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     padding: 3
   },
   text2: {

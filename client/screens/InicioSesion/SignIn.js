@@ -17,7 +17,12 @@ import {
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Color } from '../../GlobalStyles'
-import { getUserByEmail, login, register } from '../../redux/actions/users'
+import {
+  getUserByEmail,
+  googleLogin,
+  login,
+  register
+} from '../../redux/actions/users'
 import { auth } from '../../utils/config.google'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Entypo } from '@expo/vector-icons'
@@ -77,31 +82,33 @@ export default function SignIn({ navigation }) {
 
         if (user.providerData[0].providerId === 'google.com') {
           console.log('=====LOGIN WITH GOOGLE=====')
-          //  console.log('user from google: ', user)
-          // acá se crea el usurio (cambiar por el de SpotSport)
-          dispatch(getUserByEmail(`${user.uid}@gmail.com`)).then((data) => {
-            if (data?.payload?.id) {
-              console.log('data: ', data)
-              const { email, password } = data.payload
-              dispatch(login({ email, password }))
-            } else {
-              dispatch(
-                register({
-                  email: `${user.uid}@gmail.com`,
-                  password: `${user.uid}`
-                  // nickname: user.displayName,
-                  // googleId: user.uid,
-                  // type: isSportman ? 'sportman' : 'club'
-                })
-              ).then(async (data) => {
-                // console.log('data from back:', data);
-                try {
-                  const { email, password } = data.payload
-                  dispatch(login({ email, password }))
-                } catch (error) {
-                  console.log('Error:', error)
-                }
-              })
+          console.log('sending data to register: ', {
+            email: '',
+            password: `${user.uid}`,
+            name: user.displayName,
+            googleId: user.uid
+          })
+          dispatch(
+            register({
+              email: `${user.uid}@gmail.com`,
+              password: `${user.uid}`,
+              name: user.displayName,
+              googleId: user.uid
+            })
+          ).then(async (data) => {
+            console.log('data from back:', data.payload)
+            try {
+              if (data.payload.user) {
+                const { email, password, name, googleId } = data.payload.user
+                console.log('login with: ', email, password, name, googleId)
+                dispatch(googleLogin({ email, password, googleId, name }))
+              } else {
+                const { email, password, name, googleId } = data.payload
+                console.log('login with: ', { email, password, googleId, name })
+                dispatch(googleLogin({ email, password, googleId, name }))
+              }
+            } catch (error) {
+              console.log('Error:', error)
             }
           })
         }
