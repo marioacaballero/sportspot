@@ -40,7 +40,7 @@ const InicioOrganizador = () => {
   return (
     <ScrollView style={[styles.inicioOrganizador]}>
       <View style={styles.topContainer}>
-        {user.rol === 'sportsman' && (
+        {user?.rol === 'sportsman' && (
           <Pressable
             style={styles.helloAshfakWrapper2}
             onPress={() => {
@@ -54,15 +54,22 @@ const InicioOrganizador = () => {
             <Text style={styles.buttonsText}>Acceso como organizador</Text>
           </Pressable>
         )}
-        {user.rol === 'organizer' && (
+        {/* {user?.rol === 'organizer' && (
           <Pressable
             style={styles.helloAshfakWrapper}
             onPress={() => navigation.navigate('PublicarEvento')}
-            disabled={user.rol === 'sportsman'}
+            disabled={user?.rol === 'sportsman'}
           >
             <Text style={styles.buttonsText}>Publicar un evento</Text>
           </Pressable>
-        )}
+        )} */}
+        <Pressable
+          style={styles.helloAshfakWrapper}
+          onPress={() => navigation.navigate('PublicarEvento')}
+          // disabled={user?.rol === 'sportsman'}
+        >
+          <Text style={styles.buttonsText}>Publicar un evento</Text>
+        </Pressable>
       </View>
       <View style={styles.frameView}>
         <Text style={styles.helloAshfak3}>
@@ -521,6 +528,7 @@ const styles = StyleSheet.create({
   },
   buttonsText: {
     color: Color.blanco,
+    fontWeight: 'bold',
     textAlign: 'center',
     fontSize: FontSize.inputPlaceholder_size,
     fontFamily: FontFamily.inputPlaceholder

@@ -43,7 +43,6 @@ const Favoritos1 = () => {
       (sport) => sport.id === favorite?.sportId
     )?.name
 
-    console.log(groupedFavorites, 'esto ya esta roto')
     if (!grouped[sportName]) {
       grouped[sportName] = []
     }
@@ -51,7 +50,6 @@ const Favoritos1 = () => {
     return grouped
   }, {})
 
-  console.log('grouped favorites', Object.entries(groupedFavorites))
   if (loadingGet) {
     return (
       <LinearGradient
