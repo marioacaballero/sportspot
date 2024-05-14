@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import { offSuscription } from '../redux/actions/suscriptions'
 import { suscriptionEventUser } from '../redux/actions/users'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { getAllEvents } from '../redux/actions/events'
 
 const ModalSuscription = ({ user, event, onClose }) => {
   const isGuest = user?.email === 'guestUser@gmail.com'
@@ -35,7 +36,7 @@ const ModalSuscription = ({ user, event, onClose }) => {
       id: user.id,
       eventId: event.id
     }
-    dispatch(offSuscription(data))
+    dispatch(offSuscription(data)).then((data) => dispatch(getAllEvents()))
   }
   const onSuscribed = async () => {
     if (isGuest) {
@@ -57,7 +58,9 @@ const ModalSuscription = ({ user, event, onClose }) => {
       eventId: event.id
     }
     console.log('sending suscription request to: ', data)
-    dispatch(suscriptionEventUser(data))
+    dispatch(suscriptionEventUser(data)).then((data) =>
+      dispatch(getAllEvents())
+    )
     navigation.goBack()
   }
 

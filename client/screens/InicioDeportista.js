@@ -17,7 +17,11 @@ import InicioNotificaciones from './InicioNotificaciones'
 import InicioBUSCADOR from './InicioBUSCADOR'
 import InicioOrganizador from './Organizador/InicioOrganizador'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllEvents, visitEvent } from '../redux/actions/events'
+import {
+  getAllEvents,
+  getSuscribedEvents,
+  visitEvent
+} from '../redux/actions/events'
 import {
   getEventByIdRedux,
   setShowGuestModal
@@ -58,6 +62,7 @@ const InicioDeportista = () => {
       setModalSport(true)
     }
     dispatch(getAllEvents())
+    dispatch(getSuscribedEvents(user.id))
     dispatch(getOneCustomer(user.email)).then((e) => console.log(e, 'eeeeeee'))
   }, [])
 

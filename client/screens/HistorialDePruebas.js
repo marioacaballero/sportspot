@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   Text,
   StyleSheet,
@@ -7,17 +7,37 @@ import {
   Modal,
   // Image,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  Image,
+  TouchableWithoutFeedback
 } from 'react-native'
 import EscribirResea from '../components/EscribirResea'
 import { useNavigation } from '@react-navigation/native'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
 import { FontFamily, Padding, FontSize, Color, Border } from '../GlobalStyles'
 import { LinearGradient } from 'expo-linear-gradient'
+import { useDispatch, useSelector } from 'react-redux'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { favorite } from '../redux/actions/users'
 
 const HistorialDePruebas = () => {
+  const [isFavorite, setIsFavorite] = useState({})
   const [frameContainer7Visible, setFrameContainer7Visible] = useState(false)
   const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const { events, suscribedEvents } = useSelector((state) => state.events)
+  const { user, eventFavorites } = useSelector((state) => state.users)
+
+  const initializeFavorites = () => {
+    const init = {}
+    events?.forEach((visited, index) => {
+      const isEventFavorite = eventFavorites.some((e) => {
+        return e?.id === visited.id
+      })
+      init[index] = isEventFavorite
+    })
+    return init
+  }
 
   const openFrameContainer7 = useCallback(() => {
     setFrameContainer7Visible(true)
@@ -27,6 +47,26 @@ const HistorialDePruebas = () => {
     setFrameContainer7Visible(false)
   }, [])
 
+  useEffect(() => {
+    if (events?.length > 0) setIsFavorite(initializeFavorites())
+  }, [events])
+
+  const toggleFavorite = (pruebaId, i) => {
+    const data = {
+      id: user.id,
+      eventId: pruebaId
+    }
+
+    const newObj = {
+      ...isFavorite,
+      [i]: !isFavorite[i]
+    }
+    setIsFavorite(newObj)
+    dispatch(favorite(data))
+    // navigation.navigate('Favoritos1')
+  }
+
+  console.log('events.title', events[1].suscribers)
   return (
     <LinearGradient
       colors={['#fff', '#f9f9f9']}
@@ -34,11 +74,8 @@ const HistorialDePruebas = () => {
       start={{ x: 0, y: 0 }}
       end={{ x: 0, y: 1 }}
     >
-      <ScrollView
-        style={styles.historialDePruebas}
-        contentContainerStyle={{ paddingBottom: 50 }}
-      >
-        <View style={[styles.frameParent, styles.frameParentPosition]}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 15 }}>
+        <View style={{ paddingHorizontal: Padding.p_xl }}>
           <View style={styles.containerHistorial}>
             <Text style={[styles.tuHistorialDe, styles.ciclismoTypo]}>
               TU HISTORIAL DE PRUEBAS
@@ -56,10 +93,195 @@ const HistorialDePruebas = () => {
               </View>
             </View>
           </View>
-          <Text style={styles.text2}>
-            ¡Aquí podrás ver los eventos en los que has participado y dejarles
-            una reseña sobre tu experiencia!
-          </Text>
+          {events.filter((ev) =>
+            ev.suscribers.some((userEvent) => userEvent.id === user.id)
+          ).length === 0 && (
+            <Text style={styles.text2}>
+              ¡Aquí podrás ver los eventos en los que has participado y dejarles
+              una reseña sobre tu experiencia!
+            </Text>
+          )}
+
+          {events.filter((ev) =>
+            ev.suscribers.some((userEvent) => userEvent.id === user.id)
+          ).length > 0 &&
+            events
+              .filter((ev) =>
+                ev.suscribers.some((userEvent) => userEvent.id === user.id)
+              )
+              .map((evnt, index) => (
+                <View key={index} style={{ width: '100%', gap: 5 }}>
+                  <View
+                    style={{
+                      marginTop: 15,
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                      width: '100%',
+                      borderWidth: 1,
+                      borderColor: Color.colorGainsboro_100,
+                      borderStyle: 'solid',
+                      borderRadius: Border.br_3xs
+                    }}
+                  >
+                    <TouchableOpacity
+                      style={{ position: 'absolute', top: 7, right: 13 }}
+                      onPress={() => {
+                        toggleFavorite(evnt.id, index)
+                      }}
+                    >
+                      <MaterialCommunityIcons
+                        name={
+                          isFavorite[index]
+                            ? 'cards-heart'
+                            : 'cards-heart-outline'
+                        }
+                        color="#F25910"
+                        size={22}
+                      />
+                    </TouchableOpacity>
+                    <Image
+                      style={{
+                        borderTopLeftRadius: Border.br_3xs,
+                        borderBottomLeftRadius: Border.br_3xs,
+                        width: 113,
+                        height: 113
+                      }}
+                      source={{ uri: evnt.image }}
+                    />
+                    <View
+                      style={{
+                        justifyContent: 'center',
+                        paddingVertical: Padding.p_8xs,
+                        paddingHorizontal: Padding.p_3xs,
+                        flex: 1
+                      }}
+                    >
+                      <View style={{ flexDirection: 'row', marginBottom: 5 }}>
+                        <Text
+                          style={{
+                            fontSize: 14,
+                            color: Color.sportsNaranja,
+                            textAlign: 'left',
+                            fontFamily: FontFamily.inputPlaceholder,
+                            fontWeight: '700'
+                          }}
+                        >
+                          {evnt.title}
+                        </Text>
+                      </View>
+                      <View style={{ width: '100%' }}>
+                        <View style={{ flexDirection: 'row', gap: 3 }}>
+                          <Text
+                            style={{
+                              color: Color.sportsVioleta,
+                              fontSize: 12
+                            }}
+                          >
+                            Modalidad:
+                          </Text>
+                          <Text
+                            style={{
+                              color: Color.sportsVioleta,
+                              fontSize: 12
+                            }}
+                          >
+                            {evnt.modality}
+                          </Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', gap: 3 }}>
+                          <Text
+                            style={{
+                              fontWeight: '400',
+                              fontSize: 12,
+                              color: Color.sportsVioleta
+                            }}
+                          >
+                            Fecha de la prueba:
+                          </Text>
+                          <Text
+                            style={{
+                              fontWeight: '300',
+                              color: Color.sportsVioleta
+                            }}
+                          >
+                            {evnt.dateStart}
+                          </Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', gap: 3 }}>
+                          <Text
+                            style={{
+                              color: Color.sportsVioleta,
+                              fontSize: 12
+                            }}
+                          >
+                            Fecha límite de insc.:
+                          </Text>
+                          <Text
+                            style={{
+                              fontWeight: '300',
+                              fontSize: 12,
+                              color: Color.sportsVioleta
+                            }}
+                          >
+                            {evnt.dateInscription}
+                          </Text>
+                        </View>
+                      </View>
+                      <View
+                        style={{
+                          gap: 3,
+                          flexDirection: 'row',
+                          marginTop: 5,
+                          textAlign: 'left',
+                          fontSize: FontSize.size_2xs
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontWeight: '600',
+                            color: Color.sportsVioleta,
+                            fontSize: 12
+                          }}
+                        >
+                          PRECIO DE INSCRIPCIÓN:
+                        </Text>
+                        <Text
+                          style={{
+                            color: Color.sportsNaranja,
+                            fontWeight: '500',
+                            fontSize: 12
+                          }}
+                        >
+                          {evnt.price + '€'}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                  <Pressable
+                    style={[
+                      styles.clarityeditSolidParent,
+                      styles.parentFlexBox
+                    ]}
+                    onPress={openFrameContainer7}
+                  >
+                    <View
+                      style={{
+                        gap: 12,
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                      }}
+                    >
+                      <Image
+                        style={[styles.clarityeditSolidIcon, styles.iconLayout]}
+                        contentFit="cover"
+                        source={require('../assets/clarityeditsolid1.png')}
+                      />
+                      <Text style={styles.helloAshfak}>Escribe una reseña</Text>
+                    </View>
+                  </Pressable>
+                </View>
+              ))}
           {/* <View style={[styles.frameGroup, styles.frameSpaceBlock1]}>
             <View style={[styles.image84Parent, styles.parentFlexBox]}>
               <Image
@@ -246,13 +468,11 @@ Fecha de la prueba: `}</Text>
       </ScrollView>
 
       <Modal animationType="fade" transparent visible={frameContainer7Visible}>
-        <View style={styles.frameContainer7Overlay}>
-          <Pressable
-            style={styles.frameContainer7Bg}
-            onPress={closeFrameContainer7}
-          />
-          <EscribirResea onClose={closeFrameContainer7} />
-        </View>
+        <TouchableWithoutFeedback onPress={closeFrameContainer7}>
+          <View style={styles.frameContainer7Overlay}>
+            <EscribirResea onClose={closeFrameContainer7} />
+          </View>
+        </TouchableWithoutFeedback>
       </Modal>
     </LinearGradient>
   )
@@ -373,26 +593,25 @@ const styles = StyleSheet.create({
   },
   frameContainer7Overlay: {
     flex: 1,
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(113, 113, 113, 0.3)'
   },
-  frameContainer7Bg: {
-    width: '100%',
-    height: '100%'
-  },
+  frameContainer7Bg: {},
   clarityeditSolidIcon: {
     overflow: 'hidden'
   },
   helloAshfak: {
     fontSize: FontSize.inputPlaceholder_size,
     color: Color.blanco,
-    marginLeft: 10,
     justifyContent: 'center',
+    marginBottom: 1,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
-    textAlign: 'center',
-    width: '100%'
+    textAlign: 'center'
   },
   clarityeditSolidParent: {
     borderRadius: Border.br_31xl,
@@ -410,10 +629,7 @@ const styles = StyleSheet.create({
     marginLeft: 119
   },
   frameParent: {
-    height: 685,
-    paddingTop: 18,
-    paddingHorizontal: Padding.p_xl,
-    top: 0
+    paddingTop: 18
   },
   icon: {
     height: '100%',
@@ -462,6 +678,91 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textAlign: 'center',
     marginTop: 90
+  },
+  switches: {
+    width: '100%',
+    padding: 15,
+    borderRadius: Border.br_3xs,
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
+    shadowOffset: {
+      width: 10,
+      height: 10
+    },
+    shadowRadius: 1,
+    elevation: 4,
+    shadowOpacity: 0.5,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  groupParentFlexBox1: {
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  parentBorder: {
+    borderWidth: 1,
+    borderColor: Color.colorGainsboro_100,
+    borderStyle: 'solid',
+    borderRadius: Border.br_3xs
+  },
+  ltimaSemanaTypo: {
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '500',
+    lineHeight: 19,
+    letterSpacing: 0,
+    fontSize: FontSize.inputPlaceholder_size,
+    textAlign: 'left',
+    color: Color.sportsVioleta
+  },
+  ltimasConsultas: {
+    fontSize: FontSize.size_11xl,
+    width: '60%',
+    textAlign: 'left',
+    color: Color.sportsVioleta
+  },
+  path3391Icon: {
+    width: 15,
+    height: 10
+  },
+  path3391IconRotate: {
+    transform: [{ rotate: '180deg' }]
+  },
+  ltimas24Horas: {
+    fontSize: FontSize.size_sm,
+    marginLeft: 10,
+    textAlign: 'left',
+    color: Color.sportsVioleta
+  },
+  path3391Parent: {
+    paddingVertical: 0,
+    paddingHorizontal: Padding.p_xl
+  },
+  ltimaSemana: {
+    width: 120
+  },
+  ltimaSemanaParent: {
+    width: 258,
+    height: 25,
+    marginTop: 10
+  },
+  titleContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  ultimasConsultas: {
+    overflow: 'hidden',
+    width: '100%',
+    flex: 1
+  },
+  consultaContainer: {
+    padding: 20
+  },
+  ultimasConsultas1: {
+    fontSize: FontSize.size_lg,
+    fontFamily: FontFamily.inputPlaceholder,
+    fontWeight: '700',
+    color: Color.sportsVioleta
   }
 })
 
