@@ -8,6 +8,7 @@ import { UpdateEventDto } from './dto/update-event.dto'
 import { EventEntity } from './entities/event.entity'
 import { UserEventHistoryEntity } from './entities/userEvent.entity'
 import { NotificationEntity } from 'src/notifications/entities/notification.entity'
+import { NotificationsService } from 'src/notifications/notifications.service'
 
 export class EventsService {
   constructor(
@@ -19,7 +20,8 @@ export class EventsService {
     private readonly usersEventRepository: Repository<UserEventHistoryEntity>,
     private readonly sendMailsService: SendMailsService,
     @InjectRepository(NotificationEntity)
-    private readonly notificationsRepository: Repository<NotificationEntity>
+    private readonly notificationsRepository: Repository<NotificationEntity>,
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   public async createService(createEventDto: CreateEventDto) {
@@ -280,6 +282,38 @@ export class EventsService {
     });
 
     await this.notificationsRepository.save(notifications);
+  }
+
+
+  async createServiceAprox(createEventDto: CreateEventDto): Promise<EventEntity> {
+    const event = this.eventsRepository.create(createEventDto);
+    const savedEvent = await this.eventsRepository.save(event);
+
+    // Enviar notificaciones a los usuarios con la misma ubicación
+    await this.notifyUsersByLocation(savedEvent);
+
+    return savedEvent;
+  }
+
+  private async notifyUsersByLocation(event: EventEntity) {
+    const users = await this.usersRepository.find();
+    const usersToNotify = users.filter(user => {
+      if (!user.preferences || !user.preferences['location']) return false;
+      return user.preferences['location'] === event.location;
+    });
+
+    for (const user of usersToNotify) {
+      await this.notificationsService.createService({
+        title: 'Nuevo evento en tu zona',
+        message: `Se ha creado un nuevo evento en tu ubicación preferida: ${event.title}`,
+        date: new Date(),
+        eventType: 'event',
+        eventId: event.id,
+        recipientId: user.id,
+        recipient:user,
+        read: false,
+      }); 
+    }
   }
 }
 

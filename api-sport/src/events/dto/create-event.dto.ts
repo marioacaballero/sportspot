@@ -18,52 +18,52 @@ export class CreateEventDto {
 
   @IsNotEmpty()
   @IsString()
-    @ApiProperty({description: "Description", required: true})
+    @ApiProperty({description: "Description", required: false})
   description: string
 
   @IsNotEmpty()
   @IsString()
-    @ApiProperty({description: "Id sport", required: true})
+    @ApiProperty({description: "Id sport", required: false})
   sportId: string
 
   @IsNotEmpty()
-  @IsDecimal()
-    @ApiProperty({description: "Price", type: "number" , example: 9 ,required: true})
-  price: NumericType // Usando IsDecimal para asegurar que el precio puede incluir decimales
-
+  @IsNumber({}, { message: 'price must be a number' })
+  @ApiProperty({description: "Price", type: "number" , example: 99 ,required: false})
+  price: number
+  
   @IsNotEmpty()
   @IsString()
-    @ApiProperty({description: "Modality", required: true})
+    @ApiProperty({description: "Modality", required: false})
   modality: string
 
   @IsNotEmpty()
   @IsString()
-    @ApiProperty({description: "Location", required: true})
+    @ApiProperty({description: "Location", required: false})
   location: string
 
   @IsNotEmpty()
   @IsNumber()
-    @ApiProperty({description: "Phone Number", required: true})
+    @ApiProperty({description: "Phone Number", required: false})
   phoneNumber: number
 
   @IsNotEmpty()
   @IsString()
-    @ApiProperty({description: "Start date", required: true})
+    @ApiProperty({description: "Start date", required: false})
   dateStart: string
 
   @IsNotEmpty()
   @IsString()
-    @ApiProperty({description: "Inscription date", required: true})
+    @ApiProperty({description: "Inscription date", required: false})
   dateInscription: string
 
   @IsNotEmpty()
   @IsString()
-    @ApiProperty({description: "Start time", required: true})
+    @ApiProperty({description: "Start time", required: false})
   timeStart: string
 
   @IsNotEmpty()
   @IsInt()
-    @ApiProperty({description: "Quantity places", required: true})
+    @ApiProperty({description: "Quantity places", required: false})
   places: number
 
   @IsBoolean()
