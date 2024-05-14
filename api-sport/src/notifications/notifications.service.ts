@@ -89,4 +89,17 @@ export class NotificationsService {
   public async destroyService({ recipientId, eventId }) {
     return await this.notificationsRepository.delete({ recipientId, eventId })
   }
+
+
+  async createNotificationForAllUsers(createNotificationDto: CreateNotificationDto): Promise<void> {
+    const users = await this.usersRepository.find();
+    const notifications = users.map(user => {
+      const notification = this.notificationsRepository.create({
+        ...createNotificationDto,
+        recipient: user,
+      });
+      return notification;
+    });
+    await this.notificationsRepository.save(notifications);
+  }
 }
