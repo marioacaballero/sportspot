@@ -42,5 +42,5 @@ export class CreateNotificationDto {
 
   @ManyToOne(() => UserEntity, (user) => user.notifications)
     @ApiProperty({description: "Recipient" , required: false})
-  recipient: UserEntity
+  recipient: any
 }

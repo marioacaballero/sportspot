@@ -89,4 +89,11 @@ export class EventsController {
     await this.eventsService.finalizeEvent(eventId);
     return { message: 'Event finalized and notifications sent' };
   }
+
+  @Post('/event-location')
+  @ApiOperation({ summary: 'Create event' })
+  public async createNotificationsLocation(@Body() createEventDto: CreateEventDto) {
+    return this.eventsService.createServiceAprox(createEventDto);
+  }
+
 }

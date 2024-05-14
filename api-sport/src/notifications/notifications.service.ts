@@ -102,4 +102,10 @@ export class NotificationsService {
     });
     await this.notificationsRepository.save(notifications);
   }
+
+//  public async createServiceAprox(createNotificationDto: CreateNotificationDto): Promise<NotificationEntity> {
+//     const notification = this.notificationsRepository.create(createNotificationDto);
+//     return this.notificationsRepository.save(notification);
+//   }
+
 }
