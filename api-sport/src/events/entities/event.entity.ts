@@ -66,6 +66,9 @@ export class EventEntity extends BaseEntity {
   })
   image: string
 
+  @Column({ nullable: true, default: null })
+  isFinalized: boolean | null
+
   @ManyToOne(() => SportEntity, (sport) => sport.events)
   sport: SportEntity
 

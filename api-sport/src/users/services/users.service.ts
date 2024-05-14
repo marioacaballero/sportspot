@@ -427,6 +427,41 @@ export class UsersService {
     return await this.getOneService(userId) // Recargar el usuario
   }
 
+
+
+  public async subscribeToEventService(
+    userId: string,
+    eventId: string
+  ): Promise<EventEntity> {
+    const user = await this.getOneService(userId);
+    if (!user) {
+      throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404);
+    }
+  
+    const event = await this.eventService.getOneService(eventId);
+    if (!event) {
+      throw new HttpException(`Evento con ID ${eventId} no encontrado`, 404);
+    }
+  
+    // Verificar si el usuario ya está suscrito al evento
+    const isSubscribedIds = await this.eventsRepository
+      .createQueryBuilder()
+      .relation(EventEntity, 'suscribers')
+      .of(event)
+      .loadMany();
+  
+    const isSubscribed = isSubscribedIds.some(subscriber => subscriber.id === userId);
+  
+    
+  
+    // Agregar al usuario como suscriptor del evento
+    event.suscribers.push(user);
+    await this.eventsRepository.save(event);
+  
+    return await this.getOneEvent(eventId); // Recargar el evento para reflejar los cambios
+  }
+  
+
   public async deleteSubscriptionService(
     userId: string,
     eventId: string
@@ -515,5 +550,21 @@ export class UsersService {
     return this.userRepository.findOne({ where: { facebookId: facebookId }});
   }
 
+
+  public async getUserSubscriptions(userId: string): Promise<EventEntity[]> {
+    const user = await this.getOneService(userId);
+    if (!user) {
+      throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404);
+    }
+  
+    const subscriptions = await this.eventsRepository
+      .createQueryBuilder('event')
+      .innerJoinAndSelect('event.suscribers', 'subscriber')
+      .where('subscriber.id = :userId', { userId })
+      .getMany();
+  
+    return subscriptions;
+  }
+  
 
 }

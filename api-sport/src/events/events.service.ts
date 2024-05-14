@@ -7,6 +7,7 @@ import { CreateEventDto } from './dto/create-event.dto'
 import { UpdateEventDto } from './dto/update-event.dto'
 import { EventEntity } from './entities/event.entity'
 import { UserEventHistoryEntity } from './entities/userEvent.entity'
+import { NotificationEntity } from 'src/notifications/entities/notification.entity'
 
 export class EventsService {
   constructor(
@@ -16,7 +17,9 @@ export class EventsService {
     private readonly usersRepository: Repository<UserEntity>,
     @InjectRepository(UserEventHistoryEntity)
     private readonly usersEventRepository: Repository<UserEventHistoryEntity>,
-    private readonly sendMailsService: SendMailsService
+    private readonly sendMailsService: SendMailsService,
+    @InjectRepository(NotificationEntity)
+    private readonly notificationsRepository: Repository<NotificationEntity>
   ) {}
 
   public async createService(createEventDto: CreateEventDto) {
@@ -220,4 +223,63 @@ export class EventsService {
 
     return userEventHistory
   }
+
+  public async getSubscribedEvents(userId: string): Promise<EventEntity[]> {
+    const user = await this.usersRepository.findOne({
+      where: { id: userId },
+      relations: ['events']
+    });
+
+    if (!user) {
+      throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404);
+    }
+
+    return user.events;
+  }
+
+  public async getEventSubscribers(eventId: string): Promise<UserEntity[]> {
+    const event = await this.eventsRepository.findOne({
+      where: { id: eventId },
+      relations: ['suscribers']
+    });
+
+    if (!event) {
+      throw new HttpException(`Evento con ID ${eventId} no encontrado`, 404);
+    }
+
+    return event.suscribers;
+  }
+
+
+
+  public async finalizeEvent(eventId: string): Promise<void> {
+    const event = await this.eventsRepository.findOne({
+      where: { id: eventId },
+      relations: ['suscribers']
+    });
+
+    if (!event) {
+      throw new HttpException(`Evento con ID ${eventId} no encontrado`, 404);
+    }
+
+    // Marcar el evento como finalizado (esto puede variar según tu modelo de datos)
+    event.isFinalized = true;
+    await this.eventsRepository.save(event);
+
+    // Crear una notificación para cada suscriptor
+    const notifications: NotificationEntity[] = event.suscribers.map((user) => {
+      const notification = new NotificationEntity();
+      notification.title = `Evento finalizado: ${event.title}`;
+      notification.message = `El evento "${event.title}" ha finalizado. Gracias por participar.`;
+      notification.date = new Date();
+      notification.eventType = 'event_finalized';
+      notification.eventId = event.id;
+      notification.recipient = user;
+      notification.read = false;
+      return notification;
+    });
+
+    await this.notificationsRepository.save(notifications);
+  }
 }
+

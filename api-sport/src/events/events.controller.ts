@@ -70,4 +70,23 @@ export class EventsController {
   public async remove(@Param('id') id: string) {
     return this.eventsService.deleteService(id)
   }
+
+  @Get('subscribed/:userId')
+  @ApiOperation({ summary: 'Get all subscribed events for a user' })
+  public async getSubscribedEvents(@Param('userId') userId: string) {
+    return this.eventsService.getSubscribedEvents(userId);
+  }
+
+  @Get('subscribers/:eventId')
+  @ApiOperation({ summary: 'Get all subscribers for an event' })
+  public async getEventSubscribers(@Param('eventId') eventId: string) {
+    return this.eventsService.getEventSubscribers(eventId);
+  }
+
+  @Post('/finalize/:eventId')
+  @ApiOperation({ summary: 'Finalize an event and notify subscribers' })
+  public async finalizeEvent(@Param('eventId') eventId: string) {
+    await this.eventsService.finalizeEvent(eventId);
+    return { message: 'Event finalized and notifications sent' };
+  }
 }

@@ -50,4 +50,10 @@ export class NotificationsController {
   remove(@Param('id') id: string) {
     return this.notificationsService.deleteService(id)
   }
+
+
+  @Post('send-to-all')
+  async sendNotificationToAllUsers(@Body() createNotificationDto: CreateNotificationDto): Promise<void> {
+    await this.notificationsService.createNotificationForAllUsers(createNotificationDto);
+  }
 }
