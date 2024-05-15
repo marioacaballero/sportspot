@@ -63,4 +63,9 @@ export class NotificationsController {
 
 
 
+  @Get('user/:userId')
+  @ApiOperation({ summary: "Get all notifications for a specific user" })
+  public async getNotificationsByUserId(@Param('userId') userId: string) {
+    return this.notificationsService.getNotificationsByUserId(userId);
+  }
 }

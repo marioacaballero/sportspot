@@ -116,4 +116,21 @@ export class NotificationsService {
     .execute();
 }
 
+
+
+  // Nuevo método para obtener todas las notificaciones de un usuario específico
+  public async getNotificationsByUserId(userId: string) {
+    const user = await this.usersRepository.findOne({where: {id:userId}});
+
+    if (!user) {
+      throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404);
+    }
+
+    const notifications = await this.notificationsRepository.find({
+      where: { recipientId: userId },
+      relations: ['recipient', 'event'],
+    });
+
+    return notifications;
+  }
 }
