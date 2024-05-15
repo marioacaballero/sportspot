@@ -52,12 +52,12 @@ const ModalSuscription = ({ user, event, onClose }) => {
         )
       }
     }
-    console.log('user: ', user)
+    // console.log('user: ', user)
     const data = {
       id: user.id,
       eventId: event.id
     }
-    console.log('sending suscription request to: ', data)
+    // console.log('sending suscription request to: ', data)
     dispatch(suscriptionEventUser(data)).then((data) =>
       dispatch(getAllEvents())
     )

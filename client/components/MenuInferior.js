@@ -30,7 +30,7 @@ const MenuInferior = () => {
   //   return JSON.parse(userType)
   // esta puede ser una opcion para obtener el type guest pero es mas sencillo hacer condicionales en base al email del user.
   // }
-  // console.log('users: ', user)
+  // // console.log('users: ', user)
   // useEffect(() => {
   //   getUserType()
   // }, [])

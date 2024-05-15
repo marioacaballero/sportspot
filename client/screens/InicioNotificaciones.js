@@ -12,24 +12,29 @@ import {
 import { Padding, Color, FontFamily, FontSize, Border } from '../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAlNotificationsByUser } from '../redux/actions/notifications'
+import { deleteEvent } from '../redux/actions/events'
 
 const InicioNotificaciones = () => {
   const { allNotifications, userNotifications } = useSelector(
     (state) => state.notifications
   )
   const { user } = useSelector((state) => state.users)
+  const { events } = useSelector((state) => state.events)
   const dispatch = useDispatch()
   // const navigation = useNavigation()
   const [isEnabled, setIsEnabled] = useState(false)
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
 
   useEffect(() => {
+    console.log('userid: ', user.id)
     dispatch(getAlNotificationsByUser(user?.id))
   }, [])
 
+  // console.log('userNotifications', userNotifications)
+
   function getTimeFromDate(dateString) {
     // Create a new Date object from the UTC string
-    console.log('dateString:', dateString)
+    // console.log('dateString:', dateString)
     const utcDate = new Date(dateString)
     const month = utcDate.toLocaleString('es', { month: 'long' })
     const day = utcDate.getDate()
@@ -53,6 +58,13 @@ const InicioNotificaciones = () => {
     // Return formatted time
     return `${day} de ${month} a las ${formattedHours}:${formattedMinutes}`
   }
+  // events
+  //   .filter(
+  //     (evnt) =>
+  //       evnt.image ===
+  //       '/9j/4AAQSkZJRgABAQEAAAAAAAD/2wBDAAoHBwkHBgoJCAkLCwoMDxkQDw4ODx4WFxIZJCAmJSMgIyIoLTkwKCo2KyIjMkQyNjs9QEBAJjBGS0U+Sjk/QD3/2wBDAQsLCw8NDx0QEB09KSMpPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT3/wAARCAFABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9/KKKKAP/2Q=='
+  //   )
+  //   .map((eventooo) => dispatch(deleteEvent(eventooo.id)))
 
   return (
     <ScrollView style={styles.frameParent1}>
@@ -77,6 +89,20 @@ const InicioNotificaciones = () => {
           style={styles.switch}
         />
       </View>
+
+      {userNotifications.length === 0 && (
+        <Text
+          style={{
+            textAlign: 'center',
+            fontWeight: 500,
+            fontSize: 14,
+            marginTop: 50,
+            color: Color.sportsVioleta
+          }}
+        >
+          Aun no tienes notificaciones!
+        </Text>
+      )}
 
       {userNotifications &&
         userNotifications?.map((notification, i) => (

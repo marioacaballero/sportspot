@@ -4,7 +4,7 @@ import axiosInstance from '../../utils/apiBackend'
 export const suscriptionEventUser = createAsyncThunk(
   'users/suscription',
   async (body) => {
-    console.log('body from suscriptionEventUser: ', body)
+    // console.log('body from suscriptionEventUser: ', body)
     const { id, eventId } = body
     try {
       const { data } = await axiosInstance.patch(`/users/${id}`, { eventId })
@@ -79,9 +79,9 @@ export const register = createAsyncThunk('users/register', async (body) => {
 
 export const login = createAsyncThunk('users/login', async (body) => {
   try {
-    console.log('body from login: ', body)
+    // console.log('body from login: ', body)
     const { data } = await axiosInstance.post('/jwt/login', body)
-    console.log('data from login', data)
+    // console.log('data from login', data)
     return data
   } catch (error) {
     throw new Error(error)
@@ -92,9 +92,9 @@ export const googleLogin = createAsyncThunk(
   'users/googleLogin',
   async (body) => {
     try {
-      console.log('body from login: ', body)
+      // console.log('body from login: ', body)
       const { data } = await axiosInstance.post('/jwt/google-login', body)
-      console.log('data from login', data)
+      // console.log('data from login', data)
       return data
     } catch (error) {
       throw new Error(error)
@@ -163,7 +163,7 @@ export const updateUserRol = createAsyncThunk(
     const { id } = body
     try {
       const { data } = await axiosInstance.post(`/users/rol/${id}`)
-      console.log('data from updateRol:', data)
+      // console.log('data from updateRol:', data)
       return data
     } catch (error) {
       throw new Error(error)

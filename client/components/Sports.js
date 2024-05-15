@@ -61,10 +61,12 @@ const Sports = ({ onClose, setEventsFilter, setLocalSport }) => {
               style={{
                 alignItems: 'center',
                 border: '1px solid #E5E5E5',
-                borderRadius: 50,
+                elevation: 6,
+                shadowColor: '#0426ba',
+                borderRadius: 100,
                 padding: 15,
                 backgroundColor: showColor.includes(sport?.name)
-                  ? '#40036F'
+                  ? Color.sportsNaranja
                   : 'white'
               }}
             >

@@ -20,7 +20,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/spotsportadaptative.png",
-        "backgroundColor": "#00ffff"
+        "backgroundColor": "#ffffff"
       },
       "package": "com.aythenapp.spotsport",
       "versionCode": 1,

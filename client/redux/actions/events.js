@@ -13,13 +13,13 @@ export const getAllEvents = createAsyncThunk('events/getAll', async () => {
 export const getSuscribedEvents = createAsyncThunk(
   'events/getSuscribedEvents',
   async (userId) => {
-    console.log('USERID: ', userId)
+    // console.log('USERID: ', userId)
     try {
       const { data } = await axiosInstance.get(`/events/suscribed/${userId}`)
-      console.log('data from getSuscribedEvents: ', data)
+      // console.log('data from getSuscribedEvents: ', data)
       return data
     } catch (error) {
-      console.log('ERROR FROM GSE: ', error)
+      // console.log('ERROR FROM GSE: ', error)
       throw new Error(error)
     }
   }
@@ -66,6 +66,7 @@ export const createEvent = createAsyncThunk('events/create', async (body) => {
 
 export const deleteEvent = createAsyncThunk('delete/event', async (id) => {
   try {
+    console.log('removing event with id: ', id)
     const { data } = await axiosInstance.delete(`/events/${id}`)
     return data
   } catch (error) {

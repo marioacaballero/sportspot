@@ -6,34 +6,25 @@ import {
   Image,
   Switch,
   Pressable,
-  ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableWithoutFeedback
 } from 'react-native'
 import { Color, FontFamily, FontSize, Border, Padding } from '../GlobalStyles'
-import { useDispatch } from 'react-redux'
-import { setOrderEvents } from '../redux/slices/events.slices'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  setFilteredEvents,
+  setNameEvent,
+  setOrderEvents
+} from '../redux/slices/events.slices'
 
 const PopupOrdenarPor = ({ setModalVisible }) => {
+  const { events, eventsFilter } = useSelector((state) => state.events)
   const dispatch = useDispatch()
   const [valuesOrder, setvaluesOrder] = useState({
     dateStart: false,
     price: false
   })
-  const [switchStates, setSwitchStates] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false
-  ])
-
-  const toggleSwitch = (index) => {
-    const newSwitchStates = [...switchStates]
-    newSwitchStates[index] = !newSwitchStates[index]
-    setSwitchStates(newSwitchStates)
-  }
+  const [selectedFilter, setSelectedFilter] = useState()
 
   const orderItems = (field, value) => {
     setvaluesOrder((prev) => ({
@@ -47,161 +38,160 @@ const PopupOrdenarPor = ({ setModalVisible }) => {
     setModalVisible(false)
   }
 
+  const sortByDate = (array, order) => {
+    return [...array].sort((a, b) => {
+      const dateA = new Date(a.dateStart)
+      const dateB = new Date(b.dateStart)
+
+      if (order === 'asc') {
+        return dateA - dateB
+      } else if (order === 'desc') {
+        return dateB - dateA
+      }
+    })
+  }
+
+  const sortByPrice = (array) => {
+    return [...array].sort((a, b) => {
+      const priceA = parseFloat(a.price)
+      const priceB = parseFloat(b.price)
+      return priceA - priceB
+    })
+  }
+
+  const sortBySubscribers = (array) => {
+    return [...array].sort((a, b) => b.suscribers.length - a.suscribers.length)
+  }
+
+  const toggleFilter = (filter) => {
+    dispatch(
+      setNameEvent({
+        sportName: '',
+        location: '',
+        dateStart: []
+      })
+    )
+    if (selectedFilter === filter) {
+      setSelectedFilter()
+      dispatch(setFilteredEvents(events))
+      return
+    }
+    if (filter === 'date') {
+      setSelectedFilter(filter)
+      const orderedEvents = sortByDate(events, 'asc')
+      dispatch(setFilteredEvents(orderedEvents))
+      return
+    }
+    if (filter === 'price') {
+      setSelectedFilter(filter)
+      const orderedEvents = sortByPrice(events)
+      dispatch(setFilteredEvents(orderedEvents))
+      return
+    }
+    if (filter === 'popularity') {
+      setSelectedFilter(filter)
+      const orderedEvents = sortBySubscribers(events)
+      dispatch(setFilteredEvents(orderedEvents))
+    }
+  }
+
+  // console.log('events keys', events[0].suscribers.length)
+
   return (
-    <ScrollView
-      style={styles.popupfiltros}
-      contentContainerStyle={{ paddingBottom: 150 }}
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.3)',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
     >
-      <View style={styles.charmcrossWrapper}>
-        <Pressable onPress={() => setModalVisible(false)}>
-          <Image
-            style={styles.charmcrossIcon}
-            contentFit="cover"
-            source={require('../assets/charmcross.png')}
+      <View
+        style={{
+          borderRadius: Border.br_5xs,
+          backgroundColor: Color.blanco,
+          shadowColor: 'rgba(0, 0, 0, 0.25)',
+          shadowOffset: {
+            width: -2,
+            height: -2
+          },
+          shadowRadius: 4,
+          alignSelf: 'center',
+          elevation: 4,
+          shadowOpacity: 1,
+          width: '90%',
+          paddingHorizontal: Padding.p_xl,
+          paddingVertical: Padding.p_3xs
+        }}
+      >
+        <View style={styles.charmcrossWrapper}>
+          <Pressable onPress={() => setModalVisible(false)}>
+            <Image
+              style={styles.charmcrossIcon}
+              contentFit="cover"
+              source={require('../assets/charmcross.png')}
+            />
+          </Pressable>
+        </View>
+        {/* ======================= DATA ======================== */}
+        <Pressable
+          style={styles.fechaParent}
+          // onPress={() => {
+          //   orderItems('dateStart', true)
+          // }}
+        >
+          <Text style={[styles.precio, styles.fechaTypo]}>Fecha</Text>
+          <Switch
+            trackColor={{ false: '#767577', true: '#F25910' }}
+            thumbColor={'#FFFFFF'}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={(value) => {
+              toggleFilter('date')
+            }}
+            value={selectedFilter === 'date'}
+            style={styles.switch}
+          />
+        </Pressable>
+        {/* ======================= PRICE ======================= */}
+        <Pressable
+          style={styles.fechaParent}
+          // onPress={() => {
+          //   orderItems('dateStart', true)
+          // }}
+        >
+          <Text style={[styles.precio, styles.fechaTypo]}>Precio</Text>
+          <Switch
+            trackColor={{ false: '#767577', true: '#F25910' }}
+            thumbColor={'#FFFFFF'}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={(value) => {
+              toggleFilter('price')
+            }}
+            value={selectedFilter === 'price'}
+            style={styles.switch}
+          />
+        </Pressable>
+        {/* ======================= POPULARITY ======================= */}
+        <Pressable
+          style={styles.fechaParent}
+          // onPress={() => {
+          //   orderItems('dateStart', true)
+          // }}
+        >
+          <Text style={[styles.precio, styles.fechaTypo]}>Popularidad</Text>
+          <Switch
+            trackColor={{ false: '#767577', true: '#F25910' }}
+            thumbColor={'#FFFFFF'}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={(value) => {
+              toggleFilter('popularity')
+            }}
+            value={selectedFilter === 'popularity'}
+            style={styles.switch}
           />
         </Pressable>
       </View>
-      <View style={styles.popupfiltrosInner}>
-        <View style={styles.frameFlexBox}>
-          <View style={[styles.frameParent, styles.frameFlexBox]}>
-            <Pressable
-              style={styles.fechaParent}
-              // onPress={() => {
-              //   orderItems('dateStart', true)
-              // }}
-            >
-              <Text style={[styles.precio, styles.fechaTypo]}>Fecha</Text>
-              <Switch
-                trackColor={{ false: '#767577', true: '#F25910' }}
-                thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={(value) => {
-                  toggleSwitch(0)
-                  orderItems('dateStart', value)
-                }}
-                value={switchStates[0]}
-                style={styles.switch}
-              />
-            </Pressable>
-
-            <Pressable style={styles.parentFlexBox2}>
-              <Text style={[styles.precio, styles.fechaTypo]}>Precio</Text>
-              <Switch
-                trackColor={{ false: '#767577', true: '#F25910' }}
-                thumbColor={switchStates[1] ? '#FFFFFF' : '#FFFFFF'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={(value) => {
-                  toggleSwitch(1)
-                  orderItems('price', value)
-                }}
-                value={switchStates[1]}
-                style={styles.switch}
-              />
-            </Pressable>
-            {/* <View
-              style={[styles.circuitoHomologadoParent, styles.parentFlexBox2]}
-            >
-              <Text style={[styles.precio, styles.fechaTypo]}>
-                Circuito homologado
-              </Text>
-              <Switch
-                trackColor={{ false: '#767577', true: '#F25910' }}
-                thumbColor={switchStates[2] ? '#FFFFFF' : '#FFFFFF'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={() => toggleSwitch(2)}
-                value={switchStates[2]}
-                style={styles.switch}
-              />
-            </View>
-            <View
-              style={[styles.circuitoHomologadoParent, styles.parentFlexBox2]}
-            >
-              <Text style={[styles.precio, styles.fechaTypo]}>Distancia</Text>
-              <Switch
-                trackColor={{ false: '#767577', true: '#F25910' }}
-                thumbColor={switchStates[3] ? '#FFFFFF' : '#FFFFFF'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={() => toggleSwitch(3)}
-                value={switchStates[3]}
-                style={styles.switch}
-              />
-            </View>
-            <View
-              style={[styles.circuitoHomologadoParent, styles.parentFlexBox2]}
-            >
-              <Text style={[styles.precio, styles.fechaTypo]}>Popularidad</Text>
-              <Switch
-                trackColor={{ false: '#767577', true: '#F25910' }}
-                thumbColor={switchStates[4] ? '#FFFFFF' : '#FFFFFF'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={() => toggleSwitch(4)}
-                value={switchStates[4]}
-                style={styles.switch}
-              />
-            </View>
-            <View
-              style={[styles.circuitoHomologadoParent, styles.parentFlexBox2]}
-            >
-              <Text style={[styles.precio, styles.fechaTypo]}>Federada</Text>
-              <Switch
-                trackColor={{ false: '#767577', true: '#F25910' }}
-                thumbColor={switchStates[5] ? '#FFFFFF' : '#FFFFFF'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={() => toggleSwitch(5)}
-                value={switchStates[5]}
-                style={styles.switch}
-              />
-            </View>
-            <View style={[styles.proximidadParent, styles.parentFlexBox2]}>
-              <Text style={[styles.precio, styles.fechaTypo]}>Proximidad</Text>
-              <Switch
-                trackColor={{ false: '#767577', true: '#F25910' }}
-                thumbColor={switchStates[6] ? '#FFFFFF' : '#FFFFFF'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={() => toggleSwitch(6)}
-                value={switchStates[6]}
-                style={styles.switch}
-              />
-            </View> */}
-          </View>
-          {/* <Pressable
-            onPress={() => {
-              submit()
-            }}
-          >
-            <Text>enviar</Text>
-          </Pressable> */}
-          <TouchableOpacity
-            style={{
-              backgroundColor: Color.sportsNaranja,
-              height: 42,
-              marginTop: 10,
-              padding: Padding.p_3xs,
-              borderRadius: Border.br_31xl,
-              alignSelf: 'stretch',
-              justifyContent: 'center',
-              width: '100%'
-            }}
-            onPress={() => {
-              submit()
-            }}
-          >
-            <Text
-              style={{
-                color: Color.blanco,
-                textAlign: 'center',
-                fontSize: FontSize.inputPlaceholder_size,
-                alignSelf: 'stretch',
-                fontFamily: FontFamily.inputPlaceholder,
-                fontWeight: '700'
-              }}
-            >
-              Aplicar filtros
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </ScrollView>
+    </View>
   )
 }
 
@@ -314,7 +304,8 @@ const styles = StyleSheet.create({
     // left: 20
   },
   switch: {
-    transform: [{ scale: 0.8 }]
+    transform: [{ scale: 0.8 }],
+    marginRight: -10
   }
 })
 

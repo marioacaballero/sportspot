@@ -62,6 +62,10 @@ export const usersSlices = createSlice({
         state.error = null
       })
       .addCase(getUser.fulfilled, (state, action) => {
+        console.log(
+          'setting user favorites to: ',
+          action.payload.eventFavorites
+        )
         state.loading = false
         state.user = action.payload
         state.error = null

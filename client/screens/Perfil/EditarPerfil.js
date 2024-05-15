@@ -79,7 +79,7 @@ const EditarPerfil = () => {
     await dispatch(updateUser(data))
     dispatch(getUser(user.id))
     dispatch(setDateStart(''))
-    navigation.goBack()
+    navigation.navigate('TuPerfil')
   }
 
   const uploadImage = async () => {
@@ -145,19 +145,18 @@ CUENTA`}
               }
             />
             <View style={styles.editar}>
-           
-                <Text style={styles.editarText}>Editar</Text>
+              <Text style={styles.editarText}>Editar</Text>
             </View>
           </Pressable>
           <View style={styles.frameParent}>
             <View style={styles.card1Wrapper}>
               <View style={styles.card1}>
                 <View style={{ ...styles.datosPersonalesWrapper }}>
-                <Image
-                  style={styles.userIcon}
-                  contentFit="cover"
-                  source={require('../../assets/user.png')}
-                />
+                  <Image
+                    style={styles.userIcon}
+                    contentFit="cover"
+                    source={require('../../assets/user.png')}
+                  />
                   <Text
                     style={[styles.datosPersonales, styles.card1ChildPosition]}
                   >
@@ -173,7 +172,10 @@ CUENTA`}
                         Nombre
                       </Text>
                       <TextInput
-                      style={{fontWeight:"700",color:Color.sportsVioleta}}
+                        style={{
+                          fontWeight: '700',
+                          color: Color.sportsVioleta
+                        }}
                         placeholder={user.name || 'Nombre'}
                         placeholderTextColor={
                           user.name ? Color.sportsVioleta : 'gray'
@@ -193,7 +195,10 @@ CUENTA`}
                         Apellido
                       </Text>
                       <TextInput
-                        style={{fontWeight:"700",color:Color.sportsVioleta}}
+                        style={{
+                          fontWeight: '700',
+                          color: Color.sportsVioleta
+                        }}
                         placeholder={user?.lastName || 'Apellido'}
                         placeholderTextColor={
                           user.lastName ? Color.sportsVioleta : 'gray'
@@ -205,80 +210,96 @@ CUENTA`}
                       />
                     </View>
                   </View>
-                 <View style={{flexDirection:"row",width:"100%",justifyContent:"space-around"}}>
-                 <View style={[styles.input2, styles.inputBorder]}>
-                    <View
-                      style={[styles.inputContent, styles.inputContentFlexBox]}
-                    >
-                      <Text style={[styles.label, styles.labelFlexBox]}>
-                        Género
-                      </Text>
-                      <Picker
-                        style={styles.inputGenre}
-                        dropdownIconColor={'white'}
-                        mode={'dropdown'}
-                        selectedValue={valuesUser.genres}
-                        
-                        itemStyle={{fontWeight:"bold",color:"red"}}
-                        onValueChange={(itemValue, itemIndex) =>
-                          settingValuesUser('genres', itemValue)
-                        }
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      width: '100%',
+                      justifyContent: 'space-around'
+                    }}
+                  >
+                    <View style={[styles.input2, styles.inputBorder]}>
+                      <View
+                        style={[
+                          styles.inputContent,
+                          styles.inputContentFlexBox
+                        ]}
                       >
-                        <Picker.Item label="Hombre" value="Hombre" />
-                        <Picker.Item label="Mujer" value="Mujer" />
-                        <Picker.Item label="Otros" value="Otros" />
-                      </Picker>
-                    </View>
-                  </View>
-                  <Pressable style={[styles.top, styles.inputBorderDate]}>
-                    <View
-                      style={[styles.inputContent3, styles.groupParentFlexBox]}
-                    >
-                      <View style={[styles.inputContentDate]}>
                         <Text style={[styles.label, styles.labelFlexBox]}>
-                          Fecha de nacimiento
+                          Género
                         </Text>
-                        <TextInput
-                          placeholder={user?.birthDate || '12/12/2020'}
-                          placeholderTextColor={
-                            user.birthDate ? Color.sportsVioleta : Color.sportsVioleta
+                        <Picker
+                          style={styles.inputGenre}
+                          dropdownIconColor={'white'}
+                          mode={'dropdown'}
+                          selectedValue={valuesUser.genres}
+                          itemStyle={{ fontWeight: 'bold', color: 'red' }}
+                          onValueChange={(itemValue, itemIndex) =>
+                            settingValuesUser('genres', itemValue)
                           }
-                          style={{color:Color.sportsVioleta,fontWeight:"700",paddingBottom:7}}
-                          value={valuesUser.birthDate || '2020/12/12'}
-                          // onChangeText={(value) =>
-                          //   settingValuesUser('fechaNacimiento', value)
-                          // }
-                          editable={false}
-                        />
+                        >
+                          <Picker.Item label="Hombre" value="Hombre" />
+                          <Picker.Item label="Mujer" value="Mujer" />
+                          <Picker.Item label="Otros" value="Otros" />
+                        </Picker>
                       </View>
-                      <Pressable onPress={openTopContainer}>
-                        <Image
-                          style={styles.iconlylightcalendar}
-                          contentFit="cover"
-                          source={require('../../assets/iconlylightcalendar.png')}
-                        />
-                      </Pressable>
                     </View>
-                  </Pressable>
-                 </View>
+                    <Pressable style={[styles.top, styles.inputBorderDate]}>
+                      <View
+                        style={[
+                          styles.inputContent3,
+                          styles.groupParentFlexBox
+                        ]}
+                      >
+                        <View style={[styles.inputContentDate]}>
+                          <Text style={[styles.label, styles.labelFlexBox]}>
+                            Fecha de nacimiento
+                          </Text>
+                          <TextInput
+                            placeholder={user?.birthDate || '12/12/2020'}
+                            placeholderTextColor={
+                              user.birthDate
+                                ? Color.sportsVioleta
+                                : Color.sportsVioleta
+                            }
+                            style={{
+                              color: Color.sportsVioleta,
+                              fontWeight: '700',
+                              paddingBottom: 7
+                            }}
+                            value={valuesUser.birthDate || '2020/12/12'}
+                            // onChangeText={(value) =>
+                            //   settingValuesUser('fechaNacimiento', value)
+                            // }
+                            editable={false}
+                          />
+                        </View>
+                        <Pressable onPress={openTopContainer}>
+                          <Image
+                            style={styles.iconlylightcalendar}
+                            contentFit="cover"
+                            source={require('../../assets/iconlylightcalendar.png')}
+                          />
+                        </Pressable>
+                      </View>
+                    </Pressable>
+                  </View>
                 </View>
               </View>
             </View>
             <View style={styles.card11Wrapper}>
               <View style={styles.card11}>
                 <View style={styles.datosDeContactoWrapper}>
-                <Image
-                  style={[styles.addressbookIcon, styles.iconLayout]}
-                  contentFit="cover"
-                  source={require('../../assets/addressbook.png')}
-                />
+                  <Image
+                    style={[styles.addressbookIcon, styles.iconLayout]}
+                    contentFit="cover"
+                    source={require('../../assets/addressbook.png')}
+                  />
                   <Text
                     style={[styles.datosPersonales, styles.card1ChildPosition]}
                   >
                     Datos de contacto
                   </Text>
                 </View>
-               
               </View>
               <View style={[styles.inputGroup, styles.inputFlexBox2]}>
                 <View style={styles.input}>
@@ -291,7 +312,7 @@ CUENTA`}
                     <Text
                       style={{
                         color: user.email ? Color.sportsVioleta : 'gray',
-                        fontWeight:"700"
+                        fontWeight: '700'
                       }}
                     >
                       {user?.email || 'ejemplo@gmail.com'}
@@ -306,7 +327,7 @@ CUENTA`}
                       Teléfono
                     </Text>
                     <TextInput
-                    style={{fontWeight:"700",color:Color.sportsVioleta}}
+                      style={{ fontWeight: '700', color: Color.sportsVioleta }}
                       placeholder={user?.phoneNumber || 'Escribe aqui...'}
                       placeholderTextColor={
                         user.phoneNumber ? Color.sportsVioleta : 'gray'
@@ -327,7 +348,7 @@ CUENTA`}
                       Dirección
                     </Text>
                     <TextInput
-                    style={{fontWeight:"700",color:Color.sportsVioleta}}
+                      style={{ fontWeight: '700', color: Color.sportsVioleta }}
                       placeholder={user?.address || 'Escribe aqui...'}
                       placeholderTextColor={
                         user.address ? Color.sportsVioleta : 'gray'
@@ -402,14 +423,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center'
   },
-  card1ChildPosition: {
-  
-  },
+  card1ChildPosition: {},
   inputFlexBox: {
     alignItems: 'flex-end',
     width: '100%',
     flexDirection: 'column',
-    paddingHorizontal:10
+    paddingHorizontal: 10
   },
   inputFlexBox2: {
     alignItems: 'flex-end',
@@ -439,12 +458,10 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_xl,
     paddingVertical: Padding.p_5xs
   },
-  iconLayout: {
-
-  },
+  iconLayout: {},
   inputGenre: {
-    fontWeight:800,
-    color:Color.sportsVioleta,
+    fontWeight: 800,
+    color: Color.sportsVioleta,
     width: 155,
     position: 'absolute',
     left: -15,
@@ -458,7 +475,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   editarPerfil1: {
-    fontSize:19,
+    fontSize: 19,
     color: Color.sportsNaranja,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700'
@@ -468,7 +485,7 @@ const styles = StyleSheet.create({
   },
   editarPerfilInner: {
     top: 2,
-    fontSize:24,
+    fontSize: 24,
     width: '100%',
     paddingHorizontal: 15,
     justifyContent: 'center'
@@ -483,7 +500,8 @@ const styles = StyleSheet.create({
     top: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius:10,overflow:"hidden"
+    borderRadius: 10,
+    overflow: 'hidden'
   },
   userIcon: {
     height: 22,
@@ -501,22 +519,22 @@ const styles = StyleSheet.create({
     marginTop: 3
   },
   datosPersonalesWrapper: {
-    width: "100%",
+    width: '100%',
     alignItems: 'center',
-    flexDirection:"row"
-    ,paddingHorizontal:12,
-    paddingBottom:10,
-    gap:6
+    flexDirection: 'row',
+    paddingHorizontal: 12,
+    paddingBottom: 10,
+    gap: 6
   },
   label: {
-    textAlignVertical:"center",
+    textAlignVertical: 'center',
     fontSize: FontSize.size_5xs,
     fontFamily: FontFamily.inputPlaceholder,
     alignSelf: 'stretch',
-    fontWeight:700
+    fontWeight: 700
   },
   inputContent: {
-    paddingBottom:10,
+    paddingBottom: 10,
     justifyContent: 'space-between',
     alignSelf: 'stretch'
   },
@@ -601,8 +619,8 @@ const styles = StyleSheet.create({
   },
   card1: {
     width: '100%',
-    height: "auto",
-    paddingBottom:20,
+    height: 'auto',
+    paddingBottom: 20,
     paddingVertical: Padding.p_5xs,
     flexWrap: 'wrap',
     borderRadius: Border.br_base,
@@ -620,7 +638,7 @@ const styles = StyleSheet.create({
   },
   card1Wrapper: {
     height: 'auto',
-    marginBottom:20,
+    marginBottom: 20,
     gap: 5
   },
   card11Wrapper: {
@@ -646,14 +664,15 @@ const styles = StyleSheet.create({
     display: 'none'
   },
   datosDeContactoWrapper: {
-flexDirection:"row",
-width:"100%",
-paddingHorizontal:10,
-paddingVertical:5,
-gap:4
+    flexDirection: 'row',
+    width: '100%',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    gap: 4
   },
   addressbookIcon: {
-   height:30,width:30
+    height: 30,
+    width: 30
   },
   card11: {
     height: 245,
@@ -676,7 +695,7 @@ gap:4
   },
   frameParent: {
     top: 60,
-    paddingHorizontal:14
+    paddingHorizontal: 14
   },
   editarPerfil: {
     paddingBottom: 220,
@@ -685,7 +704,7 @@ gap:4
     justifyContent: 'flex-start'
   },
   editar: {
-    backgroundColor: "rgba(186, 8, 249, 0.4)",
+    backgroundColor: 'rgba(186, 8, 249, 0.4)',
     borderBottomLeftRadius: 1,
     borderBottomRightRadius: 1,
     width: 132,
@@ -698,8 +717,8 @@ gap:4
   editarText: {
     color: 'white',
     alignSelf: 'center',
-    fontSize:16,
-    fontFamily:FontFamily.proximaNova,
+    fontSize: 16,
+    fontFamily: FontFamily.proximaNova,
     marginTop: 2
   }
 })

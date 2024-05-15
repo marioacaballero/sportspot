@@ -4,10 +4,12 @@ import axiosInstance from '../../utils/apiBackend'
 export const getAlNotificationsByUser = createAsyncThunk(
   'notifications/getAll',
   async (recipientId) => {
+    console.log('getting notif from', recipientId)
     try {
-      const { data } = await axiosInstance.get('notifications', {
-        params: { recipientId }
-      })
+      const { data } = await axiosInstance.get(
+        `notifications/user/${recipientId}`
+      )
+      console.log('data from user notif: ', data)
       return data
     } catch (error) {
       throw new Error(error)

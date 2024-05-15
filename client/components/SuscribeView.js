@@ -3,7 +3,7 @@ import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native'
 import { View, Text, Pressable } from 'react-native'
 
 function SubscribeView({ clientSecret }) {
-  console.log('clientSecret', clientSecret)
+  // console.log('clientSecret', clientSecret)
 
   const { initPaymentSheet, presentPaymentSheet } = useStripe()
 
@@ -19,7 +19,7 @@ function SubscribeView({ clientSecret }) {
       })
       if (error) {
         // Handle error
-        console.log(error)
+        // console.log(error)
       }
     }
 
@@ -35,14 +35,14 @@ function SubscribeView({ clientSecret }) {
           if (error) {
             if (error.code === PaymentSheetError.Failed) {
               // Handle failed
-              console.log('fallo')
+              // console.log('fallo')
             } else if (error.code === PaymentSheetError.Canceled) {
               // Handle canceled
-              console.log('cancelado')
+              // console.log('cancelado')
             }
           } else {
             // Payment succeeded
-            console.log('aceptado')
+            // console.log('aceptado')
           }
         }}
       >

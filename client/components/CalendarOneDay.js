@@ -114,7 +114,7 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
   }
 
   const handleArrowYear = (side) => {
-    console.log(side, 'side dentro de handleArrowYear')
+    // console.log(side, 'side dentro de handleArrowYear')
     if (side === 'left') {
       setInputValue(parseInt(inputValue) - 1)
     }
@@ -130,16 +130,16 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
 
   return (
     <View style={styles.calendar}>
-      <Pressable
-        onPress={() => setOpenModal(true)}
-        style={styles.calendar1}
-      >
+      <Pressable onPress={() => setOpenModal(true)} style={styles.calendar1}>
         {/* <Text>📆 Cambiar año</Text> */}
       </Pressable>
       {openModal && (
         <View style={styles.inputModal}>
           <View style={styles.fatherYear}>
-            <Pressable style={styles.pressable} onPress={() => handleArrowYear('left')}>
+            <Pressable
+              style={styles.pressable}
+              onPress={() => handleArrowYear('left')}
+            >
               <LeftYearArrowSvg color={'#f25910'} />
             </Pressable>
             <TextInput
@@ -150,15 +150,19 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
               // placeholder={inputValue.toString().length > 3 ? inputValue.toString() || '2024' : ''}
               onChangeText={(value) => handleInputChange(value)}
             />
-            <Pressable style={styles.pressable} onPress={() => handleArrowYear('right')}>
+            <Pressable
+              style={styles.pressable}
+              onPress={() => handleArrowYear('right')}
+            >
               <RightYearArrowSvg color={'#f25910'} />
             </Pressable>
-         </View>
-         <View>
-            <Text onPress={onPressValue} id='value' style={styles.value}>{ yearVisible ? inputValue || '2024' : ''}</Text>
           </View>
-        <View>
+          <View>
+            <Text onPress={onPressValue} id="value" style={styles.value}>
+              {yearVisible ? inputValue || '2024' : ''}
+            </Text>
           </View>
+          <View></View>
           <TouchableOpacity style={styles.ok} onPress={sumbitYear}>
             <Text>ok</Text>
           </TouchableOpacity>

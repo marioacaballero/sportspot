@@ -22,7 +22,7 @@ import {
 import PopupAlerta from '../../components/PopupAlerta'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { favorite } from '../../redux/actions/users'
+import { favorite, getUser } from '../../redux/actions/users'
 import { LinearGradient } from 'expo-linear-gradient'
 
 const Favoritos = ({ route }) => {
@@ -44,7 +44,8 @@ const Favoritos = ({ route }) => {
       eventId: pruebaId
     }
     dispatch(favorite(data))
-    navigation.navigate('Favoritos1')
+      .then((data) => dispatch(getUser(user.id)))
+      .then((response) => navigation.navigate('Favoritos1'))
   }
 
   return (
@@ -96,7 +97,7 @@ const Favoritos = ({ route }) => {
                       <Text
                         style={{ color: Color.sportsVioleta, fontSize: 12 }}
                       >
-                       ES ACÁ Modalidad:
+                        ES ACÁ Modalidad:
                       </Text>
                       <Text
                         style={{

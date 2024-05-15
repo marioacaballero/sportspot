@@ -42,7 +42,7 @@ const Seguridad = () => {
   const [message, setMessage] = useState('')
   const [type, setType] = useState('')
 
-  console.log(showAlert)
+  // console.log(showAlert)
 
   const valuesLogin = (field, value) => {
     setPassword((prev) => ({
@@ -59,7 +59,7 @@ const Seguridad = () => {
 
   const handleCloseAlert = (button) => {
     setShowAlert(false)
-    if(type === 'account' && button === 'aceptar') {
+    if (type === 'account' && button === 'aceptar') {
       dispatch(clearUser())
       dispatch(deleteUser(user.id))
       navigation.navigate('SignIn')
@@ -83,7 +83,10 @@ const Seguridad = () => {
         handleShowAlert('Contraseña cambiada exitosamente', 'pass')
         // navigation.goBack()
       } else {
-        handleShowAlert('La nueva contraseña debe tener al menos 3 caracteres', 'pass')
+        handleShowAlert(
+          'La nueva contraseña debe tener al menos 3 caracteres',
+          'pass'
+        )
       }
     } else {
       handleShowAlert('Las contraseñas no coinciden', 'pass')
@@ -198,45 +201,45 @@ CUENTA`}
                 </View>
               </View>
               {mostrarCamposExtras && (
-              <View style={styles.card2}>
-                <View style={[styles.inputLayout]}>
-                  <View style={styles.inputContent}>
-                    <Text style={[styles.label, styles.labelFlexBox]}>
-                      Nueva contraseña
-                    </Text>
-                    <TextInput
-                      placeholder="********"
-                      style={styles.placehoder}
-                      onChangeText={(value) =>
-                        valuesLogin('newPassword', value)
-                      }
-                      value={password.newPassword}
-                      secureTextEntry={true}
-                      onSubmitEditing={() => passwordInputRef.current.focus()}
-                      ref={newPasswordInputRef}
-                    />
+                <View style={styles.card2}>
+                  <View style={[styles.inputLayout]}>
+                    <View style={styles.inputContent}>
+                      <Text style={[styles.label, styles.labelFlexBox]}>
+                        Nueva contraseña
+                      </Text>
+                      <TextInput
+                        placeholder="********"
+                        style={styles.placehoder}
+                        onChangeText={(value) =>
+                          valuesLogin('newPassword', value)
+                        }
+                        value={password.newPassword}
+                        secureTextEntry={true}
+                        onSubmitEditing={() => passwordInputRef.current.focus()}
+                        ref={newPasswordInputRef}
+                      />
+                    </View>
+                  </View>
+                  <View style={[styles.inputLayout]}>
+                    <View style={styles.inputContent}>
+                      <Text style={[styles.label, styles.labelFlexBox]}>
+                        Repite la nueva contraseña
+                      </Text>
+                      <TextInput
+                        placeholder="********"
+                        style={styles.placehoder}
+                        onChangeText={(value) =>
+                          valuesLogin('confirmPassword', value)
+                        }
+                        value={password.confirmPassword}
+                        secureTextEntry={true}
+                        ref={passwordInputRef}
+                        onSubmitEditing={() => handleChangePassword()}
+                      />
+                    </View>
                   </View>
                 </View>
-                <View style={[styles.inputLayout]}>
-                  <View style={styles.inputContent}>
-                    <Text style={[styles.label, styles.labelFlexBox]}>
-                      Repite la nueva contraseña
-                    </Text>
-                    <TextInput
-                      placeholder="********"
-                      style={styles.placehoder}
-                      onChangeText={(value) =>
-                        valuesLogin('confirmPassword', value)
-                      }
-                      value={password.confirmPassword}
-                      secureTextEntry={true}
-                      ref={passwordInputRef}
-                      onSubmitEditing={() => handleChangePassword()}
-                    />
-                  </View>
-                </View>
-              </View>
-            )}
+              )}
               <Pressable
                 style={{
                   backgroundColor: Color.sportsVioleta,
@@ -257,7 +260,6 @@ CUENTA`}
                 </Text>
               </Pressable>
             </View>
-        
           </View>
           <View style={{ marginTop: mostrarCamposExtras ? '10%' : '10%' }}>
             <Pressable
@@ -406,10 +408,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   card2: {
-    width:"100%",
+    width: '100%',
     paddingVertical: Padding.p_5xs,
     flexWrap: 'wrap',
-    flexDirection: 'column',
+    flexDirection: 'column'
   },
   seguridadChild: {
     backgroundColor: 'white',

@@ -22,7 +22,7 @@ const Maps = ({ onClose, setEventsFilter }) => {
   const [provincesState, setProvincesState] = useState([])
   const [townState, setTownState] = useState([])
 
-  // console.log({ comunities, provinces, town })
+  // // console.log({ comunities, provinces, town })
   // const itemsPerPage = 50
 
   // useEffect(() => {

@@ -53,7 +53,7 @@ const FomularioEventos = () => {
     phoneNumber: ''
   })
 
-  console.log('sports: ', sport)
+  // console.log('sports: ', sport)
   const [checked, setChecked] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [clientSecret, setClientSecret] = useState(null)
@@ -76,11 +76,11 @@ const FomularioEventos = () => {
       })
       if (error) {
         // Handle error
-        console.log(error, 'error')
+        // console.log(error, 'error')
       } else {
         const { error } = await presentPaymentSheet()
         if (error) {
-          console.log(error, 'error')
+          // console.log(error, 'error')
         } else {
           // const updUser = await axiosInstance.patch(`user/${user.user.id}`,{
           //   plan:planSelected
@@ -101,7 +101,7 @@ const FomularioEventos = () => {
     }
 
     if (clientSecret) {
-      console.log('entra a la hoja')
+      // console.log('entra a la hoja')
       initializePaymentSheet()
     }
   }, [clientSecret, initPaymentSheet])
@@ -113,7 +113,7 @@ const FomularioEventos = () => {
     )
     if (data) {
       setClientSecret(data.clientSecret)
-      console.log(data, 'esto es priceee')
+      // console.log(data, 'esto es priceee')
     }
   }
 
@@ -202,7 +202,7 @@ const FomularioEventos = () => {
       timeStart: '00:00',
       image: selectedImage
     }
-    console.log('creating event with: ', data)
+    // console.log('creating event with: ', data)
     dispatch(createEvent(data))
     setEvent({
       title: '',

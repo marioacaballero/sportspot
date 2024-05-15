@@ -27,7 +27,7 @@ import { setShowGuestModal } from '../../redux/slices/events.slices'
 const InicioOrganizador = () => {
   const navigation = useNavigation()
   const { user } = useSelector((state) => state.users)
-  console.log(user?.rol)
+  // console.log(user?.rol)
   const isGuest = user?.email === 'guestUser@gmail.com'
   const dispatch = useDispatch()
 
@@ -70,127 +70,32 @@ const InicioOrganizador = () => {
         >
           <Text style={styles.buttonsText}>Publicar un evento</Text>
         </Pressable>
+        <Pressable
+          style={styles.helloAshfakWrapper}
+          onPress={() => navigation.navigate('Directorio')}
+        >
+          <Text style={styles.buttonsText}>Ver eventos creados</Text>
+        </Pressable>
       </View>
-      <View style={styles.frameView}>
-        <Text style={styles.helloAshfak3}>
-          Breve descripción del servicio a organizadores
-        </Text>
-        <View style={[styles.healthiconsmegaphoneParent]}>
-          <Image
-            style={styles.healthiconsmegaphone}
-            contentFit="cover"
-            source={require('../../assets/healthiconsmegaphone.png')}
-          />
-          <View style={styles.helloAshfakParent1}>
-            <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
-              NUEVO PUNTO DE CONTACTO
-            </Text>
-            <Text style={[styles.helloAshfak5, styles.helloTypo]}>
-              Entre deportistas y organizadores.
-            </Text>
-          </View>
-        </View>
-        <Image
-          style={{ marginTop: 15 }}
-          source={require('../../assets/right-organization.png')}
-        />
-        {/* <View style={styles.connectorLayout} /> */}
-        <View style={styles.healthiconsmegaphoneParent}>
-          <View style={styles.helloAshfakParent2}>
-            <Text style={[styles.helloAshfak6, styles.helloLayout]}>
-              AUMENTO DE INSCRIPCIONES
-            </Text>
-            <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-              En las competiciones ofrecidas por los organizadores
-            </Text>
-          </View>
-          <View style={styles.vectorParent}>
-            <Image
-              style={styles.lineIconLayout}
-              contentFit="cover"
-              source={require('../../assets/line-101.png')}
-            />
-            <Image
-              style={styles.vectorIcon}
-              contentFit="cover"
-              source={require('../../assets/vector7.png')}
-            />
-            <Image
-              style={[styles.frameChild1, styles.lineIconLayout]}
-              contentFit="cover"
-              source={require('../../assets/line-100.png')}
-            />
-          </View>
-        </View>
-        <Image
-          style={{ marginTop: 15 }}
-          source={require('../../assets/left-organization.png')}
-        />
-        {/* <View style={[styles.connectorLine1, styles.connectorLayout]} /> */}
-        <View style={styles.healthiconsmegaphoneParent}>
-          <Image
-            style={styles.faSolidcoinsIcon}
-            contentFit="cover"
-            source={require('../../assets/ingresos.png')}
-          />
-          <View style={styles.helloAshfakParent3}>
-            <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
-              AUMENTO DE INGRESOS
-            </Text>
-            <Text style={[styles.helloAshfak9, styles.helloTypo]}>
-              Para los organizadores de los eventos deportivos
-            </Text>
-          </View>
-        </View>
-        <View style={{ width: '100%' }}>
-          <Image
-            style={{ marginTop: 15 }}
-            source={require('../../assets/right-organization.png')}
-          />
-        </View>
-        {/* <View style={styles.connectorLayout} /> */}
-        <View style={styles.healthiconsmegaphoneParent}>
-          <View style={styles.helloAshfakParent2}>
-            <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
-              ÉXITO DE PRUEBAS
-            </Text>
-            <Text style={[styles.helloAshfak9, styles.helloTypo]}>
-              Por parte de los deportistas, generando renombre en competiciones
-              de los organizadores
-            </Text>
-          </View>
-          <Image
-            style={styles.fluentMdl2medalSolidIcon}
-            contentFit="cover"
-            source={require('../../assets/fluentmdl2medalsolid.png')}
-          />
-        </View>
-
-        {/* <FomularioEventos /> */}
-        <View style={styles.buttonsContainer}>
-          <Pressable
-            onPress={() => Linking.openURL('https://www.spotsport.eu/')}
-            style={styles.helloAshfakWrapper}
-          >
-            <WebSVG />
-            <Text style={styles.buttonsText}>spotsport.eu</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => Linking.openURL('mailto:organizadores@spotsport.eu')}
-            style={styles.helloAshfakWrapper}
-          >
-            <MensajeSVG />
-            <Text style={styles.buttonsText}>organizadores@spotsport.eu</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => Linking.openURL('tel:organizadores@spotsport.eu')}
-            style={styles.helloAshfakWrapper}
-          >
-            <ContactoSVG />
-            <Text style={styles.buttonsText}>600014747</Text>
-          </Pressable>
-        </View>
-      </View>
+      {/* <View
+        style={{
+          width: '100%',
+          alignSelf: 'center',
+          backgroundColor: '#fcede5',
+          borderRadius: 10,
+          padding: 10
+        }}
+      >       
+      </View> */}
+      <Image
+        style={{
+          width: '100%',
+          height: 751 * 0.85,
+          alignSelf: 'center'
+        }}
+        contentFit="cover"
+        source={require('../../assets/content.png')}
+      />
       {modalVisible && <AccesoOrganizadorModal toggleModal={toggleModal} />}
     </ScrollView>
   )
@@ -495,7 +400,10 @@ const styles = StyleSheet.create({
   inicioOrganizador: {
     height: '100%',
     marginTop: 20,
-    paddingBottom: 15
+    paddingBottom: 15,
+    width: '100%',
+    alignSelf: 'center',
+    marginLeft: 5
   },
   buttonsContainer: {
     marginTop: 20

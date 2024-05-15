@@ -96,24 +96,24 @@ export default function SignIn({ navigation }) {
               googleId: user.uid
             })
           ).then(async (data) => {
-            console.log('data from back:', data.payload)
+            // console.log('data from back:', data.payload)
             try {
               if (data.payload.user) {
                 const { email, password, name, googleId } = data.payload.user
-                console.log('login with: ', email, password, name, googleId)
+                // console.log('login with: ', email, password, name, googleId)
                 dispatch(googleLogin({ email, password, googleId, name }))
               } else {
                 const { email, password, name, googleId } = data.payload
-                console.log('login with: ', { email, password, googleId, name })
+                // console.log('login with: ', { email, password, googleId, name })
                 dispatch(googleLogin({ email, password, googleId, name }))
               }
             } catch (error) {
-              console.log('Error:', error)
+              // console.log('Error:', error)
             }
           })
         }
       } else {
-        console.log('user not authenticated')
+        // console.log('user not authenticated')
       }
     })
     return () => unsub()
@@ -124,7 +124,7 @@ export default function SignIn({ navigation }) {
       const { id_token } = response.params
       const credential = GoogleAuthProvider.credential(id_token)
       signInWithCredential(auth, credential)
-      console.log('deberia crear el usuario')
+      // console.log('deberia crear el usuario')
     }
   }, [response])
 

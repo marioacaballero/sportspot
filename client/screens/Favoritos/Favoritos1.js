@@ -19,26 +19,20 @@ const Favoritos1 = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
-  const { user, eventFavorites } = useSelector((state) => state.users)
+  const { user } = useSelector((state) => state.users)
   const { sports } = useSelector((state) => state.sports)
+  const { events } = useSelector((state) => state.events)
 
   const { loadingGet } = useSelector((state) => state.events)
-  useEffect(() => {
-    dispatch(getFavorites(user.id))
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getFavorites(user.id))
+  // }, [])
+  const actualFavorites = events.filter((evnt) =>
+    user.eventFavorites.includes(evnt.id)
+  )
 
-  // const sport = [
-  //   'futbol',
-  //   'basket',
-  //   'rugby',
-  //   'tenis',
-  //   'handball',
-  //   'ciclismo',
-  //   'running',
-  //   'hockey'
-  // ]
   // Agrupar favoritos por deporte
-  const groupedFavorites = eventFavorites?.reduce((grouped, favorite) => {
+  const groupedFavorites = actualFavorites?.reduce((grouped, favorite) => {
     const sportName = sports.find(
       (sport) => sport.id === favorite?.sportId
     )?.name

@@ -11,7 +11,7 @@ async function fetchSpainCities() {
       }
     })
 
-    console.log('response.data: ', response.data)
+    // console.log('response.data: ', response.data)
     if (!response.data || !Array.isArray(response.data.geonames)) {
       throw new Error('Invalid response format')
     }
@@ -22,7 +22,7 @@ async function fetchSpainCities() {
       CP: city.postalcode || 'Unknown' // Default to "Unknown" if postal code is undefined
     }))
 
-    console.log(spainCities)
+    // console.log(spainCities)
   } catch (error) {
     console.error('Error fetching Spain cities:', error.message)
   }
