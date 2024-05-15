@@ -47,6 +47,9 @@ export const eventsSlices = createSlice({
     setDateSuscription: (state, action) => {
       state.dateSuscription = action.payload
     },
+    setFilteredEvents: (state, action) => {
+      state.eventsFilter = action.payload
+    },
     setEventFromPrice: (state, action) => {
       const { start, end } = action.payload
 
@@ -279,6 +282,7 @@ export const {
   setDateStart,
   setDateSuscription,
   setEventFromPrice,
+  setFilteredEvents,
   setOrderEvents,
   setShowGuestModal,
   setFiltersToFilters,

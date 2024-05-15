@@ -37,8 +37,8 @@ const Registrarse = () => {
   const [registerUser, setRegisterUser] = useState({
     password: '',
     email: '',
-    name:"",
-    lastName:""
+    name: '',
+    lastName: ''
     // nickname: ''
   })
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -71,9 +71,9 @@ const Registrarse = () => {
         const emailExists = users.some(
           (user) => user.email === registerUser.email
         )
-        console.log(emailExists)
+        // console.log(emailExists)
         if (emailExists) {
-          console.log('alert mail en uso')
+          // console.log('alert mail en uso')
           handleShowAlert('El correo electrónico ya está en uso')
         } else {
           if (registerUser.password === confirmPassword) {
@@ -92,7 +92,7 @@ const Registrarse = () => {
         handleShowAlert('Rellene todos los campos')
       }
     } catch (error) {
-      console.log('caigo en error')
+      // console.log('caigo en error')
       console.error('error: ', error)
     }
   }
@@ -150,7 +150,6 @@ const Registrarse = () => {
               autoCapitalize="none"
             />
           </View>
-        
 
           <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
             <TextInput

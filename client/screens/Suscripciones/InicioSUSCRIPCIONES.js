@@ -23,88 +23,78 @@ import SubscribeView from '../../components/SuscribeView'
 // import SubscribedPlan from '../../components/SubscribedPlan'
 import { prices } from '../../utils/prices.stripe'
 import { LinearGradient } from 'expo-linear-gradient'
-import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native';
+import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native'
 import axiosInstance from '../../utils/apiBackend'
 
-
 const InicioSUSCRIPCIONES = () => {
-
-  
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const [clientSecret, setClientSecret] = useState(null)
   const { customer, clientSecretSubscription } = useSelector(
     (state) => state.stripe
   )
-  const { user } = useSelector(
-    (state) => state.users
-  )
+  const { user } = useSelector((state) => state.users)
 
-  const { initPaymentSheet, presentPaymentSheet } = useStripe(null);
+  const { initPaymentSheet, presentPaymentSheet } = useStripe(null)
 
-  React.useEffect( () => {
+  React.useEffect(() => {
     const initializePaymentSheet = async () => {
       const { error } = await initPaymentSheet({
-        paymentIntentClientSecret: clientSecret ,
-        merchantDisplayName:"asdasda",
-        returnURL: 'stripe-example://payment-sheet',
+        paymentIntentClientSecret: clientSecret,
+        merchantDisplayName: 'asdasda',
+        returnURL: 'stripe-example://payment-sheet'
         // Set `allowsDelayedPaymentMethods` to true if your business handles
         // delayed notification payment methods like US bank accounts.
-      });
+      })
       if (error) {
         // Handle error
-        console.log(error,"error")
-      }
-      else {
-      const {error} = await presentPaymentSheet()
-      if(error){
-        console.log(error,"error")
+        // console.log(error,"error")
       } else {
-      // const updUser = await axiosInstance.patch(`user/${user.user.id}`,{
-      //   plan:planSelected
-      // })
-      console.log(updUser, "upd")
+        const { error } = await presentPaymentSheet()
+        if (error) {
+          // console.log(error,"error")
+        } else {
+          // const updUser = await axiosInstance.patch(`user/${user.user.id}`,{
+          //   plan:planSelected
+          // })
+          // console.log(updUser, "upd")
+        }
       }
+    }
 
-      }
-    };
-
-    if (
-      clientSecret
-    ) {
-      console.log("entra a la hoja")
+    if (clientSecret) {
+      // console.log("entra a la hoja")
       initializePaymentSheet()
     }
-  }, [clientSecret, initPaymentSheet]);
+  }, [clientSecret, initPaymentSheet])
 
   const [show, setShow] = useState(false)
-  console.log('clientSecret en inicio susc', user)
- const customerId = customer.id
-
+  // console.log('clientSecret en inicio susc', user)
+  const customerId = customer.id
 
   const handleStripe = async (plan) => {
     // const priceId = prices[`${plan}PriceId`]
-    let priceId 
-    if (plan === "month" ) priceId = "price_1PEimEGmE60O5ob73URnJjUC"
-    if (plan === "triMonth" ) priceId = "price_1PEinJGmE60O5ob7eQisI6Ro"
-    if (plan === "sixMonth" ) priceId = "price_1PEinpGmE60O5ob7iETkR6v1"
-    if (plan === "year" ) priceId = "price_1PEioLGmE60O5ob77Om5OLsk"
+    let priceId
+    if (plan === 'month') priceId = 'price_1PEimEGmE60O5ob73URnJjUC'
+    if (plan === 'triMonth') priceId = 'price_1PEinJGmE60O5ob7eQisI6Ro'
+    if (plan === 'sixMonth') priceId = 'price_1PEinpGmE60O5ob7iETkR6v1'
+    if (plan === 'year') priceId = 'price_1PEioLGmE60O5ob77Om5OLsk'
 
-    console.log(customer,"customer")
-  //  const res = await dispatch(createSubscription({ priceId, customerId: customer.id }))
-  const { data } = await axiosInstance.post(
-    `stripe/subscription/${priceId}`,
-    { customerId : user.stripeId}
-  )
-  if(data){
-    console.log(data.latest_invoice.payment_intent.client_secret,"respuesta")
-    setClientSecret(data.latest_invoice.payment_intent.client_secret)
-  }
-   console.log(data,"resss")
+    // console.log(customer,"customer")
+    //  const res = await dispatch(createSubscription({ priceId, customerId: customer.id }))
+    const { data } = await axiosInstance.post(
+      `stripe/subscription/${priceId}`,
+      { customerId: user.stripeId }
+    )
+    if (data) {
+      // console.log(data.latest_invoice.payment_intent.client_secret,"respuesta")
+      setClientSecret(data.latest_invoice.payment_intent.client_secret)
+    }
+    // console.log(data,"resss")
   }
 
   // useEffect(() => {
-  //   console.log(clientSecretSubscription, 'en useEffect')
+  //   // console.log(clientSecretSubscription, 'en useEffect')
   // }, [clientSecretSubscription])
 
   useEffect(() => {
@@ -112,22 +102,22 @@ const InicioSUSCRIPCIONES = () => {
   }, [])
 
   // const handleGetGold = async () => {
-  //   console.log("entra")
+  //   // console.log("entra")
   //    const res = await axiosInstance.post('/user/create-subscription',{
   //      priceId:"price_1P4cNLGmE60O5ob7O3hTmP9d",
   //      customerId:user.user.stripeId
   //    })
- 
+
   //    if(res.data){
- 
+
   //      setPlanSelected("pro")
   //      setClientSecret(res.data.subscription.clientSecret.latest_invoice.payment_intent.client_secret)
-  //      // console.log(res.data.subscription.clientSecret.latest_invoice.payment_intent.client_secret,"res dataaa")
- 
+  //      // // console.log(res.data.subscription.clientSecret.latest_invoice.payment_intent.client_secret,"res dataaa")
+
   //    }
- 
-  //    console.log(user.user.stripeId,"user")
-     
+
+  //    // console.log(user.user.stripeId,"user")
+
   //  }
 
   return (
@@ -156,7 +146,7 @@ const InicioSUSCRIPCIONES = () => {
           <View style={styles.div2Cards}>
             <View style={styles.card}>
               <View style={styles.content}>
-                <View style={{width:"100%",alignItems:"center"}}>
+                <View style={{ width: '100%', alignItems: 'center' }}>
                   <Text style={[styles.estasSonLasContainer, styles.helloClr]}>
                     <Text style={styles.estasSonLasVentajasQueObt}>
                       <Text style={styles.helloTypo}>
@@ -368,7 +358,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   content: {
-    width: "100%"
+    width: '100%'
   },
   card: {
     display: 'flex',
@@ -388,8 +378,7 @@ const styles = StyleSheet.create({
   groupContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    alignItems: 'center',
-   
+    alignItems: 'center'
   },
   inicioSuscripciones2: {
     paddingTop: Padding.p_xs,

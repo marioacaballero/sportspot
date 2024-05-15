@@ -18,6 +18,7 @@ import InicioBUSCADOR from './InicioBUSCADOR'
 import InicioOrganizador from './Organizador/InicioOrganizador'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+  deleteEvent,
   getAllEvents,
   getSuscribedEvents,
   visitEvent
@@ -33,6 +34,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { getOneCustomer } from '../redux/actions/stripe'
 import { LinearGradient } from 'expo-linear-gradient'
 import GuestUserModal from '../components/utils/GuestUserModal'
+import { getUser } from '../redux/actions/users'
 
 const InicioDeportista = () => {
   const navigation = useNavigation()
@@ -61,10 +63,14 @@ const InicioDeportista = () => {
       getModalState()
       setModalSport(true)
     }
+    dispatch(getUser(user.id))
     dispatch(getAllEvents())
     dispatch(getSuscribedEvents(user.id))
     dispatch(getOneCustomer(user.email)).then((e) => console.log(e, 'eeeeeee'))
+    console.log(events)
   }, [])
+
+  console.log('user preferences', user.preferences)
 
   const handleBuscarPress = () => {
     setMostrarInicioBuscador(true)
@@ -123,7 +129,7 @@ const InicioDeportista = () => {
     return diferenciaDias >= 1
   })
   const isGuest = user?.email === 'guestUser@gmail.com'
-  console.log('user: ', user)
+  // console.log('user: ', user)
 
   if (loadingGet) {
     return (
@@ -395,64 +401,72 @@ const InicioDeportista = () => {
             {modalOrganizador ? (
               <InicioOrganizador />
             ) : (
-              <View style={styles.frameContainer}>
-                <View style={{ alignItems: 'center' }}>
-                  <Text style={styles.helloTypoScroll}>
-                    Últimas horas de inscripción
-                  </Text>
-                  <ScrollView
-                    style={{ alignSelf: 'flex-start' }}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                  >
-                    {lastHours?.map((event, i) => (
-                      <Pressable
-                        key={i}
-                        style={
-                          i === 0
-                            ? styles.image94ParentShadowBox1
-                            : styles.image94ParentShadowBox
-                        }
-                        onPress={() => {
-                          dispatch(
-                            visitEvent({ eventId: event.id, userId: user.id })
-                          )
-                          dispatch(getEventByIdRedux(event.id))
-                          navigation.navigate('PruebasEncontradasDetalle')
-                        }}
-                      >
-                        <Image
-                          style={styles.image94Icon}
-                          contentFit="cover"
-                          source={{ uri: event.image }}
-                        />
-                        <View
-                          style={[
-                            styles.imGoingToShakeYParent,
-                            styles.frameGroupSpaceBlock
-                          ]}
+              <View
+                style={{
+                  width: '100%',
+
+                  marginTop: 19,
+                  justifyContent: 'center'
+                }}
+              >
+                {lastHours.length > 0 && (
+                  <View style={{ alignItems: 'center' }}>
+                    <Text style={styles.helloTypoScroll}>
+                      Últimas horas de inscripción
+                    </Text>
+                    <ScrollView
+                      style={{ alignSelf: 'flex-start' }}
+                      horizontal={true}
+                      showsHorizontalScrollIndicator={false}
+                    >
+                      {lastHours?.map((event, i) => (
+                        <Pressable
+                          key={i}
+                          style={
+                            i === 0
+                              ? styles.image94ParentShadowBox1
+                              : styles.image94ParentShadowBox
+                          }
+                          onPress={() => {
+                            dispatch(
+                              visitEvent({ eventId: event.id, userId: user.id })
+                            )
+                            dispatch(getEventByIdRedux(event.id))
+                            navigation.navigate('PruebasEncontradasDetalle')
+                          }}
                         >
-                          <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                            {event?.title}
-                          </Text>
-                          <View style={styles.minParent}>
-                            <Text style={[styles.min, styles.minClr]}>
-                              {event?.description}
+                          <Image
+                            style={styles.image94Icon}
+                            contentFit="cover"
+                            source={{ uri: event.image }}
+                          />
+                          <View
+                            style={[
+                              styles.imGoingToShakeYParent,
+                              styles.frameGroupSpaceBlock
+                            ]}
+                          >
+                            <Text style={[styles.imGoingTo, styles.goingTypo]}>
+                              {event?.title}
                             </Text>
-                            {/* <Text style={[styles.min1, styles.minTypo1]}>
-                           {event?.header}
-                         </Text> */}
+                            <View style={styles.minParent}>
+                              <Text style={[styles.min, styles.minClr]}>
+                                {event?.description}
+                              </Text>
+                              {/* <Text style={[styles.min1, styles.minTypo1]}>
+           {event?.header}
+         </Text> */}
+                            </View>
                           </View>
-                        </View>
-                      </Pressable>
-                    ))}
-                  </ScrollView>
-                </View>
+                        </Pressable>
+                      ))}
+                    </ScrollView>
+                  </View>
+                )}
                 <View style={{ alignItems: 'center' }}>
                   <Text style={styles.helloTypoScroll}>
                     Últimas pruebas añadidas
                   </Text>
-
                   <ScrollView
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
@@ -837,12 +851,6 @@ const styles = StyleSheet.create({
   min10: {
     color: Color.colorGray_100,
     fontSize: FontSize.size_3xs
-  },
-  frameContainer: {
-    display: 'flex',
-    width: '100%',
-    marginTop: 19,
-    justifyContent: 'center'
   },
   frameParent: {
     paddingTop: 30,

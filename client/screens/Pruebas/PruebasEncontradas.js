@@ -7,7 +7,8 @@ import {
   Pressable,
   Image,
   ScrollView,
-  Modal
+  Modal,
+  TouchableWithoutFeedback
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import {
@@ -25,26 +26,35 @@ import {
   getEventById,
   getFavorites
 } from '../../redux/actions/events'
-import { getEventByIdRedux } from '../../redux/slices/events.slices'
-import { favorite } from '../../redux/actions/users'
+import {
+  getEventByIdRedux,
+  setFilteredEvents,
+  setShowGuestModal
+} from '../../redux/slices/events.slices'
+import { favorite, getUser } from '../../redux/actions/users'
 
 const PruebasEncontradas = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
-  const { eventsFilter, favorites, nameEventsFilters, allFavorites } =
+  const { favorites, events, nameEventsFilters, allFavorites, eventsFilter } =
     useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
 
-  // console.log(user, 'user en encontradas pruebas')
+  // // console.log(user, 'user en encontradas pruebas')
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
   const [favoriteEvents, setFavoriteEvents] = useState([])
 
   useEffect(() => {
-    dispatch(getAllEvents())
-    dispatch(getFavorites(user.id))
-  }, [favorites])
+    if (eventsFilter.length === 0) {
+      dispatch(setFilteredEvents(events))
+    }
+  }, [])
+
+  // useEffect(() => {
+  //   dispatch(getFavorites(user.id))
+  // }, [favorites])
 
   // useEffect(() => {
   //   if (favorites.eventFavorites) {
@@ -57,11 +67,13 @@ const PruebasEncontradas = () => {
   }, [allFavorites])
 
   const toggleFavorite = (eventId) => {
+    console.log('toggling favorite on ', eventId)
     const data = {
       id: user.id,
       eventId
     }
-    dispatch(favorite(data))
+    console.log('data: ', data)
+    dispatch(favorite(data)).then((data) => dispatch(getUser(user.id)))
   }
 
   const toggleModalOrder = () => {
@@ -88,11 +100,35 @@ const PruebasEncontradas = () => {
             source={require('../../assets/cilarrowtop1.png')}
           />
           <Text style={[styles.badajozCilcismo22, styles.filtrosTypo]}>
-            {`${nameEventsFilters.sportName}${
-              nameEventsFilters.dateStart && ','
-            } ${nameEventsFilters.dateStart}${
-              nameEventsFilters.location && ','
-            } ${nameEventsFilters.location}`}
+            {`${
+              nameEventsFilters.sportName.length > 0
+                ? nameEventsFilters.sportName
+                : ''
+            }${
+              nameEventsFilters.sportName.length > 0 &&
+              nameEventsFilters.dateStart.length > 0
+                ? ', '
+                : ''
+            }${
+              nameEventsFilters.sportName.length > 0 &&
+              nameEventsFilters.dateStart.length === 0 &&
+              nameEventsFilters.location.length > 0
+                ? ', '
+                : ''
+            }${
+              nameEventsFilters.dateStart.length > 0
+                ? nameEventsFilters.dateStart
+                : ''
+            }${
+              nameEventsFilters.dateStart.length > 0 &&
+              nameEventsFilters.location.length > 0
+                ? ', '
+                : ''
+            }${
+              nameEventsFilters.location.length > 0
+                ? nameEventsFilters.location
+                : ''
+            }`}
           </Text>
         </Pressable>
         <View style={[styles.frameParent, styles.parentSpaceBlock]}>
@@ -103,7 +139,13 @@ const PruebasEncontradas = () => {
                 transparent={true}
                 visible={modalFilter}
               >
-                <PruebasEncontradasFiltros setModalVisible={setModalFilter} />
+                <TouchableWithoutFeedback onPress={() => setModalFilter(false)}>
+                  <View style={{ flex: 1 }}>
+                    <PruebasEncontradasFiltros
+                      setModalVisible={setModalFilter}
+                    />
+                  </View>
+                </TouchableWithoutFeedback>
               </Modal>
               <Text style={styles.filtrosTypo}>Filtros</Text>
               <Image
@@ -112,15 +154,15 @@ const PruebasEncontradas = () => {
                 source={require('../../assets/ellipse-7189.png')}
               />
             </Pressable>
+            <Modal animationType="fade" transparent={true} visible={modalOrder}>
+              <TouchableWithoutFeedback onPress={() => setModalOrder(false)}>
+                <View style={{ flex: 1 }}>
+                  <PopupOrdenarPor setModalVisible={setModalOrder} />
+                </View>
+              </TouchableWithoutFeedback>
+            </Modal>
             <View style={styles.filtrosParent}>
               <Pressable onPress={toggleModalOrder}>
-                <Modal
-                  animationType="fade"
-                  transparent={true}
-                  visible={modalOrder}
-                >
-                  <PopupOrdenarPor setModalVisible={setModalOrder} />
-                </Modal>
                 <Text style={styles.filtrosTypo}>Ordenar por</Text>
               </Pressable>
               <Image
@@ -153,9 +195,7 @@ const PruebasEncontradas = () => {
                     </Text>
                     <View style={styles.likeSpotsport}>
                       <CorazonSVG
-                        isFavorite={favoriteEvents?.some(
-                          (favorite) => favorite.id === event?.id
-                        )}
+                        isFavorite={user.eventFavorites.includes(event.id)}
                         handle={() => toggleFavorite(event.id)}
                       />
                     </View>
@@ -176,14 +216,15 @@ const PruebasEncontradas = () => {
                     </Text>
                     <Text style={styles.modalidad}>-Fecha de la prueba:</Text>
                     <Text style={styles.ene2024Typo}>
-                      {event.datestart} {'\n'}
+                      {' '}
+                      {event.dateStart} {'\n'}
                     </Text>
 
                     <Text style={styles.modalidad}>
-                      -Plazo límite de inscripción:
+                      -Plazo límite de inscripción:{' '}
                     </Text>
                     <Text style={styles.ene2024Typo}>
-                      {event?.dateinscription} {'\n'}
+                      {event?.dateInscription} {'\n'}
                     </Text>
                   </Text>
                   <Text
@@ -293,7 +334,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     width: '100%',
     flex: 1,
-    height: "100%"
+    height: '100%'
   },
   senderismo: {
     fontSize: FontSize.size_sm,
@@ -310,7 +351,7 @@ const styles = StyleSheet.create({
   modalidad: {
     fontFamily: FontFamily.inputPlaceholder,
     marginLeft: 10,
-    fontSize:12
+    fontSize: 12
   },
   imGoingToContainer: {
     fontSize: FontSize.size_3xs,

@@ -117,7 +117,16 @@ const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
       >
         <View style={styles.container}>
           <Text style={styles.containerText}>¿Qué deporte practicas?</Text>
-          <View style={styles.containerSport}>
+          <View
+            style={{
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: 10,
+              marginTop: 10,
+              paddingHorizontal: 10
+            }}
+          >
             {filteredSports?.map((sport) => (
               <View key={sport?.name} style={{ alignItems: 'center' }}>
                 <TouchableOpacity
@@ -161,7 +170,18 @@ const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
                     )}
                   </View>
                 </TouchableOpacity>
-                <Text style={styles.ftbol}>
+                <Text
+                  style={{
+                    fontSize: FontSize.size_sm,
+                    lineHeight: 23,
+                    fontWeight: '900',
+                    fontFamily: FontFamily.inputPlaceholder,
+                    color: Color.sportsVioleta,
+
+                    textAlign: 'center',
+                    marginTop: 6
+                  }}
+                >
                   {sport?.name.slice(0, 1).toUpperCase()}
                   {sport?.name.slice(1)}
                 </Text>

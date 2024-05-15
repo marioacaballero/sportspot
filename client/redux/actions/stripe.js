@@ -49,7 +49,7 @@ export const paymentSubscription = createAsyncThunk(
       const { data } = await axiosInstance.post(`stripe/payment/${priceId}`, {
         customerId
       })
-      console.log(data, 'la data en action')
+      // console.log(data, 'la data en action')
       return { customer: data.customer, clientSecret: data.clientSecret }
     } catch (error) {
       throw new Error(error)

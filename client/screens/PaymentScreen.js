@@ -3,7 +3,7 @@ import { CardField, useStripe } from '@stripe/stripe-react-native'
 export default function PaymentScreen() {
   const { confirmPayment } = useStripe()
 
-  console.log(confirmPayment)
+  // console.log(confirmPayment)
 
   return (
     <CardField
@@ -21,10 +21,10 @@ export default function PaymentScreen() {
         marginVertical: 30
       }}
       onCardChange={(cardDetails) => {
-        console.log('cardDetails', cardDetails)
+        // console.log('cardDetails', cardDetails)
       }}
       onFocus={(focusedField) => {
-        console.log('focusField', focusedField)
+        // console.log('focusField', focusedField)
       }}
     />
   )

@@ -5,13 +5,14 @@ import Maps from '../components/Maps'
 import Sports from '../components/Sports'
 import Calendario from '../components/Calendar'
 import { Padding, FontFamily, Border, FontSize, Color } from '../GlobalStyles'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getAllSports } from '../redux/actions/sports'
 import { getAllEventsFilters } from '../redux/actions/events'
 import { setNameEvent } from '../redux/slices/events.slices'
 
 const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
   const navigation = useNavigation()
+  const { events } = useSelector((state) => state.events)
   const dispatch = useDispatch()
   const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
   const [frameContainer8Visible, setFrameContainer8Visible] = useState(false)
@@ -290,7 +291,7 @@ const styles = StyleSheet.create({
   frameContainer: {
     width: '100%',
     padding: 20,
-    paddingHorizontal:6,
+    paddingHorizontal: 6,
     marginTop: 0
   },
   frame: {

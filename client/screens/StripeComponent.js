@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { Modal, Pressable, Text } from 'react-native'
 import { CardField, useStripe } from '@stripe/stripe-react-native'
-import { createSubscription, paymentSubscription } from '../redux/actions/stripe'
+import {
+  createSubscription,
+  paymentSubscription
+} from '../redux/actions/stripe'
 import { useDispatch, useSelector } from 'react-redux'
 
 function StripeComponent() {
@@ -18,18 +21,17 @@ function StripeComponent() {
 
   // Confirma el pago
   const handlePay = async () => {
-
     if (!clientSecretPayment) {
       return
     }
-    
+
     const { error, paymentIntent } = await confirmPayment(clientSecretPayment, {
       paymentMethodType: 'Card'
     })
     if (error) {
-      console.log('Error al confirmar el pago', error.message)
+      // console.log('Error al confirmar el pago', error.message)
     } else {
-      console.log('Pago confirmado')
+      // console.log('Pago confirmado')
       // Aquí puedes llamar a tu API para crear la suscripción
       const data = {
         priceId: 'price_1PBNJ7F0YK5c4Ih5VBUaBISR',

@@ -66,7 +66,7 @@ const HistorialDePruebas = () => {
     // navigation.navigate('Favoritos1')
   }
 
-  console.log('events.title', events[1].suscribers)
+  // console.log('events.title', events[1].suscribers)
   return (
     <LinearGradient
       colors={['#fff', '#f9f9f9']}
