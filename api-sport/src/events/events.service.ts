@@ -25,6 +25,7 @@ export class EventsService {
   ) {}
 
   public async createService(createEventDto: CreateEventDto) {
+    console.log("entra")
     const event = await this.eventsRepository.save(createEventDto)
 
     return event
@@ -85,6 +86,7 @@ export class EventsService {
       .leftJoinAndSelect('event.creator', 'creator')
       .leftJoinAndSelect('event.suscribers', 'suscribers')
       .leftJoinAndSelect('event.reviews', 'reviews')
+      .leftJoinAndSelect('reviews.reviewCreator', 'reviewCreator')
       .leftJoinAndSelect('reviews.reviewCreator', 'reviewCreator')
       .getOne()
 
