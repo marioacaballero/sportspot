@@ -26,8 +26,9 @@ export class EventsService {
 
   public async createService(createEventDto: CreateEventDto) {
     console.log("entra")
-    const event = await this.eventsRepository.save(createEventDto)
 
+    const event = await this.eventsRepository.save(createEventDto)
+    await this.notifyUsersByLocation(event);
     return event
   }
 
@@ -298,24 +299,45 @@ export class EventsService {
   }
 
   private async notifyUsersByLocation(event: EventEntity) {
+    console.log(event,"creatoooor")
+    const creatorId = `${event.creator}`
     const users = await this.usersRepository.find();
     const usersToNotify = users.filter(user => {
-      if (!user.preferences || !user.preferences['location']) return false;
-      return user.preferences['location'] === event.location;
+        if (!user.preferences || !user.preferences['location']) return false;
+        return user.preferences['location'] === event.location;
     });
 
     for (const user of usersToNotify) {
-      await this.notificationsService.createService({
-        title: 'Nuevo evento en tu zona',
-        message: `Se ha creado un nuevo evento en tu ubicación preferida: ${event.title}`,
-        date: new Date(),
-        eventType: 'event',
-        eventId: event.id,
-        recipientId: user.id,
-        recipient:user,
-        read: false,
-      }); 
+        // Verificar si el usuario no es el creador del evento antes de enviar la notificación
+        if (event.creator && user.id !== creatorId) {
+            await this.notificationsService.createService({
+                title: 'Nuevo evento en tu zona',
+                message: `Se ha creado un nuevo evento en tu ubicación preferida: ${event.title}`,
+                date: new Date(),
+                eventType: 'event',
+                eventId: event.id,
+                recipient: user,
+                recipientId: user.id,
+                read: false,
+            });
+        }
     }
-  }
+
+    // Verificar si event.creator está definido antes de enviar la notificación al usuario creador del evento
+    if (creatorId) {
+      console.log(event,"eventtt")
+        await this.notificationsService.createService({
+            title: 'Evento creado',
+            message: `Tu evento "${event.title}" ha sido creado con éxito.`,
+            date: new Date(),
+            eventType: 'event_created',
+            eventId: event.id,
+            recipientId: creatorId,
+            recipient: event.creator,
+            read: false,
+        });
+    }
+}
+
 }
 
