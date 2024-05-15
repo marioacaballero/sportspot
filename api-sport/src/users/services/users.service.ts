@@ -338,7 +338,9 @@ export class UsersService {
         'user.password',
         'user.email',
         'user.rol',
-        'user.preferences'
+        'user.preferences',
+        'user.eventFavorites'
+
       ])
       .where({ email, isDelete: false })
       .getOne()
@@ -486,30 +488,54 @@ export class UsersService {
 
     return await this.getOneEvent(eventId) // Recargar el usuario para reflejar los cambios
   }
-
   public async eventFavoritesService(
     userId: string,
     eventId: string
   ): Promise<EventEntity> {
-    const user = await this.getOneService(userId)
+    // Buscar el usuario por ID
+    const user = await this.getOneService(userId);
     if (!user) {
-      throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404)
+      throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404);
     }
-
-    const event = await this.eventService.getOneService(eventId)
+  
+    // Buscar el evento por ID
+    const event = await this.eventService.getOneService(eventId);
     if (!event) {
-      throw new HttpException(`Evento con ID ${eventId} no encontrado`, 404)
+      throw new HttpException(`Evento con ID ${eventId} no encontrado`, 404);
     }
-
-    user.eventFavorites = user.eventFavorites ? user.eventFavorites : []
-    const index = user.eventFavorites.findIndex((e) => e === eventId)
+  
+    // Asegúrate de que user.eventFavorites esté inicializado
+    if (!Array.isArray(user.eventFavorites)) {
+      user.eventFavorites = [];
+    }
+  
+    // Buscar el índice del evento en los favoritos
+    const index = user.eventFavorites.indexOf(eventId);
+  
     if (index === -1) {
-      user.eventFavorites = [...user.eventFavorites, eventId] // Guardar el ID del evento
+      // Si no se encuentra, agregar el evento a los favoritos
+      user.eventFavorites.push(eventId);
     } else {
-      user.eventFavorites = user.eventFavorites.filter((e) => e !== eventId)
+      // Si se encuentra, eliminar el evento de los favoritos
+      user.eventFavorites.splice(index, 1);
     }
-
-    return event
+  
+    // Guardar los cambios en el usuario (asegúrate de implementar esta lógica según tu ORM)
+    await this.saveUser(user);
+  
+    // Verificar si los cambios se han guardado correctamente (opcional)
+    const updatedUser = await this.getOneService(userId);
+    if (updatedUser.eventFavorites.includes(eventId) !== user.eventFavorites.includes(eventId)) {
+      throw new HttpException('Error al actualizar los favoritos del usuario', 500);
+    }
+  
+    return event;
+  }
+  
+  // Método para guardar el usuario (debes implementarlo según tu ORM)
+  private async saveUser(user: UserEntity): Promise<void> {
+    // Ejemplo con un ORM ficticio, reemplaza esto con la lógica de tu ORM
+    await this.userRepository.save(user);
   }
 
   public async mailOrganizer(id: string) {
