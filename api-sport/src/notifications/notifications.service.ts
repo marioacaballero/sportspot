@@ -108,4 +108,12 @@ export class NotificationsService {
 //     return this.notificationsRepository.save(notification);
 //   }
 
+ // Método para eliminar todas las notificaciones
+ public async deleteAllService(): Promise<void> {
+  await this.notificationsRepository.createQueryBuilder()
+    .delete()
+    .from(NotificationEntity)
+    .execute();
+}
+
 }
