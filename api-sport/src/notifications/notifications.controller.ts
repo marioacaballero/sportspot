@@ -44,7 +44,11 @@ export class NotificationsController {
   ) {
     return this.notificationsService.updateService(id, updateNotificationDto)
   }
-
+  @Delete('allNotifications')
+  @ApiOperation({ summary: "Remove all notifications" })
+  public async removeAll() {
+    return this.notificationsService.deleteAllService();
+  }
   @Delete(':id')
   @ApiOperation({ summary: "Remove one notification by id" })
   remove(@Param('id') id: string) {
@@ -56,4 +60,7 @@ export class NotificationsController {
   async sendNotificationToAllUsers(@Body() createNotificationDto: CreateNotificationDto): Promise<void> {
     await this.notificationsService.createNotificationForAllUsers(createNotificationDto);
   }
+
+
+
 }
