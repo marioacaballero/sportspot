@@ -20,7 +20,6 @@ export class NotificationsService {
       .createQueryBuilder('user')
       .where({ id: createNotificationDto.recipientId })
       .getOne()
-
     if (!user) {
       throw new HttpException(
         `Usuario con ID ${createNotificationDto.recipientId} no encontrado`,
