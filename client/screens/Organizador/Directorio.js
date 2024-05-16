@@ -31,7 +31,7 @@ const Directorio = () => {
   const userEvents = events.filter((event) => event?.creator?.id === user?.id)
 
   const filteredEvents = userEvents.filter((event) =>
-    event.title.toLowerCase().includes(searchText.toLowerCase())
+    event.title.toLowerCase()?.includes(searchText.toLowerCase())
   )
 
   const handleSearch = (text) => {
@@ -67,7 +67,7 @@ const Directorio = () => {
         >
           Directorio de organizadores
         </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('PublicarEvento')}>
+        {/* <TouchableOpacity onPress={() => navigation.navigate('PublicarEvento')}>
           <Text
             style={{
               color: Color.sportsVioleta,
@@ -82,7 +82,7 @@ const Directorio = () => {
         </TouchableOpacity>
         <Pressable onPress={() => navigation.goBack()}>
           <BackArrowSVG />
-        </Pressable>
+        </Pressable> */}
       </View>
       <View
         style={{

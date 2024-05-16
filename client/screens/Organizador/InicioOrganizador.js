@@ -70,12 +70,12 @@ const InicioOrganizador = () => {
         >
           <Text style={styles.buttonsText}>Publicar un evento</Text>
         </Pressable>
-        <Pressable
+        {/* <Pressable
           style={styles.helloAshfakWrapper}
           onPress={() => navigation.navigate('Directorio')}
         >
           <Text style={styles.buttonsText}>Ver eventos creados</Text>
-        </Pressable>
+        </Pressable> */}
       </View>
       {/* <View
         style={{

@@ -12,13 +12,14 @@ import {
   TouchableWithoutFeedback
 } from 'react-native'
 import EscribirResea from '../components/EscribirResea'
-import { useNavigation } from '@react-navigation/native'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
 import { FontFamily, Padding, FontSize, Color, Border } from '../GlobalStyles'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useDispatch, useSelector } from 'react-redux'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { favorite } from '../redux/actions/users'
+import { setSelectedIcon } from '../redux/slices/users.slices'
 
 const HistorialDePruebas = () => {
   const [isFavorite, setIsFavorite] = useState({})
@@ -65,6 +66,14 @@ const HistorialDePruebas = () => {
     dispatch(favorite(data))
     // navigation.navigate('Favoritos1')
   }
+
+  const isFocused = useIsFocused()
+
+  useEffect(() => {
+    if (isFocused) {
+      dispatch(setSelectedIcon('HistorialDePruebas'))
+    }
+  }, [isFocused])
 
   // console.log('events.title', events[1].suscribers)
   return (

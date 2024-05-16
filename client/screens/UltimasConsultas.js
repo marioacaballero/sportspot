@@ -24,7 +24,7 @@ const UltimasConsultas = () => {
 
   const dispatch = useDispatch()
 
-  const [switchStates, setSwitchStates] = useState([false, false, false])
+  const [switchStates, setSwitchStates] = useState([true, false, false])
   const [showSwitch, setshowSwitch] = useState(false)
   const { user, eventFavorites } = useSelector((state) => state.users)
   const { visitedEvents } = useSelector((state) => state.events)
@@ -62,7 +62,7 @@ const UltimasConsultas = () => {
 
   const toggleSwitch = (index) => {
     const newSwitchStates = [false, false, false]
-    newSwitchStates[index] = !newSwitchStates[index]
+    newSwitchStates[index] = !switchStates[index]
     setSwitchStates(newSwitchStates)
   }
 
@@ -107,9 +107,9 @@ const UltimasConsultas = () => {
                       style={[
                         styles.path3391Icon,
 
-                        showSwitch && styles.path3391IconRotate
+                        !showSwitch && styles.path3391IconRotate
                       ]}
-                      contentFit="cover"
+                      contentFit="fill"
                       source={require('../assets/path-3391.png')}
                     />
                   </Pressable>
@@ -117,7 +117,11 @@ const UltimasConsultas = () => {
                     onPress={() => setshowSwitch(!showSwitch)}
                     style={[styles.ltimas24Horas, styles.ciclismoTypo]}
                   >
-                    Últimas 24 horas
+                    {switchStates[0]
+                      ? 'Últimas 24 horas'
+                      : switchStates[1]
+                      ? 'Última semana'
+                      : 'Último mes'}
                   </Text>
                 </View>
                 {showSwitch && (
@@ -128,7 +132,17 @@ const UltimasConsultas = () => {
                         styles.groupParentFlexBox
                       ]}
                     >
-                      <Text style={styles.ltimaSemanaTypo}>
+                      <Text
+                        style={{
+                          fontFamily: FontFamily.inputPlaceholder,
+                          fontWeight: switchStates[0] ? '700' : '500',
+                          lineHeight: 19,
+                          letterSpacing: 0,
+                          fontSize: FontSize.inputPlaceholder_size,
+                          textAlign: 'left',
+                          color: Color.sportsVioleta
+                        }}
+                      >
                         Últimas 24 horas
                       </Text>
                       <Switch
@@ -146,7 +160,15 @@ const UltimasConsultas = () => {
                       ]}
                     >
                       <Text
-                        style={[styles.ltimaSemana, styles.ltimaSemanaTypo]}
+                        style={{
+                          fontFamily: FontFamily.inputPlaceholder,
+                          fontWeight: switchStates[1] ? '700' : '500',
+                          lineHeight: 19,
+                          letterSpacing: 0,
+                          fontSize: FontSize.inputPlaceholder_size,
+                          textAlign: 'left',
+                          color: Color.sportsVioleta
+                        }}
                       >
                         Última semana
                       </Text>
@@ -165,7 +187,15 @@ const UltimasConsultas = () => {
                       ]}
                     >
                       <Text
-                        style={[styles.ltimaSemana, styles.ltimaSemanaTypo]}
+                        style={{
+                          fontFamily: FontFamily.inputPlaceholder,
+                          fontWeight: switchStates[2] ? '700' : '500',
+                          lineHeight: 19,
+                          letterSpacing: 0,
+                          fontSize: FontSize.inputPlaceholder_size,
+                          textAlign: 'left',
+                          color: Color.sportsVioleta
+                        }}
                       >
                         Último mes
                       </Text>
@@ -204,7 +234,7 @@ const UltimasConsultas = () => {
                   >
                     <MaterialCommunityIcons
                       name={
-                        user.eventFavorites.includes(event.event.id)
+                        user.eventFavorites?.includes(event.event.id)
                           ? 'cards-heart'
                           : 'cards-heart-outline'
                       }
@@ -327,16 +357,17 @@ const styles = StyleSheet.create({
   },
   switches: {
     width: '100%',
-    padding: 15,
-    borderRadius: Border.br_3xs,
-    shadowColor: 'rgba(0, 0, 0, 0.25)',
-    shadowOffset: {
-      width: 10,
-      height: 10
-    },
-    shadowRadius: 1,
+    paddingBottom: 5,
+    borderRadius: 6,
+    backgroundColor: '#fff',
+    shadowOpacity: 1,
     elevation: 4,
-    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    shadowOffset: {
+      width: 2,
+      height: 3
+    },
+    shadowColor: 'black',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -380,8 +411,9 @@ const styles = StyleSheet.create({
     color: Color.sportsVioleta
   },
   path3391Icon: {
-    width: 15,
-    height: 10
+    width: 12,
+    height: 8,
+    padding: 1
   },
   path3391IconRotate: {
     transform: [{ rotate: '180deg' }]

@@ -10,7 +10,7 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity
 } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { Padding, FontFamily, FontSize, Color, Border } from '../GlobalStyles'
 import PopupPremium from '../components/PopupPremium'
 import InicioNotificaciones from './InicioNotificaciones'
@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   deleteEvent,
   getAllEvents,
+  getAllVisitedEvents,
   getSuscribedEvents,
   visitEvent
 } from '../redux/actions/events'
@@ -35,11 +36,12 @@ import { getOneCustomer } from '../redux/actions/stripe'
 import { LinearGradient } from 'expo-linear-gradient'
 import GuestUserModal from '../components/utils/GuestUserModal'
 import { getUser } from '../redux/actions/users'
+import { setSelectedIcon } from '../redux/slices/users.slices'
 
 const InicioDeportista = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
-  const { events, loadingGet, showGuestModal } = useSelector(
+  const { events, loadingGet, visitedEvents, showGuestModal } = useSelector(
     (state) => state.events
   )
   const { user } = useSelector((state) => state.users)
@@ -58,6 +60,24 @@ const InicioDeportista = () => {
     setModalState(data)
   }
 
+  const isFocused = useIsFocused()
+
+  useEffect(() => {
+    if (isFocused) {
+      dispatch(setSelectedIcon('InicioDeportista'))
+    }
+  }, [isFocused])
+
+  useEffect(() => {
+    if (visitedEvents?.length === 0) {
+      const body = {
+        userId: user.id,
+        filter: 'day'
+      }
+      dispatch(getAllVisitedEvents(body))
+    }
+  }, [])
+
   useEffect(() => {
     if (!user.preferences?.location) {
       getModalState()
@@ -67,10 +87,9 @@ const InicioDeportista = () => {
     dispatch(getAllEvents())
     dispatch(getSuscribedEvents(user.id))
     dispatch(getOneCustomer(user.email)).then((e) => console.log(e, 'eeeeeee'))
-    console.log(events)
   }, [])
 
-  console.log('user preferences', user.preferences)
+  // ('user preferences', user.preferences)
 
   const handleBuscarPress = () => {
     setMostrarInicioBuscador(true)
@@ -83,12 +102,20 @@ const InicioDeportista = () => {
   const toggleModalNotifications = () => {
     setModalNotifications(!modalNotifications)
   }
+  const sortByDate = (array) => {
+    return [...array].sort((a, b) => {
+      const dateA = new Date(a.createdAt)
+      const dateB = new Date(b.createdAt)
+
+      return dateB - dateA
+    })
+  }
 
   const toggleModalOrganizador = () => {
     setModalOrganizador(!modalOrganizador)
   }
 
-  const eventos = events.map((event) => {
+  const eventos = sortByDate([...events]).map((event) => {
     return event
   })
 
@@ -107,6 +134,7 @@ const InicioDeportista = () => {
 
     return diferenciaDias < 7
   })
+
   // Filtro para las ultimas 48hs de inscripcion
   const lastHours = eventos.filter((evento) => {
     const fechaEvento = new Date(evento.dateInscription)
@@ -129,13 +157,12 @@ const InicioDeportista = () => {
     return diferenciaDias >= 1
   })
   const isGuest = user?.email === 'guestUser@gmail.com'
-  // console.log('user: ', user)
 
   if (loadingGet) {
     return (
       <View>
         <Image
-          style={styles.background}
+          style={{ width: '100%', height: '100%', position: 'absolute' }}
           source={require('../assets/BGInicio.png')}
           contentFit="cover"
         />
@@ -285,7 +312,7 @@ const InicioDeportista = () => {
             <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
               <Pressable
                 style={styles.helloAshfakGroup}
-                onPress={() => toggleModalOrganizador()}
+                onPress={() => setModalOrganizador(false)}
               >
                 <Text style={styles.helloTypo}>Deportista</Text>
                 <Text
@@ -306,7 +333,7 @@ const InicioDeportista = () => {
               </Pressable>
               <Pressable
                 style={styles.helloAshfakGroup}
-                onPress={() => toggleModalOrganizador()}
+                onPress={() => setModalOrganizador(true)}
               >
                 <Text style={[styles.helloAshfak2, styles.helloTypo]}>
                   Organizador
@@ -404,7 +431,6 @@ const InicioDeportista = () => {
               <View
                 style={{
                   width: '100%',
-
                   marginTop: 19,
                   justifyContent: 'center'
                 }}
@@ -419,152 +445,173 @@ const InicioDeportista = () => {
                       horizontal={true}
                       showsHorizontalScrollIndicator={false}
                     >
-                      {lastHours?.map((event, i) => (
-                        <Pressable
-                          key={i}
-                          style={
-                            i === 0
-                              ? styles.image94ParentShadowBox1
-                              : styles.image94ParentShadowBox
-                          }
-                          onPress={() => {
-                            dispatch(
-                              visitEvent({ eventId: event.id, userId: user.id })
-                            )
-                            dispatch(getEventByIdRedux(event.id))
-                            navigation.navigate('PruebasEncontradasDetalle')
-                          }}
-                        >
-                          <Image
-                            style={styles.image94Icon}
-                            contentFit="cover"
-                            source={{ uri: event.image }}
-                          />
-                          <View
-                            style={[
-                              styles.imGoingToShakeYParent,
-                              styles.frameGroupSpaceBlock
-                            ]}
+                      {lastHours &&
+                        sortByDate([...lastHours]).map((event, i) => (
+                          <Pressable
+                            key={i}
+                            style={
+                              i === 0
+                                ? styles.image94ParentShadowBox1
+                                : styles.image94ParentShadowBox
+                            }
+                            onPress={() => {
+                              dispatch(
+                                visitEvent({
+                                  eventId: event.id,
+                                  userId: user.id
+                                })
+                              )
+                              dispatch(getEventByIdRedux(event.id))
+                              navigation.navigate('PruebasEncontradasDetalle')
+                            }}
                           >
-                            <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                              {event?.title}
-                            </Text>
-                            <View style={styles.minParent}>
-                              <Text style={[styles.min, styles.minClr]}>
-                                {event?.description}
+                            <Image
+                              style={styles.image94Icon}
+                              contentFit="cover"
+                              source={{ uri: event.image }}
+                            />
+                            <View
+                              style={[
+                                styles.imGoingToShakeYParent,
+                                styles.frameGroupSpaceBlock
+                              ]}
+                            >
+                              <Text
+                                style={[styles.imGoingTo, styles.goingTypo]}
+                              >
+                                {event?.title}
                               </Text>
-                              {/* <Text style={[styles.min1, styles.minTypo1]}>
+                              <View style={styles.minParent}>
+                                <Text style={[styles.min, styles.minClr]}>
+                                  {event?.description}
+                                </Text>
+                                {/* <Text style={[styles.min1, styles.minTypo1]}>
            {event?.header}
          </Text> */}
+                              </View>
                             </View>
-                          </View>
-                        </Pressable>
-                      ))}
+                          </Pressable>
+                        ))}
                     </ScrollView>
                   </View>
                 )}
-                <View style={{ alignItems: 'center' }}>
-                  <Text style={styles.helloTypoScroll}>
-                    Últimas pruebas añadidas
-                  </Text>
-                  <ScrollView
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                  >
-                    {latestEventsAdded?.map((event, i) => (
-                      <Pressable
-                        key={i}
-                        style={
-                          i === 0
-                            ? styles.image94ParentShadowBox1
-                            : styles.image94ParentShadowBox
-                        }
-                        onPress={() => {
-                          dispatch(
-                            visitEvent({ eventId: event.id, userId: user.id })
-                          )
-                          dispatch(getEventByIdRedux(event.id))
-                          navigation.navigate('PruebasEncontradasDetalle')
-                        }}
-                      >
-                        <Image
-                          style={styles.image94Icon}
-                          contentFit="cover"
-                          source={{ uri: event.image }}
-                        />
-                        <View
-                          style={[
-                            styles.imGoingToShakeYParent,
-                            styles.frameGroupSpaceBlock
-                          ]}
-                        >
-                          <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                            {event?.title}
-                          </Text>
-                          <View style={styles.minParent}>
-                            <Text style={[styles.min, styles.minClr]}>
-                              {event?.description}
-                            </Text>
-                            {/* <Text style={[styles.min1, styles.minTypo1]}>
+                {latestEventsAdded.length > 0 && (
+                  <View style={{ alignItems: 'center' }}>
+                    <Text style={styles.helloTypoScroll}>
+                      Últimas pruebas añadidas
+                    </Text>
+                    <ScrollView
+                      horizontal={true}
+                      showsHorizontalScrollIndicator={false}
+                    >
+                      {latestEventsAdded &&
+                        sortByDate([...latestEventsAdded])?.map((event, i) => (
+                          <Pressable
+                            key={i}
+                            style={
+                              i === 0
+                                ? styles.image94ParentShadowBox1
+                                : styles.image94ParentShadowBox
+                            }
+                            onPress={() => {
+                              dispatch(
+                                visitEvent({
+                                  eventId: event.id,
+                                  userId: user.id
+                                })
+                              )
+                              dispatch(getEventByIdRedux(event.id))
+                              navigation.navigate('PruebasEncontradasDetalle')
+                            }}
+                          >
+                            <Image
+                              style={styles.image94Icon}
+                              contentFit="cover"
+                              source={{ uri: event.image }}
+                            />
+                            <View
+                              style={[
+                                styles.imGoingToShakeYParent,
+                                styles.frameGroupSpaceBlock
+                              ]}
+                            >
+                              <Text
+                                style={[styles.imGoingTo, styles.goingTypo]}
+                              >
+                                {event?.title}
+                              </Text>
+                              <View style={styles.minParent}>
+                                <Text style={[styles.min, styles.minClr]}>
+                                  {event?.description}
+                                </Text>
+                                {/* <Text style={[styles.min1, styles.minTypo1]}>
                            {event?.header}
                          </Text> */}
-                          </View>
-                        </View>
-                      </Pressable>
-                    ))}
-                  </ScrollView>
-                </View>
-                <View style={{ alignItems: 'center' }}>
-                  <Text style={styles.helloTypoScroll}>
-                    Resultados de las útlimas pruebas
-                  </Text>
-                  <ScrollView
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                  >
-                    {eventsExpired?.map((event, i) => (
-                      <Pressable
-                        key={i}
-                        style={
-                          i === 0
-                            ? styles.image94ParentShadowBox1
-                            : styles.image94ParentShadowBox
-                        }
-                        onPress={() => {
-                          dispatch(
-                            visitEvent({ eventId: event.id, userId: user.id })
-                          )
-                          dispatch(getEventByIdRedux(event.id))
-                          navigation.navigate('PruebasEncontradasDetalle')
-                        }}
-                      >
-                        <Image
-                          style={styles.image94Icon}
-                          contentFit="cover"
-                          source={{ uri: event.image }}
-                        />
-                        <View
-                          style={[
-                            styles.imGoingToShakeYParent,
-                            styles.frameGroupSpaceBlock
-                          ]}
-                        >
-                          <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                            {event?.title}
-                          </Text>
-                          <View style={styles.minParent}>
-                            <Text style={[styles.min, styles.minClr]}>
-                              {event?.description}
-                            </Text>
-                            {/* <Text style={[styles.min1, styles.minTypo1]}>
+                              </View>
+                            </View>
+                          </Pressable>
+                        ))}
+                    </ScrollView>
+                  </View>
+                )}
+                {eventsExpired.length > 0 && (
+                  <View style={{ alignItems: 'center' }}>
+                    <Text style={styles.helloTypoScroll}>
+                      Resultados de las útlimas pruebas
+                    </Text>
+                    <ScrollView
+                      horizontal={true}
+                      showsHorizontalScrollIndicator={false}
+                    >
+                      {eventsExpired &&
+                        sortByDate([...eventsExpired]).map((event, i) => (
+                          <Pressable
+                            key={i}
+                            style={
+                              i === 0
+                                ? styles.image94ParentShadowBox1
+                                : styles.image94ParentShadowBox
+                            }
+                            onPress={() => {
+                              dispatch(
+                                visitEvent({
+                                  eventId: event.id,
+                                  userId: user.id
+                                })
+                              )
+                              dispatch(getEventByIdRedux(event.id))
+                              navigation.navigate('PruebasEncontradasDetalle')
+                            }}
+                          >
+                            <Image
+                              style={styles.image94Icon}
+                              contentFit="cover"
+                              source={{ uri: event.image }}
+                            />
+                            <View
+                              style={[
+                                styles.imGoingToShakeYParent,
+                                styles.frameGroupSpaceBlock
+                              ]}
+                            >
+                              <Text
+                                style={[styles.imGoingTo, styles.goingTypo]}
+                              >
+                                {event?.title}
+                              </Text>
+                              <View style={styles.minParent}>
+                                <Text style={[styles.min, styles.minClr]}>
+                                  {event?.description}
+                                </Text>
+                                {/* <Text style={[styles.min1, styles.minTypo1]}>
                            {event?.header}
                          </Text> */}
-                          </View>
-                        </View>
-                      </Pressable>
-                    ))}
-                  </ScrollView>
-                  {/* <ScrollView
+                              </View>
+                            </View>
+                          </Pressable>
+                        ))}
+                    </ScrollView>
+                    {/* <ScrollView
                    // style={{ marginBottom: 10 }}
                    horizontal={true}
                    showsHorizontalScrollIndicator={false}
@@ -647,7 +694,30 @@ const InicioDeportista = () => {
                      </View>
                    </View>
                  </ScrollView> */}
-                </View>
+                  </View>
+                )}
+                {lastHours.length === 0 &&
+                  latestEventsAdded.length === 0 &&
+                  eventsExpired.length === 0 && (
+                    <View
+                      style={{
+                        width: '100%',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                      }}
+                    >
+                      <ActivityIndicator
+                        style={{
+                          marginTop: 40,
+                          width: 100,
+                          height: 100
+                        }}
+                        animating={true}
+                        size="large"
+                        color={Color.violeta2}
+                      />
+                    </View>
+                  )}
               </View>
             )}
           </View>

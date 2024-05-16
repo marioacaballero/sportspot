@@ -5,7 +5,7 @@ import {
   onAuthStateChanged,
   signInWithCredential
 } from 'firebase/auth'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Image,
   Pressable,
@@ -13,6 +13,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -25,7 +26,7 @@ import {
 } from '../../redux/actions/users'
 import { auth } from '../../utils/config.google'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Entypo } from '@expo/vector-icons'
+import { AntDesign, Entypo } from '@expo/vector-icons'
 
 WebBrowser.maybeCompleteAuthSession()
 
@@ -36,6 +37,7 @@ WebBrowser.maybeCompleteAuthSession()
 // 37113049990-veui0lbk6sffhnefteii75hg1e9ncm9b.apps.googleusercontent.com
 
 export default function SignIn({ navigation }) {
+  const [selectedLanguaje, setSelectedLanguaje] = useState('Español')
   const { userToken, user } = useSelector((state) => state.users)
   const dispatch = useDispatch()
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
@@ -235,34 +237,39 @@ export default function SignIn({ navigation }) {
               </Text>
             </View> */}
 
-            <View
+            <TouchableOpacity
+              onPress={() =>
+                setSelectedLanguaje(
+                  selectedLanguaje === 'Español' ? 'Ingles' : 'Español'
+                )
+              }
               style={{
                 borderRadius: 50,
-                marginTop: 50,
+                marginTop: 40,
                 overflow: 'hidden',
                 backgroundColor: '#E2DCEC',
-                width: 120,
+                width: 105,
                 height: 40,
                 alignSelf: 'center',
-                justifyContent: 'center',
+                paddingLeft: 15,
+                paddingRight: 10,
+                justifyContent: 'space-between',
                 alignItems: 'center',
-                flexDirection: 'row',
-                gap: 12
+                flexDirection: 'row'
               }}
             >
               <Text
                 style={{
                   color: '#40036F',
                   fontSize: 15,
-                  marginLeft: 2,
                   fontWeight: 'bold',
                   textAlign: 'center'
                 }}
               >
-                Idioma
+                {selectedLanguaje}
               </Text>
-              <Entypo name="chevron-down" size={20} color={'#40036F'} />
-            </View>
+              <AntDesign name="swap" size={20} color={'#40036F'} />
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>

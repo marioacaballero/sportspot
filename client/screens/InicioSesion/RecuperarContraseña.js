@@ -43,7 +43,7 @@ const RecuperarContraseña = () => {
   }, [])
 
   const mostrarBotonEnviar =
-    email.toLowerCase().includes('.com') && email.length > 10
+    email.toLowerCase()?.includes('.com') && email.length > 10
 
   const handleEmail = (text) => {
     setEmail(text)
