@@ -84,14 +84,14 @@ export const eventsSlices = createSlice({
         for (const sport of Object.keys(itemsFilters)) {
           const value = itemsFilters[sport]
           if (Array.isArray(value)) {
-            if (value.length === 0 && event.sportname.includes(sport)) {
+            if (value.length === 0 && event.sportname?.includes(sport)) {
               return true
             }
-            if (value.length > 0 && value.includes(event.event_modality)) {
+            if (value.length > 0 && value?.includes(event.event_modality)) {
               return true
             }
           } else {
-            if (event.sportname.includes(sport)) {
+            if (event.sportname?.includes(sport)) {
               return true
             }
           }

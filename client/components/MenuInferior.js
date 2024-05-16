@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Pressable, Image, Dimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import UltimasSVG from './SVG/UltimasSVG'
@@ -8,23 +8,24 @@ import PerfilSVG from './SVG/PerfilSVG'
 import CorazonMenuInferiorSVG from './SVG/CorazonMenuInferiosSVG'
 import { useDispatch, useSelector } from 'react-redux'
 import { setShowGuestModal } from '../redux/slices/events.slices'
+import { setSelectedIcon } from '../redux/slices/users.slices'
 
 const MenuInferior = () => {
   const dispatch = useDispatch()
-  const { user } = useSelector((state) => state.users)
+  const { user, selectedIcon } = useSelector((state) => state.users)
   const navigation = useNavigation()
-  const [selectedIcon, setSelectedIcon] = useState(null)
 
   const isGuest = user?.email === 'guestUser@gmail.com'
 
   const handleIconPress = (iconName) => {
     if (selectedIcon === iconName) {
-      setSelectedIcon(null)
+      dispatch(setSelectedIcon(null))
     } else {
-      setSelectedIcon(iconName)
+      dispatch(setSelectedIcon(iconName))
     }
   }
-
+  console.log('selectedIcon: ', selectedIcon)
+  useEffect(() => {}, [selectedIcon])
   // const getUserType = async () => {
   //   const userType = await AsyncStorage.getItem('guest')
   //   return JSON.parse(userType)
@@ -79,7 +80,7 @@ const MenuInferior = () => {
       <Pressable
         onPress={() => {
           if (selectedIcon !== null) {
-            setSelectedIcon(null)
+            dispatch(setSelectedIcon(null))
             navigation.navigate('InicioDeportista')
           }
         }}
@@ -174,7 +175,15 @@ const MenuInferior = () => {
           />
         </Pressable>
         <Pressable style={styles.homeIcon}>
-          <HomeSVG color={selectedIcon === null ? '#F25910' : '#40036F'} />
+          <HomeSVG
+            color={
+              selectedIcon === null
+                ? '#F25910'
+                : selectedIcon === 'InicioDeportista'
+                ? '#F25910'
+                : '#40036F'
+            }
+          />
         </Pressable>
         <Pressable style={{ width: 22, height: 25, top: 3 }}>
           <HistorialSVG

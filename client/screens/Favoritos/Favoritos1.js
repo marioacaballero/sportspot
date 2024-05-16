@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Text, StyleSheet, View, Pressable, FlatList } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { ActivityIndicator } from 'react-native-paper'
 import {
   Padding,
@@ -10,14 +10,19 @@ import {
   FontFamily,
   Border
 } from '../../GlobalStyles'
-import BackArrowSVG from '../../components/SVG/BackArrowSVG'
-import { getFavorites } from '../../redux/actions/events'
 import { LinearGradient } from 'expo-linear-gradient'
-// import { SafeAreaView } from 'react-native-safe-area-context'
+import { setSelectedIcon } from '../../redux/slices/users.slices'
 
 const Favoritos1 = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
+  const isFocused = useIsFocused()
+
+  useEffect(() => {
+    if (isFocused) {
+      dispatch(setSelectedIcon('Favoritos1'))
+    }
+  }, [isFocused])
 
   const { user } = useSelector((state) => state.users)
   const { sports } = useSelector((state) => state.sports)
@@ -28,7 +33,7 @@ const Favoritos1 = () => {
   //   dispatch(getFavorites(user.id))
   // }, [])
   const actualFavorites = events.filter((evnt) =>
-    user.eventFavorites.includes(evnt.id)
+    user.eventFavorites?.includes(evnt.id)
   )
 
   // Agrupar favoritos por deporte

@@ -42,7 +42,7 @@ const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
   }, [])
 
   const sportSelectStyle = (name) => {
-    const isSelected = showColor.includes(name)
+    const isSelected = showColor?.includes(name)
 
     if (isSelected) {
       setShowColor(showColor.filter((sport) => sport !== name))
@@ -137,7 +137,7 @@ const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
                     shadowColor: '#0426ba',
                     borderRadius: 100,
                     padding: 15,
-                    backgroundColor: showColor.includes(sport?.name)
+                    backgroundColor: showColor?.includes(sport?.name)
                       ? Color.sportsNaranja
                       : 'white'
                   }}

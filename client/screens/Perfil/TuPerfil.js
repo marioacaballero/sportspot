@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView
 } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
 import {
   FontFamily,
   FontSize,
@@ -18,7 +18,7 @@ import {
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import Megafone from '../../components/SVG/Megafone'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearUser } from '../../redux/slices/users.slices'
+import { clearUser, setSelectedIcon } from '../../redux/slices/users.slices'
 import { getUser } from '../../redux/actions/users'
 
 import OrganizadorModal from '../../components/AccesoOrganizadorModal'
@@ -49,6 +49,14 @@ const TuPerfil = () => {
     // }
     setRol(!rol)
   }
+
+  const isFocused = useIsFocused()
+
+  useEffect(() => {
+    if (isFocused) {
+      dispatch(setSelectedIcon('TuPerfil'))
+    }
+  }, [isFocused])
 
   return (
     <LinearGradient
@@ -95,12 +103,11 @@ const TuPerfil = () => {
               <View style={styles.laraMacasBlancoCarrrilhoParent}>
                 {user?.name || user?.lastName ? (
                   <>
-                   
                     <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-                      {user?.name} 
+                      {user?.name}
                     </Text>
                     <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-                    {user?.lastName}
+                      {user?.lastName}
                     </Text>
                   </>
                 ) : (
@@ -108,8 +115,13 @@ const TuPerfil = () => {
                 )}
                 {user?.genres ? (
                   <>
-                  
-                    <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo,{color:Color.sportsVioleta,fontSize:12}]}>
+                    <Text
+                      style={[
+                        styles.tuPerfilDato,
+                        styles.tuPerfil1Typo,
+                        { color: Color.sportsVioleta, fontSize: 12 }
+                      ]}
+                    >
                       {user?.genres}
                     </Text>
                   </>
@@ -283,7 +295,7 @@ const TuPerfil = () => {
                 onPress={async () => {
                   // await AsyncStorage.clear()
                   await dispatch(clearUser())
-                  navigation.navigate('IniciarSesin')
+                  navigation.navigate('SignIn')
                 }}
               >
                 <Image
@@ -404,7 +416,7 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   cerrarSesin: {
-    color: "#ffff"
+    color: '#ffff'
   },
   solarsettingsBoldParent1: {
     backgroundColor: Color.sportsVioleta

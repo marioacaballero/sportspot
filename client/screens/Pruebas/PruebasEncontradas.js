@@ -195,7 +195,7 @@ const PruebasEncontradas = () => {
                     </Text>
                     <View style={styles.likeSpotsport}>
                       <CorazonSVG
-                        isFavorite={user.eventFavorites.includes(event.id)}
+                        isFavorite={user.eventFavorites?.includes(event.id)}
                         handle={() => toggleFavorite(event.id)}
                       />
                     </View>
@@ -373,7 +373,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   pruebasEncontradasParent: {
-    paddingTop: Padding.p_48xl,
+    paddingTop: 20,
     paddingHorizontal: Padding.p_xl,
     paddingBottom: 30
   },

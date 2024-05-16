@@ -14,6 +14,7 @@ import {
 export const usersSlices = createSlice({
   name: 'users',
   initialState: {
+    selectedIcon: null,
     user: {},
     users: [],
     eventFavorites: [],
@@ -22,9 +23,12 @@ export const usersSlices = createSlice({
     error: null
   },
   reducers: {
-    clearUser: (state) => {
+    clearUser: (state, action) => {
       state.user = null
       state.userToken = ''
+    },
+    setSelectedIcon: (state, action) => {
+      state.selectedIcon = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -165,6 +169,6 @@ export const usersSlices = createSlice({
   }
 })
 
-export const { clearUser } = usersSlices.actions
+export const { clearUser, setSelectedIcon } = usersSlices.actions
 
 export default usersSlices.reducer

@@ -13,6 +13,7 @@ import {
 import { Color } from '../GlobalStyles'
 import { updateUserRol } from '../redux/actions/users'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigation } from '@react-navigation/native'
 
 const AccesoOrganizadorModal = ({ toggleModal }) => {
   // const navigation = useNavigation()
@@ -23,15 +24,21 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
     email: '',
     password: ''
   })
-
+  const navigation = useNavigation()
   const onChangeRol = () => {
-    if (user.rol === 'organizer') return Alert('Ya eres organizador')
-    const data = {
-      id: user.id,
-      rol: user.rol === 'sportsman' ? 'organizer' : 'sportsman'
+    // if (user.rol === 'organizer') return Alert('Ya eres organizador')
+    // const data = {
+    //   id: user.id,
+    //   rol: user.rol === 'sportsman' ? 'organizer' : 'sportsman'
+    // }
+    // dispatch(updateUserRol(data))
+    // toggleModal()
+    console.log('user.email:', user.email)
+    console.log('user.pw:', user.password)
+    console.log('user keys', Object.keys(user))
+    if (input.email === user.email) {
+      navigation.navigate('Directorio')
     }
-    dispatch(updateUserRol(data))
-    toggleModal()
   }
 
   const onValuesInput = (field, value) => {
@@ -55,8 +62,8 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
           <View style={styles.container}>
             <View style={styles.topContainer}>
               <Text style={styles.titleText}>
-                Acceso como{' '}
-                {user.rol === 'sportsman' ? 'organizador' : 'deportista'}
+                Acceso como organizador
+                {/* {user.rol === 'sportsman' ? 'organizador' : 'deportista'} */}
               </Text>
             </View>
             <View
@@ -66,9 +73,9 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
                 borderColor: Color.sportsVioleta,
                 width: '80%',
                 paddingVertical: 5,
+                alignItems: 'center',
                 justifyContent: 'center',
-                marginBottom: 12,
-                alignItems: 'center'
+                marginBottom: 12
               }}
             >
               <TextInput

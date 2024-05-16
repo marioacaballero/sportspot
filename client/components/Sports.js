@@ -22,7 +22,7 @@ const Sports = ({ onClose, setEventsFilter, setLocalSport }) => {
   }
 
   const sportSelectStyle = (name) => {
-    const isSelected = showColor.includes(name)
+    const isSelected = showColor?.includes(name)
 
     if (isSelected) {
       setShowColor(showColor.filter((sport) => sport !== name))

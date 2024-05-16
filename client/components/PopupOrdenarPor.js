@@ -140,7 +140,18 @@ const PopupOrdenarPor = ({ setModalVisible }) => {
           //   orderItems('dateStart', true)
           // }}
         >
-          <Text style={[styles.precio, styles.fechaTypo]}>Fecha</Text>
+          <Text
+            style={{
+              textAlign: 'left',
+              color: Color.sportsVioleta,
+              fontFamily: FontFamily.inputPlaceholder,
+              fontSize: FontSize.inputPlaceholder_size,
+              alignItems: 'center',
+              fontWeight: selectedFilter === 'date' ? '700' : '500'
+            }}
+          >
+            Fecha
+          </Text>
           <Switch
             trackColor={{ false: '#767577', true: '#F25910' }}
             thumbColor={'#FFFFFF'}
@@ -159,7 +170,18 @@ const PopupOrdenarPor = ({ setModalVisible }) => {
           //   orderItems('dateStart', true)
           // }}
         >
-          <Text style={[styles.precio, styles.fechaTypo]}>Precio</Text>
+          <Text
+            style={{
+              textAlign: 'left',
+              color: Color.sportsVioleta,
+              fontFamily: FontFamily.inputPlaceholder,
+              fontSize: FontSize.inputPlaceholder_size,
+              alignItems: 'center',
+              fontWeight: selectedFilter === 'price' ? '700' : '500'
+            }}
+          >
+            Precio
+          </Text>
           <Switch
             trackColor={{ false: '#767577', true: '#F25910' }}
             thumbColor={'#FFFFFF'}
@@ -178,7 +200,18 @@ const PopupOrdenarPor = ({ setModalVisible }) => {
           //   orderItems('dateStart', true)
           // }}
         >
-          <Text style={[styles.precio, styles.fechaTypo]}>Popularidad</Text>
+          <Text
+            style={{
+              textAlign: 'left',
+              color: Color.sportsVioleta,
+              fontFamily: FontFamily.inputPlaceholder,
+              fontSize: FontSize.inputPlaceholder_size,
+              alignItems: 'center',
+              fontWeight: selectedFilter === 'popularity' ? '700' : '500'
+            }}
+          >
+            Popularidad
+          </Text>
           <Switch
             trackColor={{ false: '#767577', true: '#F25910' }}
             thumbColor={'#FFFFFF'}

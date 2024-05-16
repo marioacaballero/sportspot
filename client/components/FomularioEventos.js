@@ -519,26 +519,6 @@ const FomularioEventos = () => {
       <TouchableOpacity
         style={styles.submit}
         onPress={() => {
-          // onSubmit(
-          //   event,
-          //   sport,
-          //   user,
-          //   selectedImage,
-          //   dispatch,
-          //   dateSuscription,
-          //   dateStart,
-          //   setShowAlert
-          // )
-          handleStripe()
-        }}
-      >
-        <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>
-          Publicar evento con promoción
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.submit}
-        onPress={() => {
           onSubmit(
             event,
             sport,
@@ -552,7 +532,7 @@ const FomularioEventos = () => {
         }}
       >
         <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>
-          Publicar
+          Enviar
         </Text>
       </TouchableOpacity>
 
