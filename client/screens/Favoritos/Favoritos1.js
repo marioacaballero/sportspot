@@ -57,7 +57,14 @@ const Favoritos1 = () => {
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
       >
-        <View style={styles.favoritos}>
+        <View
+          style={{
+            overflow: 'hidden',
+            flex: 1,
+            paddingHorizontal: Padding.p_xl,
+            paddingTop: 30
+          }}
+        >
           <View style={styles.topContainer}>
             <Text style={[styles.tusFavoritos, styles.imGoingToFlexBox]}>
               TUS FAVORITOS
@@ -89,7 +96,14 @@ const Favoritos1 = () => {
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
       >
-        <View style={styles.favoritos}>
+        <View
+          style={{
+            overflow: 'hidden',
+            flex: 1,
+            paddingHorizontal: Padding.p_xl,
+            paddingTop: 30
+          }}
+        >
           <View style={styles.topContainer}>
             <Text style={[styles.tusFavoritos, styles.imGoingToFlexBox]}>
               TUS FAVORITOS
@@ -164,7 +178,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   tusFavoritos: {
-    fontSize: FontSize.size_5xl,
+    fontSize: 24,
     color: Color.sportsVioleta,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',

@@ -77,17 +77,117 @@ const InicioOrganizador = () => {
           <Text style={styles.buttonsText}>Ver eventos creados</Text>
         </Pressable> */}
       </View>
-      {/* <View
-        style={{
-          width: '100%',
-          alignSelf: 'center',
-          backgroundColor: '#fcede5',
-          borderRadius: 10,
-          padding: 10
-        }}
-      >       
-      </View> */}
-      <Image
+      <View style={styles.frameView}>
+        <Text style={styles.helloAshfak3}>
+          Breve descripción del servicio a organizadores
+        </Text>
+        <View style={[styles.healthiconsmegaphoneParent]}>
+          <Image
+            style={styles.healthiconsmegaphone}
+            contentFit="cover"
+            source={require('../../assets/megaphone.png')}
+          />
+          <View style={styles.helloAshfakParent1}>
+            <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
+              NUEVO PUNTO DE CONTACTO
+            </Text>
+            <Text style={[styles.helloAshfak5, styles.helloTypo]}>
+              Entre deportistas y organizadores.
+            </Text>
+          </View>
+        </View>
+        <Image
+          style={{ width: '94%', height: 22, marginTop: 15 }}
+          source={require('../../assets/purpleArrow.png')}
+        />
+        {/* <View style={styles.connectorLayout} /> */}
+        <View style={styles.healthiconsmegaphoneParent}>
+          <View style={styles.helloAshfakParent2}>
+            <Text style={[styles.helloAshfak6, styles.helloLayout]}>
+              AUMENTO DE INSCRIPCIONES
+            </Text>
+            <Text style={[styles.helloAshfak7, styles.helloTypo]}>
+              En las competiciones ofrecidas por los organizadores
+            </Text>
+          </View>
+          <View style={styles.vectorParent}>
+            <Image
+              style={{ width: 46, height: 78, marginLeft: -10 }}
+              contentFit="cover"
+              source={require('../../assets/orangeUpArrow.png')}
+            />
+          </View>
+        </View>
+        <Image
+          style={{ width: '94%', height: 22, marginTop: 15 }}
+          source={require('../../assets/purpleLeftArrow.png')}
+        />
+        {/* <View style={[styles.connectorLine1, styles.connectorLayout]} /> */}
+        <View style={styles.healthiconsmegaphoneParent}>
+          <Image
+            style={styles.faSolidcoinsIcon}
+            contentFit="cover"
+            source={require('../../assets/ingresos.png')}
+          />
+          <View style={styles.helloAshfakParent3}>
+            <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
+              AUMENTO DE INGRESOS
+            </Text>
+            <Text style={[styles.helloAshfak9, styles.helloTypo]}>
+              Para los organizadores de los eventos deportivos
+            </Text>
+          </View>
+        </View>
+        <View style={{ width: '100%' }}>
+          <Image
+            style={{ width: '94%', height: 22, marginTop: 15 }}
+            source={require('../../assets/purpleArrow.png')}
+          />
+        </View>
+        {/* <View style={styles.connectorLayout} /> */}
+        <View style={styles.healthiconsmegaphoneParent}>
+          <View style={styles.helloAshfakParent2}>
+            <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
+              ÉXITO DE PRUEBAS
+            </Text>
+            <Text style={[styles.helloAshfak9, styles.helloTypo]}>
+              Por parte de los deportistas, generando renombre en competiciones
+              de los organizadores
+            </Text>
+          </View>
+          <Image
+            style={styles.fluentMdl2medalSolidIcon}
+            contentFit="cover"
+            source={require('../../assets/medal.png')}
+          />
+        </View>
+
+        {/* <FomularioEventos /> */}
+        <View style={styles.buttonsContainer}>
+          <Pressable
+            onPress={() => Linking.openURL('https://www.spotsport.eu/')}
+            style={styles.helloAshfakWrapper}
+          >
+            <WebSVG />
+            <Text style={styles.buttonsText}>spotsport.eu</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => Linking.openURL('mailto:organizadores@spotsport.eu')}
+            style={styles.helloAshfakWrapper}
+          >
+            <MensajeSVG />
+            <Text style={styles.buttonsText}>organizadores@spotsport.eu</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => Linking.openURL('tel:organizadores@spotsport.eu')}
+            style={styles.helloAshfakWrapper}
+          >
+            <ContactoSVG />
+            <Text style={styles.buttonsText}>600014747</Text>
+          </Pressable>
+        </View>
+      </View>
+      {/* <Image
         style={{
           width: '100%',
           height: 751 * 0.85,
@@ -95,7 +195,7 @@ const InicioOrganizador = () => {
         }}
         contentFit="cover"
         source={require('../../assets/content.png')}
-      />
+      /> */}
       {modalVisible && <AccesoOrganizadorModal toggleModal={toggleModal} />}
     </ScrollView>
   )
@@ -259,8 +359,8 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   healthiconsmegaphone: {
-    width: 69,
-    height: 63,
+    width: 87,
+    height: 77,
     overflow: 'hidden'
   },
   helloAshfak4: {
@@ -341,9 +441,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   fluentMdl2medalSolidIcon: {
-    width: 62,
-    height: 64,
-    marginLeft: 16,
+    width: 65,
+    height: 91,
     overflow: 'hidden'
   },
   frameView: {

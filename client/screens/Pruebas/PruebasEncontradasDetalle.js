@@ -22,23 +22,19 @@ import {
   Padding
 } from '../../GlobalStyles'
 // import { getFavorites } from '../../redux/actions/events'
-import { favorite } from '../../redux/actions/users'
+import { favorite, getUser } from '../../redux/actions/users'
 import EditEvent from '../../components/EditEvent'
 import EscribirResea from '../../components/EscribirResea'
 import ModalSuscription from '../../components/ModalSuscription'
 import CardReview from './CardReview'
 import { setShowGuestModal } from '../../redux/slices/events.slices'
+import { getAllEvents } from '../../redux/actions/events'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
   const dispatch = useDispatch()
 
   const { user, eventFavorites } = useSelector((state) => state.users)
-  const {
-    event,
-    loading
-    // allFavorites,
-    // favorites: favoritesRedux
-  } = useSelector((state) => state.events)
+  const { event, loading, events } = useSelector((state) => state.events)
 
   const [eventState, setEventState] = useState(event)
   const [modalSuscription, setModalSuscription] = useState(false)
@@ -54,6 +50,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       return stateName
     }
   }
+
+  useEffect(() => {}, [events])
 
   const [name, setName] = useState(nameState() || false)
 
@@ -83,24 +81,25 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     return newEvents.some((review) => review.reviewCreator === user.id)
   }
 
-  const isEventAlreadyAdded = eventState.suscribers?.some(
+  const isEventAlreadyAdded = eventState?.suscribers?.some(
     (userEvent) => userEvent.id === user.id
   )
 
   const transformPlaces = (places) => {
-    if (places === eventState.suscribers?.length) {
+    if (places === eventState?.suscribers?.length) {
       return `${places}/${places} : Full`
-    } else if (places > eventState.suscribers?.length) {
-      return `${eventState.suscribers?.length}/${places} -> Disponibles`
+    } else if (places > eventState?.suscribers?.length) {
+      return `${eventState?.suscribers?.length}/${places} -> Disponibles`
     }
   }
 
   const handleFavorite = () => {
+    console.log('on handleFavorite')
     const data = {
       id: user.id,
       eventId: eventState.id
     }
-    dispatch(favorite(data))
+    dispatch(favorite(data)).then((data) => dispatch(getUser(user.id)))
     setName(!name)
   }
 
@@ -192,11 +191,21 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   </TouchableOpacity>
                 ) : (
                   <TouchableOpacity
-                    style={styles.editButton}
+                    style={{
+                      height: 30,
+                      width: 170,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderRadius: 50,
+                      marginRight: 10,
+                      backgroundColor: Color.sportsNaranja
+                    }}
                     onPress={() => setModalSuscription(true)}
                   >
                     <Text style={styles.modalText}>
-                      {isEventAlreadyAdded ? 'Desuscribirse' : 'Suscribirse'}
+                      {isEventAlreadyAdded
+                        ? 'Anular inscripción'
+                        : 'Inscribirse'}
                     </Text>
                   </TouchableOpacity>
                 )}

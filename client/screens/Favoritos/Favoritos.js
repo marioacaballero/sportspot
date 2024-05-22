@@ -24,6 +24,8 @@ import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { favorite, getUser } from '../../redux/actions/users'
 import { LinearGradient } from 'expo-linear-gradient'
+import { visitEvent } from '../../redux/actions/events'
+import { getEventByIdRedux } from '../../redux/slices/events.slices'
 
 const Favoritos = ({ route }) => {
   const navigation = useNavigation()
@@ -58,10 +60,10 @@ const Favoritos = ({ route }) => {
       <View style={styles.favoritos}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.topContainer}>
-            <Text style={styles.tusFavoritos}>TUS FAVORITOS</Text>
-            {/* <Pressable onPress={() => navigation.goBack()}>
-              <BackArrowSVG />
-            </Pressable> */}
+            <View style={{ flexDirection: 'column' }}>
+              <Text style={styles.tusFavoritos}>TUS</Text>
+              <Text style={styles.tusFavoritos}>FAVORITOS</Text>
+            </View>
           </View>
           <View style={styles.backParentSpaceBlock}>
             <Text style={[styles.pruebasDeCiclismo, styles.ciclismoTypo]}>
@@ -69,7 +71,21 @@ const Favoritos = ({ route }) => {
             </Text>
           </View>
           {sport.map((prueba, index) => (
-            <View key={index} style={styles.frameGroup}>
+            <Pressable
+              onPress={() => {
+                console.log('id evento', prueba.id)
+                dispatch(
+                  visitEvent({
+                    eventId: prueba.id,
+                    userId: user.id
+                  })
+                )
+                dispatch(getEventByIdRedux(prueba.id))
+                navigation.navigate('PruebasEncontradasDetalle')
+              }}
+              key={index}
+              style={styles.frameGroup}
+            >
               <View style={styles.parentFlexBox}>
                 <Image
                   style={styles.image84Icon}
@@ -223,7 +239,7 @@ const Favoritos = ({ route }) => {
                   </TouchableWithoutFeedback>
                 </Modal>
               </Pressable>
-            </View>
+            </Pressable>
           ))}
         </ScrollView>
       </View>
