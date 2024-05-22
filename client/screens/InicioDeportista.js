@@ -8,7 +8,8 @@ import {
   Image,
   Modal,
   TouchableWithoutFeedback,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 } from 'react-native'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { Padding, FontFamily, FontSize, Color, Border } from '../GlobalStyles'
@@ -194,239 +195,254 @@ const InicioDeportista = () => {
             />
           )}
           <View style={[styles.frameParent, styles.frameParentFlexBox]}>
-            <View style={[styles.helloAshfakParent, styles.frameGroupFlexBox]}>
-              <Image
-                style={styles.imageTop}
-                source={require('../assets/spotsport.png')}
-              />
-              <View style={styles.groupParent}>
-                <Pressable
-                  style={styles.wrapper}
-                  onPress={() => {
-                    if (isGuest) {
-                      dispatch(setShowGuestModal(true))
-                      return
-                    }
-                    toggleModalPremium()
-                  }}
-                >
-                  <Image
-                    style={styles.iconLayout}
-                    contentFit="cover"
-                    source={require('../assets/group-11712766982.png')}
-                  />
-                  <Modal
-                    animationType="fade"
-                    transparent={true}
-                    visible={modalPremium}
-                  >
-                    <TouchableWithoutFeedback onPress={toggleModalPremium}>
-                      <View style={styles.modalOverlay}>
-                        <View>
-                          <PopupPremium setModalVisible={setModalPremium} />
-                        </View>
-                      </View>
-                    </TouchableWithoutFeedback>
-                  </Modal>
-                </Pressable>
-
-                <Pressable
-                  style={styles.materialSymbolsnotifications}
-                  onPress={() => {
-                    if (isGuest) {
-                      dispatch(setShowGuestModal(true))
-                      return
-                    }
-                    toggleModalNotifications()
-                  }}
-                >
-                  <Image
-                    style={[styles.icon1, styles.iconLayout]}
-                    contentFit="cover"
-                    source={require('../assets/materialsymbolsnotifications.png')}
-                  />
-                  <Modal
-                    animationType="fade"
-                    transparent={true}
-                    visible={modalNotifications}
-                  >
-                    <TouchableWithoutFeedback
-                      onPress={toggleModalNotifications}
-                    >
-                      <View style={styles.modalOverlay}>
-                        <View>
-                          <InicioNotificaciones />
-                        </View>
-                      </View>
-                    </TouchableWithoutFeedback>
-                  </Modal>
-                  <Modal
-                    animationType="fade"
-                    transparent={true}
-                    visible={showGuestModal}
-                  >
-                    <TouchableWithoutFeedback
-                      onPress={() => {
-                        dispatch(setShowGuestModal(false))
-                      }}
-                    >
-                      <View
-                        style={{
-                          flex: 1,
-                          backgroundColor: 'rgba(0,0,0,0.7)',
-                          justifyContent: 'center',
-                          alignItems: 'center'
-                        }}
-                      >
-                        <GuestUserModal
-                          onClose={() => dispatch(setShowGuestModal(false))}
-                        />
-                      </View>
-                    </TouchableWithoutFeedback>
-                  </Modal>
-                </Pressable>
-              </View>
-            </View>
-
-            {buscador && (
-              <Pressable
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}
-                onPress={handleBuscarPress}
-              >
-                <View style={styles.buscarWrapper}>
-                  <Image
-                    style={styles.icbaselineSearchIcon}
-                    contentFit="cover"
-                    source={require('../assets/icbaselinesearch.png')}
-                  />
-                  <Text style={styles.buscar}>Buscar</Text>
-                </View>
-              </Pressable>
-            )}
-
-            <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
-              <Pressable
-                style={styles.helloAshfakGroup}
-                onPress={() => setModalOrganizador(false)}
-              >
-                <Text style={styles.helloTypo}>Deportista</Text>
-                <Text
-                  style={{
-                    fontSize: 50,
-                    color: 'white',
-                    backgroundColor: !modalOrganizador
-                      ? Color.sportsNaranja
-                      : Color.naranja3,
-                    width: 6,
-                    height: 6,
-                    textAlign: 'center',
-                    lineHeight: 100,
-                    borderRadius: 50,
-                    overflow: 'hidden'
-                  }}
-                ></Text>
-              </Pressable>
-              <Pressable
-                style={styles.helloAshfakGroup}
-                onPress={() => setModalOrganizador(true)}
-              >
-                <Text style={[styles.helloAshfak2, styles.helloTypo]}>
-                  Organizador
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 50,
-                    color: 'white',
-                    backgroundColor: modalOrganizador
-                      ? Color.sportsNaranja
-                      : Color.naranja3,
-                    width: 6,
-                    height: 6,
-                    textAlign: 'center',
-                    lineHeight: 100,
-                    borderRadius: 50,
-                    overflow: 'hidden'
-                  }}
-                ></Text>
-              </Pressable>
-            </View>
-            {!buscador && !modalOrganizador && (
-              <InicioBUSCADOR
-                setMostrarInicioBuscador={setMostrarInicioBuscador}
-              />
-            )}
-            {!buscador && !modalOrganizador && (
+            <View
+              style={{
+                paddingHorizontal: 12
+              }}
+            >
               <View
                 style={{
-                  flexDirection: 'row',
-                  width: '96%',
-                  alignSelf: 'center',
-                  justifyContent: 'flex-start',
-                  height: 80,
+                  alignSelf: 'stretch',
                   alignItems: 'center',
-                  backgroundColor: 'white',
-                  overflow: 'hidden',
-                  borderWidth: 0,
-                  borderRadius: 10,
-                  shadowOpacity: 1,
-                  elevation: 4,
-                  shadowRadius: 4,
-                  shadowOffset: {
-                    width: 2,
-                    height: 2
-                  },
-                  shadowColor: 'black'
+                  justifyContent: 'space-between',
+                  flexDirection: 'row'
                 }}
               >
-                <View style={{ alignItems: 'center', width: '45%' }}>
-                  <Text
-                    style={{ fontWeight: 'bold', color: Color.sportsVioleta }}
-                  >
-                    Mis puntos
-                  </Text>
-                  <Text style={{ fontSize: 28, color: Color.sportsNaranja }}>
-                    50
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    borderLeftWidth: 1,
-                    borderColor: Color.sportsNaranja,
-                    alignItems: 'center',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignSelf: 'center',
-                    width: '55%'
-                  }}
-                >
-                  <TouchableOpacity
-                    onPress={() => setPremiosSoon(!premiosSoon)}
-                    style={{
-                      alignSelf: 'center',
-                      borderRadius: 50,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      backgroundColor: premiosSoon
-                        ? 'gray'
-                        : Color.sportsNaranja,
-                      paddingHorizontal: 18,
-                      paddingVertical: 9
+                <Image
+                  style={styles.imageTop}
+                  source={require('../assets/spotsport.png')}
+                />
+                <View style={styles.groupParent}>
+                  <Pressable
+                    style={styles.wrapper}
+                    onPress={() => {
+                      if (isGuest) {
+                        dispatch(setShowGuestModal(true))
+                        return
+                      }
+                      toggleModalPremium()
                     }}
                   >
-                    <Text style={{ fontWeight: 'bold', color: 'white' }}>
-                      {!premiosSoon ? 'Acceder a premios' : 'Soon'}
-                    </Text>
-                  </TouchableOpacity>
+                    <Image
+                      style={styles.iconLayout}
+                      contentFit="cover"
+                      source={require('../assets/group-11712766982.png')}
+                    />
+                    <Modal
+                      animationType="fade"
+                      transparent={true}
+                      visible={modalPremium}
+                    >
+                      <TouchableWithoutFeedback onPress={toggleModalPremium}>
+                        <View style={styles.modalOverlay}>
+                          <View>
+                            <PopupPremium setModalVisible={setModalPremium} />
+                          </View>
+                        </View>
+                      </TouchableWithoutFeedback>
+                    </Modal>
+                  </Pressable>
+
+                  <Pressable
+                    style={styles.materialSymbolsnotifications}
+                    onPress={() => {
+                      if (isGuest) {
+                        dispatch(setShowGuestModal(true))
+                        return
+                      }
+                      toggleModalNotifications()
+                    }}
+                  >
+                    <Image
+                      style={[styles.icon1, styles.iconLayout]}
+                      contentFit="cover"
+                      source={require('../assets/materialsymbolsnotifications.png')}
+                    />
+                    <Modal
+                      animationType="fade"
+                      transparent={true}
+                      visible={modalNotifications}
+                    >
+                      <TouchableWithoutFeedback
+                        onPress={toggleModalNotifications}
+                      >
+                        <View style={styles.modalOverlay}>
+                          <View>
+                            <InicioNotificaciones />
+                          </View>
+                        </View>
+                      </TouchableWithoutFeedback>
+                    </Modal>
+                    <Modal
+                      animationType="fade"
+                      transparent={true}
+                      visible={showGuestModal}
+                    >
+                      <TouchableWithoutFeedback
+                        onPress={() => {
+                          dispatch(setShowGuestModal(false))
+                        }}
+                      >
+                        <View
+                          style={{
+                            flex: 1,
+                            backgroundColor: 'rgba(0,0,0,0.7)',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                          }}
+                        >
+                          <GuestUserModal
+                            onClose={() => dispatch(setShowGuestModal(false))}
+                          />
+                        </View>
+                      </TouchableWithoutFeedback>
+                    </Modal>
+                  </Pressable>
                 </View>
               </View>
-            )}
+
+              {buscador && (
+                <Pressable
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}
+                  onPress={handleBuscarPress}
+                >
+                  <View style={styles.buscarWrapper}>
+                    <Image
+                      style={styles.icbaselineSearchIcon}
+                      contentFit="cover"
+                      source={require('../assets/icbaselinesearch.png')}
+                    />
+                    <Text style={styles.buscar}>Buscar</Text>
+                  </View>
+                </Pressable>
+              )}
+
+              <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
+                <Pressable
+                  style={styles.helloAshfakGroup}
+                  onPress={() => setModalOrganizador(false)}
+                >
+                  <Text style={styles.helloTypo}>Deportista</Text>
+                  <Text
+                    style={{
+                      fontSize: 50,
+                      color: 'white',
+                      backgroundColor: !modalOrganizador
+                        ? Color.sportsNaranja
+                        : Color.naranja3,
+                      width: 6,
+                      height: 6,
+                      textAlign: 'center',
+                      lineHeight: 100,
+                      borderRadius: 50,
+                      overflow: 'hidden'
+                    }}
+                  ></Text>
+                </Pressable>
+                <Pressable
+                  style={styles.helloAshfakGroup}
+                  onPress={() => setModalOrganizador(true)}
+                >
+                  <Text style={[styles.helloAshfak2, styles.helloTypo]}>
+                    Organizador
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 50,
+                      color: 'white',
+                      backgroundColor: modalOrganizador
+                        ? Color.sportsNaranja
+                        : Color.naranja3,
+                      width: 6,
+                      height: 6,
+                      textAlign: 'center',
+                      lineHeight: 100,
+                      borderRadius: 50,
+                      overflow: 'hidden'
+                    }}
+                  ></Text>
+                </Pressable>
+              </View>
+              {!buscador && !modalOrganizador && (
+                <InicioBUSCADOR
+                  setMostrarInicioBuscador={setMostrarInicioBuscador}
+                />
+              )}
+              {!buscador && !modalOrganizador && (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    width: '96%',
+                    alignSelf: 'center',
+                    justifyContent: 'flex-start',
+                    height: 80,
+                    alignItems: 'center',
+                    backgroundColor: 'white',
+                    overflow: 'hidden',
+                    borderWidth: 0,
+                    borderRadius: 10,
+                    shadowOpacity: 1,
+                    elevation: 4,
+                    shadowRadius: 4,
+                    shadowOffset: {
+                      width: 2,
+                      height: 2
+                    },
+                    shadowColor: 'black'
+                  }}
+                >
+                  <View style={{ alignItems: 'center', width: '45%' }}>
+                    <Text
+                      style={{ fontWeight: 'bold', color: Color.sportsVioleta }}
+                    >
+                      Mis puntos
+                    </Text>
+                    <Text style={{ fontSize: 28, color: Color.sportsNaranja }}>
+                      50
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      borderLeftWidth: 1,
+                      borderColor: Color.sportsNaranja,
+                      alignItems: 'center',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignSelf: 'center',
+                      width: '55%'
+                    }}
+                  >
+                    <TouchableOpacity
+                      onPress={() => setPremiosSoon(!premiosSoon)}
+                      style={{
+                        alignSelf: 'center',
+                        borderRadius: 50,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        backgroundColor: premiosSoon
+                          ? 'gray'
+                          : Color.sportsNaranja,
+                        paddingHorizontal: 18,
+                        paddingVertical: 9
+                      }}
+                    >
+                      <Text style={{ fontWeight: 'bold', color: 'white' }}>
+                        {!premiosSoon ? 'Acceder a premios' : 'Soon'}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )}
+            </View>
             {modalOrganizador ? (
-              <InicioOrganizador />
+              <View style={{ paddingHorizontal: 12 }}>
+                <InicioOrganizador />
+              </View>
             ) : (
               <View
                 style={{
@@ -452,9 +468,12 @@ const InicioDeportista = () => {
                             style={
                               i === 0
                                 ? styles.image94ParentShadowBox1
+                                : i === sortByDate([...lastHours]).length - 1
+                                ? styles.image94ParentShadowBoxr
                                 : styles.image94ParentShadowBox
                             }
                             onPress={() => {
+                              console.log('here')
                               dispatch(
                                 visitEvent({
                                   eventId: event.id,
@@ -511,6 +530,9 @@ const InicioDeportista = () => {
                             style={
                               i === 0
                                 ? styles.image94ParentShadowBox1
+                                : i ===
+                                  sortByDate([...latestEventsAdded]).length - 1
+                                ? styles.image94ParentShadowBoxr
                                 : styles.image94ParentShadowBox
                             }
                             onPress={() => {
@@ -570,6 +592,9 @@ const InicioDeportista = () => {
                             style={
                               i === 0
                                 ? styles.image94ParentShadowBox1
+                                : i ===
+                                  sortByDate([...eventsExpired]).length - 1
+                                ? styles.image94ParentShadowBoxr
                                 : styles.image94ParentShadowBox
                             }
                             onPress={() => {
@@ -879,8 +904,8 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   image94ParentShadowBox1: {
-    height: 162,
-    width: 187,
+    height: Dimensions.get('screen').width / 2 - 40,
+    width: Dimensions.get('screen').width / 2 - 15,
     shadowOpacity: 1,
     elevation: 4,
     shadowRadius: 4,
@@ -896,9 +921,28 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginLeft: 10
   },
+  image94ParentShadowBoxr: {
+    height: Dimensions.get('screen').width / 2 - 40,
+    width: Dimensions.get('screen').width / 2 - 15,
+    shadowOpacity: 1,
+    elevation: 4,
+    shadowRadius: 4,
+    shadowOffset: {
+      width: 2,
+      height: 2
+    },
+    shadowColor: 'black',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: Border.br_sm,
+    overflow: 'hidden',
+    marginRight: 10,
+    marginLeft: 10,
+    marginBottom: 20
+  },
   image94ParentShadowBox: {
-    height: 162,
-    width: 187,
+    height: Dimensions.get('screen').width / 2 - 40,
+    width: Dimensions.get('screen').width / 2 - 15,
     shadowOpacity: 1,
     elevation: 4,
     shadowRadius: 4,
@@ -924,8 +968,6 @@ const styles = StyleSheet.create({
   },
   frameParent: {
     paddingTop: 30,
-    paddingLeft: 10,
-    paddingRight: 15,
     top: 0,
     height: '100%'
   },

@@ -146,9 +146,9 @@ const MenuInferior = () => {
       <View
         style={{
           position: 'absolute',
-          width: 73,
+          width: 82,
           height: 73,
-          shadowColor: '#3C006E',
+          shadowColor: '#000000',
           shadowOffset: {
             width: 20,
             height: 20
@@ -157,10 +157,10 @@ const MenuInferior = () => {
           elevation: 40,
           shadowOpacity: 1,
           borderRadius: 100,
-          backgroundColor: '#fdfdfd',
+          backgroundColor: 'rgba(0,0,0,0.013)',
           zIndex: -1000,
-          bottom: 0,
-          left: Dimensions.get('screen').width / 2 - 36.5
+          bottom: 2,
+          left: Dimensions.get('screen').width / 2 - 41
         }}
       ></View>
       <View style={styles.groupContainer}>
@@ -245,20 +245,20 @@ const styles = StyleSheet.create({
     height: 33
   },
   menInferior: {
-    height: 62,
+    height: 64,
     width: '100%',
     paddingTop: 5,
     paddingHorizontal: 20,
-    backgroundColor: '#fdfdfd',
-    shadowColor: '#3C006E',
+    backgroundColor: 'rgba(0,0,0,0.01)',
+    shadowColor: '#000000',
     zIndex: 9999999999,
     shadowOffset: {
-      width: 20,
-      height: 20
+      width: 10, // Reduce the offset width for a more centralized shadow
+      height: 10 // Adjust the offset height
     },
-    shadowRadius: 10,
-    elevation: 40,
-    shadowOpacity: 1
+    shadowRadius: 20, // Increase the radius for a more noticeable shadow
+    elevation: 50, // Increase elevation for Android
+    shadowOpacity: 1 // Ensure full opacity
   },
   groupContainer: {
     height: 65,

@@ -20,6 +20,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { favorite } from '../redux/actions/users'
 import { setSelectedIcon } from '../redux/slices/users.slices'
+import { visitEvent } from '../redux/actions/events'
+import { getEventByIdRedux } from '../redux/slices/events.slices'
 
 const HistorialDePruebas = () => {
   const [isFavorite, setIsFavorite] = useState({})
@@ -32,7 +34,7 @@ const HistorialDePruebas = () => {
   const initializeFavorites = () => {
     const init = {}
     events?.forEach((visited, index) => {
-      const isEventFavorite = eventFavorites.some((e) => {
+      const isEventFavorite = eventFavorites?.some((e) => {
         return e?.id === visited.id
       })
       init[index] = isEventFavorite
@@ -67,6 +69,17 @@ const HistorialDePruebas = () => {
     // navigation.navigate('Favoritos1')
   }
 
+  function hasDatePassed(dateString) {
+    const inputDate = new Date(dateString)
+
+    const currentDate = new Date()
+
+    inputDate.setHours(0, 0, 0, 0)
+    currentDate.setHours(0, 0, 0, 0)
+
+    return inputDate < currentDate
+  }
+
   const isFocused = useIsFocused()
 
   useEffect(() => {
@@ -75,7 +88,7 @@ const HistorialDePruebas = () => {
     }
   }, [isFocused])
 
-  // console.log('events.title', events[1].suscribers)
+  console.log('events.title', events[1].dateInscription)
   return (
     <LinearGradient
       colors={['#fff', '#f9f9f9']}
@@ -83,7 +96,7 @@ const HistorialDePruebas = () => {
       start={{ x: 0, y: 0 }}
       end={{ x: 0, y: 1 }}
     >
-      <ScrollView contentContainerStyle={{ paddingBottom: 15 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 15, paddingTop: 30 }}>
         <View style={{ paddingHorizontal: Padding.p_xl }}>
           <View style={styles.containerHistorial}>
             <Text style={[styles.tuHistorialDe, styles.ciclismoTypo]}>
@@ -103,7 +116,7 @@ const HistorialDePruebas = () => {
             </View>
           </View>
           {events.filter((ev) =>
-            ev.suscribers.some((userEvent) => userEvent.id === user.id)
+            ev?.suscribers?.some((userEvent) => userEvent.id === user.id)
           ).length === 0 && (
             <Text style={styles.text2}>
               ¡Aquí podrás ver los eventos en los que has participado y dejarles
@@ -112,14 +125,27 @@ const HistorialDePruebas = () => {
           )}
 
           {events.filter((ev) =>
-            ev.suscribers.some((userEvent) => userEvent.id === user.id)
+            ev?.suscribers?.some((userEvent) => userEvent.id === user.id)
           ).length > 0 &&
             events
-              .filter((ev) =>
-                ev.suscribers.some((userEvent) => userEvent.id === user.id)
+              ?.filter((ev) =>
+                ev?.suscribers?.some((userEvent) => userEvent.id === user.id)
               )
               .map((evnt, index) => (
-                <View key={index} style={{ width: '100%', gap: 5 }}>
+                <Pressable
+                  onPress={() => {
+                    dispatch(
+                      visitEvent({
+                        eventId: evnt.id,
+                        userId: user.id
+                      })
+                    )
+                    dispatch(getEventByIdRedux(evnt.id))
+                    navigation.navigate('PruebasEncontradasDetalle')
+                  }}
+                  key={index}
+                  style={{ width: '100%', gap: 5 }}
+                >
                   <View
                     style={{
                       marginTop: 15,
@@ -266,30 +292,37 @@ const HistorialDePruebas = () => {
                       </View>
                     </View>
                   </View>
-                  <Pressable
-                    style={[
-                      styles.clarityeditSolidParent,
-                      styles.parentFlexBox
-                    ]}
-                    onPress={openFrameContainer7}
-                  >
-                    <View
-                      style={{
-                        gap: 12,
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                      }}
+                  {hasDatePassed(evnt.dateInscription) && (
+                    <Pressable
+                      style={[
+                        styles.clarityeditSolidParent,
+                        styles.parentFlexBox
+                      ]}
+                      onPress={openFrameContainer7}
                     >
-                      <Image
-                        style={[styles.clarityeditSolidIcon, styles.iconLayout]}
-                        contentFit="cover"
-                        source={require('../assets/clarityeditsolid1.png')}
-                      />
-                      <Text style={styles.helloAshfak}>Escribe una reseña</Text>
-                    </View>
-                  </Pressable>
-                </View>
+                      <View
+                        style={{
+                          gap: 12,
+                          flexDirection: 'row',
+                          justifyContent: 'center',
+                          alignItems: 'center'
+                        }}
+                      >
+                        <Image
+                          style={[
+                            styles.clarityeditSolidIcon,
+                            styles.iconLayout
+                          ]}
+                          contentFit="cover"
+                          source={require('../assets/clarityeditsolid1.png')}
+                        />
+                        <Text style={styles.helloAshfak}>
+                          Escribe una reseña
+                        </Text>
+                      </View>
+                    </Pressable>
+                  )}
+                </Pressable>
               ))}
           {/* <View style={[styles.frameGroup, styles.frameSpaceBlock1]}>
             <View style={[styles.image84Parent, styles.parentFlexBox]}>
@@ -528,7 +561,7 @@ const styles = StyleSheet.create({
     top: 0
   },
   tuHistorialDe: {
-    fontSize: FontSize.size_5xl,
+    fontSize: 24,
     width: 186,
     textAlign: 'left',
     color: Color.sportsVioleta
