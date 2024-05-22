@@ -13,11 +13,12 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Color, Border, FontSize, Padding } from '../GlobalStyles'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
-import { getAllVisitedEvents } from '../redux/actions/events'
+import { getAllVisitedEvents, visitEvent } from '../redux/actions/events'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { LinearGradient } from 'expo-linear-gradient'
 import { favorite, getUser } from '../redux/actions/users'
+import { getEventByIdRedux } from '../redux/slices/events.slices'
 
 const UltimasConsultas = () => {
   const navigation = useNavigation()
@@ -27,7 +28,7 @@ const UltimasConsultas = () => {
   const [switchStates, setSwitchStates] = useState([true, false, false])
   const [showSwitch, setshowSwitch] = useState(false)
   const { user, eventFavorites } = useSelector((state) => state.users)
-  const { visitedEvents } = useSelector((state) => state.events)
+  const { visitedEvents, events } = useSelector((state) => state.events)
 
   const [isFavorite, setIsFavorite] = useState({})
 
@@ -58,7 +59,7 @@ const UltimasConsultas = () => {
 
   useEffect(() => {
     if (visitedEvents?.length > 0) setIsFavorite(initializeFavorites())
-  }, [visitedEvents])
+  }, [visitedEvents, events])
 
   const toggleSwitch = (index) => {
     const newSwitchStates = [false, false, false]
@@ -80,7 +81,6 @@ const UltimasConsultas = () => {
     dispatch(favorite(data)).then((data) => dispatch(getUser(user.id)))
     // navigation.navigate('Favoritos1')
   }
-
   return (
     <LinearGradient
       colors={['#fff', '#f9f9f9']}
@@ -222,7 +222,18 @@ const UltimasConsultas = () => {
               visitedEvents &&
               Array.isArray(visitedEvents) &&
               visitedEvents?.map((event, i) => (
-                <View
+                <Pressable
+                  onPress={() => {
+                    console.log('here')
+                    dispatch(
+                      visitEvent({
+                        eventId: event.event.id,
+                        userId: user.id
+                      })
+                    )
+                    dispatch(getEventByIdRedux(event.event.id))
+                    navigation.navigate('PruebasEncontradasDetalle')
+                  }}
                   key={i}
                   style={[styles.image84Parent, styles.parentBorder]}
                 >
@@ -339,7 +350,7 @@ const UltimasConsultas = () => {
                       </Text>
                     </View>
                   </View>
-                </View>
+                </Pressable>
               ))
             )}
           </View>
@@ -405,7 +416,7 @@ const styles = StyleSheet.create({
     fontWeight: '100'
   },
   ltimasConsultas: {
-    fontSize: FontSize.size_11xl,
+    fontSize: 24,
     width: '60%',
     textAlign: 'left',
     color: Color.sportsVioleta

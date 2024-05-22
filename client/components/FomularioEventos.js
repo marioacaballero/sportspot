@@ -150,17 +150,45 @@ const FomularioEventos = () => {
     }))
   }
 
+  function transformHttpToHttps(url) {
+    if (url.startsWith('http://')) {
+      return url.replace('http://', 'https://')
+    } else {
+      return url
+    }
+  }
+
   const uploadImage = async () => {
-    let result = {}
     await ImagePicker.requestMediaLibraryPermissionsAsync()
-    result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-      base64: true
+      aspect: [1, 1],
+      quality: 1
     })
-    setSelectedImage(`data:image/jpeg;base64,${result?.assets[0].base64}`)
+
+    if (!result.canceled) {
+      const profileImageData = {
+        uri: result.assets[0].uri,
+        type: 'image/jpg',
+        name: result.assets[0].uri?.split('/')?.reverse()[0]?.split('.')[0]
+      }
+
+      const profileImageForm = new FormData()
+      profileImageForm.append('file', profileImageData)
+      profileImageForm.append('upload_preset', 'cfbb_profile_pictures')
+      profileImageForm.append('cloud_name', 'dnewfuuv0')
+
+      await fetch('https://api.cloudinary.com/v1_1/dnewfuuv0/image/upload', {
+        method: 'post',
+        body: profileImageForm
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('dataUrl from profile:', data.url)
+          setSelectedImage(transformHttpToHttps(data.url))
+        })
+    }
   }
 
   const clearRedux = () => {
@@ -641,19 +669,19 @@ const styles = StyleSheet.create({
   },
   subirArchivo: {
     width: '100%',
-    marginLeft: 3,
+    textAlign: 'center',
     fontSize: 12,
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.violetaPlaceholder,
-    top: 6
+    top: 7
   },
   subirArchivoNuevo: {
     width: '100%',
-    marginLeft: 5,
+    textAlign: 'center',
     fontSize: 12,
     fontFamily: FontFamily.inputPlaceholder,
     color: Color.sportsVioleta,
-    top: 6
+    top: 7
   },
   helloTypoScrollPrecio: {
     width: '60%',

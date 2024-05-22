@@ -365,7 +365,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: Border.br_3xs,
-    backgroundColor: Color.colorMistyrose,
+    backgroundColor: '#fcede5',
     padding: Padding.p_xl
   },
   div2Cards: {
