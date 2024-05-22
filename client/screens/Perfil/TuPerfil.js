@@ -26,6 +26,7 @@ import DatosDeportista from '../../components/DatosDeportista'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { LinearGradient } from 'expo-linear-gradient'
 // import { SafeAreaView } from 'react-native-safe-area-context'
+import moment from 'moment';
 
 const TuPerfil = () => {
   const [rol, setRol] = useState(false)
@@ -57,6 +58,9 @@ const TuPerfil = () => {
       dispatch(setSelectedIcon('TuPerfil'))
     }
   }, [isFocused])
+  const cumpleaños = moment(user.birthDate)
+  const today = moment();
+  const age = today.diff(cumpleaños, 'years');
 
   return (
     <LinearGradient
@@ -119,16 +123,16 @@ const TuPerfil = () => {
                       style={[
                         styles.tuPerfilDato,
                         styles.tuPerfil1Typo,
-                        { color: Color.sportsVioleta, fontSize: 12 }
+                        { color: Color.sportsVioleta, fontSize: 14 }
                       ]}
                     >
-                      {user?.genres}
+                      {user?.genres}, {age} años
                     </Text>
                   </>
                 ) : (
                   <></>
                 )}
-                {user?.phoneNumber ? (
+                {/* {user?.phoneNumber ? (
                   <>
                     <Text
                       style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}
@@ -155,21 +159,17 @@ const TuPerfil = () => {
                   </>
                 ) : (
                   <></>
-                )}
-                {user?.birthDate ? (
+                )} */}
+                {/* {user?.birthDate ? (
                   <>
-                    <Text
-                      style={[styles.laraMacasBlanco, styles.tuPerfil1Typo]}
-                    >
-                      Fecha de nacimiento:
-                    </Text>
+
                     <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
-                      {user?.birthDate}
+                      {age} años
                     </Text>
                   </>
                 ) : (
                   <></>
-                )}
+                )} */}
               </View>
             </View>
             <View style={styles.frameParent}>

@@ -36,9 +36,9 @@ const Contacta = () => {
       <View style={styles.container}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Contáctanos</Text>
-          <Pressable onPress={() => navigation.goBack()}>
+          {/* <Pressable onPress={() => navigation.goBack()}>
             <BackArrowSVG />
-          </Pressable>
+          </Pressable> */}
         </View>
         <View style={styles.innerContainer}>
           <View style={styles.messageContainer}>

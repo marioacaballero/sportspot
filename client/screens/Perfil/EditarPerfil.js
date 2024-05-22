@@ -140,8 +140,8 @@ CUENTA`}
                 selectedImage
                   ? { uri: selectedImage }
                   : user?.avatar
-                  ? { uri: user.avatar }
-                  : require('../../assets/unsplashn6gnca77urc.png')
+                    ? { uri: user.avatar }
+                    : require('../../assets/unsplashn6gnca77urc.png')
               }
             />
             <View style={styles.editar}>
@@ -380,6 +380,8 @@ CUENTA`}
               onPress={closeTopContainer}
             />
             <CalendarOneDay
+              setValuesUser={setValuesUser}
+              valuesUser={valuesUser}
               onClose={closeTopContainer}
               start={true}
               suscription={false}
