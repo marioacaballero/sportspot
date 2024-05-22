@@ -5,7 +5,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  Pressable
+  Pressable,
+  Button
 } from 'react-native'
 import { Calendar, LocaleConfig } from 'react-native-calendars'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
@@ -13,7 +14,7 @@ import { useDispatch } from 'react-redux'
 import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
 import { LeftYearArrowSvg, RightYearArrowSvg } from './SVG/YearArrowSvg'
 
-const CalendarOneDay = ({ onClose, start, suscription }) => {
+const CalendarOneDay = ({ onClose, start, suscription,setValuesUser,valuesUser }) => {
   const dispatch = useDispatch()
   const [selected, setSelected] = useState('')
   const inputRef = useRef()
@@ -87,8 +88,12 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
   const handleDayPress = (day) => {
     if (start && !suscription) {
       setSelected(day.dateString)
+      setValuesUser({...valuesUser,["birthDate"]:day.dateString})
       dispatch(setDateStart(day.dateString))
+      console.log("pasa",day)
     } else {
+      setValuesUser({...valuesUser,["birthDate"]:day.dateString})
+
       setSelected(day.dateString)
       dispatch(setDateSuscription(day.dateString))
     }
@@ -162,13 +167,13 @@ const CalendarOneDay = ({ onClose, start, suscription }) => {
               {yearVisible ? inputValue || '2024' : ''}
             </Text>
           </View>
-          <View></View>
           <TouchableOpacity style={styles.ok} onPress={sumbitYear}>
-            <Text>ok</Text>
+            <Text style={{ backgroundColor: "#f25910", color: "white", height: 30, width: 100, textAlign: "center", textAlignVertical: "center", borderRadius: 30 }}>Aceptar</Text>
           </TouchableOpacity>
         </View>
       )}
       <Calendar
+        style={{ width: 300,minHeight:360 }}
         onDayPress={handleDayPress}
         markedDates={generateMarkedDates()}
         firstDay={1}
@@ -218,10 +223,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
-    width: 40,
+    width: 100,
     height: 20,
+    color: "white",
     position: 'relative',
-    top: 15
+    top: 30
   },
   week4FlexBox: {
     flexDirection: 'row',
@@ -258,13 +264,13 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.inputPlaceholder
   },
   inputModal: {
-    position: 'absolute',
     backgroundColor: Color.blanco,
     borderColor: Color.sportsNaranja,
     borderWidth: 2,
     color: Color.blanco,
     zIndex: 30,
-    width: 120,
+    width: 260,
+    marginBottom: 40,
     height: 48,
     borderRadius: Border.br_5xl,
     paddingHorizontal: Padding.p_3xs,
@@ -422,9 +428,9 @@ const styles = StyleSheet.create({
     borderTopRightRadius: Border.br_5xs,
     borderTopLeftRadius: Border.br_5xs,
     paddingHorizontal: Padding.p_3xs,
-    paddingVertical: Padding.p_xl,
     width: '100%',
-    height: '65%',
+    height: 'auto',
+    paddingBottom: 20,
     // justifyContent: yearVisible ? 'flex-start' : 'flex-end',
     alignItems: 'center',
     backgroundColor: Color.blanco,
@@ -434,10 +440,9 @@ const styles = StyleSheet.create({
   fatherYear: {
     display: 'flex',
     flexDirection: 'row',
-    gap: 60,
-    alignItems: 'center'
+    alignItems: 'center',
+    gap:90
     // height: 120
-    // justifyContent: 'center'
   }
 })
 

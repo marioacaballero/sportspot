@@ -7,7 +7,8 @@ import {
   Modal,
   StyleSheet,
   TouchableOpacity,
-  Pressable
+  Pressable,
+  Image
 } from 'react-native'
 import { Color, FontSize, FontFamily } from '../GlobalStyles'
 import FutbolSVG from './SVG/Sports/FutbolSVG'
@@ -121,10 +122,10 @@ const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
             style={{
               flexDirection: 'row',
               flexWrap: 'wrap',
-              justifyContent: 'center',
+              justifyContent: 'space-around',
               gap: 10,
               marginTop: 10,
-              paddingHorizontal: 10
+              paddingHorizontal: 18
             }}
           >
             {filteredSports?.map((sport) => (
@@ -144,29 +145,53 @@ const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
                   onPress={() => sportSelectStyle(sport?.name)}
                 >
                   <View>
-                    {sport?.name === 'futbol' && (
-                      <FutbolSVG showColor={showColor} />
+                    {sport?.name === 'golf' && (
+                      // <FutbolSVG showColor={showColor} />
+                      <Image source={require("../assets/icons/Vector.png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
                     )}
                     {sport?.name === 'ciclismo' && (
-                      <CiclismoSVG showColor={showColor} />
+                      <Image source={require("../assets/icons/Vector (10).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
                     )}
-                    {sport?.name === 'hockey' && (
-                      <HockeySVG showColor={showColor} />
+                    {sport?.name === 'carrera' && (
+                      <Image source={require("../assets/icons/Vector (11).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
+                    )}
+                    {sport?.name === 'triatlon' && (
+                      <Image source={require("../assets/icons/Vector (9).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
+                    )}
+                    {sport?.name === 'trail' && (
+                      <Image source={require("../assets/icons/Vector (5).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
+                    )}
+                    {sport?.name === 'padel' && (
+                      <Image source={require("../assets/icons/Vector (6).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
                     )}
                     {sport?.name === 'tenis' && (
-                      <TenisSVG showColor={showColor} />
+                      <Image source={require("../assets/icons/Vector (7).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
                     )}
-                    {sport?.name === 'running' && (
-                      <RunningSVG showColor={showColor} />
+                    {sport?.name === 'crossfit' && (
+                      <Image source={require("../assets/icons/Vector (8).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
                     )}
-                    {sport?.name === 'rugby' && (
-                      <RugbySVG showColor={showColor} />
+                    {sport?.name === 'escalada' && (
+                      <Image source={require("../assets/icons/Vector (4).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
                     )}
-                    {sport?.name === 'handball' && (
-                      <HandballSVG showColor={showColor} />
+                    {sport?.name === 'orientacion' && (
+                      <Image source={require("../assets/icons/Vector (2).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
                     )}
-                    {sport?.name === 'basket' && (
-                      <BasketSVG showColor={showColor} />
+                    {sport?.name === 'patinaje' && (
+                      <Image source={require("../assets/icons/Vector (1).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
+                    )}
+                      {sport?.name === 'senderismo' && (
+                      <Image source={require("../assets/icons/Vector (12).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
                     )}
                   </View>
                 </TouchableOpacity>

@@ -258,10 +258,10 @@ const styles = StyleSheet.create({
     marginTop: '20%'
   },
   frameParent: {
-    paddingVertical: '40%',
+    flex:1,
     paddingHorizontal: 15,
     height: '100%',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center'
   },
   iniciarSesin: {
@@ -269,7 +269,6 @@ const styles = StyleSheet.create({
     // width: '100%'
     // overflow: 'hidden',
     // backgroundColor: 'transparent',
-    // height: 700
   },
   background: {
     width: '100%',

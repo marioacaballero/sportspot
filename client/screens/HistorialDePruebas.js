@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { favorite } from '../redux/actions/users'
 import { setSelectedIcon } from '../redux/slices/users.slices'
+import { getAllEvents } from '../redux/actions/events'
 import { visitEvent } from '../redux/actions/events'
 import { getEventByIdRedux } from '../redux/slices/events.slices'
 
@@ -88,6 +89,10 @@ const HistorialDePruebas = () => {
     }
   }, [isFocused])
 
+    useEffect(()=>{
+      dispatch(getAllEvents())
+    },[])
+  // console.log('events.title', events[1].suscribers)
   console.log('events.title', events[1].dateInscription)
   return (
     <LinearGradient
@@ -96,7 +101,7 @@ const HistorialDePruebas = () => {
       start={{ x: 0, y: 0 }}
       end={{ x: 0, y: 1 }}
     >
-      <ScrollView contentContainerStyle={{ paddingBottom: 15, paddingTop: 30 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 15,paddingTop:30 }}>
         <View style={{ paddingHorizontal: Padding.p_xl }}>
           <View style={styles.containerHistorial}>
             <Text style={[styles.tuHistorialDe, styles.ciclismoTypo]}>
