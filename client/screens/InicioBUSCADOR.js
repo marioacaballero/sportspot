@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllSports } from '../redux/actions/sports'
 import { getAllEventsFilters } from '../redux/actions/events'
 import { setNameEvent } from '../redux/slices/events.slices'
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 
 const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
   const navigation = useNavigation()
@@ -147,11 +148,12 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
             style={styles.frameContainer6Bg}
             onPress={closeFrameContainer6}
           />
-          <Maps
+           <Maps
             onClose={closeFrameContainer6}
             setEventsFilter={setEventsFilter}
           />
-        </View>
+        </View> 
+       
       </Modal>
 
       <Modal animationType="fade" transparent visible={frameContainer8Visible}>
