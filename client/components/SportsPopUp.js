@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Color, FontFamily, FontSize, Border, Padding } from '../GlobalStyles'
 import { setSport } from '../redux/slices/sports.slices'
@@ -34,17 +34,57 @@ const SportsPopUp = ({ onClose }) => {
             }}
           >
             <View>
-              {sport?.name === 'futbol' && <FutbolSVG />}
-              {sport?.name === 'ciclismo' && <CiclismoSVG />}
-              {sport?.name === 'hockey' && <HockeySVG />}
-              {sport?.name === 'tenis' && <TenisSVG />}
-              {sport?.name === 'running' && <RunningSVG />}
-              {sport?.name === 'rugby' && <RugbySVG />}
-              {sport?.name === 'handball' && <HandballSVG />}
-              {sport?.name === 'basket' && <BasketSVG />}
+              {sport?.name === 'golf' && (
+                // <FutbolSVG showColor={showColor} />
+                <Image source={require("../assets/icons/Vector.png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+              )}
+              {sport?.name === 'ciclismo' && (
+                <Image source={require("../assets/icons/Vector (10).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
+              )}
+              {sport?.name === 'carrera' && (
+                <Image source={require("../assets/icons/Vector (11).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
+              )}
+              {sport?.name === 'triatlon' && (
+                <Image source={require("../assets/icons/Vector (9).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
+              )}
+              {sport?.name === 'trail' && (
+                <Image source={require("../assets/icons/Vector (5).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
+              )}
+              {sport?.name === 'padel' && (
+                <Image source={require("../assets/icons/Vector (6).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
+              )}
+              {sport?.name === 'tenis' && (
+                <Image source={require("../assets/icons/Vector (7).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
+              )}
+              {sport?.name === 'crossfit' && (
+                <Image source={require("../assets/icons/Vector (8).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
+              )}
+              {sport?.name === 'escalada' && (
+                <Image source={require("../assets/icons/Vector (4).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
+              )}
+              {sport?.name === 'orientacion' && (
+                <Image source={require("../assets/icons/Vector (2).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
+              )}
+              {sport?.name === 'patinaje' && (
+                <Image source={require("../assets/icons/Vector (1).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
+              )}
+              {sport?.name === 'senderismo' && (
+                <Image source={require("../assets/icons/Vector (12).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
+
+              )}
             </View>
 
-            <View style={{ alignItems: 'center' }}>
+            <View style={{ alignItems: 'center', width: "auto" }}>
               <Text style={styles.item}>
                 {capitalizeFirstLetter(sport.name)}
               </Text>
@@ -65,7 +105,8 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     color: Color.sportsVioleta,
-    marginTop: 10
+    marginTop: 10,
+    width: "100%"
   },
   itemType: {
     fontSize: FontSize.size_sm,
@@ -90,7 +131,7 @@ const styles = StyleSheet.create({
     padding: Padding.p_xl,
     marginTop: 15,
     justifyContent: 'space-between',
-    height: 445
+    height: "90%"
   },
   touchable: {
     alignItems: 'center',

@@ -16,7 +16,7 @@ const PublicarEvento = () => {
       start={{ x: 0, y: 0 }}
       end={{ x: 0, y: 1 }}
     >
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps={'handled'}>
         <View style={styles.container}>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>Publicar un evento</Text>
