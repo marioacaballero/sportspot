@@ -16,7 +16,7 @@ const CustomAlert = ({ visible, message, onClose, type }) => {
   //   }
 
   const passAlert = 'Alerta'
-  const accountAlert = 'Alerta: acción irreversible'
+  const accountAlert = 'Alerta!'
 
   //   return () => clearTimeout(timeoutId)
   // }, [visible, onClose])
@@ -29,16 +29,26 @@ const CustomAlert = ({ visible, message, onClose, type }) => {
     >
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <Text style={styles.alert}>{type === 'pass' ? passAlert : accountAlert}</Text>
+          <Text style={styles.alert}>
+            {type === 'pass' ? passAlert : accountAlert}
+          </Text>
           <Text style={styles.text}>{message}</Text>
-          <TouchableOpacity onPress={() => onClose('aceptar')} style={styles.touchable}>
+          <TouchableOpacity
+            onPress={() => onClose('aceptar')}
+            style={styles.touchable}
+          >
             <Text style={styles.closeText}>Aceptar</Text>
           </TouchableOpacity>
-          {
-            type === 'account' ? (<TouchableOpacity onPress={() => onClose('cancelar')} style={styles.touchable}>
+          {type === 'account' ? (
+            <TouchableOpacity
+              onPress={() => onClose('cancelar')}
+              style={styles.touchable}
+            >
               <Text style={styles.closeText}>Cancelar</Text>
-            </TouchableOpacity>) : (<></>)
-          }
+            </TouchableOpacity>
+          ) : (
+            <></>
+          )}
         </View>
       </View>
     </Modal>

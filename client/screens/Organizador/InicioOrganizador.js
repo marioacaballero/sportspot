@@ -65,7 +65,13 @@ const InicioOrganizador = () => {
         )} */}
         <Pressable
           style={styles.helloAshfakWrapper}
-          onPress={() => navigation.navigate('PublicarEvento')}
+          onPress={() => {
+            if (isGuest) {
+              dispatch(setShowGuestModal(true))
+              return
+            }
+            navigation.navigate('PublicarEvento')
+          }}
           // disabled={user?.rol === 'sportsman'}
         >
           <Text style={styles.buttonsText}>Publicar un evento</Text>

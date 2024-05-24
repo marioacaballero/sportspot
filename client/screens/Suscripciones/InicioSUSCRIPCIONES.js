@@ -129,7 +129,7 @@ const InicioSUSCRIPCIONES = () => {
     >
       <ScrollView
         style={styles.inicioSuscripciones2}
-        contentContainerStyle={{ paddingBottom: 20 }}
+        contentContainerStyle={{ paddingBottom: 50 }}
       >
         <View style={styles.helloAshfakParent}>
           <Text style={[styles.helloAshfak2, styles.helloClr]}>
@@ -381,7 +381,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   inicioSuscripciones2: {
-    paddingTop: Padding.p_xs,
+    paddingTop: 30,
     paddingHorizontal: Padding.p_xl,
     width: '100%',
     flex: 1

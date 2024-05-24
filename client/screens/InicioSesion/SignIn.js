@@ -206,6 +206,7 @@ export default function SignIn({ navigation }) {
                   textAlign: 'center'
                 }}
                 onPress={() => {
+                  console.log('login as guest...')
                   dispatch(
                     login({
                       email: 'guestUser@gmail.com',

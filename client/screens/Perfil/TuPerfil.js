@@ -26,7 +26,7 @@ import DatosDeportista from '../../components/DatosDeportista'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { LinearGradient } from 'expo-linear-gradient'
 // import { SafeAreaView } from 'react-native-safe-area-context'
-import moment from 'moment';
+import moment from 'moment'
 
 const TuPerfil = () => {
   const [rol, setRol] = useState(false)
@@ -58,9 +58,9 @@ const TuPerfil = () => {
       dispatch(setSelectedIcon('TuPerfil'))
     }
   }, [isFocused])
-  const cumpleaños = moment(user.birthDate)
-  const today = moment();
-  const age = today.diff(cumpleaños, 'years');
+  const cumpleaños = moment(user?.birthDate)
+  const today = moment()
+  const age = today.diff(cumpleaños, 'years')
 
   return (
     <LinearGradient

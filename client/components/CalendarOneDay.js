@@ -14,7 +14,14 @@ import { useDispatch } from 'react-redux'
 import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
 import { LeftYearArrowSvg, RightYearArrowSvg } from './SVG/YearArrowSvg'
 
-const CalendarOneDay = ({ onClose, start, suscription,setValuesUser,valuesUser }) => {
+const CalendarOneDay = ({
+  onClose,
+  start,
+  suscription,
+  setValuesUser,
+  valuesUser,
+  fromPost
+}) => {
   const dispatch = useDispatch()
   const [selected, setSelected] = useState('')
   const inputRef = useRef()
@@ -88,11 +95,15 @@ const CalendarOneDay = ({ onClose, start, suscription,setValuesUser,valuesUser }
   const handleDayPress = (day) => {
     if (start && !suscription) {
       setSelected(day.dateString)
-      setValuesUser({...valuesUser,["birthDate"]:day.dateString})
+      setValuesUser &&
+        valuesUser &&
+        setValuesUser({ ...valuesUser, ['birthDate']: day.dateString })
       dispatch(setDateStart(day.dateString))
-      console.log("pasa",day)
+      console.log('pasa', day)
     } else {
-      setValuesUser({...valuesUser,["birthDate"]:day.dateString})
+      setValuesUser &&
+        valuesUser &&
+        setValuesUser({ ...valuesUser, ['birthDate']: day.dateString })
 
       setSelected(day.dateString)
       dispatch(setDateSuscription(day.dateString))
@@ -168,12 +179,24 @@ const CalendarOneDay = ({ onClose, start, suscription,setValuesUser,valuesUser }
             </Text>
           </View>
           <TouchableOpacity style={styles.ok} onPress={sumbitYear}>
-            <Text style={{ backgroundColor: "#f25910", color: "white", height: 30, width: 100, textAlign: "center", textAlignVertical: "center", borderRadius: 30 }}>Aceptar</Text>
+            <Text
+              style={{
+                backgroundColor: '#f25910',
+                color: 'white',
+                height: 30,
+                width: 100,
+                textAlign: 'center',
+                textAlignVertical: 'center',
+                borderRadius: 30
+              }}
+            >
+              Aceptar
+            </Text>
           </TouchableOpacity>
         </View>
       )}
       <Calendar
-        style={{ width: 300,minHeight:360 }}
+        style={{ width: 300, minHeight: 360 }}
         onDayPress={handleDayPress}
         markedDates={generateMarkedDates()}
         firstDay={1}
@@ -225,7 +248,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     width: 100,
     height: 20,
-    color: "white",
+    color: 'white',
     position: 'relative',
     top: 30
   },
@@ -441,7 +464,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap:90
+    gap: 90
     // height: 120
   }
 })
