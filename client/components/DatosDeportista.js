@@ -24,6 +24,18 @@ import BoxSVG from './SVG/BoxSVG'
 import CustomAlert from './CustomAlert'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { postUserPreferences } from '../redux/actions/users'
+import SenderismoSVG from './SVG/Sports/SenderismoSVG'
+import CiclismoSVG2 from './SVG/Sports/CiclismoSVG2'
+import CarreraSVG from './SVG/Sports/CarreraSVG'
+import TenisSVG2 from './SVG/Sports/TenisSVG2'
+import TrailSVG from './SVG/Sports/TrailSVG'
+import TriatlonSVG from './SVG/Sports/TriatlonSVG'
+import PadelSVG from './SVG/Sports/PadelSVG'
+import CrossfitSVG from './SVG/Sports/CrossfitSVG'
+import EscaladaSVG from './SVG/Sports/EscaladaSVG'
+import OrientacionSVG from './SVG/Sports/OrientacionSVG'
+import PatinajeSVG from './SVG/Sports/PatinajeSVG'
+import GolfSVG from './SVG/Sports/GolfSVG'
 
 const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
   const dispatch = useDispatch()
@@ -145,54 +157,42 @@ const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
                   onPress={() => sportSelectStyle(sport?.name)}
                 >
                   <View>
-                    {sport?.name === 'golf' && (
-                      // <FutbolSVG showColor={showColor} />
-                      <Image source={require("../assets/icons/Vector.png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
-                    )}
-                    {sport?.name === 'ciclismo' && (
-                      <Image source={require("../assets/icons/Vector (10).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
-
-                    )}
-                    {sport?.name === 'carrera' && (
-                      <Image source={require("../assets/icons/Vector (11).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
-
-                    )}
-                    {sport?.name === 'triatlon' && (
-                      <Image source={require("../assets/icons/Vector (9).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
-
-                    )}
-                    {sport?.name === 'trail' && (
-                      <Image source={require("../assets/icons/Vector (5).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
-
-                    )}
-                    {sport?.name === 'padel' && (
-                      <Image source={require("../assets/icons/Vector (6).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
-
-                    )}
-                    {sport?.name === 'tenis' && (
-                      <Image source={require("../assets/icons/Vector (7).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
-
-                    )}
-                    {sport?.name === 'crossfit' && (
-                      <Image source={require("../assets/icons/Vector (8).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
-
-                    )}
-                    {sport?.name === 'escalada' && (
-                      <Image source={require("../assets/icons/Vector (4).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
-
-                    )}
-                    {sport?.name === 'orientacion' && (
-                      <Image source={require("../assets/icons/Vector (2).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
-
-                    )}
-                    {sport?.name === 'patinaje' && (
-                      <Image source={require("../assets/icons/Vector (1).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
-
-                    )}
-                      {sport?.name === 'senderismo' && (
-                      <Image source={require("../assets/icons/Vector (12).png")} style={{ width: 30, height: 30, objectFit: "contain" }} ></Image>
-
-                    )}
+                  {sport?.name === 'senderismo' && (
+                  // <FutbolSVG showColor={showColor} />
+                  <SenderismoSVG showColor={showColor}></SenderismoSVG>
+                )}
+                {sport?.name === 'ciclismo' && (
+                  <CiclismoSVG2 showColor={showColor} />
+                )}
+                {sport?.name === 'carrera' && (
+                  // <HockeySVG showColor={showColor} />
+                  <CarreraSVG showColor={showColor}></CarreraSVG>
+                )}
+                {sport?.name === 'tenis' &&
+                  <TenisSVG2 showColor={showColor} />}
+                {sport?.name === 'triatlon' && (
+           <TriatlonSVG showColor={showColor}></TriatlonSVG>
+                )}
+                {sport?.name === 'trail' &&
+                 <TrailSVG showColor={showColor} />}
+                {sport?.name === 'padel' && (
+                  <PadelSVG showColor={showColor} />
+                )}
+                {sport?.name === 'crossfit' && (
+                  <CrossfitSVG showColor={showColor} />
+                )}
+                 {sport?.name === 'escalada' && (
+                  <EscaladaSVG showColor={showColor} />
+                )}
+                 {sport?.name === 'orientacion' && (
+                  <OrientacionSVG showColor={showColor} />
+                )}
+                 {sport?.name === 'patinaje' && (
+                  <PatinajeSVG showColor={showColor} />
+                )}
+                 {sport?.name === 'golf' && (
+                  <GolfSVG showColor={showColor} />
+                )}
                   </View>
                 </TouchableOpacity>
                 <Text
@@ -360,7 +360,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginTop: 10,
     color: Color.sportsVioleta,
-    width: '55%',
+    width: '80%',
     textAlign: 'center',
     fontWeight: 'bold'
   },

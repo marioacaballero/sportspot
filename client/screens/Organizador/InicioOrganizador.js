@@ -38,7 +38,7 @@ const InicioOrganizador = () => {
   }
 
   return (
-    <ScrollView style={[styles.inicioOrganizador]}>
+    <ScrollView keyboardShouldPersistTaps={'handled'} style={[styles.inicioOrganizador]}>
       <View style={styles.topContainer}>
         {user?.rol === 'sportsman' && (
           <Pressable

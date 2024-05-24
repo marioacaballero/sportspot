@@ -27,7 +27,7 @@ import {
 import { auth } from '../../utils/config.google'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { AntDesign, Entypo } from '@expo/vector-icons'
-
+import { useTranslation } from "react-i18next";
 WebBrowser.maybeCompleteAuthSession()
 
 // credenciales ios:
@@ -37,6 +37,7 @@ WebBrowser.maybeCompleteAuthSession()
 // 37113049990-veui0lbk6sffhnefteii75hg1e9ncm9b.apps.googleusercontent.com
 
 export default function SignIn({ navigation }) {
+  const { t, i18n } = useTranslation();
   const [selectedLanguaje, setSelectedLanguaje] = useState('Español')
   const { userToken, user } = useSelector((state) => state.users)
   const dispatch = useDispatch()
@@ -51,7 +52,7 @@ export default function SignIn({ navigation }) {
     const clearAll = async () => {
       try {
         await AsyncStorage.clear()
-      } catch (e) {}
+      } catch (e) { }
     }
 
     const storeTokenAndNavigate = async () => {
@@ -156,7 +157,7 @@ export default function SignIn({ navigation }) {
               textAlign: 'center'
             }}
           >
-            ENCUENTRA TU PRUEBA
+          {t("encuentratuprueba")}
           </Text>
           <Text
             style={{
@@ -167,23 +168,23 @@ export default function SignIn({ navigation }) {
               fontWeight: 600
             }}
           >
-            Bienvenido/a
+             {t("bienvenido")}
           </Text>
           <View style={{ marginTop: 20 }}>
             <View style={styles.button}>
               <Pressable onPress={() => promptAsync()}>
-                <Text style={styles.buttonText}>Iniciar sesión con Google</Text>
+                <Text style={styles.buttonText}>{t("iniciarcongoogle")}</Text>
               </Pressable>
             </View>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>Iniciar sesión con Apple</Text>
+              <Text style={styles.buttonText}>{t("iniciarconapple")}</Text>
             </View>
 
             <Pressable
               style={styles.button}
               onPress={() => navigation.navigate('IniciarSesin')}
             >
-              <Text style={styles.buttonText}>Iniciar sesión con email</Text>
+              <Text style={styles.buttonText}>{t("iniciarconemail")}</Text>
             </Pressable>
 
             {/* <Pressable
@@ -216,7 +217,7 @@ export default function SignIn({ navigation }) {
                   AsyncStorage.setItem('guest', JSON.stringify({ guest: true }))
                 }}
               >
-                Entrar sin registrar
+               {t("sinregistro")}
               </Text>
             </View>
             {/* <View
@@ -239,10 +240,17 @@ export default function SignIn({ navigation }) {
             </View> */}
 
             <TouchableOpacity
-              onPress={() =>
+              onPress={async() => {
                 setSelectedLanguaje(
-                  selectedLanguaje === 'Español' ? 'Ingles' : 'Español'
+                  selectedLanguaje === 'es' ? 'en' : 'es'
                 )
+                if (selectedLanguaje == "es") {
+                await i18n.changeLanguage("en")
+                }
+                else {
+                await i18n.changeLanguage("es")
+                }
+              }
               }
               style={{
                 borderRadius: 50,
@@ -267,7 +275,7 @@ export default function SignIn({ navigation }) {
                   textAlign: 'center'
                 }}
               >
-                {selectedLanguaje}
+                {t('lang')}
               </Text>
               <AntDesign name="swap" size={20} color={'#40036F'} />
             </TouchableOpacity>

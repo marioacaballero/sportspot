@@ -38,8 +38,11 @@ import { LinearGradient } from 'expo-linear-gradient'
 import GuestUserModal from '../components/utils/GuestUserModal'
 import { getUser } from '../redux/actions/users'
 import { setSelectedIcon } from '../redux/slices/users.slices'
+import { useTranslation } from "react-i18next";
 
 const InicioDeportista = () => {
+  const { t, i18n } = useTranslation();
+
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const { events, loadingGet, visitedEvents, showGuestModal } = useSelector(
@@ -187,7 +190,7 @@ const InicioDeportista = () => {
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
       >
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView keyboardShouldPersistTaps={'handled'} showsVerticalScrollIndicator={false}>
           {modalState !== 'alreadyShowed' && (
             <DatosDeportista
               modalSport={modalSport}
@@ -327,7 +330,7 @@ const InicioDeportista = () => {
                   style={styles.helloAshfakGroup}
                   onPress={() => setModalOrganizador(false)}
                 >
-                  <Text style={styles.helloTypo}>Deportista</Text>
+                  <Text style={styles.helloTypo}>{t("deportista")}</Text>
                   <Text
                     style={{
                       fontSize: 50,
@@ -349,7 +352,7 @@ const InicioDeportista = () => {
                   onPress={() => setModalOrganizador(true)}
                 >
                   <Text style={[styles.helloAshfak2, styles.helloTypo]}>
-                    Organizador
+                  {t("organizador")}
                   </Text>
                   <Text
                     style={{
@@ -400,7 +403,7 @@ const InicioDeportista = () => {
                     <Text
                       style={{ fontWeight: 'bold', color: Color.sportsVioleta }}
                     >
-                      Mis puntos
+                     {t("mispuntos")}
                     </Text>
                     <Text style={{ fontSize: 28, color: Color.sportsNaranja }}>
                       50
@@ -432,7 +435,7 @@ const InicioDeportista = () => {
                       }}
                     >
                       <Text style={{ fontWeight: 'bold', color: 'white' }}>
-                        {!premiosSoon ? 'Acceder a premios' : 'Soon'}
+                        {!premiosSoon ? t("accederpremios") : 'Soon'}
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -517,7 +520,7 @@ const InicioDeportista = () => {
                 {latestEventsAdded.length > 0 && (
                   <View style={{ alignItems: 'center' }}>
                     <Text style={styles.helloTypoScroll}>
-                      Últimas pruebas añadidas
+                      {t("ultimaspruebas")}
                     </Text>
                     <ScrollView
                       horizontal={true}
@@ -579,7 +582,8 @@ const InicioDeportista = () => {
                 {eventsExpired.length > 0 && (
                   <View style={{ alignItems: 'center' }}>
                     <Text style={styles.helloTypoScroll}>
-                      Resultados de las útlimas pruebas
+                    {t("resultadoultimaspruebas")}
+
                     </Text>
                     <ScrollView
                       horizontal={true}

@@ -5,9 +5,11 @@ import { Color, FontFamily, FontSize, Border } from '../../GlobalStyles'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import RightArrowGrueso from '../../components/SVG/RightArrowGrueso'
 import { LinearGradient } from 'expo-linear-gradient'
+import { useTranslation } from "react-i18next";
 
 const Cuenta = () => {
   const navigation = useNavigation()
+  const { t, i18n } = useTranslation();
 
   return (
     <LinearGradient
@@ -31,7 +33,7 @@ const Cuenta = () => {
                 styles.editarPerfilTypo
               ]}
             >
-              GESTIONA TU CUENTA
+             {t("gestionatucuentamay")}
             </Text>
             {/* <Pressable onPress={() => navigation.goBack()}>
             <BackArrowSVG />
@@ -52,11 +54,11 @@ const Cuenta = () => {
               <View style={styles.frameGroup}>
                 <View style={styles.editarPerfilWrapper}>
                   <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
-                    Editar perfil
+                   {t("editarperfil")}
                   </Text>
                 </View>
                 <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                  Actualiza los datos de tu cuenta
+                {t("actualizadatos")}
                 </Text>
               </View>
             </View>
@@ -77,11 +79,13 @@ const Cuenta = () => {
               <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
                 <View style={styles.editarPerfilWrapper}>
                   <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
-                    Seguridad
+                  {t("seguridad")}
+
                   </Text>
                 </View>
                 <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                  Mantén segura tu cuenta, elimina tu cuenta
+                {t("mantensegura")}
+
                 </Text>
               </View>
             </View>
@@ -101,11 +105,13 @@ const Cuenta = () => {
               <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
                 <View style={styles.editarPerfilWrapper}>
                   <Text style={[styles.editarPerfil, styles.editarPerfilTypo]}>
-                    Datos de pago
+                  {t("datospago")}
+
                   </Text>
                 </View>
                 <Text style={[styles.imGoingTo, styles.goingTypo]}>
-                  Elimina o añade métodos de pago
+                {t("eliminamdepago")}
+
                 </Text>
               </View>
             </View>

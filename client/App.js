@@ -43,7 +43,8 @@ import PublicarEvento from './screens/Organizador/PublicarEvento'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'react-native'
 import { API_PUBLIC_STRIPE } from '@env'
-
+import { I18nextProvider, useTranslation } from 'react-i18next'
+import i18n from './utils/i18n'
 // import PaymentScreen from './screens/StripeComponent'
 
 // import { StripeProvider } from '@stripe/stripe-react-native'
@@ -60,10 +61,10 @@ function MyStackNavigator({ isFooterShow, setIsFooterShow }) {
       // Actualiza el estado isFooterShow basado en la ruta actual
       setIsFooterShow(
         currentRouteName !== 'Bienvenida' &&
-          currentRouteName !== 'IniciarSesin' &&
-          currentRouteName !== 'SignIn' &&
-          currentRouteName !== 'Registrarse' &&
-          currentRouteName !== 'RecuperarContraseña'
+        currentRouteName !== 'IniciarSesin' &&
+        currentRouteName !== 'SignIn' &&
+        currentRouteName !== 'Registrarse' &&
+        currentRouteName !== 'RecuperarContraseña'
       )
     }
   }, [state])
@@ -229,8 +230,8 @@ function MyStackNavigator({ isFooterShow, setIsFooterShow }) {
 const Stack = createNativeStackNavigator()
 
 export default function App() {
-  const [isFooterShow, setIsFooterShow] = useState(null)
 
+  const [isFooterShow, setIsFooterShow] = useState(null)
   useEffect(() => {
     loadFonts()
   }, [])
@@ -248,17 +249,20 @@ export default function App() {
         barStyle={'dark-content'}
         backgroundColor="#fff"
       />
-      <Provider store={store}>
-        <StripeProvider publishableKey="pk_test_51OocYQGmE60O5ob7ydu8u1BLMhlWf9F5C6TCuSu75y47X5yBRO8wcbIssEjFc95AferGwyiHNkNGwT25ywIoZahB009vDgPuYd">
-          <NavigationContainer>
-            <MyStackNavigator
-              isFooterShow={isFooterShow}
-              setIsFooterShow={setIsFooterShow}
-            />
-            {isFooterShow && <MenuInferior />}
-          </NavigationContainer>
-        </StripeProvider>
-      </Provider>
+      <I18nextProvider i18n={i18n}>
+        <Provider store={store}>
+          <StripeProvider publishableKey="pk_test_51OocYQGmE60O5ob7ydu8u1BLMhlWf9F5C6TCuSu75y47X5yBRO8wcbIssEjFc95AferGwyiHNkNGwT25ywIoZahB009vDgPuYd">
+            <NavigationContainer>
+              <MyStackNavigator
+                isFooterShow={isFooterShow}
+                setIsFooterShow={setIsFooterShow}
+              />
+              {isFooterShow && <MenuInferior />}
+
+            </NavigationContainer>
+          </StripeProvider>
+        </Provider>
+      </I18nextProvider>
     </SafeAreaView>
   )
 }
