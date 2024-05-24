@@ -44,7 +44,7 @@ const EditarPerfil = () => {
     name: user?.name || '',
     lastName: user?.lastName || '',
     genres: user?.genres || '',
-    birthDate: user.birthDate || '',
+    birthDate: user?.birthDate || '',
     address: user?.address || '',
     phoneNumber: user?.phoneNumber || ''
   })
@@ -140,8 +140,8 @@ CUENTA`}
                 selectedImage
                   ? { uri: selectedImage }
                   : user?.avatar
-                    ? { uri: user.avatar }
-                    : require('../../assets/unsplashn6gnca77urc.png')
+                  ? { uri: user.avatar }
+                  : require('../../assets/unsplashn6gnca77urc.png')
               }
             />
             <View style={styles.editar}>
@@ -257,7 +257,7 @@ CUENTA`}
                           <TextInput
                             placeholder={user?.birthDate || '12/12/2000'}
                             placeholderTextColor={
-                              user.birthDate
+                              user?.birthDate
                                 ? Color.sportsVioleta
                                 : Color.sportsVioleta
                             }
@@ -266,7 +266,7 @@ CUENTA`}
                               fontWeight: '700',
                               paddingBottom: 7
                             }}
-                            value={valuesUser.birthDate || '2020/12/12'}
+                            value={valuesUser?.birthDate || '2020/12/12'}
                             // onChangeText={(value) =>
                             //   settingValuesUser('fechaNacimiento', value)
                             // }

@@ -21,7 +21,10 @@ const VentajasSuscripciones = () => {
   const navigation = useNavigation()
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      contentContainerStyle={{ paddingBottom: 50 }}
+      style={styles.container}
+    >
       <View style={styles.helloAshfakParent}>
         <Text style={styles.helloAshfak2}>PLANES DE SUSCRIPCIÓN</Text>
         {/* <Pressable onPress={() => navigation.goBack()}>
@@ -122,8 +125,7 @@ const VentajasSuscripciones = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 10,
-    paddingBottom: Padding.p_5xl,
+    paddingTop: 30,
     paddingHorizontal: Padding.p_xl,
     width: '100%',
     flex: 1,
@@ -147,29 +149,29 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: Border.br_3xs,
-    backgroundColor: Color.colorMistyrose,
+    backgroundColor: '#fcede5',
     padding: Padding.p_xl,
-    paddingHorizontal:18,
+    paddingHorizontal: 18,
     marginTop: 10
   },
   boxContent: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 20,
-    height: "auto",
-    paddingBottom:30,
+    height: 'auto',
+    paddingBottom: 30,
     width: '100%'
   },
   boxText: {
     color: Color.sportsVioleta,
     fontSize: 13,
     width: '83%',
-    fontWeight:"500"
+    fontWeight: '500'
   },
   imageIcon: {
     width: 25,
     height: 25,
-    alignSelf:"center"
+    alignSelf: 'center'
   },
   contentInner: {
     marginTop: 16,
@@ -178,12 +180,12 @@ const styles = StyleSheet.create({
   helloAshfak7: {
     fontSize: FontSize.inputPlaceholder_size,
     color: Color.blanco,
-    fontWeight:"bold"
+    fontWeight: 'bold'
   },
   helloAshfakWrapper1: {
     borderRadius: Border.br_31xl,
     flex: 1,
-    marginTop:-20,
+    marginTop: -20,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -191,7 +193,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputPlaceholder_size,
     color: Color.sportsVioleta,
     fontFamily: FontFamily.inputPlaceholder,
-    fontWeight:"bold"
+    fontWeight: 'bold'
   },
   helloAshfakWrapper4: {
     borderRadius: Border.br_31xl,

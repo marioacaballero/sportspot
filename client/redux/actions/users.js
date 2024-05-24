@@ -82,11 +82,12 @@ export const register = createAsyncThunk('users/register', async (body) => {
 
 export const login = createAsyncThunk('users/login', async (body) => {
   try {
-    // console.log('body from login: ', body)
+    console.log('body from login: ', body)
     const { data } = await axiosInstance.post('/jwt/login', body)
-    // console.log('data from login', data)
+    console.log('data from login', data)
     return data
   } catch (error) {
+    console.log('error from login: ', error)
     throw new Error(error)
   }
 })

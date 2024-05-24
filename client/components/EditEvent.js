@@ -23,25 +23,25 @@ import BoxSVG from './SVG/BoxSVG'
 import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
 import CustomAlert from './CustomAlert'
 
-const EditEvent = ({ event: eventRedux, onClose }) => {
+const EditEvent = ({ event, onClose }) => {
   const dispatch = useDispatch()
 
   const navigation = useNavigation()
 
   const { user } = useSelector((state) => state.users)
   const { dateStart, dateSuscription } = useSelector((state) => state.events)
-  // const { sport: sportRedux } = useSelector((state) => state.sports)
 
   const [calendar, setCalendar] = useState(null)
   const [calendarInscription, setCalendarInscription] = useState(null)
   const [selectedImage, setSelectedImage] = useState(null)
   const [sportsModal, setSportsModal] = useState(false)
-  const [event, setEvent] = useState({
-    title: eventRedux.title,
-    description: eventRedux.description,
+  console.log('EVENT FROM EDITEVENT:', event)
+  const [eventData, setEventData] = useState({
+    title: event.title,
+    description: event.description,
     // sport: 'prueba',
-    price: eventRedux.price,
-    timeStart: eventRedux.timeStart,
+    price: event.price,
+    timeStart: event.timeStart,
     location: null
   })
   const [dateChange, setDateChange] = useState(false)
@@ -85,12 +85,12 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
       }
 
       // Actualizar el estado
-      setEvent((prevState) => ({
+      setEventData((prevState) => ({
         ...prevState,
         [field]: formattedTime
       }))
     } else {
-      setEvent((prevState) => ({
+      setEventData((prevState) => ({
         ...prevState,
         [field]: value
       }))
@@ -98,45 +98,65 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
   }
 
   const uploadImage = async () => {
-    let result = {}
     await ImagePicker.requestMediaLibraryPermissionsAsync()
-    result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-      base64: true
+      aspect: [1, 1],
+      quality: 1
     })
-    setSelectedImage(`data:image/jpeg;base64,${result?.assets[0].base64}`)
-  }
 
-  const onSubmit = () => {
-    const data = {
-      id: eventRedux.id,
-      updateEventDto: {
-        title: event.title,
-        description: event?.description,
-        sportId: eventRedux.sportId,
-        price: event?.price,
-        // modality: eventRedux.sport.type,
-        // name: event.sport,
-        location: event.location || eventRedux.location,
-        dateStart: dateChange ? dateStart : eventRedux.dateStart,
-        dateInscription: dateSuscriptionChange
-          ? dateSuscription
-          : eventRedux.dateInscription,
-        creator: user?.id,
-        timeStart: event?.timeStart,
-        image: selectedImage || eventRedux.image
+    if (!result.canceled) {
+      const profileImageData = {
+        uri: result.assets[0].uri,
+        type: 'image/jpg',
+        name: result.assets[0].uri?.split('/')?.reverse()[0]?.split('.')[0]
       }
-    }
 
-    dispatch(updateEvent(data))
-    dispatch(getAllEvents())
-    dispatch(setDateStart(''))
-    dispatch(setDateSuscription(''))
-    handleShowAlert()
+      const profileImageForm = new FormData()
+      profileImageForm.append('file', profileImageData)
+      profileImageForm.append('upload_preset', 'cfbb_profile_pictures')
+      profileImageForm.append('cloud_name', 'dnewfuuv0')
+
+      await fetch('https://api.cloudinary.com/v1_1/dnewfuuv0/image/upload', {
+        method: 'post',
+        body: profileImageForm
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('dataUrl from editevent:', data.url)
+          setSelectedImage(transformHttpToHttps(data.url))
+        })
+    }
   }
+
+  // const onSubmit = () => {
+  //   const data = {
+  //     id: event.id,
+  //     updateEventDto: {
+  //       title: eventData?.title,
+  //       description: eventData?.description,
+  //       sportId: eventData.sportId,
+  //       price: eventData?.price,
+  //       // modality: event.sport.type,
+  //       // name: event.sport,
+  //       location: eventData.location || event.location,
+  //       dateStart: dateChange ? dateStart : event.dateStart,
+  //       dateInscription: dateSuscriptionChange
+  //         ? dateSuscription
+  //         : event.dateInscription,
+  //       creator: user?.id,
+  //       timeStart: eventData?.timeStart,
+  //       image: selectedImage || event.image
+  //     }
+  //   }
+
+  //   dispatch(updateEvent(data))
+  //   dispatch(getAllEvents())
+  //   dispatch(setDateStart(''))
+  //   dispatch(setDateSuscription(''))
+  //   handleShowAlert()
+  // }
 
   const closeCalendar = () => {
     setCalendar(false)
@@ -158,7 +178,7 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
         {
           text: 'Eliminar',
           onPress: () => {
-            dispatch(deleteEvent(eventRedux.id))
+            dispatch(deleteEvent(event.id))
             dispatch(getAllEvents())
             navigation.navigate('InicioDeportista')
           }
@@ -233,7 +253,7 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
         <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M74.5039'} />
         <Text style={styles.text}>Localizacion</Text>
         <Text style={styles.helloTypoScroll}>
-          {event.location || eventRedux.location}{' '}
+          {event.location || event.location}{' '}
         </Text>
       </Pressable>
 
@@ -268,7 +288,7 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
         <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M81.5039'} />
         <Text style={styles.text}>Fecha de inicio</Text>
         <Text style={styles.helloTypoScroll}>
-          {dateChange ? dateStart : eventRedux.dateStart}
+          {dateChange ? dateStart : event.dateStart}
         </Text>
       </Pressable>
 
@@ -282,7 +302,7 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
         <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M102.5039'} />
         <Text style={styles.text}>Fecha de inscripción</Text>
         <Text style={styles.helloTypoScroll}>
-          {dateSuscriptionChange ? dateSuscription : eventRedux.dateInscription}
+          {dateSuscriptionChange ? dateSuscription : event.dateInscription}
         </Text>
       </Pressable>
 
@@ -350,7 +370,10 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
             style={styles.frameContainer6Bg}
             onPress={closeFrameContainer6}
           />
-          <Maps onClose={closeFrameContainer6} setEventsFilter={setEvent} />
+          <Maps
+            onClose={closeFrameContainer6}
+            setEventDatasFilter={setEventData}
+          />
         </View>
       </Modal>
 
