@@ -101,35 +101,39 @@ export class EventsService {
     id: string,
     updateEventDto: UpdateEventDto
   ): Promise<EventEntity> {
+   try {
     const event = await this.eventsRepository
-      .createQueryBuilder('event')
-      .where({ id })
-      .leftJoinAndSelect('event.suscribers', 'suscribers')
-      .getOne()
+    .createQueryBuilder('event')
+    .where({ id })
+    .leftJoinAndSelect('event.suscribers', 'suscribers')
+    .getOne()
 
-    if (!event) {
-      throw new HttpException(`Evento con ID perro ${id} no encontrado`, 404)
-    }
+  if (!event) {
+    throw new HttpException(`Evento con ID perro ${id} no encontrado`, 404)
+  }
 
-    for (const key in updateEventDto) {
-      if (updateEventDto.hasOwnProperty(key)) {
-        event[key] = updateEventDto[key]
-      }
+  for (const key in updateEventDto) {
+    if (updateEventDto.hasOwnProperty(key)) {
+      event[key] = updateEventDto[key]
     }
-    if (
-      updateEventDto.dateStart ||
-      updateEventDto.dateInscription ||
-      updateEventDto.timeStart ||
-      updateEventDto.location ||
-      updateEventDto.modality
-    ) {
-      await this.sendMailsService.sendEventModificationNotification(
-        event,
-        updateEventDto
-      )
-    }
+  }
+  if (
+    updateEventDto.dateStart ||
+    updateEventDto.dateInscription ||
+    updateEventDto.timeStart ||
+    updateEventDto.location ||
+    updateEventDto.modality
+  ) {
+    await this.sendMailsService.sendEventModificationNotification(
+      event,
+      updateEventDto
+    )
+  }
 
-    return await this.eventsRepository.save(event)
+  return await this.eventsRepository.save(event)
+   } catch (error) {
+    console.log(error,"error")
+   }
   }
 
   public async deleteService(id) {
