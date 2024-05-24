@@ -446,7 +446,7 @@ const styles = StyleSheet.create({
   },
   unsplashon4qwhhjcemIcon: {
     maxWidth: '100%',
-    height: 351,
+    height: 420,
     zIndex: 0,
     alignSelf: 'stretch',
     overflow: 'hidden',

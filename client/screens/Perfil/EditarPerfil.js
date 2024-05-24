@@ -255,7 +255,7 @@ CUENTA`}
                             Fecha de nacimiento
                           </Text>
                           <TextInput
-                            placeholder={user?.birthDate || '12/12/2020'}
+                            placeholder={user?.birthDate || '12/12/2000'}
                             placeholderTextColor={
                               user.birthDate
                                 ? Color.sportsVioleta

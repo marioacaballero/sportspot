@@ -5,7 +5,8 @@ import {
   Text,
   Pressable,
   Image,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import {
@@ -27,14 +28,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { LinearGradient } from 'expo-linear-gradient'
 // import { SafeAreaView } from 'react-native-safe-area-context'
 import moment from 'moment';
+import { useTranslation } from "react-i18next";
+import { AntDesign } from '@expo/vector-icons'
 
 const TuPerfil = () => {
+  const { t, i18n } = useTranslation();
   const [rol, setRol] = useState(false)
   const [modalState, setModalState] = useState(false)
   const [modalSport, setModalSport] = useState(false)
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.users)
+  const [selectedLanguaje, setSelectedLanguaje] = useState(i18n.language)
 
   useEffect(() => {
     dispatch(getUser(user?.id))
@@ -58,7 +63,7 @@ const TuPerfil = () => {
       dispatch(setSelectedIcon('TuPerfil'))
     }
   }, [isFocused])
-  const cumpleaños = moment(user.birthDate)
+  const cumpleaños = moment(user?.birthDate)
   const today = moment();
   const age = today.diff(cumpleaños, 'years');
 
@@ -88,7 +93,7 @@ const TuPerfil = () => {
               }}
             >
               <Text style={[styles.tuPerfil1, styles.tuPerfil1Typo]}>
-                TU PERFIL
+              {t("tuperfil")}
               </Text>
               {/* <Pressable onPress={() => navigation.goBack()}>
               <BackArrowSVG />
@@ -183,7 +188,7 @@ const TuPerfil = () => {
                   source={require('../../assets/solarsettingsbold.png')}
                 />
                 <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                  Gestiona tu cuenta
+                {t("gestionatucuenta")}
                 </Text>
               </Pressable>
               <View
@@ -198,7 +203,7 @@ const TuPerfil = () => {
                   source={require('../../assets/solarsettingsbold1.png')}
                 />
                 <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                  Premios alcanzados
+                {t("premios")}
                 </Text>
                 <View style={styles.soonButton}>
                   <Text style={styles.soonText}>Soon</Text>
@@ -216,7 +221,8 @@ const TuPerfil = () => {
                   source={require('../../assets/solarsettingsbold2.png')}
                 />
                 <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                  Entidades colaboradores
+                {t("entidades")}
+
                 </Text>
               </View>
               <Pressable
@@ -232,7 +238,8 @@ const TuPerfil = () => {
                   source={require('../../assets/solarsettingsbold3.png')}
                 />
                 <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                  Contactar con atención al cliente
+                {t("atencionalc")}
+
                 </Text>
               </Pressable>
               <Pressable
@@ -248,7 +255,8 @@ const TuPerfil = () => {
                   source={require('../../assets/solarsettingsbold4.png')}
                 />
                 <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                  Trabaja con nosotros
+                {t("trabajacon")}
+
                 </Text>
               </Pressable>
 
@@ -265,7 +273,8 @@ const TuPerfil = () => {
                   source={require('../../assets/solarsettingsbold.png')}
                 />
                 <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                  Ajustar preferencias de usuario
+                {t("userpref")}
+
                 </Text>
               </Pressable>
 
@@ -282,8 +291,8 @@ const TuPerfil = () => {
                 </View>
                 <Text style={[styles.cerrarSesin, styles.cerrarSesinTypo]}>
                   {user?.rol === 'sportsman'
-                    ? 'Ser organizador'
-                    : 'Ser deportista'}
+                    ? t("serorganizador")
+                    :t("serdeportista")}
                 </Text>
               </Pressable>
 
@@ -293,9 +302,9 @@ const TuPerfil = () => {
                   styles.solarsettingsSpaceBlock
                 ]}
                 onPress={async () => {
-                  // await AsyncStorage.clear()
-                  await dispatch(clearUser())
+                  await AsyncStorage.clear()
                   navigation.navigate('SignIn')
+                  await dispatch(clearUser())
                 }}
               >
                 <Image
@@ -304,9 +313,49 @@ const TuPerfil = () => {
                   source={require('../../assets/solarsettingsbold5.png')}
                 />
                 <Text style={[styles.cerrarSesin, styles.cerrarSesinTypo]}>
-                  Cerrar sesión
+                 {t("cerrarsesion")}
                 </Text>
               </Pressable>
+              <TouchableOpacity
+              onPress={async() => {
+                setSelectedLanguaje(
+                  selectedLanguaje === 'es' ? 'en' : 'es'
+                )
+                if (selectedLanguaje == "es") {
+                await i18n.changeLanguage("en")
+                }
+                else {
+                await i18n.changeLanguage("es")
+                }
+              }
+              }
+              style={{
+                borderRadius: 50,
+                marginTop: 40,
+                overflow: 'hidden',
+                backgroundColor: '#E2DCEC',
+                width: 105,
+                height: 40,
+                alignSelf: 'center',
+                paddingLeft: 15,
+                paddingRight: 10,
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexDirection: 'row'
+              }}
+            >
+              <Text
+                style={{
+                  color: '#40036F',
+                  fontSize: 15,
+                  fontWeight: 'bold',
+                  textAlign: 'center'
+                }}
+              >
+                {t('lang')}
+              </Text>
+              <AntDesign name="swap" size={20} color={'#40036F'} />
+            </TouchableOpacity>
             </View>
           </View>
         </ScrollView>

@@ -23,6 +23,7 @@ import { setSelectedIcon } from '../redux/slices/users.slices'
 import { getAllEvents } from '../redux/actions/events'
 import { visitEvent } from '../redux/actions/events'
 import { getEventByIdRedux } from '../redux/slices/events.slices'
+import { useTranslation } from "react-i18next";
 
 const HistorialDePruebas = () => {
   const [isFavorite, setIsFavorite] = useState({})
@@ -31,6 +32,7 @@ const HistorialDePruebas = () => {
   const dispatch = useDispatch()
   const { events, suscribedEvents } = useSelector((state) => state.events)
   const { user, eventFavorites } = useSelector((state) => state.users)
+  const { t, i18n } = useTranslation();
 
   const initializeFavorites = () => {
     const init = {}
@@ -93,7 +95,7 @@ const HistorialDePruebas = () => {
       dispatch(getAllEvents())
     },[])
   // console.log('events.title', events[1].suscribers)
-  console.log('events.title', events[1].dateInscription)
+  // console.log('events.title', events[1].dateInscription)
   return (
     <LinearGradient
       colors={['#fff', '#f9f9f9']}
@@ -263,7 +265,7 @@ const HistorialDePruebas = () => {
                               color: Color.sportsVioleta
                             }}
                           >
-                            {evnt.dateInscription}
+                            {evnt?.dateInscription}
                           </Text>
                         </View>
                       </View>

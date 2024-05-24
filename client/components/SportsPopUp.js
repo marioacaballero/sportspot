@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     padding: Padding.p_xl,
     marginTop: 15,
     justifyContent: 'space-between',
-    height: "90%"
+    height: "50%"
   },
   touchable: {
     alignItems: 'center',

@@ -105,6 +105,8 @@ const Calendario = ({ onClose, setEventsFilter, setSelected }) => {
       <Calendar
         onDayPress={handleDayPress}
         markingType={'period'}
+        firstDay={1}
+
         markedDates={generateMarkedDates()}
         theme={{
           calendarBackground: '#ffffff',
