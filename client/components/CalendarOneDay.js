@@ -88,11 +88,11 @@ const CalendarOneDay = ({ onClose, start, suscription,setValuesUser,valuesUser }
   const handleDayPress = (day) => {
     if (start && !suscription) {
       setSelected(day.dateString)
-      setValuesUser({...valuesUser,["birthDate"]:day.dateString})
+    setValuesUser && setValuesUser({...valuesUser,["birthDate"]:day.dateString})
       dispatch(setDateStart(day.dateString))
       console.log("pasa",day)
     } else {
-      setValuesUser({...valuesUser,["birthDate"]:day.dateString})
+      setValuesUser && setValuesUser({...valuesUser,["birthDate"]:day.dateString})
 
       setSelected(day.dateString)
       dispatch(setDateSuscription(day.dateString))

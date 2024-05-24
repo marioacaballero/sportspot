@@ -10,6 +10,7 @@ import { getAllSports } from '../redux/actions/sports'
 import { getAllEventsFilters } from '../redux/actions/events'
 import { setNameEvent } from '../redux/slices/events.slices'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
+import { useTranslation } from "react-i18next";
 
 const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
   const navigation = useNavigation()
@@ -25,6 +26,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
     location: '',
     dateStart: []
   })
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     dispatch(getAllSports())
@@ -94,7 +96,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
                 { fontWeight: 'bold' }
               ]}
             >
-              {eventsFilter.location ? eventsFilter.location : 'Localización'}
+              {eventsFilter.location ? eventsFilter.location : t("localizacion")}
             </Text>
           </View>
         </Pressable>
@@ -110,7 +112,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
               source={require('../assets/frame-1547755977.png')}
             />
             <Text style={styles.helloTypo}>
-              {!localSport ? 'Deporte' : localSport}
+              {!localSport ? t("deporte") : localSport}
             </Text>
           </View>
         </Pressable>
@@ -125,7 +127,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
               source={require('../assets/frame-1547755978.png')}
             />
             <Text style={styles.helloTypo}>
-              {!selected ? 'Fecha' : selected}
+              {!selected ? t("fecha") : selected}
             </Text>
           </View>
         </Pressable>
@@ -138,7 +140,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
             setMostrarInicioBuscador(false)
           }}
         >
-          <Text style={styles.helloAshfak6}>Buscar</Text>
+          <Text style={styles.helloAshfak6}>{t("buscar")}</Text>
         </Pressable>
       </View>
 

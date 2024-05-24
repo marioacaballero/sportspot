@@ -20,8 +20,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../redux/actions/users'
 import { ActivityIndicator } from 'react-native-paper'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
+import { useTranslation } from 'react-i18next'
 
 const IniciarSesin = ({ navigation }) => {
+  const { t, i18n } = useTranslation();
   const { user, userToken, loading, error } = useSelector(
     (state) => state.users
   )
@@ -51,8 +53,13 @@ const IniciarSesin = ({ navigation }) => {
 
       try {
         const storedToken = await AsyncStorage.getItem('token')
-        if (storedToken) {
+        if (storedToken && user.name) {
+          console.log("userrr",user)
           navigation.navigate('InicioDeportista')
+        }
+        if (storedToken && !user.name) {
+          console.log("userrr",user)
+          navigation.navigate('EditarPerfil')
         }
       } catch (error) {
         console.error('Error al recuperar el token:', error)
@@ -95,7 +102,7 @@ const IniciarSesin = ({ navigation }) => {
             resizeMode="contain"
             source={require('../../assets/spotsport.png')}
           />
-          <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>
+          <Text style={styles.encuentraTuPrueba}>{t("encuentratuprueba")}</Text>
         </View>
         {loading && (
           <ActivityIndicator
@@ -116,12 +123,12 @@ const IniciarSesin = ({ navigation }) => {
               marginBottom: 20
             }}
           >
-            Tu cuenta
+           {t("tucuenta")}
           </Text>
           <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={[styles.nombreDeUsuario, styles.entrarTypo]}
-              placeholder="Email"
+              placeholder={t("email")}
               autoCapitalize="none"
               value={loginInfo.email}
               onChangeText={(value) => valuesLogin('email', value)}
@@ -132,7 +139,7 @@ const IniciarSesin = ({ navigation }) => {
           <View style={[styles.contraseaWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={[styles.nombreDeUsuario, styles.entrarTypo]}
-              placeholder="Contraseña"
+              placeholder={t("contraseña")}
               value={loginInfo.password}
               onChangeText={(value) => valuesLogin('password', value)}
               secureTextEntry={true}
@@ -143,24 +150,24 @@ const IniciarSesin = ({ navigation }) => {
           </View>
           {error && (
             <Text style={[styles.hasOlvidadoTu2, styles.entrarTypo]}>
-              Email o contraseña incorrecta
+             {t("contraseñaerror")}
             </Text>
           )}
           <TouchableOpacity
             style={[styles.entrarWrapper, styles.wrapperFlexBox]}
             onPress={onSubmit}
           >
-            <Text style={[styles.entrar, styles.entrarTypo]}>Entrar</Text>
+            <Text style={[styles.entrar, styles.entrarTypo]}>{t("entrar")}</Text>
           </TouchableOpacity>
 
           <Pressable onPress={() => navigation.navigate('RecuperarContraseña')}>
             <Text style={[styles.hasOlvidadoTu, styles.entrarTypo]}>
-              ¿Has olvidado tu contraseña?
+            {t("olvidastelacontra")}
             </Text>
           </Pressable>
           <Pressable onPress={() => navigation.navigate('Registrarse')}>
             <Text style={[styles.hasOlvidadoTu, styles.entrarTypo]}>
-              Crea tu cuenta
+            {t("crearcuenta")}
             </Text>
           </Pressable>
         </View>

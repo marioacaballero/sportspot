@@ -9,8 +9,22 @@ import CiclismoSVG from './SVG/Sports/CiclismoSVG'
 import RugbySVG from './SVG/Sports/RugbySVG'
 import HandballSVG from './SVG/Sports/HandballSVG'
 import FutbolSVG from './SVG/Sports/FutbolSVG'
-import RunningSVG from './SVG/Sports/RunningSVG'
+import SenderismoSVG from './SVG/Sports/SenderismoSVG'
+import CarreraSVG from './SVG/Sports/CarreraSVG'
+import CiclismoSVG2 from './SVG/Sports/CiclismoSVG2'
+import TrailSVG from './SVG/Sports/TrailSVG'
+import PadelSVG from './SVG/Sports/PadelSVG'
+import TenisSVG from './SVG/Sports/TenisSVG'
+import CrossfitSVG from './SVG/Sports/CrossfitSVG'
+import EscaladaSVG from './SVG/Sports/EscaladaSVG'
+import OrientacionSVG from './SVG/Sports/OrientacionSVG'
+import PatinajeSVG from './SVG/Sports/PatinajeSVG'
+import GolfSVG from './SVG/Sports/GolfSVG'
+
+
 import { setSport } from '../redux/slices/sports.slices'
+import TenisSVG2 from './SVG/Sports/TenisSVG2'
+import TriatlonSVG from './SVG/Sports/TriatlonSVG.js'
 
 const Sports = ({ onClose, setEventsFilter, setLocalSport }) => {
   const dispatch = useDispatch()
@@ -71,25 +85,41 @@ const Sports = ({ onClose, setEventsFilter, setLocalSport }) => {
               }}
             >
               <View>
-                {sport?.name === 'futbol' && (
-                  <FutbolSVG showColor={showColor} />
+                {sport?.name === 'senderismo' && (
+                  // <FutbolSVG showColor={showColor} />
+                  <SenderismoSVG showColor={showColor}></SenderismoSVG>
                 )}
                 {sport?.name === 'ciclismo' && (
-                  <CiclismoSVG showColor={showColor} />
+                  <CiclismoSVG2 showColor={showColor} />
                 )}
-                {sport?.name === 'hockey' && (
-                  <HockeySVG showColor={showColor} />
+                {sport?.name === 'carrera' && (
+                  // <HockeySVG showColor={showColor} />
+                  <CarreraSVG showColor={showColor}></CarreraSVG>
                 )}
-                {sport?.name === 'tenis' && <TennisSVG showColor={showColor} />}
-                {sport?.name === 'running' && (
-                  <RunningSVG showColor={showColor} />
+                {sport?.name === 'tenis' &&
+                  <TenisSVG2 showColor={showColor} />}
+                {sport?.name === 'triatlon' && (
+           <TriatlonSVG showColor={showColor}></TriatlonSVG>
                 )}
-                {sport?.name === 'rugby' && <RugbySVG showColor={showColor} />}
-                {sport?.name === 'handball' && (
-                  <HandballSVG showColor={showColor} />
+                {sport?.name === 'trail' &&
+                 <TrailSVG showColor={showColor} />}
+                {sport?.name === 'padel' && (
+                  <PadelSVG showColor={showColor} />
                 )}
-                {sport?.name === 'basket' && (
-                  <BasketSVG showColor={showColor} />
+                {sport?.name === 'crossfit' && (
+                  <CrossfitSVG showColor={showColor} />
+                )}
+                 {sport?.name === 'escalada' && (
+                  <EscaladaSVG showColor={showColor} />
+                )}
+                 {sport?.name === 'orientacion' && (
+                  <OrientacionSVG showColor={showColor} />
+                )}
+                 {sport?.name === 'patinaje' && (
+                  <PatinajeSVG showColor={showColor} />
+                )}
+                 {sport?.name === 'golf' && (
+                  <GolfSVG showColor={showColor} />
                 )}
               </View>
             </TouchableOpacity>

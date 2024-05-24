@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Border, Color, FontFamily, FontSize, Padding } from '../GlobalStyles'
 
 import {
@@ -120,26 +120,35 @@ const Maps = ({ onClose, setEventsFilter }) => {
     }
     setSearchText('')
   }
+  useEffect(() => {
+  if(searchValue){
+    setEventsFilter((prevState) => ({
+      ...prevState,
+      location: searchValue
+    }))
+    onClose()
+  }
+  }, [searchValue])
 
-  
 
   return (
-    <View style={styles.container}>
+   
       <GooglePlacesAutocomplete
         placeholder="Buscar"
         query={{
-          key:'AIzaSyBH0Ey-G2PbWkSCLyGG1A9TCg9LDPlzQpc',
+          key: 'AIzaSyBH0Ey-G2PbWkSCLyGG1A9TCg9LDPlzQpc',
           language: 'es', // language of the results
         }}
+
+enablePoweredByContainer={false}
+styles={{container:{width:"90%",height:"100%",top:30}}}
+        fetchDetails={true}
+        onPress={(data, details = null) => {
+          setSearchValue(data.description)
        
 
-        GooglePlacesDetailsQuery={{fields: 'geometry'}}
-        GooglePlacesSearchQuery={{location:"España"}}
-        enablePoweredByContainer={false}
-        fetchDetails={true}  
-        onPress={(data, details = null) => setSearchValue(data.description)}
-        currentLocation={true}
-        currentLocationLabel='Current location'
+        }}
+
         onFail={(error) => console.log(error)}
         requestUrl={{
           url:
@@ -147,32 +156,18 @@ const Maps = ({ onClose, setEventsFilter }) => {
           useOnPlatform: 'web',
         }} // this in only required for use on the web. See https://git.io/JflFv more for details.
       />
-      <TouchableOpacity
-          disabled={!searchValue}
-          style={styles.helloAshfakWrapper}
-          onPress={() => {
-            console.log("saliendooo")
-            onClose()
-            setEventsFilter((prevState) => ({
-              ...prevState,
-              location: searchValue
-            }))
-          }}
-        >
-          <Text style={[styles.helloAshfak, styles.kmTypo]}>Listo</Text>
-        </TouchableOpacity>
-    </View>
+    
+
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    
-    alignSelf:"center",
+    alignSelf: "center",
     padding: 10,
-    paddingTop:  10,
-    height:"50%",
-    width:"90%",
+    paddingTop: 10,
+    minHeight: "50%",
+    width: "90%",
     backgroundColor: '#ecf0f1',
   },
   mapsLayout: {
@@ -234,7 +229,7 @@ const styles = StyleSheet.create({
     color: Color.sportsVioleta
   },
   helloAshfakWrapper: {
-    zIndex:99,
+    zIndex: 99,
     borderRadius: Border.br_31xl,
     backgroundColor: Color.sportsNaranja,
     height: 42,

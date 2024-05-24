@@ -51,7 +51,8 @@
           "merchantIdentifier": "",
           "enableGooglePay": true
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "extra": {
       "eas": {

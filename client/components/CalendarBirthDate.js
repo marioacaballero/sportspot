@@ -43,6 +43,8 @@ const CalendarBirthDate = ({ onClose, setDate, setValuesUser }) => {
         </ScrollView>
       )}
       <Calendar
+        firstDay={1}
+
         onMonthChange={(month) => handleMonthChange(month)}
         onYearChange={(year) => handleYearChange(year)}
         markedDates={{
