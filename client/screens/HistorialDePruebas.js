@@ -218,7 +218,7 @@ const HistorialDePruebas = () => {
                               fontSize: 12
                             }}
                           >
-                            Modalidad:
+                          {t("modalidad")}
                           </Text>
                           <Text
                             style={{
@@ -237,7 +237,7 @@ const HistorialDePruebas = () => {
                               color: Color.sportsVioleta
                             }}
                           >
-                            Fecha de la prueba:
+                            {t("fechaprueba")}
                           </Text>
                           <Text
                             style={{
@@ -255,7 +255,7 @@ const HistorialDePruebas = () => {
                               fontSize: 12
                             }}
                           >
-                            Fecha límite de insc.:
+                            {t("fechalimite")}
                           </Text>
                           <Text
                             style={{
@@ -284,7 +284,7 @@ const HistorialDePruebas = () => {
                             fontSize: 12
                           }}
                         >
-                          PRECIO DE INSCRIPCIÓN:
+                          {t("precioinscripcion")}
                         </Text>
                         <Text
                           style={{
@@ -323,7 +323,7 @@ const HistorialDePruebas = () => {
                           source={require('../assets/clarityeditsolid1.png')}
                         />
                         <Text style={styles.helloAshfak}>
-                          Escribe una reseña
+                          {t("escribirreseña")}
                         </Text>
                       </View>
                     </Pressable>

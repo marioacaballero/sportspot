@@ -333,7 +333,6 @@ const TuPerfil = () => {
                 width: 65,
                 height: 40,
                 alignSelf: 'center',
-                paddingLeft: 15,
                 paddingRight: 10,
                 justifyContent: 'space-between',
                 alignItems: 'center',
@@ -343,11 +342,10 @@ const TuPerfil = () => {
               <Text
                 style={{
                   borderRadius: 50,
-                  marginTop: 40,
+                  marginTop: 20,
                   overflow: 'hidden',
                   backgroundColor: '#E2DCEC',
-                  width: 105,
-                  height: 40,
+                  height: "100%",
                   alignSelf: 'center',
                   paddingLeft: 15,
                   paddingRight: 10,
@@ -356,7 +354,7 @@ const TuPerfil = () => {
                   flexDirection: 'row'
                 }}
               >
-                {i18n.language}
+                {i18n.language }
               </Text>
               <AntDesign name="swap" size={20} color={'#40036F'} />
             </TouchableOpacity>

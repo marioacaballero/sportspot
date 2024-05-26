@@ -126,6 +126,15 @@
   "modalidad":"Modalidad:",
   "fechaprueba":"Fecha de la prueba:",
   "fechalimite":"Fecha limite de insc.:",
-  "precioinscripcion":"PRECIO DE INSCRIPCIÓN:"
+  "precioinscripcion":"PRECIO DE INSCRIPCIÓN:",
+  "quedeportepracticas":"¿Qué deporte practicas?",
+  "turadio":"Establece tu radio de notificaciones",
+  "localidad":"Localidad",
+  "tulocalidad":"Selecciona tu localidad",
+  "radiokm":"Radio km",
+  "guardar":"Guardar",
+  "ingresatumail":"Ingresa tu mail",
+  "notificaciones":"Notificaciones",
+  "escribirreseña":"Escribe una reseña"
 
 }

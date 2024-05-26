@@ -125,5 +125,14 @@
   "modalidad": "Format:",
   "fechaprueba": "Event Date:",
   "fechalimite": "Registration Deadline:",
-  "precioinscripcion": "REGISTRATION FEE:"
+  "precioinscripcion": "REGISTRATION FEE:",
+  "quedeportepracticas": "What sport do you practice?",
+  "turadio": "Set your notification radius",
+  "localidad": "Location",
+  "tulocalidad": "Select your location",
+  "radiokm": "Radius km",
+  "guardar": "Save",
+  "ingresatumail": "Enter your email",
+  "notificaciones": "Notifications",
+  "escribirreseña": "Write a review"
 }

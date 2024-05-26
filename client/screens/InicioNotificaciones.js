@@ -13,6 +13,7 @@ import { Padding, Color, FontFamily, FontSize, Border } from '../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAlNotificationsByUser } from '../redux/actions/notifications'
 import { deleteEvent } from '../redux/actions/events'
+import { useTranslation } from "react-i18next";
 
 const InicioNotificaciones = () => {
   const { allNotifications, userNotifications } = useSelector(
@@ -24,6 +25,7 @@ const InicioNotificaciones = () => {
   // const navigation = useNavigation()
   const [isEnabled, setIsEnabled] = useState(false)
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     console.log('userid: ', user.id)
@@ -78,7 +80,7 @@ const InicioNotificaciones = () => {
           source={require('../assets/materialsymbolsnotifications2.png')}
         />
         <Text style={[styles.helloAshfak6, styles.imGoingToClr]}>
-          Notificaciones
+          {t("notificaciones")}
         </Text>
         <Switch
           trackColor={{ false: '#767577', true: '#F25910' }}
