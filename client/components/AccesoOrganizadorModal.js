@@ -14,11 +14,13 @@ import { Color } from '../GlobalStyles'
 import { updateUserRol } from '../redux/actions/users'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from "react-i18next";
 
 const AccesoOrganizadorModal = ({ toggleModal }) => {
   // const navigation = useNavigation()
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.users)
+  const { t, i18n } = useTranslation();
 
   const [input, setInput] = useState({
     email: '',
@@ -62,7 +64,7 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
           <View style={styles.container}>
             <View style={styles.topContainer}>
               <Text style={styles.titleText}>
-                Acceso como organizador
+                {t("accesoorganizador")}
                 {/* {user.rol === 'sportsman' ? 'organizador' : 'deportista'} */}
               </Text>
             </View>
@@ -103,7 +105,8 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
               }}
             >
               <TextInput
-                placeholder="Contraseña"
+                placeholder={t("contraseña")}
+
                 secureTextEntry={true}
                 onChangeText={(value) => onValuesInput('password', value)}
                 value={input.password}
@@ -116,7 +119,8 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
               />
             </View>
             <Pressable style={styles.pressableBox} onPress={onChangeRol}>
-              <Text style={styles.enterText}>Entrar</Text>
+              <Text style={styles.enterText}>{t("entrar")}
+</Text>
             </Pressable>
           </View>
         </View>

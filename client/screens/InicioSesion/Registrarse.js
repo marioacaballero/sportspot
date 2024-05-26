@@ -20,6 +20,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllUsers, register } from '../../redux/actions/users'
 import { createCustomer } from '../../redux/actions/stripe'
+import { useTranslation } from "react-i18next";
 
 import CustomAlert from '../../components/CustomAlert'
 
@@ -27,6 +28,7 @@ const Registrarse = () => {
   const emailInputRef = useRef(null)
   const passwordInputRef = useRef(null)
   const confirmPasswordRef = useRef(null)
+  const { t, i18n } = useTranslation();
 
   const dispatch = useDispatch()
 
@@ -114,7 +116,7 @@ const Registrarse = () => {
             contentFit="cover"
             source={require('../../assets/spotsport.png')}
           />
-          <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>
+          <Text style={styles.encuentraTuPrueba}>{t("encuentratuprueba")}</Text>
         </View>
 
         <View style={styles.frameGroup}>
@@ -137,12 +139,12 @@ const Registrarse = () => {
               fontWeight: 600
             }}
           >
-            Nuevo usuario
+           {t("nuevousuario")}
           </Text>
           <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
-              placeholder="Email"
+              placeholder={t("email")}
               value={registerUser.email}
               onChangeText={(value) => onValuesUser('email', value)}
               onSubmitEditing={() => passwordInputRef.current.focus()}
@@ -154,7 +156,7 @@ const Registrarse = () => {
           <View style={[styles.emailWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={styles.nombreDeUsuario}
-              placeholder="Contraseña"
+              placeholder={t("contraseña")}
               value={registerUser.password}
               onChangeText={(value) => onValuesUser('password', value)}
               secureTextEntry={true}
@@ -166,7 +168,7 @@ const Registrarse = () => {
           <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
             <TextInput
               style={styles.nombreDeUsuario}
-              placeholder="Confirmar contraseña"
+              placeholder={t("confirmarcontraseña")}
               value={confirmPassword}
               onChangeText={(value) => setConfirmPassword(value)}
               secureTextEntry={true}
@@ -181,12 +183,14 @@ const Registrarse = () => {
             }}
           >
             <Text style={[styles.registrarse1, styles.registrarse1Typo]}>
-              Registrarse
+            {t("registrarse")}
+
             </Text>
           </Pressable>
           <TouchableOpacity onPress={() => navigation.navigate('IniciarSesin')}>
             <Text style={[styles.hasOlvidadoTu, styles.registrarse1Typo]}>
-              ¿Ya tenes cuenta?
+            {t("yatenescuenta")}
+
             </Text>
           </TouchableOpacity>
         </View>

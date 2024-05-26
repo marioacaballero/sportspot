@@ -107,7 +107,7 @@ const HistorialDePruebas = () => {
         <View style={{ paddingHorizontal: Padding.p_xl }}>
           <View style={styles.containerHistorial}>
             <Text style={[styles.tuHistorialDe, styles.ciclismoTypo]}>
-              TU HISTORIAL DE PRUEBAS
+              {t("historialpruebas")}
             </Text>
             {/* <TouchableOpacity onPress={() => navigation.goBack()}>
               <BackArrowSVG />
@@ -117,7 +117,7 @@ const HistorialDePruebas = () => {
             <View style={styles.frameContainer}>
               <View style={styles.groupParentFlexBox}>
                 <Text style={[styles.todasLasPruebas, styles.ciclismoTypo]}>
-                  Todas las pruebas
+                  {t("todaslaspruebas")}
                 </Text>
               </View>
             </View>
@@ -126,8 +126,7 @@ const HistorialDePruebas = () => {
             ev?.suscribers?.some((userEvent) => userEvent.id === user.id)
           ).length === 0 && (
             <Text style={styles.text2}>
-              ¡Aquí podrás ver los eventos en los que has participado y dejarles
-              una reseña sobre tu experiencia!
+             {t("pruebasdesc")}
             </Text>
           )}
 

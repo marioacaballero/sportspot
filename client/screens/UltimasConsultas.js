@@ -19,9 +19,12 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { LinearGradient } from 'expo-linear-gradient'
 import { favorite, getUser } from '../redux/actions/users'
 import { getEventByIdRedux } from '../redux/slices/events.slices'
+import { useTranslation } from "react-i18next";
+
 
 const UltimasConsultas = () => {
   const navigation = useNavigation()
+  const { t, i18n } = useTranslation();
 
   const dispatch = useDispatch()
 
@@ -94,7 +97,7 @@ const UltimasConsultas = () => {
             <View style={{ width: '100%' }}>
               <View style={styles.titleContainer}>
                 <Text style={[styles.ltimasConsultas, styles.ciclismoTypo]}>
-                  ÚLTIMAS CONSULTAS
+                  {t("ultimasconsultas")}
                 </Text>
                 <Pressable></Pressable>
               </View>
@@ -118,10 +121,10 @@ const UltimasConsultas = () => {
                     style={[styles.ltimas24Horas, styles.ciclismoTypo]}
                   >
                     {switchStates[0]
-                      ? 'Últimas 24 horas'
+                      ? t("ultimas")
                       : switchStates[1]
-                      ? 'Última semana'
-                      : 'Último mes'}
+                      ?t("ultimassemana")
+                      : t("ultimomes")}
                   </Text>
                 </View>
                 {showSwitch && (
@@ -143,7 +146,7 @@ const UltimasConsultas = () => {
                           color: Color.sportsVioleta
                         }}
                       >
-                        Últimas 24 horas
+                       {t("ultimas")}
                       </Text>
                       <Switch
                         trackColor={{ false: '#767577', true: '#F25910' }}
@@ -170,7 +173,8 @@ const UltimasConsultas = () => {
                           color: Color.sportsVioleta
                         }}
                       >
-                        Última semana
+                      {t("ultimassemana")}
+
                       </Text>
                       <Switch
                         trackColor={{ false: '#767577', true: '#F25910' }}
@@ -197,7 +201,8 @@ const UltimasConsultas = () => {
                           color: Color.sportsVioleta
                         }}
                       >
-                        Último mes
+                      {t("ultimomes")}
+
                       </Text>
                       <Switch
                         trackColor={{ false: '#767577', true: '#F25910' }}
@@ -214,8 +219,7 @@ const UltimasConsultas = () => {
             {visitedEvents && visitedEvents?.length === 0 ? (
               <View style={styles.consultaContainer}>
                 <Text style={styles.ultimasConsultas1}>
-                  ¡Aqui podras volver a visitar los eventos vistos
-                  recientemente!
+                  {t("aquipodras")}
                 </Text>
               </View>
             ) : (
@@ -275,7 +279,7 @@ const UltimasConsultas = () => {
                             fontSize: 12
                           }}
                         >
-                          Modalidad:
+                          {t("modalidad")}
                         </Text>
                         <Text
                           style={{
@@ -295,7 +299,8 @@ const UltimasConsultas = () => {
                             color: Color.sportsVioleta
                           }}
                         >
-                          Fecha de la prueba:
+                        {t("fechaprueba")}
+
                         </Text>
                         <Text
                           style={{
@@ -310,7 +315,8 @@ const UltimasConsultas = () => {
                         <Text
                           style={{ color: Color.sportsVioleta, fontSize: 12 }}
                         >
-                          Fecha límite de insc.:
+                         {t("fechalimite")}
+
                         </Text>
                         <Text
                           style={{
@@ -337,7 +343,8 @@ const UltimasConsultas = () => {
                           fontSize: 12
                         }}
                       >
-                        PRECIO DE INSCRIPCIÓN:
+                         {t("precioinscripcion")}
+
                       </Text>
                       <Text
                         style={{

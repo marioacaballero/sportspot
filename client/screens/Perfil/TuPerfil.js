@@ -75,7 +75,7 @@ const TuPerfil = () => {
       end={{ x: 0, y: 1 }}
     >
       <View style={styles.tuPerfil}>
-        <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
+        <ScrollView keyboardShouldPersistTaps={'handled'} contentContainerStyle={{ paddingBottom: 20 }}>
           {modalState && (
             <DatosDeportista
               modalSport={modalSport}
@@ -334,7 +334,7 @@ const TuPerfil = () => {
                 marginTop: 40,
                 overflow: 'hidden',
                 backgroundColor: '#E2DCEC',
-                width: 105,
+                width: 65,
                 height: 40,
                 alignSelf: 'center',
                 paddingLeft: 15,
@@ -352,7 +352,7 @@ const TuPerfil = () => {
                   textAlign: 'center'
                 }}
               >
-                {t('lang')}
+                {i18n.language}
               </Text>
               <AntDesign name="swap" size={20} color={'#40036F'} />
             </TouchableOpacity>

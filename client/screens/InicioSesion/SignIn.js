@@ -256,7 +256,7 @@ export default function SignIn({ navigation }) {
                 marginTop: 40,
                 overflow: 'hidden',
                 backgroundColor: '#E2DCEC',
-                width: 105,
+                width: 70,
                 height: 40,
                 alignSelf: 'center',
                 paddingLeft: 15,
@@ -274,7 +274,7 @@ export default function SignIn({ navigation }) {
                   textAlign: 'center'
                 }}
               >
-                {t('lang')}
+                {i18n.language}
               </Text>
               <AntDesign name="swap" size={20} color={'#40036F'} />
             </TouchableOpacity>

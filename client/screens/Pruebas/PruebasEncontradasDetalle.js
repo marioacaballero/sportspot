@@ -29,9 +29,11 @@ import ModalSuscription from '../../components/ModalSuscription'
 import CardReview from './CardReview'
 import { setShowGuestModal } from '../../redux/slices/events.slices'
 import { getAllEvents } from '../../redux/actions/events'
+import { useTranslation } from "react-i18next";
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
   const dispatch = useDispatch()
+  const { t, i18n } = useTranslation();
 
   const { user, eventFavorites } = useSelector((state) => state.users)
   const { event, loading, events } = useSelector((state) => state.events)
@@ -204,8 +206,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   >
                     <Text style={styles.modalText}>
                       {isEventAlreadyAdded
-                        ? 'Anular inscripción'
-                        : 'Inscribirse'}
+                        ? t("anularinscripcion")
+                        :t("inscribirse")}
                     </Text>
                   </TouchableOpacity>
                 )}
@@ -250,7 +252,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-                Descripción:
+               {t("descripcion")}
               </Text>{' '}
               {eventState.description}
             </Text>
@@ -262,7 +264,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-                Creador del evento:
+                {t("creadorevento")}
               </Text>{' '}
               {eventState?.creator?.email}
             </Text>
@@ -274,7 +276,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-                Email del creador:
+               {t("emailcreador")}
               </Text>{' '}
               {eventState?.creator?.email}
             </Text>
@@ -286,7 +288,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-                Número de contacto:
+               {t("numerocontacto")}
               </Text>{' '}
               {eventState.phoneNumber}
             </Text>
@@ -298,7 +300,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-                Plazas disponibles:
+                {t("plazas")}
               </Text>{' '}
               {transformPlaces(eventState.places)}
             </Text>
@@ -310,7 +312,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 20
                 }}
               >
-                Reseñas de la prueba
+               {t("reseñasprueba")}
               </Text>{' '}
             </Text>
             {isEventAlreadyAdded && !isUserPostReview() && (
@@ -343,7 +345,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               contentFit="cover"
               source={require('../../assets/cilarrowtop.png')}
             />
-            <Text style={[styles.ciclismo, styles.ciclismoTypo]}>Atrás</Text>
+            <Text style={[styles.ciclismo, styles.ciclismoTypo]}> {t("atras")}</Text>
           </Pressable>
         </View>
 
@@ -383,7 +385,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
           transparent={true}
           visible={modalEditEvent}
         >
-          <View style={styles.modalOverlay}>
+          <View style={{width:"100%",height:"100%"}}>
             <EditEvent
               event={eventState}
               onClose={() => setModalEditEvent(false)}

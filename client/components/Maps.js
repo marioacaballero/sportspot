@@ -12,12 +12,14 @@ import {
 import cities from '../utils/cities.json'
 import mergedCities from '../utils/mergedCities.json'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
+import { useTranslation } from "react-i18next";
 
 const Maps = ({ onClose, setEventsFilter }) => {
   const [searchText, setSearchText] = useState('')
   const [searchValue, setSearchValue] = useState('')
 
   const [data, setData] = useState(mergedCities.slice(0, 100))
+  const { t, i18n } = useTranslation();
 
   const [filteredData, setFilteredData] = useState()
 
@@ -134,10 +136,10 @@ const Maps = ({ onClose, setEventsFilter }) => {
   return (
    
       <GooglePlacesAutocomplete
-        placeholder="Buscar"
+        placeholder={t("buscar")}
         query={{
           key: 'AIzaSyBH0Ey-G2PbWkSCLyGG1A9TCg9LDPlzQpc',
-          language: 'es', // language of the results
+          language: i18n.language, // language of the results
         }}
 
 enablePoweredByContainer={false}

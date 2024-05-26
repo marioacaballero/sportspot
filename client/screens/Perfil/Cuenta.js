@@ -137,7 +137,8 @@ const styles = StyleSheet.create({
     color: Color.sportsVioleta
   },
   gestionaTuCuentaContainer: {
-    fontSize: FontSize.size_11xl
+    fontSize: FontSize.size_11xl,
+    width:"80%"
   },
   vectorIcon: {
     width: 25,

@@ -25,12 +25,12 @@ import { SendMailsService } from './send-mails.service'
         host: 'smtp-mail.outlook.com',
         port: 587,
         auth: {
-          user: 'spotsports.test@hotmail.com',
-          pass: 'aythen1234'
+          user: 'aythenmensajeria@hotmail.com',
+          pass: 'aythen4321'
         }
       },
       defaults: {
-        from: 'spotsports.test@hotmail.com' // Dirección de correo electrónico del remitente
+        from: 'aythenmensajeria@hotmail.com' // Dirección de correo electrónico del remitente
       },
       template: {
         dir: join(__dirname, '..', 'template'), // Directorio de plantillas de correo electrónico

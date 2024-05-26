@@ -186,7 +186,6 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
       </Text>
 
       <Pressable style={styles.items} onPress={uploadImage}>
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M95.5039'} />
         <Text style={styles.text}>Portada del evento</Text>
         <Text style={styles.helloTypoScroll}>Portada</Text>
         {/* <Image
@@ -198,8 +197,7 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
         /> */}
       </Pressable>
 
-      <View style={styles.items}>
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M95.5039'} />
+      <Pressable style={styles.items}>
         <Text style={styles.text}>Nombre del evento</Text>
         <TextInput
           style={styles.helloTypoScroll}
@@ -207,30 +205,27 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
           onChangeText={(value) => onValuesEvent('title', value)}
           placeholderTextColor={Color.violetaPlaceholder}
         />
-      </View>
+      </Pressable>
 
-      <View style={[styles.items]}>
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M72.5039'} />
+      <Pressable style={[styles.items]}>
         <Text style={styles.text}>Descripcion</Text>
         <TextInput
           style={styles.helloTypoScroll}
           value={event.description}
           onChangeText={(value) => onValuesEvent('description', value)}
         />
-      </View>
+      </Pressable>
 
-      <View style={styles.items}>
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M52.5039'} />
+      <Pressable style={styles.items}>
         <Text style={styles.text}>Precio</Text>
         <TextInput
           style={styles.helloTypoScroll}
           value={event.price}
           onChangeText={(value) => onValuesEvent('price', value)}
         />
-      </View>
+      </Pressable>
 
       <Pressable style={styles.items} onPress={openFrameContainer6}>
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M74.5039'} />
         <Text style={styles.text}>Localizacion</Text>
         <Text style={styles.helloTypoScroll}>
           {event.location || eventRedux.location}{' '}
@@ -265,7 +260,6 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
           setCalendar(true)
         }}
       >
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M81.5039'} />
         <Text style={styles.text}>Fecha de inicio</Text>
         <Text style={styles.helloTypoScroll}>
           {dateChange ? dateStart : eventRedux.dateStart}
@@ -279,15 +273,13 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
           setCalendarInscription(true)
         }}
       >
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M102.5039'} />
         <Text style={styles.text}>Fecha de inscripción</Text>
         <Text style={styles.helloTypoScroll}>
           {dateSuscriptionChange ? dateSuscription : eventRedux.dateInscription}
         </Text>
       </Pressable>
 
-      <View style={styles.items}>
-        <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M46.5039'} />
+      <Pressable style={styles.items}>
         <Text style={styles.text}>Hora</Text>
         <TextInput
           style={styles.helloTypoScroll}
@@ -296,7 +288,7 @@ const EditEvent = ({ event: eventRedux, onClose }) => {
           keyboardType="numeric"
           maxLength={5}
         />
-      </View>
+      </Pressable>
 
       <TouchableOpacity style={styles.cancelButton} onPress={handleDelete}>
         <Text style={styles.whiteText}>Cancelar evento</Text>
@@ -396,33 +388,32 @@ const styles = StyleSheet.create({
   },
   items: {
     flexDirection: 'row',
+    borderWidth:1,
+    borderColor:"#3C006E",
     alignItems: 'center',
     marginBottom: 20,
     marginTop: 5,
     borderRadius: 30,
     height: 45,
     padding: 8,
-    marginLeft: 10
   },
   confirmButton: {
     height: 48,
-    width: '95%',
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 50,
     marginTop: 15,
     marginBottom: 15,
-    marginLeft: 10,
     backgroundColor: Color.sportsNaranja
   },
   cancelButton: {
     height: 48,
-    width: '95%',
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 50,
     marginTop: 20,
-    marginLeft: 10,
     backgroundColor: Color.colorGray_100
   },
   whiteText: {
@@ -442,13 +433,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(113, 113, 113, 0.3)'
   },
   text: {
+    backgroundColor:"white",
+    padding:3,
     fontSize: FontSize.size_5xs,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     color: Color.sportsVioleta,
     position: 'absolute',
     left: 18,
-    bottom: 39.5
+    bottom: 35.5
   }
 })
 

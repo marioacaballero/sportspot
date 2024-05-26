@@ -23,12 +23,14 @@ import { changePassword, deleteUser } from '../../redux/actions/users'
 import { clearUser } from '../../redux/slices/users.slices'
 import CustomAlert from '../../components/CustomAlert'
 import { LinearGradient } from 'expo-linear-gradient'
+import { useTranslation } from "react-i18next";
 
 const Seguridad = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const newPasswordInputRef = useRef(null)
   const passwordInputRef = useRef(null)
+  const { t, i18n } = useTranslation();
 
   const { user } = useSelector((state) => state.users)
 
@@ -122,8 +124,7 @@ const Seguridad = () => {
             <Text
               style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}
             >
-              {`GESTIONA TU
-CUENTA`}
+              {t("gestionatucuentaM")}
             </Text>
             {/* <Pressable onPress={() => navigation.goBack()}>
             <BackArrowSVG />
@@ -131,7 +132,8 @@ CUENTA`}
           </View>
           <View style={{ width: '100%' }}>
             <Text style={[styles.seguridad1, styles.seguridad1Typo]}>
-              Seguridad
+              {t("seguridad")}
+
             </Text>
           </View>
           <View style={styles.seguridadChild}>
@@ -161,20 +163,22 @@ CUENTA`}
                     color: Color.sportsVioleta
                   }}
                 >
-                  Contraseña
+                  {t("contraseña")}
+
                 </Text>
               </View>
               <View style={styles.inputParent}>
                 <View style={styles.inputLayout}>
                   <View style={styles.inputContent}>
                     <Text style={[styles.label, styles.labelFlexBox]}>
-                      Email
+                      {t("email")}
+
                     </Text>
                     <Text style={[styles.placehoder, styles.seguridad1Typo]}>
                       {user && user.email
                         ? `${user.email.substring(0, 3)}****${user.email.slice(
-                            -7
-                          )}`
+                          -7
+                        )}`
                         : ''}
                     </Text>
                   </View>
@@ -182,7 +186,8 @@ CUENTA`}
                 <View style={[styles.inputLayout]}>
                   <View style={styles.inputContent}>
                     <Text style={[styles.label, styles.labelFlexBox]}>
-                      Contraseña actual
+                      {t("contraseñaactual")}
+
                     </Text>
                     <TextInput
                       placeholder="********"
@@ -205,7 +210,8 @@ CUENTA`}
                   <View style={[styles.inputLayout]}>
                     <View style={styles.inputContent}>
                       <Text style={[styles.label, styles.labelFlexBox]}>
-                        Nueva contraseña
+                        {t("contraseñanueva")}
+
                       </Text>
                       <TextInput
                         placeholder="********"
@@ -223,7 +229,8 @@ CUENTA`}
                   <View style={[styles.inputLayout]}>
                     <View style={styles.inputContent}>
                       <Text style={[styles.label, styles.labelFlexBox]}>
-                        Repite la nueva contraseña
+                        {t("contraseñanueva2")}
+
                       </Text>
                       <TextInput
                         placeholder="********"
@@ -256,7 +263,8 @@ CUENTA`}
                 <Text
                   style={[styles.cambiarContrasea, styles.eliminarCuentaTypo]}
                 >
-                  Cambiar contraseña
+                  {t("cambiarcontraseña")}
+
                 </Text>
               </Pressable>
             </View>
@@ -267,7 +275,8 @@ CUENTA`}
               style={[styles.eliminarCuentaWrapper, styles.wrapperLayout]}
             >
               <Text style={[styles.eliminarCuenta, styles.eliminarCuentaTypo]}>
-                Eliminar cuenta
+                {t("eliminarcuenta")}
+
               </Text>
             </Pressable>
           </View>
@@ -343,7 +352,8 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_11xl,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    width:"80%"
   },
   gestionaTuCuentaWrapper: {
     top: 67

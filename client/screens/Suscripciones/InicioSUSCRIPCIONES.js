@@ -25,6 +25,7 @@ import { prices } from '../../utils/prices.stripe'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native'
 import axiosInstance from '../../utils/apiBackend'
+import { useTranslation } from "react-i18next";
 
 const InicioSUSCRIPCIONES = () => {
   const navigation = useNavigation()
@@ -34,6 +35,7 @@ const InicioSUSCRIPCIONES = () => {
     (state) => state.stripe
   )
   const { user } = useSelector((state) => state.users)
+  const { t, i18n } = useTranslation();
 
   const { initPaymentSheet, presentPaymentSheet } = useStripe(null)
 
@@ -133,7 +135,7 @@ const InicioSUSCRIPCIONES = () => {
       >
         <View style={styles.helloAshfakParent}>
           <Text style={[styles.helloAshfak2, styles.helloClr]}>
-            PLANES DE SUSCRIPCIÓN
+            {t("planessuscripcion")}
           </Text>
           {/* <Pressable
             style={styles.groupParent}
@@ -150,8 +152,8 @@ const InicioSUSCRIPCIONES = () => {
                   <Text style={[styles.estasSonLasContainer, styles.helloClr]}>
                     <Text style={styles.estasSonLasVentajasQueObt}>
                       <Text style={styles.helloTypo}>
-                        ¡Estas son algunas de las ventajas que obtendrías al
-                        hacerte Premium!
+                        {t("algunasventajas")}
+
                       </Text>
                     </Text>
                   </Text>
@@ -165,7 +167,10 @@ const InicioSUSCRIPCIONES = () => {
                         contentFit="cover"
                         source={require('../../assets/nuevo.png')}
                       />
-                      <Text style={styles.textos}>Sistema de alertas</Text>
+                      <Text style={styles.textos}>
+                        {t("sistemaalertas")}
+
+                      </Text>
                     </View>
                     <View style={styles.container}>
                       <Image
@@ -174,7 +179,8 @@ const InicioSUSCRIPCIONES = () => {
                         source={require('../../assets/reembolso.png')}
                       />
                       <Text style={styles.textos}>
-                        Reembolso por cancelación
+                      {t("reembolso")}
+
                       </Text>
                     </View>
                   </View>
@@ -185,7 +191,10 @@ const InicioSUSCRIPCIONES = () => {
                         contentFit="cover"
                         source={require('../../assets/reseña.png')}
                       />
-                      <Text style={styles.textos}>Reseñas de valor</Text>
+                      <Text style={styles.textos}>
+                      {t("reseñavalor")}
+
+                      </Text>
                     </View>
                     <View style={styles.container}>
                       <Image
@@ -193,7 +202,10 @@ const InicioSUSCRIPCIONES = () => {
                         contentFit="cover"
                         source={require('../../assets/descuento.png')}
                       />
-                      <Text style={styles.textos}>Descuentos especiales</Text>
+                      <Text style={styles.textos}>
+                      {t("descuentos")}
+                        
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -204,7 +216,8 @@ const InicioSUSCRIPCIONES = () => {
                 >
                   <View style={styles.helloAshfakWrapper}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-                      Consulta todas las ventajas
+                    {t("consultaventajas")}
+
                     </Text>
                   </View>
                 </Pressable>
@@ -212,7 +225,8 @@ const InicioSUSCRIPCIONES = () => {
                 <View style={styles.contentInner}>
                   <View style={styles.helloAshfakWrapper1}>
                     <Text style={styles.helloAshfak}>
-                      Adquiere tu plan ahora!
+                    {t("adquiereplan")}
+
                     </Text>
                   </View>
                 </View>
@@ -223,7 +237,8 @@ const InicioSUSCRIPCIONES = () => {
                 >
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-                      Plan mensual 5,99€
+                    {t("plan1")}
+
                     </Text>
                   </View>
                 </Pressable>
@@ -233,7 +248,8 @@ const InicioSUSCRIPCIONES = () => {
                 >
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-                      Plan trimestral 15,99€
+                    {t("plan2")}
+
                     </Text>
                   </View>
                 </Pressable>
@@ -243,7 +259,8 @@ const InicioSUSCRIPCIONES = () => {
                 >
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-                      Plan semestral 25,99€
+                    {t("plan3")}
+
                     </Text>
                   </View>
                 </Pressable>
@@ -253,7 +270,8 @@ const InicioSUSCRIPCIONES = () => {
                 >
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-                      Plan anual 45,99€
+                    {t("plan4")}
+
                     </Text>
                   </View>
                 </Pressable>

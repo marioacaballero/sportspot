@@ -12,6 +12,7 @@ import {
 } from '../../GlobalStyles'
 import { LinearGradient } from 'expo-linear-gradient'
 import { setSelectedIcon } from '../../redux/slices/users.slices'
+import { t } from 'i18next'
 
 const Favoritos1 = () => {
   const navigation = useNavigation()
@@ -106,7 +107,7 @@ const Favoritos1 = () => {
         >
           <View style={styles.topContainer}>
             <Text style={[styles.tusFavoritos, styles.imGoingToFlexBox]}>
-              TUS FAVORITOS
+             {t("tusfavoritos")}
             </Text>
             {/* <Pressable onPress={() => navigation.goBack()}>
             <BackArrowSVG />
@@ -114,7 +115,8 @@ const Favoritos1 = () => {
           </View>
           <View style={[styles.frameWrapper, styles.frameSpaceBlock]}>
             <View style={styles.groupParentFlexBox}>
-              <Text style={styles.tusListasTypo}>Tus listas</Text>
+              <Text style={styles.tusListasTypo}>{t("tuslistas")}
+</Text>
             </View>
           </View>
           {Object.keys(groupedFavorites).length > 0 ? (
@@ -136,7 +138,7 @@ const Favoritos1 = () => {
                       </Text>
                     </View>
                     <Text style={[styles.imGoingTo, styles.imGoingToFlexBox]}>
-                      ({item[1].length}) Pruebas añadidas
+                      ({item[1].length}) {t("pruebasañadidas")}
                     </Text>
                   </View>
                 </Pressable>
@@ -144,7 +146,7 @@ const Favoritos1 = () => {
             />
           ) : (
             <Text style={styles.favorites}>
-              ¡Todavía no has guardado ningún evento!
+              {t("nohayevento")}
             </Text>
           )}
         </View>
