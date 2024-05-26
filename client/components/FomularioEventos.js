@@ -21,13 +21,18 @@ import Maps from './Maps'
 import { getUser } from '../redux/actions/users'
 import BoxSVG from './SVG/BoxSVG'
 import { setSport } from '../redux/slices/sports.slices'
-import { createEvent } from '../redux/actions/events'
+import { createEvent, updateEvent } from '../redux/actions/events'
 import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
 import CustomAlert from './CustomAlert'
 import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native'
 import axiosInstance from '../utils/apiBackend'
 
-const FomularioEventos = () => {
+const FomularioEventos = ({
+  onEditMode,
+  eventData,
+  formattedEventData,
+  setEventData
+}) => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
 
@@ -40,20 +45,22 @@ const FomularioEventos = () => {
   const [selectedImage, setSelectedImage] = useState(null)
   const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
   const [sportsModal, setSportsModal] = useState(false)
-  const [event, setEvent] = useState({
-    title: '',
-    description: '',
-    price: '',
-    location: '',
-    timeStart: '',
-    eventLink: '',
-    inscriptionLink: '',
-    places: '',
-    mail: '',
-    phoneNumber: ''
-  })
+  const [event, setEvent] = useState(
+    formattedEventData || {
+      title: '',
+      description: '',
+      price: '',
+      location: '',
+      timeStart: '',
+      eventLink: '',
+      inscriptionLink: '',
+      places: '',
+      mail: '',
+      phoneNumber: ''
+    }
+  )
 
-  // console.log('sports: ', sport)
+  console.log('event: ', event)
   const [checked, setChecked] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [clientSecret, setClientSecret] = useState(null)
@@ -192,7 +199,7 @@ const FomularioEventos = () => {
   }
 
   const clearRedux = () => {
-    dispatch(setSport(''))
+    dispatch(setSport({}))
     dispatch(setDateStart(''))
     dispatch(setDateSuscription(''))
   }
@@ -212,6 +219,40 @@ const FomularioEventos = () => {
   const closeFrameContainer6 = useCallback(() => {
     setFrameContainer6Visible(false)
   }, [])
+
+  const onEdit = () => {
+    const data = {
+      title: event.title,
+      description: event.description,
+      sportId: sport && sport?.id,
+      eventLink: event.eventLink,
+      price: event?.price.slice(0, -1),
+      modality: sport?.type?.length ? sport.type : 'none',
+      location: event?.location,
+      phoneNumber: event.phoneNumber,
+      places: parseInt(event.places),
+      dateStart: dateStart || event.dateStart,
+      dateInscription: dateSuscription || event.dateEnd,
+      timeStart: '00:00',
+      image: selectedImage || event.image
+    }
+    dispatch(updateEvent({ id: eventData.id, updateEventDto: data }))
+    setEvent({
+      title: '',
+      description: '',
+      price: '',
+      location: '',
+      timeStart: '',
+      eventLink: '',
+      inscriptionLink: '',
+      places: '',
+      mail: '',
+      phoneNumber: '',
+      image: null
+    })
+    clearRedux()
+    navigation.goBack()
+  }
 
   const onSubmit = () => {
     const data = {
@@ -245,9 +286,12 @@ const FomularioEventos = () => {
       phoneNumber: '',
       image: null
     })
+    clearRedux()
     navigation.goBack()
     // setShowAlert(true)
   }
+
+  console.log('sport', sport)
 
   return (
     <View style={{ width: '100%' }}>
@@ -289,12 +333,14 @@ const FomularioEventos = () => {
           <Text style={styles.text}>Deporte</Text>
           <Text
             style={
-              sport.name ? styles.helloTypoScroll : styles.helloTypoScroll2
+              sport.name || event.sport
+                ? styles.helloTypoScroll
+                : styles.helloTypoScroll2
             }
           >
             {sport?.name?.slice(0, 1).toUpperCase()}
             {sport?.name?.slice(1)}{' '}
-            {sport.name ? sport?.type : 'Elije tu deporte'}
+            {sport.name ? sport?.type : 'Elige tu deporte'}
           </Text>
         </View>
       </Pressable>
@@ -402,9 +448,17 @@ const FomularioEventos = () => {
         >
           <Text style={styles.text}>Fecha de inicio</Text>
           <Text
-            style={dateStart ? styles.helloTypoScroll : styles.helloTypoScroll2}
+            style={
+              dateStart || event.dateStart
+                ? styles.helloTypoScroll
+                : styles.helloTypoScroll2
+            }
           >
-            {dateStart || 'Seleccione la fecha de inicio'}
+            {onEditMode
+              ? event.dateStart
+              : dateStart
+              ? dateStart
+              : 'Seleccione la fecha de inicio'}
           </Text>
         </View>
       </Pressable>
@@ -427,10 +481,16 @@ const FomularioEventos = () => {
           <Text style={styles.text}>Fecha límite de inscripción</Text>
           <Text
             style={
-              dateSuscription ? styles.helloTypoScroll : styles.helloTypoScroll2
+              dateSuscription || event.dateEnd
+                ? styles.helloTypoScroll
+                : styles.helloTypoScroll2
             }
           >
-            {dateSuscription || 'Fecha límite de inscripción'}
+            {onEditMode
+              ? event.dateEnd
+              : dateSuscription
+              ? dateSuscription
+              : 'Fecha límite de inscripción'}
           </Text>
         </View>
       </Pressable>
@@ -475,10 +535,12 @@ const FomularioEventos = () => {
             /> */}
             <Text
               style={
-                selectedImage ? styles.subirArchivoNuevo : styles.subirArchivo
+                selectedImage || event.image
+                  ? styles.subirArchivoNuevo
+                  : styles.subirArchivo
               }
             >
-              {selectedImage ? 'Cambiar' : 'Subir archivo'}
+              {selectedImage || event.image ? 'Cambiar' : 'Subir archivo'}
             </Text>
           </Pressable>
         </View>
@@ -547,20 +609,24 @@ const FomularioEventos = () => {
       <TouchableOpacity
         style={styles.submit}
         onPress={() => {
-          onSubmit(
-            event,
-            sport,
-            user,
-            selectedImage,
-            dispatch,
-            dateSuscription,
-            dateStart,
-            setShowAlert
-          )
+          if (onEditMode) {
+            onEdit()
+          } else {
+            onSubmit(
+              event,
+              sport,
+              user,
+              selectedImage,
+              dispatch,
+              dateSuscription,
+              dateStart,
+              setShowAlert
+            )
+          }
         }}
       >
         <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>
-          Enviar
+          {onEditMode ? 'Editar' : 'Enviar'}
         </Text>
       </TouchableOpacity>
 

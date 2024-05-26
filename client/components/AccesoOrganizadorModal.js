@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import {
   Pressable,
   StyleSheet,
@@ -7,7 +7,8 @@ import {
   View,
   Modal,
   Alert,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  Dimensions
 } from 'react-native'
 // import { useNavigation } from '@react-navigation/native'
 import { Color } from '../GlobalStyles'
@@ -26,6 +27,8 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
     email: '',
     password: ''
   })
+  const textInputRef = useRef(null)
+  const passInputRef = useRef(null)
   const navigation = useNavigation()
   const onChangeRol = () => {
     // if (user.rol === 'organizer') return Alert('Ya eres organizador')
@@ -44,9 +47,10 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
   }
 
   const onValuesInput = (field, value) => {
+    console.log('value: ', value)
     setInput((prevState) => ({
       ...prevState,
-      [field]: value
+      [field]: value || ''
     }))
   }
 
@@ -68,19 +72,20 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
                 {/* {user.rol === 'sportsman' ? 'organizador' : 'deportista'} */}
               </Text>
             </View>
-            <View
+            <Pressable
+              onPress={() => textInputRef.current?.focus()}
               style={{
+                width: '80%',
                 borderRadius: 30,
                 borderWidth: 1.5,
                 borderColor: Color.sportsVioleta,
-                width: '80%',
-                paddingVertical: 5,
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginBottom: 12
               }}
             >
               <TextInput
+                ref={textInputRef}
                 placeholder="Email"
                 onChangeText={(value) => onValuesInput('email', value)}
                 value={input.email}
@@ -88,17 +93,18 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
                 style={{
                   fontSize: 14,
                   color: Color.sportsVioleta,
-                  textAlign: 'center'
+                  textAlign: 'center',
+                  paddingVertical: 5
                 }}
               />
-            </View>
-            <View
+            </Pressable>
+            <Pressable
+              onPress={() => passInputRef.current?.focus()}
               style={{
+                width: '80%',
                 borderRadius: 30,
                 borderWidth: 1.5,
                 borderColor: Color.sportsVioleta,
-                width: '80%',
-                paddingVertical: 5,
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginBottom: 12
@@ -106,7 +112,7 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
             >
               <TextInput
                 placeholder={t("contraseña")}
-
+                ref={passInputRef}
                 secureTextEntry={true}
                 onChangeText={(value) => onValuesInput('password', value)}
                 value={input.password}
@@ -114,10 +120,12 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
                 style={{
                   fontSize: 14,
                   color: Color.sportsVioleta,
-                  textAlign: 'center'
+                  textAlign: 'center',
+                  paddingVertical: 5
                 }}
               />
-            </View>
+            </Pressable>
+
             <Pressable style={styles.pressableBox} onPress={onChangeRol}>
               <Text style={styles.enterText}>{t("entrar")}
 </Text>

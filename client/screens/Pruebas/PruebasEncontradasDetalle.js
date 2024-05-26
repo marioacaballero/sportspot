@@ -30,6 +30,7 @@ import CardReview from './CardReview'
 import { setShowGuestModal } from '../../redux/slices/events.slices'
 import { getAllEvents } from '../../redux/actions/events'
 import { useTranslation } from "react-i18next";
+import { setSport } from '../../redux/slices/sports.slices'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -37,7 +38,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
 
   const { user, eventFavorites } = useSelector((state) => state.users)
   const { event, loading, events } = useSelector((state) => state.events)
-
+  const { sports } = useSelector((state) => state.sports)
   const [eventState, setEventState] = useState(event)
   const [modalSuscription, setModalSuscription] = useState(false)
   const [modalEditEvent, setModalEditEvent] = useState(false)
@@ -186,7 +187,17 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   <TouchableOpacity
                     style={styles.editButton}
                     onPress={() => {
-                      setModalEditEvent(true)
+                      dispatch(
+                        setSport(
+                          sports.filter(
+                            (sport) => sport.id === eventState.sportId
+                          )[0]
+                        )
+                      )
+                      navigation.navigate('PublicarEvento', {
+                        eventState,
+                        onEdit: true
+                      })
                     }}
                   >
                     <Text style={styles.modalText}>Editar</Text>

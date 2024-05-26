@@ -27,12 +27,12 @@ import DatosDeportista from '../../components/DatosDeportista'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { LinearGradient } from 'expo-linear-gradient'
 // import { SafeAreaView } from 'react-native-safe-area-context'
-import moment from 'moment';
-import { useTranslation } from "react-i18next";
+import moment from 'moment'
+import { useTranslation } from 'react-i18next'
 import { AntDesign } from '@expo/vector-icons'
 
 const TuPerfil = () => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation()
   const [rol, setRol] = useState(false)
   const [modalState, setModalState] = useState(false)
   const [modalSport, setModalSport] = useState(false)
@@ -63,9 +63,9 @@ const TuPerfil = () => {
       dispatch(setSelectedIcon('TuPerfil'))
     }
   }, [isFocused])
-  const cumpleaños = moment(user?.birthDate)
-  const today = moment();
-  const age = today.diff(cumpleaños, 'years');
+  const cumpleaños = moment(user.birthDate)
+  const today = moment()
+  const age = today.diff(cumpleaños, 'years')
 
   return (
     <LinearGradient
@@ -93,7 +93,7 @@ const TuPerfil = () => {
               }}
             >
               <Text style={[styles.tuPerfil1, styles.tuPerfil1Typo]}>
-              {t("tuperfil")}
+                {t('tuperfil')}
               </Text>
               {/* <Pressable onPress={() => navigation.goBack()}>
               <BackArrowSVG />
@@ -188,7 +188,7 @@ const TuPerfil = () => {
                   source={require('../../assets/solarsettingsbold.png')}
                 />
                 <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                {t("gestionatucuenta")}
+                  {t('gestionatucuenta')}
                 </Text>
               </Pressable>
               <View
@@ -203,7 +203,7 @@ const TuPerfil = () => {
                   source={require('../../assets/solarsettingsbold1.png')}
                 />
                 <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                {t("premios")}
+                  {t('premios')}
                 </Text>
                 <View style={styles.soonButton}>
                   <Text style={styles.soonText}>Soon</Text>
@@ -221,8 +221,7 @@ const TuPerfil = () => {
                   source={require('../../assets/solarsettingsbold2.png')}
                 />
                 <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                {t("entidades")}
-
+                  {t('entidades')}
                 </Text>
               </View>
               <Pressable
@@ -238,8 +237,7 @@ const TuPerfil = () => {
                   source={require('../../assets/solarsettingsbold3.png')}
                 />
                 <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                {t("atencionalc")}
-
+                  {t('atencionalc')}
                 </Text>
               </Pressable>
               <Pressable
@@ -255,8 +253,7 @@ const TuPerfil = () => {
                   source={require('../../assets/solarsettingsbold4.png')}
                 />
                 <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                {t("trabajacon")}
-
+                  {t('trabajacon')}
                 </Text>
               </Pressable>
 
@@ -273,8 +270,7 @@ const TuPerfil = () => {
                   source={require('../../assets/solarsettingsbold.png')}
                 />
                 <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
-                {t("userpref")}
-
+                  {t('userpref')}
                 </Text>
               </Pressable>
 
@@ -291,8 +287,8 @@ const TuPerfil = () => {
                 </View>
                 <Text style={[styles.cerrarSesin, styles.cerrarSesinTypo]}>
                   {user?.rol === 'sportsman'
-                    ? t("serorganizador")
-                    :t("serdeportista")}
+                    ? t('serorganizador')
+                    : t('serdeportista')}
                 </Text>
               </Pressable>
 
@@ -313,7 +309,7 @@ const TuPerfil = () => {
                   source={require('../../assets/solarsettingsbold5.png')}
                 />
                 <Text style={[styles.cerrarSesin, styles.cerrarSesinTypo]}>
-                 {t("cerrarsesion")}
+                  {t('cerrarsesion')}
                 </Text>
               </Pressable>
               <TouchableOpacity
@@ -346,10 +342,18 @@ const TuPerfil = () => {
             >
               <Text
                 style={{
-                  color: '#40036F',
-                  fontSize: 15,
-                  fontWeight: 'bold',
-                  textAlign: 'center'
+                  borderRadius: 50,
+                  marginTop: 40,
+                  overflow: 'hidden',
+                  backgroundColor: '#E2DCEC',
+                  width: 105,
+                  height: 40,
+                  alignSelf: 'center',
+                  paddingLeft: 15,
+                  paddingRight: 10,
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  flexDirection: 'row'
                 }}
               >
                 {i18n.language}

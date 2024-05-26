@@ -38,10 +38,13 @@ export const getAllEventsFilters = createAsyncThunk(
 
 export const updateEvent = createAsyncThunk('update/event', async (body) => {
   const { id, updateEventDto } = body
+  console.log('updating event with: ', body)
   try {
     const { data } = await axiosInstance.patch(`/events/${id}`, updateEventDto)
+    console.log('response from updateEvent:', data)
     return data
   } catch (error) {
+    console.log('error from updateEvent', error)
     throw new Error(error)
   }
 })

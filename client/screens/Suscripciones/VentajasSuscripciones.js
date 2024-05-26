@@ -23,7 +23,10 @@ const VentajasSuscripciones = () => {
   const { t, i18n } = useTranslation();
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      contentContainerStyle={{ paddingBottom: 50 }}
+      style={styles.container}
+    >
       <View style={styles.helloAshfakParent}>
         <Text style={styles.helloAshfak2}>{t("planessuscripcion")}</Text>
         {/* <Pressable onPress={() => navigation.goBack()}>
@@ -152,8 +155,7 @@ const VentajasSuscripciones = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 10,
-    paddingBottom: Padding.p_5xl,
+    paddingTop: 30,
     paddingHorizontal: Padding.p_xl,
     width: '100%',
     flex: 1,
@@ -177,7 +179,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: Border.br_3xs,
-    backgroundColor: Color.colorMistyrose,
+    backgroundColor: '#fcede5',
     padding: Padding.p_xl,
     paddingHorizontal: 18,
     marginTop: 10
