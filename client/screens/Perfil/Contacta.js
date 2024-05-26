@@ -17,9 +17,11 @@ import {
 } from '../../GlobalStyles'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import { LinearGradient } from 'expo-linear-gradient'
+import { useTranslation } from "react-i18next";
 
 const Contacta = () => {
   const navigation = useNavigation()
+  const { t, i18n } = useTranslation();
 
   const handlePress = () => {
     alert('¡Gracias por contactarnos! Te responderemos a la brevedad')
@@ -35,7 +37,7 @@ const Contacta = () => {
     >
       <View style={styles.container}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Contáctanos</Text>
+          <Text style={styles.title}>{t("contactanos")}</Text>
           {/* <Pressable onPress={() => navigation.goBack()}>
             <BackArrowSVG />
           </Pressable> */}
@@ -44,19 +46,19 @@ const Contacta = () => {
           <View style={styles.messageContainer}>
             <TextInput
               style={styles.textInput}
-              placeholder="Escribe un mensaje..."
+              placeholder={t("contactanos")}
               multiline
               numberOfLines={10}
             />
           </View>
           <View style={styles.textContainer}>
-            <TextInput placeholder="Nombre" />
+            <TextInput placeholder={t("nombre")} />
           </View>
           <View style={styles.textContainer}>
-            <TextInput placeholder="Email" />
+            <TextInput placeholder={t("email")} />
           </View>
           <TouchableOpacity style={styles.sendContainer} onPress={handlePress}>
-            <Text style={styles.send}>Enviar</Text>
+            <Text style={styles.send}>{t("enviar")}</Text>
           </TouchableOpacity>
         </View>
       </View>

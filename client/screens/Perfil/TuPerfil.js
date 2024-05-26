@@ -75,7 +75,7 @@ const TuPerfil = () => {
       end={{ x: 0, y: 1 }}
     >
       <View style={styles.tuPerfil}>
-        <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
+        <ScrollView keyboardShouldPersistTaps={'handled'} contentContainerStyle={{ paddingBottom: 20 }}>
           {modalState && (
             <DatosDeportista
               modalSport={modalSport}
@@ -313,21 +313,39 @@ const TuPerfil = () => {
                 </Text>
               </Pressable>
               <TouchableOpacity
-                onPress={async () => {
-                  setSelectedLanguaje(selectedLanguaje === 'es' ? 'en' : 'es')
-                  if (selectedLanguaje == 'es') {
-                    await i18n.changeLanguage('en')
-                  } else {
-                    await i18n.changeLanguage('es')
-                  }
-                }}
+              onPress={async() => {
+                setSelectedLanguaje(
+                  selectedLanguaje === 'es' ? 'en' : 'es'
+                )
+                if (selectedLanguaje == "es") {
+                await i18n.changeLanguage("en")
+                }
+                else {
+                await i18n.changeLanguage("es")
+                }
+              }
+              }
+              style={{
+                borderRadius: 50,
+                marginTop: 40,
+                overflow: 'hidden',
+                backgroundColor: '#E2DCEC',
+                width: 65,
+                height: 40,
+                alignSelf: 'center',
+                paddingRight: 10,
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexDirection: 'row'
+              }}
+            >
+              <Text
                 style={{
                   borderRadius: 50,
-                  marginTop: 40,
+                  marginTop: 20,
                   overflow: 'hidden',
                   backgroundColor: '#E2DCEC',
-                  width: 105,
-                  height: 40,
+                  height: "100%",
                   alignSelf: 'center',
                   paddingLeft: 15,
                   paddingRight: 10,
@@ -336,18 +354,10 @@ const TuPerfil = () => {
                   flexDirection: 'row'
                 }}
               >
-                <Text
-                  style={{
-                    color: '#40036F',
-                    fontSize: 15,
-                    fontWeight: 'bold',
-                    textAlign: 'center'
-                  }}
-                >
-                  {t('lang')}
-                </Text>
-                <AntDesign name="swap" size={20} color={'#40036F'} />
-              </TouchableOpacity>
+                {i18n.language }
+              </Text>
+              <AntDesign name="swap" size={20} color={'#40036F'} />
+            </TouchableOpacity>
             </View>
           </View>
         </ScrollView>

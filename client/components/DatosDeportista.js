@@ -36,6 +36,7 @@ import EscaladaSVG from './SVG/Sports/EscaladaSVG'
 import OrientacionSVG from './SVG/Sports/OrientacionSVG'
 import PatinajeSVG from './SVG/Sports/PatinajeSVG'
 import GolfSVG from './SVG/Sports/GolfSVG'
+import { useTranslation } from "react-i18next";
 
 const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
   const dispatch = useDispatch()
@@ -49,6 +50,7 @@ const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
     location: ''
   })
   const [showAlert, setShowAlert] = useState(false)
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     dispatch(getAllSports())
@@ -129,7 +131,7 @@ const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
         }}
       >
         <View style={styles.container}>
-          <Text style={styles.containerText}>¿Qué deporte practicas?</Text>
+          <Text style={styles.containerText}>{t("quedeportepracticas")}</Text>
           <View
             style={{
               flexDirection: 'row',
@@ -215,16 +217,16 @@ const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
           </View>
 
           <Text style={styles.containerText2}>
-            Establece tu radio de notificaciones
+          {t("turadio")}
           </Text>
           <Pressable style={styles.button} onPress={openFrameContainer6}>
             {/* <BoxSVG style={{ left: -4, position: 'absolute' }} width={500} /> */}
 
-            <Text style={styles.buttonText}>Localidad</Text>
+            <Text style={styles.buttonText}>{t("localidad")}</Text>
             <Text style={styles.locationText}>
               {eventsFilter.location
                 ? eventsFilter.location
-                : 'Selecciona tu localidad'}
+                : t("tulocalidad")}
             </Text>
           </Pressable>
 
@@ -237,7 +239,7 @@ const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
                 color: Color.sportsVioleta
               }}
             >
-              Radio km
+              {t("radiokm")}
             </Text>
             <View style={styles.line}></View>
             <View style={styles.kmContainer}>
@@ -309,7 +311,7 @@ const DatosDeportista = ({ modalSport, setModalSport, setModalState }) => {
           </View>
 
           <TouchableOpacity style={styles.buttonSave} onPress={handleSubmit}>
-            <Text style={styles.saveText}>Guardar</Text>
+            <Text style={styles.saveText}>{t("guardar")}</Text>
           </TouchableOpacity>
         </View>
 

@@ -16,9 +16,11 @@ import {
 } from '../../GlobalStyles'
 import { useNavigation } from '@react-navigation/native'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
+import { useTranslation } from "react-i18next";
 
 const VentajasSuscripciones = () => {
   const navigation = useNavigation()
+  const { t, i18n } = useTranslation();
 
   return (
     <ScrollView
@@ -26,7 +28,7 @@ const VentajasSuscripciones = () => {
       style={styles.container}
     >
       <View style={styles.helloAshfakParent}>
-        <Text style={styles.helloAshfak2}>PLANES DE SUSCRIPCIÓN</Text>
+        <Text style={styles.helloAshfak2}>{t("planessuscripcion")}</Text>
         {/* <Pressable onPress={() => navigation.goBack()}>
           <BackArrowSVG />
         </Pressable> */}
@@ -38,11 +40,17 @@ const VentajasSuscripciones = () => {
             contentFit="cover"
             source={require('../../assets/alerta.png')}
           />
-          <Text style={styles.boxText}>
-            Sistema de alertas. Nos preocupamos porque esstés bien informado,
-            por eso te enviaremos alertas de las pruebas sobre apertura, cambio
-            o finalización de plazo de inscripción.
-          </Text>
+          {i18n.language == "es" ? (
+            <Text style={styles.boxText}>
+              Sistema de alertas. Nos preocupamos porque esstés bien informado,
+              por eso te enviaremos alertas de las pruebas sobre apertura, cambio
+              o finalización de plazo de inscripción.
+            </Text>
+          ) : (
+            <Text style={styles.boxText}>
+              Alert system. We care about keeping you well informed, so we will send you alerts regarding the opening, changes, or deadline of registration periods for events.
+            </Text>
+          )}
         </View>
 
         <View style={styles.boxContent}>
@@ -51,10 +59,16 @@ const VentajasSuscripciones = () => {
             contentFit="cover"
             source={require('../../assets/cancelacion.png')}
           />
-          <Text style={styles.boxText}>
-            Cancelación gratuita. Podrás cancelar tu inscripción hasta 20 días
-            antes de la celebración de tu prueba sin ningún coste adicional.
-          </Text>
+          {i18n.language == "es" ? (
+            <Text style={styles.boxText}>
+              Cancelación gratuita. Podrás cancelar tu inscripción hasta 20 días
+              antes de la celebración de tu prueba sin ningún coste adicional.
+            </Text>
+          ) : (
+            <Text style={styles.boxText}>
+              Free cancellation. You can cancel your registration up to 20 days before the date of your event at no additional cost.
+            </Text>
+          )}
         </View>
 
         <View style={styles.boxContent}>
@@ -63,11 +77,17 @@ const VentajasSuscripciones = () => {
             contentFit="cover"
             source={require('../../assets/descuentos.png')}
           />
-          <Text style={styles.boxText}>
-            Descuentos y ofertas exclusivas. Nuestro sistema de puntos te
-            recompensa facilitando que alcances mejores premios al ser un
-            usuario suscriptor.
-          </Text>
+          {i18n.language == "es" ? (
+            <Text style={styles.boxText}>
+              Descuentos y ofertas exclusivas. Nuestro sistema de puntos te
+              recompensa facilitando que alcances mejores premios al ser un
+              usuario suscriptor.
+            </Text>
+          ) : (
+            <Text style={styles.boxText}>
+              Discounts and exclusive offers. Our points system rewards you by making it easier for you to reach better rewards as a subscribing user.
+            </Text>
+          )}
         </View>
 
         <View style={styles.boxContent}>
@@ -76,45 +96,55 @@ const VentajasSuscripciones = () => {
             contentFit="cover"
             source={require('../../assets/experiencia.png')}
           />
-          <Text style={styles.boxText}>
+          {i18n.language == "es" ? (
+            <Text style={styles.boxText}>
             Nos preocupamos por la autenticidad de tu experiencia y la de los
             demás deportistas de SpotSport. Contarás con la capacidad de crear
             reseñass, asegurando la calidad de la información y obteniendo
             puntos en nuestro sistema de gamificación
           </Text>
+          ) : (
+            <Text style={styles.boxText}>
+           We care about the authenticity of your experience and that of other SpotSport athletes. You will have the ability to create reviews, ensuring the quality of information and earning points in our gamification system.
+          </Text>
+          )}
         </View>
 
         <View style={styles.contentInner}>
           <View style={styles.helloAshfakWrapper1}>
-            <Text style={styles.helloAshfak}>Adquiere tu plan ahora!</Text>
+            <Text style={styles.helloAshfak}>{t("adquiereplan")}
+            </Text>
           </View>
         </View>
 
         <Pressable style={styles.contentInner}>
           <View style={styles.helloAshfakWrapper4}>
             <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-              Plan mensual 5,99€
+              {t("plan1")}
             </Text>
           </View>
         </Pressable>
         <Pressable style={styles.contentInner}>
           <View style={styles.helloAshfakWrapper4}>
             <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-              Plan trimestral 15,99€
+              {t("plan2")}
+
             </Text>
           </View>
         </Pressable>
         <Pressable style={styles.contentInner}>
           <View style={styles.helloAshfakWrapper4}>
             <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-              Plan semestral 25,99€
+              {t("plan3")}
+
             </Text>
           </View>
         </Pressable>
         <Pressable style={styles.contentInner}>
           <View style={styles.helloAshfakWrapper4}>
             <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-              Plan anual 45,99€
+              {t("plan4")}
+
             </Text>
           </View>
         </Pressable>
@@ -158,7 +188,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 20,
-    height: 'auto',
+    height: "auto",
     paddingBottom: 30,
     width: '100%'
   },
@@ -166,12 +196,12 @@ const styles = StyleSheet.create({
     color: Color.sportsVioleta,
     fontSize: 13,
     width: '83%',
-    fontWeight: '500'
+    fontWeight: "500"
   },
   imageIcon: {
     width: 25,
     height: 25,
-    alignSelf: 'center'
+    alignSelf: "center"
   },
   contentInner: {
     marginTop: 16,
@@ -180,7 +210,7 @@ const styles = StyleSheet.create({
   helloAshfak7: {
     fontSize: FontSize.inputPlaceholder_size,
     color: Color.blanco,
-    fontWeight: 'bold'
+    fontWeight: "bold"
   },
   helloAshfakWrapper1: {
     borderRadius: Border.br_31xl,
@@ -193,7 +223,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputPlaceholder_size,
     color: Color.sportsVioleta,
     fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: 'bold'
+    fontWeight: "bold"
   },
   helloAshfakWrapper4: {
     borderRadius: Border.br_31xl,

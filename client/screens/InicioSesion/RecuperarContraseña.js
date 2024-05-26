@@ -22,11 +22,13 @@ import {
   validateResetPassword
 } from '../../redux/actions/users'
 import CustomAlert from '../../components/CustomAlert'
+import { useTranslation } from "react-i18next";
 
 const RecuperarContraseña = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
+  const { t, i18n } = useTranslation();
   const { users } = useSelector((state) => state.users)
 
   const [email, setEmail] = useState('')
@@ -114,11 +116,11 @@ const RecuperarContraseña = () => {
             contentFit="cover"
             source={require('../../assets/spotsport.png')}
           />
-          <Text style={styles.encuentraTuPrueba}>ENCUENTRA TU PRUEBA</Text>
+          <Text style={styles.encuentraTuPrueba}>{t("encuentratuprueba")}</Text>
         </View>
         {currentStage === 1 && (
           <View style={styles.frameGroup}>
-            <Text style={styles.hasOlvidadoTu}>Ingresa tu mail</Text>
+            <Text style={styles.hasOlvidadoTu}>{t("ingresatumail")}</Text>
             <View
               style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}
             >

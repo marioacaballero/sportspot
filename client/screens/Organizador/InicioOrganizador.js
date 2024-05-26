@@ -23,6 +23,7 @@ import ContactoSVG from '../../components/SVG/ContactoSVG'
 import AccesoOrganizadorModal from '../../components/AccesoOrganizadorModal'
 import { useDispatch, useSelector } from 'react-redux'
 import { setShowGuestModal } from '../../redux/slices/events.slices'
+import { useTranslation } from "react-i18next";
 
 const InicioOrganizador = () => {
   const navigation = useNavigation()
@@ -30,6 +31,7 @@ const InicioOrganizador = () => {
   // console.log(user?.rol)
   const isGuest = user?.email === 'guestUser@gmail.com'
   const dispatch = useDispatch()
+  const { t, i18n } = useTranslation();
 
   const [modalVisible, setModalVisible] = useState(false)
 
@@ -51,7 +53,7 @@ const InicioOrganizador = () => {
               toggleModal()
             }}
           >
-            <Text style={styles.buttonsText}>Acceso como organizador</Text>
+            <Text style={styles.buttonsText}>{t("accesoorganizador")}</Text>
           </Pressable>
         )}
         {/* {user?.rol === 'organizer' && (
@@ -74,7 +76,7 @@ const InicioOrganizador = () => {
           }}
           // disabled={user?.rol === 'sportsman'}
         >
-          <Text style={styles.buttonsText}>Publicar un evento</Text>
+          <Text style={styles.buttonsText}>{t("publicarevento")}</Text>
         </Pressable>
         {/* <Pressable
           style={styles.helloAshfakWrapper}
@@ -85,7 +87,7 @@ const InicioOrganizador = () => {
       </View>
       <View style={styles.frameView}>
         <Text style={styles.helloAshfak3}>
-          Breve descripción del servicio a organizadores
+        {t("brevedescripcion")}
         </Text>
         <View style={[styles.healthiconsmegaphoneParent]}>
           <Image
@@ -95,10 +97,12 @@ const InicioOrganizador = () => {
           />
           <View style={styles.helloAshfakParent1}>
             <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
-              NUEVO PUNTO DE CONTACTO
+            {t("nuevopunto")}
+
             </Text>
             <Text style={[styles.helloAshfak5, styles.helloTypo]}>
-              Entre deportistas y organizadores.
+            {t("entredeportistas")}
+
             </Text>
           </View>
         </View>
@@ -110,10 +114,12 @@ const InicioOrganizador = () => {
         <View style={styles.healthiconsmegaphoneParent}>
           <View style={styles.helloAshfakParent2}>
             <Text style={[styles.helloAshfak6, styles.helloLayout]}>
-              AUMENTO DE INSCRIPCIONES
+            {t("aumentoinscripciones")}
+
             </Text>
             <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-              En las competiciones ofrecidas por los organizadores
+            {t("encompeticiones")}
+
             </Text>
           </View>
           <View style={styles.vectorParent}>
@@ -137,10 +143,12 @@ const InicioOrganizador = () => {
           />
           <View style={styles.helloAshfakParent3}>
             <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
-              AUMENTO DE INGRESOS
+            {t("aumentoingresos")}
+
             </Text>
             <Text style={[styles.helloAshfak9, styles.helloTypo]}>
-              Para los organizadores de los eventos deportivos
+            {t("paralosorganizadores")}
+
             </Text>
           </View>
         </View>
@@ -154,11 +162,12 @@ const InicioOrganizador = () => {
         <View style={styles.healthiconsmegaphoneParent}>
           <View style={styles.helloAshfakParent2}>
             <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
-              ÉXITO DE PRUEBAS
+            {t("exitopruebas")}
+
             </Text>
             <Text style={[styles.helloAshfak9, styles.helloTypo]}>
-              Por parte de los deportistas, generando renombre en competiciones
-              de los organizadores
+            {t("porpartede")}
+
             </Text>
           </View>
           <Image

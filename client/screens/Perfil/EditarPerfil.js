@@ -30,10 +30,12 @@ import {
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import CalendarOneDay from '../../components/CalendarOneDay'
 import { setDateStart } from '../../redux/slices/events.slices'
+import { useTranslation } from "react-i18next";
 
 const EditarPerfil = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
+  const { t, i18n } = useTranslation();
 
   // const { dateStart } = useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
@@ -115,8 +117,7 @@ const EditarPerfil = () => {
             <Text
               style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}
             >
-              {`GESTIONA TU
-CUENTA`}
+              {t("gestionatucuentaM")}
             </Text>
             {/* <Pressable onPress={() => navigation.goBack()}>
               <BackArrowSVG />
@@ -126,7 +127,7 @@ CUENTA`}
             <View
               style={[styles.editarPerfilWrapper, styles.groupParentFlexBox]}
             >
-              <Text style={styles.editarPerfil1}>Editar perfil</Text>
+              <Text style={styles.editarPerfil1}>{t("editarperfil")}</Text>
             </View>
           </View>
           <Pressable
@@ -145,7 +146,7 @@ CUENTA`}
               }
             />
             <View style={styles.editar}>
-              <Text style={styles.editarText}>Editar</Text>
+              <Text style={styles.editarText}>{t("editar")}</Text>
             </View>
           </Pressable>
           <View style={styles.frameParent}>
@@ -160,7 +161,7 @@ CUENTA`}
                   <Text
                     style={[styles.datosPersonales, styles.card1ChildPosition]}
                   >
-                    Datos personales
+                    {t("datospersonales")}
                   </Text>
                 </View>
                 <View style={[styles.inputParent, styles.inputFlexBox]}>
@@ -169,7 +170,8 @@ CUENTA`}
                       style={[styles.inputContent, styles.inputContentFlexBox]}
                     >
                       <Text style={[styles.label, styles.labelFlexBox]}>
-                        Nombre
+                        {t("nombre")}
+
                       </Text>
                       <TextInput
                         style={{
@@ -192,7 +194,8 @@ CUENTA`}
                       style={[styles.inputContent, styles.inputContentFlexBox]}
                     >
                       <Text style={[styles.label, styles.labelFlexBox]}>
-                        Apellido
+                        {t("apellido")}
+
                       </Text>
                       <TextInput
                         style={{
@@ -225,7 +228,8 @@ CUENTA`}
                         ]}
                       >
                         <Text style={[styles.label, styles.labelFlexBox]}>
-                          Género
+                          {t("genero")}
+
                         </Text>
                         <Picker
                           style={styles.inputGenre}
@@ -237,9 +241,12 @@ CUENTA`}
                             settingValuesUser('genres', itemValue)
                           }
                         >
-                          <Picker.Item label="Hombre" value="Hombre" />
-                          <Picker.Item label="Mujer" value="Mujer" />
-                          <Picker.Item label="Otros" value="Otros" />
+                          <Picker.Item label={t("hombre")}
+                            value="Hombre" />
+                          <Picker.Item label={t("mujer")}
+                            value="Mujer" />
+                          <Picker.Item label={t("otros")}
+                            value="Otros" />
                         </Picker>
                       </View>
                     </View>
@@ -252,7 +259,8 @@ CUENTA`}
                       >
                         <View style={[styles.inputContentDate]}>
                           <Text style={[styles.label, styles.labelFlexBox]}>
-                            Fecha de nacimiento
+                            {t("nacimiento")}
+
                           </Text>
                           <TextInput
                             placeholder={user?.birthDate || '12/12/2000'}
@@ -297,7 +305,8 @@ CUENTA`}
                   <Text
                     style={[styles.datosPersonales, styles.card1ChildPosition]}
                   >
-                    Datos de contacto
+                    {t("datoscontacto")}
+
                   </Text>
                 </View>
               </View>
@@ -307,7 +316,8 @@ CUENTA`}
                     style={[styles.inputContent, styles.inputContentFlexBox]}
                   >
                     <Text style={[styles.label, styles.labelFlexBox]}>
-                      Email
+                    {t("email")}
+
                     </Text>
                     <Text
                       style={{
@@ -324,11 +334,12 @@ CUENTA`}
                     style={[styles.inputContent, styles.inputContentFlexBox]}
                   >
                     <Text style={[styles.label, styles.labelFlexBox]}>
-                      Teléfono
+                    {t("telefono")}
+
                     </Text>
                     <TextInput
                       style={{ fontWeight: '700', color: Color.sportsVioleta }}
-                      placeholder={user?.phoneNumber || 'Escribe aqui...'}
+                      placeholder={user?.phoneNumber ||t("escribeaca")}
                       placeholderTextColor={
                         user.phoneNumber ? Color.sportsVioleta : 'gray'
                       }
@@ -345,11 +356,12 @@ CUENTA`}
                     style={[styles.inputContent, styles.inputContentFlexBox]}
                   >
                     <Text style={[styles.label, styles.labelFlexBox]}>
-                      Dirección
+                    {t("direccion")}
+
                     </Text>
                     <TextInput
                       style={{ fontWeight: '700', color: Color.sportsVioleta }}
-                      placeholder={user?.address || 'Escribe aqui...'}
+                      placeholder={user?.address || t("escribeaca")}
                       placeholderTextColor={
                         user.address ? Color.sportsVioleta : 'gray'
                       }
@@ -365,7 +377,8 @@ CUENTA`}
                   onPress={onSubmit}
                 >
                   <Text style={[styles.helloAshfak, styles.kmTypo]}>
-                    Actualizar
+                  {t("actualizar")}
+
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -474,7 +487,8 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     textAlign: 'left',
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    width:"80%"
   },
   editarPerfil1: {
     fontSize: 19,

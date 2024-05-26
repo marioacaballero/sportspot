@@ -9,9 +9,11 @@ import {
   FontSize
 } from '../../../GlobalStyles'
 import BackArrowSVG from '../../../components/SVG/BackArrowSVG'
+import { useTranslation } from "react-i18next";
 
 const Metodo = () => {
   const navigation = useNavigation()
+  const { t, i18n } = useTranslation();
 
   return (
     <View style={styles.metodo}>
@@ -25,13 +27,13 @@ const Metodo = () => {
         </View>
         <View style={styles.frameWrapper}>
           <Text style={[styles.datosDePago, styles.labelFlexBox]}>
-            Datos de pago
+           {t("datosdepago")}
           </Text>
         </View>
       </View>
       <View style={styles.gestionaTuCuentaWrapper}>
         <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
-          GESTIONA TU CUENTA
+        {t("gestionatucuentaM")}
         </Text>
         {/* <Pressable onPress={() => navigation.goBack()}>
           <BackArrowSVG />
@@ -40,20 +42,22 @@ const Metodo = () => {
       <View style={[styles.metodoInner, styles.metodoInnerPosition]}>
         <View style={styles.datosDePagoContainer}>
           <Text style={[styles.datosDePago1, styles.datosTypo]}>
-            Datos de pago
+          {t("datosdepago")}
           </Text>
         </View>
       </View>
       <View style={styles.inputParent}>
         <View style={styles.input}>
           <Text style={[styles.label, styles.labelFlexBox]}>
-            Nombre del titular
+          {t("nombredeltitular")}
+
           </Text>
           <Text style={[styles.placehoder, styles.labelFlexBox]}>Nombre</Text>
         </View>
         <View style={styles.input}>
           <Text style={[styles.label, styles.labelFlexBox]}>
-            Número de tarjeta
+          {t("numerodetarjeta")}
+
           </Text>
           <Text style={[styles.placehoder, styles.labelFlexBox]}>
             XXXX - XXXX - XXXX - XXXX
@@ -68,12 +72,12 @@ const Metodo = () => {
           }}
         >
           <View style={styles.inputBorder}>
-            <Text style={[styles.label, styles.labelFlexBox]}>Tipo</Text>
+            <Text style={[styles.label, styles.labelFlexBox]}>{t("tipo")}</Text>
             <Text style={[styles.placehoder, styles.labelFlexBox]}>Visa</Text>
           </View>
           <View style={[styles.input3, styles.inputBorder2]}>
             <Text style={[styles.label, styles.labelFlexBox]}>
-              Fecha de caducidad
+            {t("fechacaducidad")}
             </Text>
             <Text style={[styles.placehoder, styles.labelFlexBox]}>30/27</Text>
           </View>

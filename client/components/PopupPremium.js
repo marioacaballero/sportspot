@@ -2,9 +2,11 @@ import React from 'react'
 import { Text, StyleSheet, View, Image, Pressable } from 'react-native'
 import { Padding, FontFamily, FontSize, Color, Border } from '../GlobalStyles'
 import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from "react-i18next";
 
 const PopupPremium = ({ setModalVisible }) => {
   const navigation = useNavigation()
+  const { t, i18n } = useTranslation();
 
   return (
     <View style={styles.premium}>
@@ -17,18 +19,24 @@ const PopupPremium = ({ setModalVisible }) => {
         <Text style={styles.helloAshfak6}>Premium</Text>
       </View>
       <Text style={[styles.helloAshfak7, styles.helloSpaceBlock]}>
-        Pásate al siguiente nivel y desbloquea un sin fin de beneficios
-        exclusivos en el mundo del deporte
+        {t("pasateal")}
       </Text>
-      <Text style={[styles.helloAshfak8, styles.helloSpaceBlock]}>
-        Estamos seguros de que te encantará tu experiencia deportiva con
-        Spotsport Premium. Además, estamos ofreciendo una oferta especial para
-        nuestros usuarios existentes. ¡No querrás perdértela! Para más
-        información puedes contactar con nuestro servicio de soporte técnico
-      </Text>
+      {i18n.language == "es" ? (
+        <Text style={[styles.helloAshfak8, styles.helloSpaceBlock]}>
+          Estamos seguros de que te encantará tu experiencia deportiva con
+          Spotsport Premium. Además, estamos ofreciendo una oferta especial para
+          nuestros usuarios existentes. ¡No querrás perdértela! Para más
+          información puedes contactar con nuestro servicio de soporte técnico
+        </Text>
+      ) : (
+        <Text style={[styles.helloAshfak8, styles.helloSpaceBlock]}>
+          We are confident that you will love your sports experience with Spotsport Premium. Additionally, we are offering a special deal for our existing users. You won't want to miss it! For more information, you can contact our technical support service.
+        </Text>
+
+      )}
       <Text style={[styles.helloAshfak9, styles.helloTypo]}>
-        ¡Actúa ahora y experimenta una forma completamente nueva de abordar tus
-        objetivos deportivos con Spotsport Premium!
+        {t("actuaahora")}
+
       </Text>
       <View style={[styles.premiumInner, styles.helloSpaceBlock]}>
         <View style={styles.helloAshfakWrapper}>
@@ -39,7 +47,8 @@ const PopupPremium = ({ setModalVisible }) => {
             }}
           >
             <Text style={[styles.helloAshfak10, styles.helloTypo]}>
-              Acceder a planes de suscripción
+              {t("accederaplanes")}
+
             </Text>
           </Pressable>
         </View>

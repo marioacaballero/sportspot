@@ -10,9 +10,11 @@ import {
 } from '../../../GlobalStyles'
 import BackArrowSVG from '../../../components/SVG/BackArrowSVG'
 import { LinearGradient } from 'expo-linear-gradient'
+import { useTranslation } from "react-i18next";
 
 const DatosDePago = () => {
   const navigation = useNavigation()
+  const { t, i18n } = useTranslation();
 
   return (
     <LinearGradient
@@ -31,8 +33,7 @@ const DatosDePago = () => {
           }}
         >
           <Text style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}>
-            {`GESTIONA TU
-CUENTA`}
+            {t("gestionatucuentaM")}
           </Text>
           {/* <Pressable onPress={() => navigation.goBack()}>
             <BackArrowSVG />
@@ -44,7 +45,7 @@ CUENTA`}
             marginTop: 15
           }}
         >
-          <Text style={styles.datosDePago2}>Datos de pago</Text>
+          <Text style={styles.datosDePago2}>{t("datosdepago")}</Text>
         </View>
         <View style={styles.pencillineParent}>
           <View style={styles.pencilline}>
@@ -54,20 +55,20 @@ CUENTA`}
               source={require('../../../assets/wallet.png')}
             />
             <Text style={[styles.datosDePago1, styles.imGoingToFlexBox]}>
-              Datos de pago
+            {t("datosdepago")}
             </Text>
           </View>
           <View style={styles.frameParent}>
             <Text style={[styles.imGoingTo, styles.imGoingToFlexBox]}>
-              Añade o elimina métdos de pago de forma segura para agilizar el
-              proceso de inscripción
+            {t("añadeoelimina")}
             </Text>
             <Pressable
               style={styles.aadirTarjetaWrapper}
               onPress={() => navigation.navigate('Metodo')}
             >
               <Text style={[styles.aadirTarjeta, styles.datosTypo]}>
-                Añadir tarjeta
+              {t("añadirtarjeta")}
+
               </Text>
             </Pressable>
           </View>
@@ -146,7 +147,8 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_11xl,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    width:"80%"
   },
   labelFlexBox: {
     textAlign: 'left',
