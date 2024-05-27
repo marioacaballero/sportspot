@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Color, FontSize } from '../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,8 +7,82 @@ import { offSuscription } from '../redux/actions/suscriptions'
 import { suscriptionEventUser } from '../redux/actions/users'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { getAllEvents } from '../redux/actions/events'
+import { useStripe } from '@stripe/stripe-react-native'
+import axiosInstance from '../utils/apiBackend'
 
 const ModalSuscription = ({ user, event, onClose }) => {
+
+
+  const { initPaymentSheet, presentPaymentSheet } = useStripe(null);
+  const [loading, setLoading] = useState(false);
+
+  const fetchPaymentSheetParams = async () => {
+    const response = await axiosInstance.post(`/stripe/paymentEvent`, {
+     
+
+        amount:parseInt(event.price, 10),
+        customerId:user.stripeId
+      
+    });
+    console.log(response.data)
+    const { paymentIntent, ephemeralKey, customer} =  response.data;
+
+    return {
+      paymentIntent,
+      ephemeralKey,
+      customer,
+    };
+  };
+
+  const initializePaymentSheet = async () => {
+    const {
+      paymentIntent,
+      ephemeralKey,
+      customer,
+      publishableKey,
+    } = await fetchPaymentSheetParams();
+
+    const { error } = await initPaymentSheet({
+      merchantDisplayName: "Example, Inc.",
+      customerId: customer,
+      customerEphemeralKeySecret: ephemeralKey,
+      paymentIntentClientSecret: paymentIntent,
+      allowsDelayedPaymentMethods: true,
+      defaultBillingDetails: {
+        name: 'Jane Doe',
+      }
+      // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
+      //methods that complete payment after a delay, like SEPA Debit and Sofort.
+      // allowsDelayedPaymentMethods: true,
+      // defaultBillingDetails: {
+      //   name: user.name,
+      // }
+    });
+    if (!error) {
+      setLoading(true);
+    }
+  };
+
+  const openPaymentSheet = async () => {
+    const { error } = await presentPaymentSheet();
+    // see below
+    
+    if (error) {
+     console.log(`Error code: ${error.code}`, error.message);
+    } else {
+      onSuscribed()
+      onClose()
+     console.log('Success', 'Your order is confirmed!');
+    }
+  };
+
+  useEffect(() => {
+    console.log(user,event,"userevent")
+    initializePaymentSheet();
+  }, []);
+
+
+
   const isGuest = user?.email === 'guestUser@gmail.com'
   const navigation = useNavigation()
   const dispatch = useDispatch()
@@ -84,8 +158,7 @@ const ModalSuscription = ({ user, event, onClose }) => {
       <TouchableOpacity
         style={styles.touchable}
         onPress={() => {
-          onSuscribed()
-          onClose()
+          openPaymentSheet()
           // navigation.navigate('stripe')
         }}
       >
