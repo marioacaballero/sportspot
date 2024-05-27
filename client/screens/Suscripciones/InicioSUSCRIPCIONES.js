@@ -44,7 +44,8 @@ const InicioSUSCRIPCIONES = () => {
       const { error } = await initPaymentSheet({
         paymentIntentClientSecret: clientSecret,
         merchantDisplayName: 'asdasda',
-        returnURL: 'stripe-example://payment-sheet'
+        returnURL: 'stripe-example://payment-sheet',
+        
         // Set `allowsDelayedPaymentMethods` to true if your business handles
         // delayed notification payment methods like US bank accounts.
       })

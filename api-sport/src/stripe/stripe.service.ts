@@ -23,6 +23,28 @@ export class StripeService {
     })
   }
 
+  async createPayment(amount: number, customerId: string): Promise<any> {
+    const ephemeralKey = await this.stripe.ephemeralKeys.create(
+      { customer: customerId },
+      { apiVersion: '2024-04-10' }
+    );
+    const paymentIntent = await this.stripe.paymentIntents.create({
+      amount,
+      currency: 'eur',
+      customer: customerId,
+      automatic_payment_methods: {
+        enabled: true,
+      },
+    });
+
+    return {
+      paymentIntent: paymentIntent.client_secret,
+      ephemeralKey: ephemeralKey.secret,
+      customer: customerId,
+      publishableKey: 'pk_test_TYooMQauvdEDq54NiTphI7jx',
+    };
+  }
+
   async getProducts(): Promise<Stripe.Product[]> {
     const products = await this.stripe.products.list()
     return products.data
