@@ -392,7 +392,7 @@ const DatosDeportista = ({
                   style={styles.frameContainer6Bg}
                   onPress={() => {
                     closeFrameContainer6()
-                    setTyping(false)
+                    setTyping && setTyping(false)
                   }}
                 />
                 <Maps

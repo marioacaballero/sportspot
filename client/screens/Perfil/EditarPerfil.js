@@ -32,6 +32,7 @@ import CalendarOneDay from '../../components/CalendarOneDay'
 import { setDateStart } from '../../redux/slices/events.slices'
 import { useTranslation } from 'react-i18next'
 import DatosDeportista from '../../components/DatosDeportista'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const EditarPerfil = () => {
   const navigation = useNavigation()
@@ -90,6 +91,7 @@ const EditarPerfil = () => {
     console.log('Getting user pref state...')
     const state = await AsyncStorage.getItem('modalSport')
     console.log('state', state)
+    console.log('user:', user)
     if (!state || state !== 'alreadyShowed') {
       if (user && !user?.preferences?.location) {
         setPreferencesModalVisible(true)
