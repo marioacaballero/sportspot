@@ -20,7 +20,7 @@ const ModalSuscription = ({ user, event, onClose }) => {
     const response = await axiosInstance.post(`/stripe/paymentEvent`, {
      
 
-        amount:parseInt(event.price, 10),
+        amount:parseInt(`${event.price}00`),
         customerId:user.stripeId
       
     });
@@ -47,7 +47,7 @@ const ModalSuscription = ({ user, event, onClose }) => {
       customerId: customer,
       customerEphemeralKeySecret: ephemeralKey,
       paymentIntentClientSecret: paymentIntent,
-      allowsDelayedPaymentMethods: true,
+      
       defaultBillingDetails: {
         name: 'Jane Doe',
       }

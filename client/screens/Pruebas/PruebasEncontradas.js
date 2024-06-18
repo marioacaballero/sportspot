@@ -45,6 +45,8 @@ const PruebasEncontradas = () => {
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
   const [favoriteEvents, setFavoriteEvents] = useState([])
+  const [newEvents, setNewEvents] = useState([])
+
 
   useEffect(() => {
     if (eventsFilter.length === 0) {
@@ -56,11 +58,17 @@ const PruebasEncontradas = () => {
   //   dispatch(getFavorites(user.id))
   // }, [favorites])
 
-  // useEffect(() => {
-  //   if (favorites.eventFavorites) {
-  //     setFavoriteEvents(favorites.eventFavorites)
-  //   }
-  // }, [favorites, eventsFilter])
+  useEffect(() => {
+    const today = new Date();
+
+    const filteredUsers = eventsFilter.filter(user => {
+      const dateInscription = new Date(user.dateInscription);
+      return dateInscription >= today;
+    });
+
+    setNewEvents(filteredUsers)
+
+  }, [eventsFilter])
 
   useEffect(() => {
     setFavoriteEvents(allFavorites)
@@ -100,35 +108,29 @@ const PruebasEncontradas = () => {
             source={require('../../assets/cilarrowtop1.png')}
           />
           <Text style={[styles.badajozCilcismo22, styles.filtrosTypo]}>
-            {`${
-              nameEventsFilters.sportName.length > 0
+            {`${nameEventsFilters.sportName.length > 0
                 ? nameEventsFilters.sportName
                 : ''
-            }${
-              nameEventsFilters.sportName.length > 0 &&
-              nameEventsFilters.dateStart.length > 0
+              }${nameEventsFilters.sportName.length > 0 &&
+                nameEventsFilters.dateStart.length > 0
                 ? ', '
                 : ''
-            }${
-              nameEventsFilters.sportName.length > 0 &&
-              nameEventsFilters.dateStart.length === 0 &&
-              nameEventsFilters.location.length > 0
+              }${nameEventsFilters.sportName.length > 0 &&
+                nameEventsFilters.dateStart.length === 0 &&
+                nameEventsFilters.location.length > 0
                 ? ', '
                 : ''
-            }${
-              nameEventsFilters.dateStart.length > 0
+              }${nameEventsFilters.dateStart.length > 0
                 ? nameEventsFilters.dateStart
                 : ''
-            }${
-              nameEventsFilters.dateStart.length > 0 &&
-              nameEventsFilters.location.length > 0
+              }${nameEventsFilters.dateStart.length > 0 &&
+                nameEventsFilters.location.length > 0
                 ? ', '
                 : ''
-            }${
-              nameEventsFilters.location.length > 0
+              }${nameEventsFilters.location.length > 0
                 ? nameEventsFilters.location
                 : ''
-            }`}
+              }`}
           </Text>
         </Pressable>
         <View style={[styles.frameParent, styles.parentSpaceBlock]}>
@@ -173,7 +175,7 @@ const PruebasEncontradas = () => {
             </View>
           </View>
           <View style={styles.frameContainer}>
-            {eventsFilter.map((event, i) => (
+            {newEvents.map((event, i) => (
               <Pressable
                 key={i}
                 onPress={() => {

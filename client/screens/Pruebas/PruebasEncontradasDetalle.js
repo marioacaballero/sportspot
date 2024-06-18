@@ -54,7 +54,9 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     }
   }
 
-  useEffect(() => {}, [events])
+  useEffect(() => {
+    console.log(eventState,"statteeeeeeeee")
+  }, [eventState])
 
   const [name, setName] = useState(nameState() || false)
 
@@ -110,7 +112,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     try {
       const result = await Share.share(
         {
-          message: `Disfruta de éste nuevo evento deportivo aquí: 👇🏻 \n ${eventLink}`,
+          message: `Disfruta de éste nuevo evento deportivo aquí: 👇🏻 \n${eventLink}`,
           title: 'Mira éste evento increíble'
         },
         {
@@ -228,7 +230,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   contentFit="cover"
                   source={require('../../assets/alert.png')}
                 />
-                <TouchableOpacity onPress={() => onShare(eventState.eventLink)}>
+                <TouchableOpacity onPress={() => onShare(`${eventState.title} en ${eventState.location}. Si aun no te bajaste la app descargala en Google Play http://www.googleplay.com/sportspot`)}>
                   <Image
                     style={[
                       styles.clarityshareSolidIcon,
