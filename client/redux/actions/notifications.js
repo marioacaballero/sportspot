@@ -28,3 +28,19 @@ export const getAllNotifications = createAsyncThunk(
     }
   }
 )
+
+export const udpateNotification = createAsyncThunk(
+  'notifications/udpateNotification',
+  async ({ notificationId, body }) => {
+    console.log('Updating notificaiton', notificationId, 'with', body)
+    try {
+      const { data } = await axiosInstance.patch(
+        `notifications/${notificationId}`,
+        body
+      )
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+)

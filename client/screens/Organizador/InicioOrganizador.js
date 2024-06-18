@@ -23,7 +23,7 @@ import ContactoSVG from '../../components/SVG/ContactoSVG'
 import AccesoOrganizadorModal from '../../components/AccesoOrganizadorModal'
 import { useDispatch, useSelector } from 'react-redux'
 import { setShowGuestModal } from '../../redux/slices/events.slices'
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next'
 
 const InicioOrganizador = () => {
   const navigation = useNavigation()
@@ -31,7 +31,7 @@ const InicioOrganizador = () => {
   // console.log(user?.rol)
   const isGuest = user?.email === 'guestUser@gmail.com'
   const dispatch = useDispatch()
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation()
 
   const [modalVisible, setModalVisible] = useState(false)
 
@@ -40,7 +40,10 @@ const InicioOrganizador = () => {
   }
 
   return (
-    <ScrollView keyboardShouldPersistTaps={'handled'} style={[styles.inicioOrganizador]}>
+    <ScrollView
+      keyboardShouldPersistTaps={'handled'}
+      style={[styles.inicioOrganizador]}
+    >
       <View style={styles.topContainer}>
         {user?.rol === 'sportsman' && (
           <Pressable
@@ -53,7 +56,7 @@ const InicioOrganizador = () => {
               toggleModal()
             }}
           >
-            <Text style={styles.buttonsText}>{t("accesoorganizador")}</Text>
+            <Text style={styles.buttonsText}>{t('accesoorganizador')}</Text>
           </Pressable>
         )}
         {/* {user?.rol === 'organizer' && (
@@ -76,7 +79,7 @@ const InicioOrganizador = () => {
           }}
           // disabled={user?.rol === 'sportsman'}
         >
-          <Text style={styles.buttonsText}>{t("publicarevento")}</Text>
+          <Text style={styles.buttonsText}>{t('publicarevento')}</Text>
         </Pressable>
         {/* <Pressable
           style={styles.helloAshfakWrapper}
@@ -86,9 +89,7 @@ const InicioOrganizador = () => {
         </Pressable> */}
       </View>
       <View style={styles.frameView}>
-        <Text style={styles.helloAshfak3}>
-        {t("brevedescripcion")}
-        </Text>
+        <Text style={styles.helloAshfak3}>{t('brevedescripcion')}</Text>
         <View style={[styles.healthiconsmegaphoneParent]}>
           <Image
             style={styles.healthiconsmegaphone}
@@ -97,29 +98,26 @@ const InicioOrganizador = () => {
           />
           <View style={styles.helloAshfakParent1}>
             <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
-            {t("nuevopunto")}
-
+              {t('nuevopunto')}
             </Text>
             <Text style={[styles.helloAshfak5, styles.helloTypo]}>
-            {t("entredeportistas")}
-
+              {t('entredeportistas')}
             </Text>
           </View>
         </View>
         <Image
-          style={{ width: '94%', height: 22, marginTop: 15 }}
+          resizeMode="contain"
+          style={{ width: '100%', height: 22, marginTop: 15 }}
           source={require('../../assets/purpleArrow.png')}
         />
         {/* <View style={styles.connectorLayout} /> */}
         <View style={styles.healthiconsmegaphoneParent}>
           <View style={styles.helloAshfakParent2}>
             <Text style={[styles.helloAshfak6, styles.helloLayout]}>
-            {t("aumentoinscripciones")}
-
+              {t('aumentoinscripciones')}
             </Text>
             <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-            {t("encompeticiones")}
-
+              {t('encompeticiones')}
             </Text>
           </View>
           <View style={styles.vectorParent}>
@@ -131,7 +129,8 @@ const InicioOrganizador = () => {
           </View>
         </View>
         <Image
-          style={{ width: '94%', height: 22, marginTop: 15 }}
+          resizeMode="contain"
+          style={{ width: '100%', height: 22, marginTop: 15 }}
           source={require('../../assets/purpleLeftArrow.png')}
         />
         {/* <View style={[styles.connectorLine1, styles.connectorLayout]} /> */}
@@ -143,18 +142,17 @@ const InicioOrganizador = () => {
           />
           <View style={styles.helloAshfakParent3}>
             <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
-            {t("aumentoingresos")}
-
+              {t('aumentoingresos')}
             </Text>
             <Text style={[styles.helloAshfak9, styles.helloTypo]}>
-            {t("paralosorganizadores")}
-
+              {t('paralosorganizadores')}
             </Text>
           </View>
         </View>
         <View style={{ width: '100%' }}>
           <Image
-            style={{ width: '94%', height: 22, marginTop: 15 }}
+            resizeMode="contain"
+            style={{ width: '100%', height: 22, marginTop: 15 }}
             source={require('../../assets/purpleArrow.png')}
           />
         </View>
@@ -162,12 +160,10 @@ const InicioOrganizador = () => {
         <View style={styles.healthiconsmegaphoneParent}>
           <View style={styles.helloAshfakParent2}>
             <Text style={[styles.helloAshfak4, styles.helloTypo1]}>
-            {t("exitopruebas")}
-
+              {t('exitopruebas')}
             </Text>
             <Text style={[styles.helloAshfak9, styles.helloTypo]}>
-            {t("porpartede")}
-
+              {t('porpartede')}
             </Text>
           </View>
           <Image

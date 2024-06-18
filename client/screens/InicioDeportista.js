@@ -38,16 +38,17 @@ import { LinearGradient } from 'expo-linear-gradient'
 import GuestUserModal from '../components/utils/GuestUserModal'
 import { getUser } from '../redux/actions/users'
 import { setSelectedIcon } from '../redux/slices/users.slices'
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next'
 
 const InicioDeportista = () => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation()
 
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const { events, loadingGet, visitedEvents, showGuestModal } = useSelector(
     (state) => state.events
   )
+  const { userNotifications } = useSelector((state) => state.notifications)
   const { user } = useSelector((state) => state.users)
   const [modalPremium, setModalPremium] = useState(false)
   const [modalNotifications, setModalNotifications] = useState(false)
@@ -90,7 +91,7 @@ const InicioDeportista = () => {
     dispatch(getUser(user.id))
     dispatch(getAllEvents())
     dispatch(getSuscribedEvents(user.id))
-    dispatch(getOneCustomer(user.email)).then((e) => console.log(e, 'eeeeeee'))
+    // dispatch(getOneCustomer(user.email)).then((e) => console.log(e, 'eeeeeee'))
   }, [])
 
   // ('user preferences', user.preferences)
@@ -162,6 +163,8 @@ const InicioDeportista = () => {
   })
   const isGuest = user?.email === 'guestUser@gmail.com'
 
+  console.log('userNotifications', userNotifications)
+
   if (loadingGet) {
     return (
       <View>
@@ -190,7 +193,10 @@ const InicioDeportista = () => {
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
       >
-        <ScrollView keyboardShouldPersistTaps={'handled'} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          keyboardShouldPersistTaps={'handled'}
+          showsVerticalScrollIndicator={false}
+        >
           {modalState !== 'alreadyShowed' && (
             <DatosDeportista
               modalSport={modalSport}
@@ -247,7 +253,12 @@ const InicioDeportista = () => {
                   </Pressable>
 
                   <Pressable
-                    style={styles.materialSymbolsnotifications}
+                    style={{
+                      width: 19 * 0.93,
+                      height: 22 * 0.93,
+                      marginLeft: 8,
+                      marginTop: 5
+                    }}
                     onPress={() => {
                       if (isGuest) {
                         dispatch(setShowGuestModal(true))
@@ -257,10 +268,24 @@ const InicioDeportista = () => {
                     }}
                   >
                     <Image
-                      style={[styles.icon1, styles.iconLayout]}
+                      style={{ width: '100%', height: '100%' }}
                       contentFit="cover"
-                      source={require('../assets/materialsymbolsnotifications.png')}
+                      source={require('../assets/notificationIcon.png')}
                     />
+                    {userNotifications.filter((not) => not.read === false)
+                      .length > 0 && (
+                      <Image
+                        style={{
+                          width: 8,
+                          height: 8,
+                          position: 'absolute',
+                          top: -1,
+                          right: -2
+                        }}
+                        contentFit="cover"
+                        source={require('../assets/notificationCircle.png')}
+                      />
+                    )}
                     <Modal
                       animationType="fade"
                       transparent={true}
@@ -330,7 +355,7 @@ const InicioDeportista = () => {
                   style={styles.helloAshfakGroup}
                   onPress={() => setModalOrganizador(false)}
                 >
-                  <Text style={styles.helloTypo}>{t("deportista")}</Text>
+                  <Text style={styles.helloTypo}>{t('deportista')}</Text>
                   <Text
                     style={{
                       fontSize: 50,
@@ -352,7 +377,7 @@ const InicioDeportista = () => {
                   onPress={() => setModalOrganizador(true)}
                 >
                   <Text style={[styles.helloAshfak2, styles.helloTypo]}>
-                  {t("organizador")}
+                    {t('organizador')}
                   </Text>
                   <Text
                     style={{
@@ -403,7 +428,7 @@ const InicioDeportista = () => {
                     <Text
                       style={{ fontWeight: 'bold', color: Color.sportsVioleta }}
                     >
-                     {t("mispuntos")}
+                      {t('mispuntos')}
                     </Text>
                     <Text style={{ fontSize: 28, color: Color.sportsNaranja }}>
                       50
@@ -435,7 +460,7 @@ const InicioDeportista = () => {
                       }}
                     >
                       <Text style={{ fontWeight: 'bold', color: 'white' }}>
-                        {!premiosSoon ? t("accederpremios") : 'Soon'}
+                        {!premiosSoon ? t('accederpremios') : 'Soon'}
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -499,12 +524,18 @@ const InicioDeportista = () => {
                               ]}
                             >
                               <Text
+                                numberOfLines={1}
+                                ellipsizeMode="tail"
                                 style={[styles.imGoingTo, styles.goingTypo]}
                               >
                                 {event?.title}
                               </Text>
                               <View style={styles.minParent}>
-                                <Text style={[styles.min, styles.minClr]}>
+                                <Text
+                                  numberOfLines={3}
+                                  ellipsizeMode="tail"
+                                  style={[styles.min, styles.minClr]}
+                                >
                                   {event?.description}
                                 </Text>
                                 {/* <Text style={[styles.min1, styles.minTypo1]}>
@@ -520,7 +551,7 @@ const InicioDeportista = () => {
                 {latestEventsAdded.length > 0 && (
                   <View style={{ alignItems: 'center' }}>
                     <Text style={styles.helloTypoScroll}>
-                      {t("ultimaspruebas")}
+                      {t('ultimaspruebas')}
                     </Text>
                     <ScrollView
                       horizontal={true}
@@ -562,16 +593,19 @@ const InicioDeportista = () => {
                             >
                               <Text
                                 style={[styles.imGoingTo, styles.goingTypo]}
+                                numberOfLines={1}
+                                ellipsizeMode="tail"
                               >
-                                {event?.title}
+                                {event.title}
                               </Text>
                               <View style={styles.minParent}>
-                                <Text style={[styles.min, styles.minClr]}>
-                                  {event?.description}
+                                <Text
+                                  numberOfLines={3}
+                                  ellipsizeMode="tail"
+                                  style={[styles.min, styles.minClr]}
+                                >
+                                  {event.description}
                                 </Text>
-                                {/* <Text style={[styles.min1, styles.minTypo1]}>
-                           {event?.header}
-                         </Text> */}
                               </View>
                             </View>
                           </Pressable>
@@ -582,8 +616,7 @@ const InicioDeportista = () => {
                 {eventsExpired.length > 0 && (
                   <View style={{ alignItems: 'center' }}>
                     <Text style={styles.helloTypoScroll}>
-                    {t("resultadoultimaspruebas")}
-
+                      {t('resultadoultimaspruebas')}
                     </Text>
                     <ScrollView
                       horizontal={true}
@@ -624,12 +657,18 @@ const InicioDeportista = () => {
                               ]}
                             >
                               <Text
+                                numberOfLines={1}
+                                ellipsizeMode="tail"
                                 style={[styles.imGoingTo, styles.goingTypo]}
                               >
                                 {event?.title}
                               </Text>
                               <View style={styles.minParent}>
-                                <Text style={[styles.min, styles.minClr]}>
+                                <Text
+                                  numberOfLines={3}
+                                  ellipsizeMode="tail"
+                                  style={[styles.min, styles.minClr]}
+                                >
                                   {event?.description}
                                 </Text>
                                 {/* <Text style={[styles.min1, styles.minTypo1]}>
