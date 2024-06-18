@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   Text,
   StyleSheet,
@@ -30,17 +30,20 @@ import {
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import CalendarOneDay from '../../components/CalendarOneDay'
 import { setDateStart } from '../../redux/slices/events.slices'
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next'
+import DatosDeportista from '../../components/DatosDeportista'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const EditarPerfil = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation()
 
   // const { dateStart } = useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
 
   const [topContainerVisible, setTopContainerVisible] = useState(false)
+  const [preferencesModalVisible, setPreferencesModalVisible] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
   const [valuesUser, setValuesUser] = useState({
     name: user?.name || '',
@@ -84,6 +87,22 @@ const EditarPerfil = () => {
     navigation.navigate('TuPerfil')
   }
 
+  const getUserPreferencesState = async () => {
+    console.log('Getting user pref state...')
+    const state = await AsyncStorage.getItem('modalSport')
+    console.log('state', state)
+    console.log('user:', user)
+    if (!state || state !== 'alreadyShowed') {
+      if (user && !user?.preferences?.location) {
+        setPreferencesModalVisible(true)
+      }
+    }
+  }
+
+  useEffect(() => {
+    getUserPreferencesState()
+  }, [])
+
   const uploadImage = async () => {
     let result = {}
     await ImagePicker.requestMediaLibraryPermissionsAsync()
@@ -111,13 +130,20 @@ const EditarPerfil = () => {
       start={{ x: 0, y: 0 }}
       end={{ x: 0, y: 1 }}
     >
+      {preferencesModalVisible && (
+        <DatosDeportista
+          modalSport={preferencesModalVisible}
+          // setModalSport={setModalSport}
+          setModalState={setPreferencesModalVisible}
+        />
+      )}
       <ScrollView>
         <View style={styles.editarPerfil}>
           <View style={styles.topContainer}>
             <Text
               style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}
             >
-              {t("gestionatucuentaM")}
+              {t('gestionatucuentaM')}
             </Text>
             {/* <Pressable onPress={() => navigation.goBack()}>
               <BackArrowSVG />
@@ -127,7 +153,7 @@ const EditarPerfil = () => {
             <View
               style={[styles.editarPerfilWrapper, styles.groupParentFlexBox]}
             >
-              <Text style={styles.editarPerfil1}>{t("editarperfil")}</Text>
+              <Text style={styles.editarPerfil1}>{t('editarperfil')}</Text>
             </View>
           </View>
           <Pressable
@@ -146,7 +172,7 @@ const EditarPerfil = () => {
               }
             />
             <View style={styles.editar}>
-              <Text style={styles.editarText}>{t("editar")}</Text>
+              <Text style={styles.editarText}>{t('editar')}</Text>
             </View>
           </Pressable>
           <View style={styles.frameParent}>
@@ -161,7 +187,7 @@ const EditarPerfil = () => {
                   <Text
                     style={[styles.datosPersonales, styles.card1ChildPosition]}
                   >
-                    {t("datospersonales")}
+                    {t('datospersonales')}
                   </Text>
                 </View>
                 <View style={[styles.inputParent, styles.inputFlexBox]}>
@@ -170,8 +196,7 @@ const EditarPerfil = () => {
                       style={[styles.inputContent, styles.inputContentFlexBox]}
                     >
                       <Text style={[styles.label, styles.labelFlexBox]}>
-                        {t("nombre")}
-
+                        {t('nombre')}
                       </Text>
                       <TextInput
                         style={{
@@ -194,8 +219,7 @@ const EditarPerfil = () => {
                       style={[styles.inputContent, styles.inputContentFlexBox]}
                     >
                       <Text style={[styles.label, styles.labelFlexBox]}>
-                        {t("apellido")}
-
+                        {t('apellido')}
                       </Text>
                       <TextInput
                         style={{
@@ -228,26 +252,34 @@ const EditarPerfil = () => {
                         ]}
                       >
                         <Text style={[styles.label, styles.labelFlexBox]}>
-                          {t("genero")}
-
+                          {t('genero')}
                         </Text>
                         <Picker
                           style={styles.inputGenre}
                           dropdownIconColor={'white'}
                           mode={'dropdown'}
-                          selectedValue={valuesUser.genres}
-                          itemStyle={{ fontWeight: 'bold', color: 'red' }}
+                          selectedValue={''}
                           onValueChange={(itemValue, itemIndex) =>
                             settingValuesUser('genres', itemValue)
                           }
                         >
-                          <Picker.Item label={t("hombre")}
-                            value="Hombre" />
-                          <Picker.Item label={t("mujer")}
-                            value="Mujer" />
-                          <Picker.Item label={t("otros")}
-                            value="Otros" />
+                          <Picker.Item label={t('hombre')} value="Hombre" />
+                          <Picker.Item label={t('mujer')} value="Mujer" />
+                          <Picker.Item label={t('otros')} value="Otros" />
                         </Picker>
+                        <Text
+                          style={{
+                            backgroundColor: '#fff',
+                            fontWeight: '700',
+                            color: Color.sportsVioleta
+                          }}
+                        >
+                          {t(
+                            valuesUser.genres.toLowerCase().length > 0
+                              ? valuesUser.genres.toLowerCase()
+                              : 'selecciona'
+                          )}
+                        </Text>
                       </View>
                     </View>
                     <Pressable style={[styles.top, styles.inputBorderDate]}>
@@ -259,8 +291,7 @@ const EditarPerfil = () => {
                       >
                         <View style={[styles.inputContentDate]}>
                           <Text style={[styles.label, styles.labelFlexBox]}>
-                            {t("nacimiento")}
-
+                            {t('nacimiento')}
                           </Text>
                           <TextInput
                             placeholder={user?.birthDate || '12/12/2000'}
@@ -305,8 +336,7 @@ const EditarPerfil = () => {
                   <Text
                     style={[styles.datosPersonales, styles.card1ChildPosition]}
                   >
-                    {t("datoscontacto")}
-
+                    {t('datoscontacto')}
                   </Text>
                 </View>
               </View>
@@ -316,8 +346,7 @@ const EditarPerfil = () => {
                     style={[styles.inputContent, styles.inputContentFlexBox]}
                   >
                     <Text style={[styles.label, styles.labelFlexBox]}>
-                    {t("email")}
-
+                      {t('email')}
                     </Text>
                     <Text
                       style={{
@@ -334,12 +363,11 @@ const EditarPerfil = () => {
                     style={[styles.inputContent, styles.inputContentFlexBox]}
                   >
                     <Text style={[styles.label, styles.labelFlexBox]}>
-                    {t("telefono")}
-
+                      {t('telefono')}
                     </Text>
                     <TextInput
                       style={{ fontWeight: '700', color: Color.sportsVioleta }}
-                      placeholder={user?.phoneNumber ||t("escribeaca")}
+                      placeholder={user?.phoneNumber || t('escribeaca')}
                       placeholderTextColor={
                         user.phoneNumber ? Color.sportsVioleta : 'gray'
                       }
@@ -356,12 +384,11 @@ const EditarPerfil = () => {
                     style={[styles.inputContent, styles.inputContentFlexBox]}
                   >
                     <Text style={[styles.label, styles.labelFlexBox]}>
-                    {t("direccion")}
-
+                      {t('direccion')}
                     </Text>
                     <TextInput
                       style={{ fontWeight: '700', color: Color.sportsVioleta }}
-                      placeholder={user?.address || t("escribeaca")}
+                      placeholder={user?.address || t('escribeaca')}
                       placeholderTextColor={
                         user.address ? Color.sportsVioleta : 'gray'
                       }
@@ -377,8 +404,7 @@ const EditarPerfil = () => {
                   onPress={onSubmit}
                 >
                   <Text style={[styles.helloAshfak, styles.kmTypo]}>
-                  {t("actualizar")}
-
+                    {t('actualizar')}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -475,7 +501,7 @@ const styles = StyleSheet.create({
   },
   iconLayout: {},
   inputGenre: {
-    fontWeight: 800,
+    fontWeight: '700',
     color: Color.sportsVioleta,
     width: 155,
     position: 'absolute',
@@ -488,7 +514,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textAlign: 'left',
     alignSelf: 'stretch',
-    width:"80%"
+    width: '80%'
   },
   editarPerfil1: {
     fontSize: 19,

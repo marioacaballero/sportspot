@@ -42,12 +42,24 @@ const TuPerfil = () => {
   const [selectedLanguaje, setSelectedLanguaje] = useState(i18n.language)
 
   useEffect(() => {
+    getUserPreferencesState()
     dispatch(getUser(user?.id))
   }, [])
 
   const getModalState = () => {
     setModalState(true)
     setModalSport(true)
+  }
+
+  const getUserPreferencesState = async () => {
+    console.log('Getting user pref state...')
+    const state = await AsyncStorage.getItem('modalSport')
+    console.log('state', state)
+    if (!state || state !== 'alreadyShowed') {
+      if (user && !user?.preferences?.location) {
+        setPreferencesModalVisible(true)
+      }
+    }
   }
 
   const onChangeRol = () => {
@@ -75,9 +87,13 @@ const TuPerfil = () => {
       end={{ x: 0, y: 1 }}
     >
       <View style={styles.tuPerfil}>
-        <ScrollView keyboardShouldPersistTaps={'handled'} contentContainerStyle={{ paddingBottom: 20 }}>
+        <ScrollView
+          keyboardShouldPersistTaps={'handled'}
+          contentContainerStyle={{ paddingBottom: 20 }}
+        >
           {modalState && (
             <DatosDeportista
+              fromEdit={true}
               modalSport={modalSport}
               setModalSport={setModalSport}
               setModalState={setModalState}
@@ -313,51 +329,38 @@ const TuPerfil = () => {
                 </Text>
               </Pressable>
               <TouchableOpacity
-              onPress={async() => {
-                setSelectedLanguaje(
-                  selectedLanguaje === 'es' ? 'en' : 'es'
-                )
-                if (selectedLanguaje == "es") {
-                await i18n.changeLanguage("en")
-                }
-                else {
-                await i18n.changeLanguage("es")
-                }
-              }
-              }
-              style={{
-                borderRadius: 50,
-                marginTop: 40,
-                overflow: 'hidden',
-                backgroundColor: '#E2DCEC',
-                width: 65,
-                height: 40,
-                alignSelf: 'center',
-                paddingRight: 10,
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexDirection: 'row'
-              }}
-            >
-              <Text
+                onPress={async () => {
+                  setSelectedLanguaje(selectedLanguaje === 'es' ? 'en' : 'es')
+                  if (selectedLanguaje == 'es') {
+                    await i18n.changeLanguage('en')
+                  } else {
+                    await i18n.changeLanguage('es')
+                  }
+                }}
                 style={{
                   borderRadius: 50,
                   marginTop: 20,
                   overflow: 'hidden',
                   backgroundColor: '#E2DCEC',
-                  height: "100%",
+                  width: 70,
+                  height: 40,
                   alignSelf: 'center',
-                  paddingLeft: 15,
-                  paddingRight: 10,
-                  justifyContent: 'space-between',
+                  justifyContent: 'center',
+                  gap: 7,
                   alignItems: 'center',
                   flexDirection: 'row'
                 }}
               >
-                {i18n.language }
-              </Text>
-              <AntDesign name="swap" size={20} color={'#40036F'} />
-            </TouchableOpacity>
+                <Text
+                  style={{
+                    color: Color.sportsVioleta,
+                    fontWeight: '700'
+                  }}
+                >
+                  {i18n.language.toUpperCase()}
+                </Text>
+                <AntDesign name="swap" size={20} color={'#40036F'} />
+              </TouchableOpacity>
             </View>
           </View>
         </ScrollView>

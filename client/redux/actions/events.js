@@ -19,8 +19,8 @@ export const getSuscribedEvents = createAsyncThunk(
       // console.log('data from getSuscribedEvents: ', data)
       return data
     } catch (error) {
-      // console.log('ERROR FROM GSE: ', error)
-      throw new Error(error)
+      console.log('ERROR FROM GSE: ', error)
+      // throw new Error(error)
     }
   }
 )
