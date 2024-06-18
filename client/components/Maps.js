@@ -140,7 +140,7 @@ const Maps = ({ onClose, setEventsFilter, setTyping }) => {
       'keyboardDidShow',
       () => {
         console.log('Keyboard shown')
-        setTyping(true)
+        setTyping && setTyping(true)
         setKeyboardVisible(true)
       }
     )
@@ -148,7 +148,7 @@ const Maps = ({ onClose, setEventsFilter, setTyping }) => {
       'keyboardDidHide',
       () => {
         console.log('Keyboard hidden')
-        setTyping(false)
+        setTyping && setTyping(false)
         setKeyboardVisible(false)
       }
     )
