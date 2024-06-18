@@ -29,14 +29,14 @@ import ModalSuscription from '../../components/ModalSuscription'
 import CardReview from './CardReview'
 import { setShowGuestModal } from '../../redux/slices/events.slices'
 import { getAllEvents } from '../../redux/actions/events'
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next'
 import { setSport } from '../../redux/slices/sports.slices'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
   const dispatch = useDispatch()
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation()
 
-  const { user, eventFavorites } = useSelector((state) => state.users)
+  const { user, eventFavorites, users } = useSelector((state) => state.users)
   const { event, loading, events } = useSelector((state) => state.events)
   const { sports } = useSelector((state) => state.sports)
   const [eventState, setEventState] = useState(event)
@@ -55,8 +55,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   }
 
   useEffect(() => {
-    console.log(eventState,"statteeeeeeeee")
-  }, [eventState])
+    console.log('eventState', eventState)
+  }, [])
 
   const [name, setName] = useState(nameState() || false)
 
@@ -91,10 +91,17 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   )
 
   const transformPlaces = (places) => {
-    if (places === eventState?.suscribers?.length) {
-      return `${places}/${places} : Full`
-    } else if (places > eventState?.suscribers?.length) {
-      return `${eventState?.suscribers?.length}/${places} -> Disponibles`
+    console.log('places', places)
+    if (eventState.suscribers) {
+      if (places === eventState?.suscribers?.length) {
+        return `${places}/${places} : Full`
+      } else if (places > eventState?.suscribers?.length) {
+        return `${
+          places - eventState?.suscribers?.length
+        }/${places} -> Disponibles`
+      }
+    } else {
+      return `${places}/${places} -> Disponibles`
     }
   }
 
@@ -219,8 +226,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   >
                     <Text style={styles.modalText}>
                       {isEventAlreadyAdded
-                        ? t("anularinscripcion")
-                        :t("inscribirse")}
+                        ? t('anularinscripcion')
+                        : t('inscribirse')}
                     </Text>
                   </TouchableOpacity>
                 )}
@@ -230,7 +237,13 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   contentFit="cover"
                   source={require('../../assets/alert.png')}
                 />
-                <TouchableOpacity onPress={() => onShare(`${eventState.title} en ${eventState.location}. Si aun no te bajaste la app descargala en Google Play http://www.googleplay.com/sportspot`)}>
+                <TouchableOpacity
+                  onPress={() =>
+                    onShare(
+                      `${eventState.title} en ${eventState.location}. Si aun no te bajaste la app descargala en Google Play http://www.googleplay.com/sportspot`
+                    )
+                  }
+                >
                   <Image
                     style={[
                       styles.clarityshareSolidIcon,
@@ -265,7 +278,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-               {t("descripcion")}
+                {t('descripcion')}
               </Text>{' '}
               {eventState.description}
             </Text>
@@ -277,7 +290,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-                {t("creadorevento")}
+                {t('creadorevento')}
               </Text>{' '}
               {eventState?.creator?.email}
             </Text>
@@ -289,7 +302,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-               {t("emailcreador")}
+                {t('emailcreador')}
               </Text>{' '}
               {eventState?.creator?.email}
             </Text>
@@ -301,7 +314,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-               {t("numerocontacto")}
+                {t('numerocontacto')}
               </Text>{' '}
               {eventState.phoneNumber}
             </Text>
@@ -313,7 +326,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-                {t("plazas")}
+                {t('plazas')}
               </Text>{' '}
               {transformPlaces(eventState.places)}
             </Text>
@@ -325,7 +338,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 20
                 }}
               >
-               {t("reseñasprueba")}
+                {t('reseñasprueba')}
               </Text>{' '}
             </Text>
             {isEventAlreadyAdded && !isUserPostReview() && (
@@ -358,7 +371,10 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               contentFit="cover"
               source={require('../../assets/cilarrowtop.png')}
             />
-            <Text style={[styles.ciclismo, styles.ciclismoTypo]}> {t("atras")}</Text>
+            <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
+              {' '}
+              {t('atras')}
+            </Text>
           </Pressable>
         </View>
 
@@ -398,7 +414,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
           transparent={true}
           visible={modalEditEvent}
         >
-          <View style={{width:"100%",height:"100%"}}>
+          <View style={{ width: '100%', height: '100%' }}>
             <EditEvent
               event={eventState}
               onClose={() => setModalEditEvent(false)}

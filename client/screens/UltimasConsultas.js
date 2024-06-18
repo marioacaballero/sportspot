@@ -19,12 +19,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { LinearGradient } from 'expo-linear-gradient'
 import { favorite, getUser } from '../redux/actions/users'
 import { getEventByIdRedux } from '../redux/slices/events.slices'
-import { useTranslation } from "react-i18next";
-
+import { useTranslation } from 'react-i18next'
 
 const UltimasConsultas = () => {
   const navigation = useNavigation()
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation()
 
   const dispatch = useDispatch()
 
@@ -97,7 +96,7 @@ const UltimasConsultas = () => {
             <View style={{ width: '100%' }}>
               <View style={styles.titleContainer}>
                 <Text style={[styles.ltimasConsultas, styles.ciclismoTypo]}>
-                  {t("ultimasconsultas")}
+                  {t('ultimasconsultas')}
                 </Text>
                 <Pressable></Pressable>
               </View>
@@ -121,10 +120,10 @@ const UltimasConsultas = () => {
                     style={[styles.ltimas24Horas, styles.ciclismoTypo]}
                   >
                     {switchStates[0]
-                      ? t("ultimas")
+                      ? t('ultimas')
                       : switchStates[1]
-                      ?t("ultimassemana")
-                      : t("ultimomes")}
+                      ? t('ultimassemana')
+                      : t('ultimomes')}
                   </Text>
                 </View>
                 {showSwitch && (
@@ -146,7 +145,7 @@ const UltimasConsultas = () => {
                           color: Color.sportsVioleta
                         }}
                       >
-                       {t("ultimas")}
+                        {t('ultimas')}
                       </Text>
                       <Switch
                         trackColor={{ false: '#767577', true: '#F25910' }}
@@ -173,8 +172,7 @@ const UltimasConsultas = () => {
                           color: Color.sportsVioleta
                         }}
                       >
-                      {t("ultimassemana")}
-
+                        {t('ultimassemana')}
                       </Text>
                       <Switch
                         trackColor={{ false: '#767577', true: '#F25910' }}
@@ -201,8 +199,7 @@ const UltimasConsultas = () => {
                           color: Color.sportsVioleta
                         }}
                       >
-                      {t("ultimomes")}
-
+                        {t('ultimomes')}
                       </Text>
                       <Switch
                         trackColor={{ false: '#767577', true: '#F25910' }}
@@ -218,9 +215,7 @@ const UltimasConsultas = () => {
             </View>
             {visitedEvents && visitedEvents?.length === 0 ? (
               <View style={styles.consultaContainer}>
-                <Text style={styles.ultimasConsultas1}>
-                  {t("aquipodras")}
-                </Text>
+                <Text style={styles.ultimasConsultas1}>{t('aquipodras')}</Text>
               </View>
             ) : (
               visitedEvents &&
@@ -263,7 +258,18 @@ const UltimasConsultas = () => {
                   />
                   <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
                     <View style={styles.ciclismoParent}>
-                      <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
+                      <Text
+                        numberOfLines={1}
+                        ellipsizeMode="trail"
+                        style={{
+                          fontFamily: FontFamily.inputPlaceholder,
+                          fontWeight: '700',
+                          textAlign: 'left',
+                          fontSize: 14,
+                          color: Color.sportsNaranja,
+                          maxWidth: '85%'
+                        }}
+                      >
                         {event.event.title}
                       </Text>
                     </View>
@@ -279,7 +285,7 @@ const UltimasConsultas = () => {
                             fontSize: 12
                           }}
                         >
-                          {t("modalidad")}
+                          {t('modalidad')}
                         </Text>
                         <Text
                           style={{
@@ -299,8 +305,7 @@ const UltimasConsultas = () => {
                             color: Color.sportsVioleta
                           }}
                         >
-                        {t("fechaprueba")}
-
+                          {t('fechaprueba')}
                         </Text>
                         <Text
                           style={{
@@ -315,8 +320,7 @@ const UltimasConsultas = () => {
                         <Text
                           style={{ color: Color.sportsVioleta, fontSize: 12 }}
                         >
-                         {t("fechalimite")}
-
+                          {t('fechalimite')}
                         </Text>
                         <Text
                           style={{
@@ -343,8 +347,7 @@ const UltimasConsultas = () => {
                           fontSize: 12
                         }}
                       >
-                         {t("precioinscripcion")}
-
+                        {t('precioinscripcion')}
                       </Text>
                       <Text
                         style={{

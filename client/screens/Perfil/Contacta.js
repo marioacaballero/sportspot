@@ -17,11 +17,11 @@ import {
 } from '../../GlobalStyles'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import { LinearGradient } from 'expo-linear-gradient'
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next'
 
 const Contacta = () => {
   const navigation = useNavigation()
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation()
 
   const handlePress = () => {
     alert('¡Gracias por contactarnos! Te responderemos a la brevedad')
@@ -37,7 +37,7 @@ const Contacta = () => {
     >
       <View style={styles.container}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>{t("contactanos")}</Text>
+          <Text style={styles.title}>{t('contactanos')}</Text>
           {/* <Pressable onPress={() => navigation.goBack()}>
             <BackArrowSVG />
           </Pressable> */}
@@ -46,19 +46,19 @@ const Contacta = () => {
           <View style={styles.messageContainer}>
             <TextInput
               style={styles.textInput}
-              placeholder={t("contactanos")}
+              placeholder={t('contactanos')}
               multiline
               numberOfLines={10}
             />
           </View>
           <View style={styles.textContainer}>
-            <TextInput placeholder={t("nombre")} />
+            <TextInput placeholder={t('nombre')} />
           </View>
           <View style={styles.textContainer}>
-            <TextInput placeholder={t("email")} />
+            <TextInput placeholder={t('email')} />
           </View>
           <TouchableOpacity style={styles.sendContainer} onPress={handlePress}>
-            <Text style={styles.send}>{t("enviar")}</Text>
+            <Text style={styles.send}>{t('enviar')}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -117,19 +117,19 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   messageContainer: {
-    paddingHorizontal: Padding.p_base,
-    height: '35%',
+    height: 130,
     width: '90%',
     borderColor: Color.sportsVioleta,
     borderRadius: Border.br_xl,
     borderWidth: 1,
     borderStyle: 'solid',
-    paddingVertical: Padding.p_5xs,
     marginTop: 20
   },
   textInput: {
+    textAlignVertical: 'top',
     textAlign: 'left',
-    bottom: 30
+    paddingVertical: 7,
+    paddingHorizontal: 10
   },
   sendContainer: {
     paddingVertical: Padding.p_6xs,

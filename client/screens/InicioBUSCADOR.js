@@ -1,5 +1,13 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { Text, StyleSheet, Pressable, View, Modal, Image, TextInput } from 'react-native'
+import {
+  Text,
+  StyleSheet,
+  Pressable,
+  View,
+  Modal,
+  Image,
+  TextInput
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import Maps from '../components/Maps'
 import Sports from '../components/Sports'
@@ -10,7 +18,7 @@ import { getAllSports } from '../redux/actions/sports'
 import { getAllEventsFilters } from '../redux/actions/events'
 import { setNameEvent } from '../redux/slices/events.slices'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next'
 
 const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
   const navigation = useNavigation()
@@ -28,7 +36,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
     location: '',
     dateStart: []
   })
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation()
 
   useEffect(() => {
     dispatch(getAllSports())
@@ -65,7 +73,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
         resQuery[p] = eventsFilter[p]
       }
     }
-    console.log(resQuery,"query")
+    console.log(resQuery, 'query')
     dispatch(getAllEventsFilters(resQuery))
   }
 
@@ -89,7 +97,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
             justifyContent: 'center',
             alignItems: 'center'
           }}
-          onPress={() => console.log("asdasdas")}
+          onPress={() => console.log('asdasdas')}
         >
           <View style={styles.buscarWrapper}>
             <Image
@@ -98,7 +106,17 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
               source={require('../assets/icbaselinesearch.png')}
             />
             {/* <Text style={styles.buscar}>Buscar</Text> */}
-            <TextInput onPress={() => setSelectedInput(true)} onBlur={() => setSelectedInput(false)} placeholder='Buscar' style={{ width: "100%", color: Color.sportsVioleta }}></TextInput>
+            <TextInput
+              onPress={() => setSelectedInput(true)}
+              onBlur={() => setSelectedInput(false)}
+              placeholder="Buscar"
+              placeholderTextColor={'rgba(64,3,111,1)'}
+              style={{
+                fontWeight: '700',
+                width: '100%',
+                color: Color.sportsVioleta
+              }}
+            ></TextInput>
           </View>
         </Pressable>
         {selectedInput && (
@@ -120,7 +138,9 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
                     { fontWeight: 'bold' }
                   ]}
                 >
-                  {eventsFilter.location ? eventsFilter.location : t("localizacion")}
+                  {eventsFilter.location
+                    ? eventsFilter.location
+                    : t('localizacion')}
                 </Text>
               </View>
             </Pressable>
@@ -136,7 +156,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
                   source={require('../assets/frame-1547755977.png')}
                 />
                 <Text style={styles.helloTypo}>
-                  {!localSport ? t("deporte") : localSport}
+                  {!localSport ? t('deporte') : localSport}
                 </Text>
               </View>
             </Pressable>
@@ -151,7 +171,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
                   source={require('../assets/frame-1547755978.png')}
                 />
                 <Text style={styles.helloTypo}>
-                  {!selected ? t("fecha") : selected}
+                  {!selected ? t('fecha') : selected}
                 </Text>
               </View>
             </Pressable>
@@ -164,7 +184,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
                 setMostrarInicioBuscador(false)
               }}
             >
-              <Text style={styles.helloAshfak6}>{t("buscar")}</Text>
+              <Text style={styles.helloAshfak6}>{t('buscar')}</Text>
             </Pressable>
           </View>
         )}
@@ -181,7 +201,6 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
             setEventsFilter={setEventsFilter}
           />
         </View>
-
       </Modal>
 
       <Modal animationType="fade" transparent visible={frameContainer8Visible}>
