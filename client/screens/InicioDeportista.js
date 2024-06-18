@@ -304,26 +304,7 @@ const InicioDeportista = () => {
                 </View>
               </View>
 
-              {buscador && (
-                <Pressable
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                  }}
-                  onPress={handleBuscarPress}
-                >
-                  <View style={styles.buscarWrapper}>
-                    <Image
-                      style={styles.icbaselineSearchIcon}
-                      contentFit="cover"
-                      source={require('../assets/icbaselinesearch.png')}
-                    />
-                    <Text style={styles.buscar}>Buscar</Text>
-                  </View>
-                </Pressable>
-              )}
+        
 
               <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
                 <Pressable
@@ -371,6 +352,7 @@ const InicioDeportista = () => {
                   ></Text>
                 </Pressable>
               </View>
+             
               {!buscador && !modalOrganizador && (
                 <InicioBUSCADOR
                   setMostrarInicioBuscador={setMostrarInicioBuscador}

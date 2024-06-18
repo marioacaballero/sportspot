@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { Text, StyleSheet, Pressable, View, Modal, Image } from 'react-native'
+import { Text, StyleSheet, Pressable, View, Modal, Image, TextInput } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import Maps from '../components/Maps'
 import Sports from '../components/Sports'
@@ -20,6 +20,8 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
   const [frameContainer8Visible, setFrameContainer8Visible] = useState(false)
   const [frameContainer10Visible, setFrameContainer10Visible] = useState(false)
   const [selected, setSelected] = useState(null)
+  const [selectedInput, setSelectedInput] = useState(false)
+
   const [localSport, setLocalSport] = useState('')
   const [eventsFilter, setEventsFilter] = useState({
     sportName: '',
@@ -63,6 +65,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
         resQuery[p] = eventsFilter[p]
       }
     }
+    console.log(resQuery,"query")
     dispatch(getAllEventsFilters(resQuery))
   }
 
@@ -80,68 +83,91 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
           />
         </Pressable> */}
         <Pressable
-          style={[styles.frameWrapper, styles.frameWrapperSpaceBlock]}
-          onPress={openFrameContainer6}
-        >
-          <View style={styles.frameView}>
-            <Image
-              style={styles.frameLayout1}
-              contentFit="cover"
-              source={require('../assets/frame-1547755976.png')}
-            />
-            <Text
-              style={[
-                styles.helloAshfak3,
-                styles.helloTypo,
-                { fontWeight: 'bold' }
-              ]}
-            >
-              {eventsFilter.location ? eventsFilter.location : t("localizacion")}
-            </Text>
-          </View>
-        </Pressable>
-
-        <Pressable
-          style={[styles.framePressable, styles.frameWrapperSpaceBlock]}
-          onPress={openFrameContainer8}
-        >
-          <View style={styles.frameView}>
-            <Image
-              style={styles.frameLayout1}
-              contentFit="cover"
-              source={require('../assets/frame-1547755977.png')}
-            />
-            <Text style={styles.helloTypo}>
-              {!localSport ? t("deporte") : localSport}
-            </Text>
-          </View>
-        </Pressable>
-        <Pressable
-          style={[styles.framePressable, styles.frameWrapperSpaceBlock]}
-          onPress={openFrameContainer10}
-        >
-          <View style={styles.frameView}>
-            <Image
-              style={styles.frameLayout1}
-              contentFit="cover"
-              source={require('../assets/frame-1547755978.png')}
-            />
-            <Text style={styles.helloTypo}>
-              {!selected ? t("fecha") : selected}
-            </Text>
-          </View>
-        </Pressable>
-        <Pressable
-          style={styles.helloAshfakWrapper}
-          onPress={() => {
-            onSubmit()
-            dispatch(setNameEvent(eventsFilter))
-            navigation.navigate('PruebasEncontradas')
-            setMostrarInicioBuscador(false)
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center'
           }}
+          onPress={() => console.log("asdasdas")}
         >
-          <Text style={styles.helloAshfak6}>{t("buscar")}</Text>
+          <View style={styles.buscarWrapper}>
+            <Image
+              style={{ width: 24, height: 24 }}
+              contentFit="cover"
+              source={require('../assets/icbaselinesearch.png')}
+            />
+            {/* <Text style={styles.buscar}>Buscar</Text> */}
+            <TextInput onPress={() => setSelectedInput(true)} onBlur={() => setSelectedInput(false)} placeholder='Buscar' style={{ width: "100%", color: Color.sportsVioleta }}></TextInput>
+          </View>
         </Pressable>
+        {selectedInput && (
+          <View>
+            <Pressable
+              style={[styles.frameWrapper, styles.frameWrapperSpaceBlock]}
+              onPress={openFrameContainer6}
+            >
+              <View style={styles.frameView}>
+                <Image
+                  style={styles.frameLayout1}
+                  contentFit="cover"
+                  source={require('../assets/frame-1547755976.png')}
+                />
+                <Text
+                  style={[
+                    styles.helloAshfak3,
+                    styles.helloTypo,
+                    { fontWeight: 'bold' }
+                  ]}
+                >
+                  {eventsFilter.location ? eventsFilter.location : t("localizacion")}
+                </Text>
+              </View>
+            </Pressable>
+
+            <Pressable
+              style={[styles.framePressable, styles.frameWrapperSpaceBlock]}
+              onPress={openFrameContainer8}
+            >
+              <View style={styles.frameView}>
+                <Image
+                  style={styles.frameLayout1}
+                  contentFit="cover"
+                  source={require('../assets/frame-1547755977.png')}
+                />
+                <Text style={styles.helloTypo}>
+                  {!localSport ? t("deporte") : localSport}
+                </Text>
+              </View>
+            </Pressable>
+            <Pressable
+              style={[styles.framePressable, styles.frameWrapperSpaceBlock]}
+              onPress={openFrameContainer10}
+            >
+              <View style={styles.frameView}>
+                <Image
+                  style={styles.frameLayout1}
+                  contentFit="cover"
+                  source={require('../assets/frame-1547755978.png')}
+                />
+                <Text style={styles.helloTypo}>
+                  {!selected ? t("fecha") : selected}
+                </Text>
+              </View>
+            </Pressable>
+            <Pressable
+              style={styles.helloAshfakWrapper}
+              onPress={() => {
+                onSubmit()
+                dispatch(setNameEvent(eventsFilter))
+                navigation.navigate('PruebasEncontradas')
+                setMostrarInicioBuscador(false)
+              }}
+            >
+              <Text style={styles.helloAshfak6}>{t("buscar")}</Text>
+            </Pressable>
+          </View>
+        )}
       </View>
 
       <Modal animationType="fade" transparent visible={frameContainer6Visible}>
@@ -150,12 +176,12 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
             style={styles.frameContainer6Bg}
             onPress={closeFrameContainer6}
           />
-           <Maps
+          <Maps
             onClose={closeFrameContainer6}
             setEventsFilter={setEventsFilter}
           />
-        </View> 
-       
+        </View>
+
       </Modal>
 
       <Modal animationType="fade" transparent visible={frameContainer8Visible}>
@@ -192,6 +218,25 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
 }
 
 const styles = StyleSheet.create({
+  buscar: {
+    color: Color.sportsNaranja,
+    fontFamily: FontFamily.inputPlaceholder,
+    fontSize: FontSize.inputPlaceholder_size,
+    textAlign: 'left'
+  },
+  buscarWrapper: {
+    borderRadius: Border.br_31xl,
+    backgroundColor: Color.naranja3,
+    width: '100%',
+    paddingLeft: Padding.p_3xs,
+    paddingTop: Padding.p_3xs,
+    paddingRight: Padding.p_3xs,
+    paddingBottom: Padding.p_3xs,
+    height: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8
+  },
   arrowContainer: {
     position: 'absolute',
     left: '110%',
@@ -237,6 +282,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   frameWrapper: {
+    marginTop: 10,
     backgroundColor: Color.colorLinen_100,
     padding: Padding.p_3xs,
     borderRadius: Border.br_31xl

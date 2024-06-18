@@ -32,16 +32,15 @@ export class StripeService {
       amount,
       currency: 'eur',
       customer: customerId,
-      automatic_payment_methods: {
-        enabled: true,
-      },
+      payment_method_types:['card'],
+    
     });
 
     return {
       paymentIntent: paymentIntent.client_secret,
       ephemeralKey: ephemeralKey.secret,
       customer: customerId,
-      publishableKey: 'pk_test_TYooMQauvdEDq54NiTphI7jx',
+      publishableKey: 'sk_test_51OocYQGmE60O5ob7URy3YpGfHVIju6x3fuDdxXUy5R0rAdaorSHfskHNcBHToSoEfwJhFHtFDCguj7aGPlywD2pp00f2X9h9et',
     };
   }
 
