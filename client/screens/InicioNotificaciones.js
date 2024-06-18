@@ -11,9 +11,12 @@ import {
 // import { useNavigation } from '@react-navigation/native'
 import { Padding, Color, FontFamily, FontSize, Border } from '../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAlNotificationsByUser } from '../redux/actions/notifications'
+import {
+  getAlNotificationsByUser,
+  udpateNotification
+} from '../redux/actions/notifications'
 import { deleteEvent } from '../redux/actions/events'
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next'
 
 const InicioNotificaciones = () => {
   const { allNotifications, userNotifications } = useSelector(
@@ -25,12 +28,18 @@ const InicioNotificaciones = () => {
   // const navigation = useNavigation()
   const [isEnabled, setIsEnabled] = useState(false)
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation()
 
   useEffect(() => {
     console.log('userid: ', user.id)
     dispatch(getAlNotificationsByUser(user?.id))
   }, [])
+
+  useEffect(() => {
+    if (userNotifications.length > 0) {
+      setAllUserNotificationsToRead()
+    }
+  }, [userNotifications])
 
   // console.log('userNotifications', userNotifications)
 
@@ -68,6 +77,15 @@ const InicioNotificaciones = () => {
   //   )
   //   .map((eventooo) => dispatch(deleteEvent(eventooo.id)))
 
+  const setAllUserNotificationsToRead = () => {
+    console.log('Setting all user notifications to read...')
+    userNotifications.forEach((notif) => {
+      dispatch(
+        udpateNotification({ notificationId: notif.id, body: { read: true } })
+      )
+    })
+  }
+
   return (
     <ScrollView style={styles.frameParent1}>
       <View style={styles.materialSymbolsnotificationsParent}>
@@ -80,7 +98,7 @@ const InicioNotificaciones = () => {
           source={require('../assets/materialsymbolsnotifications2.png')}
         />
         <Text style={[styles.helloAshfak6, styles.imGoingToClr]}>
-          {t("notificaciones")}
+          {t('notificaciones')}
         </Text>
         <Switch
           trackColor={{ false: '#767577', true: '#F25910' }}

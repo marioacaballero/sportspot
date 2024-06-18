@@ -7,19 +7,20 @@ import {
   Text,
   ScrollView,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Keyboard
 } from 'react-native'
 import cities from '../utils/cities.json'
 import mergedCities from '../utils/mergedCities.json'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next'
 
-const Maps = ({ onClose, setEventsFilter }) => {
+const Maps = ({ onClose, setEventsFilter, setTyping }) => {
   const [searchText, setSearchText] = useState('')
   const [searchValue, setSearchValue] = useState('')
 
   const [data, setData] = useState(mergedCities.slice(0, 100))
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation()
 
   const [filteredData, setFilteredData] = useState()
 
@@ -123,54 +124,71 @@ const Maps = ({ onClose, setEventsFilter }) => {
     setSearchText('')
   }
   useEffect(() => {
-  if(searchValue){
-    setEventsFilter((prevState) => ({
-      ...prevState,
-      location: searchValue
-    }))
-    onClose()
-  }
+    if (searchValue) {
+      setEventsFilter((prevState) => ({
+        ...prevState,
+        location: searchValue
+      }))
+      onClose()
+    }
   }, [searchValue])
 
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false)
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        console.log('Keyboard shown')
+        setTyping(true)
+        setKeyboardVisible(true)
+      }
+    )
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        console.log('Keyboard hidden')
+        setTyping(false)
+        setKeyboardVisible(false)
+      }
+    )
+
+    return () => {
+      keyboardDidHideListener.remove()
+      keyboardDidShowListener.remove()
+    }
+  }, [])
 
   return (
-   
-      <GooglePlacesAutocomplete
-        placeholder={t("buscar")}
-        query={{
-          key: 'AIzaSyBH0Ey-G2PbWkSCLyGG1A9TCg9LDPlzQpc',
-          language: i18n.language, // language of the results
-        }}
-
-enablePoweredByContainer={false}
-styles={{container:{width:"90%",height:"100%",top:30}}}
-        fetchDetails={true}
-        onPress={(data, details = null) => {
-          setSearchValue(data.description)
-       
-
-        }}
-
-        onFail={(error) => console.log(error)}
-        requestUrl={{
-          url:
-            'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api',
-          useOnPlatform: 'web',
-        }} // this in only required for use on the web. See https://git.io/JflFv more for details.
-      />
-    
-
+    <GooglePlacesAutocomplete
+      placeholder={t('buscar')}
+      query={{
+        key: 'AIzaSyBH0Ey-G2PbWkSCLyGG1A9TCg9LDPlzQpc',
+        language: i18n.language // language of the results
+      }}
+      enablePoweredByContainer={false}
+      styles={{ container: { width: '90%', height: '100%', top: 30 } }}
+      fetchDetails={true}
+      onPress={(data, details = null) => {
+        setSearchValue(data.description)
+      }}
+      onFail={(error) => console.log(error)}
+      requestUrl={{
+        url: 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api',
+        useOnPlatform: 'web'
+      }} // this in only required for use on the web. See https://git.io/JflFv more for details.
+    />
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignSelf: "center",
+    alignSelf: 'center',
     padding: 10,
     paddingTop: 10,
-    minHeight: "50%",
-    width: "90%",
-    backgroundColor: '#ecf0f1',
+    minHeight: '50%',
+    width: '90%',
+    backgroundColor: '#ecf0f1'
   },
   mapsLayout: {
     maxWidth: '90%',

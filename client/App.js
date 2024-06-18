@@ -42,7 +42,6 @@ import VentajasSuscripciones from './screens/Suscripciones/VentajasSuscripciones
 import PublicarEvento from './screens/Organizador/PublicarEvento'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'react-native'
-import { API_PUBLIC_STRIPE } from '@env'
 import { I18nextProvider, useTranslation } from 'react-i18next'
 import i18n from './utils/i18n'
 // import PaymentScreen from './screens/StripeComponent'
@@ -61,10 +60,10 @@ function MyStackNavigator({ isFooterShow, setIsFooterShow }) {
       // Actualiza el estado isFooterShow basado en la ruta actual
       setIsFooterShow(
         currentRouteName !== 'Bienvenida' &&
-        currentRouteName !== 'IniciarSesin' &&
-        currentRouteName !== 'SignIn' &&
-        currentRouteName !== 'Registrarse' &&
-        currentRouteName !== 'RecuperarContraseña'
+          currentRouteName !== 'IniciarSesin' &&
+          currentRouteName !== 'SignIn' &&
+          currentRouteName !== 'Registrarse' &&
+          currentRouteName !== 'RecuperarContraseña'
       )
     }
   }, [state])
@@ -230,7 +229,6 @@ function MyStackNavigator({ isFooterShow, setIsFooterShow }) {
 const Stack = createNativeStackNavigator()
 
 export default function App() {
-
   const [isFooterShow, setIsFooterShow] = useState(null)
   useEffect(() => {
     loadFonts()
@@ -258,7 +256,6 @@ export default function App() {
                 setIsFooterShow={setIsFooterShow}
               />
               {isFooterShow && <MenuInferior />}
-
             </NavigationContainer>
           </StripeProvider>
         </Provider>
