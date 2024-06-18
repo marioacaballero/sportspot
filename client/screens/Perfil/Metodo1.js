@@ -11,11 +11,11 @@ import {
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import { LinearGradient } from 'expo-linear-gradient'
 import i18next from 'i18next'
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next'
 
 const Metodo1 = () => {
   const navigation = useNavigation()
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation()
 
   const handlebutton = () => {
     Linking.openURL('mailto:organizadores@spotsport.eu')
@@ -30,7 +30,7 @@ const Metodo1 = () => {
     >
       <View style={styles.metodo}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>{t("trabajaconnosotros")}</Text>
+          <Text style={styles.title}>{t('trabajaconnosotros')}</Text>
           {/* <Pressable onPress={() => navigation.goBack()}>
           <BackArrowSVG />
         </Pressable> */}
@@ -39,22 +39,23 @@ const Metodo1 = () => {
           <View style={styles.pencilline}>
             <Image
               style={styles.medalIcon}
-              contentFit="cover"
+              resizeMode="contain"
               source={require('../../assets/medal.png')}
             />
             <View style={styles.frameWrapper}>
               <Text style={[styles.eresDeportista, styles.trabajaTypo]}>
-              {t("eresdeportista")}
+                {t('eresdeportista')}
               </Text>
             </View>
           </View>
           <Text style={styles.trabajaConNosotrosContainer}>
-            {i18next.language === "es" ? `Trabaja con nosotros y vive la emoción de formar parte de una
+            {i18next.language === 'es'
+              ? `Trabaja con nosotros y vive la emoción de formar parte de una
             plataforma deportiva innovadora! Valoramos la dedicación, la pasión
             y el espíritu competitivo. Estamos en la búsqueda de individuos
             apasionados por el mundo del deporte para unirse a nuestro portal y
-            contribuir al crecimiento continuo de nuestra plataforma.` :
-              `"Work with us and experience the excitement of being part of an innovative sports platform! We value dedication, passion, and competitive spirit. We are looking for individuals passionate about the world of sports to join our portal and contribute to the continuous growth of our platform."`}
+            contribuir al crecimiento continuo de nuestra plataforma.`
+              : `"Work with us and experience the excitement of being part of an innovative sports platform! We value dedication, passion, and competitive spirit. We are looking for individuals passionate about the world of sports to join our portal and contribute to the continuous growth of our platform."`}
           </Text>
         </View>
         <View
@@ -62,7 +63,7 @@ const Metodo1 = () => {
         >
           <Pressable onPress={handlebutton}>
             <Text style={[styles.trabajaConNosotros1, styles.trabajaTypo]}>
-              {t("trabajacon")}
+              {t('trabajacon')}
             </Text>
           </Pressable>
         </View>
@@ -84,8 +85,8 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   medalIcon: {
-    width: 32,
-    height: 32
+    width: 35,
+    height: 35
   },
   pencilline: {
     paddingLeft: Padding.p_mini,

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
   Text,
   StyleSheet,
@@ -67,6 +67,14 @@ const EditarPerfil = () => {
       [field]: value
     }))
   }
+
+  const scrollViewRef = useRef(null)
+
+  useEffect(() => {
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollTo({ y: 0, animated: true })
+    }
+  }, [])
 
   const openTopContainer = useCallback(() => {
     setTopContainerVisible(true)
@@ -137,7 +145,7 @@ const EditarPerfil = () => {
           setModalState={setPreferencesModalVisible}
         />
       )}
-      <ScrollView>
+      <ScrollView ref={scrollViewRef}>
         <View style={styles.editarPerfil}>
           <View style={styles.topContainer}>
             <Text
@@ -740,7 +748,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14
   },
   editarPerfil: {
-    paddingBottom: 220,
+    paddingBottom: 140,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'flex-start'

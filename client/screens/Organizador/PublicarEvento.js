@@ -5,9 +5,11 @@ import { Color, FontFamily, FontSize } from '../../GlobalStyles'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import FormularioEventos from '../../components/FomularioEventos'
 import { LinearGradient } from 'expo-linear-gradient'
+import { useTranslation } from 'react-i18next'
 
 const PublicarEvento = () => {
   const navigation = useNavigation()
+  const { t } = useTranslation()
   const route = useRoute()
   const params = route.params
   const [eventData, setEventData] = useState()
@@ -34,7 +36,7 @@ const PublicarEvento = () => {
       <ScrollView keyboardShouldPersistTaps={'handled'}>
         <View style={styles.container}>
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>Publicar un evento</Text>
+            <Text style={styles.title}>{t('publicarevento')}</Text>
             <Pressable onPress={() => navigation.goBack()}>
               <BackArrowSVG />
             </Pressable>
