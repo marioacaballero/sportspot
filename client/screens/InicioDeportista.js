@@ -9,7 +9,8 @@ import {
   Modal,
   TouchableWithoutFeedback,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  Button
 } from 'react-native'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { Padding, FontFamily, FontSize, Color, Border } from '../GlobalStyles'
@@ -39,8 +40,10 @@ import GuestUserModal from '../components/utils/GuestUserModal'
 import { getUser } from '../redux/actions/users'
 import { setSelectedIcon } from '../redux/slices/users.slices'
 import { useTranslation } from 'react-i18next'
+import { NativeModules } from 'react-native';
 
 const InicioDeportista = () => {
+
   const { t, i18n } = useTranslation()
 
   const navigation = useNavigation()
@@ -274,18 +277,18 @@ const InicioDeportista = () => {
                     />
                     {userNotifications.filter((not) => not.read === false)
                       .length > 0 && (
-                      <Image
-                        style={{
-                          width: 8,
-                          height: 8,
-                          position: 'absolute',
-                          top: -1,
-                          right: -2
-                        }}
-                        contentFit="cover"
-                        source={require('../assets/notificationCircle.png')}
-                      />
-                    )}
+                        <Image
+                          style={{
+                            width: 8,
+                            height: 8,
+                            position: 'absolute',
+                            top: -1,
+                            right: -2
+                          }}
+                          contentFit="cover"
+                          source={require('../assets/notificationCircle.png')}
+                        />
+                      )}
                     <Modal
                       animationType="fade"
                       transparent={true}
@@ -329,7 +332,7 @@ const InicioDeportista = () => {
                 </View>
               </View>
 
-        
+
 
               <View style={[styles.frameGroup, styles.frameGroupSpaceBlock]}>
                 <Pressable
@@ -377,7 +380,7 @@ const InicioDeportista = () => {
                   ></Text>
                 </Pressable>
               </View>
-             
+
               {!buscador && !modalOrganizador && (
                 <InicioBUSCADOR
                   setMostrarInicioBuscador={setMostrarInicioBuscador}
@@ -479,8 +482,8 @@ const InicioDeportista = () => {
                               i === 0
                                 ? styles.image94ParentShadowBox1
                                 : i === sortByDate([...lastHours]).length - 1
-                                ? styles.image94ParentShadowBoxr
-                                : styles.image94ParentShadowBox
+                                  ? styles.image94ParentShadowBoxr
+                                  : styles.image94ParentShadowBox
                             }
                             onPress={() => {
                               console.log('here')
@@ -514,7 +517,7 @@ const InicioDeportista = () => {
                               </Text>
                               <View style={styles.minParent}>
                                 <Text
-                                  numberOfLines={3}
+                                  numberOfLines={1}
                                   ellipsizeMode="tail"
                                   style={[styles.min, styles.minClr]}
                                 >
@@ -525,6 +528,7 @@ const InicioDeportista = () => {
          </Text> */}
                               </View>
                             </View>
+                            <Pressable onPress={() => navigation.navigate('Inscripcion',event)} style={{ backgroundColor: Color.sportsNaranja, position: "absolute", bottom: 10, right: 10, paddingHorizontal: 6, borderRadius: 12 }}><Text style={{ fontWeight: 600, color: "white" }}>+</Text></Pressable>
                           </Pressable>
                         ))}
                     </ScrollView>
@@ -548,8 +552,8 @@ const InicioDeportista = () => {
                                 ? styles.image94ParentShadowBox1
                                 : i ===
                                   sortByDate([...latestEventsAdded]).length - 1
-                                ? styles.image94ParentShadowBoxr
-                                : styles.image94ParentShadowBox
+                                  ? styles.image94ParentShadowBoxr
+                                  : styles.image94ParentShadowBox
                             }
                             onPress={() => {
                               dispatch(
@@ -582,7 +586,7 @@ const InicioDeportista = () => {
                               </Text>
                               <View style={styles.minParent}>
                                 <Text
-                                  numberOfLines={3}
+                                  numberOfLines={1}
                                   ellipsizeMode="tail"
                                   style={[styles.min, styles.minClr]}
                                 >
@@ -590,6 +594,7 @@ const InicioDeportista = () => {
                                 </Text>
                               </View>
                             </View>
+                            <Pressable onPress={() => navigation.navigate('Inscripcion',event)} style={{ backgroundColor: Color.sportsNaranja, position: "absolute", bottom: 10, right: 10, paddingHorizontal: 6, borderRadius: 12 }}><Text style={{ fontWeight: 600, color: "white" }}>+</Text></Pressable>
                           </Pressable>
                         ))}
                     </ScrollView>
@@ -613,8 +618,8 @@ const InicioDeportista = () => {
                                 ? styles.image94ParentShadowBox1
                                 : i ===
                                   sortByDate([...eventsExpired]).length - 1
-                                ? styles.image94ParentShadowBoxr
-                                : styles.image94ParentShadowBox
+                                  ? styles.image94ParentShadowBoxr
+                                  : styles.image94ParentShadowBox
                             }
                             onPress={() => {
                               dispatch(
@@ -647,7 +652,7 @@ const InicioDeportista = () => {
                               </Text>
                               <View style={styles.minParent}>
                                 <Text
-                                  numberOfLines={3}
+                                  numberOfLines={1}
                                   ellipsizeMode="tail"
                                   style={[styles.min, styles.minClr]}
                                 >
@@ -655,9 +660,10 @@ const InicioDeportista = () => {
                                 </Text>
                                 {/* <Text style={[styles.min1, styles.minTypo1]}>
                            {event?.header}
-                         </Text> */}
+                           </Text> */}
                               </View>
                             </View>
+                            <Pressable onPress={() => navigation.navigate('Inscripcion',event)} style={{ backgroundColor: Color.sportsNaranja, position: "absolute", bottom: 10, right: 10, paddingHorizontal: 6, borderRadius: 12 }}><Text style={{ fontWeight: 600, color: "white" }}>+</Text></Pressable>
                           </Pressable>
                         ))}
                     </ScrollView>
@@ -923,7 +929,7 @@ const styles = StyleSheet.create({
   imGoingToShakeYParent: {
     paddingHorizontal: Padding.p_8xs,
     marginTop: 5,
-    height: 44
+    height: "100%"
   },
   marginCard: {
     marginBottom: 10

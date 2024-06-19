@@ -67,7 +67,7 @@ const Sports = ({ onClose, setEventsFilter, setLocalSport }) => {
               onPress={() => {
                 setEventsFilter((prevState) => ({
                   ...prevState,
-                  sportName: sport.name
+                  sportName: [...prevState.sportName,sport.name]
                 }))
                 dispatch(setSport(sport.name))
                 sportSelectStyle(sport?.name)

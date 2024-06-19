@@ -24,7 +24,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
 
   const [localSport, setLocalSport] = useState('')
   const [eventsFilter, setEventsFilter] = useState({
-    sportName: '',
+    sportName: [],
     location: '',
     dateStart: []
   })
@@ -58,16 +58,16 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
     setFrameContainer10Visible(false)
   }, [])
 
-  const onSubmit = () => {
-    const resQuery = {}
-    for (let p in eventsFilter) {
-      if (eventsFilter[p].length > 0) {
-        resQuery[p] = eventsFilter[p]
-      }
-    }
-    console.log(resQuery,"query")
-    dispatch(getAllEventsFilters(resQuery))
-  }
+  // const onSubmit = () => {
+  //   const resQuery = {}
+  //   for (let p in eventsFilter) {
+  //     if (eventsFilter[p].length > 0) {
+  //       resQuery[p] = eventsFilter[p]
+  //     }
+  //   }
+  //   console.log(resQuery,"query")
+  //   dispatch(getAllEventsFilters(resQuery))
+  // }
 
   return (
     <>
@@ -158,9 +158,9 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
             <Pressable
               style={styles.helloAshfakWrapper}
               onPress={() => {
-                onSubmit()
-                dispatch(setNameEvent(eventsFilter))
-                navigation.navigate('PruebasEncontradas')
+                // onSubmit()
+                // dispatch(setNameEvent(eventsFilter))
+                navigation.navigate('PruebasEncontradas',{filter:eventsFilter,localSport})
                 setMostrarInicioBuscador(false)
               }}
             >

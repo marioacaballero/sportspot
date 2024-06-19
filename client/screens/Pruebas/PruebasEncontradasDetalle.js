@@ -277,9 +277,9 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-                {t("creadorevento")}
+                Localidad:
               </Text>{' '}
-              {eventState?.creator?.email}
+              {eventState.location}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
               <Text
