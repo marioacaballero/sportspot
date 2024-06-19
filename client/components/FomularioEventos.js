@@ -45,12 +45,14 @@ const FomularioEventos = ({
   const [selectedImage, setSelectedImage] = useState(null)
   const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
   const [sportsModal, setSportsModal] = useState(false)
+  const [category, setCategory] = useState('')
   const [event, setEvent] = useState(
     formattedEventData || {
       title: '',
       description: '',
       price: '',
       location: '',
+      category: '',
       timeStart: '',
       eventLink: '',
       inscriptionLink: '',
@@ -227,7 +229,7 @@ const FomularioEventos = ({
       sportId: sport && sport?.id,
       eventLink: event.eventLink,
       price: event?.price.slice(0, -1),
-      modality: sport?.type?.length ? sport.type : 'none',
+      modality: event.modality || category ? category : 'none',
       location: event?.location,
       phoneNumber: event.phoneNumber,
       places: parseInt(event.places),
@@ -261,7 +263,7 @@ const FomularioEventos = ({
       sportId: sport && sport?.id,
       eventLink: event.eventLink,
       price: event?.price.slice(0, -1),
-      modality: sport?.type?.length ? sport.type : 'none',
+      modality: category,
       location: event?.location,
       phoneNumber: event.phoneNumber,
       places: parseInt(event.places),
@@ -344,9 +346,59 @@ const FomularioEventos = ({
           </Text>
         </View>
       </Pressable>
+      <Pressable style={styles.items}>
+        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M57.5039'} /> */}
+        <View
+          style={{
+            width: '100%',
+            borderWidth: 1,
+            borderColor: Color.sportsVioleta,
+            borderRadius: 20,
+            height: '100%',
+            paddingLeft: 10
+          }}
+        >
+          <Text style={styles.text}>Categoría</Text>
+          <TextInput
+            style={styles.helloTypoScroll}
+            value={category}
+            onChangeText={(value) => setCategory(value)}
+            placeholder="Ingrese una categoría"
+            placeholderTextColor={Color.violetaPlaceholder}
+          />
+        </View>
+      </Pressable>
+
+      {/* <View
+        style={{
+          width: '100%',
+          borderWidth: 1,
+          borderColor: Color.sportsVioleta,
+          borderRadius: 20,
+          height: 40,
+          paddingLeft: 10
+        }}
+      >
+        <Text style={styles.text}>Descripción del evento</Text>
+        <TextInput
+          style={{
+            width: '100%',
+            height: '100%',
+            textAlignVertical: 'center',
+            fontSize: 13,
+            fontFamily: FontFamily.inputPlaceholder,
+            color: Color.sportsVioleta
+          }}
+          value={event.description}
+          onChangeText={(value) => onValuesEvent('description', value)}
+          placeholder="Ingrese una categoria"
+          placeholderTextColor={Color.violetaPlaceholder}
+        />
+      </View> */}
 
       <View style={styles.items}>
         {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M96.5039'} /> */}
+
         <View
           style={{
             width: '100%',

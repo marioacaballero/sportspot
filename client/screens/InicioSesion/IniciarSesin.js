@@ -125,9 +125,27 @@ const IniciarSesin = ({ navigation }) => {
           >
             {t('tucuenta')}
           </Text>
-          <View style={[styles.nombreDeUsuarioWrapper, styles.wrapperFlexBox]}>
+          <View
+            style={{
+              backgroundColor: Color.gris,
+              flexDirection: 'row',
+              borderRadius: Border.br_31xl,
+              height: 60,
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%'
+            }}
+          >
             <TextInput
-              style={[styles.nombreDeUsuario, styles.entrarTypo]}
+              numberOfLines={1}
+              style={{
+                color: Color.sportsVioleta,
+                fontSize: FontSize.size_lg,
+                fontFamily: FontFamily.inputPlaceholder,
+                textAlign: 'center',
+                minWidth: 50,
+                fontWeight: '700'
+              }}
               placeholder={t('email')}
               autoCapitalize="none"
               value={loginInfo.email}

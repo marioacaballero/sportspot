@@ -23,7 +23,7 @@ import { setSelectedIcon } from '../redux/slices/users.slices'
 import { getAllEvents } from '../redux/actions/events'
 import { visitEvent } from '../redux/actions/events'
 import { getEventByIdRedux } from '../redux/slices/events.slices'
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next'
 
 const HistorialDePruebas = () => {
   const [isFavorite, setIsFavorite] = useState({})
@@ -32,7 +32,7 @@ const HistorialDePruebas = () => {
   const dispatch = useDispatch()
   const { events, suscribedEvents } = useSelector((state) => state.events)
   const { user, eventFavorites } = useSelector((state) => state.users)
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation()
 
   const initializeFavorites = () => {
     const init = {}
@@ -91,9 +91,9 @@ const HistorialDePruebas = () => {
     }
   }, [isFocused])
 
-    useEffect(()=>{
-      dispatch(getAllEvents())
-    },[])
+  useEffect(() => {
+    dispatch(getAllEvents())
+  }, [])
   // console.log('events.title', events[1].suscribers)
   // console.log('events.title', events[1].dateInscription)
   return (
@@ -103,11 +103,11 @@ const HistorialDePruebas = () => {
       start={{ x: 0, y: 0 }}
       end={{ x: 0, y: 1 }}
     >
-      <ScrollView contentContainerStyle={{ paddingBottom: 15,paddingTop:30 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 15, paddingTop: 30 }}>
         <View style={{ paddingHorizontal: Padding.p_xl }}>
           <View style={styles.containerHistorial}>
             <Text style={[styles.tuHistorialDe, styles.ciclismoTypo]}>
-              {t("historialpruebas")}
+              {t('historialpruebas')}
             </Text>
             {/* <TouchableOpacity onPress={() => navigation.goBack()}>
               <BackArrowSVG />
@@ -117,7 +117,7 @@ const HistorialDePruebas = () => {
             <View style={styles.frameContainer}>
               <View style={styles.groupParentFlexBox}>
                 <Text style={[styles.todasLasPruebas, styles.ciclismoTypo]}>
-                  {t("todaslaspruebas")}
+                  {t('todaslaspruebas')}
                 </Text>
               </View>
             </View>
@@ -125,9 +125,7 @@ const HistorialDePruebas = () => {
           {events.filter((ev) =>
             ev?.suscribers?.some((userEvent) => userEvent.id === user.id)
           ).length === 0 && (
-            <Text style={styles.text2}>
-             {t("pruebasdesc")}
-            </Text>
+            <Text style={styles.text2}>{t('pruebasdesc')}</Text>
           )}
 
           {events.filter((ev) =>
@@ -218,7 +216,7 @@ const HistorialDePruebas = () => {
                               fontSize: 12
                             }}
                           >
-                          {t("modalidad")}
+                            {t('modalidad')}
                           </Text>
                           <Text
                             style={{
@@ -237,7 +235,7 @@ const HistorialDePruebas = () => {
                               color: Color.sportsVioleta
                             }}
                           >
-                            {t("fechaprueba")}
+                            {t('fechaprueba')}
                           </Text>
                           <Text
                             style={{
@@ -255,7 +253,7 @@ const HistorialDePruebas = () => {
                               fontSize: 12
                             }}
                           >
-                            {t("fechalimite")}
+                            {t('fechalimite')}
                           </Text>
                           <Text
                             style={{
@@ -284,7 +282,7 @@ const HistorialDePruebas = () => {
                             fontSize: 12
                           }}
                         >
-                          {t("precioinscripcion")}
+                          {t('precioinscripcion')}
                         </Text>
                         <Text
                           style={{
@@ -323,7 +321,7 @@ const HistorialDePruebas = () => {
                           source={require('../assets/clarityeditsolid1.png')}
                         />
                         <Text style={styles.helloAshfak}>
-                          {t("escribirreseña")}
+                          {t('escribirreseña')}
                         </Text>
                       </View>
                     </Pressable>
@@ -570,6 +568,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     width: 186,
     textAlign: 'left',
+    marginLeft: -5,
     color: Color.sportsVioleta
   },
   todasLasPruebas: {
@@ -590,7 +589,7 @@ const styles = StyleSheet.create({
   containerHistorial: {
     display: 'flex',
     flexDirection: 'row',
-    paddingRight: 30
+    padding: 0
   },
   image84Icon: {
     borderTopLeftRadius: Border.br_3xs,

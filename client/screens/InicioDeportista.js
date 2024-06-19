@@ -37,7 +37,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { getOneCustomer } from '../redux/actions/stripe'
 import { LinearGradient } from 'expo-linear-gradient'
 import GuestUserModal from '../components/utils/GuestUserModal'
-import { getUser } from '../redux/actions/users'
+import { getAllUsers, getUser } from '../redux/actions/users'
 import { setSelectedIcon } from '../redux/slices/users.slices'
 import { useTranslation } from 'react-i18next'
 import { NativeModules } from 'react-native';
@@ -91,6 +91,7 @@ const InicioDeportista = () => {
       getModalState()
       setModalSport(true)
     }
+    dispatch(getAllUsers())
     dispatch(getUser(user.id))
     dispatch(getAllEvents())
     dispatch(getSuscribedEvents(user.id))
