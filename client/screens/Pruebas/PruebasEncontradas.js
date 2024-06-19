@@ -33,13 +33,15 @@ import {
 } from '../../redux/slices/events.slices'
 import { favorite, getUser } from '../../redux/actions/users'
 
-const PruebasEncontradas = () => {
+const PruebasEncontradas = ({ route }) => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
   const { favorites, events, nameEventsFilters, allFavorites, eventsFilter } =
     useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
+  const { sports } = useSelector((state) => state.sports)
+
 
   // // console.log(user, 'user en encontradas pruebas')
   const [modalOrder, setModalOrder] = useState(false)
@@ -49,9 +51,10 @@ const PruebasEncontradas = () => {
 
 
   useEffect(() => {
-    if (eventsFilter.length === 0) {
-      dispatch(setFilteredEvents(events))
-    }
+    // if (eventsFilter.length === 0) {
+    //   dispatch(setFilteredEvents(events))
+    // }
+
   }, [])
 
   // useEffect(() => {
@@ -61,7 +64,17 @@ const PruebasEncontradas = () => {
   useEffect(() => {
     const today = new Date();
 
-    const filteredUsers = eventsFilter.filter(user => {
+    const sportsArray = route.params.localSport.split(", ");
+
+    const idsFiltrados = sports
+      .filter(deporte => sportsArray.includes(deporte.name)).map(deporte => deporte.id);
+   
+
+      
+      const eventosFiltrados = events.filter(evento => idsFiltrados.includes(evento.sportId));
+      
+
+    const filteredUsers = eventosFiltrados.filter(user => {
       const dateInscription = new Date(user.dateInscription);
       return dateInscription >= today;
     });
@@ -108,27 +121,27 @@ const PruebasEncontradas = () => {
             source={require('../../assets/cilarrowtop1.png')}
           />
           <Text style={[styles.badajozCilcismo22, styles.filtrosTypo]}>
-            {`${nameEventsFilters.sportName.length > 0
-                ? nameEventsFilters.sportName
-                : ''
-              }${nameEventsFilters.sportName.length > 0 &&
-                nameEventsFilters.dateStart.length > 0
+            {`${route.params.localSport.length > 0
+              ? route.params.localSport
+              : ''
+              }${route.params.filter.sportName.length > 0 &&
+                route.params.filter.dateStart.length > 0
                 ? ', '
                 : ''
-              }${nameEventsFilters.sportName.length > 0 &&
-                nameEventsFilters.dateStart.length === 0 &&
-                nameEventsFilters.location.length > 0
+              }${route.params.filter.sportName.length > 0 &&
+                route.params.filter.dateStart.length === 0 &&
+                route.params.filter.location.length > 0
                 ? ', '
                 : ''
-              }${nameEventsFilters.dateStart.length > 0
-                ? nameEventsFilters.dateStart
+              }${route.params.filter.dateStart.length > 0
+                ? route.params.filter.dateStart
                 : ''
-              }${nameEventsFilters.dateStart.length > 0 &&
-                nameEventsFilters.location.length > 0
+              }${route.params.filter.dateStart.length > 0 &&
+                route.params.filter.location.length > 0
                 ? ', '
                 : ''
-              }${nameEventsFilters.location.length > 0
-                ? nameEventsFilters.location
+              }${route.params.filter.location.length > 0
+                ? route.params.filter.location
                 : ''
               }`}
           </Text>

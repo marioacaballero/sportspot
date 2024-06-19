@@ -44,6 +44,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'react-native'
 import { I18nextProvider, useTranslation } from 'react-i18next'
 import i18n from './utils/i18n'
+import Inscrpcion from './screens/Inscripciones/Inscripcion'
 // import PaymentScreen from './screens/StripeComponent'
 
 // import { StripeProvider } from '@stripe/stripe-react-native'
@@ -91,6 +92,11 @@ function MyStackNavigator({ isFooterShow, setIsFooterShow }) {
       <Stack.Screen
         name="EditarPerfil"
         component={EditarPerfil}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Inscripcion"
+        component={Inscrpcion}
         options={{ headerShown: false }}
       />
       <Stack.Screen

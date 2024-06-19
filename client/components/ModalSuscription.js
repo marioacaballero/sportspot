@@ -158,8 +158,8 @@ const ModalSuscription = ({ user, event, onClose }) => {
       <TouchableOpacity
         style={styles.touchable}
         onPress={() => {
-          openPaymentSheet()
-          // navigation.navigate('stripe')
+          // openPaymentSheet()
+          navigation.navigate('Inscripcion',event)
         }}
       >
         <Text style={styles.confirmText}>Confirmar</Text>

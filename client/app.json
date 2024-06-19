@@ -2,7 +2,7 @@
   "expo": {
     "runtimeVersion": "1.0.2",
     "name": "SpotSport",
-    "slug": "mytreenueva",
+    "slug": "nuevappp",
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/spotsport.png",
@@ -56,7 +56,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "296deecb-db9a-47bc-9d00-4f8bd96480ba"
+        "projectId": "9120196b-3c17-4afd-a7f1-26a9758f23ae"
       }
     },
     "updates": {
