@@ -6,9 +6,14 @@ import {
   Pressable,
   Image,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  BackHandler
 } from 'react-native'
-import { useIsFocused, useNavigation } from '@react-navigation/native'
+import {
+  useFocusEffect,
+  useIsFocused,
+  useNavigation
+} from '@react-navigation/native'
 import {
   FontFamily,
   FontSize,
@@ -50,6 +55,20 @@ const TuPerfil = () => {
     setModalState(true)
     setModalSport(true)
   }
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        navigation.navigate('InicioDeportista')
+        return true
+      }
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress)
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress)
+    }, [navigation])
+  )
 
   const getUserPreferencesState = async () => {
     console.log('Getting user pref state...')
@@ -147,7 +166,9 @@ const TuPerfil = () => {
                         { color: Color.sportsVioleta, fontSize: 14 }
                       ]}
                     >
-                      {user?.genres}, {age} años
+                      {`${t(user?.genres.toLowerCase())}${
+                        age && age > 0 ? `, ${age} ${t('edad')}` : ''
+                      }`}
                     </Text>
                   </>
                 ) : (

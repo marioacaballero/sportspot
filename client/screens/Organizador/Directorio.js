@@ -14,10 +14,12 @@ import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import FolderSVG from '../../components/SVG/FolderSVG'
 import LupaSVG from '../../components/SVG/LupaSVG'
 import { getAllEvents, getEventById } from '../../redux/actions/events'
+import { useTranslation } from 'react-i18next'
 
 const Directorio = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   const { events } = useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
@@ -107,7 +109,7 @@ const Directorio = () => {
         >
           <LupaSVG />
           <TextInput
-            placeholder="Buscar"
+            placeholder={t('buscar')}
             placeholderTextColor={Color.sportsVioleta}
             onChangeText={handleSearch}
           />
