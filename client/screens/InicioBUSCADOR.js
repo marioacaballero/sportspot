@@ -109,7 +109,7 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
             <TextInput
               onPress={() => setSelectedInput(true)}
               onBlur={() => setSelectedInput(false)}
-              placeholder="Buscar"
+              placeholder={t('buscar')}
               placeholderTextColor={'rgba(64,3,111,1)'}
               style={{
                 fontWeight: '700',
@@ -180,7 +180,10 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
               onPress={() => {
                 // onSubmit()
                 // dispatch(setNameEvent(eventsFilter))
-                navigation.navigate('PruebasEncontradas',{filter:eventsFilter,localSport})
+                navigation.navigate('PruebasEncontradas', {
+                  filter: eventsFilter,
+                  localSport
+                })
                 setMostrarInicioBuscador(false)
               }}
             >
