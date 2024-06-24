@@ -42,6 +42,10 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
     dispatch(getAllSports())
   }, [])
 
+  useEffect(() => {
+    console.log('eventsFilter changed=======', eventsFilter)
+  }, [eventsFilter])
+
   const openFrameContainer6 = useCallback(() => {
     setFrameContainer6Visible(true)
   }, [])

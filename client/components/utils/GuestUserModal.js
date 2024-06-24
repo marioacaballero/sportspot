@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import { clearUser } from '../../redux/slices/users.slices'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useDispatch } from 'react-redux'
+import { t } from 'i18next'
 
 const GuestUserModal = ({ onClose }) => {
   const navigation = useNavigation()
@@ -34,15 +35,17 @@ const GuestUserModal = ({ onClose }) => {
           fontSize: 19,
           color: '#F25910',
           marginBottom: 10,
-          textAlign: 'center'
+          textAlign: 'center',
+          width: '70%'
         }}
       >
-        Debes acceder o crearte una cuenta
+        {t('guestPopUpText')}
       </Text>
       <Pressable
         onPress={async () => {
           onClose()
-          AsyncStorage.setItem('guest', null)
+          AsyncStorage.clear()
+          //  AsyncStorage.setItem('guest', null)
           await dispatch(clearUser())
           navigation.navigate('IniciarSesin')
         }}
@@ -57,10 +60,10 @@ const GuestUserModal = ({ onClose }) => {
         }}
       >
         <Text style={{ fontWeight: 500, fontSize: 17, color: '#3C006E' }}>
-          Acceder
+          {t('entrar')}
         </Text>
       </Pressable>
-      <Pressable
+      {/* <Pressable
         onPress={async () => {
           onClose()
           AsyncStorage.setItem('guest', null)
@@ -80,7 +83,7 @@ const GuestUserModal = ({ onClose }) => {
         <Text style={{ fontWeight: 500, fontSize: 17, color: '#3C006E' }}>
           Crear cuenta
         </Text>
-      </Pressable>
+      </Pressable> */}
     </View>
   )
 }

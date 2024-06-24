@@ -5,7 +5,8 @@ import {
   Text,
   Pressable,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Linking
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import {
@@ -26,6 +27,27 @@ const Contacta = () => {
   const handlePress = () => {
     alert('¡Gracias por contactarnos! Te responderemos a la brevedad')
     navigation.goBack()
+  }
+
+  const handleRedirect = (redirectTo) => {
+    switch (redirectTo) {
+      case 'legal':
+        return Linking.openURL(
+          'https://drive.google.com/file/d/1I9itjjpA8mOzenah7djkBAplrvK2ZJVO/view?usp=sharing'
+        )
+      case 'privacy':
+        return Linking.openURL(
+          'https://drive.google.com/file/d/17NSB0Pf9nTNeUC_KoCCWREujcucV6v8s/view?usp=sharing'
+        )
+      case 'terms':
+        return Linking.openURL(
+          'https://drive.google.com/file/d/1GXoysbDZVzPw3FMiuNhCNDAPuopBMzXs/view?usp=sharing'
+        )
+      default:
+        return Linking.openURL(
+          'https://drive.google.com/file/d/1GXoysbDZVzPw3FMiuNhCNDAPuopBMzXs/view?usp=sharing'
+        )
+    }
   }
 
   return (
@@ -61,6 +83,47 @@ const Contacta = () => {
             <Text style={styles.send}>{t('enviar')}</Text>
           </TouchableOpacity>
         </View>
+        <View style={{ gap: 10, padding: 20, marginTop: 10 }}>
+          <Pressable onPress={() => handleRedirect('legal')}>
+            <Text
+              style={{
+                fontSize: 14,
+                color: Color.sportsVioleta,
+                fontFamily: FontFamily.inputPlaceholder,
+                fontWeight: '700',
+                textDecorationLine: 'underline'
+              }}
+            >
+              Aviso legal
+            </Text>
+          </Pressable>
+          <Pressable onPress={() => handleRedirect('privacy')}>
+            <Text
+              style={{
+                fontSize: 14,
+                color: Color.sportsVioleta,
+                fontFamily: FontFamily.inputPlaceholder,
+                fontWeight: '700',
+                textDecorationLine: 'underline'
+              }}
+            >
+              Política de Privacidad
+            </Text>
+          </Pressable>
+          <Pressable onPress={() => handleRedirect('terms')}>
+            <Text
+              style={{
+                fontSize: 14,
+                color: Color.sportsVioleta,
+                fontFamily: FontFamily.inputPlaceholder,
+                fontWeight: '700',
+                textDecorationLine: 'underline'
+              }}
+            >
+              Términos y condiciones
+            </Text>
+          </Pressable>
+        </View>
       </View>
     </LinearGradient>
   )
@@ -69,11 +132,10 @@ const Contacta = () => {
 const styles = StyleSheet.create({
   container: {
     padding: Padding.p_8xs,
-    flex: 1,
-    height: '100%'
+    flex: 1
   },
   innerContainer: {
-    top: 76,
+    marginTop: 76,
     borderRadius: Border.br_base,
     shadowColor: '#000',
     shadowOffset: {
@@ -87,7 +149,6 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 360,
     left: 20,
-    position: 'absolute',
     alignItems: 'center'
   },
   titleContainer: {

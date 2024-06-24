@@ -73,24 +73,24 @@ const PopupOrdenarPor = ({ setModalVisible }) => {
     )
     if (selectedFilter === filter) {
       setSelectedFilter()
-      dispatch(setFilteredEvents(events))
+      dispatch(setFilteredEvents(eventsFilter))
       return
     }
     if (filter === 'date') {
       setSelectedFilter(filter)
-      const orderedEvents = sortByDate(events, 'asc')
+      const orderedEvents = sortByDate(eventsFilter, 'asc')
       dispatch(setFilteredEvents(orderedEvents))
       return
     }
     if (filter === 'price') {
       setSelectedFilter(filter)
-      const orderedEvents = sortByPrice(events)
+      const orderedEvents = sortByPrice(eventsFilter)
       dispatch(setFilteredEvents(orderedEvents))
       return
     }
     if (filter === 'popularity') {
       setSelectedFilter(filter)
-      const orderedEvents = sortBySubscribers(events)
+      const orderedEvents = sortBySubscribers(eventsFilter)
       dispatch(setFilteredEvents(orderedEvents))
     }
   }
