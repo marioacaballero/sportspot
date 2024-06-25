@@ -11,6 +11,7 @@ import { NotificationsService } from 'src/notifications/notifications.service'
 import { EventsService } from 'src/events/events.service'
 import { SendMailsService } from 'src/send-mails/send-mails.service'
 import { UserEventHistoryEntity } from 'src/events/entities/userEvent.entity'
+import { PushNotificationService } from 'src/notification-push/notification.service'
 
 
 @Module({
@@ -27,6 +28,7 @@ import { UserEventHistoryEntity } from 'src/events/entities/userEvent.entity'
     JsonwebtokenService,
     UsersService,
     NotificationsService,
+    PushNotificationService,
     EventsService,
     SendMailsService
   ]

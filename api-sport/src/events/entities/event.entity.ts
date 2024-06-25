@@ -81,6 +81,10 @@ export class EventEntity extends BaseEntity {
   @JoinTable()
   suscribers: UserEntity[]
 
+
+  @ManyToMany(() => UserEntity, user => user.subscribedEventsNotifications)
+  subscribersNotifications: UserEntity[];
+
   @OneToMany(() => NotificationEntity, (notification) => notification.event)
   notifications: NotificationEntity[]
 

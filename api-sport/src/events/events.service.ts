@@ -9,6 +9,7 @@ import { EventEntity } from './entities/event.entity'
 import { UserEventHistoryEntity } from './entities/userEvent.entity'
 import { NotificationEntity } from 'src/notifications/entities/notification.entity'
 import { NotificationsService } from 'src/notifications/notifications.service'
+import { PushNotificationService } from 'src/notification-push/notification.service'
 
 export class EventsService {
   constructor(
@@ -22,7 +23,9 @@ export class EventsService {
     @InjectRepository(NotificationEntity)
     private readonly notificationsRepository: Repository<NotificationEntity>,
     private readonly notificationsService: NotificationsService,
-  ) {}
+    private readonly notificationsPushService: PushNotificationService,
+
+  ) { }
 
   public async createService(createEventDto: CreateEventDto) {
     console.log("entra")
@@ -101,39 +104,39 @@ export class EventsService {
     id: string,
     updateEventDto: UpdateEventDto
   ): Promise<EventEntity> {
-   try {
-    const event = await this.eventsRepository
-    .createQueryBuilder('event')
-    .where({ id })
-    .leftJoinAndSelect('event.suscribers', 'suscribers')
-    .getOne()
+    try {
+      const event = await this.eventsRepository
+        .createQueryBuilder('event')
+        .where({ id })
+        .leftJoinAndSelect('event.suscribers', 'suscribers')
+        .getOne()
 
-  if (!event) {
-    throw new HttpException(`Evento con ID perro ${id} no encontrado`, 404)
-  }
+      if (!event) {
+        throw new HttpException(`Evento con ID perro ${id} no encontrado`, 404)
+      }
 
-  for (const key in updateEventDto) {
-    if (updateEventDto.hasOwnProperty(key)) {
-      event[key] = updateEventDto[key]
+      for (const key in updateEventDto) {
+        if (updateEventDto.hasOwnProperty(key)) {
+          event[key] = updateEventDto[key]
+        }
+      }
+      if (
+        updateEventDto.dateStart ||
+        updateEventDto.dateInscription ||
+        updateEventDto.timeStart ||
+        updateEventDto.location ||
+        updateEventDto.modality
+      ) {
+        await this.sendMailsService.sendEventModificationNotification(
+          event,
+          updateEventDto
+        )
+      }
+
+      return await this.eventsRepository.save(event)
+    } catch (error) {
+      console.log(error, "error")
     }
-  }
-  if (
-    updateEventDto.dateStart ||
-    updateEventDto.dateInscription ||
-    updateEventDto.timeStart ||
-    updateEventDto.location ||
-    updateEventDto.modality
-  ) {
-    await this.sendMailsService.sendEventModificationNotification(
-      event,
-      updateEventDto
-    )
-  }
-
-  return await this.eventsRepository.save(event)
-   } catch (error) {
-    console.log(error,"error")
-   }
   }
 
   public async deleteService(id) {
@@ -302,45 +305,66 @@ export class EventsService {
   }
 
   private async notifyUsersByLocation(event: EventEntity) {
-    console.log(event,"creatoooor")
+    console.log(event, "creatoooor")
     const creatorId = `${event.creator}`
     const users = await this.usersRepository.find();
     const usersToNotify = users.filter(user => {
-        if (!user.preferences || !user.preferences['location']) return false;
-        return user.preferences['location'] === event.location;
+      if (!user.preferences || !user.preferences['location']) return false;
+      return user.preferences['location'] === event.location;
     });
 
     for (const user of usersToNotify) {
-        // Verificar si el usuario no es el creador del evento antes de enviar la notificación
-        if (event.creator && user.id !== creatorId) {
-            await this.notificationsService.createService({
-                title: 'Nuevo evento en tu zona',
-                message: `Se ha creado un nuevo evento en tu ubicación preferida: ${event.title}`,
-                date: new Date(),
-                eventType: 'event',
-                eventId: event.id,
-                recipient: user,
-                recipientId: user.id,
-                read: false,
-            });
-        }
+      // Verificar si el usuario no es el creador del evento antes de enviar la notificación
+      if (event.creator && user.id !== creatorId) {
+        await this.notificationsService.createService({
+          title: 'Nuevo evento en tu zona',
+          message: `Se ha creado un nuevo evento en tu ubicación preferida: ${event.title}`,
+          date: new Date(),
+          eventType: 'event',
+          eventId: event.id,
+          recipient: user,
+          recipientId: user.id,
+          read: false,
+        });
+      }
     }
 
     // Verificar si event.creator está definido antes de enviar la notificación al usuario creador del evento
     if (creatorId) {
-      console.log(event,"eventtt")
-        await this.notificationsService.createService({
-            title: 'Evento creado',
-            message: `Tu evento "${event.title}" ha sido creado con éxito.`,
-            date: new Date(),
-            eventType: 'event_created',
-            eventId: event.id,
-            recipientId: creatorId,
-            recipient: event.creator,
-            read: false,
-        });
+      console.log(event, "eventtt")
+      await this.notificationsService.createService({
+        title: 'Evento creado',
+        message: `Tu evento "${event.title}" ha sido creado con éxito.`,
+        date: new Date(),
+        eventType: 'event_created',
+        eventId: event.id,
+        recipientId: creatorId,
+        recipient: event.creator,
+        read: false,
+      });
     }
-}
+  }
+
+  async subscribeToEvent(userId: string, eventId: string): Promise<void> {
+    const user = await this.usersRepository.findOne({ where: { id: userId }, relations: ['subscribedEventsNotifications'] });
+    const event = await this.eventsRepository.findOne({ where: { id: eventId } });
+
+    if (user && event) {
+      user.subscribedEventsNotifications.push(event);
+      await this.usersRepository.save(user);
+    }
+  }
+
+  async notifySubscribers(event: Event, message: string): Promise<void> {
+    const subscribers = await this.eventsRepository
+      .createQueryBuilder('event')
+      .relation(Event, 'subscribers')
+      .of(event)
+      .loadMany();
+
+    const pushTokens = subscribers.map(user => user.NotificationPush); // Asumimos que los usuarios tienen un campo `pushToken`
+    await this.notificationsPushService.sendPushNotifications(pushTokens, message);
+  }
 
 }
 

@@ -11,6 +11,7 @@ import { JwtService } from '@nestjs/jwt'
 import { JsonwebtokenService } from 'src/jsonwebtoken/jsonwebtoken.service'
 import { SendMailsService } from 'src/send-mails/send-mails.service'
 import { UserEventHistoryEntity } from './entities/userEvent.entity'
+import { PushNotificationService } from 'src/notification-push/notification.service'
 
 
 @Module({
@@ -23,6 +24,7 @@ import { UserEventHistoryEntity } from './entities/userEvent.entity'
     UsersService,
     NotificationsService,
     SendMailsService,
+    PushNotificationService,
     JsonwebtokenService,
     JwtService
   ]

@@ -96,4 +96,9 @@ export class EventsController {
     return this.eventsService.createServiceAprox(createEventDto);
   }
 
+  @Post('subscribe/:userId/:eventId')
+  async subscribeToEvent(@Param('userId') userId: string, @Param('eventId') eventId: string): Promise<void> {
+    await this.eventsService.subscribeToEvent(userId, eventId);
+  }
+
 }
