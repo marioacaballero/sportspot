@@ -47,7 +47,7 @@ const GuestUserModal = ({ onClose }) => {
           AsyncStorage.clear()
           //  AsyncStorage.setItem('guest', null)
           await dispatch(clearUser())
-          navigation.navigate('IniciarSesin')
+          navigation.navigate('SignIn')
         }}
         style={{
           width: '80%',

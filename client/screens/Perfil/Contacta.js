@@ -83,7 +83,16 @@ const Contacta = () => {
             <Text style={styles.send}>{t('enviar')}</Text>
           </TouchableOpacity>
         </View>
-        <View style={{ gap: 10, padding: 20, marginTop: 10 }}>
+        <View
+          style={{
+            gap: 10,
+            padding: 20,
+            marginTop: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%'
+          }}
+        >
           <Pressable onPress={() => handleRedirect('legal')}>
             <Text
               style={{
