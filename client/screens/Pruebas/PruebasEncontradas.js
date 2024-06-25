@@ -42,19 +42,16 @@ const PruebasEncontradas = ({ route }) => {
   const { user } = useSelector((state) => state.users)
   const { sports } = useSelector((state) => state.sports)
 
-
   // // console.log(user, 'user en encontradas pruebas')
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
   const [favoriteEvents, setFavoriteEvents] = useState([])
   const [newEvents, setNewEvents] = useState([])
 
-
   useEffect(() => {
     // if (eventsFilter.length === 0) {
     //   dispatch(setFilteredEvents(events))
     // }
-
   }, [])
 
   // useEffect(() => {
@@ -62,26 +59,64 @@ const PruebasEncontradas = ({ route }) => {
   // }, [favorites])
 
   useEffect(() => {
-    const today = new Date();
+    console.log('events', events)
+    const appliedFilters = route?.params?.filter
+    console?.log('appliedFilters', appliedFilters)
+    let filteredEvents = [...events]
+    if (appliedFilters?.sportName?.length > 0) {
+      const filteredSports = sports
+        ?.filter((deporte) =>
+          appliedFilters?.sportName?.includes(deporte?.name)
+        )
+        ?.map((deporte) => deporte?.id)
+      console?.log('filteredSports', filteredSports)
+      filteredEvents = events?.filter((event) =>
+        filteredSports?.includes(event?.sportId)
+      )
+    }
+    if (appliedFilters?.location?.length > 0) {
+      const location = appliedFilters?.location
+      const filteredEventsCopy = [...filteredEvents]
+      filteredEvents = filteredEventsCopy?.filter((event) =>
+        event?.location?.toLowerCase()?.includes(location?.toLowerCase())
+      )
+    }
+    if (appliedFilters?.dateStart?.length > 0) {
+      const startDate = new Date(appliedFilters?.dateStart[0])
+      const endDate = new Date(appliedFilters?.dateStart[1])
+      const filteredEventsCopy = [...filteredEvents]
+      filteredEvents = filteredEventsCopy?.filter((ev) => {
+        const evStart = new Date(ev?.dateStart)
+        if (evStart >= startDate && evStart <= endDate) {
+          return true
+        } else {
+          return false
+        }
+      })
+    }
+    dispatch(setFilteredEvents(filteredEvents))
+  }, [])
 
-    const sportsArray = route.params.localSport.split(", ");
+  // useEffect(() => {
+  //   const today = new Date()
 
-    const idsFiltrados = sports
-      .filter(deporte => sportsArray.includes(deporte.name)).map(deporte => deporte.id);
-   
+  //   const sportsArray = route.params.localSport.split(', ')
 
-      
-      const eventosFiltrados = events.filter(evento => idsFiltrados.includes(evento.sportId));
-      
+  //   const idsFiltrados = sports
+  //     .filter((deporte) => sportsArray.includes(deporte.name))
+  //     .map((deporte) => deporte.id)
 
-    const filteredUsers = eventosFiltrados.filter(user => {
-      const dateInscription = new Date(user.dateInscription);
-      return dateInscription >= today;
-    });
+  //   const eventosFiltrados = events.filter((evento) =>
+  //     idsFiltrados.includes(evento.sportId)
+  //   )
 
-    setNewEvents(filteredUsers)
+  //   const filteredUsers = eventosFiltrados.filter((user) => {
+  //     const dateInscription = new Date(user.dateInscription)
+  //     return dateInscription >= today
+  //   })
 
-  }, [eventsFilter])
+  //   setNewEvents(filteredUsers)
+  // }, [eventsFilter])
 
   useEffect(() => {
     setFavoriteEvents(allFavorites)
@@ -121,29 +156,33 @@ const PruebasEncontradas = ({ route }) => {
             source={require('../../assets/cilarrowtop1.png')}
           />
           <Text style={[styles.badajozCilcismo22, styles.filtrosTypo]}>
-            {`${route.params.localSport.length > 0
-              ? route.params.localSport
-              : ''
-              }${route.params.filter.sportName.length > 0 &&
-                route.params.filter.dateStart.length > 0
+            {`${
+              route.params.localSport.length > 0 ? route.params.localSport : ''
+            }${
+              route.params.filter.sportName.length > 0 &&
+              route.params.filter.dateStart.length > 0
                 ? ', '
                 : ''
-              }${route.params.filter.sportName.length > 0 &&
-                route.params.filter.dateStart.length === 0 &&
-                route.params.filter.location.length > 0
+            }${
+              route.params.filter.sportName.length > 0 &&
+              route.params.filter.dateStart.length === 0 &&
+              route.params.filter.location.length > 0
                 ? ', '
                 : ''
-              }${route.params.filter.dateStart.length > 0
+            }${
+              route.params.filter.dateStart.length > 0
                 ? route.params.filter.dateStart
                 : ''
-              }${route.params.filter.dateStart.length > 0 &&
-                route.params.filter.location.length > 0
+            }${
+              route.params.filter.dateStart.length > 0 &&
+              route.params.filter.location.length > 0
                 ? ', '
                 : ''
-              }${route.params.filter.location.length > 0
+            }${
+              route.params.filter.location.length > 0
                 ? route.params.filter.location
                 : ''
-              }`}
+            }`}
           </Text>
         </Pressable>
         <View style={[styles.frameParent, styles.parentSpaceBlock]}>
@@ -187,76 +226,82 @@ const PruebasEncontradas = ({ route }) => {
               />
             </View>
           </View>
-          <View style={styles.frameContainer}>
-            {newEvents.map((event, i) => (
-              <Pressable
-                key={i}
-                onPress={() => {
-                  dispatch(getEventByIdRedux(event.id))
-                  navigation.navigate('PruebasEncontradasDetalle')
-                }}
-                style={styles.unsplashon4qwhhjcemParentShadowBox}
-              >
-                <Image
-                  style={styles.unsplashon4qwhhjcemIcon}
-                  contentFit="cover"
-                  source={{ uri: event.image }}
-                />
+          {eventsFilter?.length > 0 ? (
+            <View style={styles.frameContainer}>
+              {eventsFilter?.map((event, i) => (
+                <Pressable
+                  key={i}
+                  onPress={() => {
+                    dispatch(getEventByIdRedux(event.id))
+                    navigation.navigate('PruebasEncontradasDetalle')
+                  }}
+                  style={styles.unsplashon4qwhhjcemParentShadowBox}
+                >
+                  <Image
+                    style={styles.unsplashon4qwhhjcemIcon}
+                    contentFit="cover"
+                    source={{ uri: event.image }}
+                  />
 
-                <View style={styles.frameView}>
-                  <View style={styles.frameGroupFlexBox}>
-                    <Text style={[styles.senderismo, styles.textTypo]}>
-                      {event.title}
-                    </Text>
-                    <View style={styles.likeSpotsport}>
-                      <CorazonSVG
-                        isFavorite={user.eventFavorites?.includes(event.id)}
-                        handle={() => toggleFavorite(event.id)}
-                      />
+                  <View style={styles.frameView}>
+                    <View style={styles.frameGroupFlexBox}>
+                      <Text style={[styles.senderismo, styles.textTypo]}>
+                        {event.title}
+                      </Text>
+                      <View style={styles.likeSpotsport}>
+                        <CorazonSVG
+                          isFavorite={user.eventFavorites?.includes(event.id)}
+                          handle={() => toggleFavorite(event.id)}
+                        />
+                      </View>
                     </View>
-                  </View>
-                  <Text
-                    style={[
-                      styles.imGoingToContainer,
-                      styles.goingContainerFlexBox
-                    ]}
-                  >
-                    <Text style={styles.modalidad}>
-                      -Modalidad: {event.modality}
-                      {'\n'}
-                    </Text>
-                    <Text style={styles.modalidad}>
-                      -Localización: {event.location}
-                      {'\n'}
-                    </Text>
-                    <Text style={styles.modalidad}>-Fecha de la prueba:</Text>
-                    <Text style={styles.ene2024Typo}>
-                      {' '}
-                      {event.dateStart} {'\n'}
-                    </Text>
+                    <Text
+                      style={[
+                        styles.imGoingToContainer,
+                        styles.goingContainerFlexBox
+                      ]}
+                    >
+                      <Text style={styles.modalidad}>
+                        -Modalidad: {event.modality}
+                        {'\n'}
+                      </Text>
+                      <Text style={styles.modalidad}>
+                        -Localización: {event.location}
+                        {'\n'}
+                      </Text>
+                      <Text style={styles.modalidad}>-Fecha de la prueba:</Text>
+                      <Text style={styles.ene2024Typo}>
+                        {' '}
+                        {event.dateStart} {'\n'}
+                      </Text>
 
-                    <Text style={styles.modalidad}>
-                      -Plazo límite de inscripción:{' '}
+                      <Text style={styles.modalidad}>
+                        -Plazo límite de inscripción:{' '}
+                      </Text>
+                      <Text style={styles.ene2024Typo}>
+                        {event?.dateInscription} {'\n'}
+                      </Text>
                     </Text>
-                    <Text style={styles.ene2024Typo}>
-                      {event?.dateInscription} {'\n'}
+                    <Text
+                      style={[
+                        styles.imGoingToContainer1,
+                        styles.goingContainerFlexBox
+                      ]}
+                    >
+                      <Text style={styles.precioDeInscripcin}>
+                        {'PRECIO DE INSCRIPCIÓN: '}
+                      </Text>
+                      <Text style={styles.textTypo}>{event.price}€ </Text>
                     </Text>
-                  </Text>
-                  <Text
-                    style={[
-                      styles.imGoingToContainer1,
-                      styles.goingContainerFlexBox
-                    ]}
-                  >
-                    <Text style={styles.precioDeInscripcin}>
-                      {'PRECIO DE INSCRIPCIÓN: '}
-                    </Text>
-                    <Text style={styles.textTypo}>{event.price}€ </Text>
-                  </Text>
-                </View>
-              </Pressable>
-            ))}
-          </View>
+                  </View>
+                </Pressable>
+              ))}
+            </View>
+          ) : (
+            <View style={styles.frameContainer}>
+              <Text>No hay resultados para tu busqueda!</Text>
+            </View>
+          )}
         </View>
       </View>
     </ScrollView>

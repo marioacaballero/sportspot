@@ -21,7 +21,7 @@ import { List } from 'react-native-paper'
 
 const PruebasEncontradasFiltros = ({ setModalVisible }) => {
   const dispatch = useDispatch()
-  const { events } = useSelector((state) => state.events)
+  const { eventsFilter } = useSelector((state) => state.events)
   const [start, setStart] = useState(0)
   const [end, setEnd] = useState(150)
   const [typesFilter, setTypesFilter] = useState({})
@@ -38,7 +38,7 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
       if (value) {
         updateState[name] = [...(updateState[name] || []), modality]
       } else {
-        updateState[name] = (updateState[name] || []).filter(
+        updateState[name] = (updateState[name] || [])?.filter(
           (item) => item !== modality
         )
       }
@@ -71,7 +71,7 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
   const priceDispatch = () => {
     dispatch(
       setFilteredEvents(
-        [...events].filter((event) => {
+        [...eventsFilter]?.filter((event) => {
           const precio = parseInt(event.price)
           return precio >= start && precio <= end
         })
@@ -198,7 +198,7 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
                     onPress={() => handlePress(sport.sportname)}
                     expanded={expandedStates[sport.sportname]}
                   >
-                    {sport.event_modality.map((type, i) => (
+                    {sport?.event_modality?.map((type, i) => (
                       <View
                         key={i}
                         style={{

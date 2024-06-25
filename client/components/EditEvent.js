@@ -218,7 +218,7 @@ const EditEvent = ({ event, onClose }) => {
       </Pressable>
 
       <Pressable style={styles.items}>
-        <Text style={styles.text}>Nombre del evento</Text>
+        <Text style={styles.text}>Nombre del eventoo</Text>
         <TextInput
           style={styles.helloTypoScroll}
           value={event.title}
@@ -411,14 +411,14 @@ const styles = StyleSheet.create({
   },
   items: {
     flexDirection: 'row',
-    borderWidth:1,
-    borderColor:"#3C006E",
+    borderWidth: 1,
+    borderColor: '#3C006E',
     alignItems: 'center',
     marginBottom: 20,
     marginTop: 5,
     borderRadius: 30,
     height: 45,
-    padding: 8,
+    padding: 8
   },
   confirmButton: {
     height: 48,
@@ -456,8 +456,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(113, 113, 113, 0.3)'
   },
   text: {
-    backgroundColor:"white",
-    padding:3,
+    backgroundColor: 'white',
+    padding: 3,
     fontSize: FontSize.size_5xs,
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',

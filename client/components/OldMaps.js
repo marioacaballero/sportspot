@@ -12,6 +12,7 @@ import {
 // import { data } from '../utils/townesEspaña'
 import cities from '../utils/cities.json'
 import BackArrowSVG from './SVG/BackArrowSVG'
+import { useTranslation } from 'react-i18next'
 
 const Maps = ({ onClose, setEventsFilter }) => {
   const [searchText, setSearchText] = useState('')
@@ -21,6 +22,7 @@ const Maps = ({ onClose, setEventsFilter }) => {
   const [comunitiesState, setComunitiesState] = useState(cities)
   const [provincesState, setProvincesState] = useState([])
   const [townState, setTownState] = useState([])
+  const { t } = useTranslation()
 
   // // console.log({ comunities, provinces, town })
   // const itemsPerPage = 50
@@ -202,7 +204,7 @@ const Maps = ({ onClose, setEventsFilter }) => {
           <View style={styles.items}>
             <TextInput
               style={styles.helloTypoScroll}
-              placeholder="Buscar"
+              placeholder={t('buscar')}
               value={searchText}
               onChangeText={handleTextChange}
             />

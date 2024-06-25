@@ -86,11 +86,11 @@ const EditarPerfil = () => {
 
   const onSubmit = async () => {
     const data = {
-      id: user.id,
+      id: user?.id,
       valuesUser
     }
     await dispatch(updateUser(data))
-    dispatch(getUser(user.id))
+    dispatch(getUser(user?.id))
     dispatch(setDateStart(''))
     navigation.navigate('TuPerfil')
   }
@@ -124,11 +124,11 @@ const EditarPerfil = () => {
 
     setSelectedImage(`data:image/jpeg;base64,${result?.assets[0].base64}`)
     const data = {
-      id: user.id,
+      id: user?.id,
       avatar: `data:image/jpeg;base64,${result?.assets[0].base64}`
     }
     dispatch(updateUserAvatar(data))
-    dispatch(getUser(user.id))
+    dispatch(getUser(user?.id))
   }
 
   return (
@@ -175,7 +175,7 @@ const EditarPerfil = () => {
                 selectedImage
                   ? { uri: selectedImage }
                   : user?.avatar
-                  ? { uri: user.avatar }
+                  ? { uri: user?.avatar }
                   : require('../../assets/unsplashn6gnca77urc.png')
               }
             />
@@ -211,9 +211,9 @@ const EditarPerfil = () => {
                           fontWeight: '700',
                           color: Color.sportsVioleta
                         }}
-                        placeholder={user.name || 'Nombre'}
+                        placeholder={user?.name || 'Nombre'}
                         placeholderTextColor={
-                          user.name ? Color.sportsVioleta : 'gray'
+                          user?.name ? Color.sportsVioleta : 'gray'
                         }
                         value={valuesUser?.name}
                         onChangeText={(value) =>
@@ -236,7 +236,7 @@ const EditarPerfil = () => {
                         }}
                         placeholder={user?.lastName || 'Apellido'}
                         placeholderTextColor={
-                          user.lastName ? Color.sportsVioleta : 'gray'
+                          user?.lastName ? Color.sportsVioleta : 'gray'
                         }
                         value={valuesUser?.lastName}
                         onChangeText={(value) =>
@@ -283,8 +283,8 @@ const EditarPerfil = () => {
                           }}
                         >
                           {t(
-                            valuesUser.genres.toLowerCase().length > 0
-                              ? valuesUser.genres.toLowerCase()
+                            valuesUser?.genres.toLowerCase()?.length > 0
+                              ? valuesUser?.genres?.toLowerCase()
                               : 'selecciona'
                           )}
                         </Text>
@@ -358,11 +358,24 @@ const EditarPerfil = () => {
                     </Text>
                     <Text
                       style={{
-                        color: user.email ? Color.sportsVioleta : 'gray',
+                        color: user?.email ? Color.sportsVioleta : 'gray',
                         fontWeight: '700'
                       }}
                     >
-                      {user?.email || 'ejemplo@gmail.com'}
+                      {user?.googleId && !user?.lastName
+                        ? `${user?.name
+                            .split(' ')
+                            .join('')
+                            .toLowerCase()}@gmail.com`
+                        : user?.googleId && user?.lastName
+                        ? `${user?.name
+                            .split(' ')
+                            .join('')
+                            .toLowerCase()}${user?.lastName
+                            .split(' ')
+                            .join('')
+                            .toLowerCase()}@gmail.com`
+                        : user?.email}
                     </Text>
                   </View>
                 </View>
@@ -377,9 +390,9 @@ const EditarPerfil = () => {
                       style={{ fontWeight: '700', color: Color.sportsVioleta }}
                       placeholder={user?.phoneNumber || t('escribeaca')}
                       placeholderTextColor={
-                        user.phoneNumber ? Color.sportsVioleta : 'gray'
+                        user?.phoneNumber ? Color.sportsVioleta : 'gray'
                       }
-                      value={valuesUser.phoneNumber}
+                      value={valuesUser?.phoneNumber}
                       onChangeText={(value) =>
                         settingValuesUser('phoneNumber', value)
                       }
@@ -398,9 +411,9 @@ const EditarPerfil = () => {
                       style={{ fontWeight: '700', color: Color.sportsVioleta }}
                       placeholder={user?.address || t('escribeaca')}
                       placeholderTextColor={
-                        user.address ? Color.sportsVioleta : 'gray'
+                        user?.address ? Color.sportsVioleta : 'gray'
                       }
-                      value={valuesUser.address}
+                      value={valuesUser?.address}
                       onChangeText={(value) =>
                         settingValuesUser('address', value)
                       }

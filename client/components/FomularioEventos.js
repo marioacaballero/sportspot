@@ -26,6 +26,7 @@ import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
 import CustomAlert from './CustomAlert'
 import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native'
 import axiosInstance from '../utils/apiBackend'
+import { useTranslation } from 'react-i18next'
 
 const FomularioEventos = ({
   onEditMode,
@@ -39,6 +40,7 @@ const FomularioEventos = ({
   const { dateStart, dateSuscription } = useSelector((state) => state.events)
   const { sport } = useSelector((state) => state.sports)
   const { user } = useSelector((state) => state.users)
+  const { t } = useTranslation()
 
   const [calendar, setCalendar] = useState(null)
   const [calendarInscription, setCalendarInscription] = useState(null)
@@ -309,12 +311,12 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>Nombre del evento</Text>
+          <Text style={styles.text}>{t('nombreDelEvento')}</Text>
           <TextInput
             style={styles.helloTypoScroll}
             value={event.title}
             onChangeText={(value) => onValuesEvent('title', value)}
-            placeholder="Escriba el nombre del evento"
+            placeholder={t('nombreDelEvento')}
             placeholderTextColor={Color.violetaPlaceholder}
           />
         </View>
@@ -332,7 +334,7 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>Deporte</Text>
+          <Text style={styles.text}>{t('deporte')}</Text>
           <Text
             style={
               sport.name || event.sport
@@ -341,8 +343,7 @@ const FomularioEventos = ({
             }
           >
             {sport?.name?.slice(0, 1).toUpperCase()}
-            {sport?.name?.slice(1)}{' '}
-            {sport.name ? sport?.type : 'Elige tu deporte'}
+            {sport?.name?.slice(1)} {sport.name ? sport?.type : t('deporte')}
           </Text>
         </View>
       </Pressable>
@@ -358,12 +359,12 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>Categoría</Text>
+          <Text style={styles.text}>{t('categoria')}</Text>
           <TextInput
             style={styles.helloTypoScroll}
             value={category}
             onChangeText={(value) => setCategory(value)}
-            placeholder="Ingrese una categoría"
+            placeholder={t('categoria')}
             placeholderTextColor={Color.violetaPlaceholder}
           />
         </View>
@@ -409,12 +410,12 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>Descripción del evento</Text>
+          <Text style={styles.text}>{t('descripcionDelEvento')}</Text>
           <TextInput
             style={styles.helloTypoScroll}
             value={event.description}
             onChangeText={(value) => onValuesEvent('description', value)}
-            placeholder="Descripción del evento"
+            placeholder={t('descripcionDelEvento')}
             placeholderTextColor={Color.violetaPlaceholder}
           />
         </View>
@@ -431,13 +432,13 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>Lugar del evento</Text>
+          <Text style={styles.text}>{t('lugarDelEvento')}</Text>
           <Text
             style={
               event.location ? styles.helloTypoScroll : styles.helloTypoScroll2
             }
           >
-            {event.location ? event.location : 'Elija el lugar del evento'}
+            {event.location ? event.location : t('lugarDelEvento')}
           </Text>
         </View>
       </Pressable>
@@ -454,7 +455,7 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>Link del evento</Text>
+          <Text style={styles.text}>{t('linkDelEvento')}</Text>
           <TextInput
             style={styles.helloTypoScroll}
             value={event.eventLink}
@@ -476,7 +477,7 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>Link de la inscripción</Text>
+          <Text style={styles.text}>{t('linkDeLaInscripcion')}</Text>
           <TextInput
             style={styles.helloTypoScroll}
             value={event.inscriptionLink}
@@ -498,7 +499,7 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>Fecha de inicio</Text>
+          <Text style={styles.text}>{t('fechaDeInicio')}</Text>
           <Text
             style={
               dateStart || event.dateStart
@@ -510,7 +511,7 @@ const FomularioEventos = ({
               ? event.dateStart
               : dateStart
               ? dateStart
-              : 'Seleccione la fecha de inicio'}
+              : t('fechaDeInicio')}
           </Text>
         </View>
       </Pressable>
@@ -530,7 +531,7 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>Fecha límite de inscripción</Text>
+          <Text style={styles.text}>{t('fechaLimiteDeInscripcion')}</Text>
           <Text
             style={
               dateSuscription || event.dateEnd
@@ -542,14 +543,14 @@ const FomularioEventos = ({
               ? event.dateEnd
               : dateSuscription
               ? dateSuscription
-              : 'Fecha límite de inscripción'}
+              : t('fechaLimiteDeInscripcion')}
           </Text>
         </View>
       </Pressable>
 
       <View style={styles.items2Container}>
         <View style={styles.items2Flex}>
-          <Text style={styles.text2}>Precio de inscripción</Text>
+          <Text style={styles.text2}>{t('precioDeInscripcion')}</Text>
           <View style={styles.items2}>
             <TextInput
               style={styles.helloTypoScrollPrecio}
@@ -564,7 +565,7 @@ const FomularioEventos = ({
         </View>
 
         <View style={styles.items2Flex}>
-          <Text style={styles.text2}>Plazas disponibles</Text>
+          <Text style={styles.text2}>{t('lugarDelEvento')}</Text>
           <View style={styles.items2}>
             <TextInput
               style={styles.helloTypoScrollPrecio}
@@ -578,7 +579,7 @@ const FomularioEventos = ({
         </View>
 
         <View style={styles.items2Flex}>
-          <Text style={styles.text2}>Subir cartel del evento</Text>
+          <Text style={styles.text2}>{t('subirCartelDelEvento')}</Text>
           <Pressable style={styles.items2} onPress={uploadImage}>
             {/* <Image
               style={{ width: 20, height: 20 }}
@@ -592,16 +593,14 @@ const FomularioEventos = ({
                   : styles.subirArchivo
               }
             >
-              {selectedImage || event.image ? 'Cambiar' : 'Subir archivo'}
+              {selectedImage || event.image ? t('cambiar') : t('subirArchivo')}
             </Text>
           </Pressable>
         </View>
       </View>
 
       <View style={styles.checkContainer}>
-        <Text style={styles.textDiseño}>
-          Quiero contratar el diseño del cartel
-        </Text>
+        <Text style={styles.textDiseño}>{t('quieroContratarDiseño')}</Text>
         <Checkbox
           status={checked ? 'checked' : 'unchecked'}
           onPress={() => {
@@ -611,7 +610,7 @@ const FomularioEventos = ({
         />
       </View>
 
-      <Text style={styles.contactoText}>Datos de contacto del organizador</Text>
+      <Text style={styles.contactoText}>{t('datorOrganizador')}</Text>
 
       <View style={styles.items}>
         {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M47.5039'} /> */}
@@ -647,7 +646,7 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>Teléfono</Text>
+          <Text style={styles.text}>{t('telefono')}</Text>
           <TextInput
             style={styles.helloTypoScroll}
             value={event.phoneNumber}
@@ -678,7 +677,7 @@ const FomularioEventos = ({
         }}
       >
         <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>
-          {onEditMode ? 'Editar' : 'Enviar'}
+          {onEditMode ? t('editar') : t('enviar')}
         </Text>
       </TouchableOpacity>
 
