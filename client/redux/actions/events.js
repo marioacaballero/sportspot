@@ -24,6 +24,22 @@ export const getSuscribedEvents = createAsyncThunk(
     }
   }
 )
+
+export const getSuscribedEventsNotifications = createAsyncThunk(
+  'events/getSuscribedEventsNotifications',
+  async (userId) => {
+    // console.log('USERID: ', userId)
+    try {
+      const { data } = await axiosInstance.get(`/events/notifications/${userId}`)
+      console.log('data from getSuscribedEvents: ', data)
+      return data
+    } catch (error) {
+      console.log('ERROR FROM GSE: ', error)
+      // throw new Error(error)
+    }
+  }
+)
+
 export const getAllEventsFilters = createAsyncThunk(
   'eventsFilters/getAll',
   async (query) => {

@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/native'
 import { loadFonts } from './GlobalStyles'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Provider } from 'react-redux'
+import { Provider, useDispatch } from 'react-redux'
 import { store } from './redux/store'
 import { StripeProvider } from '@stripe/stripe-react-native'
 
@@ -49,6 +49,8 @@ import Inscrpcion from './screens/Inscripciones/Inscripcion'
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { setNotificationPush } from './redux/slices/users.slices'
 // import { StripeProvider } from '@stripe/stripe-react-native'
 // import PaymentScreen from './screens/PaymentScreen'
 
@@ -80,6 +82,7 @@ function MyStackNavigator({ isFooterShow, setIsFooterShow }) {
       <Stack.Screen
         name="PruebasEncontradasDetalle"
         component={PruebasEncontradasDetalle}
+
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -324,11 +327,11 @@ export default function App() {
   const [notification, setNotification] = useState(undefined);
   const notificationListener = useRef();
   const responseListener = useRef();
-
   useEffect(() => {
-
     registerForPushNotificationsAsync()
-      .then(token => setExpoPushToken(token ?? ''))
+      .then(token => {
+       AsyncStorage.setItem('notificationsToken', token)
+        setExpoPushToken(token ?? '')})
       .catch(error => setExpoPushToken(`${error}`));
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {

@@ -132,6 +132,10 @@ export class EventsService {
           updateEventDto
         )
       }
+      const eventToNotificate = await this.eventsRepository.findOne({ where: { id }, relations: ['subscribersNotifications'] });
+      if (eventToNotificate) {
+        await this.notifySubscribers(eventToNotificate,"Se ha actualizado un evento al que te suscribiste" );
+      }
 
       return await this.eventsRepository.save(event)
     } catch (error) {
@@ -346,24 +350,36 @@ export class EventsService {
   }
 
   async subscribeToEvent(userId: string, eventId: string): Promise<void> {
-    const user = await this.usersRepository.findOne({ where: { id: userId }, relations: ['subscribedEventsNotifications'] });
+     const user = await this.usersRepository.findOne({ where: { id: userId }, relations: ['subscribedEventsNotifications'] });
     const event = await this.eventsRepository.findOne({ where: { id: eventId } });
 
     if (user && event) {
-      user.subscribedEventsNotifications.push(event);
-      await this.usersRepository.save(user);
+      if (!user.subscribedEventsNotifications.some(e => e.id === eventId)) {
+        user.subscribedEventsNotifications.push(event);
+        await this.usersRepository.save(user);
+      } else {
+        user.subscribedEventsNotifications = user.subscribedEventsNotifications.filter(e => e.id !== eventId);
+        await this.usersRepository.save(user);
+      }
     }
   }
 
-  async notifySubscribers(event: Event, message: string): Promise<void> {
-    const subscribers = await this.eventsRepository
-      .createQueryBuilder('event')
-      .relation(Event, 'subscribers')
-      .of(event)
-      .loadMany();
-
-    const pushTokens = subscribers.map(user => user.NotificationPush); // Asumimos que los usuarios tienen un campo `pushToken`
+  async notifySubscribers(event: any, message: string): Promise<void> {
+    const subscribers = event.subscribersNotifications;
+    const pushTokens = subscribers.map(user => user.NotificationPush) || []; // Asumimos que los usuarios tienen un campo `pushToken`
     await this.notificationsPushService.sendPushNotifications(pushTokens, message);
+  }
+
+  async getSubscribedEventsNotification(userId: string): Promise<EventEntity[]> {
+    const user = await this.usersRepository.findOne({ where: { id: userId }, relations: ['subscribedEventsNotifications'] });
+    return user?.subscribedEventsNotifications || [];
+  }
+
+  async notifyEventSubscribers(eventId: string, message: string): Promise<void> {
+    const event = await this.eventsRepository.findOne({ where: { id: eventId }, relations: ['subscribersNotifications'] });
+    if (event) {
+      await this.notifySubscribers(event, message);
+    }
   }
 
 }

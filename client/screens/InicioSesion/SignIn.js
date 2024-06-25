@@ -129,7 +129,6 @@ export default function SignIn({ navigation }) {
       } catch (e) {}
     }
 
-    checkStoredCredentials()
   }, [userToken])
 
   useEffect(() => {

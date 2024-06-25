@@ -28,22 +28,25 @@ import EscribirResea from '../../components/EscribirResea'
 import ModalSuscription from '../../components/ModalSuscription'
 import CardReview from './CardReview'
 import { setShowGuestModal } from '../../redux/slices/events.slices'
-import { getAllEvents } from '../../redux/actions/events'
+import { getAllEvents, getSuscribedEventsNotifications } from '../../redux/actions/events'
 import { useTranslation } from 'react-i18next'
 import { setSport } from '../../redux/slices/sports.slices'
+import axiosInstance from '../../utils/apiBackend'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
   const dispatch = useDispatch()
   const { t, i18n } = useTranslation()
 
   const { user, eventFavorites, users } = useSelector((state) => state.users)
-  const { event, loading, events } = useSelector((state) => state.events)
+  const { event, loading, events, suscribedEventsNotifications } = useSelector((state) => state.events)
   const { sports } = useSelector((state) => state.sports)
   const [eventState, setEventState] = useState(event)
   const [modalSuscription, setModalSuscription] = useState(false)
   const [modalEditEvent, setModalEditEvent] = useState(false)
   // const [favorites, setFavorites] = useState()
   const [showModal, setShowModal] = useState(false)
+  const [notificationEnable, setNotificationEnable] = useState(false)
+
   const stateName =
     eventFavorites && eventFavorites?.some((fav) => fav?.id === event?.id)
   const isGuest = user?.email === 'guestUser@gmail.com'
@@ -53,13 +56,13 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       return stateName
     }
   }
-
   useEffect(() => {
-    console.log('eventState', eventState)
-  }, [])
+    const notificationOn = suscribedEventsNotifications.map(e => e.id).includes(event.id)
+    setNotificationEnable(notificationOn)
+  }, [suscribedEventsNotifications])
 
   const [name, setName] = useState(nameState() || false)
-
+  console.log(user, "userrrr", eventState)
   useEffect(() => {
     setName(stateName)
   }, [stateName])
@@ -67,7 +70,6 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   // useEffect(() => {
   //   dispatch(getFavorites(user.id))
   // }, [favoritesRedux])
-
   // useEffect(() => {
   //   setFavorites(allFavorites)
   // }, [allFavorites])
@@ -91,14 +93,12 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   )
 
   const transformPlaces = (places) => {
-    console.log('places', places)
     if (eventState.suscribers) {
       if (places === eventState?.suscribers?.length) {
         return `${places}/${places} : Full`
       } else if (places > eventState?.suscribers?.length) {
-        return `${
-          places - eventState?.suscribers?.length
-        }/${places} -> Disponibles`
+        return `${places - eventState?.suscribers?.length
+          }/${places} -> Disponibles`
       }
     } else {
       return `${places}/${places} -> Disponibles`
@@ -143,6 +143,14 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       }
     } catch (error) {
       alert(error.message)
+    }
+  }
+
+  const suscribeNotifications = async () => {
+    setNotificationEnable(!notificationEnable)
+    const res = await axiosInstance.post(`/events/subscribe/${user.id}/${event.id}`)
+    if (res) {
+      dispatch(getSuscribedEventsNotifications(user.id))
     }
   }
 
@@ -232,11 +240,15 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   </TouchableOpacity>
                 )}
 
-                <Image
-                  style={styles.alertIcon}
-                  contentFit="cover"
-                  source={require('../../assets/alert.png')}
-                />
+                <TouchableOpacity
+                  onPress={() => suscribeNotifications()}
+                >
+                  <Image
+                    style={styles.alertIcon}
+                    contentFit="cover"
+                    source={notificationEnable ? require('../../assets/alert4.png') : require('../../assets/alert.png')}
+                  />
+                </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() =>
                     onShare(
