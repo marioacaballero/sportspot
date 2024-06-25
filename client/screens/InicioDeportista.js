@@ -65,9 +65,9 @@ const InicioDeportista = () => {
   const [modalSport, setModalSport] = useState(false)
   const [buscador, setBuscador] = useState(false)
   const [premiosSoon, setPremiosSoon] = useState(false)
-  let backPressedOnce = false
-
   const [modalState, setModalState] = useState()
+
+  let backPressedOnce = false
 
   useFocusEffect(
     React.useCallback(() => {
@@ -200,16 +200,16 @@ const InicioDeportista = () => {
   if (loadingGet) {
     return (
       <View>
-        <Image
+        {/* <Image
           style={{ width: '100%', height: '100%', position: 'absolute' }}
           source={require('../assets/BGInicio.png')}
           contentFit="cover"
-        />
+        /> */}
         <ActivityIndicator
           style={{
             width: '100%',
             height: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.1)'
+            backgroundColor: 'transparent'
           }}
           animating={true}
           size="large"
@@ -834,7 +834,8 @@ const InicioDeportista = () => {
                       style={{
                         width: '100%',
                         justifyContent: 'center',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        backgroundColor: 'transparent'
                       }}
                     >
                       <ActivityIndicator

@@ -96,9 +96,9 @@ export const googleLogin = createAsyncThunk(
   'users/googleLogin',
   async (body) => {
     try {
-      // console.log('body from login: ', body)
+      console.log('body from login: ', body)
       const { data } = await axiosInstance.post('/jwt/google-login', body)
-      // console.log('data from login', data)
+      console.log('data from login', data)
       return data
     } catch (error) {
       throw new Error(error)

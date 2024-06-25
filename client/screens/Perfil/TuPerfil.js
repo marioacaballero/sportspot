@@ -144,10 +144,18 @@ const TuPerfil = () => {
                     : require('../../assets/unsplashn6gnca77urc.png')
                 }
               />
-              <View style={styles.laraMacasBlancoCarrrilhoParent}>
+              <View style={{ marginLeft: '5%', width: '55%' }}>
                 {user?.name || user?.lastName ? (
                   <>
-                    <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        color: Color.sportsNaranja,
+                        textAlign: 'left',
+                        fontFamily: FontFamily.inputPlaceholder,
+                        fontWeight: '700'
+                      }}
+                    >
                       {user?.name}
                     </Text>
                     <Text style={[styles.tuPerfilDato, styles.tuPerfil1Typo]}>
@@ -320,7 +328,11 @@ const TuPerfil = () => {
                 onPress={onChangeRol}
               >
                 <View style={styles.solarsettingsBoldIcon2}>
-                  <Megafone style={styles.solarsettingsBoldIcon2} />
+                  <Image
+                    resizeMode="contain"
+                    style={{ width: 20, height: 20 }}
+                    source={require('../../assets/whiteMega.png')}
+                  />
                 </View>
                 <Text style={[styles.cerrarSesin, styles.cerrarSesinTypo]}>
                   {user?.rol === 'sportsman'
@@ -432,8 +444,8 @@ const styles = StyleSheet.create({
   },
   unsplashn6gnca77urcIcon: {
     borderRadius: Border.br_5xs,
-    width: 132,
-    height: 122
+    width: '40%',
+    height: 123
   },
   laraMacasBlanco: {
     fontSize: FontSize.size_mini,
@@ -471,7 +483,7 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_31xl,
     width: 30,
     height: 30,
-    backgroundColor: Color.blanco
+    backgroundColor: 'transparent'
   },
   gestionaTuCuenta: {
     color: Color.sportsVioleta

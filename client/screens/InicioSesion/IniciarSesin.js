@@ -37,6 +37,7 @@ const IniciarSesin = ({ navigation }) => {
 
   useEffect(() => {
     const clearAll = async () => {
+      console.log('clearing storage...')
       try {
         await AsyncStorage.clear()
       } catch (e) {}
@@ -54,11 +55,11 @@ const IniciarSesin = ({ navigation }) => {
       try {
         const storedToken = await AsyncStorage.getItem('token')
         if (storedToken && user.name) {
-          console.log('userrr', user)
+          // console.log('userrr', user)
           navigation.navigate('InicioDeportista')
         }
         if (storedToken && !user.name) {
-          console.log('userrr', user)
+          // console.log('userrr', user)
           navigation.navigate('EditarPerfil')
         }
       } catch (error) {
@@ -66,7 +67,7 @@ const IniciarSesin = ({ navigation }) => {
       }
     }
 
-    clearAll()
+    // clearAll()
     storeTokenAndNavigate()
   }, [userToken])
 
@@ -77,8 +78,25 @@ const IniciarSesin = ({ navigation }) => {
     }))
   }
 
-  const onSubmit = () => {
-    dispatch(login(loginInfo))
+  const onSubmit = async () => {
+    console.log('onSubmit')
+    try {
+      const res = await dispatch(login(loginInfo))
+      console.log('res from submit', res?.meta?.arg)
+
+      if (res?.meta?.arg) {
+        const jsonValue = JSON.stringify(res.meta.arg)
+
+        try {
+          await AsyncStorage.setItem('userCredentials', jsonValue)
+          console.log('User credentials stored successfully')
+        } catch (error) {
+          console.error('Error storing user credentials:', error)
+        }
+      }
+    } catch (error) {
+      console.error('Error during login dispatch:', error)
+    }
   }
 
   return (

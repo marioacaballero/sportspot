@@ -149,16 +149,16 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   if (loading) {
     return (
       <View>
-        <Image
+        {/* <Image
           style={styles.background}
           source={require('../../assets/BGInicio.png')}
           contentFit="cover"
-        />
+        /> */}
         <ActivityIndicator
           style={{
             width: '100%',
-            height: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.1)'
+            height: '100%'
+            // backgroundColor: 'rgba(0, 0, 0, 0.1)'
           }}
           animating={true}
           size="large"

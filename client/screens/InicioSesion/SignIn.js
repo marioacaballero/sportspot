@@ -7,12 +7,14 @@ import {
 } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
 import {
+  BackHandler,
   Image,
   Pressable,
   // SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
+  ToastAndroid,
   TouchableOpacity,
   View
 } from 'react-native'
@@ -28,6 +30,7 @@ import { auth } from '../../utils/config.google'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { AntDesign, Entypo } from '@expo/vector-icons'
 import { useTranslation } from 'react-i18next'
+import { useFocusEffect } from '@react-navigation/native'
 WebBrowser.maybeCompleteAuthSession()
 
 // credenciales ios:
@@ -48,39 +51,88 @@ export default function SignIn({ navigation }) {
       '170387470104-gjbs1uunr7r3fodkv3gk4lncajgv8abc.apps.googleusercontent.com'
   })
 
+  let backPressedOnce = false
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        if (backPressedOnce) {
+          BackHandler.exitApp()
+        } else {
+          backPressedOnce = true
+          ToastAndroid.show(t('presionaAtras'), ToastAndroid.SHORT)
+          setTimeout(() => {
+            backPressedOnce = false
+          }, 2000)
+          return true
+        }
+      }
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress)
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress)
+    }, [])
+  )
+  const checkStoredCredentials = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('userCredentials')
+      const credentials = JSON.parse(jsonValue)
+      if (credentials.googleId) {
+        console.log('Already loged with google')
+        const res = await dispatch(googleLogin(credentials))
+        if (res?.meta?.arg) {
+          console.log('User logged in automatically')
+          console.log('res', res)
+          if (res && res.payload.user.name) {
+            console.log('to home')
+            navigation.navigate('InicioDeportista')
+          }
+          if (res && !res.payload.user?.name) {
+            console.log('to edit profile')
+            navigation.navigate('EditarPerfil')
+          }
+          navigation.navigate('InicioDeportista')
+        }
+        return
+      }
+      if (jsonValue) {
+        console.log('Retrieved user credentials:', credentials)
+
+        const res = await dispatch(login(credentials))
+        if (res?.meta?.arg) {
+          console.log('User logged in automatically')
+          if (res && res.payload.user.name) {
+            console.log('to home')
+            navigation.navigate('InicioDeportista')
+          }
+          if (res && !res.payload.user?.name) {
+            console.log('to edit profile')
+            navigation.navigate('EditarPerfil')
+          }
+          navigation.navigate('InicioDeportista')
+        }
+      } else {
+        console.log('No user credentials found')
+      }
+    } catch (error) {
+      console.log('Error retrieving user credentials:', error)
+    }
+  }
   useEffect(() => {
     const clearAll = async () => {
+      console.log('clearing storage...')
       try {
         await AsyncStorage.clear()
       } catch (e) {}
     }
 
-    const storeTokenAndNavigate = async () => {
-      if (user) {
-        try {
-          await AsyncStorage.setItem('token', userToken)
-        } catch (error) {
-          console.error('Error al almacenar el token:', error)
-        }
-      }
-
-      try {
-        const storedToken = await AsyncStorage.getItem('token')
-
-        if (storedToken) {
-          if (user && !user?.preferences?.location) {
-            navigation.navigate('EditarPerfil')
-          }
-          navigation.navigate('InicioDeportista')
-        }
-      } catch (error) {
-        console.error('Error al recuperar el token:', error)
-      }
-    }
-
-    clearAll()
-    storeTokenAndNavigate()
+    checkStoredCredentials()
   }, [userToken])
+
+  useEffect(() => {
+    checkStoredCredentials()
+  }, [])
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
@@ -88,6 +140,29 @@ export default function SignIn({ navigation }) {
         await AsyncStorage.setItem('@user', JSON.stringify(user))
 
         if (user.providerData[0].providerId === 'google.com') {
+          console.log('google user', user)
+          // console.log('auth', auth)
+          // const fetchGoogleUserInfo = async (accessToken) => {
+          //   try {
+          //     const response = await fetch(
+          //       'https://www.googleapis.com/oauth2/v3/userinfo',
+          //       {
+          //         headers: {
+          //           Authorization: `Bearer ${accessToken}`
+          //         }
+          //       }
+          //     )
+
+          //     const userInfo = await response.json()
+          //     console.log('fetched google user data ===========', userInfo)
+          //     return userInfo
+          //   } catch (error) {
+          //     console.error('Error fetching Google user info', error)
+          //   }
+          // }
+          // const res = await fetchGoogleUserInfo(
+          //   user.stsTokenManager.accessToken
+          // )
           console.log('=====LOGIN WITH GOOGLE=====')
           console.log('sending data to register: ', {
             email: '',
@@ -103,16 +178,24 @@ export default function SignIn({ navigation }) {
               googleId: user.uid
             })
           ).then(async (data) => {
-            // console.log('data from back:', data.payload)
+            console.log('data from back:', data.payload)
             try {
               if (data.payload.user) {
                 const { email, password, name, googleId } = data.payload.user
                 // console.log('login with: ', email, password, name, googleId)
                 dispatch(googleLogin({ email, password, googleId, name }))
+                await AsyncStorage.setItem(
+                  'userCredentials',
+                  JSON.stringify({ email, password, googleId, name })
+                )
               } else {
                 const { email, password, name, googleId } = data.payload
                 // console.log('login with: ', { email, password, googleId, name })
                 dispatch(googleLogin({ email, password, googleId, name }))
+                await AsyncStorage.setItem(
+                  'userCredentials',
+                  JSON.stringify({ email, password, googleId, name })
+                )
               }
             } catch (error) {
               // console.log('Error:', error)
@@ -210,15 +293,34 @@ export default function SignIn({ navigation }) {
                   fontWeight: 'bold',
                   textAlign: 'center'
                 }}
-                onPress={() => {
-                  console.log('login as guest...')
-                  dispatch(
-                    login({
-                      email: 'guestUser@gmail.com',
-                      password: 'guestuser1234'
-                    })
-                  )
-                  AsyncStorage.setItem('guest', JSON.stringify({ guest: true }))
+                onPress={async () => {
+                  try {
+                    console.log('login as guest...')
+                    const res = await dispatch(
+                      login({
+                        email: 'guestUser@gmail.com',
+                        password: 'guestuser1234'
+                      })
+                    )
+                    console.log('res from submit', res?.meta?.arg)
+
+                    if (res?.meta?.arg) {
+                      const jsonValue = JSON.stringify(res.meta.arg)
+
+                      try {
+                        // AsyncStorage.setItem(
+                        //   'guest',
+                        //   JSON.stringify({ guest: true })
+                        // )
+                        await AsyncStorage.setItem('userCredentials', jsonValue)
+                        console.log('User credentials stored successfully')
+                      } catch (error) {
+                        console.error('Error storing user credentials:', error)
+                      }
+                    }
+                  } catch (error) {
+                    console.error('Error during login dispatch:', error)
+                  }
                 }}
               >
                 {t('sinregistro')}
@@ -275,7 +377,7 @@ export default function SignIn({ navigation }) {
                   textAlign: 'center'
                 }}
               >
-                {i18n.language}
+                {i18n.language.toUpperCase()}
               </Text>
               <AntDesign name="swap" size={20} color={'#40036F'} />
             </TouchableOpacity>

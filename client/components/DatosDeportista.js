@@ -67,7 +67,6 @@ const DatosDeportista = ({
   const [showAlert, setShowAlert] = useState(false)
   const { t, i18n } = useTranslation()
 
-  console.log('user', user.preferences)
   useEffect(() => {
     dispatch(getAllSports())
   }, [])
