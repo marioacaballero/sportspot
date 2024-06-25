@@ -51,6 +51,8 @@ export default function SignIn({ navigation }) {
       '170387470104-gjbs1uunr7r3fodkv3gk4lncajgv8abc.apps.googleusercontent.com'
   })
 
+  // AsyncStorage.clear()
+
   let backPressedOnce = false
 
   useFocusEffect(
@@ -78,17 +80,17 @@ export default function SignIn({ navigation }) {
     try {
       const jsonValue = await AsyncStorage.getItem('userCredentials')
       const credentials = JSON.parse(jsonValue)
-      if (credentials.googleId) {
+      if (credentials?.googleId) {
         console.log('Already loged with google')
         const res = await dispatch(googleLogin(credentials))
         if (res?.meta?.arg) {
           console.log('User logged in automatically')
           console.log('res', res)
-          if (res && res.payload.user.name) {
+          if (res && res?.payload?.user?.name) {
             console.log('to home')
             navigation.navigate('InicioDeportista')
           }
-          if (res && !res.payload.user?.name) {
+          if (res && !res?.payload?.user?.name) {
             console.log('to edit profile')
             navigation.navigate('EditarPerfil')
           }
@@ -102,11 +104,11 @@ export default function SignIn({ navigation }) {
         const res = await dispatch(login(credentials))
         if (res?.meta?.arg) {
           console.log('User logged in automatically')
-          if (res && res.payload.user.name) {
+          if (res && res?.payload?.user?.name) {
             console.log('to home')
             navigation.navigate('InicioDeportista')
           }
-          if (res && !res.payload.user?.name) {
+          if (res && !res?.payload?.user?.name) {
             console.log('to edit profile')
             navigation.navigate('EditarPerfil')
           }
@@ -304,7 +306,7 @@ export default function SignIn({ navigation }) {
                     )
                     console.log('res from submit', res?.meta?.arg)
 
-                    if (res?.meta?.arg) {
+                    if (res?.meta?.arg && !res.error) {
                       const jsonValue = JSON.stringify(res.meta.arg)
 
                       try {

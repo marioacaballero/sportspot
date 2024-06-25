@@ -66,6 +66,7 @@ const InicioDeportista = () => {
   const [buscador, setBuscador] = useState(false)
   const [premiosSoon, setPremiosSoon] = useState(false)
   const [modalState, setModalState] = useState()
+  // AsyncStorage.clear()
 
   let backPressedOnce = false
 

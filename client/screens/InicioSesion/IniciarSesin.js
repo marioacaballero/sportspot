@@ -6,7 +6,8 @@ import {
   Pressable,
   Image,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  BackHandler
 } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
@@ -21,12 +22,15 @@ import { login } from '../../redux/actions/users'
 import { ActivityIndicator } from 'react-native-paper'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import { useTranslation } from 'react-i18next'
+import { useFocusEffect } from '@react-navigation/native'
 
 const IniciarSesin = ({ navigation }) => {
   const { t, i18n } = useTranslation()
   const { user, userToken, loading, error } = useSelector(
     (state) => state.users
   )
+
+  // AsyncStorage.clear()
   const dispatch = useDispatch()
   const passwordInputRef = useRef(null)
 
@@ -71,6 +75,20 @@ const IniciarSesin = ({ navigation }) => {
     storeTokenAndNavigate()
   }, [userToken])
 
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     const onBackPress = () => {
+  //       console.log('navigating to signin')
+  //       navigation.navigate('SignIn')
+  //     }
+
+  //     BackHandler.addEventListener('hardwareBackPress', onBackPress)
+
+  //     return () =>
+  //       BackHandler.removeEventListener('hardwareBackPress', onBackPress)
+  //   }, [])
+  // )
+
   const valuesLogin = (field, value) => {
     setLoginInfo((prev) => ({
       ...prev,
@@ -82,9 +100,9 @@ const IniciarSesin = ({ navigation }) => {
     console.log('onSubmit')
     try {
       const res = await dispatch(login(loginInfo))
-      console.log('res from submit', res?.meta?.arg)
+      console.log('res from submit', res)
 
-      if (res?.meta?.arg) {
+      if (res?.meta?.arg && !res.error) {
         const jsonValue = JSON.stringify(res.meta.arg)
 
         try {

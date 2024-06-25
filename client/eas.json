@@ -13,7 +13,14 @@
         "buildType": "apk"
       }
     },
-    "production": {}
+    "production": {
+      "android": {
+        "resourceClass": "medium"
+      },
+      "ios": {
+        "resourceClass": "large"
+      }
+    }
   },
   "submit": {
     "production": {}
