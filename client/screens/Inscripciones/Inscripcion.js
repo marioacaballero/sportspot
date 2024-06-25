@@ -585,8 +585,8 @@ const Inscrpcion = ({
                     style={styles.submit}
                     disabled={!event.name && !event.apellido && !event.dni && !event.localidad && !event.nacimiento && !event.provincia && !event.email && !event.reemail}
                     onPress={() => {
-                        openPaymentSheet()
-                        // navigation.navigate('stripe')
+                        // openPaymentSheet()
+                        navigation.navigate('stripe')
                     }}
                 >
                     <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>

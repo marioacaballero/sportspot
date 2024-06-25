@@ -14,6 +14,7 @@ import { JsonwebtokenService } from 'src/jsonwebtoken/jsonwebtoken.service'
 import { NotificationEntity } from "src/notifications/entities/notification.entity"
 import { JwtService } from '@nestjs/jwt'
 import { ReviewsService } from './reviews.service'
+import { PushNotificationService } from 'src/notification-push/notification.service'
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { ReviewsService } from './reviews.service'
     NotificationsService,
     JsonwebtokenService,
     JwtService,
-    ReviewsService
+    ReviewsService,
+    PushNotificationService
   ]
 })
 export class ReviewModule {}

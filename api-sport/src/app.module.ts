@@ -12,6 +12,7 @@ import { join } from 'path'
 import { PassportModule } from '@nestjs/passport'
 import { StripeModule } from './stripe/stripe.module'
 import { ReviewModule } from './reviews/reviews.module'
+import { PushNotificationModule } from './notification-push/notification.module'
 
 
 //import { GoogleStrategyModule } from './google/google.module'
@@ -24,6 +25,7 @@ console.log(join(__dirname, 'template'))
     UsersModule,
     EventsModule,
     NotificationsModule,
+    PushNotificationModule,
     SportsModule,
     JsonwebtokenModule,
     ConfigModule.forRoot({

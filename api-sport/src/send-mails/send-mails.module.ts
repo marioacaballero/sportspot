@@ -17,6 +17,7 @@ import { ResetCodeController } from './reset-code.controller'
 import { ResetCodeService } from './reset-code.service'
 import { SendMailsController } from './send-mails.controller'
 import { SendMailsService } from './send-mails.service'
+import { PushNotificationService } from 'src/notification-push/notification.service'
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { SendMailsService } from './send-mails.service'
     ResetCodeService,
     UsersService,
     NotificationsService,
+    PushNotificationService,
     EventsService,
     JsonwebtokenService,
     JwtService
