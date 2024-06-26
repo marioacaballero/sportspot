@@ -12,6 +12,7 @@ import { EventsService } from './events.service'
 import { CreateEventDto } from './dto/create-event.dto'
 import { UpdateEventDto } from './dto/update-event.dto'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
+import { EventEntity } from './entities/event.entity'
 
 @Controller('events')
 @ApiTags("Events")
@@ -99,6 +100,19 @@ export class EventsController {
   @Post('subscribe/:userId/:eventId')
   async subscribeToEvent(@Param('userId') userId: string, @Param('eventId') eventId: string): Promise<void> {
     await this.eventsService.subscribeToEvent(userId, eventId);
+  }
+
+  @Get('notifications/:userId')
+  async getSubscribedEventsNotification(@Param('userId') userId: string): Promise<EventEntity[]> {
+   return await this.eventsService.getSubscribedEventsNotification(userId);
+  }
+
+  @Post('notify/:eventId')
+  async notifyEventSubscribers(
+    @Param('eventId') eventId: string,
+    @Body('message') message: string,
+  ): Promise<void> {
+    await this.eventsService.notifyEventSubscribers(eventId, message);
   }
 
 }

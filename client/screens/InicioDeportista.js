@@ -30,6 +30,7 @@ import {
   getAllEvents,
   getAllVisitedEvents,
   getSuscribedEvents,
+  getSuscribedEventsNotifications,
   visitEvent
 } from '../redux/actions/events'
 import {
@@ -43,7 +44,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { getOneCustomer } from '../redux/actions/stripe'
 import { LinearGradient } from 'expo-linear-gradient'
 import GuestUserModal from '../components/utils/GuestUserModal'
-import { getAllUsers, getUser } from '../redux/actions/users'
+import { getAllUsers, getUser, updateUser } from '../redux/actions/users'
 import { setSelectedIcon } from '../redux/slices/users.slices'
 import { useTranslation } from 'react-i18next'
 import { NativeModules } from 'react-native'
@@ -57,7 +58,7 @@ const InicioDeportista = () => {
     (state) => state.events
   )
   const { userNotifications } = useSelector((state) => state.notifications)
-  const { user } = useSelector((state) => state.users)
+  const { user, NotificationPush } = useSelector((state) => state.users)
   const [modalPremium, setModalPremium] = useState(false)
   const [modalNotifications, setModalNotifications] = useState(false)
   const [modalOrganizador, setModalOrganizador] = useState(false)
@@ -67,6 +68,13 @@ const InicioDeportista = () => {
   const [premiosSoon, setPremiosSoon] = useState(false)
   const [modalState, setModalState] = useState()
   // AsyncStorage.clear()
+
+  const getTokenNotification = async () => {
+    const token2 = await AsyncStorage.getItem('notificationsToken')
+
+    dispatch(updateUser({ id: user.id, valuesUser: { NotificationPush: token2 } }))
+
+  }
 
   let backPressedOnce = false
 
@@ -120,10 +128,17 @@ const InicioDeportista = () => {
       getModalState()
       setModalSport(true)
     }
+
+    if (!user.NotificationPush) {
+      getTokenNotification()
+      // dispatch(updateUser({id: user.id , valuesUser:{ NotificationPush }}))
+    }
     dispatch(getAllUsers())
     dispatch(getUser(user.id))
     dispatch(getAllEvents())
     dispatch(getSuscribedEvents(user.id))
+    dispatch(getSuscribedEventsNotifications(user.id))
+
     // dispatch(getOneCustomer(user.email)).then((e) => console.log(e, 'eeeeeee'))
   }, [])
 
@@ -307,18 +322,18 @@ const InicioDeportista = () => {
                     />
                     {userNotifications.filter((not) => not.read === false)
                       .length > 0 && (
-                      <Image
-                        style={{
-                          width: 8,
-                          height: 8,
-                          position: 'absolute',
-                          top: -1,
-                          right: -2
-                        }}
-                        contentFit="cover"
-                        source={require('../assets/notificationCircle.png')}
-                      />
-                    )}
+                        <Image
+                          style={{
+                            width: 8,
+                            height: 8,
+                            position: 'absolute',
+                            top: -1,
+                            right: -2
+                          }}
+                          contentFit="cover"
+                          source={require('../assets/notificationCircle.png')}
+                        />
+                      )}
                     <Modal
                       animationType="fade"
                       transparent={true}
@@ -510,8 +525,8 @@ const InicioDeportista = () => {
                               i === 0
                                 ? styles.image94ParentShadowBox1
                                 : i === sortByDate([...lastHours]).length - 1
-                                ? styles.image94ParentShadowBoxr
-                                : styles.image94ParentShadowBox
+                                  ? styles.image94ParentShadowBoxr
+                                  : styles.image94ParentShadowBox
                             }
                             onPress={() => {
                               console.log('here')
@@ -596,8 +611,8 @@ const InicioDeportista = () => {
                                 ? styles.image94ParentShadowBox1
                                 : i ===
                                   sortByDate([...latestEventsAdded]).length - 1
-                                ? styles.image94ParentShadowBoxr
-                                : styles.image94ParentShadowBox
+                                  ? styles.image94ParentShadowBoxr
+                                  : styles.image94ParentShadowBox
                             }
                             onPress={() => {
                               dispatch(
@@ -678,8 +693,8 @@ const InicioDeportista = () => {
                                 ? styles.image94ParentShadowBox1
                                 : i ===
                                   sortByDate([...eventsExpired]).length - 1
-                                ? styles.image94ParentShadowBoxr
-                                : styles.image94ParentShadowBox
+                                  ? styles.image94ParentShadowBoxr
+                                  : styles.image94ParentShadowBox
                             }
                             onPress={() => {
                               dispatch(
