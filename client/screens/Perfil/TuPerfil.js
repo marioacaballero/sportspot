@@ -254,7 +254,8 @@ const TuPerfil = () => {
                   <Text style={styles.soonText}>Soon</Text>
                 </View>
               </View>
-              <View
+              <Pressable
+                onPress={() => navigation.navigate('Colaboradores')}
                 style={[
                   styles.solarsettingsBoldGroup,
                   styles.solarsettingsSpaceBlock
@@ -268,7 +269,7 @@ const TuPerfil = () => {
                 <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
                   {t('entidades')}
                 </Text>
-              </View>
+              </Pressable>
               <Pressable
                 style={[
                   styles.solarsettingsBoldGroup,
