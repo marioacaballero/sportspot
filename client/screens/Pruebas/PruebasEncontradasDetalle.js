@@ -57,7 +57,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     }
   }
   useEffect(() => {
-    const notificationOn = suscribedEventsNotifications.map(e => e.id).includes(event.id)
+    const notificationOn = suscribedEventsNotifications?.map(e => e.id).includes(event.id)
     setNotificationEnable(notificationOn)
   }, [suscribedEventsNotifications])
 
