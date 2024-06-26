@@ -8,7 +8,8 @@ import {
   visitEvent,
   getAllVisitedEvents,
   addReview,
-  getSuscribedEvents
+  getSuscribedEvents,
+  getSuscribedEventsNotifications
 } from '../actions/events'
 import { offSuscription } from '../actions/suscriptions'
 
@@ -17,6 +18,7 @@ export const eventsSlices = createSlice({
   initialState: {
     events: [],
     suscribedEvents: [],
+    suscribedEventsNotifications: [],
     eventsFilter: [],
     nameEventsFilters: {},
     event: {},
@@ -139,7 +141,19 @@ export const eventsSlices = createSlice({
         state.loadingGet = false
         state.error = action.payload
       })
-
+      .addCase(getSuscribedEventsNotifications.pending, (state) => {
+        state.loadingGet = true
+        state.error = null
+      })
+      .addCase(getSuscribedEventsNotifications.fulfilled, (state, action) => {
+        state.loadingGet = false
+        state.suscribedEventsNotifications = action.payload
+        state.error = null
+      })
+      .addCase(getSuscribedEventsNotifications.rejected, (state, action) => {
+        state.loadingGet = false
+        state.error = action.payload
+      })
       // crear
       .addCase(createEvent.pending, (state) => {
         state.loading = true

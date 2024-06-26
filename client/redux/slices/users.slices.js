@@ -18,6 +18,7 @@ export const usersSlices = createSlice({
     user: {},
     users: [],
     eventFavorites: [],
+    NotificationPush:"",
     userToken: '',
     loading: false,
     error: null
@@ -29,6 +30,9 @@ export const usersSlices = createSlice({
     },
     setSelectedIcon: (state, action) => {
       state.selectedIcon = action.payload
+    },
+    setNotificationPush:(state,action)=>{
+      state.NotificationPush=action.payload
     }
   },
   extraReducers: (builder) => {
@@ -169,6 +173,6 @@ export const usersSlices = createSlice({
   }
 })
 
-export const { clearUser, setSelectedIcon } = usersSlices.actions
+export const { clearUser, setSelectedIcon ,setNotificationPush } = usersSlices.actions
 
 export default usersSlices.reducer

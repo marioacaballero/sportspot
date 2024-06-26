@@ -230,7 +230,7 @@ const FomularioEventos = ({
       description: event.description,
       sportId: sport && sport?.id,
       eventLink: event.eventLink,
-      price: event?.price.slice(0, -1),
+      price: event?.price.slice(0, -1) || 0,
       modality: event.modality || category ? category : 'none',
       location: event?.location,
       phoneNumber: event.phoneNumber,
