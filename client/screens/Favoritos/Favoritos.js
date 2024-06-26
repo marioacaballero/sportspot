@@ -57,11 +57,33 @@ const Favoritos = ({ route }) => {
       start={{ x: 0, y: 0 }}
       end={{ x: 0, y: 1 }}
     >
-      <View style={styles.favoritos}>
+      <View
+        style={{
+          overflow: 'hidden',
+          flex: 1,
+          paddingTop: 30,
+          paddingHorizontal: 15
+        }}
+      >
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.topContainer}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
             <View style={{ flexDirection: 'column' }}>
-              <Text style={styles.tusFavoritos}>TUS</Text>
+              <Text
+                style={{
+                  fontSize: FontSize.size_5xl,
+                  fontFamily: FontFamily.inputPlaceholder,
+                  fontWeight: '700',
+                  color: Color.sportsVioleta
+                }}
+              >
+                TUS
+              </Text>
               <Text style={styles.tusFavoritos}>FAVORITOS</Text>
             </View>
           </View>
@@ -109,15 +131,19 @@ const Favoritos = ({ route }) => {
                     </TouchableOpacity>
                   </View>
                   <View style={styles.imGoingToContainer}>
-                    <View style={{ flexDirection: 'row', gap: 4, maxWidth: "70%" }}>
+                    <View
+                      style={{ flexDirection: 'row', gap: 4, maxWidth: '70%' }}
+                    >
                       <Text
-                        numberOfLines={1} ellipsizeMode="tail"
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
                         style={{ color: Color.sportsVioleta, fontSize: 12 }}
                       >
                         ES ACÁ Modalidad:
                       </Text>
                       <Text
-                        numberOfLines={1} ellipsizeMode="tail"
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
                         style={{
                           fontWeight: 300,
                           fontSize: 12,
@@ -127,16 +153,19 @@ const Favoritos = ({ route }) => {
                         {prueba.modality}
                       </Text>
                     </View>
-                    <View style={{ flexDirection: 'row', gap: 3, maxWidth: "70%" }}>
+                    <View
+                      style={{ flexDirection: 'row', gap: 3, maxWidth: '70%' }}
+                    >
                       <Text
-                        numberOfLines={1} ellipsizeMode="tail"
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
                         style={{ color: Color.sportsVioleta, fontSize: 12 }}
                       >
                         Localización:
                       </Text>
                       <Text
-                        numberOfLines={1} ellipsizeMode="tail"
-
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
                         style={{
                           fontWeight: 300,
                           color: Color.sportsVioleta,
@@ -146,39 +175,47 @@ const Favoritos = ({ route }) => {
                         {prueba.location}
                       </Text>
                     </View>
-                    <View style={{ flexDirection: 'row', gap: 3, maxWidth: "70%" }}>
+                    <View
+                      style={{ flexDirection: 'row', gap: 3, maxWidth: '70%' }}
+                    >
                       <Text
-                        numberOfLines={1} ellipsizeMode="tail"
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
                         style={{ color: Color.sportsVioleta, fontSize: 12 }}
                       >
                         Fecha de la prueba:
                       </Text>
                       <Text
-                        numberOfLines={1} ellipsizeMode="tail"
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
                         style={{
                           fontWeight: 300,
                           fontSize: 12,
                           color: Color.sportsVioleta,
-                          maxWidth:"80%"
+                          maxWidth: '80%'
                         }}
                       >
                         {prueba.dateStart}
                       </Text>
                     </View>
-                    <View style={{ flexDirection: 'row', gap: 3, maxWidth: "70%" }}>
+                    <View
+                      style={{ flexDirection: 'row', gap: 3, maxWidth: '70%' }}
+                    >
                       <Text
-                        numberOfLines={1} ellipsizeMode="tail"
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
                         style={{ color: Color.sportsVioleta, fontSize: 12 }}
                       >
                         Fecha límite de inscripción:
                       </Text>
                       <Text
-                        numberOfLines={1} ellipsizeMode="tail"
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
                         style={{
                           fontSize: 12,
                           fontWeight: 300,
                           color: Color.sportsVioleta,
-                          maxWidth:"60%"
+                          maxWidth: '60%'
                         }}
                       >
                         {prueba.dateInscription}
@@ -264,7 +301,7 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_3xs,
     borderStyle: 'solid',
     borderColor: Color.colorGainsboro_100,
-    backgroundColor:"#FFFF",
+    backgroundColor: '#FFFF',
     borderWidth: 1,
     shadowOpacity: 1,
     elevation: 3,
@@ -365,8 +402,7 @@ const styles = StyleSheet.create({
   frameGroup: {
     justifyContent: 'center',
     marginTop: 25,
-    alignItems: 'center',
-
+    alignItems: 'center'
   },
   modalOverlay: {
     height: '100%',
