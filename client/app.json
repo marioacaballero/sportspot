@@ -20,7 +20,7 @@
       "bundleIdentifier": "com.aythenapp.spotsport"
     },
     "android": {
-       "googleServicesFile": "./google-services.json",
+      "googleServicesFile": "./utils/google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/spotsportadaptative.png",
         "backgroundColor": "#ffffff"
