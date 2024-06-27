@@ -23,14 +23,14 @@ import { changePassword, deleteUser } from '../../redux/actions/users'
 import { clearUser } from '../../redux/slices/users.slices'
 import CustomAlert from '../../components/CustomAlert'
 import { LinearGradient } from 'expo-linear-gradient'
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next'
 
 const Seguridad = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const newPasswordInputRef = useRef(null)
   const passwordInputRef = useRef(null)
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation()
 
   const { user } = useSelector((state) => state.users)
 
@@ -124,7 +124,7 @@ const Seguridad = () => {
             <Text
               style={[styles.gestionaTuCuentaContainer, styles.labelFlexBox]}
             >
-              {t("gestionatucuentaM")}
+              {t('gestionatucuentaM')}
             </Text>
             {/* <Pressable onPress={() => navigation.goBack()}>
             <BackArrowSVG />
@@ -132,12 +132,33 @@ const Seguridad = () => {
           </View>
           <View style={{ width: '100%' }}>
             <Text style={[styles.seguridad1, styles.seguridad1Typo]}>
-              {t("seguridad")}
-
+              {t('seguridad')}
             </Text>
           </View>
-          <View style={styles.seguridadChild}>
-            <View style={styles.card1}>
+          <View
+            style={{
+              backgroundColor: 'white',
+              paddingVertical: 5,
+              borderRadius: 20,
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 2,
+                height: 4
+              },
+              elevation: 5,
+              shadowRadius: 10,
+              shadowOpacity: 1,
+              top: 30
+            }}
+          >
+            <View
+              style={{
+                paddingHorizontal: Padding.p_smi,
+                paddingVertical: Padding.p_5xs,
+                flexWrap: 'wrap',
+                flexDirection: 'row'
+              }}
+            >
               <View
                 style={{
                   width: '100%',
@@ -163,22 +184,20 @@ const Seguridad = () => {
                     color: Color.sportsVioleta
                   }}
                 >
-                  {t("contraseña")}
-
+                  {t('contraseña')}
                 </Text>
               </View>
               <View style={styles.inputParent}>
                 <View style={styles.inputLayout}>
                   <View style={styles.inputContent}>
                     <Text style={[styles.label, styles.labelFlexBox]}>
-                      {t("email")}
-
+                      {t('email')}
                     </Text>
                     <Text style={[styles.placehoder, styles.seguridad1Typo]}>
                       {user && user.email
                         ? `${user.email.substring(0, 3)}****${user.email.slice(
-                          -7
-                        )}`
+                            -7
+                          )}`
                         : ''}
                     </Text>
                   </View>
@@ -186,8 +205,7 @@ const Seguridad = () => {
                 <View style={[styles.inputLayout]}>
                   <View style={styles.inputContent}>
                     <Text style={[styles.label, styles.labelFlexBox]}>
-                      {t("contraseñaactual")}
-
+                      {t('contraseñaactual')}
                     </Text>
                     <TextInput
                       placeholder="********"
@@ -206,16 +224,47 @@ const Seguridad = () => {
                 </View>
               </View>
               {mostrarCamposExtras && (
-                <View style={styles.card2}>
-                  <View style={[styles.inputLayout]}>
-                    <View style={styles.inputContent}>
-                      <Text style={[styles.label, styles.labelFlexBox]}>
-                        {t("contraseñanueva")}
-
+                <View
+                  style={{
+                    width: '100%',
+                    paddingVertical: Padding.p_5xs,
+                    flexWrap: 'wrap',
+                    flexDirection: 'column'
+                  }}
+                >
+                  <View
+                    style={{
+                      paddingHorizontal: Padding.p_base,
+                      height: 46,
+                      width: '100%',
+                      borderColor: Color.sportsVioleta,
+                      borderRadius: Border.br_xl,
+                      borderWidth: 1,
+                      borderStyle: 'solid',
+                      paddingVertical: Padding.p_5xs,
+                      marginBottom: 5,
+                      marginTop: 5
+                    }}
+                  >
+                    <View style={{ flex: 1 }}>
+                      <Text
+                        style={{
+                          fontSize: FontSize.size_5xs,
+                          fontFamily: FontFamily.inputPlaceholder,
+                          alignSelf: 'stretch',
+                          textAlign: 'left',
+                          color: Color.sportsVioleta
+                        }}
+                      >
+                        {t('contraseñanueva')}
                       </Text>
                       <TextInput
                         placeholder="********"
-                        style={styles.placehoder}
+                        style={{
+                          color: Color.sportsVioleta,
+                          fontSize: FontSize.size_sm,
+                          alignSelf: 'stretch'
+                        }}
                         onChangeText={(value) =>
                           valuesLogin('newPassword', value)
                         }
@@ -229,8 +278,7 @@ const Seguridad = () => {
                   <View style={[styles.inputLayout]}>
                     <View style={styles.inputContent}>
                       <Text style={[styles.label, styles.labelFlexBox]}>
-                        {t("contraseñanueva2")}
-
+                        {t('contraseñanueva2')}
                       </Text>
                       <TextInput
                         placeholder="********"
@@ -263,8 +311,7 @@ const Seguridad = () => {
                 <Text
                   style={[styles.cambiarContrasea, styles.eliminarCuentaTypo]}
                 >
-                  {t("cambiarcontraseña")}
-
+                  {t('cambiarcontraseña')}
                 </Text>
               </Pressable>
             </View>
@@ -275,8 +322,7 @@ const Seguridad = () => {
               style={[styles.eliminarCuentaWrapper, styles.wrapperLayout]}
             >
               <Text style={[styles.eliminarCuenta, styles.eliminarCuentaTypo]}>
-                {t("eliminarcuenta")}
-
+                {t('eliminarcuenta')}
               </Text>
             </Pressable>
           </View>
@@ -353,7 +399,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.inputPlaceholder,
     fontWeight: '700',
     alignSelf: 'stretch',
-    width:"80%"
+    width: '80%'
   },
   gestionaTuCuentaWrapper: {
     top: 67
