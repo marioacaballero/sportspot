@@ -586,7 +586,7 @@ const Inscrpcion = ({
                     disabled={!event.name && !event.apellido && !event.dni && !event.localidad && !event.nacimiento && !event.provincia && !event.email && !event.reemail}
                     onPress={() => {
                         // openPaymentSheet()
-                        navigation.navigate('stripe')
+                        navigation.navigate('stripe',{amount:route.params.price})
                     }}
                 >
                     <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>
