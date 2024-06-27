@@ -231,7 +231,7 @@ const Colaboradores = () => {
                     style={{
                       paddingHorizontal: Padding.p_base,
                       height: 46,
-                      width: '50%',
+                      width: selectedImage ? '80%' : '100%',
                       backgroundColor: Color.sportsVioleta,
                       borderRadius: Border.br_xl,
                       justifyContent: 'center',
@@ -240,7 +240,7 @@ const Colaboradores = () => {
                   >
                     <Text
                       style={{
-                        fontSize: 15,
+                        fontSize: 16,
                         fontFamily: FontFamily.inputPlaceholder,
                         fontWeight: '700',
                         alignSelf: 'stretch',
@@ -248,37 +248,32 @@ const Colaboradores = () => {
                         color: '#fff'
                       }}
                     >
-                      {selectedImage ? t('cambiarLogo') : t('subirLogo')}
+                      {loading ? (
+                        <ActivityIndicator
+                          style={{
+                            width: 20,
+                            height: 20,
+                            backgroundColor: 'transparent'
+                          }}
+                          animating={true}
+                          size="small"
+                          color={'#fff'}
+                        />
+                      ) : selectedImage ? (
+                        t('cambiarLogo')
+                      ) : (
+                        t('subirLogo')
+                      )}
                     </Text>
                   </Pressable>
-                  {loading ? (
-                    <View
-                      style={{
-                        width: 45,
-                        height: 45,
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                      }}
-                    >
-                      <ActivityIndicator
-                        style={{
-                          width: 20,
-                          height: 20,
-                          backgroundColor: 'transparent'
-                        }}
-                        animating={true}
-                        size="small"
-                        color={Color.violeta2}
-                      />
-                    </View>
-                  ) : selectedImage ? (
+                  {selectedImage && (
                     <Image
                       source={{ uri: selectedImage }}
                       style={{ width: 45, height: 45, borderRadius: 5 }}
                       contentFit="cover"
                       alt="preview"
                     />
-                  ) : null}
+                  )}
                 </View>
               </View>
             </View>
