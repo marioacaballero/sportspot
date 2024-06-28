@@ -18,7 +18,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 
-const AccesoOrganizadorModal = ({ toggleModal, collaborator }) => {
+const AccesoOrganizadorModal = ({
+  toggleModal,
+  collaborator,
+  setSelectedPage
+}) => {
   // const navigation = useNavigation()
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.users)
@@ -49,7 +53,8 @@ const AccesoOrganizadorModal = ({ toggleModal, collaborator }) => {
       const validPassword = '1234'
 
       if (validEmails.includes(email) && password === validPassword) {
-        navigation.navigate('Colaboradores')
+        // navigation.navigate('Colaboradores')
+        setSelectedPage('upload')
       } else {
         ToastAndroid.show(t('credencialesIncorrectas'), ToastAndroid.SHORT)
       }

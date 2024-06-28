@@ -67,6 +67,7 @@ const InicioDeportista = () => {
   const [buscador, setBuscador] = useState(false)
   const [premiosSoon, setPremiosSoon] = useState(false)
   const [modalState, setModalState] = useState()
+  const [searchedSports, setSearchedSports] = useState([])
   // AsyncStorage.clear()
 
   const getTokenNotification = async () => {
@@ -427,6 +428,8 @@ const InicioDeportista = () => {
 
               {!buscador && !modalOrganizador && (
                 <InicioBUSCADOR
+                  searchedSports={searchedSports}
+                  setSearchedSports={setSearchedSports}
                   setMostrarInicioBuscador={setMostrarInicioBuscador}
                 />
               )}

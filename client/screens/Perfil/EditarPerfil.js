@@ -33,6 +33,7 @@ import { setDateStart } from '../../redux/slices/events.slices'
 import { useTranslation } from 'react-i18next'
 import DatosDeportista from '../../components/DatosDeportista'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Maps from '../../components/Maps'
 
 const EditarPerfil = () => {
   const navigation = useNavigation()
@@ -42,6 +43,7 @@ const EditarPerfil = () => {
   // const { dateStart } = useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
 
+  const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
   const [renamedEmail, setRenamedEmail] = useState('')
   const [topContainerVisible, setTopContainerVisible] = useState(false)
   const [preferencesModalVisible, setPreferencesModalVisible] = useState(false)
@@ -116,6 +118,16 @@ const EditarPerfil = () => {
     getUserPreferencesState()
   }, [])
 
+  const closeProvinceModal = useCallback(() => {
+    setOpenProvince(false)
+  }, [])
+  const closeFrameContainer6 = useCallback(() => {
+    setFrameContainer6Visible(false)
+  }, [])
+  const openFrameContainer6 = useCallback(() => {
+    setFrameContainer6Visible(true)
+  }, [])
+
   const uploadImage = async () => {
     let result = {}
     await ImagePicker.requestMediaLibraryPermissionsAsync()
@@ -146,11 +158,13 @@ const EditarPerfil = () => {
       {preferencesModalVisible && (
         <DatosDeportista
           modalSport={preferencesModalVisible}
-          // setModalSport={setModalSport}
           setModalState={setPreferencesModalVisible}
         />
       )}
-      <ScrollView ref={scrollViewRef}>
+      <ScrollView
+        contentContainerStyle={{ paddingBottom: 30 }}
+        ref={scrollViewRef}
+      >
         <View style={styles.editarPerfil}>
           <View style={styles.topContainer}>
             <Text
@@ -420,7 +434,7 @@ const EditarPerfil = () => {
                     />
                   </View>
                 </View>
-                <View style={[styles.inputAdress, styles.inputBorder]}>
+                {/* <View style={[styles.inputAdress, styles.inputBorder]}>
                   <View
                     style={[styles.inputContent, styles.inputContentFlexBox]}
                   >
@@ -439,7 +453,56 @@ const EditarPerfil = () => {
                       }
                     />
                   </View>
-                </View>
+                </View> */}
+                <Pressable
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginBottom: 20,
+                    borderRadius: 30,
+                    width: '100%',
+                    height: 45
+                  }}
+                  onPress={openFrameContainer6}
+                >
+                  <View
+                    style={{
+                      width: '100%',
+                      borderWidth: 1,
+                      borderColor: Color.sportsVioleta,
+                      borderRadius: 20,
+                      height: '100%',
+                      paddingLeft: 10
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: FontSize.size_5xs,
+                        fontFamily: FontFamily.inputPlaceholder,
+                        fontWeight: '700',
+                        color: Color.sportsVioleta,
+                        position: 'absolute',
+                        left: 18,
+                        bottom: 34.5,
+                        backgroundColor: 'white',
+                        padding: 3
+                      }}
+                    >
+                      {t('direccion')}
+                    </Text>
+                    <Text
+                      style={
+                        valuesUser?.address
+                          ? styles.helloTypoScroll
+                          : styles.helloTypoScroll2
+                      }
+                    >
+                      {valuesUser?.address
+                        ? valuesUser?.address
+                        : t('direccion')}
+                    </Text>
+                  </View>
+                </Pressable>
                 <TouchableOpacity
                   style={styles.helloAshfakWrapper}
                   onPress={onSubmit}
@@ -469,6 +532,33 @@ const EditarPerfil = () => {
           </View>
         </Modal>
       </ScrollView>
+      <Modal animationType="fade" transparent visible={frameContainer6Visible}>
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'rgba(113, 113, 113, 0.3)'
+          }}
+        >
+          <Pressable
+            style={{
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              left: 0,
+              top: 0
+            }}
+            onPress={closeFrameContainer6}
+          />
+          <Maps
+            onClose={closeFrameContainer6}
+            setEventsFilter={setValuesUser}
+            profile={true}
+            item={'address'}
+          />
+        </View>
+      </Modal>
     </LinearGradient>
   )
 }
@@ -548,6 +638,22 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: -15,
     top: -6
+  },
+  helloTypoScroll: {
+    width: '100%',
+    height: '100%',
+    textAlignVertical: 'center',
+    fontSize: 13,
+    fontFamily: FontFamily.inputPlaceholder,
+    color: Color.sportsVioleta
+  },
+  helloTypoScroll2: {
+    width: '100%',
+    height: '100%',
+    fontSize: 13,
+    textAlignVertical: 'center',
+    fontFamily: FontFamily.inputPlaceholder,
+    color: Color.violetaPlaceholder
   },
   gestionaTuCuentaContainer: {
     fontSize: FontSize.size_11xl,
