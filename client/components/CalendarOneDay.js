@@ -20,7 +20,9 @@ const CalendarOneDay = ({
   suscription,
   setValuesUser,
   valuesUser,
-  fromPost
+  fromPost,
+  inscription,
+  setEvent
 }) => {
   const dispatch = useDispatch()
   const [selected, setSelected] = useState('')
@@ -93,6 +95,12 @@ const CalendarOneDay = ({
   }
 
   const handleDayPress = (day) => {
+    if (inscription) {
+      setEvent((prevState) => ({
+        ...prevState,
+        ['nacimiento']: day.dateString
+      }))
+    }
     if (start && !suscription) {
       setSelected(day.dateString)
       setValuesUser &&

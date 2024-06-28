@@ -420,8 +420,17 @@ const FomularioEventos = ({
           />
         </View>
       </View>
-      <Pressable style={styles.items} onPress={openFrameContainer6}>
-        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M87.5039'} /> */}
+      <Pressable
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginBottom: 20,
+          borderRadius: 30,
+          width: '100%',
+          height: 45
+        }}
+        onPress={openFrameContainer6}
+      >
         <View
           style={{
             width: '100%',
@@ -432,7 +441,21 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>{t('lugarDelEvento')}</Text>
+          <Text
+            style={{
+              fontSize: FontSize.size_5xs,
+              fontFamily: FontFamily.inputPlaceholder,
+              fontWeight: '700',
+              color: Color.sportsVioleta,
+              position: 'absolute',
+              left: 18,
+              bottom: 34.5,
+              backgroundColor: 'white',
+              padding: 3
+            }}
+          >
+            {t('lugarDelEvento')}
+          </Text>
           <Text
             style={
               event.location ? styles.helloTypoScroll : styles.helloTypoScroll2
@@ -487,7 +510,17 @@ const FomularioEventos = ({
           />
         </View>
       </View>
-      <Pressable style={styles.items} onPress={() => setCalendar(true)}>
+      <Pressable
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginBottom: 20,
+          borderRadius: 30,
+          width: '100%',
+          height: 45
+        }}
+        onPress={() => setCalendar(true)}
+      >
         {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M81.5039'} /> */}
         <View
           style={{
@@ -499,7 +532,21 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>{t('fechaDeInicio')}</Text>
+          <Text
+            style={{
+              fontSize: FontSize.size_5xs,
+              fontFamily: FontFamily.inputPlaceholder,
+              fontWeight: '700',
+              color: Color.sportsVioleta,
+              position: 'absolute',
+              left: 18,
+              bottom: 34.5,
+              backgroundColor: 'white',
+              padding: 3
+            }}
+          >
+            {t('fechaDeInicio')}
+          </Text>
           <Text
             style={
               dateStart || event.dateStart

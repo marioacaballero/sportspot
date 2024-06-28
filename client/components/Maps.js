@@ -15,7 +15,14 @@ import mergedCities from '../utils/mergedCities.json'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import { useTranslation } from 'react-i18next'
 
-const Maps = ({ onClose, setEventsFilter, setTyping }) => {
+const Maps = ({
+  onClose,
+  setEventsFilter,
+  setTyping,
+  inscription,
+  item,
+  profile
+}) => {
   const [searchText, setSearchText] = useState('')
   const [searchValue, setSearchValue] = useState('')
 
@@ -24,107 +31,127 @@ const Maps = ({ onClose, setEventsFilter, setTyping }) => {
 
   const [filteredData, setFilteredData] = useState()
 
-  const handleTextChangee = (text) => {
-    if (searchValue) {
-      setSearchValue()
-      setSearchText('')
-      setFilteredData()
-      return
-    }
-    setSearchText(text)
-    console.log('text: ', text)
-    if (text === '') {
-      return
-    }
-    const filteredLocations = [...mergedCities].filter((location) =>
-      location.label.toLowerCase()?.includes(text.toLowerCase())
-    )
-    setFilteredData(filteredLocations)
-  }
+  // const handleTextChangee = (text) => {
+  //   if (searchValue) {
+  //     setSearchValue()
+  //     setSearchText('')
+  //     setFilteredData()
+  //     return
+  //   }
+  //   setSearchText(text)
+  //   console.log('text: ', text)
+  //   if (text === '') {
+  //     return
+  //   }
+  //   const filteredLocations = [...mergedCities].filter((location) =>
+  //     location.label.toLowerCase()?.includes(text.toLowerCase())
+  //   )
+  //   setFilteredData(filteredLocations)
+  // }
 
-  const verify = () => {
-    if (filteredData) {
-      return filteredData.map((c, i) => {
-        return (
-          <TouchableOpacity
-            key={i}
-            style={{ paddingHorizontal: 20 }}
-            onPress={() => {
-              handleSelect(c)
-            }}
-          >
-            <Text key={i} style={styles.helloTypo}>
-              {c.label}
-            </Text>
-          </TouchableOpacity>
-        )
-      })
-    }
-    return data.slice(0, 50).map((c, i) => {
-      return (
-        <TouchableOpacity
-          key={i}
-          style={{ paddingHorizontal: 20 }}
-          onPress={() => {
-            handleSelect(c)
-          }}
-        >
-          <Text key={i} style={styles.helloTypo}>
-            {c.label}
-          </Text>
-        </TouchableOpacity>
-      )
-    })
-  }
+  // const verify = () => {
+  //   if (filteredData) {
+  //     return filteredData.map((c, i) => {
+  //       return (
+  //         <TouchableOpacity
+  //           key={i}
+  //           style={{ paddingHorizontal: 20 }}
+  //           onPress={() => {
+  //             handleSelect(c)
+  //           }}
+  //         >
+  //           <Text key={i} style={styles.helloTypo}>
+  //             {c.label}
+  //           </Text>
+  //         </TouchableOpacity>
+  //       )
+  //     })
+  //   }
+  //   return data.slice(0, 50).map((c, i) => {
+  //     return (
+  //       <TouchableOpacity
+  //         key={i}
+  //         style={{ paddingHorizontal: 20 }}
+  //         onPress={() => {
+  //           handleSelect(c)
+  //         }}
+  //       >
+  //         <Text key={i} style={styles.helloTypo}>
+  //           {c.label}
+  //         </Text>
+  //       </TouchableOpacity>
+  //     )
+  //   })
+  // }
 
-  const handleSelect = (data) => {
-    if (data.type === 'city') {
-      setSearchValue(data.label)
-    }
-    if (data.type === 'province') {
-      const provinceCity = cities.filter(
-        (city) => city.code === data.parent_code
-      )[0]
-      console.log('provinceCity', provinceCity)
-      console.log(
-        'final provice response: ',
-        `${provinceCity.label},${data.label}`
-      )
-      setSearchValue(`${provinceCity.label},${data.label}`)
-    }
-    if (data.type === 'town') {
-      const townProvince = cities
-        .map((city) =>
-          city.provinces.filter(
-            (province) => province.code === data.parent_code
-          )
-        )
-        .filter((arr) => arr.length > 0)
-        .map((arr) =>
-          arr.map((obj) => {
-            const { towns, ...rest } = obj
-            return rest
-          })
-        )[0][0]
+  // const handleSelect = (data) => {
+  //   console.log('on handleSelect')
+  //   if (data.type === 'city') {
+  //     setSearchValue(data.label)
+  //   }
+  //   if (data.type === 'province') {
+  //     const provinceCity = cities.filter(
+  //       (city) => city.code === data.parent_code
+  //     )[0]
+  //     console.log('provinceCity', provinceCity)
+  //     console.log(
+  //       'final provice response: ',
+  //       `${provinceCity.label},${data.label}`
+  //     )
+  //     setSearchValue(`${provinceCity.label},${data.label}`)
+  //   }
+  //   if (data.type === 'town') {
+  //     const townProvince = cities
+  //       .map((city) =>
+  //         city.provinces.filter(
+  //           (province) => province.code === data.parent_code
+  //         )
+  //       )
+  //       .filter((arr) => arr.length > 0)
+  //       .map((arr) =>
+  //         arr.map((obj) => {
+  //           const { towns, ...rest } = obj
+  //           return rest
+  //         })
+  //       )[0][0]
 
-      const townProvinceCity = cities.filter(
-        (city) => city.code === townProvince.parent_code
-      )[0]
+  //     const townProvinceCity = cities.filter(
+  //       (city) => city.code === townProvince.parent_code
+  //     )[0]
 
-      console.log('townProvince', townProvince)
-      console.log('townProvinceCity', townProvinceCity)
-      console.log(
-        'final provice response: ',
-        `${townProvinceCity.label},${townProvince.label},${data.label}`
-      )
-      setSearchValue(
-        `${townProvinceCity.label},${townProvince.label},${data.label}`
-      )
-    }
-    setSearchText('')
-  }
+  //     console.log('townProvince', townProvince)
+  //     console.log('townProvinceCity', townProvinceCity)
+  //     console.log(
+  //       'final provice response: ',
+  //       `${townProvinceCity.label},${townProvince.label},${data.label}`
+  //     )
+  //     setSearchValue(
+  //       `${townProvinceCity.label},${townProvince.label},${data.label}`
+  //     )
+  //   }
+  //   setSearchText('')
+  // }
   useEffect(() => {
+    if (profile && searchValue) {
+      console.log('setting value')
+      setEventsFilter((prevState) => ({
+        ...prevState,
+        [item]: searchValue
+      }))
+      onClose()
+      return
+    }
+    if (inscription && searchValue) {
+      console.log('setting value')
+      setEventsFilter((prevState) => ({
+        ...prevState,
+        [item]: searchValue
+      }))
+      onClose()
+      return
+    }
     if (searchValue) {
+      console.log('setting value')
       setEventsFilter((prevState) => ({
         ...prevState,
         location: searchValue
@@ -136,6 +163,8 @@ const Maps = ({ onClose, setEventsFilter, setTyping }) => {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false)
 
   useEffect(() => {
+    console.log('inscription', inscription)
+    console.log('item', item)
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       () => {
@@ -170,6 +199,7 @@ const Maps = ({ onClose, setEventsFilter, setTyping }) => {
       styles={{ container: { width: '90%', height: '100%', top: 30 } }}
       fetchDetails={true}
       onPress={(data, details = null) => {
+        console.log('setting value to ', data.description)
         setSearchValue(data.description)
       }}
       onFail={(error) => console.log(error)}

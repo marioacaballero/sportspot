@@ -29,9 +29,11 @@ import {
   getAllCollaborators,
   postCollaborator
 } from '../../redux/actions/collaborators'
+import AccesoOrganizadorModal from '../../components/AccesoOrganizadorModal'
 
 const Colaboradores = () => {
   const dispatch = useDispatch()
+  const [showCollaboratorModal, setShowCollaboratorModal] = useState(false)
   const [selectedPage, setSelectedPage] = useState('feed')
   const { user } = useSelector((state) => state.users)
   const { allCollaborators, loading } = useSelector(
@@ -444,7 +446,7 @@ const Colaboradores = () => {
                   backgroundColor: Color.sportsVioleta,
                   borderRadius: 10
                 }}
-                onPress={() => setSelectedPage('upload')}
+                onPress={() => setShowCollaboratorModal(true)}
               >
                 <Text style={{ color: '#fff', fontSize: 26, bottom: 2 }}>
                   +
@@ -475,6 +477,13 @@ const Colaboradores = () => {
           </ScrollView>
         )}
       </View>
+      {showCollaboratorModal && (
+        <AccesoOrganizadorModal
+          collaborator={true}
+          toggleModal={() => setShowCollaboratorModal((prev) => !prev)}
+          setSelectedPage={setSelectedPage}
+        />
+      )}
     </LinearGradient>
   )
 }

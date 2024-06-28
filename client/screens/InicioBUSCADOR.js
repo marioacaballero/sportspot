@@ -20,7 +20,11 @@ import { setNameEvent } from '../redux/slices/events.slices'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import { useTranslation } from 'react-i18next'
 
-const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
+const InicioBUSCADOR = ({
+  setMostrarInicioBuscador,
+  searchedSports,
+  setSearchedSports
+}) => {
   const navigation = useNavigation()
   const { events } = useSelector((state) => state.events)
   const dispatch = useDispatch()
@@ -220,6 +224,10 @@ const InicioBUSCADOR = ({ setMostrarInicioBuscador }) => {
             onClose={closeFrameContainer8}
             setEventsFilter={setEventsFilter}
             setLocalSport={setLocalSport}
+            localSport={localSport}
+            searchedSports={searchedSports}
+            eventsFilter={eventsFilter}
+            setSearchedSports={setSearchedSports}
           />
         </View>
       </Modal>

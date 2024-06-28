@@ -45,7 +45,7 @@ const TuPerfil = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.users)
-  const [showCollaboratorModal, setShowCollaboratorModal] = useState(false)
+
   const [selectedLanguaje, setSelectedLanguaje] = useState(i18n.language)
 
   useEffect(() => {
@@ -258,8 +258,8 @@ const TuPerfil = () => {
               </View>
               <Pressable
                 onPress={() => {
-                  setShowCollaboratorModal(true)
-                  // navigation.navigate('Colaboradores')
+                  // setShowCollaboratorModal(true)
+                  navigation.navigate('Colaboradores')
                 }}
                 style={[
                   styles.solarsettingsBoldGroup,
@@ -404,12 +404,12 @@ const TuPerfil = () => {
           </View>
         </ScrollView>
       </View>
-      {showCollaboratorModal && (
+      {/* {showCollaboratorModal && (
         <AccesoOrganizadorModal
           collaborator={true}
           toggleModal={() => setShowCollaboratorModal((prev) => !prev)}
         />
-      )}
+      )} */}
     </LinearGradient>
   )
 }
