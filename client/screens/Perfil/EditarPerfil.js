@@ -42,6 +42,7 @@ const EditarPerfil = () => {
   // const { dateStart } = useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
 
+  const [renamedEmail, setRenamedEmail] = useState('')
   const [topContainerVisible, setTopContainerVisible] = useState(false)
   const [preferencesModalVisible, setPreferencesModalVisible] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
@@ -89,6 +90,10 @@ const EditarPerfil = () => {
       id: user?.id,
       valuesUser
     }
+    if (user.googleId && renamedEmail?.length > 0) {
+      data.valuesUser.renamedEmail = renamedEmail
+    }
+    console.log('setting user data to: ', data)
     await dispatch(updateUser(data))
     dispatch(getUser(user?.id))
     dispatch(setDateStart(''))
@@ -349,36 +354,51 @@ const EditarPerfil = () => {
                 </View>
               </View>
               <View style={[styles.inputGroup, styles.inputFlexBox2]}>
-                <View style={styles.input}>
-                  <View
-                    style={[styles.inputContent, styles.inputContentFlexBox]}
-                  >
-                    <Text style={[styles.label, styles.labelFlexBox]}>
-                      {t('email')}
-                    </Text>
-                    <Text
-                      style={{
-                        color: user?.email ? Color.sportsVioleta : 'gray',
-                        fontWeight: '700'
-                      }}
+                {user?.googleId ? (
+                  <View style={styles.inputCel}>
+                    <View
+                      style={[styles.inputContent, styles.inputContentFlexBox]}
                     >
-                      {user?.googleId && !user?.lastName
-                        ? `${user?.name
-                            .split(' ')
-                            .join('')
-                            .toLowerCase()}@gmail.com`
-                        : user?.googleId && user?.lastName
-                        ? `${user?.name
-                            .split(' ')
-                            .join('')
-                            .toLowerCase()}${user?.lastName
-                            .split(' ')
-                            .join('')
-                            .toLowerCase()}@gmail.com`
-                        : user?.email}
-                    </Text>
+                      <Text style={[styles.label, styles.labelFlexBox]}>
+                        {t('email')}
+                      </Text>
+                      <TextInput
+                        style={{
+                          fontWeight: '700',
+                          color: Color.sportsVioleta
+                        }}
+                        placeholder={
+                          user?.renamedEmail ||
+                          renamedEmail ||
+                          t('ingreseEmail')
+                        }
+                        placeholderTextColor={
+                          renamedEmail.length > 0 ? Color.sportsVioleta : 'gray'
+                        }
+                        value={renamedEmail}
+                        onChangeText={(value) => setRenamedEmail(value)}
+                      />
+                    </View>
                   </View>
-                </View>
+                ) : (
+                  <View style={styles.input}>
+                    <View
+                      style={[styles.inputContent, styles.inputContentFlexBox]}
+                    >
+                      <Text style={[styles.label, styles.labelFlexBox]}>
+                        {t('email')}
+                      </Text>
+                      <Text
+                        style={{
+                          color: user?.email ? Color.sportsVioleta : 'gray',
+                          fontWeight: '700'
+                        }}
+                      >
+                        {user?.email}
+                      </Text>
+                    </View>
+                  </View>
+                )}
                 <View style={styles.inputCel}>
                   <View
                     style={[styles.inputContent, styles.inputContentFlexBox]}

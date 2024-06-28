@@ -72,8 +72,9 @@ const InicioDeportista = () => {
   const getTokenNotification = async () => {
     const token2 = await AsyncStorage.getItem('notificationsToken')
 
-    dispatch(updateUser({ id: user.id, valuesUser: { NotificationPush: token2 } }))
-
+    dispatch(
+      updateUser({ id: user.id, valuesUser: { NotificationPush: token2 } })
+    )
   }
 
   let backPressedOnce = false
@@ -322,18 +323,18 @@ const InicioDeportista = () => {
                     />
                     {userNotifications.filter((not) => not.read === false)
                       .length > 0 && (
-                        <Image
-                          style={{
-                            width: 8,
-                            height: 8,
-                            position: 'absolute',
-                            top: -1,
-                            right: -2
-                          }}
-                          contentFit="cover"
-                          source={require('../assets/notificationCircle.png')}
-                        />
-                      )}
+                      <Image
+                        style={{
+                          width: 8,
+                          height: 8,
+                          position: 'absolute',
+                          top: -1,
+                          right: -2
+                        }}
+                        contentFit="cover"
+                        source={require('../assets/notificationCircle.png')}
+                      />
+                    )}
                     <Modal
                       animationType="fade"
                       transparent={true}
@@ -525,8 +526,8 @@ const InicioDeportista = () => {
                               i === 0
                                 ? styles.image94ParentShadowBox1
                                 : i === sortByDate([...lastHours]).length - 1
-                                  ? styles.image94ParentShadowBoxr
-                                  : styles.image94ParentShadowBox
+                                ? styles.image94ParentShadowBoxr
+                                : styles.image94ParentShadowBox
                             }
                             onPress={() => {
                               console.log('here')
@@ -572,9 +573,13 @@ const InicioDeportista = () => {
                               </View>
                             </View>
                             <Pressable
-                              onPress={() =>
+                              onPress={() => {
+                                if (isGuest) {
+                                  dispatch(setShowGuestModal(true))
+                                  return
+                                }
                                 navigation.navigate('Inscripcion', event)
-                              }
+                              }}
                               style={{
                                 backgroundColor: Color.sportsNaranja,
                                 position: 'absolute',
@@ -611,8 +616,8 @@ const InicioDeportista = () => {
                                 ? styles.image94ParentShadowBox1
                                 : i ===
                                   sortByDate([...latestEventsAdded]).length - 1
-                                  ? styles.image94ParentShadowBoxr
-                                  : styles.image94ParentShadowBox
+                                ? styles.image94ParentShadowBoxr
+                                : styles.image94ParentShadowBox
                             }
                             onPress={() => {
                               dispatch(
@@ -654,9 +659,13 @@ const InicioDeportista = () => {
                               </View>
                             </View>
                             <Pressable
-                              onPress={() =>
+                              onPress={() => {
+                                if (isGuest) {
+                                  dispatch(setShowGuestModal(true))
+                                  return
+                                }
                                 navigation.navigate('Inscripcion', event)
-                              }
+                              }}
                               style={{
                                 backgroundColor: Color.sportsNaranja,
                                 position: 'absolute',
@@ -693,8 +702,8 @@ const InicioDeportista = () => {
                                 ? styles.image94ParentShadowBox1
                                 : i ===
                                   sortByDate([...eventsExpired]).length - 1
-                                  ? styles.image94ParentShadowBoxr
-                                  : styles.image94ParentShadowBox
+                                ? styles.image94ParentShadowBoxr
+                                : styles.image94ParentShadowBox
                             }
                             onPress={() => {
                               dispatch(
@@ -739,9 +748,13 @@ const InicioDeportista = () => {
                               </View>
                             </View>
                             <Pressable
-                              onPress={() =>
+                              onPress={() => {
+                                if (isGuest) {
+                                  dispatch(setShowGuestModal(true))
+                                  return
+                                }
                                 navigation.navigate('Inscripcion', event)
-                              }
+                              }}
                               style={{
                                 backgroundColor: Color.sportsNaranja,
                                 position: 'absolute',

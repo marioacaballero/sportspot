@@ -28,7 +28,10 @@ import EscribirResea from '../../components/EscribirResea'
 import ModalSuscription from '../../components/ModalSuscription'
 import CardReview from './CardReview'
 import { setShowGuestModal } from '../../redux/slices/events.slices'
-import { getAllEvents, getSuscribedEventsNotifications } from '../../redux/actions/events'
+import {
+  getAllEvents,
+  getSuscribedEventsNotifications
+} from '../../redux/actions/events'
 import { useTranslation } from 'react-i18next'
 import { setSport } from '../../redux/slices/sports.slices'
 import axiosInstance from '../../utils/apiBackend'
@@ -38,7 +41,9 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   const { t, i18n } = useTranslation()
 
   const { user, eventFavorites, users } = useSelector((state) => state.users)
-  const { event, loading, events, suscribedEventsNotifications } = useSelector((state) => state.events)
+  const { event, loading, events, suscribedEventsNotifications } = useSelector(
+    (state) => state.events
+  )
   const { sports } = useSelector((state) => state.sports)
   const [eventState, setEventState] = useState(event)
   const [modalSuscription, setModalSuscription] = useState(false)
@@ -57,12 +62,14 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     }
   }
   useEffect(() => {
-    const notificationOn = suscribedEventsNotifications?.map(e => e.id).includes(event.id)
+    const notificationOn = suscribedEventsNotifications
+      ?.map((e) => e.id)
+      .includes(event.id)
     setNotificationEnable(notificationOn)
   }, [suscribedEventsNotifications])
 
   const [name, setName] = useState(nameState() || false)
-  console.log(user, "userrrr", eventState)
+  console.log(user, 'userrrr', eventState)
   useEffect(() => {
     setName(stateName)
   }, [stateName])
@@ -97,8 +104,9 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       if (places === eventState?.suscribers?.length) {
         return `${places}/${places} : Full`
       } else if (places > eventState?.suscribers?.length) {
-        return `${places - eventState?.suscribers?.length
-          }/${places} -> Disponibles`
+        return `${
+          places - eventState?.suscribers?.length
+        }/${places} -> Disponibles`
       }
     } else {
       return `${places}/${places} -> Disponibles`
@@ -148,7 +156,9 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
 
   const suscribeNotifications = async () => {
     setNotificationEnable(!notificationEnable)
-    const res = await axiosInstance.post(`/events/subscribe/${user.id}/${event.id}`)
+    const res = await axiosInstance.post(
+      `/events/subscribe/${user.id}/${event.id}`
+    )
     if (res) {
       dispatch(getSuscribedEventsNotifications(user.id))
     }
@@ -241,12 +251,22 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                 )}
 
                 <TouchableOpacity
-                  onPress={() => suscribeNotifications()}
+                  onPress={() => {
+                    if (isGuest) {
+                      dispatch(setShowGuestModal(true))
+                      return
+                    }
+                    suscribeNotifications()
+                  }}
                 >
                   <Image
                     style={styles.alertIcon}
                     contentFit="cover"
-                    source={notificationEnable ? require('../../assets/alert4.png') : require('../../assets/alert.png')}
+                    source={
+                      notificationEnable
+                        ? require('../../assets/alert4.png')
+                        : require('../../assets/alert.png')
+                    }
                   />
                 </TouchableOpacity>
                 <TouchableOpacity

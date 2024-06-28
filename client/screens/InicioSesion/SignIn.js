@@ -76,12 +76,46 @@ export default function SignIn({ navigation }) {
         BackHandler.removeEventListener('hardwareBackPress', onBackPress)
     }, [])
   )
+
   const checkStoredCredentials = async () => {
+    const storeTokenAndNavigate = async () => {
+      if (user) {
+        try {
+          await AsyncStorage.setItem('token', userToken)
+        } catch (error) {
+          console.error('Error al almacenar el token:', error)
+        }
+      }
+
+      try {
+        const storedToken = await AsyncStorage.getItem('token')
+        console.log('===USER', user)
+        console.log('storedToken', storedToken)
+
+        if (user && user.email === 'guestUser@gmail.com') {
+          navigation.navigate('InicioDeportista')
+          return
+        }
+        if (storedToken && user.name) {
+          // console.log('userrr', user)
+          navigation.navigate('InicioDeportista')
+          return
+        }
+        if (storedToken && !user.name && user.email !== 'guestUser@gmail.com') {
+          // console.log('userrr', user)
+          navigation.navigate('EditarPerfil')
+        }
+      } catch (error) {
+        console.error('Error al recuperar el token:', error)
+      }
+    }
+    console.log('CHECKING STORED CREDENTIALS')
     try {
       const jsonValue = await AsyncStorage.getItem('userCredentials')
       const credentials = JSON.parse(jsonValue)
+      console.log('CREDENTIALS', credentials)
       if (credentials?.googleId) {
-        console.log('Already loged with google')
+        console.log('=====Logged with google=====')
         const res = await dispatch(googleLogin(credentials))
         if (res?.meta?.arg) {
           console.log('User logged in automatically')
@@ -98,42 +132,52 @@ export default function SignIn({ navigation }) {
         }
         return
       }
-      if (jsonValue) {
-        console.log('Retrieved user credentials:', credentials)
-
-        const res = await dispatch(login(credentials))
-        if (res?.meta?.arg) {
-          console.log('User logged in automatically')
-          if (res && res?.payload?.user?.name) {
-            console.log('to home')
-            navigation.navigate('InicioDeportista')
-          }
-          if (res && !res?.payload?.user?.name) {
-            console.log('to edit profile')
-            navigation.navigate('EditarPerfil')
-          }
-          navigation.navigate('InicioDeportista')
+      if (credentials) {
+        console.log('=====Loged with normal user=====:', credentials)
+        if (
+          credentials.email &&
+          credentials.password &&
+          Object.keys(user).length === 0
+        ) {
+          await dispatch(login(credentials))
+        } else {
+          storeTokenAndNavigate()
         }
-      } else {
-        console.log('No user credentials found')
+
+        // const res = await dispatch(login(credentials))
+        // if (res?.meta?.arg) {
+        //   console.log('User logged in automatically')
+        //   if (res && res?.payload?.user?.name) {
+        //     console.log('to home')
+        //     navigation.navigate('InicioDeportista')
+        //   }
+        //   if (res && !res?.payload?.user?.name) {
+        //     console.log('to edit profile')
+        //     navigation.navigate('EditarPerfil')
+        //   }
+        //   navigation.navigate('InicioDeportista')
+        // }
       }
+      // else {
+      //   console.log('=====Loged with normal user=====:', credentials)
+      //   storeTokenAndNavigate()
+      // }
     } catch (error) {
       console.log('Error retrieving user credentials:', error)
     }
   }
-  useEffect(() => {
-    const clearAll = async () => {
-      console.log('clearing storage...')
-      try {
-        await AsyncStorage.clear()
-      } catch (e) {}
-    }
-
-  }, [userToken])
+  // useEffect(() => {
+  //   const clearAll = async () => {
+  //     console.log('clearing storage...')
+  //     try {
+  //       await AsyncStorage.clear()
+  //     } catch (e) {}
+  //   }
+  // }, [userToken])
 
   useEffect(() => {
     checkStoredCredentials()
-  }, [])
+  }, [userToken])
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
@@ -303,18 +347,20 @@ export default function SignIn({ navigation }) {
                         password: 'guestuser1234'
                       })
                     )
-                    console.log('res from submit', res?.meta?.arg)
+                    console.log('res from guest login', res?.meta?.arg)
 
                     if (res?.meta?.arg && !res.error) {
                       const jsonValue = JSON.stringify(res.meta.arg)
 
                       try {
-                        // AsyncStorage.setItem(
+                        // await AsyncStorage.setItem(
                         //   'guest',
                         //   JSON.stringify({ guest: true })
                         // )
                         await AsyncStorage.setItem('userCredentials', jsonValue)
-                        console.log('User credentials stored successfully')
+                        console.log(
+                          '=GUEST= User credentials stored successfully'
+                        )
                       } catch (error) {
                         console.error('Error storing user credentials:', error)
                       }
