@@ -158,7 +158,6 @@ const EditarPerfil = () => {
       {preferencesModalVisible && (
         <DatosDeportista
           modalSport={preferencesModalVisible}
-          // setModalSport={setModalSport}
           setModalState={setPreferencesModalVisible}
         />
       )}
