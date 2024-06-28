@@ -47,7 +47,7 @@ const PruebasEncontradas = ({ route }) => {
   const [modalFilter, setModalFilter] = useState(false)
   const [favoriteEvents, setFavoriteEvents] = useState([])
   const [newEvents, setNewEvents] = useState([])
-
+  const isGuest = user?.email === 'guestUser@gmail.com'
   useEffect(() => {
     // if (eventsFilter.length === 0) {
     //   dispatch(setFilteredEvents(events))
@@ -251,7 +251,13 @@ const PruebasEncontradas = ({ route }) => {
                       <View style={styles.likeSpotsport}>
                         <CorazonSVG
                           isFavorite={user.eventFavorites?.includes(event.id)}
-                          handle={() => toggleFavorite(event.id)}
+                          handle={() => {
+                            if (isGuest) {
+                              dispatch(setShowGuestModal(true))
+                              return
+                            }
+                            toggleFavorite(event.id)
+                          }}
                         />
                       </View>
                     </View>

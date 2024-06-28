@@ -44,11 +44,17 @@ const GuestUserModal = ({ onClose }) => {
       <Pressable
         onPress={async () => {
           onClose()
-          AsyncStorage.clear()
-          //  AsyncStorage.setItem('guest', null)
-          await dispatch(clearUser())
+          await AsyncStorage.clear()
           navigation.navigate('SignIn')
+          await dispatch(clearUser())
         }}
+        // onPress={async () => {
+        //   onClose()
+        //   AsyncStorage.clear()
+        //   //  AsyncStorage.setItem('guest', null)
+        //   await dispatch(clearUser())
+        //   navigation.navigate('SignIn')
+        // }}
         style={{
           width: '80%',
           borderRadius: 100,

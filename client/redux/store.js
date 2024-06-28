@@ -5,6 +5,7 @@ import sportsSlices from './slices/sports.slices'
 import suscriptionsSlices from './slices/suscriptionsSlices'
 import notificationsSlices from './slices/notifications.slices'
 import stripeSlices from './slices/stripe.slices'
+import collaboratorsSlices from './slices/collaborators.slices'
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     sports: sportsSlices,
     suscriptions: suscriptionsSlices,
     notifications: notificationsSlices,
-    stripe: stripeSlices
+    stripe: stripeSlices,
+    collaborators: collaboratorsSlices
   }
 })
