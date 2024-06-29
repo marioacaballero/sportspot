@@ -18,7 +18,7 @@ export const usersSlices = createSlice({
     user: {},
     users: [],
     eventFavorites: [],
-    NotificationPush:"",
+    NotificationPush: '',
     userToken: '',
     loading: false,
     error: null
@@ -31,8 +31,8 @@ export const usersSlices = createSlice({
     setSelectedIcon: (state, action) => {
       state.selectedIcon = action.payload
     },
-    setNotificationPush:(state,action)=>{
-      state.NotificationPush=action.payload
+    setNotificationPush: (state, action) => {
+      state.NotificationPush = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -43,6 +43,10 @@ export const usersSlices = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false
+        console.log(
+          'setting userToken (normal | guest) to',
+          action.payload.accesToken
+        )
         state.userToken = action.payload.accesToken
         state.user = action.payload.user
         state.error = null
@@ -57,6 +61,7 @@ export const usersSlices = createSlice({
       })
       .addCase(googleLogin.fulfilled, (state, action) => {
         state.loading = false
+        console.log('setting userToken (Google) to', action.payload.accesToken)
         state.userToken = action.payload.accesToken
         state.user = action.payload.user
         state.error = null
@@ -173,6 +178,7 @@ export const usersSlices = createSlice({
   }
 })
 
-export const { clearUser, setSelectedIcon ,setNotificationPush } = usersSlices.actions
+export const { clearUser, setSelectedIcon, setNotificationPush } =
+  usersSlices.actions
 
 export default usersSlices.reducer

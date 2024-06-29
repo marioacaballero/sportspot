@@ -8,20 +8,25 @@ import {
   Modal,
   Alert,
   TouchableWithoutFeedback,
-  Dimensions
+  Dimensions,
+  ToastAndroid
 } from 'react-native'
 // import { useNavigation } from '@react-navigation/native'
 import { Color } from '../GlobalStyles'
 import { updateUserRol } from '../redux/actions/users'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next'
 
-const AccesoOrganizadorModal = ({ toggleModal }) => {
+const AccesoOrganizadorModal = ({
+  toggleModal,
+  collaborator,
+  setSelectedPage
+}) => {
   // const navigation = useNavigation()
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.users)
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation()
 
   const [input, setInput] = useState({
     email: '',
@@ -31,6 +36,7 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
   const passInputRef = useRef(null)
   const navigation = useNavigation()
   const onChangeRol = () => {
+    toggleModal()
     // if (user.rol === 'organizer') return Alert('Ya eres organizador')
     // const data = {
     //   id: user.id,
@@ -38,6 +44,24 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
     // }
     // dispatch(updateUserRol(data))
     // toggleModal()
+    if (collaborator) {
+      const { email, password } = input
+      const validEmails = [
+        'spotsport.soporte@gmail.com',
+        'spotsport@spotsport.eu'
+      ]
+      const validPassword = '1234'
+
+      if (validEmails.includes(email) && password === validPassword) {
+        // navigation.navigate('Colaboradores')
+        setSelectedPage('upload')
+      } else {
+        ToastAndroid.show(t('credencialesIncorrectas'), ToastAndroid.SHORT)
+      }
+
+      return
+    }
+
     console.log('user.email:', user.email)
     console.log('user.pw:', user.password)
     console.log('user keys', Object.keys(user))
@@ -68,7 +92,7 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
           <View style={styles.container}>
             <View style={styles.topContainer}>
               <Text style={styles.titleText}>
-                {t("accesoorganizador")}
+                {collaborator ? t('accesocolaborador') : t('accesoorganizador')}
                 {/* {user.rol === 'sportsman' ? 'organizador' : 'deportista'} */}
               </Text>
             </View>
@@ -111,7 +135,7 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
               }}
             >
               <TextInput
-                placeholder={t("contraseña")}
+                placeholder={t('contraseña')}
                 ref={passInputRef}
                 secureTextEntry={true}
                 onChangeText={(value) => onValuesInput('password', value)}
@@ -127,8 +151,7 @@ const AccesoOrganizadorModal = ({ toggleModal }) => {
             </Pressable>
 
             <Pressable style={styles.pressableBox} onPress={onChangeRol}>
-              <Text style={styles.enterText}>{t("entrar")}
-</Text>
+              <Text style={styles.enterText}>{t('entrar')}</Text>
             </Pressable>
           </View>
         </View>

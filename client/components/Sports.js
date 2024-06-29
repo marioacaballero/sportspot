@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { FontSize, Color, FontFamily, Border, Padding } from '../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,32 +20,58 @@ import EscaladaSVG from './SVG/Sports/EscaladaSVG'
 import OrientacionSVG from './SVG/Sports/OrientacionSVG'
 import PatinajeSVG from './SVG/Sports/PatinajeSVG'
 import GolfSVG from './SVG/Sports/GolfSVG'
-
-
 import { setSport } from '../redux/slices/sports.slices'
 import TenisSVG2 from './SVG/Sports/TenisSVG2'
 import TriatlonSVG from './SVG/Sports/TriatlonSVG.js'
 
-const Sports = ({ onClose, setEventsFilter, setLocalSport }) => {
+const Sports = ({
+  onClose,
+  eventsFilter,
+  setEventsFilter,
+  setLocalSport,
+  localSport,
+  searchedSports,
+  setSearchedSports
+}) => {
   const dispatch = useDispatch()
+
   const { sports } = useSelector((state) => state.sports)
-  const [showColor, setShowColor] = useState([])
+  // const [showColor, setShowColor] = useState([])
+
+  console.log('searchedSports', searchedSports)
 
   const handleClose = () => {
     onClose()
   }
 
-  const sportSelectStyle = (name) => {
-    const isSelected = showColor?.includes(name)
+  // useEffect(() => {
+  //   if (searchedSports && searchedSports?.length > 0) {
+  //     // const newLocalSport = localSport.split(', ')
+  //     // console.log('newl', newLocalSport)
+  //     setShowColor((prev) => {
+  //       const newArray = [...prev, searchedSports]
+  //       const uniqueArray = [...new Set(newArray)]
+  //       return uniqueArray
+  //     })
+  //   }
+  // }, [])
+  // const sportSelectStyle = (name) => {
+  //   const isSelected = showColor?.includes(name)
 
-    if (isSelected) {
-      setShowColor(showColor.filter((sport) => sport !== name))
-    } else {
-      setShowColor([...showColor, name])
-      const newSport = [...showColor, name]
-      setLocalSport(newSport.join(', '))
-    }
-  }
+  //   if (isSelected) {
+  //     setShowColor(showColor.filter((sport) => sport !== name))
+  //     setSearchedSports(searchedSports.filter((sport) => sport !== name))
+  //   } else {
+  //     setSearchedSports((prev) => {
+  //       const newArray = [...prev, name]
+  //       const uniqueArray = [...new Set(newArray)]
+  //       return uniqueArray
+  //     })
+  //     setShowColor([...showColor, name])
+  //     const newSport = [...showColor, name]
+  //     // setLocalSport(newSport.join(', '))
+  //   }
+  // }
 
   const uniqueSports = {}
   const filteredSports = sports
@@ -65,12 +91,26 @@ const Sports = ({ onClose, setEventsFilter, setLocalSport }) => {
           <View key={sport?.name} style={{ alignItems: 'center' }}>
             <TouchableOpacity
               onPress={() => {
-                setEventsFilter((prevState) => ({
-                  ...prevState,
-                  sportName: [...prevState.sportName,sport.name]
-                }))
+                setEventsFilter((prevState) => {
+                  const { sportName } = prevState
+                  let newSportName
+
+                  if (sportName.includes(sport.name)) {
+                    newSportName = sportName.filter(
+                      (name) => name !== sport.name
+                    )
+                  } else {
+                    newSportName = [...sportName, sport.name]
+                  }
+                  setLocalSport(newSportName.join(', '))
+
+                  return {
+                    ...prevState,
+                    sportName: newSportName
+                  }
+                })
                 dispatch(setSport(sport.name))
-                sportSelectStyle(sport?.name)
+                // sportSelectStyle(sport?.name)
               }}
               style={{
                 alignItems: 'center',
@@ -79,7 +119,7 @@ const Sports = ({ onClose, setEventsFilter, setLocalSport }) => {
                 shadowColor: '#0426ba',
                 borderRadius: 100,
                 padding: 15,
-                backgroundColor: showColor.includes(sport?.name)
+                backgroundColor: eventsFilter?.sportName.includes(sport?.name)
                   ? Color.sportsNaranja
                   : 'white'
               }}
@@ -87,39 +127,47 @@ const Sports = ({ onClose, setEventsFilter, setLocalSport }) => {
               <View>
                 {sport?.name === 'senderismo' && (
                   // <FutbolSVG showColor={showColor} />
-                  <SenderismoSVG showColor={showColor}></SenderismoSVG>
+                  <SenderismoSVG
+                    showColor={eventsFilter?.sportName || []}
+                  ></SenderismoSVG>
                 )}
                 {sport?.name === 'ciclismo' && (
-                  <CiclismoSVG2 showColor={showColor} />
+                  <CiclismoSVG2 showColor={eventsFilter?.sportName || []} />
                 )}
                 {sport?.name === 'carrera' && (
                   // <HockeySVG showColor={showColor} />
-                  <CarreraSVG showColor={showColor}></CarreraSVG>
+                  <CarreraSVG
+                    showColor={eventsFilter?.sportName || []}
+                  ></CarreraSVG>
                 )}
-                {sport?.name === 'tenis' &&
-                  <TenisSVG2 showColor={showColor} />}
+                {sport?.name === 'tenis' && (
+                  <TenisSVG2 showColor={eventsFilter?.sportName || []} />
+                )}
                 {sport?.name === 'triatlon' && (
-           <TriatlonSVG showColor={showColor}></TriatlonSVG>
+                  <TriatlonSVG
+                    showColor={eventsFilter?.sportName || []}
+                  ></TriatlonSVG>
                 )}
-                {sport?.name === 'trail' &&
-                 <TrailSVG showColor={showColor} />}
+                {sport?.name === 'trail' && (
+                  <TrailSVG showColor={eventsFilter?.sportName || []} />
+                )}
                 {sport?.name === 'padel' && (
-                  <PadelSVG showColor={showColor} />
+                  <PadelSVG showColor={eventsFilter?.sportName || []} />
                 )}
                 {sport?.name === 'crossfit' && (
-                  <CrossfitSVG showColor={showColor} />
+                  <CrossfitSVG showColor={eventsFilter?.sportName || []} />
                 )}
-                 {sport?.name === 'escalada' && (
-                  <EscaladaSVG showColor={showColor} />
+                {sport?.name === 'escalada' && (
+                  <EscaladaSVG showColor={eventsFilter?.sportName || []} />
                 )}
-                 {sport?.name === 'orientacion' && (
-                  <OrientacionSVG showColor={showColor} />
+                {sport?.name === 'orientacion' && (
+                  <OrientacionSVG showColor={eventsFilter?.sportName || []} />
                 )}
-                 {sport?.name === 'patinaje' && (
-                  <PatinajeSVG showColor={showColor} />
+                {sport?.name === 'patinaje' && (
+                  <PatinajeSVG showColor={eventsFilter?.sportName || []} />
                 )}
-                 {sport?.name === 'golf' && (
-                  <GolfSVG showColor={showColor} />
+                {sport?.name === 'golf' && (
+                  <GolfSVG showColor={eventsFilter?.sportName || []} />
                 )}
               </View>
             </TouchableOpacity>

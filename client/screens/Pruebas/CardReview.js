@@ -11,13 +11,31 @@ const CardReview = ({ title, description, qualification }) => {
     const stars = starIcon.repeat(rating)
     const empty = emptyIcon.repeat(total - rating)
 
-    return `${stars}${empty}`
+    // return `${stars}${empty}`
+    return (
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text style={{ fontSize: 13 }}>{stars}</Text>
+        <Text style={{ fontSize: 18, marginBottom: 3 }}>{empty}</Text>
+      </View>
+    )
   }
   return (
     <View style={styles.cajitaFeliz}>
       <View style={styles.cajitaFeliz2}>
-        <Text style={styles.text}>{title}</Text>
-        <Text>{createRating({ rating: qualification })}</Text>
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={{
+            color: Color.sportsVioleta,
+            fontSize: FontSize.size_lg,
+            fontWeight: 'bold',
+            width: '70%',
+            letterSpacing: 1
+          }}
+        >
+          {title}
+        </Text>
+        <View>{createRating({ rating: qualification })}</View>
       </View>
       <Text style={styles.text1}>{description}</Text>
     </View>

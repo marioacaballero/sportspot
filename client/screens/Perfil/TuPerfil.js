@@ -35,6 +35,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 import { AntDesign } from '@expo/vector-icons'
+import AccesoOrganizadorModal from '../../components/AccesoOrganizadorModal'
 
 const TuPerfil = () => {
   const { t, i18n } = useTranslation()
@@ -44,6 +45,7 @@ const TuPerfil = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.users)
+
   const [selectedLanguaje, setSelectedLanguaje] = useState(i18n.language)
 
   useEffect(() => {
@@ -255,7 +257,10 @@ const TuPerfil = () => {
                 </View>
               </View>
               <Pressable
-                onPress={() => navigation.navigate('Colaboradores')}
+                onPress={() => {
+                  // setShowCollaboratorModal(true)
+                  navigation.navigate('Colaboradores')
+                }}
                 style={[
                   styles.solarsettingsBoldGroup,
                   styles.solarsettingsSpaceBlock
@@ -399,6 +404,12 @@ const TuPerfil = () => {
           </View>
         </ScrollView>
       </View>
+      {/* {showCollaboratorModal && (
+        <AccesoOrganizadorModal
+          collaborator={true}
+          toggleModal={() => setShowCollaboratorModal((prev) => !prev)}
+        />
+      )} */}
     </LinearGradient>
   )
 }

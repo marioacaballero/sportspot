@@ -58,12 +58,20 @@ const IniciarSesin = ({ navigation }) => {
 
       try {
         const storedToken = await AsyncStorage.getItem('token')
+        if (user?.email === 'guestUser@gmail.com') {
+          console.log('1rs conditional login')
+          navigation.navigate('InicioDeportista')
+          return
+        }
         if (storedToken && user.name) {
+          console.log('2nd conditional login')
           // console.log('userrr', user)
           navigation.navigate('InicioDeportista')
+          return
         }
-        if (storedToken && !user.name) {
+        if (storedToken && !user.name && user.email !== 'guestUser@gmail.com') {
           // console.log('userrr', user)
+          console.log('3rd conditional login')
           navigation.navigate('EditarPerfil')
         }
       } catch (error) {
@@ -97,10 +105,10 @@ const IniciarSesin = ({ navigation }) => {
   }
 
   const onSubmit = async () => {
-    console.log('onSubmit')
+    console.log('onSubmit login')
     try {
       const res = await dispatch(login(loginInfo))
-      console.log('res from submit', res)
+      console.log('res from submit iniciarsesin', res)
 
       if (res?.meta?.arg && !res.error) {
         const jsonValue = JSON.stringify(res.meta.arg)
