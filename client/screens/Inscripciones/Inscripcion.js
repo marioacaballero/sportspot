@@ -679,7 +679,14 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
             }
             onPress={() => {
               // openPaymentSheet()
-              navigation.navigate('stripe')
+              if (route.params.price !== '0') {
+                console.log(route.params.price,"priceee")
+
+              return  navigation.navigate('stripe',{amount: route.params.price})
+              } else {
+                onSuscribed()
+              return  navigation.navigate('InicioDeportista')
+              }
             }}
           >
             <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>

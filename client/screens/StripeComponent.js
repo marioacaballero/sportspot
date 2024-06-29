@@ -4,7 +4,7 @@ import axiosInstance from '../utils/apiBackend';
 import { ActivityIndicator, View } from 'react-native';
 function StripeComponent({ route }) {
   const [url, setUrl] = useState("")
-  const { amount } = route.params;
+  const { amount , cent } = route.params;
   const getUrl = async () => {
     const data = await axiosInstance.post("https://rest.paycomet.com/v1/form",
       {
@@ -12,7 +12,7 @@ function StripeComponent({ route }) {
         terminal: "71101",
         productDescription: "el mejor de todos los tiempos y baratitoooo",
         payment: {
-          amount: `${amount}00`,
+          amount: `${amount}${cent ? cent : '00'}`,
           currency: "EUR",
           order: "PAY987654321",
           terminal: "71101",
@@ -24,10 +24,10 @@ function StripeComponent({ route }) {
       }
     }
     )
+    console.log(data.data,"datita")
     if (data.data.challengeUrl) { setUrl(data.data.challengeUrl) }
   }
   useEffect(() => {
-    console.log(amount, "amount")
     getUrl()
   }, [])
 
