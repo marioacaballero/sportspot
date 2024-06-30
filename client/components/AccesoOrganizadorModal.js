@@ -21,7 +21,10 @@ import { useTranslation } from 'react-i18next'
 const AccesoOrganizadorModal = ({
   toggleModal,
   collaborator,
-  setSelectedPage
+  setSelectedPage,
+  fromDelete,
+  handleDelete,
+  id
 }) => {
   // const navigation = useNavigation()
   const dispatch = useDispatch()
@@ -54,7 +57,11 @@ const AccesoOrganizadorModal = ({
 
       if (validEmails.includes(email) && password === validPassword) {
         // navigation.navigate('Colaboradores')
-        setSelectedPage('upload')
+        if (fromDelete) {
+          handleDelete(id)
+        } else {
+          setSelectedPage('upload')
+        }
       } else {
         ToastAndroid.show(t('credencialesIncorrectas'), ToastAndroid.SHORT)
       }

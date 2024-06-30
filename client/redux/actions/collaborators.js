@@ -40,6 +40,7 @@ export const updateCollaborator = createAsyncThunk(
 export const deleteCollaborator = createAsyncThunk(
   'collaborators/deleteCollaborator',
   async (collaboratorId) => {
+    console.log('deleting collaborator', collaboratorId)
     try {
       const { data } = await axiosInstance.delete(
         `/collaborators/${collaboratorId}`
