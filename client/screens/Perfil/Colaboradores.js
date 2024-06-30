@@ -7,7 +7,8 @@ import {
   Image,
   ToastAndroid,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  Alert
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -33,6 +34,7 @@ import AccesoOrganizadorModal from '../../components/AccesoOrganizadorModal'
 
 const Colaboradores = () => {
   const dispatch = useDispatch()
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [showCollaboratorModal, setShowCollaboratorModal] = useState(false)
   const [selectedPage, setSelectedPage] = useState('feed')
   const { user } = useSelector((state) => state.users)
@@ -107,6 +109,28 @@ const Colaboradores = () => {
         })
     }
     setIsLoading(false)
+  }
+
+  const handleDelete = (id) => {
+    Alert.alert(
+      t('confirmarEliminacion'),
+      t('seguroeliminarcolab'),
+      [
+        {
+          text: t('cancelar'),
+          style: 'cancel'
+        },
+        {
+          text: t('eliminar'),
+          onPress: async () => {
+            await dispatch(deleteCollaborator(id))
+            ToastAndroid.show(t('colabborradoconexito'), ToastAndroid.SHORT)
+            await dispatch(getAllCollaborators())
+          }
+        }
+      ],
+      { cancelable: false }
+    )
   }
 
   useEffect(() => {
@@ -467,6 +491,8 @@ const Colaboradores = () => {
             >
               {allCollaborators.map((collaborator, i) => (
                 <CardColaborador
+                  setShowDeleteModal={setShowDeleteModal}
+                  id={collaborator.id}
                   key={i}
                   name={collaborator.fullName}
                   url={collaborator.link}
@@ -481,6 +507,16 @@ const Colaboradores = () => {
         <AccesoOrganizadorModal
           collaborator={true}
           toggleModal={() => setShowCollaboratorModal((prev) => !prev)}
+          setSelectedPage={setSelectedPage}
+        />
+      )}
+      {showDeleteModal && (
+        <AccesoOrganizadorModal
+          collaborator={true}
+          fromDelete={true}
+          id={showDeleteModal}
+          handleDelete={() => handleDelete(showDeleteModal)}
+          toggleModal={() => setShowDeleteModal((prev) => !prev)}
           setSelectedPage={setSelectedPage}
         />
       )}
