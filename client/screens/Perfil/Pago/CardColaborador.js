@@ -1,8 +1,46 @@
-import { View, Text, Image, Dimensions } from 'react-native'
+import {
+  View,
+  Text,
+  Image,
+  Dimensions,
+  Pressable,
+  Alert,
+  ToastAndroid,
+  TouchableOpacity
+} from 'react-native'
 import React from 'react'
-import { Border, Color, FontFamily, FontSize } from '../../../GlobalStyles'
+import { Border, Color, FontFamily } from '../../../GlobalStyles'
+import {
+  deleteCollaborator,
+  getAllCollaborators
+} from '../../../redux/actions/collaborators'
+import { useDispatch } from 'react-redux'
+import { t } from 'i18next'
 
-const CardColaborador = ({ name, url, image }) => {
+const CardColaborador = ({ name, url, image, id, setShowDeleteModal }) => {
+  const dispatch = useDispatch()
+  const handleDelete = () => {
+    Alert.alert(
+      t('confirmarEliminacion'),
+      t('seguroeliminarcolab'),
+      [
+        {
+          text: t('cancelar'),
+          style: 'cancel'
+        },
+        {
+          text: t('eliminar'),
+          onPress: async () => {
+            await dispatch(deleteCollaborator(id))
+            ToastAndroid.show(t('colabborradoconexito'), ToastAndroid.SHORT)
+            await dispatch(getAllCollaborators())
+          }
+        }
+      ],
+      { cancelable: false }
+    )
+  }
+
   return (
     <View
       style={{
@@ -66,6 +104,28 @@ const CardColaborador = ({ name, url, image }) => {
           {`URL: ${url || '-'}`}
         </Text>
       </View>
+      <TouchableOpacity
+        onPress={() => {
+          setShowDeleteModal(id)
+        }}
+        style={{
+          backgroundColor: Color.sportsNaranja,
+          position: 'absolute',
+          top: 10,
+          right: 10,
+          width: 25,
+          height: 25,
+          borderRadius: 100,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <Image
+          style={{ width: 15, height: 15 }}
+          contentFit={'cover'}
+          source={require('../../../assets/deleteIcon.png')}
+        />
+      </TouchableOpacity>
     </View>
   )
 }
