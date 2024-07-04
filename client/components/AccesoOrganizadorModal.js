@@ -24,6 +24,7 @@ const AccesoOrganizadorModal = ({
   setSelectedPage,
   fromDelete,
   handleDelete,
+  fromPublish,
   id
 }) => {
   // const navigation = useNavigation()
@@ -40,21 +41,13 @@ const AccesoOrganizadorModal = ({
   const navigation = useNavigation()
   const onChangeRol = () => {
     toggleModal()
-    // if (user.rol === 'organizer') return Alert('Ya eres organizador')
-    // const data = {
-    //   id: user.id,
-    //   rol: user.rol === 'sportsman' ? 'organizer' : 'sportsman'
-    // }
-    // dispatch(updateUserRol(data))
-    // toggleModal()
+    const { email, password } = input
+    const validEmails = [
+      'spotsport.soporte@gmail.com',
+      'spotsport@spotsport.eu'
+    ]
+    const validPassword = '1234'
     if (collaborator) {
-      const { email, password } = input
-      const validEmails = [
-        'spotsport.soporte@gmail.com',
-        'spotsport@spotsport.eu'
-      ]
-      const validPassword = '1234'
-
       if (validEmails.includes(email) && password === validPassword) {
         // navigation.navigate('Colaboradores')
         if (fromDelete) {
@@ -65,15 +58,15 @@ const AccesoOrganizadorModal = ({
       } else {
         ToastAndroid.show(t('credencialesIncorrectas'), ToastAndroid.SHORT)
       }
-
-      return
-    }
-
-    console.log('user.email:', user.email)
-    console.log('user.pw:', user.password)
-    console.log('user keys', Object.keys(user))
-    if (input.email === user.email) {
-      navigation.navigate('Directorio')
+    } else {
+      if (validEmails.includes(email) && password === validPassword) {
+        if (fromPublish) {
+          navigation.navigate('PublicarEvento')
+        }
+        navigation.navigate('Directorio')
+      } else {
+        ToastAndroid.show(t('credencialesIncorrectas'), ToastAndroid.SHORT)
+      }
     }
   }
 

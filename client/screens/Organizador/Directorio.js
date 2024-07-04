@@ -30,7 +30,7 @@ const Directorio = () => {
     dispatch(getAllEvents())
   }, [])
 
-  const userEvents = events.filter((event) => event?.creator?.id === user?.id)
+  const userEvents = events
 
   const filteredEvents = userEvents.filter((event) =>
     event.title.toLowerCase()?.includes(searchText.toLowerCase())
@@ -67,7 +67,7 @@ const Directorio = () => {
             width: '80%'
           }}
         >
-          Directorio de organizadores
+          {t('directorio')}
         </Text>
         {/* <TouchableOpacity onPress={() => navigation.navigate('PublicarEvento')}>
           <Text
@@ -116,7 +116,7 @@ const Directorio = () => {
         </View>
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 20 }}
+          contentContainerStyle={{ paddingBottom: 100 }}
         >
           <View
             style={{
@@ -135,7 +135,9 @@ const Directorio = () => {
                   style={{ width: '28.7%', alignItems: 'center' }}
                   onPress={() => {
                     dispatch(getEventById(event?.id)).then((data) =>
-                      navigation.navigate('PruebasEncontradasDetalle')
+                      navigation.navigate('PruebasEncontradasDetalle', {
+                        organizer: true
+                      })
                     )
                   }}
                 >

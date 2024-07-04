@@ -34,9 +34,13 @@ const InicioOrganizador = () => {
   const { t, i18n } = useTranslation()
 
   const [modalVisible, setModalVisible] = useState(false)
+  const [publishModalVisible, setPublishModalVisible] = useState(false)
 
   const toggleModal = () => {
     setModalVisible(!modalVisible)
+  }
+  const togglePublishModal = () => {
+    setPublishModalVisible(!publishModalVisible)
   }
 
   return (
@@ -75,7 +79,8 @@ const InicioOrganizador = () => {
               dispatch(setShowGuestModal(true))
               return
             }
-            navigation.navigate('PublicarEvento')
+            togglePublishModal()
+            // navigation.navigate('PublicarEvento')
           }}
           // disabled={user?.rol === 'sportsman'}
         >
@@ -208,6 +213,12 @@ const InicioOrganizador = () => {
         source={require('../../assets/content.png')}
       /> */}
       {modalVisible && <AccesoOrganizadorModal toggleModal={toggleModal} />}
+      {publishModalVisible && (
+        <AccesoOrganizadorModal
+          fromPublish={true}
+          toggleModal={togglePublishModal}
+        />
+      )}
     </ScrollView>
   )
 }
