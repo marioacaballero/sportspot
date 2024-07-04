@@ -310,6 +310,7 @@ const UltimasConsultas = () => {
                         <Text
                           style={{
                             fontWeight: 300,
+                            fontSize: 12,
                             color: Color.sportsVioleta
                           }}
                         >

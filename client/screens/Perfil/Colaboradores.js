@@ -31,6 +31,7 @@ import {
   postCollaborator
 } from '../../redux/actions/collaborators'
 import AccesoOrganizadorModal from '../../components/AccesoOrganizadorModal'
+import { deleteEvent, getAllEvents } from '../../redux/actions/events'
 
 const Colaboradores = () => {
   const dispatch = useDispatch()
@@ -114,7 +115,7 @@ const Colaboradores = () => {
   const handleDelete = (id) => {
     Alert.alert(
       t('confirmarEliminacion'),
-      t('seguroeliminarcolab'),
+      t('seguroeliminarevento'),
       [
         {
           text: t('cancelar'),
@@ -123,9 +124,9 @@ const Colaboradores = () => {
         {
           text: t('eliminar'),
           onPress: async () => {
-            await dispatch(deleteCollaborator(id))
-            ToastAndroid.show(t('colabborradoconexito'), ToastAndroid.SHORT)
-            await dispatch(getAllCollaborators())
+            await dispatch(deleteEvent(id))
+            ToastAndroid.show(t('eventoborradoconexito'), ToastAndroid.SHORT)
+            await dispatch(getAllEvents())
           }
         }
       ],

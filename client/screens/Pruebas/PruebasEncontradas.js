@@ -295,7 +295,7 @@ const PruebasEncontradas = ({ route }) => {
                       ]}
                     >
                       <Text style={styles.precioDeInscripcin}>
-                        {'PRECIO DE INSCRIPCIÓN: '}
+                        {t('precioinscripcion')}
                       </Text>
                       <Text style={styles.textTypo}>{event.price}€ </Text>
                     </Text>
