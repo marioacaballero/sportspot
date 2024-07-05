@@ -31,6 +31,10 @@ export class UserDTO {
   name: string
 
   @IsOptional()
+  @ApiProperty({ description: 'NotificationPush', required: false })
+  NotificationPush: string
+
+  @IsOptional()
   @ApiProperty({ description: 'User name', required: false })
   lastName: string
 

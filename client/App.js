@@ -330,6 +330,7 @@ export default function App() {
   const [notification, setNotification] = useState(undefined)
   const notificationListener = useRef()
   const responseListener = useRef()
+  
   useEffect(() => {
     registerForPushNotificationsAsync()
       .then((token) => {
