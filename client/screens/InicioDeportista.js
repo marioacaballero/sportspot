@@ -73,9 +73,11 @@ const InicioDeportista = () => {
   const getTokenNotification = async () => {
     const token2 = await AsyncStorage.getItem('notificationsToken')
 
+  if(token2 !== null){
     dispatch(
       updateUser({ id: user.id, valuesUser: { NotificationPush: token2 } })
     )
+  }
   }
 
   let backPressedOnce = false

@@ -296,6 +296,24 @@ const UltimasConsultas = () => {
                           {event.event.modality}
                         </Text>
                       </View>
+                      <View style={{ flexDirection: 'row', gap: 3 }}>
+                        <Text
+                          style={{
+                            color: Color.sportsVioleta,
+                            fontSize: 12
+                          }}
+                        >
+                          {t('localizacion')}
+                        </Text>
+                        <Text
+                          style={{
+                            color: Color.sportsVioleta,
+                            fontSize: 12
+                          }}
+                        >
+                          {event.event.location}
+                        </Text>
+                      </View>
 
                       <View style={{ flexDirection: 'row', gap: 3 }}>
                         <Text
@@ -465,7 +483,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: Border.br_3xs,
     borderBottomLeftRadius: Border.br_3xs,
     width: 113,
-    height: 113
+    height: '100%'
   },
   ciclismo: {
     fontSize: 14,
