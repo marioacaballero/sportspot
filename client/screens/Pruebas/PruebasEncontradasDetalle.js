@@ -65,7 +65,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   const handleDelete = (id) => {
     Alert.alert(
       t('confirmarEliminacion'),
-      t('seguroeliminarcolab'),
+      t('seguroeliminarevento'),
       [
         {
           text: t('cancelar'),
@@ -76,7 +76,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
           onPress: async () => {
             navigation.navigate('Directorio')
             await dispatch(deleteEvent(id))
-            ToastAndroid.show(t('colabborradoconexito'), ToastAndroid.SHORT)
+            ToastAndroid.show(t('eventoborradoconexito'), ToastAndroid.SHORT)
             await dispatch(getAllEvents())
           }
         }
@@ -182,7 +182,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       alert(error.message)
     }
   }
-  console.log('ORGANIZER?:', router?.params?.organizer)
+
   const suscribeNotifications = async () => {
     setNotificationEnable(!notificationEnable)
     const res = await axiosInstance.post(
