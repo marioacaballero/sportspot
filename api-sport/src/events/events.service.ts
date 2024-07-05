@@ -10,7 +10,7 @@ import { UserEventHistoryEntity } from './entities/userEvent.entity'
 import { NotificationEntity } from 'src/notifications/entities/notification.entity'
 import { NotificationsService } from 'src/notifications/notifications.service'
 import { PushNotificationService } from 'src/notification-push/notification.service'
-import schedule from 'node-schedule'
+import {scheduleJob} from "node-schedule"
 export class EventsService {
   constructor(
     @InjectRepository(EventEntity)
@@ -41,12 +41,12 @@ export class EventsService {
 
     await this.notifyUsersByLocation(event);
 
-    schedule.scheduleJob(dateAfterOneDay, async function () {
+    await scheduleJob(dateAfterOneDay, async function () {
      await this.notifyEventSubscribersMail(event.id)
       await this.notifySubscribers(event, "Los resultados de tu último evento ya están disponibles.", "RESULTADOS DISPONIBLES.")
     });
 
-    schedule.scheduleJob(date, async function () {
+    await scheduleJob(date, async function () {
       await this.notifySubscribers(event, "Tu inscripción te ha generado puntos. Disfruta de tu próximo evento.", "¡ENHORABUENA!")
     });
 
