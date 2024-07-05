@@ -5,6 +5,7 @@ import { UserEntity } from '../users/entities/users.entity'
 import { EventEntity } from '../events/entities/event.entity'
 import { ReviewEntity } from './entities/reviews.entity'
 import { CreateReviewDto } from './dto/create-review-dto'
+import { PushNotificationService } from 'src/notification-push/notification.service'
 
 export class ReviewsService {
   constructor(
@@ -15,7 +16,10 @@ export class ReviewsService {
     private readonly eventsRepository: Repository<EventEntity>,
 
     @InjectRepository(ReviewEntity)
-    private readonly reviewsRepository: Repository<ReviewEntity>
+    private readonly reviewsRepository: Repository<ReviewEntity>,
+
+    private readonly notificationsPushService: PushNotificationService,
+    
   ) {}
 
   public async createReview(
@@ -48,6 +52,7 @@ export class ReviewsService {
     reviewEntity.eventReview = event
 
     const reviewReturn = await this.reviewsRepository.save(reviewEntity)
+    this.notificationsPushService.sendPushNotifications([user?.NotificationPush],"Tu aportación te ha generado puntos. (Al crear la reseña)","GRACIAS POR TU RESEÑA.")
     return reviewReturn
   }
 

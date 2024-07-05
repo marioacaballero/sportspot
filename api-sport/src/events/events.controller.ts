@@ -111,8 +111,9 @@ export class EventsController {
   async notifyEventSubscribers(
     @Param('eventId') eventId: string,
     @Body('message') message: string,
+    @Body('title') title: string,
   ): Promise<void> {
-    await this.eventsService.notifyEventSubscribers(eventId, message);
+    await this.eventsService.notifyEventSubscribers(eventId, message,title);
   }
 
 }
