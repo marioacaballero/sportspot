@@ -21,14 +21,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllUsers, register } from '../../redux/actions/users'
 import { createCustomer } from '../../redux/actions/stripe'
 import { useTranslation } from "react-i18next";
-
+import * as Device from 'expo-device'
+import * as Notifications from 'expo-notifications'
+import Constants from 'expo-constants'
 import CustomAlert from '../../components/CustomAlert'
+import { StatusBar, Platform } from 'react-native'
 
 const Registrarse = () => {
   const emailInputRef = useRef(null)
   const passwordInputRef = useRef(null)
   const confirmPasswordRef = useRef(null)
   const { t, i18n } = useTranslation();
+  const [expoPushToken, setExpoPushToken] = useState('')
 
   const dispatch = useDispatch()
 
@@ -40,7 +44,8 @@ const Registrarse = () => {
     password: '',
     email: '',
     name: '',
-    lastName: ''
+    lastName: '',
+    NotificationPush:expoPushToken
     // nickname: ''
   })
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -51,6 +56,87 @@ const Registrarse = () => {
     dispatch(getAllUsers())
   }, [])
 
+
+  function handleRegistrationError(errorMessage) {
+    alert(errorMessage)
+    throw new Error(errorMessage)
+  }
+  
+  async function registerForPushNotificationsAsync() {
+    
+    if (Platform.OS === 'android') {
+      console.log("entra")
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'Sportspot',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C'
+      })
+    }
+    
+    if (true) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync()
+      let finalStatus = existingStatus
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync()
+        finalStatus = status
+      }
+      if (finalStatus !== 'granted') {
+        handleRegistrationError(
+          'Permission not granted to get push token for push notification!'
+        )
+        return
+      }
+      console.log(finalStatus)
+      const projectId =
+        Constants?.expoConfig?.extra?.eas?.projectId ??
+        Constants?.easConfig?.projectId
+      if (!projectId) {
+        handleRegistrationError('Project ID not found')
+      }
+      try {
+        const pushTokenString = (
+          await Notifications.getExpoPushTokenAsync({
+            projectId
+          })
+        ).data
+        console.log(pushTokenString ,"ESO ES EL TOKEN")
+        return pushTokenString
+      } catch (e) {
+        console.log(e)
+        handleRegistrationError(`${e}`)
+      }
+    } else {
+      handleRegistrationError('Must use physical device for push notifications')
+    }
+  }
+
+  useEffect(() => {
+    console.log("entraaaa")
+
+    registerForPushNotificationsAsync()
+      .then((token) => {
+        setRegisterUser((prev)=> {
+
+          console.log({
+            ...prev,
+             NotificationPush: token
+           })
+          return {
+           ...prev,
+            NotificationPush: token
+          }
+        })
+        console.log(registerUser,"el token despues")
+      })
+      .catch((error) => setExpoPushToken(`${error}`))
+
+  }, [])
+
+  useEffect(() => {
+    console.log('Updated state:', registerUser);
+  }, [registerUser]);
+  
   const onValuesUser = (field, value) => {
     setRegisterUser((prevState) => ({
       ...prevState,
@@ -68,6 +154,7 @@ const Registrarse = () => {
   }
 
   const onSubmit = () => {
+    console.log("esto mando ",registerUser)
     try {
       if (registerUser.email && registerUser.password && confirmPassword) {
         const emailExists = users.some(

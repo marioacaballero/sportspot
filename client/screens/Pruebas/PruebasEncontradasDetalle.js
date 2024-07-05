@@ -65,7 +65,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   const handleDelete = (id) => {
     Alert.alert(
       t('confirmarEliminacion'),
-      t('seguroeliminarevento'),
+      t('seguroeliminarcolab'),
       [
         {
           text: t('cancelar'),
@@ -76,7 +76,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
           onPress: async () => {
             navigation.navigate('Directorio')
             await dispatch(deleteEvent(id))
-            ToastAndroid.show(t('eventoborradoconexito'), ToastAndroid.SHORT)
+            ToastAndroid.show(t('colabborradoconexito'), ToastAndroid.SHORT)
             await dispatch(getAllEvents())
           }
         }
@@ -102,13 +102,6 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   useEffect(() => {
     setName(stateName)
   }, [stateName])
-
-  // useEffect(() => {
-  //   dispatch(getFavorites(user.id))
-  // }, [favoritesRedux])
-  // useEffect(() => {
-  //   setFavorites(allFavorites)
-  // }, [allFavorites])
 
   useEffect(() => {
     setEventState(event)
@@ -169,11 +162,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
 
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
-          // compartido con el tipo de actividad de result.activityType
-          // console.log('evento conmpartido con ', result.activityType)
         } else {
-          // compartido
-          // console.log('evento conmpartido')
         }
       } else if (result.action === Share.dismissedAction) {
         // descartado
@@ -182,7 +171,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       alert(error.message)
     }
   }
-
+  console.log('ORGANIZER?:', router?.params?.organizer)
   const suscribeNotifications = async () => {
     setNotificationEnable(!notificationEnable)
     const res = await axiosInstance.post(
@@ -192,6 +181,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       dispatch(getSuscribedEventsNotifications(user.id))
     }
   }
+  console.log(eventState, 'esto es el starte')
 
   if (loading) {
     return (
@@ -358,10 +348,37 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
+                Lugar:
+              </Text>{' '}
+              {eventState?.location}
+            </Text>
+            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+              <Text
+                style={{
+                  fontWeight: 700,
+                  color: Color.sportsVioleta,
+                  fontSize: 16
+                }}
+              >
+                Deporte:
+              </Text>{' '}
+              {sports &&
+                eventState?.sportId &&
+                sports.filter((e) => e.id === eventState.sportId)[0]?.name}
+            </Text>
+            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+              <Text
+                style={{
+                  fontWeight: 700,
+                  color: Color.sportsVioleta,
+                  fontSize: 16
+                }}
+              >
                 {t('descripcion')}
               </Text>{' '}
               {eventState.description}
             </Text>
+
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
               <Text
                 style={{
@@ -370,33 +387,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-                Localidad:
+                Archivos:
               </Text>{' '}
-              {eventState.location}
-            </Text>
-            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              <Text
-                style={{
-                  fontWeight: 700,
-                  color: Color.sportsVioleta,
-                  fontSize: 16
-                }}
-              >
-                {t('emailcreador')}
-              </Text>{' '}
-              {eventState?.creator?.email}
-            </Text>
-            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              <Text
-                style={{
-                  fontWeight: 700,
-                  color: Color.sportsVioleta,
-                  fontSize: 16
-                }}
-              >
-                {t('numerocontacto')}
-              </Text>{' '}
-              {eventState.phoneNumber}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
               <Text
