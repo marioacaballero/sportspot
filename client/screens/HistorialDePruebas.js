@@ -183,7 +183,7 @@ const HistorialDePruebas = () => {
                         borderTopLeftRadius: Border.br_3xs,
                         borderBottomLeftRadius: Border.br_3xs,
                         width: 113,
-                        height: 113
+                        height: '100%'
                       }}
                       source={{ uri: evnt.image }}
                     />
@@ -230,6 +230,24 @@ const HistorialDePruebas = () => {
                         <View style={{ flexDirection: 'row', gap: 3 }}>
                           <Text
                             style={{
+                              color: Color.sportsVioleta,
+                              fontSize: 12
+                            }}
+                          >
+                            {t('localizacion')}:
+                          </Text>
+                          <Text
+                            style={{
+                              color: Color.sportsVioleta,
+                              fontSize: 12
+                            }}
+                          >
+                            {evnt.location}
+                          </Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', gap: 3 }}>
+                          <Text
+                            style={{
                               fontWeight: '400',
                               fontSize: 12,
                               color: Color.sportsVioleta
@@ -240,13 +258,19 @@ const HistorialDePruebas = () => {
                           <Text
                             style={{
                               fontWeight: '300',
+                              fontSize: 12,
                               color: Color.sportsVioleta
                             }}
                           >
                             {evnt.dateStart}
                           </Text>
                         </View>
-                        <View style={{ flexDirection: 'row', gap: 3 }}>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            gap: 3
+                          }}
+                        >
                           <Text
                             style={{
                               color: Color.sportsVioleta,

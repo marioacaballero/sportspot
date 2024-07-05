@@ -26,6 +26,7 @@ import { favorite, getUser } from '../../redux/actions/users'
 import { LinearGradient } from 'expo-linear-gradient'
 import { visitEvent } from '../../redux/actions/events'
 import { getEventByIdRedux } from '../../redux/slices/events.slices'
+import { t } from 'i18next'
 
 const Favoritos = ({ route }) => {
   const navigation = useNavigation()
@@ -139,7 +140,7 @@ const Favoritos = ({ route }) => {
                         ellipsizeMode="tail"
                         style={{ color: Color.sportsVioleta, fontSize: 12 }}
                       >
-                        ES ACÁ Modalidad:
+                        {t('modalidad')}
                       </Text>
                       <Text
                         numberOfLines={1}
@@ -161,7 +162,7 @@ const Favoritos = ({ route }) => {
                         ellipsizeMode="tail"
                         style={{ color: Color.sportsVioleta, fontSize: 12 }}
                       >
-                        Localización:
+                        {t('localizacion')}:
                       </Text>
                       <Text
                         numberOfLines={1}
@@ -183,7 +184,7 @@ const Favoritos = ({ route }) => {
                         ellipsizeMode="tail"
                         style={{ color: Color.sportsVioleta, fontSize: 12 }}
                       >
-                        Fecha de la prueba:
+                        {t('fechaprueba')}
                       </Text>
                       <Text
                         numberOfLines={1}
@@ -206,7 +207,7 @@ const Favoritos = ({ route }) => {
                         ellipsizeMode="tail"
                         style={{ color: Color.sportsVioleta, fontSize: 12 }}
                       >
-                        Fecha límite de inscripción:
+                        {t('fechalimite')}
                       </Text>
                       <Text
                         numberOfLines={1}
@@ -236,7 +237,7 @@ const Favoritos = ({ route }) => {
                         color: Color.sportsVioleta
                       }}
                     >
-                      PRECIO DE INSCRIPCIÓN:
+                      {t('precioinscripcion')}
                     </Text>
                     <Text
                       style={{
@@ -257,7 +258,7 @@ const Favoritos = ({ route }) => {
                   source={require('../../assets/vector5.png')}
                 />
                 <Text style={[styles.helloAshfak, styles.ciclismoTypo]}>
-                  Crear alerta
+                  {t('crearalerta')}
                 </Text>
                 <Modal
                   animationType="fade"

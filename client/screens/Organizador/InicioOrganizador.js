@@ -40,6 +40,7 @@ const InicioOrganizador = () => {
     setModalVisible(!modalVisible)
   }
   const togglePublishModal = () => {
+    console.log('toggling publish modal')
     setPublishModalVisible(!publishModalVisible)
   }
 

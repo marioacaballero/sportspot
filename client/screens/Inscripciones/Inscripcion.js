@@ -486,7 +486,7 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
                   padding: 3
                 }}
               >
-                {t('provincia')} *
+                {t('provincia')}
               </Text>
               <Text
                 style={
@@ -702,12 +702,14 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
             onPress={() => {
               // openPaymentSheet()
               if (route.params.price !== '0') {
-                console.log(route.params.price,"priceee")
+                console.log(route.params.price, 'priceee')
 
-              return  navigation.navigate('stripe',{amount: route.params.price})
+                return navigation.navigate('stripe', {
+                  amount: route.params.price
+                })
               } else {
                 onSuscribed()
-              return  navigation.navigate('InicioDeportista')
+                return navigation.navigate('InicioDeportista')
               }
             }}
           >
