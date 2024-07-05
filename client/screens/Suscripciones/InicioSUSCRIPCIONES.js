@@ -78,21 +78,23 @@ const InicioSUSCRIPCIONES = () => {
   const handleStripe = async (plan) => {
     // const priceId = prices[`${plan}PriceId`]
     let priceId
-    if (plan === 'month') priceId = 'price_1PEimEGmE60O5ob73URnJjUC'
-    if (plan === 'triMonth') priceId = 'price_1PEinJGmE60O5ob7eQisI6Ro'
-    if (plan === 'sixMonth') priceId = 'price_1PEinpGmE60O5ob7iETkR6v1'
-    if (plan === 'year') priceId = 'price_1PEioLGmE60O5ob77Om5OLsk'
+   
+
+    if (plan === 'month') return navigation.navigate('stripe',{amount: 5 ,cent:99})
+    if (plan === 'triMonth') return navigation.navigate('stripe',{amount: 15 ,cent:99})
+    if (plan === 'sixMonth') return navigation.navigate('stripe',{amount: 25 ,cent:99})
+    if (plan === 'year') return navigation.navigate('stripe',{amount: 45 ,cent:99})
 
     // console.log(customer,"customer")
     //  const res = await dispatch(createSubscription({ priceId, customerId: customer.id }))
-    const { data } = await axiosInstance.post(
-      `stripe/subscription/${priceId}`,
-      { customerId: user.stripeId }
-    )
-    if (data) {
-      // console.log(data.latest_invoice.payment_intent.client_secret,"respuesta")
-      setClientSecret(data.latest_invoice.payment_intent.client_secret)
-    }
+    // const { data } = await axiosInstance.post(
+    //   `stripe/subscription/${priceId}`,
+    //   { customerId: user.stripeId }
+    // )
+    // if (data) {
+    //   // console.log(data.latest_invoice.payment_intent.client_secret,"respuesta")
+    //   setClientSecret(data.latest_invoice.payment_intent.client_secret)
+    // }
     // console.log(data,"resss")
   }
 

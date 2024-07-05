@@ -133,7 +133,6 @@ const InicioDeportista = () => {
 
     if (!user.NotificationPush) {
       getTokenNotification()
-      // dispatch(updateUser({id: user.id , valuesUser:{ NotificationPush }}))
     }
     dispatch(getAllUsers())
     dispatch(getUser(user.id))
@@ -141,10 +140,8 @@ const InicioDeportista = () => {
     dispatch(getSuscribedEvents(user.id))
     dispatch(getSuscribedEventsNotifications(user.id))
 
-    // dispatch(getOneCustomer(user.email)).then((e) => console.log(e, 'eeeeeee'))
   }, [])
 
-  // ('user preferences', user.preferences)
 
   const handleBuscarPress = () => {
     setMostrarInicioBuscador(true)
@@ -218,11 +215,7 @@ const InicioDeportista = () => {
   if (loadingGet) {
     return (
       <View>
-        {/* <Image
-          style={{ width: '100%', height: '100%', position: 'absolute' }}
-          source={require('../assets/BGInicio.png')}
-          contentFit="cover"
-        /> */}
+ 
         <ActivityIndicator
           style={{
             width: '100%',

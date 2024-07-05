@@ -13,6 +13,7 @@ import { PassportModule } from '@nestjs/passport'
 import { StripeModule } from './stripe/stripe.module'
 import { ReviewModule } from './reviews/reviews.module'
 import { PushNotificationModule } from './notification-push/notification.module'
+import { CollaboratorsModule } from './collaborators/collaborators.module'
 
 
 //import { GoogleStrategyModule } from './google/google.module'
@@ -27,6 +28,7 @@ console.log(join(__dirname, 'template'))
     NotificationsModule,
     PushNotificationModule,
     SportsModule,
+    CollaboratorsModule,
     JsonwebtokenModule,
     ConfigModule.forRoot({
       isGlobal: true
