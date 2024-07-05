@@ -311,7 +311,7 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>{t('nombreDelEvento')}</Text>
+          <Text style={styles.text}>{t('nombreDelEvento')} *</Text>
           <TextInput
             style={styles.helloTypoScroll}
             value={event.title}
@@ -323,7 +323,6 @@ const FomularioEventos = ({
       </View>
 
       <Pressable style={styles.items} onPress={() => setSportsModal(true)}>
-        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M57.5039'} /> */}
         <View
           style={{
             width: '100%',
@@ -334,7 +333,7 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>{t('deporte')}</Text>
+          <Text style={styles.text}>{t('deporte')} *</Text>
           <Text
             style={
               sport.name || event.sport
@@ -348,7 +347,6 @@ const FomularioEventos = ({
         </View>
       </Pressable>
       <Pressable style={styles.items}>
-        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M57.5039'} /> */}
         <View
           style={{
             width: '100%',
@@ -359,7 +357,7 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>{t('categoria')}</Text>
+          <Text style={styles.text}>{t('categoria')} *</Text>
           <TextInput
             style={styles.helloTypoScroll}
             value={category}
@@ -370,35 +368,8 @@ const FomularioEventos = ({
         </View>
       </Pressable>
 
-      {/* <View
-        style={{
-          width: '100%',
-          borderWidth: 1,
-          borderColor: Color.sportsVioleta,
-          borderRadius: 20,
-          height: 40,
-          paddingLeft: 10
-        }}
-      >
-        <Text style={styles.text}>Descripción del evento</Text>
-        <TextInput
-          style={{
-            width: '100%',
-            height: '100%',
-            textAlignVertical: 'center',
-            fontSize: 13,
-            fontFamily: FontFamily.inputPlaceholder,
-            color: Color.sportsVioleta
-          }}
-          value={event.description}
-          onChangeText={(value) => onValuesEvent('description', value)}
-          placeholder="Ingrese una categoria"
-          placeholderTextColor={Color.violetaPlaceholder}
-        />
-      </View> */}
 
       <View style={styles.items}>
-        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M96.5039'} /> */}
 
         <View
           style={{
@@ -410,7 +381,7 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>{t('descripcionDelEvento')}</Text>
+          <Text style={styles.text}>{t('descripcionDelEvento')} *</Text>
           <TextInput
             style={styles.helloTypoScroll}
             value={event.description}
@@ -454,7 +425,7 @@ const FomularioEventos = ({
               padding: 3
             }}
           >
-            {t('lugarDelEvento')}
+            {t('lugarDelEvento')} *
           </Text>
           <Text
             style={
@@ -545,7 +516,7 @@ const FomularioEventos = ({
               padding: 3
             }}
           >
-            {t('fechaDeInicio')}
+            {t('fechaDeInicio')} *
           </Text>
           <Text
             style={
@@ -578,7 +549,7 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>{t('fechaLimiteDeInscripcion')}</Text>
+          <Text style={styles.text}>{t('fechaLimiteDeInscripcion')} *</Text>
           <Text
             style={
               dateSuscription || event.dateEnd
@@ -597,7 +568,7 @@ const FomularioEventos = ({
 
       <View style={styles.items2Container}>
         <View style={styles.items2Flex}>
-          <Text style={styles.text2}>{t('precioDeInscripcion')}</Text>
+          <Text style={styles.text2}>{t('precioDeInscripcion')} *</Text>
           <View style={styles.items2}>
             <TextInput
               style={styles.helloTypoScrollPrecio}
@@ -671,7 +642,7 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>Email</Text>
+          <Text style={styles.text}>Email *</Text>
           <TextInput
             style={styles.helloTypoScroll}
             value={event.mail}
@@ -693,7 +664,7 @@ const FomularioEventos = ({
             paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>{t('telefono')}</Text>
+          <Text style={styles.text}>{t('telefono')} *</Text>
           <TextInput
             style={styles.helloTypoScroll}
             value={event.phoneNumber}

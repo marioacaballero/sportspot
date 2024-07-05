@@ -16,7 +16,7 @@ export class PushNotificationService {
     });
   }
 
-  async sendPushNotifications(pushTokens: string[],message:string): Promise<void> {
+  async sendPushNotifications(pushTokens: string[],message:string,title:string): Promise<void> {
     const messages: ExpoPushMessage[] = [];
 
     for (let pushToken of pushTokens) {
@@ -29,7 +29,7 @@ export class PushNotificationService {
         to: pushToken,
         sound: 'default',
         body: message,
-        data: { withSome: 'data' },
+        title: title || "SportSpot",
       });
     }
 

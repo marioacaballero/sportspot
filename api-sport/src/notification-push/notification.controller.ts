@@ -10,6 +10,6 @@ export class PushNotificationController {
   @Post('send')
   async sendPushNotifications(  @Body('pushTokens') pushTokens: string[],
   @Body('message') message: string): Promise<void> {
-    await this.pushNotificationService.sendPushNotifications(pushTokens,message);
+    await this.pushNotificationService.sendPushNotifications(pushTokens,message,"SportSpot");
   }
 }

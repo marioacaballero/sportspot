@@ -1,7 +1,5 @@
 import axios from 'axios'
-// import { API_IP } from '@env'
 
-// console.log(API_IP,"asdasdasd")
 const axiosInstance = axios.create({
   // baseURL: 'http://192.168.100.2:3000/api'
   baseURL:

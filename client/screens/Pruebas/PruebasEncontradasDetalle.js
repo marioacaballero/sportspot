@@ -103,12 +103,6 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     setName(stateName)
   }, [stateName])
 
-  // useEffect(() => {
-  //   dispatch(getFavorites(user.id))
-  // }, [favoritesRedux])
-  // useEffect(() => {
-  //   setFavorites(allFavorites)
-  // }, [allFavorites])
 
   useEffect(() => {
     setEventState(event)
@@ -169,11 +163,9 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
 
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
-          // compartido con el tipo de actividad de result.activityType
-          // console.log('evento conmpartido con ', result.activityType)
+ 
         } else {
-          // compartido
-          // console.log('evento conmpartido')
+     
         }
       } else if (result.action === Share.dismissedAction) {
         // descartado
@@ -192,10 +184,12 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       dispatch(getSuscribedEventsNotifications(user.id))
     }
   }
+console.log(eventState,"esto es el starte")
 
   if (loading) {
     return (
       <View>
+ 
         <ActivityIndicator
           style={{
             width: '100%',
@@ -358,10 +352,35 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
+                Lugar:
+              </Text>{' '}
+              {eventState?.location}
+            </Text>
+            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+              <Text
+                style={{
+                  fontWeight: 700,
+                  color: Color.sportsVioleta,
+                  fontSize: 16
+                }}
+              >
+                Deporte:
+              </Text>{' '}
+              {sports && eventState?.sportId && sports.filter((e)=> e.id === eventState.sportId)[0]?.name}
+            </Text>
+            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+              <Text
+                style={{
+                  fontWeight: 700,
+                  color: Color.sportsVioleta,
+                  fontSize: 16
+                }}
+              >
                 {t('descripcion')}
               </Text>{' '}
               {eventState.description}
             </Text>
+           
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
               <Text
                 style={{
@@ -370,33 +389,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-                Localidad:
+                Archivos:
               </Text>{' '}
-              {eventState.location}
-            </Text>
-            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              <Text
-                style={{
-                  fontWeight: 700,
-                  color: Color.sportsVioleta,
-                  fontSize: 16
-                }}
-              >
-                {t('emailcreador')}
-              </Text>{' '}
-              {eventState?.creator?.email}
-            </Text>
-            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              <Text
-                style={{
-                  fontWeight: 700,
-                  color: Color.sportsVioleta,
-                  fontSize: 16
-                }}
-              >
-                {t('numerocontacto')}
-              </Text>{' '}
-              {eventState.phoneNumber}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
               <Text
