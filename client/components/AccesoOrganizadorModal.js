@@ -62,8 +62,9 @@ const AccesoOrganizadorModal = ({
       if (validEmails.includes(email) && password === validPassword) {
         if (fromPublish) {
           navigation.navigate('PublicarEvento')
+        } else {
+          navigation.navigate('Directorio')
         }
-        navigation.navigate('Directorio')
       } else {
         ToastAndroid.show(t('credencialesIncorrectas'), ToastAndroid.SHORT)
       }

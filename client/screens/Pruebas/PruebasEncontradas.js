@@ -272,7 +272,7 @@ const PruebasEncontradas = ({ route }) => {
                         {'\n'}
                       </Text>
                       <Text style={styles.modalidad}>
-                        -Localización: {event.location}
+                        -Localidad: {event.location}
                         {'\n'}
                       </Text>
                       <Text style={styles.modalidad}>-Fecha de la prueba:</Text>
