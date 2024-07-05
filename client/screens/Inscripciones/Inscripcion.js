@@ -32,6 +32,7 @@ import axiosInstance from '../../utils/apiBackend'
 import { t } from 'i18next'
 import Maps from '../../components/Maps'
 import CalendarOneDay from '../../components/CalendarOneDay'
+import GenderModal from './GenderModal'
 
 const Inscrpcion = ({ route, onEditMode, eventData }) => {
   const dispatch = useDispatch()
@@ -66,6 +67,8 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
   const [checked, setChecked] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [openProvince, setOpenProvince] = useState(false)
+  const [genderModal, setGenderModal] = useState(false)
+  const [gender, setGender] = useState()
 
   const { initPaymentSheet, presentPaymentSheet } = useStripe(null)
   const [loading, setLoading] = useState(false)
@@ -159,6 +162,7 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
 
   const onSubmit = async () => {
     if (isGuest) {
+      qqqq
       const actualSuscriptions =
         (await JSON.parse(AsyncStorage.getItem('guestSuscriptions'))
           .actualSuscriptions) || []
@@ -239,7 +243,7 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
                 paddingLeft: 10
               }}
             >
-              <Text style={styles.text}>{t('nombre')}</Text>
+              <Text style={styles.text}>{t('nombre')} *</Text>
               <TextInput
                 style={styles.helloTypoScroll}
                 value={event.nombre}
@@ -261,7 +265,7 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
                 paddingLeft: 10
               }}
             >
-              <Text style={styles.text}>{t('apellido')}</Text>
+              <Text style={styles.text}>{t('apellido')} *</Text>
               <TextInput
                 style={styles.helloTypoScroll}
                 value={event.apellido}
@@ -306,7 +310,7 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
                   padding: 3
                 }}
               >
-                {t('nacimiento')}
+                {t('nacimiento')} *
               </Text>
               <Text
                 style={
@@ -320,8 +324,17 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
             </View>
           </Pressable>
 
-          <View style={styles.items}>
-            {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M96.5039'} /> */}
+          <Pressable
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginBottom: 20,
+              borderRadius: 30,
+              width: '100%',
+              height: 45
+            }}
+            onPress={() => setGenderModal(true)}
+          >
             <View
               style={{
                 width: '100%',
@@ -332,16 +345,32 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
                 paddingLeft: 10
               }}
             >
-              <Text style={styles.text}>{t('genero')}</Text>
-              <TextInput
-                style={styles.helloTypoScroll}
-                value={event.sexo}
-                onChangeText={(value) => onValuesEvent('sexo', value)}
-                placeholder={t('genero')}
-                placeholderTextColor={Color.violetaPlaceholder}
-              />
+              <Text
+                style={{
+                  fontSize: FontSize.size_5xs,
+                  fontFamily: FontFamily.inputPlaceholder,
+                  fontWeight: '700',
+                  color: Color.sportsVioleta,
+                  position: 'absolute',
+                  left: 18,
+                  bottom: 34.5,
+                  backgroundColor: 'white',
+                  padding: 3
+                }}
+              >
+                {t('genero')} *
+              </Text>
+              <Text
+                style={
+                  event.localidad
+                    ? styles.helloTypoScroll
+                    : styles.helloTypoScroll2
+                }
+              >
+                {event.sexo ? t(event.sexo) : t('genero')}
+              </Text>
             </View>
-          </View>
+          </Pressable>
           <Pressable
             style={styles.items}
             onPress={() => setFrameContainer6Visible(true)}
@@ -358,7 +387,7 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
                 justifyContent: 'center'
               }}
             >
-              <Text style={styles.text}>{t('dninif')}</Text>
+              <Text style={styles.text}>{t('dninif')} *</Text>
               {/* <Text
                             style={
                                 event.location ? styles.helloTypoScroll : styles.helloTypoScroll2
@@ -376,28 +405,6 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
             </View>
           </Pressable>
 
-          <View style={styles.items}>
-            {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M81.5039'} /> */}
-            <View
-              style={{
-                width: '100%',
-                borderWidth: 1,
-                borderColor: Color.sportsVioleta,
-                borderRadius: 20,
-                height: '100%',
-                paddingLeft: 10
-              }}
-            >
-              <Text style={styles.text}>{t('equipoclub')}</Text>
-              <TextInput
-                style={styles.helloTypoScroll}
-                value={event.equipo}
-                onChangeText={(value) => onValuesEvent('equipo', value)}
-                placeholder={t('equipoclub')}
-                placeholderTextColor={Color.violetaPlaceholder}
-              />
-            </View>
-          </View>
           <Pressable
             style={{
               flexDirection: 'row',
@@ -432,7 +439,7 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
                   padding: 3
                 }}
               >
-                {t('localizacion')}
+                {t('localizacion')} *
               </Text>
               <Text
                 style={
@@ -479,7 +486,7 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
                   padding: 3
                 }}
               >
-                {t('provincia')}
+                {t('provincia')} *
               </Text>
               <Text
                 style={
@@ -492,6 +499,28 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
               </Text>
             </View>
           </Pressable>
+          <View style={styles.items}>
+            {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M81.5039'} /> */}
+            <View
+              style={{
+                width: '100%',
+                borderWidth: 1,
+                borderColor: Color.sportsVioleta,
+                borderRadius: 20,
+                height: '100%',
+                paddingLeft: 10
+              }}
+            >
+              <Text style={styles.text}>{t('equipoclub')}</Text>
+              <TextInput
+                style={styles.helloTypoScroll}
+                value={event.equipo}
+                onChangeText={(value) => onValuesEvent('equipo', value)}
+                placeholder={t('equipoclub')}
+                placeholderTextColor={Color.violetaPlaceholder}
+              />
+            </View>
+          </View>
           <View style={styles.items}>
             {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M103.5039'} /> */}
             <View
@@ -537,7 +566,7 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
                 paddingLeft: 10
               }}
             >
-              <Text style={styles.text}>Email</Text>
+              <Text style={styles.text}>Email *</Text>
               <TextInput
                 style={styles.helloTypoScroll}
                 value={event.email}
@@ -560,7 +589,7 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
                 paddingLeft: 10
               }}
             >
-              <Text style={styles.text}>{t('confirmarEmail')}</Text>
+              <Text style={styles.text}>{t('confirmarEmail')} *</Text>
               <TextInput
                 style={styles.helloTypoScroll}
                 value={event.reemail}
@@ -581,7 +610,7 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
                 paddingLeft: 10
               }}
             >
-              <Text style={styles.text}>Tlf</Text>
+              <Text style={styles.text}>Tlf *</Text>
               <TextInput
                 style={styles.helloTypoScroll}
                 value={event.tlf}
@@ -592,7 +621,6 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
             </View>
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text>{t('federado')}</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Checkbox
                 status={event.federado ? 'checked' : 'unchecked'}
@@ -606,28 +634,18 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
                 }}
                 color={Color.sportsNaranja}
               />
-              <Text>{t('si')}</Text>
             </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Checkbox
-                status={event.federado ? 'unchecked' : 'checked'}
-                onPress={() => {
-                  setEvent((prev) => {
-                    return {
-                      ...prev,
-                      federado: !prev.federado
-                    }
-                  })
-                }}
-                color={Color.sportsNaranja}
-              />
-              <Text>{t('no')}</Text>
-            </View>
+            <Text>{t('federado')}</Text>
           </View>
-          <View>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Text>{t('rgpd')}</Text>
-
+          <View style={{ marginTop: -5 }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'flex-start',
+                justifyContent: 'flex-start',
+                marginBottom: 5
+              }}
+            >
               <Checkbox
                 status={event.ley ? 'checked' : 'unchecked'}
                 onPress={() => {
@@ -640,6 +658,9 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
                 }}
                 color={Color.sportsNaranja}
               />
+              <Text style={{ maxWidth: '90%', paddingTop: 8 }}>
+                {t('rgpd')}
+              </Text>
             </View>
           </View>
           <View style={styles.items}>
@@ -675,7 +696,8 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
               !event.nacimiento &&
               !event.provincia &&
               !event.email &&
-              !event.reemail
+              !event.reemail &&
+              !gender
             }
             onPress={() => {
               // openPaymentSheet()
@@ -761,6 +783,18 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
             inscription={true}
             setEvent={setEvent}
             suscription={false}
+          />
+        </View>
+      </Modal>
+      <Modal animationType="fade" transparent visible={genderModal}>
+        <View style={styles.frameContainer10Overlay}>
+          <Pressable
+            style={styles.frameContainer10Bg}
+            onPress={() => setGenderModal(false)}
+          />
+          <GenderModal
+            onClose={() => setGenderModal(false)}
+            setGender={onValuesEvent}
           />
         </View>
       </Modal>

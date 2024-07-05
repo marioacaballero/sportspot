@@ -9,7 +9,9 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
-  Share
+  Share,
+  Alert,
+  ToastAndroid
 } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -29,14 +31,18 @@ import ModalSuscription from '../../components/ModalSuscription'
 import CardReview from './CardReview'
 import { setShowGuestModal } from '../../redux/slices/events.slices'
 import {
+  deleteEvent,
   getAllEvents,
   getSuscribedEventsNotifications
 } from '../../redux/actions/events'
 import { useTranslation } from 'react-i18next'
 import { setSport } from '../../redux/slices/sports.slices'
 import axiosInstance from '../../utils/apiBackend'
+import { useRoute } from '@react-navigation/native'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
+  const router = useRoute()
+  console.log('router.params', router.params)
   const dispatch = useDispatch()
   const { t, i18n } = useTranslation()
 
@@ -55,6 +61,29 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   const stateName =
     eventFavorites && eventFavorites?.some((fav) => fav?.id === event?.id)
   const isGuest = user?.email === 'guestUser@gmail.com'
+
+  const handleDelete = (id) => {
+    Alert.alert(
+      t('confirmarEliminacion'),
+      t('seguroeliminarcolab'),
+      [
+        {
+          text: t('cancelar'),
+          style: 'cancel'
+        },
+        {
+          text: t('eliminar'),
+          onPress: async () => {
+            navigation.navigate('Directorio')
+            await dispatch(deleteEvent(id))
+            ToastAndroid.show(t('colabborradoconexito'), ToastAndroid.SHORT)
+            await dispatch(getAllEvents())
+          }
+        }
+      ],
+      { cancelable: false }
+    )
+  }
 
   const nameState = () => {
     if (stateName !== undefined) {
@@ -145,7 +174,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       alert(error.message)
     }
   }
-
+  console.log('ORGANIZER?:', router?.params?.organizer)
   const suscribeNotifications = async () => {
     setNotificationEnable(!notificationEnable)
     const res = await axiosInstance.post(
@@ -175,6 +204,31 @@ console.log(eventState,"esto es el starte")
   } else {
     return (
       <ScrollView style={styles.pruebasEncontradasDetalle}>
+        {router?.params?.organizer && (
+          <TouchableOpacity
+            onPress={() => {
+              handleDelete(eventState.id)
+            }}
+            style={{
+              backgroundColor: Color.sportsNaranja,
+              position: 'absolute',
+              top: 53,
+              right: 20,
+              width: 53,
+              height: 53,
+              zIndex: 9999999999,
+              borderRadius: 100,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <Image
+              style={{ width: 20, height: 20 }}
+              contentFit={'cover'}
+              source={require('../../assets/deleteIcon.png')}
+            />
+          </TouchableOpacity>
+        )}
         <View style={[styles.unsplashon4qwhhjcemParent]}>
           <Image
             style={styles.unsplashon4qwhhjcemIcon}
@@ -403,7 +457,7 @@ console.log(eventState,"esto es el starte")
         </Modal>
 
         <Modal
-          animationType="slide"
+          animationType="fade"
           transparent={true}
           visible={modalSuscription}
         >
