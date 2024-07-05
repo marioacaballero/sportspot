@@ -103,7 +103,6 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     setName(stateName)
   }, [stateName])
 
-
   useEffect(() => {
     setEventState(event)
   }, [loading, event])
@@ -163,9 +162,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
 
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
- 
         } else {
-     
         }
       } else if (result.action === Share.dismissedAction) {
         // descartado
@@ -184,12 +181,11 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       dispatch(getSuscribedEventsNotifications(user.id))
     }
   }
-console.log(eventState,"esto es el starte")
+  console.log(eventState, 'esto es el starte')
 
   if (loading) {
     return (
       <View>
- 
         <ActivityIndicator
           style={{
             width: '100%',
@@ -366,7 +362,9 @@ console.log(eventState,"esto es el starte")
               >
                 Deporte:
               </Text>{' '}
-              {sports && eventState?.sportId && sports.filter((e)=> e.id === eventState.sportId)[0]?.name}
+              {sports &&
+                eventState?.sportId &&
+                sports.filter((e) => e.id === eventState.sportId)[0]?.name}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
               <Text
@@ -380,7 +378,7 @@ console.log(eventState,"esto es el starte")
               </Text>{' '}
               {eventState.description}
             </Text>
-           
+
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
               <Text
                 style={{
