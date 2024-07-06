@@ -171,7 +171,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       alert(error.message)
     }
   }
-  console.log('ORGANIZER?:', router?.params?.organizer)
+
+
   const suscribeNotifications = async () => {
     setNotificationEnable(!notificationEnable)
     const res = await axiosInstance.post(
@@ -181,6 +182,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       dispatch(getSuscribedEventsNotifications(user.id))
     }
   }
+  
   console.log(eventState, 'esto es el starte')
 
   if (loading) {
