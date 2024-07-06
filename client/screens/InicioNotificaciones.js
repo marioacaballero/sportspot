@@ -26,7 +26,7 @@ const InicioNotificaciones = () => {
   const { events } = useSelector((state) => state.events)
   const dispatch = useDispatch()
   // const navigation = useNavigation()
-  const [isEnabled, setIsEnabled] = useState(false)
+  const [isEnabled, setIsEnabled] = useState(true)
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
   const { t, i18n } = useTranslation()
 
