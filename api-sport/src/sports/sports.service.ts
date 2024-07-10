@@ -17,14 +17,14 @@ export class SportsService {
   async onModuleInit() {
     if (!this.initialized) {
       const sports: CreateSportDto[] = [
-        { name: 'senderismo', type: '', description: null },
+        { name: 'marcha', type: '', description: null },
         { name: 'carrera', type: '', description: null },
         { name: 'ciclismo', type: '', description: null },
         { name: 'triatlon', type: '', description: null },
         { name: 'trail', type: '', description: null },
         { name: 'padel', type: '', description: null },
         { name: 'tenis', type: '', description: null },
-        { name: 'crossfit', type: '', description: null },
+        { name: 'fitness', type: '', description: null },
         { name: 'escalada', type: '', description: null },
         { name: 'orientacion', type: '', description: null },
         { name: 'patinaje', type: '', description: null },

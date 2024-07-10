@@ -1,7 +1,10 @@
 import * as ImagePicker from 'expo-image-picker'
 import React, { useEffect, useState, useCallback } from 'react'
 import {
+  Alert,
+  Button,
   Modal,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -27,6 +30,12 @@ import CustomAlert from './CustomAlert'
 import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native'
 import axiosInstance from '../utils/apiBackend'
 import { useTranslation } from 'react-i18next'
+import * as DocumentPicker from 'expo-document-picker';
+import * as FileSystem from 'expo-file-system';
+import * as WebBrowser from 'expo-web-browser';
+import { Buffer } from 'buffer'
+import * as Linking from 'expo-linking';
+import FileViewer from 'react-native-file-viewer';
 
 const FomularioEventos = ({
   onEditMode,
@@ -41,7 +50,7 @@ const FomularioEventos = ({
   const { sport } = useSelector((state) => state.sports)
   const { user } = useSelector((state) => state.users)
   const { t } = useTranslation()
-
+  const [pdfUri, setPdfUri] = useState(null);
   const [calendar, setCalendar] = useState(null)
   const [calendarInscription, setCalendarInscription] = useState(null)
   const [selectedImage, setSelectedImage] = useState(null)
@@ -63,6 +72,74 @@ const FomularioEventos = ({
       phoneNumber: ''
     }
   )
+  const [pdfUrl, setPdfUrl] = React.useState('');
+
+
+ 
+
+
+  
+
+  const handleImagePick = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images, // Solo imágenes
+        allowsEditing: true, // Permite al usuario editar la imagen seleccionada
+        aspect: [4, 3], // Aspect ratio para la imagen editada
+        quality: 1, // Calidad de la imagen (0 a 1)
+      });
+
+      if (!result.canceled) {
+        setSelectedImage(result.uri);
+      }
+    } catch (error) {
+      console.error('Error picking image:', error);
+      Alert.alert('Error', 'Failed to pick an image');
+    }
+  };
+
+
+
+  const handleFilePick = async () => {
+    try {
+      const file = await DocumentPicker.getDocumentAsync({
+        type: 'application/pdf', // Tipo de archivo que se permite seleccionar
+      });
+
+      if (file.assets) {
+        console.log(file.assets, "file")
+        setSelectedFile(file);
+      }
+    } catch (error) {
+      console.error('Error picking file:', error);
+      Alert.alert('Error', 'Failed to pick a file');
+    }
+  };
+
+
+  const handleUpload = async () => {
+   
+
+        const formData = new FormData();
+        formData.append('file', {
+          uri: selectedFile.assets[0].uri,
+          name: selectedFile.assets[0].name,
+          type: 'application/pdf'
+        });
+
+        // Enviar el archivo al servidor
+        const response = await fetch('http://192.168.0.77:3000/api/documents/upload', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+
+        const responseData = await response.json();
+        console.log(responseData);
+  };
+
 
   console.log('event: ', event)
   const [checked, setChecked] = useState(false)
@@ -75,6 +152,53 @@ const FomularioEventos = ({
   }, [])
 
   const { initPaymentSheet, presentPaymentSheet } = useStripe(null)
+
+
+
+  const [selectedFile, setSelectedFile] = useState(null);
+
+
+
+  const downloadPdf = async (id) => {
+    try {
+      // URL del endpoint que sirve el archivo PDF
+      const url = `/documents/download/${id}`;
+
+      // Hacer la solicitud para obtener el archivo PDF usando Axios
+      const response = await axiosInstance.get(url, { responseType: 'arraybuffer' });
+      if (response.status !== 200) {
+        throw new Error('Network response was not ok');
+      }
+
+      // Convertir el arraybuffer a base64
+      const base64data = Buffer.from(response.data, 'binary').toString('base64');
+
+      // Guardar el archivo en el sistema de archivos local
+      const fileUri = FileSystem.documentDirectory + 'document.pdf';
+      await FileSystem.writeAsStringAsync(fileUri, base64data, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+console.log(fileUri,"file uri")
+      setPdfUri(fileUri);
+    } catch (error) {
+      console.error('Error downloading the PDF:', error);
+    }
+  };
+
+  const openPdf = async () => {
+    if (pdfUri) {
+      try {
+        await FileViewer.open(pdfUri);
+      } catch (error) {
+        console.log('Error opening the PDF:', error);
+      }
+    } else {
+      console.log('No PDF file found.');
+    }
+  };
+  
+
+
 
   React.useEffect(() => {
     const initializePaymentSheet = async () => {
@@ -459,7 +583,7 @@ const FomularioEventos = ({
           />
         </View>
       </View>
-      <View style={styles.items}>
+      <View style={{ ...styles.items, height: 300 }}>
         {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M103.5039'} /> */}
         <View
           style={{
@@ -468,18 +592,36 @@ const FomularioEventos = ({
             borderColor: Color.sportsVioleta,
             borderRadius: 20,
             height: '100%',
-            paddingLeft: 10
           }}
         >
-          <Text style={styles.text}>{t('linkDeLaInscripcion')}</Text>
-          <TextInput
-            style={styles.helloTypoScroll}
-            value={event.inscriptionLink}
-            onChangeText={(value) => onValuesEvent('inscriptionLink', value)}
-            placeholder="https://www.deportedeporte.com/inscripción/"
-            placeholderTextColor={Color.violetaPlaceholder}
-          />
+          <Text style={{ ...styles.text, top: -10 }}>{t('linkDeLaInscripcion')}</Text>
+
+          <View style={{ width: "100%", justifyContent: "center", alignItems: "center", height: "100%", gap: 18 }}>
+            <TouchableOpacity onPress={handleFilePick} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
+              <Text style={{ color: "white" }}>Subir pdf</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleImagePick} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
+              <Text style={{ color: "white" }}>Subir imagen</Text>
+            </TouchableOpacity>
+            {/* <TouchableOpacity onPress={handleUpload} style={{ backgroundColor: Color.sportsNaranja , padding:8,borderRadius:50}}>
+              <Text style={{color:"white"}}>Subir</Text>
+            </TouchableOpacity> */}
+            {selectedFile && (
+              <View style={{ marginTop: 20 }}>
+                <Text>Selected File: {selectedFile.assets[0]?.name}</Text>
+                <Button title="Upload File" onPress={handleUpload} />
+              </View>
+            )}
+               <TouchableOpacity  onPress={() => downloadPdf(1)} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
+              <Text style={{ color: "white" }}>descargar</Text>
+            </TouchableOpacity>
+                     <TouchableOpacity onPress={openPdf}  disabled={!pdfUri} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
+              <Text style={{ color: "white" }}>Open pdf</Text>
+            </TouchableOpacity>
+
+          </View>
         </View>
+        
       </View>
       <Pressable
         style={{
@@ -528,8 +670,8 @@ const FomularioEventos = ({
             {onEditMode
               ? event.dateStart
               : dateStart
-              ? dateStart
-              : t('fechaDeInicio')}
+                ? dateStart
+                : t('fechaDeInicio')}
           </Text>
         </View>
       </Pressable>
@@ -560,8 +702,8 @@ const FomularioEventos = ({
             {onEditMode
               ? event.dateEnd
               : dateSuscription
-              ? dateSuscription
-              : t('fechaLimiteDeInscripcion')}
+                ? dateSuscription
+                : t('fechaLimiteDeInscripcion')}
           </Text>
         </View>
       </Pressable>
@@ -599,11 +741,7 @@ const FomularioEventos = ({
         <View style={styles.items2Flex}>
           <Text style={styles.text2}>{t('subirCartelDelEvento')}</Text>
           <Pressable style={styles.items2} onPress={uploadImage}>
-            {/* <Image
-              style={{ width: 20, height: 20 }}
-              contentFit="cover"
-              source={selectedImage && { uri: selectedImage }}
-            /> */}
+
             <Text
               style={
                 selectedImage || event.image

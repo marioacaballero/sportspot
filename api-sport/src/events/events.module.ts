@@ -12,14 +12,17 @@ import { JsonwebtokenService } from 'src/jsonwebtoken/jsonwebtoken.service'
 import { SendMailsService } from 'src/send-mails/send-mails.service'
 import { UserEventHistoryEntity } from './entities/userEvent.entity'
 import { PushNotificationService } from 'src/notification-push/notification.service'
+import { DocumentEntity } from 'src/documents/entities/document.entity'
+import { DocumentsService } from 'src/documents/documents.service'
 
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([EventEntity, UserEntity,NotificationEntity,UserEventHistoryEntity])
+    TypeOrmModule.forFeature([EventEntity, UserEntity,NotificationEntity,UserEventHistoryEntity,DocumentEntity])
   ],
   controllers: [EventsController],
   providers: [
+    DocumentsService,
     EventsService,
     UsersService,
     NotificationsService,

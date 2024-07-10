@@ -17,6 +17,7 @@ import { CollaboratorsModule } from './collaborators/collaborators.module'
 
 
 //import { GoogleStrategyModule } from './google/google.module'
+import { DocumentsModule } from './documents/documents.module';
 console.log(join(__dirname, 'template'))
 @Module({
   imports: [
@@ -25,6 +26,7 @@ console.log(join(__dirname, 'template'))
     TypeOrmModule.forRoot(DataSourceConfig),
     UsersModule,
     EventsModule,
+    DocumentsModule,
     NotificationsModule,
     PushNotificationModule,
     SportsModule,
@@ -35,7 +37,7 @@ console.log(join(__dirname, 'template'))
     }),
     SendMailsModule,
     StripeModule.forRootAsync(),
-    ReviewModule
+    ReviewModule,
     //GoogleStrategyModule
   ],
   controllers: [],

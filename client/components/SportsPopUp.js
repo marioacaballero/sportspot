@@ -138,7 +138,7 @@ const SportsPopUp = ({ onClose }) => {
                   style={{ width: 30, height: 30, objectFit: 'contain' }}
                 ></Image>
               )}
-              {singleSport?.name === 'crossfit' && (
+              {singleSport?.name === 'fitness' && (
                 <Image
                   source={
                     sport.name === singleSport.name
@@ -178,7 +178,7 @@ const SportsPopUp = ({ onClose }) => {
                   style={{ width: 30, height: 30, objectFit: 'contain' }}
                 ></Image>
               )}
-              {singleSport?.name === 'senderismo' && (
+              {singleSport?.name === 'marcha' && (
                 <Image
                   source={
                     sport.name === singleSport.name

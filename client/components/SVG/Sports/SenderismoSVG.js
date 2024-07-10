@@ -2,7 +2,7 @@ import * as React from "react"
 import Svg, { Path } from "react-native-svg"
 
 function SenderismoSVG(props) {
-  const color = props.showColor && props.showColor?.includes('senderismo') ? 'white' : '#40036f'
+  const color = props.showColor && props.showColor?.includes('marcha') ? 'white' : '#40036f'
 
   return (
     <Svg
