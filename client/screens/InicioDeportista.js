@@ -202,7 +202,7 @@ const InicioDeportista = () => {
   })
 
   const eventsExpired = eventos.filter((evento) => {
-    const fechaEvento = new Date(evento.dateStart) // 2024/04/24
+    const fechaEvento = new Date(evento.dateInscription) // 2024/04/24
     return fechaEvento < new Date()
   })
 

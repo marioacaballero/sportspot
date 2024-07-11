@@ -63,6 +63,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     suscribedEventsNotifications,
     eventInscriptions
   } = useSelector((state) => state.events)
+  const [isFavorite, setIsFavorite] = useState({})
   const { sports } = useSelector((state) => state.sports)
   const [eventState, setEventState] = useState(event)
   const [modalSuscription, setModalSuscription] = useState(false)
