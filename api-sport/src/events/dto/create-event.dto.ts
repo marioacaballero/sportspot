@@ -21,6 +21,10 @@ export class CreateEventDto {
   @ApiProperty({ description: "Description", required: false })
   description: string
 
+  @IsString()
+  @ApiProperty({ description: "rules", required: false , nullable:true })
+  rules: string
+
   @IsNotEmpty()
   @IsString()
   @ApiProperty({ description: "Id sport", required: false })

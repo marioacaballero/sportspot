@@ -13,7 +13,8 @@ import {
   Alert,
   ToastAndroid,
   PermissionsAndroid,
-  Platform
+  Platform,
+  Linking
 } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -461,7 +462,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               {eventState.description}
             </Text>
 
-             <View style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout,{flexDirection:"row",alignItems:"center",gap:10}]}>
+            <View style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout,{flexDirection:"row",alignItems:"center",gap:10}]}>
               <Text
                 style={{
                   fontWeight: 700,

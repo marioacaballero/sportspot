@@ -61,6 +61,9 @@ export class EventEntity extends BaseEntity {
   @Column({ nullable: true })
   eventLink: string
 
+  @Column({ nullable: true })
+  rules: string
+
   @Column({
     type: 'text',
     default:
