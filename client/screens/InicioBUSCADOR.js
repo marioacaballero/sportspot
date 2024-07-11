@@ -74,30 +74,11 @@ const InicioBUSCADOR = ({
     setFrameContainer10Visible(false)
   }, [])
 
-  // const onSubmit = () => {
-  //   const resQuery = {}
-  //   for (let p in eventsFilter) {
-  //     if (eventsFilter[p].length > 0) {
-  //       resQuery[p] = eventsFilter[p]
-  //     }
-  //   }
-  //   console.log(resQuery,"query")
-  //   dispatch(getAllEventsFilters(resQuery))
-  // }
+
 
   return (
     <>
       <View style={styles.frameContainer}>
-        {/* <Pressable
-          onPress={() => setMostrarInicioBuscador(false)}
-          style={styles.arrowContainer}
-        >
-          <Image
-            style={styles.icon}
-            contentFit="cover"
-            source={require('../assets/up-arrow.png')}
-          />
-        </Pressable> */}
         <Pressable
           style={{
             display: 'flex',
@@ -113,7 +94,6 @@ const InicioBUSCADOR = ({
               contentFit="cover"
               source={require('../assets/icbaselinesearch.png')}
             />
-            {/* <Text style={styles.buscar}>Buscar</Text> */}
             <TextInput
               onPress={() => setSelectedInput(true)}
               onBlur={() => setSelectedInput(false)}
@@ -186,8 +166,7 @@ const InicioBUSCADOR = ({
             <Pressable
               style={styles.helloAshfakWrapper}
               onPress={() => {
-                // onSubmit()
-                // dispatch(setNameEvent(eventsFilter))
+            
                 navigation.navigate('PruebasEncontradas', {
                   filter: eventsFilter,
                   localSport

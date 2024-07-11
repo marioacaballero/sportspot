@@ -434,26 +434,6 @@ const EditarPerfil = () => {
                     />
                   </View>
                 </View>
-                {/* <View style={[styles.inputAdress, styles.inputBorder]}>
-                  <View
-                    style={[styles.inputContent, styles.inputContentFlexBox]}
-                  >
-                    <Text style={[styles.label, styles.labelFlexBox]}>
-                      {t('direccion')}
-                    </Text>
-                    <TextInput
-                      style={{ fontWeight: '700', color: Color.sportsVioleta }}
-                      placeholder={user?.address || t('escribeaca')}
-                      placeholderTextColor={
-                        user?.address ? Color.sportsVioleta : 'gray'
-                      }
-                      value={valuesUser?.address}
-                      onChangeText={(value) =>
-                        settingValuesUser('address', value)
-                      }
-                    />
-                  </View>
-                </View> */}
                 <Pressable
                   style={{
                     flexDirection: 'row',
@@ -645,7 +625,8 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     fontSize: 13,
     fontFamily: FontFamily.inputPlaceholder,
-    color: Color.sportsVioleta
+    color: Color.sportsVioleta,
+    fontWeight:"bold"
   },
   helloTypoScroll2: {
     width: '100%',
@@ -653,7 +634,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
     textAlignVertical: 'center',
     fontFamily: FontFamily.inputPlaceholder,
-    color: Color.violetaPlaceholder
+    color: Color.violetaPlaceholder,
+    fontWeight:"bold",
   },
   gestionaTuCuentaContainer: {
     fontSize: FontSize.size_11xl,

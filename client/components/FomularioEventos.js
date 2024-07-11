@@ -35,6 +35,9 @@ import * as FileSystem from 'expo-file-system';
 import * as WebBrowser from 'expo-web-browser';
 import { Buffer } from 'buffer'
 import FileViewer from 'react-native-file-viewer';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { storage } from '../utils/config.google' 
+
 
 
 const FomularioEventos = ({
@@ -140,6 +143,35 @@ const FomularioEventos = ({
     console.log(responseData);
   };
 
+  const handleUploadFile = async () => {
+    const fileeee = selectedFile.assets[0]
+    if (!fileeee) return;
+
+    const file = await fetch(fileeee.uri).then((response) => response.blob());
+    const storageRef = ref(storage, `archivos/${fileeee.name.split('/').pop()}`); // Referencia con nombre del archivo
+
+    try {
+      await uploadBytes(storageRef, file);
+      console.log('Archivo subido!');
+    } catch (error) {
+      console.error('Error al subir el archivo:', error);
+    }
+  };
+
+  const handleDownloadFile = async () => {
+    
+    const fileeee = selectedFile.assets[0]
+    const storageRef = ref(storage, `archivos/${fileeee.name.split('/').pop()}`); // Referencia al archivo
+  
+    try {
+      const url = await getDownloadURL(storageRef);
+      console.log('URL de descarga:', url);
+      // Puedes usar la URL para crear un enlace de descarga o mostrarla en un visor de PDF
+    } catch (error) {
+      console.error('Error al obtener la URL de descarga:', error);
+    }
+  };
+
 
   console.log('event: ', event)
   const [checked, setChecked] = useState(false)
@@ -241,16 +273,16 @@ const FomularioEventos = ({
     }
   }, [clientSecret, initPaymentSheet])
 
-  const handleStripe = async () => {
-    const { data } = await axiosInstance.post(
-      `stripe/payment/price_1PF84tGmE60O5ob7niadJ5hL`,
-      { customerId: user.stripeId }
-    )
-    if (data) {
-      setClientSecret(data.clientSecret)
-      // console.log(data, 'esto es priceee')
-    }
-  }
+  // const handleStripe = async () => {
+  //   const { data } = await axiosInstance.post(
+  //     `stripe/payment/price_1PF84tGmE60O5ob7niadJ5hL`,
+  //     { customerId: user.stripeId }
+  //   )
+  //   if (data) {
+  //     setClientSecret(data.clientSecret)
+  //     // console.log(data, 'esto es priceee')
+  //   }
+  // }
 
   const onCloseModalSports = () => {
     setSportsModal(false)
@@ -604,18 +636,16 @@ const FomularioEventos = ({
             {/* <TouchableOpacity onPress={handleUpload} style={{ backgroundColor: Color.sportsNaranja , padding:8,borderRadius:50}}>
               <Text style={{color:"white"}}>Subir</Text>
             </TouchableOpacity> */}
-            {/* {selectedFile && (
+            {selectedFile && (
               <View style={{ marginTop: 20 }}>
                 <Text>Selected File: {selectedFile.assets[0]?.name}</Text>
-                <Button title="Upload File" onPress={handleUpload} />
+                <Button title="Upload File" onPress={handleUploadFile} />
               </View>
             )}
-            <TouchableOpacity onPress={() => downloadPdf(1)} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
+            <TouchableOpacity onPress={() => handleDownloadFile()} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
               <Text style={{ color: "white" }}>descargar</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={openPdf} disabled={!pdfUri} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
-              <Text style={{ color: "white" }}>Open pdf</Text>
-            </TouchableOpacity> */}
+          
 
           </View>
         </View>
