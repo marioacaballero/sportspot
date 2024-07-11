@@ -15,13 +15,16 @@ import { NotificationEntity } from "src/notifications/entities/notification.enti
 import { JwtService } from '@nestjs/jwt'
 import { ReviewsService } from './reviews.service'
 import { PushNotificationService } from 'src/notification-push/notification.service'
+import { InscriptionsService } from 'src/inscriptions/inscriptions.service'
+import { Inscription } from 'src/inscriptions/entities/inscription.entity'
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([EventEntity, UserEntity, ReviewEntity, UserEventReviewEntity, UserEventHistoryEntity, NotificationEntity])
+    TypeOrmModule.forFeature([EventEntity, Inscription,UserEntity, ReviewEntity, UserEventReviewEntity, UserEventHistoryEntity, NotificationEntity])
   ],
   controllers: [ReviewController],
   providers: [
+    InscriptionsService,
     EventsService,
     UsersService,
     SendMailsService,

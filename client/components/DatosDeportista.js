@@ -206,7 +206,7 @@ const DatosDeportista = ({
                       onPress={() => sportSelectStyle(sport?.name)}
                     >
                       <View>
-                        {sport?.name === 'senderismo' && (
+                        {sport?.name === 'marcha' && (
                           // <FutbolSVG showColor={showColor} />
                           <SenderismoSVG showColor={showColor}></SenderismoSVG>
                         )}
@@ -229,7 +229,7 @@ const DatosDeportista = ({
                         {sport?.name === 'padel' && (
                           <PadelSVG showColor={showColor} />
                         )}
-                        {sport?.name === 'crossfit' && (
+                        {sport?.name === 'fitness' && (
                           <CrossfitSVG showColor={showColor} />
                         )}
                         {sport?.name === 'escalada' && (

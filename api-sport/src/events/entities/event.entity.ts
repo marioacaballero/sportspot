@@ -5,14 +5,17 @@ import { UserEntity } from 'src/users/entities/users.entity'
 import {
   Column,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
   NumericType,
-  OneToMany
+  OneToMany,
+  OneToOne
 } from 'typeorm'
 import { UserEventHistoryEntity } from './userEvent.entity'
 import { ReviewEntity } from 'src/reviews/entities/reviews.entity'
+import { DocumentEntity } from 'src/documents/entities/document.entity'
 
 @Entity({ name: 'event' })
 export class EventEntity extends BaseEntity {
@@ -93,4 +96,7 @@ export class EventEntity extends BaseEntity {
 
   @OneToMany(() => ReviewEntity, (review) => review.eventReview)
   reviews: ReviewEntity
+
+  @OneToMany(() => DocumentEntity, document => document.event)
+  documents: DocumentEntity[];
 }

@@ -125,7 +125,7 @@ const Sports = ({
               }}
             >
               <View>
-                {sport?.name === 'senderismo' && (
+                {sport?.name === 'marcha' && (
                   // <FutbolSVG showColor={showColor} />
                   <SenderismoSVG
                     showColor={eventsFilter?.sportName || []}
@@ -154,10 +154,10 @@ const Sports = ({
                 {sport?.name === 'padel' && (
                   <PadelSVG showColor={eventsFilter?.sportName || []} />
                 )}
-                {sport?.name === 'crossfit' && (
+                {sport?.name === 'fitness' && (
                   <CrossfitSVG showColor={eventsFilter?.sportName || []} />
                 )}
-                {sport?.name === 'escalada' && (
+                {sport?.name === 'marcha' && (
                   <EscaladaSVG showColor={eventsFilter?.sportName || []} />
                 )}
                 {sport?.name === 'orientacion' && (
