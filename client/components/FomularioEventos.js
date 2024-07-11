@@ -34,8 +34,8 @@ import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
 import * as WebBrowser from 'expo-web-browser';
 import { Buffer } from 'buffer'
-import * as Linking from 'expo-linking';
 import FileViewer from 'react-native-file-viewer';
+
 
 const FomularioEventos = ({
   onEditMode,
@@ -75,10 +75,10 @@ const FomularioEventos = ({
   const [pdfUrl, setPdfUrl] = React.useState('');
 
 
- 
 
 
-  
+
+
 
   const handleImagePick = async () => {
     try {
@@ -118,26 +118,26 @@ const FomularioEventos = ({
 
 
   const handleUpload = async () => {
-   
 
-        const formData = new FormData();
-        formData.append('file', {
-          uri: selectedFile.assets[0].uri,
-          name: selectedFile.assets[0].name,
-          type: 'application/pdf'
-        });
 
-        // Enviar el archivo al servidor
-        const response = await fetch('http://192.168.0.77:3000/api/documents/upload', {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
+    const formData = new FormData();
+    formData.append('file', {
+      uri: selectedFile.assets[0].uri,
+      name: selectedFile.assets[0].name,
+      type: 'application/pdf'
+    });
 
-        const responseData = await response.json();
-        console.log(responseData);
+    // Enviar el archivo al servidor
+    const response = await fetch('http://192.168.0.77:3000/api/documents/upload', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    const responseData = await response.json();
+    console.log(responseData);
   };
 
 
@@ -178,7 +178,7 @@ const FomularioEventos = ({
       await FileSystem.writeAsStringAsync(fileUri, base64data, {
         encoding: FileSystem.EncodingType.Base64,
       });
-console.log(fileUri,"file uri")
+      console.log(fileUri, "file uri")
       setPdfUri(fileUri);
     } catch (error) {
       console.error('Error downloading the PDF:', error);
@@ -196,7 +196,7 @@ console.log(fileUri,"file uri")
       console.log('No PDF file found.');
     }
   };
-  
+
 
 
 
@@ -606,23 +606,29 @@ console.log(fileUri,"file uri")
             {/* <TouchableOpacity onPress={handleUpload} style={{ backgroundColor: Color.sportsNaranja , padding:8,borderRadius:50}}>
               <Text style={{color:"white"}}>Subir</Text>
             </TouchableOpacity> */}
-            {selectedFile && (
+            {/* {selectedFile && (
               <View style={{ marginTop: 20 }}>
                 <Text>Selected File: {selectedFile.assets[0]?.name}</Text>
                 <Button title="Upload File" onPress={handleUpload} />
               </View>
             )}
-               <TouchableOpacity  onPress={() => downloadPdf(1)} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
+            <TouchableOpacity onPress={() => downloadPdf(1)} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
               <Text style={{ color: "white" }}>descargar</Text>
             </TouchableOpacity>
-                     <TouchableOpacity onPress={openPdf}  disabled={!pdfUri} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
+            <TouchableOpacity onPress={openPdf} disabled={!pdfUri} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
               <Text style={{ color: "white" }}>Open pdf</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
           </View>
         </View>
-        
+
       </View>
+     {pdfUri && (
+       <PDFView
+       resourceType={pdfUri}
+       style={{ flex: 1 }}
+     ></PDFView>
+     )}
       <Pressable
         style={{
           flexDirection: 'row',
