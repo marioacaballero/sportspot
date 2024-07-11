@@ -13,6 +13,7 @@ import { UpdateUserDto } from '../dto/update-user.dto'
 import { UserDTO } from '../dto/user.dto'
 import { UserEntity } from '../entities/users.entity'
 import Stripe from 'stripe';
+import { InscriptionsService } from 'src/inscriptions/inscriptions.service'
 
 @Injectable()
 export class UsersService {
@@ -24,6 +25,7 @@ export class UsersService {
     private readonly eventService: EventsService,
     private readonly jsonwebtokenService: JsonwebtokenService,
     private readonly sendMailsService: SendMailsService,
+    private readonly inscriptionsService: InscriptionsService,
     @InjectRepository(EventEntity)
     private readonly eventsRepository: Repository<EventEntity>,
     @InjectRepository(UserEventHistoryEntity)
@@ -65,7 +67,7 @@ export class UsersService {
         await this.userRepository.save(createUserDto);
       // Si no se pudo crear el nuevo perfil, lanzar una excepción
       if (!newProfile) {
-        return({
+        return ({
           type: 'BAD_REQUEST',
           message: 'The new profile is not created'
         });
@@ -99,7 +101,7 @@ export class UsersService {
 
       // Si el usuario ya existe, lanzar una excepción
       if (existingUser) {
-       return {user:existingUser,message:"el usuario existe"}
+        return { user: existingUser, message: "el usuario existe" }
       }
 
 
@@ -201,7 +203,7 @@ export class UsersService {
       +process.env.HASH_SALT
     )
 
-    
+
 
     const existingUser: UserEntity = await this.userRepository
       .createQueryBuilder('user')
@@ -439,30 +441,30 @@ export class UsersService {
     if (!user) {
       throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404);
     }
-  
+
     const event = await this.eventService.getOneService(eventId);
     if (!event) {
       throw new HttpException(`Evento con ID ${eventId} no encontrado`, 404);
     }
-  
+
     // Verificar si el usuario ya está suscrito al evento
     const isSubscribedIds = await this.eventsRepository
       .createQueryBuilder()
       .relation(EventEntity, 'suscribers')
       .of(event)
       .loadMany();
-  
+
     const isSubscribed = isSubscribedIds.some(subscriber => subscriber.id === userId);
-  
-    
-  
+
+
+
     // Agregar al usuario como suscriptor del evento
     event.suscribers.push(user);
     await this.eventsRepository.save(event);
-  
+
     return await this.getOneEvent(eventId); // Recargar el evento para reflejar los cambios
   }
-  
+
 
   public async deleteSubscriptionService(
     userId: string,
@@ -481,6 +483,8 @@ export class UsersService {
       .of(event)
       .remove(user)
 
+    await this.inscriptionsService.removeInscription(userId, eventId);
+
     await this.notificationsService.destroyService({
       recipientId: userId,
       eventId: eventId
@@ -497,21 +501,21 @@ export class UsersService {
     if (!user) {
       throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404);
     }
-  
+
     // Buscar el evento por ID
     const event = await this.eventService.getOneService(eventId);
     if (!event) {
       throw new HttpException(`Evento con ID ${eventId} no encontrado`, 404);
     }
-  
+
     // Asegúrate de que user.eventFavorites esté inicializado
     if (!Array.isArray(user.eventFavorites)) {
       user.eventFavorites = [];
     }
-  
+
     // Buscar el índice del evento en los favoritos
     const index = user.eventFavorites.indexOf(eventId);
-  
+
     if (index === -1) {
       // Si no se encuentra, agregar el evento a los favoritos
       user.eventFavorites.push(eventId);
@@ -519,19 +523,19 @@ export class UsersService {
       // Si se encuentra, eliminar el evento de los favoritos
       user.eventFavorites.splice(index, 1);
     }
-  
+
     // Guardar los cambios en el usuario (asegúrate de implementar esta lógica según tu ORM)
     await this.saveUser(user);
-  
+
     // Verificar si los cambios se han guardado correctamente (opcional)
     const updatedUser = await this.getOneService(userId);
     if (updatedUser.eventFavorites.includes(eventId) !== user.eventFavorites.includes(eventId)) {
       throw new HttpException('Error al actualizar los favoritos del usuario', 500);
     }
-  
+
     return event;
   }
-  
+
   // Método para guardar el usuario (debes implementarlo según tu ORM)
   private async saveUser(user: UserEntity): Promise<void> {
     // Ejemplo con un ORM ficticio, reemplaza esto con la lógica de tu ORM
@@ -573,7 +577,7 @@ export class UsersService {
   }
 
   async getByFacebookId(facebookId: string): Promise<UserEntity | undefined> {
-    return this.userRepository.findOne({ where: { facebookId: facebookId }});
+    return this.userRepository.findOne({ where: { facebookId: facebookId } });
   }
 
 
@@ -582,15 +586,15 @@ export class UsersService {
     if (!user) {
       throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404);
     }
-  
+
     const subscriptions = await this.eventsRepository
       .createQueryBuilder('event')
       .innerJoinAndSelect('event.suscribers', 'subscriber')
       .where('subscriber.id = :userId', { userId })
       .getMany();
-  
+
     return subscriptions;
   }
-  
+
 
 }

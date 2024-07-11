@@ -18,6 +18,8 @@ import { ResetCodeService } from './reset-code.service'
 import { SendMailsController } from './send-mails.controller'
 import { SendMailsService } from './send-mails.service'
 import { PushNotificationService } from 'src/notification-push/notification.service'
+import { InscriptionsService } from 'src/inscriptions/inscriptions.service'
+import { Inscription } from 'src/inscriptions/entities/inscription.entity'
 
 @Module({
   imports: [
@@ -42,6 +44,7 @@ import { PushNotificationService } from 'src/notification-push/notification.serv
     }),
     TypeOrmModule.forFeature([
       ResetCodeEntity,
+      Inscription,
       UserEntity,
       NotificationEntity,
       EventEntity,
@@ -51,6 +54,7 @@ import { PushNotificationService } from 'src/notification-push/notification.serv
   controllers: [SendMailsController, UsersController, ResetCodeController],
   providers: [
     SendMailsService,
+    InscriptionsService,
     ResetCodeService,
     UsersService,
     NotificationsService,

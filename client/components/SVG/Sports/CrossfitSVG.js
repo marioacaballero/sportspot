@@ -2,7 +2,7 @@ import * as React from "react"
 import Svg, { Path } from "react-native-svg"
 
 function CrossfitSVG(props) {
-  const color = props.showColor && props.showColor?.includes('crossfit') ? 'white' : '#40036f'
+  const color = props.showColor && props.showColor?.includes('fitness') ? 'white' : '#40036f'
 
 
   return (
