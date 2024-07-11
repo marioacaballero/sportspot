@@ -240,7 +240,10 @@ const HistorialDePruebas = () => {
                             {t('localizacion')}:
                           </Text>
                           <Text
+                            numberOfLines={1}
+                            ellipsizeMode="tail"
                             style={{
+                              maxWidth: '80%',
                               color: Color.sportsVioleta,
                               fontSize: 12
                             }}

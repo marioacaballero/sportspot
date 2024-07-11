@@ -177,6 +177,14 @@ const InicioDeportista = () => {
     return Math.floor(diferenciaMs / unDia)
   }
 
+  const isWithinLast48Hours = (date) => {
+    const currentDate = new Date()
+    const passedDate = date
+    const differenceInHours = (passedDate - currentDate) / (1000 * 60 * 60)
+    console.log('hour difference', differenceInHours)
+    return differenceInHours <= 48
+  }
+
   const fechaActual = new Date()
 
   const latestEventsAdded = eventos.filter((evento) => {
@@ -190,16 +198,11 @@ const InicioDeportista = () => {
   const lastHours = eventos.filter((evento) => {
     const fechaEvento = new Date(evento.dateInscription)
 
-    const diferenciaDias = functionDate(
-      fechaActual,
-      fechaEvento <= fechaActual ? fechaEvento : ''
-    )
-
-    return diferenciaDias < 7
+    return isWithinLast48Hours(fechaEvento)
   })
 
   const eventsExpired = eventos.filter((evento) => {
-    const fechaEvento = new Date(evento.dateStart) // 2024/04/24
+    const fechaEvento = new Date(evento.dateInscription) // 2024/04/24
     return fechaEvento < new Date()
   })
 

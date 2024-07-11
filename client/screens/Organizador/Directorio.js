@@ -143,6 +143,8 @@ const Directorio = () => {
                 >
                   <FolderSVG />
                   <Text
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
                     style={{
                       fontSize: FontSize.inputLabel_size,
                       fontFamily: FontFamily.inputPlaceholder,

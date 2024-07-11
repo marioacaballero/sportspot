@@ -2,7 +2,7 @@
   "expo": {
     "runtimeVersion": "1.0.2",
     "name": "SpotSport",
-    "slug": "nuevappp",
+    "slug": "spotsport",
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/spotsport.png",
@@ -12,9 +12,8 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
+    "platforms": ["ios", "android"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.aythenapp.spotsport"
@@ -37,7 +36,6 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-   
       "expo-font",
       [
         "expo-build-properties",
@@ -58,15 +56,13 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "9120196b-3c17-4afd-a7f1-26a9758f23ae"
+        "projectId": "d7893a40-5e4b-4559-8e1a-1afeb96df0e5"
       }
     },
     "updates": {
       "url": "https://u.expo.dev/ac124ba8-62c5-44ac-ab0e-8da7a8b8e646"
     },
-    "owner": "azschiaffino",
-    "scheme": [
-      "spotsport"
-    ]
+    "owner": "kraa",
+    "scheme": ["spotsport"]
   }
 }
