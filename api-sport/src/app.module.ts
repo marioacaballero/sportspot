@@ -18,6 +18,7 @@ import { CollaboratorsModule } from './collaborators/collaborators.module'
 
 //import { GoogleStrategyModule } from './google/google.module'
 import { DocumentsModule } from './documents/documents.module';
+import { InscriptionsModule } from './inscriptions/inscriptions.module';
 console.log(join(__dirname, 'template'))
 @Module({
   imports: [
@@ -38,6 +39,7 @@ console.log(join(__dirname, 'template'))
     SendMailsModule,
     StripeModule.forRootAsync(),
     ReviewModule,
+    InscriptionsModule,
     //GoogleStrategyModule
   ],
   controllers: [],
