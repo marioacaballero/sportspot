@@ -201,7 +201,7 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
       id: user.id,
       eventId: route.params.id
     }
-    // console.log('sending suscription request to: ', data)
+    console.log('sending suscription request to ============: ', data)
     dispatch(suscriptionEventUser(data)).then((data) =>
       dispatch(getAllEvents())
     )
@@ -221,7 +221,7 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
             fontSize: 20,
             fontWeight: 600
           }}
-        >{`${route.params.title} -> Inscripcion`}</Text>
+        >{`${route.params.title} -> Inscripción`}</Text>
         <Text
           style={{
             color: Color.sportsNaranja,
@@ -701,16 +701,16 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
             }
             onPress={() => {
               // openPaymentSheet()
-              if (route.params.price !== '0') {
-                console.log(route.params.price, 'priceee')
+              // if (route.params.price !== '0') {
+              //   console.log(route.params.price, 'priceee')
 
-                return navigation.navigate('stripe', {
-                  amount: route.params.price
-                })
-              } else {
-                onSuscribed()
-                return navigation.navigate('InicioDeportista')
-              }
+              //   return navigation.navigate('stripe', {
+              //     amount: route.params.price
+              //   })
+              // } else {
+              onSuscribed()
+              return navigation.navigate('InicioDeportista')
+              // }
             }}
           >
             <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>

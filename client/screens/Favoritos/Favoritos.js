@@ -117,7 +117,18 @@ const Favoritos = ({ route }) => {
                 />
                 <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
                   <View style={styles.ciclismoParent}>
-                    <Text style={[styles.ciclismo, styles.ciclismoTypo]}>
+                    <Text
+                      numberOfLines={1}
+                      ellipsizeMode="tail"
+                      style={{
+                        fontFamily: FontFamily.inputPlaceholder,
+                        fontWeight: '700',
+                        textAlign: 'left',
+                        fontSize: 14,
+                        color: Color.sportsNaranja,
+                        maxWidth: '90%'
+                      }}
+                    >
                       {prueba.description}
                     </Text>
                     <TouchableOpacity

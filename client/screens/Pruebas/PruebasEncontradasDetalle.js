@@ -11,7 +11,9 @@ import {
   View,
   Share,
   Alert,
-  ToastAndroid
+  ToastAndroid,
+  PermissionsAndroid,
+  Platform
 } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -39,10 +41,11 @@ import { useTranslation } from 'react-i18next'
 import { setSport } from '../../redux/slices/sports.slices'
 import axiosInstance from '../../utils/apiBackend'
 import { useRoute } from '@react-navigation/native'
+import XLSX from 'xlsx'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
   const router = useRoute()
-  console.log('router.params', router.params)
+  // console.log('router.params', router.params)
   const dispatch = useDispatch()
   const { t, i18n } = useTranslation()
 
@@ -61,6 +64,12 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   const stateName =
     eventFavorites && eventFavorites?.some((fav) => fav?.id === event?.id)
   const isGuest = user?.email === 'guestUser@gmail.com'
+
+  const testingData = [
+    { name: 'Test User 1', dateOfInscription: new Date(), fee: 11 },
+    { name: 'Test User 2', dateOfInscription: new Date(), fee: 12 },
+    { name: 'Test User 3', dateOfInscription: new Date(), fee: 13 }
+  ]
 
   const handleDelete = (id) => {
     Alert.alert(
@@ -98,7 +107,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   }, [suscribedEventsNotifications])
 
   const [name, setName] = useState(nameState() || false)
-  console.log(user, 'userrrr', eventState)
+  // console.log(user, 'userrrr', eventState)
   useEffect(() => {
     setName(stateName)
   }, [stateName])
@@ -136,7 +145,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   }
 
   const handleFavorite = () => {
-    console.log('on handleFavorite')
+    // console.log('on handleFavorite')
     const data = {
       id: user.id,
       eventId: eventState.id
@@ -172,7 +181,6 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     }
   }
 
-
   const suscribeNotifications = async () => {
     setNotificationEnable(!notificationEnable)
     const res = await axiosInstance.post(
@@ -182,8 +190,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       dispatch(getSuscribedEventsNotifications(user.id))
     }
   }
-  
-  console.log(eventState, 'esto es el starte')
+
+  // console.log(eventState, 'esto es el starte')
 
   if (loading) {
     return (
@@ -212,6 +220,31 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               position: 'absolute',
               top: 53,
               right: 20,
+              width: 53,
+              height: 53,
+              zIndex: 9999999999,
+              borderRadius: 100,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <Image
+              style={{ width: 20, height: 20 }}
+              contentFit={'cover'}
+              source={require('../../assets/deleteIcon.png')}
+            />
+          </TouchableOpacity>
+        )}
+        {router?.params?.organizer && (
+          <TouchableOpacity
+            onPress={() => {
+              writeDataAndDownloadExcelFile()
+            }}
+            style={{
+              backgroundColor: '#fff',
+              position: 'absolute',
+              top: 53,
+              right: 93,
               width: 53,
               height: 53,
               zIndex: 9999999999,
