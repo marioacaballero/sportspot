@@ -360,7 +360,9 @@ const FomularioEventos = ({
       dateStart: dateStart || event.dateStart,
       dateInscription: dateSuscription || event.dateEnd,
       timeStart: '00:00',
-      image: selectedImage || event.image
+      image: selectedImage || event.image,
+      rules: fileUrl || selectedImageRule || ""
+
     }
     dispatch(updateEvent({ id: eventData.id, updateEventDto: data }))
     setEvent({
@@ -375,7 +377,7 @@ const FomularioEventos = ({
       mail: '',
       phoneNumber: '',
       image: null,
-      rules: fileUrl || selectedImageRule || ""
+      rules:  ""
 
     })
     setSelectedFile("")
