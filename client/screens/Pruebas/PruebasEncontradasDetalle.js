@@ -46,6 +46,8 @@ import { setSport } from '../../redux/slices/sports.slices'
 import axiosInstance from '../../utils/apiBackend'
 import { useRoute } from '@react-navigation/native'
 import XLSX from 'xlsx'
+import { writeDataAndDownloadExcelFile } from '../Pruebas/xlsxdownloader'
+import { Feather } from '@expo/vector-icons'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
   const router = useRoute()
@@ -61,7 +63,6 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     suscribedEventsNotifications,
     eventInscriptions
   } = useSelector((state) => state.events)
-  const [isFavorite, setIsFavorite] = useState({})
   const { sports } = useSelector((state) => state.sports)
   const [eventState, setEventState] = useState(event)
   const [modalSuscription, setModalSuscription] = useState(false)
@@ -217,6 +218,10 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     }
   }
 
+  useEffect(() => {
+    dispatch(getAllEventsInscriptions(event.id))
+  }, [])
+
   const suscribeNotifications = async () => {
     setNotificationEnable(!notificationEnable)
     const res = await axiosInstance.post(
@@ -274,7 +279,12 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
         {router?.params?.organizer && (
           <TouchableOpacity
             onPress={() => {
-              writeDataAndDownloadExcelFile()
+              if (eventInscriptions.length > 0 && eventState.title) {
+                writeDataAndDownloadExcelFile(
+                  eventInscriptions,
+                  eventState.title
+                )
+              }
             }}
             style={{
               backgroundColor: '#fff',
@@ -289,11 +299,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               alignItems: 'center'
             }}
           >
-            <Image
-              style={{ width: 20, height: 20 }}
-              contentFit={'cover'}
-              source={require('../../assets/deleteIcon.png')}
-            />
+            <Feather size={20} name="download" color={Color.sportsNaranja} />
           </TouchableOpacity>
         )}
         <View style={[styles.unsplashon4qwhhjcemParent]}>

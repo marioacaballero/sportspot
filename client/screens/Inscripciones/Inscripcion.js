@@ -205,6 +205,14 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
       id: user.id,
       eventId: route.params.id
     }
+
+    const dataToSend = { ...event }
+    dataToSend.eventId = route.params.id
+    dataToSend.userId = user.id
+    console.log('sendind data to inscriptions', dataToSend)
+
+    dispatch(submitInscription(dataToSend))
+
     console.log('sending suscription request to ============: ', data)
     dispatch(suscriptionEventUser(data)).then((data) =>
       dispatch(getAllEvents())
