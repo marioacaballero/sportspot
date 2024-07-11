@@ -31,7 +31,10 @@ import EditEvent from '../../components/EditEvent'
 import EscribirResea from '../../components/EscribirResea'
 import ModalSuscription from '../../components/ModalSuscription'
 import CardReview from './CardReview'
-import { setShowGuestModal } from '../../redux/slices/events.slices'
+import {
+  setShowGuestModal,
+  setVisitedEvents
+} from '../../redux/slices/events.slices'
 import {
   deleteEvent,
   getAllEvents,
@@ -60,6 +63,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     suscribedEventsNotifications,
     eventInscriptions
   } = useSelector((state) => state.events)
+  const [isFavorite, setIsFavorite] = useState({})
   const { sports } = useSelector((state) => state.sports)
   const [eventState, setEventState] = useState(event)
   const [modalSuscription, setModalSuscription] = useState(false)
@@ -91,7 +95,9 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
           text: t('eliminar'),
           onPress: async () => {
             navigation.navigate('Directorio')
+            await dispatch(setVisitedEvents(id))
             await dispatch(deleteEvent(id))
+
             ToastAndroid.show(t('eventoborradoconexito'), ToastAndroid.SHORT)
             await dispatch(getAllEvents())
           }
@@ -101,6 +107,31 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     )
   }
 
+  // const initializeFavorites = () => {
+  //   const init = {}
+  //   events?.forEach((visited, index) => {
+  //     const isEventFavorite = eventFavorites?.some((e) => {
+  //       return e?.id === visited.id
+  //     })
+  //     init[index] = isEventFavorite
+  //   })
+  //   console.log('SETTING FAVORITES TO', init)
+  //   return init
+  // }
+
+  // useEffect(() => {
+  //   if (events?.length > 0) setIsFavorite(initializeFavorites())
+  // }, [events])
+
+  // useEffect(() => {
+  //   console.log('EVENT ID', eventState.id)
+  //   console.log('EVENT FAVORITES', eventFavorites)
+  //   console.log(
+  //     eventFavorites?.some((e) => {
+  //       return e?.id === eventState?.id
+  //     })
+  //   )
+  // }, [])
   const nameState = () => {
     if (stateName !== undefined) {
       return stateName
@@ -380,7 +411,11 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   }}
                 >
                   <MaterialCommunityIcons
-                    name={name ? 'cards-heart' : 'cards-heart-outline'}
+                    name={
+                      user?.eventFavorites?.includes(eventState.id)
+                        ? 'cards-heart'
+                        : 'cards-heart-outline'
+                    }
                     color="#F25910"
                     size={25}
                   />

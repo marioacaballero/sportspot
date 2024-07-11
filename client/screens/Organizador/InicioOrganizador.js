@@ -80,8 +80,8 @@ const InicioOrganizador = () => {
               dispatch(setShowGuestModal(true))
               return
             }
-            // togglePublishModal()
-            navigation.navigate('PublicarEvento')
+            togglePublishModal()
+            //  navigation.navigate('PublicarEvento')
           }}
           // disabled={user?.rol === 'sportsman'}
         >

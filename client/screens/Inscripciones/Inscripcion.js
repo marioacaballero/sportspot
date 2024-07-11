@@ -464,17 +464,7 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
               </Text>
             </View>
           </Pressable>
-          <Pressable
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginBottom: 20,
-              borderRadius: 30,
-              width: '100%',
-              height: 45
-            }}
-            onPress={openProvinceModal}
-          >
+          <View style={styles.items}>
             <View
               style={{
                 width: '100%',
@@ -485,32 +475,16 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
                 paddingLeft: 10
               }}
             >
-              <Text
-                style={{
-                  fontSize: FontSize.size_5xs,
-                  fontFamily: FontFamily.inputPlaceholder,
-                  fontWeight: '700',
-                  color: Color.sportsVioleta,
-                  position: 'absolute',
-                  left: 18,
-                  bottom: 34.5,
-                  backgroundColor: 'white',
-                  padding: 3
-                }}
-              >
-                {t('provincia')}
-              </Text>
-              <Text
-                style={
-                  event.provincia
-                    ? styles.helloTypoScroll
-                    : styles.helloTypoScroll2
-                }
-              >
-                {event.provincia ? event.provincia : t('provincia')}
-              </Text>
+              <Text style={styles.text}>{t('provincia')}</Text>
+              <TextInput
+                style={styles.helloTypoScroll}
+                value={event.provincia}
+                onChangeText={(value) => onValuesEvent('provincia', value)}
+                placeholder={t('provincia')}
+                placeholderTextColor={Color.violetaPlaceholder}
+              />
             </View>
-          </Pressable>
+          </View>
           <View style={styles.items}>
             {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M81.5039'} /> */}
             <View
@@ -712,17 +686,17 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
               !gender
             }
             onPress={() => {
-              // openPaymentSheet()
-              // if (route.params.price !== '0') {
-              //   console.log(route.params.price, 'priceee')
+              openPaymentSheet()
+              if (route.params.price !== '0') {
+                console.log(route.params.price, 'priceee')
 
-              //   return navigation.navigate('stripe', {
-              //     amount: route.params.price
-              //   })
-              // } else {
-              onSuscribed()
-              return navigation.navigate('InicioDeportista')
-              // }
+                return navigation.navigate('stripe', {
+                  amount: route.params.price
+                })
+              } else {
+                onSuscribed()
+                return navigation.navigate('InicioDeportista')
+              }
             }}
           >
             <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>

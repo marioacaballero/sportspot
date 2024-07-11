@@ -18,7 +18,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { LinearGradient } from 'expo-linear-gradient'
 import { favorite, getUser } from '../redux/actions/users'
-import { getEventByIdRedux } from '../redux/slices/events.slices'
+import {
+  getEventByIdRedux,
+  setVisitedEvents
+} from '../redux/slices/events.slices'
 import { useTranslation } from 'react-i18next'
 
 const UltimasConsultas = () => {
@@ -303,15 +306,18 @@ const UltimasConsultas = () => {
                             fontSize: 12
                           }}
                         >
-                          {t('localizacion')}
+                          {t('localizacion')}:
                         </Text>
                         <Text
+                          numberOfLines={1}
+                          ellipsizeMode="tail"
                           style={{
+                            maxWidth: '80%',
                             color: Color.sportsVioleta,
                             fontSize: 12
                           }}
                         >
-                          {event.event.location}
+                          sotillo sotano sotano sortija avaricioso
                         </Text>
                       </View>
 

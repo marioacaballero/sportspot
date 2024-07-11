@@ -54,6 +54,16 @@ export const eventsSlices = createSlice({
     setFilteredEvents: (state, action) => {
       state.eventsFilter = action.payload
     },
+    setVisitedEvents: (state, action) => {
+      console.log('filtering out event', action.payload, 'from visited')
+      const actualVisited = [...state.visitedEvents]
+      console.log('ACTUAL LENGTH', actualVisited.length)
+      const filteredVisited = actualVisited.filter(
+        (ev) => ev.event.id !== action.payload
+      )
+      console.log('FINAL LENGTH', filteredVisited.length)
+      state.visitedEvents = filteredVisited
+    },
     setEventFromPrice: (state, action) => {
       const { start, end } = action.payload
 
@@ -263,8 +273,12 @@ export const eventsSlices = createSlice({
         state.error = null
       })
       .addCase(getAllVisitedEvents.fulfilled, (state, action) => {
+        const actualVisited = [...action.payload]
+        const filteredVisited = actualVisited.filter((visited) =>
+          state.events.some((ev) => ev.id === visited.event.id)
+        )
         state.loadingGet = false
-        state.visitedEvents = action.payload
+        state.visitedEvents = filteredVisited
         state.error = null
       })
       .addCase(getAllVisitedEvents.rejected, (state, action) => {
@@ -310,6 +324,7 @@ export const eventsSlices = createSlice({
 
 export const {
   setEvent,
+  setVisitedEvents,
   setNameEvent,
   setDateStart,
   setDateSuscription,
