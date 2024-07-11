@@ -15,6 +15,20 @@ export const suscriptionEventUser = createAsyncThunk(
   }
 )
 
+export const submitInscription = createAsyncThunk(
+  'users/submitInscription',
+  async (body) => {
+    console.log('body from submitInscription: ', body)
+    try {
+      const { data } = await axiosInstance.post('/inscriptions', body)
+      console.log('returning data from inscriptions', data)
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+)
+
 export const updateUser = createAsyncThunk('users/update', async (body) => {
   const { id, valuesUser } = body
   try {

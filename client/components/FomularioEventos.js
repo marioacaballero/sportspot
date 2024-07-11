@@ -492,9 +492,7 @@ const FomularioEventos = ({
         </View>
       </Pressable>
 
-
       <View style={styles.items}>
-
         <View
           style={{
             width: '100%',
@@ -731,7 +729,7 @@ const FomularioEventos = ({
         </View>
 
         <View style={styles.items2Flex}>
-          <Text style={styles.text2}>{t('lugarDelEvento')}</Text>
+          <Text style={styles.text2}>{t('numerodeinsc')}</Text>
           <View style={styles.items2}>
             <TextInput
               style={styles.helloTypoScrollPrecio}

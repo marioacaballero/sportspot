@@ -32,6 +32,7 @@ import {
   setShowGuestModal
 } from '../../redux/slices/events.slices'
 import { favorite, getUser } from '../../redux/actions/users'
+import { t } from 'i18next'
 
 const PruebasEncontradas = ({ route }) => {
   const navigation = useNavigation()

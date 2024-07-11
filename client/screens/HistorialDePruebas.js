@@ -197,12 +197,15 @@ const HistorialDePruebas = () => {
                     >
                       <View style={{ flexDirection: 'row', marginBottom: 5 }}>
                         <Text
+                          numberOfLines={1}
+                          ellipsizeMode="tail"
                           style={{
                             fontSize: 14,
                             color: Color.sportsNaranja,
                             textAlign: 'left',
                             fontFamily: FontFamily.inputPlaceholder,
-                            fontWeight: '700'
+                            fontWeight: '700',
+                            maxWidth: '90%'
                           }}
                         >
                           {evnt.title}

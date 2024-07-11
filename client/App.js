@@ -54,6 +54,7 @@ import { setNotificationPush } from './redux/slices/users.slices'
 import Colaboradores from './screens/Perfil/Colaboradores'
 // import { StripeProvider } from '@stripe/stripe-react-native'
 // import PaymentScreen from './screens/PaymentScreen'
+// import './shim'
 
 function MyStackNavigator({ isFooterShow, setIsFooterShow }) {
   const state = useNavigationState((state) => state) // Obtiene el estado actual de la navegación
@@ -330,7 +331,7 @@ export default function App() {
   const [notification, setNotification] = useState(undefined)
   const notificationListener = useRef()
   const responseListener = useRef()
-  
+
   useEffect(() => {
     registerForPushNotificationsAsync()
       .then((token) => {

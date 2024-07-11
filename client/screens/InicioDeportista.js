@@ -12,7 +12,8 @@ import {
   Dimensions,
   Button,
   BackHandler,
-  ToastAndroid
+  ToastAndroid,
+  Platform
 } from 'react-native'
 import {
   useFocusEffect,
@@ -41,16 +42,14 @@ import { ActivityIndicator } from 'react-native-paper'
 import DatosDeportista from '../components/DatosDeportista'
 // import { SafeAreaView } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { getOneCustomer } from '../redux/actions/stripe'
 import { LinearGradient } from 'expo-linear-gradient'
 import GuestUserModal from '../components/utils/GuestUserModal'
 import { getAllUsers, getUser, updateUser } from '../redux/actions/users'
 import { setSelectedIcon } from '../redux/slices/users.slices'
 import { useTranslation } from 'react-i18next'
-import { NativeModules } from 'react-native'
 
 const InicioDeportista = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
 
   const navigation = useNavigation()
   const dispatch = useDispatch()
@@ -73,11 +72,11 @@ const InicioDeportista = () => {
   const getTokenNotification = async () => {
     const token2 = await AsyncStorage.getItem('notificationsToken')
 
-  if(token2 !== null){
-    dispatch(
-      updateUser({ id: user.id, valuesUser: { NotificationPush: token2 } })
-    )
-  }
+    if (token2 !== null) {
+      dispatch(
+        updateUser({ id: user.id, valuesUser: { NotificationPush: token2 } })
+      )
+    }
   }
 
   let backPressedOnce = false
@@ -141,9 +140,7 @@ const InicioDeportista = () => {
     dispatch(getAllEvents())
     dispatch(getSuscribedEvents(user.id))
     dispatch(getSuscribedEventsNotifications(user.id))
-
   }, [])
-
 
   const handleBuscarPress = () => {
     setMostrarInicioBuscador(true)
@@ -203,13 +200,10 @@ const InicioDeportista = () => {
 
   const eventsExpired = eventos.filter((evento) => {
     const fechaEvento = new Date(evento.dateStart) // 2024/04/24
-
-    const diferenciaDias = functionDate(
-      fechaActual,
-      fechaEvento <= fechaActual ? fechaEvento : ''
-    )
-    return diferenciaDias >= 1
+    return fechaEvento < new Date()
   })
+
+  console.log('eventsExpired', eventsExpired)
   const isGuest = user?.email === 'guestUser@gmail.com'
 
   console.log('userNotifications', userNotifications)
@@ -217,7 +211,6 @@ const InicioDeportista = () => {
   if (loadingGet) {
     return (
       <View>
- 
         <ActivityIndicator
           style={{
             width: '100%',
