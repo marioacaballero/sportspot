@@ -205,14 +205,6 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
       id: user.id,
       eventId: route.params.id
     }
-
-    const dataToSend = { ...event }
-    dataToSend.eventId = route.params.id
-    dataToSend.userId = user.id
-    console.log('sendind data to inscriptions', dataToSend)
-
-    dispatch(submitInscription(dataToSend))
-
     console.log('sending suscription request to ============: ', data)
     dispatch(suscriptionEventUser(data)).then((data) =>
       dispatch(getAllEvents())
@@ -686,17 +678,17 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
               !gender
             }
             onPress={() => {
-              openPaymentSheet()
-              if (route.params.price !== '0') {
-                console.log(route.params.price, 'priceee')
+              // openPaymentSheet()
+              // if (route.params.price !== '0') {
+              //   console.log(route.params.price, 'priceee')
 
-                return navigation.navigate('stripe', {
-                  amount: route.params.price
-                })
-              } else {
-                onSuscribed()
-                return navigation.navigate('InicioDeportista')
-              }
+              //   return navigation.navigate('stripe', {
+              //     amount: route.params.price
+              //   })
+              // } else {
+              onSuscribed()
+              return navigation.navigate('InicioDeportista')
+              // }
             }}
           >
             <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>

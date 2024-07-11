@@ -47,6 +47,7 @@ import GuestUserModal from '../components/utils/GuestUserModal'
 import { getAllUsers, getUser, updateUser } from '../redux/actions/users'
 import { setSelectedIcon } from '../redux/slices/users.slices'
 import { useTranslation } from 'react-i18next'
+import { writeDataAndDownloadExcelFile } from './Pruebas/xlsxdownloader'
 
 const InicioDeportista = () => {
   const { t } = useTranslation()
@@ -202,7 +203,7 @@ const InicioDeportista = () => {
   })
 
   const eventsExpired = eventos.filter((evento) => {
-    const fechaEvento = new Date(evento.dateInscription) // 2024/04/24
+    const fechaEvento = new Date(evento.dateStart) // 2024/04/24
     return fechaEvento < new Date()
   })
 

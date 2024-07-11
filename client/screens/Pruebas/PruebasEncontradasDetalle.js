@@ -46,8 +46,6 @@ import { setSport } from '../../redux/slices/sports.slices'
 import axiosInstance from '../../utils/apiBackend'
 import { useRoute } from '@react-navigation/native'
 import XLSX from 'xlsx'
-import { writeDataAndDownloadExcelFile } from '../Pruebas/xlsxdownloader'
-import { Feather } from '@expo/vector-icons'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
   const router = useRoute()
@@ -219,10 +217,6 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     }
   }
 
-  useEffect(() => {
-    dispatch(getAllEventsInscriptions(event.id))
-  }, [])
-
   const suscribeNotifications = async () => {
     setNotificationEnable(!notificationEnable)
     const res = await axiosInstance.post(
@@ -280,12 +274,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
         {router?.params?.organizer && (
           <TouchableOpacity
             onPress={() => {
-              if (eventInscriptions.length > 0 && eventState.title) {
-                writeDataAndDownloadExcelFile(
-                  eventInscriptions,
-                  eventState.title
-                )
-              }
+              writeDataAndDownloadExcelFile()
             }}
             style={{
               backgroundColor: '#fff',
@@ -300,7 +289,11 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               alignItems: 'center'
             }}
           >
-            <Feather size={20} name="download" color={Color.sportsNaranja} />
+            <Image
+              style={{ width: 20, height: 20 }}
+              contentFit={'cover'}
+              source={require('../../assets/deleteIcon.png')}
+            />
           </TouchableOpacity>
         )}
         <View style={[styles.unsplashon4qwhhjcemParent]}>
@@ -461,7 +454,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               {eventState.description}
             </Text>
 
-            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+             <View style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout,{flexDirection:"row",alignItems:"center",gap:10}]}>
               <Text
                 style={{
                   fontWeight: 700,
@@ -469,9 +462,18 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-                Archivos:
-              </Text>{' '}
-            </Text>
+                {t('archivos')}
+              </Text>
+              {eventState?.rules && (
+                <TouchableOpacity onPress={()=> {
+                  Linking.openURL(eventState.rules)
+                }} style={{paddingHorizontal:20,paddingVertical:5,backgroundColor:Color.sportsNaranja,alignItems:"center",borderRadius:50}}>
+                  <Text style={{color:"white"}}>
+                   Abrir enlace
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
               <Text
                 style={{
