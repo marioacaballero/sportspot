@@ -9,7 +9,8 @@ import {
   getAllVisitedEvents,
   addReview,
   getSuscribedEvents,
-  getSuscribedEventsNotifications
+  getSuscribedEventsNotifications,
+  getAllEventsInscriptions
 } from '../actions/events'
 import { offSuscription } from '../actions/suscriptions'
 
@@ -25,6 +26,7 @@ export const eventsSlices = createSlice({
     loading: false,
     loadingId: false,
     loadingGet: false,
+    eventInscriptions: [],
     error: {},
     showGuestModal: false,
     favorites: [],
@@ -122,6 +124,21 @@ export const eventsSlices = createSlice({
         state.error = null
       })
       .addCase(getAllEvents.rejected, (state, action) => {
+        state.loadingGet = false
+        state.error = action.payload
+      })
+
+      // TODAS LAS INSCRIPCIONES DE UN EVENTO
+      .addCase(getAllEventsInscriptions.pending, (state) => {
+        state.loadingGet = true
+        state.error = null
+      })
+      .addCase(getAllEventsInscriptions.fulfilled, (state, action) => {
+        state.loadingGet = false
+        state.eventInscriptions = action.payload
+        state.error = null
+      })
+      .addCase(getAllEventsInscriptions.rejected, (state, action) => {
         state.loadingGet = false
         state.error = action.payload
       })

@@ -10,6 +10,20 @@ export const getAllEvents = createAsyncThunk('events/getAll', async () => {
   }
 })
 
+export const getAllEventsInscriptions = createAsyncThunk(
+  'events/getAllEventsInscriptions',
+  async (eventId) => {
+    console.log('On getAllEventsInscriptions with:', eventId)
+    try {
+      const { data } = await axiosInstance.get(`/inscriptions/event/${eventId}`)
+      console.log('returning data from getAllEventsInscriptions', data)
+      return data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+)
+
 export const getSuscribedEvents = createAsyncThunk(
   'events/getSuscribedEvents',
   async (userId) => {
@@ -30,7 +44,9 @@ export const getSuscribedEventsNotifications = createAsyncThunk(
   async (userId) => {
     // console.log('USERID: ', userId)
     try {
-      const { data } = await axiosInstance.get(`/events/notifications/${userId}`)
+      const { data } = await axiosInstance.get(
+        `/events/notifications/${userId}`
+      )
       console.log('data from getSuscribedEvents: ', data)
       return data
     } catch (error) {

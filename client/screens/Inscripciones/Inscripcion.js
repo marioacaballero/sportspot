@@ -16,7 +16,11 @@ import { getAllSports } from '../../redux/actions/sports'
 import { useNavigation } from '@react-navigation/native'
 // import { onSubmit } from './utils/createEvent'
 import { Checkbox } from 'react-native-paper'
-import { getUser, suscriptionEventUser } from '../../redux/actions/users'
+import {
+  getUser,
+  submitInscription,
+  suscriptionEventUser
+} from '../../redux/actions/users'
 import { setSport } from '../../redux/slices/sports.slices'
 import {
   createEvent,
@@ -201,6 +205,14 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
       id: user.id,
       eventId: route.params.id
     }
+
+    const dataToSend = { ...event }
+    dataToSend.eventId = route.params.id
+    dataToSend.userId = user.id
+    console.log('sendind data to inscriptions', dataToSend)
+
+    dispatch(submitInscription(dataToSend))
+
     console.log('sending suscription request to ============: ', data)
     dispatch(suscriptionEventUser(data)).then((data) =>
       dispatch(getAllEvents())

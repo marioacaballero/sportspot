@@ -47,7 +47,6 @@ import GuestUserModal from '../components/utils/GuestUserModal'
 import { getAllUsers, getUser, updateUser } from '../redux/actions/users'
 import { setSelectedIcon } from '../redux/slices/users.slices'
 import { useTranslation } from 'react-i18next'
-import { writeDataAndDownloadExcelFile } from './Pruebas/xlsxdownloader'
 
 const InicioDeportista = () => {
   const { t } = useTranslation()
