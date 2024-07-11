@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import {
   Alert,
   Button,
+  Image,
   Modal,
   Platform,
   Pressable,
@@ -35,6 +36,9 @@ import * as FileSystem from 'expo-file-system';
 import * as WebBrowser from 'expo-web-browser';
 import { Buffer } from 'buffer'
 import FileViewer from 'react-native-file-viewer';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { storage } from '../utils/config.google'
+
 
 
 const FomularioEventos = ({
@@ -54,9 +58,13 @@ const FomularioEventos = ({
   const [calendar, setCalendar] = useState(null)
   const [calendarInscription, setCalendarInscription] = useState(null)
   const [selectedImage, setSelectedImage] = useState(null)
+  const [selectedImageRule, setSelectedImageRule] = useState(null)
+
   const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
   const [sportsModal, setSportsModal] = useState(false)
   const [category, setCategory] = useState('')
+  const [fileUrl, setFileUrl] = useState('')
+
   const [event, setEvent] = useState(
     formattedEventData || {
       title: '',
@@ -77,7 +85,36 @@ const FomularioEventos = ({
 
 
 
+  const handleUploadFile = async (fileprop) => {
+    const fileeee = fileprop
+    if (!fileeee) return;
 
+    const file = await fetch(fileeee.uri).then((response) => response.blob());
+    const storageRef = ref(storage, `archivos/${fileeee.name.split('/').pop()}`); // Referencia con nombre del archivo
+
+    try {
+      await uploadBytes(storageRef, file);
+      console.log('Archivo subido!');
+    } catch (error) {
+      console.error('Error al subir el archivo:', error);
+    }
+  };
+
+  const handleDownloadFile = async (fileprop) => {
+
+    const fileeee = fileprop
+    const storageRef = ref(storage, `archivos/${fileeee.name.split('/').pop()}`); // Referencia al archivo
+
+    try {
+      const url = await getDownloadURL(storageRef);
+      console.log('URL de descarga:', url);
+      setFileUrl(url)
+      return url
+      // Puedes usar la URL para crear un enlace de descarga o mostrarla en un visor de PDF
+    } catch (error) {
+      console.error('Error al obtener la URL de descarga:', error);
+    }
+  };
 
 
   const handleImagePick = async () => {
@@ -90,7 +127,26 @@ const FomularioEventos = ({
       });
 
       if (!result.canceled) {
-        setSelectedImage(result.uri);
+        const profileImageData = {
+          uri: result.assets[0].uri,
+          type: 'image/jpg',
+          name: result.assets[0].uri?.split('/')?.reverse()[0]?.split('.')[0]
+        }
+
+        const profileImageForm = new FormData()
+        profileImageForm.append('file', profileImageData)
+        profileImageForm.append('upload_preset', 'cfbb_profile_pictures')
+        profileImageForm.append('cloud_name', 'dnewfuuv0')
+
+        await fetch('https://api.cloudinary.com/v1_1/dnewfuuv0/image/upload', {
+          method: 'post',
+          body: profileImageForm
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log('dataUrl from profile:', data.url)
+            setSelectedImageRule(transformHttpToHttps(data.url))
+          })
       }
     } catch (error) {
       console.error('Error picking image:', error);
@@ -108,6 +164,8 @@ const FomularioEventos = ({
 
       if (file.assets) {
         console.log(file.assets, "file")
+        handleUploadFile(file.assets[0]).then(() => handleDownloadFile(file.assets[0]))
+
         setSelectedFile(file);
       }
     } catch (error) {
@@ -117,28 +175,7 @@ const FomularioEventos = ({
   };
 
 
-  const handleUpload = async () => {
 
-
-    const formData = new FormData();
-    formData.append('file', {
-      uri: selectedFile.assets[0].uri,
-      name: selectedFile.assets[0].name,
-      type: 'application/pdf'
-    });
-
-    // Enviar el archivo al servidor
-    const response = await fetch('http://192.168.0.77:3000/api/documents/upload', {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-
-    const responseData = await response.json();
-    console.log(responseData);
-  };
 
 
   console.log('event: ', event)
@@ -157,45 +194,6 @@ const FomularioEventos = ({
 
   const [selectedFile, setSelectedFile] = useState(null);
 
-
-
-  const downloadPdf = async (id) => {
-    try {
-      // URL del endpoint que sirve el archivo PDF
-      const url = `/documents/download/${id}`;
-
-      // Hacer la solicitud para obtener el archivo PDF usando Axios
-      const response = await axiosInstance.get(url, { responseType: 'arraybuffer' });
-      if (response.status !== 200) {
-        throw new Error('Network response was not ok');
-      }
-
-      // Convertir el arraybuffer a base64
-      const base64data = Buffer.from(response.data, 'binary').toString('base64');
-
-      // Guardar el archivo en el sistema de archivos local
-      const fileUri = FileSystem.documentDirectory + 'document.pdf';
-      await FileSystem.writeAsStringAsync(fileUri, base64data, {
-        encoding: FileSystem.EncodingType.Base64,
-      });
-      console.log(fileUri, "file uri")
-      setPdfUri(fileUri);
-    } catch (error) {
-      console.error('Error downloading the PDF:', error);
-    }
-  };
-
-  const openPdf = async () => {
-    if (pdfUri) {
-      try {
-        await FileViewer.open(pdfUri);
-      } catch (error) {
-        console.log('Error opening the PDF:', error);
-      }
-    } else {
-      console.log('No PDF file found.');
-    }
-  };
 
 
 
@@ -241,16 +239,16 @@ const FomularioEventos = ({
     }
   }, [clientSecret, initPaymentSheet])
 
-  const handleStripe = async () => {
-    const { data } = await axiosInstance.post(
-      `stripe/payment/price_1PF84tGmE60O5ob7niadJ5hL`,
-      { customerId: user.stripeId }
-    )
-    if (data) {
-      setClientSecret(data.clientSecret)
-      // console.log(data, 'esto es priceee')
-    }
-  }
+  // const handleStripe = async () => {
+  //   const { data } = await axiosInstance.post(
+  //     `stripe/payment/price_1PF84tGmE60O5ob7niadJ5hL`,
+  //     { customerId: user.stripeId }
+  //   )
+  //   if (data) {
+  //     setClientSecret(data.clientSecret)
+  //     // console.log(data, 'esto es priceee')
+  //   }
+  // }
 
   const onCloseModalSports = () => {
     setSportsModal(false)
@@ -362,7 +360,9 @@ const FomularioEventos = ({
       dateStart: dateStart || event.dateStart,
       dateInscription: dateSuscription || event.dateEnd,
       timeStart: '00:00',
-      image: selectedImage || event.image
+      image: selectedImage || event.image,
+      rules: fileUrl || selectedImageRule || ""
+
     }
     dispatch(updateEvent({ id: eventData.id, updateEventDto: data }))
     setEvent({
@@ -376,13 +376,23 @@ const FomularioEventos = ({
       places: '',
       mail: '',
       phoneNumber: '',
-      image: null
+      image: null,
+      rules:  ""
+
     })
+    setSelectedFile("")
     clearRedux()
     navigation.goBack()
   }
 
   const onSubmit = () => {
+
+
+
+
+
+
+
     const data = {
       title: event.title,
       description: event.description,
@@ -397,7 +407,8 @@ const FomularioEventos = ({
       dateInscription: dateSuscription,
       creator: user?.id,
       timeStart: '00:00',
-      image: selectedImage
+      image: selectedImage,
+      rules: fileUrl || selectedImageRule || ""
     }
     // console.log('creating event with: ', data)
     dispatch(createEvent(data))
@@ -414,6 +425,8 @@ const FomularioEventos = ({
       phoneNumber: '',
       image: null
     })
+    setSelectedFile("")
+
     clearRedux()
     navigation.goBack()
     // setShowAlert(true)
@@ -594,39 +607,32 @@ const FomularioEventos = ({
         >
           <Text style={{ ...styles.text, top: -10 }}>{t('linkDeLaInscripcion')}</Text>
 
-          <View style={{ width: "100%", justifyContent: "center", alignItems: "center", height: "100%", gap: 18 }}>
-            <TouchableOpacity onPress={handleFilePick} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
-              <Text style={{ color: "white" }}>Subir pdf</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleImagePick} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
-              <Text style={{ color: "white" }}>Subir imagen</Text>
-            </TouchableOpacity>
-            {/* <TouchableOpacity onPress={handleUpload} style={{ backgroundColor: Color.sportsNaranja , padding:8,borderRadius:50}}>
-              <Text style={{color:"white"}}>Subir</Text>
-            </TouchableOpacity> */}
-            {/* {selectedFile && (
-              <View style={{ marginTop: 20 }}>
-                <Text>Selected File: {selectedFile.assets[0]?.name}</Text>
-                <Button title="Upload File" onPress={handleUpload} />
-              </View>
-            )}
-            <TouchableOpacity onPress={() => downloadPdf(1)} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
-              <Text style={{ color: "white" }}>descargar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={openPdf} disabled={!pdfUri} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
-              <Text style={{ color: "white" }}>Open pdf</Text>
-            </TouchableOpacity> */}
+          {!fileUrl && !selectedImageRule ? (
+            <View style={{ width: "100%", justifyContent: "center", alignItems: "center", height: "100%", gap: 18 }}>
+              <TouchableOpacity onPress={handleFilePick} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
+                <Text style={{ color: "white" }}>Subir pdf</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleImagePick} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
+                <Text style={{ color: "white" }}>Subir imagen</Text>
+              </TouchableOpacity>
+           
 
-          </View>
+
+
+            </View>
+          ) : <View style={{ marginTop: 20,justifyContent:"center",alignItems:"center", }}>
+            {selectedImageRule && (
+              <Image source={{uri:selectedImageRule}} style={{width:200,height:200}}></Image>
+            )}
+            {fileUrl && (
+              <Text>{fileUrl}</Text>
+            )}
+            {/* <Button title="Upload File" onPress={handleUploadFile} /> */}
+          </View>}
         </View>
 
       </View>
-     {pdfUri && (
-       <PDFView
-       resourceType={pdfUri}
-       style={{ flex: 1 }}
-     ></PDFView>
-     )}
+
       <Pressable
         style={{
           flexDirection: 'row',
@@ -638,7 +644,6 @@ const FomularioEventos = ({
         }}
         onPress={() => setCalendar(true)}
       >
-        {/* <BoxSVG style={{ left: -4, position: 'absolute' }} D={'M81.5039'} /> */}
         <View
           style={{
             width: '100%',

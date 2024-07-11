@@ -13,7 +13,8 @@ import {
   Alert,
   ToastAndroid,
   PermissionsAndroid,
-  Platform
+  Platform,
+  Linking
 } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -461,7 +462,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               {eventState.description}
             </Text>
 
-            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+            <View style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout,{flexDirection:"row",alignItems:"center",gap:10}]}>
               <Text
                 style={{
                   fontWeight: 700,
@@ -469,9 +470,18 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-                Archivos:
-              </Text>{' '}
-            </Text>
+                {t('archivos')}
+              </Text>
+              {eventState?.rules && (
+                <TouchableOpacity onPress={()=> {
+                  Linking.openURL(eventState.rules)
+                }} style={{paddingHorizontal:20,paddingVertical:5,backgroundColor:Color.sportsNaranja,alignItems:"center",borderRadius:50}}>
+                  <Text style={{color:"white"}}>
+                   Abrir enlace
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
               <Text
                 style={{

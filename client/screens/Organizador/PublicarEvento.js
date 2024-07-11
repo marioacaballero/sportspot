@@ -74,16 +74,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingBottom: 20
+    paddingBottom: 20,
+    paddingTop:20
   },
   titleContainer: {
-    position: 'absolute',
-    top: 22,
-    left: '6%',
+
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: '90%'
+    width: '90%',
+    marginBottom: 20
   },
   title: {
     fontSize: FontSize.size_5xl,
@@ -92,7 +92,6 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   innerContainer: {
-    marginTop: '15%',
     padding: 20,
     backgroundColor: Color.blanco,
     borderRadius: 10,

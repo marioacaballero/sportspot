@@ -44,34 +44,7 @@ const Sports = ({
     onClose()
   }
 
-  // useEffect(() => {
-  //   if (searchedSports && searchedSports?.length > 0) {
-  //     // const newLocalSport = localSport.split(', ')
-  //     // console.log('newl', newLocalSport)
-  //     setShowColor((prev) => {
-  //       const newArray = [...prev, searchedSports]
-  //       const uniqueArray = [...new Set(newArray)]
-  //       return uniqueArray
-  //     })
-  //   }
-  // }, [])
-  // const sportSelectStyle = (name) => {
-  //   const isSelected = showColor?.includes(name)
 
-  //   if (isSelected) {
-  //     setShowColor(showColor.filter((sport) => sport !== name))
-  //     setSearchedSports(searchedSports.filter((sport) => sport !== name))
-  //   } else {
-  //     setSearchedSports((prev) => {
-  //       const newArray = [...prev, name]
-  //       const uniqueArray = [...new Set(newArray)]
-  //       return uniqueArray
-  //     })
-  //     setShowColor([...showColor, name])
-  //     const newSport = [...showColor, name]
-  //     // setLocalSport(newSport.join(', '))
-  //   }
-  // }
 
   const uniqueSports = {}
   const filteredSports = sports
@@ -157,7 +130,7 @@ const Sports = ({
                 {sport?.name === 'fitness' && (
                   <CrossfitSVG showColor={eventsFilter?.sportName || []} />
                 )}
-                {sport?.name === 'marcha' && (
+                {sport?.name === 'escalada' && (
                   <EscaladaSVG showColor={eventsFilter?.sportName || []} />
                 )}
                 {sport?.name === 'orientacion' && (

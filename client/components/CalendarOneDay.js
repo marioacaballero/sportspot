@@ -6,13 +6,16 @@ import {
   TouchableOpacity,
   TextInput,
   Pressable,
-  Button
+  Button,
+  ScrollView,
+  FlatList
 } from 'react-native'
 import { Calendar, LocaleConfig } from 'react-native-calendars'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
 import { useDispatch } from 'react-redux'
 import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
 import { LeftYearArrowSvg, RightYearArrowSvg } from './SVG/YearArrowSvg'
+import { years } from './Years'
 
 const CalendarOneDay = ({
   onClose,
@@ -26,7 +29,6 @@ const CalendarOneDay = ({
 }) => {
   const dispatch = useDispatch()
   const [selected, setSelected] = useState('')
-  const inputRef = useRef()
   const dateInitial = new Date()
   const year = dateInitial.getFullYear()
   let month = dateInitial.getMonth() + 1
@@ -37,7 +39,6 @@ const CalendarOneDay = ({
   const dateEnd = `${year}-${month}-${date}`
   const [calendarDate, setCalendarDate] = useState(dateEnd)
   const [openModal, setOpenModal] = useState(false)
-  const [inputValue, setInputValue] = useState(parseInt(year))
   const [yearVisible, setYearVisible] = useState(true)
 
   LocaleConfig.locales['es'] = {
@@ -115,15 +116,9 @@ const CalendarOneDay = ({
       dispatch(setDateSuscription(day.dateString))
     }
   }
-  const handleInputChange = (value) => {
-    if (value === '') {
-      setInputValue(parseInt(year))
-    } else {
-      setInputValue(parseInt(value))
-    }
-  }
-  const sumbitYear = () => {
-    const year = inputValue
+
+  const sumbitYear = (text) => {
+    const year = parseInt(text)
     let month = dateInitial.getMonth() + 1
     let date = dateInitial.getDate()
     if (month < 10) month = '0' + month
@@ -135,88 +130,38 @@ const CalendarOneDay = ({
     setYearVisible(true)
   }
 
-  const handleArrowYear = (side) => {
-    // console.log(side, 'side dentro de handleArrowYear')
-    if (side === 'left') {
-      setInputValue(parseInt(inputValue) - 1)
-    }
-    if (side === 'right') {
-      setInputValue(parseInt(inputValue) + 1)
-    }
-  }
-
-  const onPressValue = () => {
-    setYearVisible(false)
-    inputRef.current.focus()
-  }
 
   return (
     <View style={styles.calendar}>
       <Pressable onPress={() => setOpenModal(true)} style={styles.calendar1}>
-        {/* <Text>📆 Cambiar año</Text> */}
       </Pressable>
-      {openModal && (
-        <View style={styles.inputModal}>
-          <View style={styles.fatherYear}>
-            <Pressable
-              style={styles.pressable}
-              onPress={() => handleArrowYear('left')}
-            >
-              <LeftYearArrowSvg color={'#f25910'} />
-            </Pressable>
-            <TextInput
-              style={styles.inputYear}
-              minLength={4}
-              value={inputValue}
-              ref={inputRef}
-              // placeholder={inputValue.toString().length > 3 ? inputValue.toString() || '2024' : ''}
-              onChangeText={(value) => handleInputChange(value)}
-            />
-            <Pressable
-              style={styles.pressable}
-              onPress={() => handleArrowYear('right')}
-            >
-              <RightYearArrowSvg color={'#f25910'} />
-            </Pressable>
-          </View>
-          <View>
-            <Text onPress={onPressValue} id="value" style={styles.value}>
-              {yearVisible ? inputValue || '2024' : ''}
-            </Text>
-          </View>
-          <TouchableOpacity style={styles.ok} onPress={sumbitYear}>
-            <Text
-              style={{
-                backgroundColor: '#f25910',
-                color: 'white',
-                height: 30,
-                width: 100,
-                textAlign: 'center',
-                textAlignVertical: 'center',
-                borderRadius: 30
-              }}
-            >
-              Aceptar
-            </Text>
+      {openModal ? (
+        <FlatList style={{ maxHeight: 390, width: "100%" }} contentContainerStyle={{ justifyContent: "center", alignItems: "center", gap: 15,paddingVertical:5 }} data={years} renderItem={(e) => <TouchableOpacity style={{backgroundColor:Color.sportsNaranja,width:"100%",color:"white",paddingHorizontal:"20%",paddingVertical:4,borderRadius:50}} onPress={()=> sumbitYear(e.item)}>
+          <Text style={{color:"white"}}>{e.item}</Text>
+          </TouchableOpacity>}>
+
+        </FlatList>
+      ) : (
+        <View>
+          <Calendar
+            style={{ width: 300, minHeight: 360 }}
+            onDayPress={handleDayPress}
+            markedDates={generateMarkedDates()}
+            firstDay={1}
+            initialDate={calendarDate}
+            theme={{
+              calendarBackground: '#ffffff',
+              todayTextColor: '#f25910',
+              selectedDayTextColor: '#ffffff',
+              arrowColor: '#f25910'
+            }}
+          />
+          <TouchableOpacity onPress={onClose} style={styles.helloAshfakWrapper}>
+            <Text style={styles.helloAshfak}>Listo</Text>
           </TouchableOpacity>
         </View>
       )}
-      <Calendar
-        style={{ width: 300, minHeight: 360 }}
-        onDayPress={handleDayPress}
-        markedDates={generateMarkedDates()}
-        firstDay={1}
-        initialDate={calendarDate}
-        theme={{
-          calendarBackground: '#ffffff',
-          todayTextColor: '#f25910',
-          selectedDayTextColor: '#ffffff',
-          arrowColor: '#f25910'
-        }}
-      />
-      <TouchableOpacity onPress={onClose} style={styles.helloAshfakWrapper}>
-        <Text style={styles.helloAshfak}>Listo</Text>
-      </TouchableOpacity>
+
     </View>
   )
 }
@@ -228,9 +173,7 @@ const styles = StyleSheet.create({
   },
   inputYear: {
     // backgroundColor: 'red',
-    position: 'relative',
-    top: 20,
-    left: 0
+
   },
   value: {
     position: 'relative',
