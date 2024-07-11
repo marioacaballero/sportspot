@@ -14,14 +14,17 @@ import { UserEventHistoryEntity } from './entities/userEvent.entity'
 import { PushNotificationService } from 'src/notification-push/notification.service'
 import { DocumentEntity } from 'src/documents/entities/document.entity'
 import { DocumentsService } from 'src/documents/documents.service'
+import { InscriptionsService } from 'src/inscriptions/inscriptions.service'
+import { Inscription } from 'src/inscriptions/entities/inscription.entity'
 
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([EventEntity, UserEntity,NotificationEntity,UserEventHistoryEntity,DocumentEntity])
+    TypeOrmModule.forFeature([EventEntity,Inscription, UserEntity,NotificationEntity,UserEventHistoryEntity,DocumentEntity])
   ],
   controllers: [EventsController],
   providers: [
+    InscriptionsService,
     DocumentsService,
     EventsService,
     UsersService,

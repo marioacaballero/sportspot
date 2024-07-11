@@ -12,6 +12,8 @@ import { EventsService } from 'src/events/events.service'
 import { SendMailsService } from 'src/send-mails/send-mails.service'
 import { UserEventHistoryEntity } from 'src/events/entities/userEvent.entity'
 import { PushNotificationService } from 'src/notification-push/notification.service'
+import { InscriptionsService } from 'src/inscriptions/inscriptions.service'
+import { Inscription } from 'src/inscriptions/entities/inscription.entity'
 
 
 @Module({
@@ -20,11 +22,12 @@ import { PushNotificationService } from 'src/notification-push/notification.serv
       secret: 'secreto_supersecreto',
       signOptions: { expiresIn: '1h' } // Opciones de firma, puedes ajustar el tiempo de expiración
     }),
-    TypeOrmModule.forFeature([UserEntity, EventEntity,NotificationEntity,UserEventHistoryEntity])
+    TypeOrmModule.forFeature([UserEntity, Inscription,EventEntity,NotificationEntity,UserEventHistoryEntity])
   ],
   controllers: [JsonwebtokenController],
   exports: [JsonwebtokenService],
   providers: [
+    InscriptionsService,
     JsonwebtokenService,
     UsersService,
     NotificationsService,

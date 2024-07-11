@@ -18,16 +18,18 @@ import * as multer from 'multer';
 import { MulterModule } from '@nestjs/platform-express';
 import path, { extname } from 'path';
 import { FileInterceptor } from '@nestjs/platform-express'; 
+import { InscriptionsService } from 'src/inscriptions/inscriptions.service';
+import { Inscription } from 'src/inscriptions/entities/inscription.entity';
 
-console.log(__dirname + '/uploads')
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([DocumentEntity, UserEntity, EventEntity, UserEventHistoryEntity, NotificationEntity]), // Registra tanto la entidad como el repositorio
+    TypeOrmModule.forFeature([DocumentEntity, UserEntity, EventEntity, UserEventHistoryEntity, NotificationEntity,Inscription]), // Registra tanto la entidad como el repositorio
    // Configura Multer para subir archivos al server
   ],
   controllers: [DocumentsController],
   providers: [DocumentsService,  UsersService,
+    InscriptionsService,
     NotificationsService,
     EventsService,
     SendMailsService,
