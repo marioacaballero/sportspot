@@ -174,9 +174,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       if (places === eventState?.suscribers?.length) {
         return `${places}/${places} : Full`
       } else if (places > eventState?.suscribers?.length) {
-        return `${
-          places - eventState?.suscribers?.length
-        }/${places} -> Disponibles`
+        return `${places - eventState?.suscribers?.length
+          }/${places} -> Disponibles`
       }
     } else {
       return `${places}/${places} -> Disponibles`
@@ -431,7 +430,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-                Lugar:
+                {t('lugar')}
+
               </Text>{' '}
               {eventState?.location}
             </Text>
@@ -443,7 +443,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-                Deporte:
+                {t('deporte2')}
+
               </Text>{' '}
               {sports &&
                 eventState?.sportId &&
@@ -462,7 +463,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               {eventState.description}
             </Text>
 
-            <View style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout,{flexDirection:"row",alignItems:"center",gap:10}]}>
+            <View style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout, { flexDirection: "row", alignItems: "center", gap: 10 }]}>
               <Text
                 style={{
                   fontWeight: 700,
@@ -473,11 +474,11 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                 {t('archivos')}
               </Text>
               {eventState?.rules && (
-                <TouchableOpacity onPress={()=> {
+                <TouchableOpacity onPress={() => {
                   Linking.openURL(eventState.rules)
-                }} style={{paddingHorizontal:20,paddingVertical:5,backgroundColor:Color.sportsNaranja,alignItems:"center",borderRadius:50}}>
-                  <Text style={{color:"white"}}>
-                   Abrir enlace
+                }} style={{ paddingHorizontal: 20, paddingVertical: 5, backgroundColor: Color.sportsNaranja, alignItems: "center", borderRadius: 50 }}>
+                  <Text style={{ color: "white" }}>
+                    Abrir enlace
                   </Text>
                 </TouchableOpacity>
               )}
