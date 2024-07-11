@@ -45,4 +45,17 @@ export class InscriptionsService {
       throw new NotFoundException(`Inscription with ID ${id} not found`);
     }
   }
+
+  async findByEventId(eventId: string): Promise<Inscription[]> {
+    return this.inscriptionRepository.find({ where: { eventId } });
+  }
+
+  async removeInscription(userId: string, eventId: string): Promise<void> {
+    await this.inscriptionRepository
+      .createQueryBuilder()
+      .delete()
+      .where("userId = :userId AND eventId = :eventId", { userId, eventId })
+      .execute();
+  }
+
 }

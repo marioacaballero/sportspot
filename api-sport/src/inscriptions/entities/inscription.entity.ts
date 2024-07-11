@@ -41,9 +41,17 @@ export class Inscription {
   @Column({ type: 'text', nullable: true })
   tlf: string;
 
+  @Column({ type: 'text', nullable: true })
+  eventId : string;
+
+  @Column({ type: 'text', nullable: true })
+  userId : string;
+
   @Column({ type: 'boolean', nullable: true })
   federado: boolean;
 
   @Column({ type: 'boolean', nullable: true })
   ley: boolean;
+
+
 }

@@ -31,4 +31,9 @@ export class InscriptionsController {
   remove(@Param('id') id: string) {
     return this.inscriptionsService.remove(+id);
   }
+
+  @Get('event/:eventId')
+  findByEventId(@Param('eventId') eventId: string) {
+    return this.inscriptionsService.findByEventId(eventId);
+  }
 }
