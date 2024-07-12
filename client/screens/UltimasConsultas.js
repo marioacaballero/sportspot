@@ -8,7 +8,9 @@ import {
   Switch,
   ScrollView,
   Pressable,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator,
+  Dimensions
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { FontFamily, Color, Border, FontSize, Padding } from '../GlobalStyles'
@@ -33,7 +35,9 @@ const UltimasConsultas = () => {
   const [switchStates, setSwitchStates] = useState([true, false, false])
   const [showSwitch, setshowSwitch] = useState(false)
   const { user, eventFavorites } = useSelector((state) => state.users)
-  const { visitedEvents, events } = useSelector((state) => state.events)
+  const { visitedEvents, events, loadingGet } = useSelector(
+    (state) => state.events
+  )
 
   const [isFavorite, setIsFavorite] = useState({})
 
@@ -86,6 +90,7 @@ const UltimasConsultas = () => {
     dispatch(favorite(data)).then((data) => dispatch(getUser(user.id)))
     // navigation.navigate('Favoritos1')
   }
+
   return (
     <LinearGradient
       colors={['#fff', '#f9f9f9']}
@@ -93,303 +98,320 @@ const UltimasConsultas = () => {
       start={{ x: 0, y: 0 }}
       end={{ x: 0, y: 1 }}
     >
-      <View style={styles.ultimasConsultas}>
-        <ScrollView>
-          <View style={styles.frameParent}>
-            <View style={{ width: '100%' }}>
-              <View style={styles.titleContainer}>
-                <Text style={[styles.ltimasConsultas, styles.ciclismoTypo]}>
-                  {t('ultimasconsultas')}
-                </Text>
-                <Pressable></Pressable>
-              </View>
-              <View style={styles.frameGroup}>
-                <View
-                  style={[styles.path3391Parent, styles.groupParentFlexBox1]}
-                >
-                  <Pressable onPress={() => setshowSwitch(!showSwitch)}>
-                    <Image
-                      style={[
-                        styles.path3391Icon,
+      <View style={{ overflow: 'hidden', width: '100%', flex: 1 }}>
+        <View
+          style={{
+            width: '100%',
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            marginTop: 15,
+            paddingVertical: 15,
+            paddingHorizontal: 20
+          }}
+        >
+          <Text style={[styles.ltimasConsultas, styles.ciclismoTypo]}>
+            {t('ultimasconsultas')}
+          </Text>
+          <Pressable></Pressable>
+        </View>
+        <View style={{ paddingBottom: 15, width: '100%' }}>
+          <View style={styles.frameGroup}>
+            <View style={[styles.path3391Parent, styles.groupParentFlexBox1]}>
+              <Pressable onPress={() => setshowSwitch(!showSwitch)}>
+                <Image
+                  style={[
+                    styles.path3391Icon,
 
-                        !showSwitch && styles.path3391IconRotate
-                      ]}
-                      contentFit="fill"
-                      source={require('../assets/path-3391.png')}
-                    />
-                  </Pressable>
-                  <Text
-                    onPress={() => setshowSwitch(!showSwitch)}
-                    style={[styles.ltimas24Horas, styles.ciclismoTypo]}
-                  >
-                    {switchStates[0]
-                      ? t('ultimas')
-                      : switchStates[1]
-                      ? t('ultimassemana')
-                      : t('ultimomes')}
-                  </Text>
-                </View>
-                {showSwitch && (
-                  <View style={styles.switches}>
-                    <View
-                      style={[
-                        styles.ltimaSemanaParent,
-                        styles.groupParentFlexBox
-                      ]}
-                    >
-                      <Text
-                        style={{
-                          fontFamily: FontFamily.inputPlaceholder,
-                          fontWeight: switchStates[0] ? '700' : '500',
-                          lineHeight: 19,
-                          letterSpacing: 0,
-                          fontSize: FontSize.inputPlaceholder_size,
-                          textAlign: 'left',
-                          color: Color.sportsVioleta
-                        }}
-                      >
-                        {t('ultimas')}
-                      </Text>
-                      <Switch
-                        trackColor={{ false: '#767577', true: '#F25910' }}
-                        thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={() => toggleSwitch(0)}
-                        value={switchStates[0]}
-                      />
-                    </View>
-                    <View
-                      style={[
-                        styles.ltimaSemanaParent,
-                        styles.groupParentFlexBox
-                      ]}
-                    >
-                      <Text
-                        style={{
-                          fontFamily: FontFamily.inputPlaceholder,
-                          fontWeight: switchStates[1] ? '700' : '500',
-                          lineHeight: 19,
-                          letterSpacing: 0,
-                          fontSize: FontSize.inputPlaceholder_size,
-                          textAlign: 'left',
-                          color: Color.sportsVioleta
-                        }}
-                      >
-                        {t('ultimassemana')}
-                      </Text>
-                      <Switch
-                        trackColor={{ false: '#767577', true: '#F25910' }}
-                        thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={() => toggleSwitch(1)}
-                        value={switchStates[1]}
-                      />
-                    </View>
-                    <View
-                      style={[
-                        styles.ltimaSemanaParent,
-                        styles.groupParentFlexBox
-                      ]}
-                    >
-                      <Text
-                        style={{
-                          fontFamily: FontFamily.inputPlaceholder,
-                          fontWeight: switchStates[2] ? '700' : '500',
-                          lineHeight: 19,
-                          letterSpacing: 0,
-                          fontSize: FontSize.inputPlaceholder_size,
-                          textAlign: 'left',
-                          color: Color.sportsVioleta
-                        }}
-                      >
-                        {t('ultimomes')}
-                      </Text>
-                      <Switch
-                        trackColor={{ false: '#767577', true: '#F25910' }}
-                        thumbColor={switchStates[2] ? '#FFFFFF' : '#FFFFFF'}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={() => toggleSwitch(2)}
-                        value={switchStates[2]}
-                      />
-                    </View>
-                  </View>
-                )}
-              </View>
+                    !showSwitch && styles.path3391IconRotate
+                  ]}
+                  contentFit="fill"
+                  source={require('../assets/path-3391.png')}
+                />
+              </Pressable>
+              <Text
+                onPress={() => setshowSwitch(!showSwitch)}
+                style={[styles.ltimas24Horas, styles.ciclismoTypo]}
+              >
+                {switchStates[0]
+                  ? t('ultimas')
+                  : switchStates[1]
+                  ? t('ultimassemana')
+                  : t('ultimomes')}
+              </Text>
             </View>
-            {visitedEvents && visitedEvents?.length === 0 ? (
-              <View style={styles.consultaContainer}>
-                <Text style={styles.ultimasConsultas1}>{t('aquipodras')}</Text>
-              </View>
-            ) : (
-              visitedEvents &&
-              Array.isArray(visitedEvents) &&
-              visitedEvents?.map((event, i) => (
-                <Pressable
-                  onPress={() => {
-                    console.log('here')
-                    dispatch(
-                      visitEvent({
-                        eventId: event.event.id,
-                        userId: user.id
-                      })
-                    )
-                    dispatch(getEventByIdRedux(event.event.id))
-                    navigation.navigate('PruebasEncontradasDetalle')
-                  }}
-                  key={i}
-                  style={[styles.image84Parent, styles.parentBorder]}
+            {showSwitch && (
+              <View style={styles.switches}>
+                <View
+                  style={[styles.ltimaSemanaParent, styles.groupParentFlexBox]}
                 >
-                  <TouchableOpacity
-                    style={{ position: 'absolute', top: 7, right: 13 }}
-                    onPress={() => {
-                      toggleFavorite(event.event.id)
+                  <Text
+                    style={{
+                      fontFamily: FontFamily.inputPlaceholder,
+                      fontWeight: switchStates[0] ? '700' : '500',
+                      lineHeight: 19,
+                      letterSpacing: 0,
+                      fontSize: FontSize.inputPlaceholder_size,
+                      textAlign: 'left',
+                      color: Color.sportsVioleta
                     }}
                   >
-                    <MaterialCommunityIcons
-                      name={
-                        user.eventFavorites?.includes(event.event.id)
-                          ? 'cards-heart'
-                          : 'cards-heart-outline'
-                      }
-                      color="#F25910"
-                      size={22}
-                    />
-                  </TouchableOpacity>
-                  <Image
-                    style={styles.image84Icon}
-                    source={{ uri: event.event.image }}
+                    {t('ultimas')}
+                  </Text>
+                  <Switch
+                    trackColor={{ false: '#767577', true: '#F25910' }}
+                    thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={() => toggleSwitch(0)}
+                    value={switchStates[0]}
                   />
-                  <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
-                    <View style={styles.ciclismoParent}>
-                      <Text
-                        numberOfLines={1}
-                        ellipsizeMode="trail"
-                        style={{
-                          fontFamily: FontFamily.inputPlaceholder,
-                          fontWeight: '700',
-                          textAlign: 'left',
-                          fontSize: 14,
-                          color: Color.sportsNaranja,
-                          maxWidth: '85%'
-                        }}
-                      >
-                        {event.event.title}
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        width: '100%'
-                      }}
-                    >
-                      <View style={{ flexDirection: 'row', gap: 3 }}>
-                        <Text
-                          style={{
-                            color: Color.sportsVioleta,
-                            fontSize: 12
-                          }}
-                        >
-                          {t('modalidad')}
-                        </Text>
-                        <Text
-                          style={{
-                            color: Color.sportsVioleta,
-                            fontSize: 12
-                          }}
-                        >
-                          {event.event.modality}
-                        </Text>
-                      </View>
-                      <View style={{ flexDirection: 'row', gap: 3 }}>
-                        <Text
-                          style={{
-                            color: Color.sportsVioleta,
-                            fontSize: 12
-                          }}
-                        >
-                          {t('localizacion')}:
-                        </Text>
-                        <Text
-                          numberOfLines={1}
-                          ellipsizeMode="tail"
-                          style={{
-                            maxWidth: '80%',
-                            color: Color.sportsVioleta,
-                            fontSize: 12
-                          }}
-                        >
-                          sotillo sotano sotano sortija avaricioso
-                        </Text>
-                      </View>
-
-                      <View style={{ flexDirection: 'row', gap: 3 }}>
-                        <Text
-                          style={{
-                            fontWeight: 400,
-                            fontSize: 12,
-                            color: Color.sportsVioleta
-                          }}
-                        >
-                          {t('fechaprueba')}
-                        </Text>
-                        <Text
-                          style={{
-                            fontWeight: 300,
-                            fontSize: 12,
-                            color: Color.sportsVioleta
-                          }}
-                        >
-                          {event.event.dateStart}
-                        </Text>
-                      </View>
-                      <View style={{ flexDirection: 'row', gap: 3 }}>
-                        <Text
-                          style={{ color: Color.sportsVioleta, fontSize: 12 }}
-                        >
-                          {t('fechalimite')}
-                        </Text>
-                        <Text
-                          style={{
-                            fontWeight: 300,
-                            fontSize: 12,
-                            color: Color.sportsVioleta
-                          }}
-                        >
-                          {event.event.dateInscription}
-                        </Text>
-                      </View>
-                    </View>
-                    <View
-                      style={{
-                        ...styles.imGoingToContainer1,
-                        gap: 3,
-                        flexDirection: 'row'
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontWeight: 600,
-                          color: Color.sportsVioleta,
-                          fontSize: 12
-                        }}
-                      >
-                        {t('precioinscripcion')}
-                      </Text>
-                      <Text
-                        style={{
-                          color: Color.sportsNaranja,
-                          fontWeight: 500,
-                          fontSize: 12
-                        }}
-                      >
-                        {event.event.price + '€'}
-                      </Text>
-                    </View>
-                  </View>
-                </Pressable>
-              ))
+                </View>
+                <View
+                  style={[styles.ltimaSemanaParent, styles.groupParentFlexBox]}
+                >
+                  <Text
+                    style={{
+                      fontFamily: FontFamily.inputPlaceholder,
+                      fontWeight: switchStates[1] ? '700' : '500',
+                      lineHeight: 19,
+                      letterSpacing: 0,
+                      fontSize: FontSize.inputPlaceholder_size,
+                      textAlign: 'left',
+                      color: Color.sportsVioleta
+                    }}
+                  >
+                    {t('ultimassemana')}
+                  </Text>
+                  <Switch
+                    trackColor={{ false: '#767577', true: '#F25910' }}
+                    thumbColor={switchStates[0] ? '#FFFFFF' : '#FFFFFF'}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={() => toggleSwitch(1)}
+                    value={switchStates[1]}
+                  />
+                </View>
+                <View
+                  style={[styles.ltimaSemanaParent, styles.groupParentFlexBox]}
+                >
+                  <Text
+                    style={{
+                      fontFamily: FontFamily.inputPlaceholder,
+                      fontWeight: switchStates[2] ? '700' : '500',
+                      lineHeight: 19,
+                      letterSpacing: 0,
+                      fontSize: FontSize.inputPlaceholder_size,
+                      textAlign: 'left',
+                      color: Color.sportsVioleta
+                    }}
+                  >
+                    {t('ultimomes')}
+                  </Text>
+                  <Switch
+                    trackColor={{ false: '#767577', true: '#F25910' }}
+                    thumbColor={switchStates[2] ? '#FFFFFF' : '#FFFFFF'}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={() => toggleSwitch(2)}
+                    value={switchStates[2]}
+                  />
+                </View>
+              </View>
             )}
           </View>
-        </ScrollView>
+        </View>
+        {loadingGet ? (
+          <View style={{ flex: 1 }}>
+            <ActivityIndicator
+              style={{
+                marginTop: Dimensions.get('screen').height * 0.2,
+                backgroundColor: 'transparent'
+              }}
+              animating={true}
+              size="large"
+              color={Color.violeta2}
+            />
+          </View>
+        ) : (
+          <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
+            <View style={styles.frameParent}>
+              {visitedEvents && visitedEvents?.length === 0 ? (
+                <View style={styles.consultaContainer}>
+                  <Text style={styles.ultimasConsultas1}>
+                    {t('aquipodras')}
+                  </Text>
+                </View>
+              ) : (
+                visitedEvents &&
+                Array.isArray(visitedEvents) &&
+                visitedEvents?.map((event, i) => (
+                  <Pressable
+                    onPress={() => {
+                      console.log('here')
+                      dispatch(
+                        visitEvent({
+                          eventId: event.event.id,
+                          userId: user.id
+                        })
+                      )
+                      dispatch(getEventByIdRedux(event.event.id))
+                      navigation.navigate('PruebasEncontradasDetalle')
+                    }}
+                    key={i}
+                    style={[styles.image84Parent, styles.parentBorder]}
+                  >
+                    <TouchableOpacity
+                      style={{ position: 'absolute', top: 7, right: 13 }}
+                      onPress={() => {
+                        toggleFavorite(event.event.id)
+                      }}
+                    >
+                      <MaterialCommunityIcons
+                        name={
+                          user.eventFavorites?.includes(event.event.id)
+                            ? 'cards-heart'
+                            : 'cards-heart-outline'
+                        }
+                        color="#F25910"
+                        size={22}
+                      />
+                    </TouchableOpacity>
+                    <Image
+                      style={styles.image84Icon}
+                      source={{ uri: event.event.image }}
+                    />
+                    <View
+                      style={[styles.frameContainer, styles.frameSpaceBlock]}
+                    >
+                      <View style={styles.ciclismoParent}>
+                        <Text
+                          numberOfLines={1}
+                          ellipsizeMode="trail"
+                          style={{
+                            fontFamily: FontFamily.inputPlaceholder,
+                            fontWeight: '700',
+                            textAlign: 'left',
+                            fontSize: 14,
+                            color: Color.sportsNaranja,
+                            maxWidth: '85%'
+                          }}
+                        >
+                          {event.event.title}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          width: '100%'
+                        }}
+                      >
+                        <View style={{ flexDirection: 'row', gap: 3 }}>
+                          <Text
+                            style={{
+                              color: Color.sportsVioleta,
+                              fontSize: 12
+                            }}
+                          >
+                            {t('modalidad')}
+                          </Text>
+                          <Text
+                            style={{
+                              color: Color.sportsVioleta,
+                              fontSize: 12
+                            }}
+                          >
+                            {event.event.modality}
+                          </Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', gap: 3 }}>
+                          <Text
+                            style={{
+                              color: Color.sportsVioleta,
+                              fontSize: 12
+                            }}
+                          >
+                            {t('localizacion')}:
+                          </Text>
+                          <Text
+                            numberOfLines={1}
+                            ellipsizeMode="tail"
+                            style={{
+                              maxWidth: '80%',
+                              color: Color.sportsVioleta,
+                              fontSize: 12
+                            }}
+                          >
+                            sotillo sotano sotano sortija avaricioso
+                          </Text>
+                        </View>
+
+                        <View style={{ flexDirection: 'row', gap: 3 }}>
+                          <Text
+                            style={{
+                              fontWeight: 400,
+                              fontSize: 12,
+                              color: Color.sportsVioleta
+                            }}
+                          >
+                            {t('fechaprueba')}
+                          </Text>
+                          <Text
+                            style={{
+                              fontWeight: 300,
+                              fontSize: 12,
+                              color: Color.sportsVioleta
+                            }}
+                          >
+                            {event.event.dateStart}
+                          </Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', gap: 3 }}>
+                          <Text
+                            style={{ color: Color.sportsVioleta, fontSize: 12 }}
+                          >
+                            {t('fechalimite')}
+                          </Text>
+                          <Text
+                            style={{
+                              fontWeight: 300,
+                              fontSize: 12,
+                              color: Color.sportsVioleta
+                            }}
+                          >
+                            {event.event.dateInscription}
+                          </Text>
+                        </View>
+                      </View>
+                      <View
+                        style={{
+                          ...styles.imGoingToContainer1,
+                          gap: 3,
+                          flexDirection: 'row'
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontWeight: 600,
+                            color: Color.sportsVioleta,
+                            fontSize: 12
+                          }}
+                        >
+                          {t('precioinscripcion')}
+                        </Text>
+                        <Text
+                          style={{
+                            color: Color.sportsNaranja,
+                            fontWeight: 500,
+                            fontSize: 12
+                          }}
+                        >
+                          {event.event.price + '€'}
+                        </Text>
+                      </View>
+                    </View>
+                  </Pressable>
+                ))
+              )}
+            </View>
+          </ScrollView>
+        )}
       </View>
     </LinearGradient>
   )
@@ -531,7 +553,6 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   frameParent: {
-    paddingTop: 30,
     paddingHorizontal: 15,
     justifyContent: 'center',
     alignItems: 'center'
