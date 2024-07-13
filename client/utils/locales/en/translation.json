@@ -38,6 +38,8 @@
   "fecha": "Date",
   "buscar": "Search",
   "edad": "years",
+  "lugar": "Place:",
+"deporte2":"Sport:",
   "nombreDelEvento": "Event name",
   "linkDelEvento": "Event link",
   "linkDeLaInscripcion": "Regulation",

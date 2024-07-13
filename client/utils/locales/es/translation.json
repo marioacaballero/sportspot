@@ -35,7 +35,11 @@
   "resultadoultimaspruebas": "Resultados de las últimas pruebas",
   "localizacion": "Localidad",
   "deporte": "Deporte",
+  "deporte2": "Deporte:",
+
   "fecha": "Fecha",
+  "lugar": "Lugar:",
+
   "buscar": "Buscar",
   "gestionatucuentamay": "GESTIONA TU CUENTA",
   "editarperfil": "Editar perfil",

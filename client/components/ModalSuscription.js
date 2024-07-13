@@ -43,30 +43,14 @@ const ModalSuscription = ({ user, event, onClose }) => {
       defaultBillingDetails: {
         name: 'Jane Doe'
       }
-      // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
-      //methods that complete payment after a delay, like SEPA Debit and Sofort.
-      // allowsDelayedPaymentMethods: true,
-      // defaultBillingDetails: {
-      //   name: user.name,
-      // }
+
     })
     if (!error) {
       setLoading(true)
     }
   }
 
-  const openPaymentSheet = async () => {
-    const { error } = await presentPaymentSheet()
-    // see below
 
-    if (error) {
-      console.log(`Error code: ${error.code}`, error.message)
-    } else {
-      onSuscribed()
-      onClose()
-      console.log('Success', 'Your order is confirmed!')
-    }
-  }
 
   useEffect(() => {
     console.log(user, event, 'userevent')
@@ -102,31 +86,7 @@ const ModalSuscription = ({ user, event, onClose }) => {
     }
     dispatch(offSuscription(data)).then((data) => dispatch(getAllEvents()))
   }
-  const onSuscribed = async () => {
-    if (isGuest) {
-      const actualSuscriptions =
-        (await JSON.parse(AsyncStorage.getItem('guestSuscriptions'))
-          .actualSuscriptions) || []
-      if (!actualSuscriptions.includes(event.id)) {
-        AsyncStorage.setItem(
-          'guestSuscriptions',
-          JSON.stringify({
-            actualSuscriptions: [...actualSuscriptions, event.id]
-          })
-        )
-      }
-    }
-    // console.log('user: ', user)
-    const data = {
-      id: user.id,
-      eventId: event.id
-    }
-    // console.log('sending suscription request to: ', data)
-    dispatch(suscriptionEventUser(data)).then((data) =>
-      dispatch(getAllEvents())
-    )
-    navigation.goBack()
-  }
+
 
   return userSuscribed ? (
     <View style={styles.container}>

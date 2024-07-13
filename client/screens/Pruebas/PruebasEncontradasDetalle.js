@@ -174,9 +174,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       if (places === eventState?.suscribers?.length) {
         return `${places}/${places} : Full`
       } else if (places > eventState?.suscribers?.length) {
-        return `${
-          places - eventState?.suscribers?.length
-        }/${places} -> Disponibles`
+        return `${places - eventState?.suscribers?.length
+          }/${places} -> Disponibles`
       }
     } else {
       return `${places}/${places} -> Disponibles`
@@ -357,7 +356,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                       marginRight: 10,
                       backgroundColor: Color.sportsNaranja
                     }}
-                    onPress={() => setModalSuscription(true)}
+                    onPress={() => navigation.navigate('Inscripcion', eventState)
+                    }
                   >
                     <Text style={styles.modalText}>
                       {isEventAlreadyAdded
@@ -389,7 +389,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                 <TouchableOpacity
                   onPress={() =>
                     onShare(
-                      `${eventState.title} en ${eventState.location}. Si aun no te bajaste la app descargala en Google Play http://www.googleplay.com/sportspot`
+                      `${eventState.title} en ${eventState.location}. Si aun no te bajaste la app descargala en Google Play https://play.google.com/store/apps/details?id=com.aythenapp.spotsport`
                     )
                   }
                 >
@@ -431,7 +431,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-                Lugar:
+                {t('lugar')}
+
               </Text>{' '}
               {eventState?.location}
             </Text>
@@ -443,7 +444,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   fontSize: 16
                 }}
               >
-                Deporte:
+                {t('deporte2')}
+
               </Text>{' '}
               {sports &&
                 eventState?.sportId &&
@@ -462,7 +464,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               {eventState.description}
             </Text>
 
-            <View style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout,{flexDirection:"row",alignItems:"center",gap:10}]}>
+            <View style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout, { flexDirection: "row", alignItems: "center", gap: 10 }]}>
               <Text
                 style={{
                   fontWeight: 700,
@@ -473,11 +475,11 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                 {t('archivos')}
               </Text>
               {eventState?.rules && (
-                <TouchableOpacity onPress={()=> {
+                <TouchableOpacity onPress={() => {
                   Linking.openURL(eventState.rules)
-                }} style={{paddingHorizontal:20,paddingVertical:5,backgroundColor:Color.sportsNaranja,alignItems:"center",borderRadius:50}}>
-                  <Text style={{color:"white"}}>
-                   Abrir enlace
+                }} style={{ paddingHorizontal: 20, paddingVertical: 5, backgroundColor: Color.sportsNaranja, alignItems: "center", borderRadius: 50 }}>
+                  <Text style={{ color: "white" }}>
+                    Abrir enlace
                   </Text>
                 </TouchableOpacity>
               )}

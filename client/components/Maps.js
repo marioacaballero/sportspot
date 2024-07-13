@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Border, Color, FontFamily, FontSize, Padding } from '../GlobalStyles'
-
 import {
-  View,
   StyleSheet,
-  Text,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
   Keyboard
 } from 'react-native'
-import cities from '../utils/cities.json'
 import mergedCities from '../utils/mergedCities.json'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import { useTranslation } from 'react-i18next'
@@ -23,114 +16,14 @@ const Maps = ({
   item,
   profile
 }) => {
-  const [searchText, setSearchText] = useState('')
+
   const [searchValue, setSearchValue] = useState('')
 
-  const [data, setData] = useState(mergedCities.slice(0, 100))
   const { t, i18n } = useTranslation()
 
-  const [filteredData, setFilteredData] = useState()
 
-  // const handleTextChangee = (text) => {
-  //   if (searchValue) {
-  //     setSearchValue()
-  //     setSearchText('')
-  //     setFilteredData()
-  //     return
-  //   }
-  //   setSearchText(text)
-  //   console.log('text: ', text)
-  //   if (text === '') {
-  //     return
-  //   }
-  //   const filteredLocations = [...mergedCities].filter((location) =>
-  //     location.label.toLowerCase()?.includes(text.toLowerCase())
-  //   )
-  //   setFilteredData(filteredLocations)
-  // }
 
-  // const verify = () => {
-  //   if (filteredData) {
-  //     return filteredData.map((c, i) => {
-  //       return (
-  //         <TouchableOpacity
-  //           key={i}
-  //           style={{ paddingHorizontal: 20 }}
-  //           onPress={() => {
-  //             handleSelect(c)
-  //           }}
-  //         >
-  //           <Text key={i} style={styles.helloTypo}>
-  //             {c.label}
-  //           </Text>
-  //         </TouchableOpacity>
-  //       )
-  //     })
-  //   }
-  //   return data.slice(0, 50).map((c, i) => {
-  //     return (
-  //       <TouchableOpacity
-  //         key={i}
-  //         style={{ paddingHorizontal: 20 }}
-  //         onPress={() => {
-  //           handleSelect(c)
-  //         }}
-  //       >
-  //         <Text key={i} style={styles.helloTypo}>
-  //           {c.label}
-  //         </Text>
-  //       </TouchableOpacity>
-  //     )
-  //   })
-  // }
-
-  // const handleSelect = (data) => {
-  //   console.log('on handleSelect')
-  //   if (data.type === 'city') {
-  //     setSearchValue(data.label)
-  //   }
-  //   if (data.type === 'province') {
-  //     const provinceCity = cities.filter(
-  //       (city) => city.code === data.parent_code
-  //     )[0]
-  //     console.log('provinceCity', provinceCity)
-  //     console.log(
-  //       'final provice response: ',
-  //       `${provinceCity.label},${data.label}`
-  //     )
-  //     setSearchValue(`${provinceCity.label},${data.label}`)
-  //   }
-  //   if (data.type === 'town') {
-  //     const townProvince = cities
-  //       .map((city) =>
-  //         city.provinces.filter(
-  //           (province) => province.code === data.parent_code
-  //         )
-  //       )
-  //       .filter((arr) => arr.length > 0)
-  //       .map((arr) =>
-  //         arr.map((obj) => {
-  //           const { towns, ...rest } = obj
-  //           return rest
-  //         })
-  //       )[0][0]
-
-  //     const townProvinceCity = cities.filter(
-  //       (city) => city.code === townProvince.parent_code
-  //     )[0]
-
-  //     console.log('townProvince', townProvince)
-  //     console.log('townProvinceCity', townProvinceCity)
-  //     console.log(
-  //       'final provice response: ',
-  //       `${townProvinceCity.label},${townProvince.label},${data.label}`
-  //     )
-  //     setSearchValue(
-  //       `${townProvinceCity.label},${townProvince.label},${data.label}`
-  //     )
-  //   }
-  //   setSearchText('')
-  // }
+  
   useEffect(() => {
     if (profile && searchValue) {
       console.log('setting value')
@@ -188,6 +81,35 @@ const Maps = ({
     }
   }, [])
 
+  const getNearbyPlaces = async (lat, lng) => {
+    const radius = 30000; // 30 km
+    const type = 'locality'; // Buscar ciudades cercanas
+    const apiKey = 'AIzaSyBH0Ey-G2PbWkSCLyGG1A9TCg9LDPlzQpc';
+
+    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${radius}&key=${apiKey}`;
+
+    try {
+      const response = await fetch(url);
+      const result = await response.json();
+
+      if (result.status === 'OK') {
+        console.log('Nearby cities:', result.results);
+        setEventsFilter((prev)=> { 
+          return {
+           ...prev,
+           nearCitys: result.results
+          }
+        })
+        // Aquí puedes manejar los resultados como desees
+      } else {
+        console.error('Places service failed due to:', result.status);
+      }
+    } catch (error) {
+      console.error('Error fetching nearby places:', error);
+    }
+  };
+
+
   return (
     <GooglePlacesAutocomplete
       placeholder={t('buscar')}
@@ -199,7 +121,11 @@ const Maps = ({
       styles={{ container: { width: '90%', height: '100%', top: 30 } }}
       fetchDetails={true}
       onPress={(data, details = null) => {
-        console.log('setting value to ', data.description)
+        if (details && details.geometry && details.geometry.location) {
+          const { lat, lng } = details.geometry.location;
+          console.log('Latitud:', lat, 'Longitud:', lng);
+          getNearbyPlaces(lat, lng);
+        }
         setSearchValue(data.description)
       }}
       onFail={(error) => console.log(error)}

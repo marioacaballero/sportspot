@@ -686,7 +686,7 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
               !gender
             }
             onPress={() => {
-              openPaymentSheet()
+              // openPaymentSheet()
               if (route.params.price !== '0') {
                 console.log(route.params.price, 'priceee')
 
