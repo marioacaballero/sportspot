@@ -22,11 +22,6 @@ import PopupOrdenarPor from '../../components/PopupOrdenarPor'
 import PruebasEncontradasFiltros from '../../components/PruebasEncontradasFiltros'
 import CorazonSVG from '../../components/SVG/CorazonSVG'
 import {
-  getAllEvents,
-  getEventById,
-  getFavorites
-} from '../../redux/actions/events'
-import {
   getEventByIdRedux,
   setFilteredEvents,
   setShowGuestModal
@@ -43,81 +38,66 @@ const PruebasEncontradas = ({ route }) => {
   const { user } = useSelector((state) => state.users)
   const { sports } = useSelector((state) => state.sports)
 
-  // // console.log(user, 'user en encontradas pruebas')
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
   const [favoriteEvents, setFavoriteEvents] = useState([])
-  const [newEvents, setNewEvents] = useState([])
   const isGuest = user?.email === 'guestUser@gmail.com'
-  useEffect(() => {
-    // if (eventsFilter.length === 0) {
-    //   dispatch(setFilteredEvents(events))
-    // }
-  }, [])
+ 
 
-  // useEffect(() => {
-  //   dispatch(getFavorites(user.id))
-  // }, [favorites])
+
 
   useEffect(() => {
-    console.log('events', events)
-    const appliedFilters = route?.params?.filter
-    console?.log('appliedFilters', appliedFilters)
-    let filteredEvents = [...events]
+    console.log('events', events);
+    const appliedFilters = route?.params?.filter;
+    console?.log('appliedFilters', appliedFilters);
+    let filteredEvents = [...events];
+  
     if (appliedFilters?.sportName?.length > 0) {
       const filteredSports = sports
         ?.filter((deporte) =>
           appliedFilters?.sportName?.includes(deporte?.name)
         )
-        ?.map((deporte) => deporte?.id)
-      console?.log('filteredSports', filteredSports)
+        ?.map((deporte) => deporte?.id);
+      console?.log('filteredSports', filteredSports);
       filteredEvents = events?.filter((event) =>
         filteredSports?.includes(event?.sportId)
-      )
+      );
     }
+  
     if (appliedFilters?.location?.length > 0) {
-      const location = appliedFilters?.location
-      const filteredEventsCopy = [...filteredEvents]
+      const location = appliedFilters?.location;
+      const filteredEventsCopy = [...filteredEvents];
       filteredEvents = filteredEventsCopy?.filter((event) =>
         event?.location?.toLowerCase()?.includes(location?.toLowerCase())
-      )
+      );
     }
+  
     if (appliedFilters?.dateStart?.length > 0) {
-      const startDate = new Date(appliedFilters?.dateStart[0])
-      const endDate = new Date(appliedFilters?.dateStart[1])
-      const filteredEventsCopy = [...filteredEvents]
+      const startDate = new Date(appliedFilters?.dateStart[0]);
+      const endDate = new Date(appliedFilters?.dateStart[1]);
+      const filteredEventsCopy = [...filteredEvents];
       filteredEvents = filteredEventsCopy?.filter((ev) => {
-        const evStart = new Date(ev?.dateStart)
+        const evStart = new Date(ev?.dateStart);
         if (evStart >= startDate && evStart <= endDate) {
-          return true
+          return true;
         } else {
-          return false
+          return false;
         }
-      })
+      });
     }
-    dispatch(setFilteredEvents(filteredEvents))
-  }, [])
+  
+    if (appliedFilters?.nearCitys?.length > 0) {
+      const nearCityVicinities = appliedFilters.nearCitys.map(city => city.vicinity.toLowerCase());
+      const filteredEventsCopy = [...filteredEvents];
+      filteredEvents = filteredEventsCopy?.filter((event) =>
+        nearCityVicinities.some(vicinity => event?.location?.toLowerCase()?.includes(vicinity))
+      );
+    }
+  
+    dispatch(setFilteredEvents(filteredEvents));
+  }, [events, route?.params?.filter, sports, dispatch]);
 
-  // useEffect(() => {
-  //   const today = new Date()
 
-  //   const sportsArray = route.params.localSport.split(', ')
-
-  //   const idsFiltrados = sports
-  //     .filter((deporte) => sportsArray.includes(deporte.name))
-  //     .map((deporte) => deporte.id)
-
-  //   const eventosFiltrados = events.filter((evento) =>
-  //     idsFiltrados.includes(evento.sportId)
-  //   )
-
-  //   const filteredUsers = eventosFiltrados.filter((user) => {
-  //     const dateInscription = new Date(user.dateInscription)
-  //     return dateInscription >= today
-  //   })
-
-  //   setNewEvents(filteredUsers)
-  // }, [eventsFilter])
 
   useEffect(() => {
     setFavoriteEvents(allFavorites)

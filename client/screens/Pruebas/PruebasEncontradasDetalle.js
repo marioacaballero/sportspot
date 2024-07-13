@@ -356,7 +356,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                       marginRight: 10,
                       backgroundColor: Color.sportsNaranja
                     }}
-                    onPress={() => setModalSuscription(true)}
+                    onPress={() => navigation.navigate('Inscripcion', eventState)
+                    }
                   >
                     <Text style={styles.modalText}>
                       {isEventAlreadyAdded
@@ -388,7 +389,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                 <TouchableOpacity
                   onPress={() =>
                     onShare(
-                      `${eventState.title} en ${eventState.location}. Si aun no te bajaste la app descargala en Google Play http://www.googleplay.com/sportspot`
+                      `${eventState.title} en ${eventState.location}. Si aun no te bajaste la app descargala en Google Play https://play.google.com/store/apps/details?id=com.aythenapp.spotsport`
                     )
                   }
                 >

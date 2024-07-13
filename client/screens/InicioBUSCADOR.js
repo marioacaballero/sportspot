@@ -38,7 +38,8 @@ const InicioBUSCADOR = ({
   const [eventsFilter, setEventsFilter] = useState({
     sportName: [],
     location: '',
-    dateStart: []
+    dateStart: [],
+    nearCitys:[]
   })
   const { t, i18n } = useTranslation()
 
