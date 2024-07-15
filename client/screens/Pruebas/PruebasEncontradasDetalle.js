@@ -175,10 +175,10 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
         return `${places}/${places} : Full`
       } else if (places > eventState?.suscribers?.length) {
         return `${places - eventState?.suscribers?.length
-          }/${places} -> Disponibles`
+          }/${places} -> ${t('disponible')}`
       }
     } else {
-      return `${places}/${places} -> Disponibles`
+      return `${places}/${places} -> ${t('disponible')}`
     }
   }
 
@@ -479,7 +479,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                   Linking.openURL(eventState.rules)
                 }} style={{ paddingHorizontal: 20, paddingVertical: 5, backgroundColor: Color.sportsNaranja, alignItems: "center", borderRadius: 50 }}>
                   <Text style={{ color: "white" }}>
-                    Abrir enlace
+                    {t('abrirenlace')}
                   </Text>
                 </TouchableOpacity>
               )}

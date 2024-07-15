@@ -6,7 +6,8 @@ import {
   View,
   Modal,
   Image,
-  TextInput
+  TextInput,
+  TouchableOpacity
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import Maps from '../components/Maps'
@@ -39,7 +40,7 @@ const InicioBUSCADOR = ({
     sportName: [],
     location: '',
     dateStart: [],
-    nearCitys:[]
+    nearCitys: []
   })
   const { t, i18n } = useTranslation()
 
@@ -74,8 +75,6 @@ const InicioBUSCADOR = ({
   const closeFrameContainer10 = useCallback(() => {
     setFrameContainer10Visible(false)
   }, [])
-
-
 
   return (
     <>
@@ -131,6 +130,31 @@ const InicioBUSCADOR = ({
                     ? eventsFilter.location
                     : t('localizacion')}
                 </Text>
+                {eventsFilter.location && (
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: Color.sportsNaranja,
+                      width: 20,
+                      justifyContent: 'center',
+                      borderRadius: 100
+                    }}
+                    onPress={() =>
+                      setEventsFilter((prev) => {
+                        return { ...prev, location: '' }
+                      })
+                    }
+                  >
+                    <Text
+                      style={{
+                        textAlign: 'center',
+                        color: 'white',
+                        fontWeight: 600
+                      }}
+                    >
+                      X
+                    </Text>
+                  </TouchableOpacity>
+                )}
               </View>
             </Pressable>
 
@@ -147,6 +171,7 @@ const InicioBUSCADOR = ({
                 <Text style={styles.helloTypo}>
                   {!localSport ? t('deporte') : localSport}
                 </Text>
+             
               </View>
             </Pressable>
             <Pressable
@@ -167,7 +192,6 @@ const InicioBUSCADOR = ({
             <Pressable
               style={styles.helloAshfakWrapper}
               onPress={() => {
-            
                 navigation.navigate('PruebasEncontradas', {
                   filter: eventsFilter,
                   localSport

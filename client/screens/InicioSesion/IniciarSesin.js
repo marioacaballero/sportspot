@@ -23,6 +23,7 @@ import { ActivityIndicator } from 'react-native-paper'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
 import { useTranslation } from 'react-i18next'
 import { useFocusEffect } from '@react-navigation/native'
+import { setError } from '../../redux/slices/users.slices'
 
 const IniciarSesin = ({ navigation }) => {
   const { t, i18n } = useTranslation()
@@ -83,25 +84,33 @@ const IniciarSesin = ({ navigation }) => {
     storeTokenAndNavigate()
   }, [userToken])
 
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     const onBackPress = () => {
-  //       console.log('navigating to signin')
-  //       navigation.navigate('SignIn')
-  //     }
+  const [emailError, setEmailError] = useState('')
 
-  //     BackHandler.addEventListener('hardwareBackPress', onBackPress)
+  useEffect(() => {
+    if (loginInfo.email == '') setEmailError('')
+  }, [loginInfo])
 
-  //     return () =>
-  //       BackHandler.removeEventListener('hardwareBackPress', onBackPress)
-  //   }, [])
-  // )
+  const validateEmail = (email) => {
+    // Expresión regular para validar formato de correo electrónico
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    if (!regex.test(email)) {
+      setEmailError(t('emailvalid'))
+    } else {
+      setEmailError('')
+    }
+  }
 
   const valuesLogin = (field, value) => {
+    if (error) {
+      dispatch(setError(''))
+    }
     setLoginInfo((prev) => ({
       ...prev,
       [field]: value
     }))
+    if (field === 'email') {
+      validateEmail(value)
+    }
   }
 
   const onSubmit = async () => {
@@ -192,6 +201,7 @@ const IniciarSesin = ({ navigation }) => {
               }}
               placeholder={t('email')}
               autoCapitalize="none"
+              maxLength={50}
               value={loginInfo.email}
               onChangeText={(value) => valuesLogin('email', value)}
               onSubmitEditing={() => passwordInputRef.current.focus()}
@@ -205,6 +215,7 @@ const IniciarSesin = ({ navigation }) => {
               value={loginInfo.password}
               onChangeText={(value) => valuesLogin('password', value)}
               secureTextEntry={true}
+              maxLength={50}
               onSubmitEditing={onSubmit}
               returnKeyType="done"
               ref={passwordInputRef}
@@ -214,6 +225,9 @@ const IniciarSesin = ({ navigation }) => {
             <Text style={[styles.hasOlvidadoTu2, styles.entrarTypo]}>
               {t('contraseñaerror')}
             </Text>
+          )}
+          {emailError && (
+            <Text style={{ padding: 10, color: 'red' }}>{emailError}</Text>
           )}
           <TouchableOpacity
             style={[styles.entrarWrapper, styles.wrapperFlexBox]}

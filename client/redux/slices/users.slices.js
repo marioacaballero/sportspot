@@ -33,6 +33,9 @@ export const usersSlices = createSlice({
     },
     setNotificationPush: (state, action) => {
       state.NotificationPush = action.payload
+    },
+    setError: (state, action) => {
+      state.error = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -178,7 +181,7 @@ export const usersSlices = createSlice({
   }
 })
 
-export const { clearUser, setSelectedIcon, setNotificationPush } =
+export const { clearUser, setSelectedIcon, setNotificationPush ,setError} =
   usersSlices.actions
 
 export default usersSlices.reducer
