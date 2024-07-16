@@ -2,9 +2,12 @@ import React, { useEffect } from 'react'
 import { View, Text, Modal, StyleSheet, TouchableOpacity } from 'react-native'
 import { Color, FontFamily } from '../GlobalStyles'
 import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from 'react-i18next'
 
 const CustomAlert = ({ visible, message, onClose, type }) => {
   const navigation = useNavigation()
+  const { t, i18n } = useTranslation();
+
   // useEffect(() => {
   //   let timeoutId
 
@@ -15,8 +18,8 @@ const CustomAlert = ({ visible, message, onClose, type }) => {
   //     }, 2400)
   //   }
 
-  const passAlert = 'Alerta'
-  const accountAlert = 'Alerta!'
+  const passAlert = t('alerta')
+  const accountAlert = t('alertaa')
 
   //   return () => clearTimeout(timeoutId)
   // }, [visible, onClose])

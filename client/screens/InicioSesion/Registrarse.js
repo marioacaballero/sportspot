@@ -134,15 +134,36 @@ const Registrarse = () => {
   }, [])
 
   useEffect(() => {
+    if(registerUser.email == "") setEmailError("")
     console.log('Updated state:', registerUser);
   }, [registerUser]);
   
+  const [emailError, setEmailError] = useState('');
+
+  const validateEmail = (email) => {
+    // Expresión regular para validar formato de correo electrónico
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!regex.test(email)) {
+      setEmailError(t('emailvalid'));
+    } else {
+      setEmailError('');
+    }
+  };
+
   const onValuesUser = (field, value) => {
+    if(!value){
+      setEmailError("")
+    }
     setRegisterUser((prevState) => ({
       ...prevState,
       [field]: value
-    }))
-  }
+    }));
+
+    if (field === 'email') {
+      validateEmail(value);
+    }
+  };
+
 
   const handleShowAlert = (message) => {
     setMessage(message)
@@ -156,14 +177,13 @@ const Registrarse = () => {
   const onSubmit = () => {
     console.log("esto mando ",registerUser)
     try {
-      if (registerUser.email && registerUser.password && confirmPassword) {
+      if (registerUser.email && registerUser.password.length >= 4 && confirmPassword.length >= 4 && !emailError) {
         const emailExists = users.some(
           (user) => user.email === registerUser.email
         )
         console.log(emailExists)
         if (emailExists) {
-          console.log('alert mail en uso')
-          handleShowAlert('El correo electrónico ya está en uso')
+          handleShowAlert(t('correoenuso'))
         } else {
           if (registerUser.password === confirmPassword) {
             const data = {
@@ -174,11 +194,15 @@ const Registrarse = () => {
             dispatch(register(registerUser))
             navigation.navigate('IniciarSesin')
           } else {
-            handleShowAlert('Las contraseñas no coinciden')
+            handleShowAlert(t('contranocoincide'))
           }
         }
       } else {
-        handleShowAlert('Rellene todos los campos')
+        if(registerUser.password.length < 4){
+          return  handleShowAlert(t('minimocaracter'))
+         
+        }
+        handleShowAlert(t('rellenecampos'))
       }
     } catch (error) {
       console.log('caigo en error', error)
@@ -232,6 +256,7 @@ const Registrarse = () => {
             <TextInput
               style={[styles.nombreDeUsuario, styles.registrarse1Typo]}
               placeholder={t("email")}
+              maxLength={50}
               value={registerUser.email}
               onChangeText={(value) => onValuesUser('email', value)}
               onSubmitEditing={() => passwordInputRef.current.focus()}
@@ -244,6 +269,8 @@ const Registrarse = () => {
             <TextInput
               style={styles.nombreDeUsuario}
               placeholder={t("contraseña")}
+              maxLength={50}
+
               value={registerUser.password}
               onChangeText={(value) => onValuesUser('password', value)}
               secureTextEntry={true}
@@ -257,16 +284,23 @@ const Registrarse = () => {
               style={styles.nombreDeUsuario}
               placeholder={t("confirmarcontraseña")}
               value={confirmPassword}
+              maxLength={50}
+
               onChangeText={(value) => setConfirmPassword(value)}
               secureTextEntry={true}
               onSubmitEditing={onSubmit}
               ref={confirmPasswordRef}
             />
           </View>
+          {emailError && (
+            <Text style={{padding:10,color:"red",fontWeight:600}}>{emailError}</Text>
+          )}
           <Pressable
             style={[styles.registrarseWrapper, styles.wrapperFlexBox]}
             onPress={() => {
+        
               onSubmit()
+             
             }}
           >
             <Text style={[styles.registrarse1, styles.registrarse1Typo]}>
