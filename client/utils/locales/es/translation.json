@@ -26,7 +26,7 @@
   "abrirenlace":"Abrir enlace",
 "correoenuso":"El correo electrónico ya está en uso",
  "contranocoincide":"Las contraseñas no coinciden",
- "minimocaracter":"Las contraseñas no coinciden",
+ "minimocaracter":"La contraseña debe contener al menos 4 dígitos",
  "rellenecampos":"Rellene todos los campos",
   "guestPopUpText": "Debes acceder o crearte una cuenta",
   "premios": "Premios alcanzados",

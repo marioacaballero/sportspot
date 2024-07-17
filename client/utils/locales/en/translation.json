@@ -46,7 +46,7 @@
 "alertaa": "Alert!",
 "correoenuso": "Email is already in use",
 "contranocoincide": "Passwords do not match",
-"minimocaracter": "Passwords must have at least 6 characters",
+"minimocaracter": "Passwords must have at least 4 characters",
 "rellenecampos": "Please fill in all fields",
   "emailvalid": "Please enter a valid email",
 "nombreDelEvento": "Event name",
