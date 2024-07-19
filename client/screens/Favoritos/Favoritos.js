@@ -96,7 +96,7 @@ const Favoritos = ({ route }) => {
           {sport.map((prueba, index) => (
             <Pressable
               onPress={() => {
-                console.log('id evento', prueba.id)
+                //  console.log('id evento', prueba.id)
                 dispatch(
                   visitEvent({
                     eventId: prueba.id,

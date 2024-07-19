@@ -181,7 +181,7 @@ const InicioDeportista = () => {
     const currentDate = new Date()
     const passedDate = date
     const differenceInHours = (passedDate - currentDate) / (1000 * 60 * 60)
-    console.log('hour difference', differenceInHours)
+    //  console.log('hour difference', differenceInHours)
     return differenceInHours <= 48
   }
 
@@ -206,10 +206,10 @@ const InicioDeportista = () => {
     return fechaEvento < new Date()
   })
 
-  console.log('eventsExpired', eventsExpired)
+  // console.log('eventsExpired', eventsExpired)
   const isGuest = user?.email === 'guestUser@gmail.com'
 
-  console.log('userNotifications', userNotifications)
+  // console.log('userNotifications', userNotifications)
 
   if (loadingGet) {
     return (

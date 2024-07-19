@@ -13,10 +13,10 @@ export const getAllEvents = createAsyncThunk('events/getAll', async () => {
 export const getAllEventsInscriptions = createAsyncThunk(
   'events/getAllEventsInscriptions',
   async (eventId) => {
-    console.log('On getAllEventsInscriptions with:', eventId)
+    // console.log('On getAllEventsInscriptions with:', eventId)
     try {
       const { data } = await axiosInstance.get(`/inscriptions/event/${eventId}`)
-      console.log('returning data from getAllEventsInscriptions', data)
+      // console.log('returning data from getAllEventsInscriptions', data)
       return data
     } catch (error) {
       throw new Error(error)
@@ -47,7 +47,7 @@ export const getSuscribedEventsNotifications = createAsyncThunk(
       const { data } = await axiosInstance.get(
         `/events/notifications/${userId}`
       )
-      console.log('data from getSuscribedEvents: ', data)
+      // console.log('data from getSuscribedEvents: ', data)
       return data
     } catch (error) {
       console.log('ERROR FROM GSE: ', error)
@@ -73,7 +73,7 @@ export const updateEvent = createAsyncThunk('update/event', async (body) => {
   console.log('updating event with: ', body)
   try {
     const { data } = await axiosInstance.patch(`/events/${id}`, updateEventDto)
-    console.log('response from updateEvent:', data)
+    //  console.log('response from updateEvent:', data)
     return data
   } catch (error) {
     console.log('error from updateEvent', error)

@@ -27,8 +27,16 @@ export const eventsSlices = createSlice({
     loadingId: false,
     loadingGet: false,
     eventInscriptions: [],
+    nearbyLocations: [],
+    nearbyLoading: false,
     error: {},
     showGuestModal: false,
+    searchEventsFilters: {
+      sportName: [],
+      location: '',
+      dateStart: [],
+      nearCitys: []
+    },
     favorites: [],
     allFavorites: [],
     dateStart: '',
@@ -36,8 +44,17 @@ export const eventsSlices = createSlice({
     visitedEvents: []
   },
   reducers: {
+    setSearchEventsFilters: (state, action) => {
+      state.searchEventsFilters = action.payload
+    },
+    setNearbyLoading: (state, action) => {
+      state.nearbyLoading = action.payload
+    },
     setEvent: (state, action) => {
       state.event = action.payload
+    },
+    setNearbyLocations: (state, action) => {
+      state.nearbyLocations = action.payload
     },
     setNameEvent: (state, action) => {
       state.nameEventsFilters = action.payload
@@ -55,7 +72,7 @@ export const eventsSlices = createSlice({
       state.eventsFilter = action.payload
     },
     setVisitedEvents: (state, action) => {
-      console.log('filtering out event', action.payload, 'from visited')
+      // console.log('filtering out event', action.payload, 'from visited')
       const actualVisited = [...state.visitedEvents]
       console.log('ACTUAL LENGTH', actualVisited.length)
       const filteredVisited = actualVisited.filter(
@@ -327,6 +344,9 @@ export const {
   setVisitedEvents,
   setNameEvent,
   setDateStart,
+  setNearbyLocations,
+  setSearchEventsFilters,
+  setNearbyLoading,
   setDateSuscription,
   setEventFromPrice,
   setFilteredEvents,

@@ -21,7 +21,7 @@ export const submitInscription = createAsyncThunk(
     console.log('body from submitInscription: ', body)
     try {
       const { data } = await axiosInstance.post('/inscriptions', body)
-      console.log('returning data from inscriptions', data)
+      //   console.log('returning data from inscriptions', data)
       return data
     } catch (error) {
       throw new Error(error)
@@ -86,7 +86,7 @@ export const register = createAsyncThunk('users/register', async (body) => {
   try {
     console.log('posting user with body: ', body)
     const { data } = await axiosInstance.post('/users', body)
-    console.log('response from register: ', data)
+    //  console.log('response from register: ', data)
     return data
   } catch (error) {
     console.log('error from register action: ', error)
@@ -98,7 +98,7 @@ export const login = createAsyncThunk('users/login', async (body) => {
   try {
     console.log('body from login: ', body)
     const { data } = await axiosInstance.post('/jwt/login', body)
-    console.log('data from login', data)
+    //  console.log('data from login', data)
     return data
   } catch (error) {
     console.log('error from login: ', error)
@@ -110,9 +110,9 @@ export const googleLogin = createAsyncThunk(
   'users/googleLogin',
   async (body) => {
     try {
-      console.log('body from login: ', body)
+      //  console.log('body from login: ', body)
       const { data } = await axiosInstance.post('/jwt/google-login', body)
-      console.log('data from login', data)
+      //   console.log('data from login', data)
       return data
     } catch (error) {
       throw new Error(error)

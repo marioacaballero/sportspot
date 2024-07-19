@@ -46,10 +46,10 @@ export const usersSlices = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false
-        console.log(
-          'setting userToken (normal | guest) to',
-          action.payload.accesToken
-        )
+        // console.log(
+        //   'setting userToken (normal | guest) to',
+        //   action.payload.accesToken
+        // )
         state.userToken = action.payload.accesToken
         state.user = action.payload.user
         state.error = null
@@ -78,10 +78,10 @@ export const usersSlices = createSlice({
         state.error = null
       })
       .addCase(getUser.fulfilled, (state, action) => {
-        console.log(
-          'setting user favorites to: ',
-          action.payload.eventFavorites
-        )
+        // console.log(
+        //   'setting user favorites to: ',
+        //   action.payload.eventFavorites
+        // )
         state.loading = false
         state.user = action.payload
         state.error = null
@@ -181,7 +181,7 @@ export const usersSlices = createSlice({
   }
 })
 
-export const { clearUser, setSelectedIcon, setNotificationPush ,setError} =
+export const { clearUser, setSelectedIcon, setNotificationPush, setError } =
   usersSlices.actions
 
 export default usersSlices.reducer

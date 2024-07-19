@@ -7,7 +7,8 @@ import {
   Modal,
   Image,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import Maps from '../components/Maps'
@@ -27,7 +28,9 @@ const InicioBUSCADOR = ({
   setSearchedSports
 }) => {
   const navigation = useNavigation()
-  const { events } = useSelector((state) => state.events)
+  const { events, nearbyLoading, searchEventsFilters } = useSelector(
+    (state) => state.events
+  )
   const dispatch = useDispatch()
   const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
   const [frameContainer8Visible, setFrameContainer8Visible] = useState(false)
@@ -49,7 +52,7 @@ const InicioBUSCADOR = ({
   }, [])
 
   useEffect(() => {
-    console.log('eventsFilter changed=======', eventsFilter)
+    // console.log('eventsFilter changed=======', eventsFilter)
   }, [eventsFilter])
 
   const openFrameContainer6 = useCallback(() => {
@@ -171,7 +174,6 @@ const InicioBUSCADOR = ({
                 <Text style={styles.helloTypo}>
                   {!localSport ? t('deporte') : localSport}
                 </Text>
-             
               </View>
             </Pressable>
             <Pressable
@@ -190,15 +192,36 @@ const InicioBUSCADOR = ({
               </View>
             </Pressable>
             <Pressable
-              style={styles.helloAshfakWrapper}
+              // disabled={nearbyLoading === true}
+              style={{
+                backgroundColor: Color.sportsNaranja,
+                height: 42,
+                marginTop: 10,
+                padding: Padding.p_3xs,
+                borderRadius: Border.br_31xl,
+                alignSelf: 'stretch',
+                justifyContent: 'center',
+                width: '100%',
+                alignItems: 'center'
+              }}
               onPress={() => {
                 navigation.navigate('PruebasEncontradas', {
                   filter: eventsFilter,
-                  localSport
+                  localSport,
+                  fromSearch: true
                 })
                 setMostrarInicioBuscador(false)
               }}
             >
+              {/* {nearbyLoading ? (
+                <ActivityIndicator
+                  animating={true}
+                  size="small"
+                  color={'#fff'}
+                />
+              ) : (
+                <Text style={styles.helloAshfak6}>{t('buscar')}</Text>
+              )} */}
               <Text style={styles.helloAshfak6}>{t('buscar')}</Text>
             </Pressable>
           </View>
@@ -214,6 +237,7 @@ const InicioBUSCADOR = ({
           <Maps
             onClose={closeFrameContainer6}
             setEventsFilter={setEventsFilter}
+            fromSearch={true}
           />
         </View>
       </Modal>

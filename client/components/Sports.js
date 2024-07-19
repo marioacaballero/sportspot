@@ -44,8 +44,6 @@ const Sports = ({
     onClose()
   }
 
-
-
   const uniqueSports = {}
   const filteredSports = sports
     .map((sport) => {
