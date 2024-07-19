@@ -19,11 +19,16 @@ import {
 } from '../redux/slices/events.slices'
 import { List } from 'react-native-paper'
 
-const PruebasEncontradasFiltros = ({ setModalVisible }) => {
+const PruebasEncontradasFiltros = ({
+  setModalVisible,
+  setStart,
+  setEnd,
+  end,
+  start
+}) => {
   const dispatch = useDispatch()
   const { eventsFilter } = useSelector((state) => state.events)
-  const [start, setStart] = useState(0)
-  const [end, setEnd] = useState(150)
+
   const [typesFilter, setTypesFilter] = useState({})
   const [switchStates, setSwitchStates] = useState({})
 
@@ -68,16 +73,16 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
     setEnd(newValues[1])
   }
 
-  const priceDispatch = () => {
-    dispatch(
-      setFilteredEvents(
-        [...eventsFilter]?.filter((event) => {
-          const precio = parseInt(event.price)
-          return precio >= start && precio <= end
-        })
-      )
-    )
-  }
+  // const priceDispatch = () => {
+  //   dispatch(
+  //     setFilteredEvents(
+  //       [...eventsFilter]?.filter((event) => {
+  //         const precio = parseInt(event.price)
+  //         return precio >= start && precio <= end
+  //       })
+  //     )
+  //   )
+  // }
 
   const uniqueSports = {}
 
@@ -264,7 +269,7 @@ const PruebasEncontradasFiltros = ({ setModalVisible }) => {
             justifyContent: 'center'
           }}
           onPress={() => {
-            priceDispatch()
+            // priceDispatch()
             setModalVisible(false)
             dispatch(
               setNameEvent({
