@@ -7,7 +7,8 @@ import {
   Modal,
   Image,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import Maps from '../components/Maps'
@@ -17,9 +18,13 @@ import { Padding, FontFamily, Border, FontSize, Color } from '../GlobalStyles'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllSports } from '../redux/actions/sports'
 import { getAllEventsFilters } from '../redux/actions/events'
-import { setNameEvent } from '../redux/slices/events.slices'
+import {
+  setNameEvent,
+  setSearchEventsFilters
+} from '../redux/slices/events.slices'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import { useTranslation } from 'react-i18next'
+import { AntDesign } from '@expo/vector-icons'
 
 const InicioBUSCADOR = ({
   setMostrarInicioBuscador,
@@ -27,12 +32,15 @@ const InicioBUSCADOR = ({
   setSearchedSports
 }) => {
   const navigation = useNavigation()
-  const { events } = useSelector((state) => state.events)
+  const { events, nearbyLoading, searchEventsFilters } = useSelector(
+    (state) => state.events
+  )
   const dispatch = useDispatch()
   const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
   const [frameContainer8Visible, setFrameContainer8Visible] = useState(false)
   const [frameContainer10Visible, setFrameContainer10Visible] = useState(false)
   const [selected, setSelected] = useState(null)
+  const [search, setSearch] = useState('')
   const [selectedInput, setSelectedInput] = useState(false)
 
   const [localSport, setLocalSport] = useState('')
@@ -49,7 +57,7 @@ const InicioBUSCADOR = ({
   }, [])
 
   useEffect(() => {
-    console.log('eventsFilter changed=======', eventsFilter)
+    // console.log('eventsFilter changed=======', eventsFilter)
   }, [eventsFilter])
 
   const openFrameContainer6 = useCallback(() => {
@@ -97,6 +105,7 @@ const InicioBUSCADOR = ({
             <TextInput
               onPress={() => setSelectedInput(true)}
               onBlur={() => setSelectedInput(false)}
+              onChangeText={(text) => setSearch(text)}
               placeholder={t('buscar')}
               placeholderTextColor={'rgba(64,3,111,1)'}
               style={{
@@ -135,16 +144,26 @@ const InicioBUSCADOR = ({
                     style={{
                       backgroundColor: Color.sportsNaranja,
                       width: 20,
+                      height: 20,
                       justifyContent: 'center',
-                      borderRadius: 100
+                      borderRadius: 100,
+                      alignItems: 'center'
                     }}
-                    onPress={() =>
+                    onPress={() => {
                       setEventsFilter((prev) => {
-                        return { ...prev, location: '' }
+                        return { ...prev, location: '', nearCitys: [] }
                       })
-                    }
+                      dispatch(
+                        setSearchEventsFilters({
+                          sportName: [],
+                          location: '',
+                          dateStart: [],
+                          nearCitys: []
+                        })
+                      )
+                    }}
                   >
-                    <Text
+                    {/* <Text
                       style={{
                         textAlign: 'center',
                         color: 'white',
@@ -152,7 +171,8 @@ const InicioBUSCADOR = ({
                       }}
                     >
                       X
-                    </Text>
+                    </Text> */}
+                    <AntDesign name="close" color={'#fff'} size={14} />
                   </TouchableOpacity>
                 )}
               </View>
@@ -171,7 +191,6 @@ const InicioBUSCADOR = ({
                 <Text style={styles.helloTypo}>
                   {!localSport ? t('deporte') : localSport}
                 </Text>
-             
               </View>
             </Pressable>
             <Pressable
@@ -190,15 +209,37 @@ const InicioBUSCADOR = ({
               </View>
             </Pressable>
             <Pressable
-              style={styles.helloAshfakWrapper}
+              // disabled={nearbyLoading === true}
+              style={{
+                backgroundColor: Color.sportsNaranja,
+                height: 42,
+                marginTop: 10,
+                padding: Padding.p_3xs,
+                borderRadius: Border.br_31xl,
+                alignSelf: 'stretch',
+                justifyContent: 'center',
+                width: '100%',
+                alignItems: 'center'
+              }}
               onPress={() => {
                 navigation.navigate('PruebasEncontradas', {
                   filter: eventsFilter,
-                  localSport
+                  search,
+                  localSport,
+                  fromSearch: true
                 })
                 setMostrarInicioBuscador(false)
               }}
             >
+              {/* {nearbyLoading ? (
+                <ActivityIndicator
+                  animating={true}
+                  size="small"
+                  color={'#fff'}
+                />
+              ) : (
+                <Text style={styles.helloAshfak6}>{t('buscar')}</Text>
+              )} */}
               <Text style={styles.helloAshfak6}>{t('buscar')}</Text>
             </Pressable>
           </View>
@@ -214,6 +255,7 @@ const InicioBUSCADOR = ({
           <Maps
             onClose={closeFrameContainer6}
             setEventsFilter={setEventsFilter}
+            fromSearch={true}
           />
         </View>
       </Modal>

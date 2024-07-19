@@ -274,10 +274,18 @@ const UltimasConsultas = () => {
                         size={22}
                       />
                     </TouchableOpacity>
-                    <Image
-                      style={styles.image84Icon}
-                      source={{ uri: event.event.image }}
-                    />
+
+                    {event?.event?.image && event?.event?.image !== '' ? (
+                      <Image
+                        style={styles.image84Icon}
+                        source={{ uri: event.event.image }}
+                      />
+                    ) : (
+                      <Image
+                        style={styles.image84Icon}
+                        source={require('../assets/spotsportadaptative.png')}
+                      />
+                    )}
                     <View
                       style={[styles.frameContainer, styles.frameSpaceBlock]}
                     >
