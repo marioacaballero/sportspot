@@ -277,10 +277,10 @@ const Maps = ({
 
     await fetchResults()
 
-    console.log(
-      'All nearby localities:',
-      allResults.map((result) => result.name)
-    )
+    // console.log(
+    //   'All nearby localities:',
+    //   allResults.map((result) => result.name)
+    // )
     dispatch(setNearbyLocations(allResults.map((result) => result.name)))
     setEventsFilter((prev) => {
       return {

@@ -42,6 +42,8 @@ const InicioBUSCADOR = ({
   const [selected, setSelected] = useState(null)
   const [search, setSearch] = useState('')
   const [selectedInput, setSelectedInput] = useState(false)
+  const [searching, setSearching] = useState(false)
+  const [sport, setSport] = useState([])
 
   const [localSport, setLocalSport] = useState('')
   const [eventsFilter, setEventsFilter] = useState({
@@ -55,6 +57,26 @@ const InicioBUSCADOR = ({
   useEffect(() => {
     dispatch(getAllSports())
   }, [])
+  useEffect(() => {
+    if (searching && !nearbyLoading) {
+      navigation.navigate('PruebasEncontradas', {
+        filter: eventsFilter,
+        search,
+        localSport,
+        fromSearch: true
+      })
+      setMostrarInicioBuscador(false)
+    }
+  }, [nearbyLoading, searching])
+
+  useEffect(() => {
+    if (!selected) {
+      setEventsFilter((prevState) => ({
+        ...prevState,
+        dateStart: ''
+      }))
+    }
+  }, [selected])
 
   useEffect(() => {
     // console.log('eventsFilter changed=======', eventsFilter)
@@ -222,16 +244,20 @@ const InicioBUSCADOR = ({
                 alignItems: 'center'
               }}
               onPress={() => {
-                navigation.navigate('PruebasEncontradas', {
-                  filter: eventsFilter,
-                  search,
-                  localSport,
-                  fromSearch: true
-                })
-                setMostrarInicioBuscador(false)
+                if (!nearbyLoading) {
+                  navigation.navigate('PruebasEncontradas', {
+                    filter: eventsFilter,
+                    search,
+                    localSport,
+                    fromSearch: true
+                  })
+                  setMostrarInicioBuscador(false)
+                } else {
+                  setSearching(true)
+                }
               }}
             >
-              {/* {nearbyLoading ? (
+              {nearbyLoading && searching ? (
                 <ActivityIndicator
                   animating={true}
                   size="small"
@@ -239,8 +265,8 @@ const InicioBUSCADOR = ({
                 />
               ) : (
                 <Text style={styles.helloAshfak6}>{t('buscar')}</Text>
-              )} */}
-              <Text style={styles.helloAshfak6}>{t('buscar')}</Text>
+              )}
+              {/* <Text style={styles.helloAshfak6}>{t('buscar')}</Text> */}
             </Pressable>
           </View>
         )}
@@ -267,6 +293,7 @@ const InicioBUSCADOR = ({
             onPress={closeFrameContainer8}
           />
           <Sports
+            setSport={setSport}
             onClose={closeFrameContainer8}
             setEventsFilter={setEventsFilter}
             setLocalSport={setLocalSport}

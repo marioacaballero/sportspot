@@ -23,6 +23,7 @@ import GolfSVG from './SVG/Sports/GolfSVG'
 import { setSport } from '../redux/slices/sports.slices'
 import TenisSVG2 from './SVG/Sports/TenisSVG2'
 import TriatlonSVG from './SVG/Sports/TriatlonSVG.js'
+import { setSelectedSports } from '../redux/slices/events.slices.js'
 
 const Sports = ({
   onClose,
@@ -35,6 +36,7 @@ const Sports = ({
 }) => {
   const dispatch = useDispatch()
 
+  const { selectedSports } = useSelector((state) => state.events)
   const { sports } = useSelector((state) => state.sports)
   // const [showColor, setShowColor] = useState([])
 
@@ -80,6 +82,11 @@ const Sports = ({
                     sportName: newSportName
                   }
                 })
+                const prevSports = selectedSports
+                const newSports = prevSports.includes(sport.name)
+                  ? prevSports.filter((name) => name !== sport.name)
+                  : [...prevSports, sport.name]
+                dispatch(setSelectedSports(newSports))
                 dispatch(setSport(sport.name))
                 // sportSelectStyle(sport?.name)
               }}
