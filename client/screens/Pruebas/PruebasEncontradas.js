@@ -42,6 +42,7 @@ const PruebasEncontradas = ({ route }) => {
     nameEventsFilters,
     nearbyLoading,
     allFavorites,
+    selectedSports,
     eventsFilter
   } = useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
@@ -54,108 +55,128 @@ const PruebasEncontradas = ({ route }) => {
   const isGuest = user?.email === 'guestUser@gmail.com'
 
   useEffect(() => {
-    // console.log('events', events)
-    const appliedFilters = route?.params?.filter
-    const search = route?.params?.search
+    if (!nearbyLoading) {
+      // console.log('events', events)
+      const appliedFilters = route?.params?.filter
+      const search = route?.params?.search
 
-    console?.log('appliedFilters', appliedFilters)
-    let filteredEvents = [...events]
+      console?.log('appliedFilters', appliedFilters)
+      let filteredEvents = [...events]
 
-    if (appliedFilters?.nearCitys?.length > 0 && route?.params?.fromSearch) {
-      // console.log('nearbyLocations', nearbyLocations)
-      // const nearCityVicinities = appliedFilters.nearCitys.map((city) =>
-      //   city.vicinity?.toLowerCase()
-      // )
-      const filteredEventsCopy = [...events]
-      // filteredEvents = filteredEventsCopy?.filter((event) =>
-      //   nearCityVicinities.some((vicinity) =>
-      //     event?.location?.toLowerCase()?.includes(vicinity)
-      //   )
-      // )
+      if (appliedFilters?.nearCitys?.length > 0 && route?.params?.fromSearch) {
+        // console.log('nearbyLocations', nearbyLocations)
+        // const nearCityVicinities = appliedFilters.nearCitys.map((city) =>
+        //   city.vicinity?.toLowerCase()
+        // )
+        const filteredEventsCopy = [...events]
+        // filteredEvents = filteredEventsCopy?.filter((event) =>
+        //   nearCityVicinities.some((vicinity) =>
+        //     event?.location?.toLowerCase()?.includes(vicinity)
+        //   )
+        // )
 
-      console.log(
-        'EVENT.LOCATION',
-        filteredEventsCopy.map((ev) => ev.location)
-      )
-      console.log(
-        'NEARBY LOCATIONS',
-        appliedFilters?.nearCitys?.concat(appliedFilters?.location)
-      )
-      filteredEvents = filteredEventsCopy?.filter(
-        (evnt) =>
-          appliedFilters?.nearCitys
-            .concat(appliedFilters?.location)
-            .includes(evnt?.location) ||
-          appliedFilters?.nearCitys
-            .concat(appliedFilters?.location)
-            .includes(evnt?.location.split(',')[0])
-      )
-
-      console.log(
-        'FINAL RESPONSE',
-        filteredEventsCopy
-          ?.filter(
-            (evnt) =>
-              appliedFilters?.nearCitys
-                .concat(appliedFilters?.location)
-                .includes(evnt?.location) ||
-              appliedFilters?.nearCitys
-                .concat(appliedFilters?.location)
-                .includes(evnt?.location.split(',')[0])
-          )
-          .map((ev) => ev.location)
-      )
-    }
-
-    if (search?.length > 0) {
-      filteredEvents = [...filteredEvents]?.filter((event) =>
-        event?.title?.toLowerCase()?.includes(search?.toLowerCase())
-      )
-    }
-
-    if (appliedFilters?.sportName?.length > 0) {
-      const filteredSports = sports
-        ?.filter((deporte) =>
-          appliedFilters?.sportName?.includes(deporte?.name)
+        console.log(
+          'EVENT.LOCATION',
+          filteredEventsCopy.map((ev) => ev.location)
         )
-        ?.map((deporte) => deporte?.id)
-      console?.log('filteredSports', filteredSports)
-      filteredEvents = events?.filter((event) =>
-        filteredSports?.includes(event?.sportId)
-      )
-    }
-    if (end) {
-      console.log('start', start)
-      console.log('end', end)
-      filteredEvents = [...filteredEvents].filter((event) => {
-        const precio = parseInt(event.price)
-        return precio >= start && precio <= end
-      })
-    }
-    if (appliedFilters?.location?.length > 0 && nearbyLocations.length === 0) {
-      const location = appliedFilters?.location
-      const filteredEventsCopy = [...filteredEvents]
-      filteredEvents = filteredEventsCopy?.filter((event) =>
-        event?.location?.toLowerCase()?.includes(location?.toLowerCase())
-      )
-    }
+        console.log(
+          'NEARBY LOCATIONS',
+          appliedFilters?.nearCitys?.concat(appliedFilters?.location)
+        )
+        filteredEvents = filteredEventsCopy?.filter(
+          (evnt) =>
+            appliedFilters?.nearCitys
+              .concat(appliedFilters?.location)
+              .includes(evnt?.location) ||
+            appliedFilters?.nearCitys
+              .concat(appliedFilters?.location)
+              .includes(evnt?.location.split(', ')[0]) ||
+            appliedFilters?.nearCitys
+              .concat(appliedFilters?.location)
+              .includes(evnt?.location.split(', ')[1])
+        )
 
-    if (appliedFilters?.dateStart?.length > 0) {
-      const startDate = new Date(appliedFilters?.dateStart[0])
-      const endDate = new Date(appliedFilters?.dateStart[1])
-      const filteredEventsCopy = [...filteredEvents]
-      filteredEvents = filteredEventsCopy?.filter((ev) => {
-        const evStart = new Date(ev?.dateStart)
-        if (evStart >= startDate && evStart <= endDate) {
-          return true
-        } else {
-          return false
-        }
-      })
-    }
+        console.log(
+          'FINAL RESPONSE',
+          filteredEventsCopy
+            ?.filter(
+              (evnt) =>
+                appliedFilters?.nearCitys
+                  .concat(appliedFilters?.location)
+                  .includes(evnt?.location) ||
+                appliedFilters?.nearCitys
+                  .concat(appliedFilters?.location)
+                  .includes(evnt?.location.split(',')[0])
+            )
+            .map((ev) => ev.location)
+        )
+      }
 
-    dispatch(setFilteredEvents(filteredEvents))
-  }, [events, route?.params?.filter, sports, dispatch, end])
+      if (search?.length > 0) {
+        filteredEvents = [...filteredEvents]?.filter((event) =>
+          event?.title?.toLowerCase()?.includes(search?.toLowerCase())
+        )
+      }
+
+      if (appliedFilters?.sportName?.length > 0) {
+        const filteredSports = sports
+          ?.filter((deporte) =>
+            appliedFilters?.sportName?.includes(deporte?.name)
+          )
+          ?.map((deporte) => deporte?.id)
+        console?.log('filteredSports', filteredSports)
+        filteredEvents = [...filteredEvents]?.filter((event) =>
+          filteredSports?.includes(event?.sportId)
+        )
+      }
+      if (end) {
+        console.log('start', start)
+        console.log('end', end)
+        filteredEvents = [...filteredEvents].filter((event) => {
+          const precio = parseInt(event.price)
+          return precio >= start && precio <= end
+        })
+      }
+      if (
+        appliedFilters?.location?.length > 0 &&
+        nearbyLocations.length === 0
+      ) {
+        const location = appliedFilters?.location
+        const filteredEventsCopy = [...filteredEvents]
+        filteredEvents = filteredEventsCopy?.filter((event) =>
+          event?.location?.toLowerCase()?.includes(location?.toLowerCase())
+        )
+      }
+
+      if (appliedFilters?.dateStart?.length > 0) {
+        const startDate = new Date(appliedFilters?.dateStart[0])
+        const endDate = new Date(appliedFilters?.dateStart[1])
+        const filteredEventsCopy = [...filteredEvents]
+        filteredEvents = filteredEventsCopy?.filter((ev) => {
+          const evStart = new Date(ev?.dateStart)
+          if (evStart >= startDate && evStart <= endDate) {
+            return true
+          } else {
+            return false
+          }
+        })
+      }
+
+      dispatch(setFilteredEvents(filteredEvents))
+    }
+  }, [
+    events,
+    route?.params?.filter,
+    sports,
+    end,
+    selectedSports,
+    nearbyLoading,
+    nearbyLocations
+  ])
+
+  useEffect(() => {
+    console.log('EVENTSD FILTER CHANGED TO,', eventsFilter.length)
+  }, [eventsFilter])
 
   useEffect(() => {
     setFavoriteEvents(allFavorites)
