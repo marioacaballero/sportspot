@@ -46,7 +46,8 @@ const PruebasEncontradas = ({ route }) => {
   } = useSelector((state) => state.events)
   const { user } = useSelector((state) => state.users)
   const { sports } = useSelector((state) => state.sports)
-
+  const [start, setStart] = useState(0)
+  const [end, setEnd] = useState(150)
   const [modalOrder, setModalOrder] = useState(false)
   const [modalFilter, setModalFilter] = useState(false)
   const [favoriteEvents, setFavoriteEvents] = useState([])
@@ -55,28 +56,10 @@ const PruebasEncontradas = ({ route }) => {
   useEffect(() => {
     // console.log('events', events)
     const appliedFilters = route?.params?.filter
+    const search = route?.params?.search
+
     console?.log('appliedFilters', appliedFilters)
     let filteredEvents = [...events]
-
-    if (appliedFilters?.sportName?.length > 0) {
-      const filteredSports = sports
-        ?.filter((deporte) =>
-          appliedFilters?.sportName?.includes(deporte?.name)
-        )
-        ?.map((deporte) => deporte?.id)
-      console?.log('filteredSports', filteredSports)
-      filteredEvents = events?.filter((event) =>
-        filteredSports?.includes(event?.sportId)
-      )
-    }
-
-    if (appliedFilters?.location?.length > 0 && nearbyLocations.length === 0) {
-      const location = appliedFilters?.location
-      const filteredEventsCopy = [...filteredEvents]
-      filteredEvents = filteredEventsCopy?.filter((event) =>
-        event?.location?.toLowerCase()?.includes(location?.toLowerCase())
-      )
-    }
 
     if (appliedFilters?.nearCitys?.length > 0 && route?.params?.fromSearch) {
       // console.log('nearbyLocations', nearbyLocations)
@@ -124,6 +107,39 @@ const PruebasEncontradas = ({ route }) => {
       )
     }
 
+    if (search?.length > 0) {
+      filteredEvents = [...filteredEvents]?.filter((event) =>
+        event?.title?.toLowerCase()?.includes(search?.toLowerCase())
+      )
+    }
+
+    if (appliedFilters?.sportName?.length > 0) {
+      const filteredSports = sports
+        ?.filter((deporte) =>
+          appliedFilters?.sportName?.includes(deporte?.name)
+        )
+        ?.map((deporte) => deporte?.id)
+      console?.log('filteredSports', filteredSports)
+      filteredEvents = events?.filter((event) =>
+        filteredSports?.includes(event?.sportId)
+      )
+    }
+    if (end) {
+      console.log('start', start)
+      console.log('end', end)
+      filteredEvents = [...filteredEvents].filter((event) => {
+        const precio = parseInt(event.price)
+        return precio >= start && precio <= end
+      })
+    }
+    if (appliedFilters?.location?.length > 0 && nearbyLocations.length === 0) {
+      const location = appliedFilters?.location
+      const filteredEventsCopy = [...filteredEvents]
+      filteredEvents = filteredEventsCopy?.filter((event) =>
+        event?.location?.toLowerCase()?.includes(location?.toLowerCase())
+      )
+    }
+
     if (appliedFilters?.dateStart?.length > 0) {
       const startDate = new Date(appliedFilters?.dateStart[0])
       const endDate = new Date(appliedFilters?.dateStart[1])
@@ -137,8 +153,9 @@ const PruebasEncontradas = ({ route }) => {
         }
       })
     }
+
     dispatch(setFilteredEvents(filteredEvents))
-  }, [events, route?.params?.filter, sports, dispatch])
+  }, [events, route?.params?.filter, sports, dispatch, end])
 
   useEffect(() => {
     setFavoriteEvents(allFavorites)
@@ -228,6 +245,10 @@ const PruebasEncontradas = ({ route }) => {
                 <TouchableWithoutFeedback onPress={() => setModalFilter(false)}>
                   <View style={{ flex: 1 }}>
                     <PruebasEncontradasFiltros
+                      setStart={setStart}
+                      setEnd={setEnd}
+                      end={end}
+                      start={start}
                       setModalVisible={setModalFilter}
                     />
                   </View>
@@ -283,11 +304,19 @@ const PruebasEncontradas = ({ route }) => {
                       }}
                       style={styles.unsplashon4qwhhjcemParentShadowBox}
                     >
-                      <Image
-                        style={styles.unsplashon4qwhhjcemIcon}
-                        contentFit="cover"
-                        source={{ uri: event.image }}
-                      />
+                      {event.image && event.image !== '' ? (
+                        <Image
+                          style={styles.unsplashon4qwhhjcemIcon}
+                          contentFit="cover"
+                          source={{ uri: event.image }}
+                        />
+                      ) : (
+                        <Image
+                          style={styles.unsplashon4qwhhjcemIcon}
+                          contentFit="cover"
+                          source={require('../../assets/spotsportadaptative.png')}
+                        />
+                      )}
 
                       <View style={styles.frameView}>
                         <View style={styles.frameGroupFlexBox}>
@@ -345,7 +374,7 @@ const PruebasEncontradas = ({ route }) => {
                           ]}
                         >
                           <Text style={styles.precioDeInscripcin}>
-                            {t('precioinscripcion')}
+                            {t('precioinscripcion')}{' '}
                           </Text>
                           <Text style={styles.textTypo}>{event.price}€ </Text>
                         </Text>

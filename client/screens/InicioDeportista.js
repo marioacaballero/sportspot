@@ -535,11 +535,19 @@ const InicioDeportista = () => {
                               navigation.navigate('PruebasEncontradasDetalle')
                             }}
                           >
-                            <Image
-                              style={styles.image94Icon}
-                              contentFit="cover"
-                              source={{ uri: event.image }}
-                            />
+                            {event.image && event.image !== '' ? (
+                              <Image
+                                style={styles.image94Icon}
+                                contentFit="cover"
+                                source={{ uri: event.image }}
+                              />
+                            ) : (
+                              <Image
+                                style={styles.image94Icon}
+                                contentFit="cover"
+                                source={require('../assets/spotsportadaptative.png')}
+                              />
+                            )}
                             <View
                               style={[
                                 styles.imGoingToShakeYParent,
@@ -624,11 +632,19 @@ const InicioDeportista = () => {
                               navigation.navigate('PruebasEncontradasDetalle')
                             }}
                           >
-                            <Image
-                              style={styles.image94Icon}
-                              contentFit="cover"
-                              source={{ uri: event.image }}
-                            />
+                            {event.image && event.image !== '' ? (
+                              <Image
+                                style={styles.image94Icon}
+                                contentFit="cover"
+                                source={{ uri: event.image }}
+                              />
+                            ) : (
+                              <Image
+                                style={styles.image94Icon}
+                                contentFit="cover"
+                                source={require('../assets/spotsportadaptative.png')}
+                              />
+                            )}
                             <View
                               style={[
                                 styles.imGoingToShakeYParent,
@@ -710,11 +726,19 @@ const InicioDeportista = () => {
                               navigation.navigate('PruebasEncontradasDetalle')
                             }}
                           >
-                            <Image
-                              style={styles.image94Icon}
-                              contentFit="cover"
-                              source={{ uri: event.image }}
-                            />
+                            {event.image && event.image !== '' ? (
+                              <Image
+                                style={styles.image94Icon}
+                                contentFit="cover"
+                                source={{ uri: event.image }}
+                              />
+                            ) : (
+                              <Image
+                                style={styles.image94Icon}
+                                contentFit="cover"
+                                source={require('../assets/spotsportadaptative.png')}
+                              />
+                            )}
                             <View
                               style={[
                                 styles.imGoingToShakeYParent,

@@ -178,15 +178,28 @@ const HistorialDePruebas = () => {
                         size={22}
                       />
                     </TouchableOpacity>
-                    <Image
-                      style={{
-                        borderTopLeftRadius: Border.br_3xs,
-                        borderBottomLeftRadius: Border.br_3xs,
-                        width: 113,
-                        height: '100%'
-                      }}
-                      source={{ uri: evnt.image }}
-                    />
+                    {evnt.image && evnt.image !== '' ? (
+                      <Image
+                        style={{
+                          borderTopLeftRadius: Border.br_3xs,
+                          borderBottomLeftRadius: Border.br_3xs,
+                          width: 113,
+                          height: '100%'
+                        }}
+                        source={{ uri: evnt.image }}
+                      />
+                    ) : (
+                      <Image
+                        style={{
+                          borderTopLeftRadius: Border.br_3xs,
+                          borderBottomLeftRadius: Border.br_3xs,
+                          width: 113,
+                          height: '100%'
+                        }}
+                        source={require('../assets/spotsportadaptative.png')}
+                      />
+                    )}
+
                     <View
                       style={{
                         justifyContent: 'center',
