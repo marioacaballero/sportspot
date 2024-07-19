@@ -29,6 +29,7 @@ export const eventsSlices = createSlice({
     eventInscriptions: [],
     nearbyLocations: [],
     nearbyLoading: false,
+    selectedSports: [],
     error: {},
     showGuestModal: false,
     searchEventsFilters: {
@@ -44,6 +45,9 @@ export const eventsSlices = createSlice({
     visitedEvents: []
   },
   reducers: {
+    setSelectedSports: (state, action) => {
+      state.selectedSports = action.payload
+    },
     setSearchEventsFilters: (state, action) => {
       state.searchEventsFilters = action.payload
     },
@@ -344,6 +348,7 @@ export const {
   setVisitedEvents,
   setNameEvent,
   setDateStart,
+  setSelectedSports,
   setNearbyLocations,
   setSearchEventsFilters,
   setNearbyLoading,
