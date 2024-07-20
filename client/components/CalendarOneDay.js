@@ -12,7 +12,7 @@ import {
 } from 'react-native'
 import { Calendar, LocaleConfig } from 'react-native-calendars'
 import { Padding, FontSize, Color, FontFamily, Border } from '../GlobalStyles'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
 import { LeftYearArrowSvg, RightYearArrowSvg } from './SVG/YearArrowSvg'
 import { years } from './Years'
@@ -40,6 +40,7 @@ const CalendarOneDay = ({
   const [calendarDate, setCalendarDate] = useState(dateEnd)
   const [openModal, setOpenModal] = useState(false)
   const [yearVisible, setYearVisible] = useState(true)
+  const { dateStart, dateSuscription } = useSelector((state) => state.events)
 
   LocaleConfig.locales['es'] = {
     monthNames: [
@@ -96,26 +97,35 @@ const CalendarOneDay = ({
   }
 
   const handleDayPress = (day) => {
+    const newDate = new Date(day.dateString);
+    const startDate = new Date(dateStart);
+    const suscriptionDate = new Date(dateSuscription);
+
     if (inscription) {
       setEvent((prevState) => ({
         ...prevState,
         ['nacimiento']: day.dateString
-      }))
+      }));
     }
-    if (start && !suscription) {
-      setSelected(day.dateString)
-      setValuesUser &&
-        setValuesUser({ ...valuesUser, ['birthDate']: day.dateString })
-      dispatch(setDateStart(day.dateString))
-      console.log('pasa', day)
-    } else {
-      setValuesUser &&
-        setValuesUser({ ...valuesUser, ['birthDate']: day.dateString })
 
-      setSelected(day.dateString)
-      dispatch(setDateSuscription(day.dateString))
+    if (start && !suscription) {
+      if (!dateSuscription || newDate >= suscriptionDate) {
+        setSelected(day.dateString);
+        setValuesUser && setValuesUser({ ...valuesUser, ['birthDate']: day.dateString });
+        dispatch(setDateStart(day.dateString));
+        console.log('pasa', day);
+      } else {
+        console.error('La fecha de inicio debe ser mayor o igual a la fecha de suscripción');
+      }
+    } else {
+      if (!dateStart || newDate < startDate) {
+        setValuesUser && setValuesUser({ ...valuesUser, ['birthDate']: day.dateString });
+        setSelected(day.dateString);
+        dispatch(setDateSuscription(day.dateString));
+      } 
     }
-  }
+  };
+
 
   const sumbitYear = (text) => {
     const year = parseInt(text)
