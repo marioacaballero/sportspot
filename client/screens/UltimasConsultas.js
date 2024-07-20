@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   Text,
@@ -12,7 +12,7 @@ import {
   ActivityIndicator,
   Dimensions
 } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { FontFamily, Color, Border, FontSize, Padding } from '../GlobalStyles'
 import BackArrowSVG from '../components/SVG/BackArrowSVG'
 import { getAllVisitedEvents, visitEvent } from '../redux/actions/events'
@@ -52,6 +52,15 @@ const UltimasConsultas = () => {
     return init
   }
 
+  useFocusEffect(
+    useCallback(() => {
+      if (visitedEvents?.length > 0) {
+        setIsFavorite(initializeFavorites());
+      }
+      console.log(visitedEvents,"visitt")
+    }, [visitedEvents, eventFavorites])
+  );
+
   useEffect(() => {
     const body = {
       userId: user.id,
@@ -66,9 +75,6 @@ const UltimasConsultas = () => {
     dispatch(getAllVisitedEvents(body))
   }, [switchStates])
 
-  useEffect(() => {
-    if (visitedEvents?.length > 0) setIsFavorite(initializeFavorites())
-  }, [visitedEvents, events])
 
   const toggleSwitch = (index) => {
     const newSwitchStates = [false, false, false]
@@ -246,12 +252,12 @@ const UltimasConsultas = () => {
                   <Pressable
                     onPress={() => {
                       console.log('here')
-                      dispatch(
-                        visitEvent({
-                          eventId: event.event.id,
-                          userId: user.id
-                        })
-                      )
+                      // dispatch(
+                      //   visitEvent({
+                      //     eventId: event.event.id,
+                      //     userId: user.id
+                      //   })
+                      // )
                       dispatch(getEventByIdRedux(event.event.id))
                       navigation.navigate('PruebasEncontradasDetalle')
                     }}
@@ -367,7 +373,7 @@ const UltimasConsultas = () => {
                               color: Color.sportsVioleta
                             }}
                           >
-                            {event.event.dateStart}
+                            {`${event.event.dateStart.slice(8,10)}-${event.event.dateStart.slice(5,7)}-${event.event.dateStart.slice(0,4)}`}
                           </Text>
                         </View>
                         <View style={{ flexDirection: 'row', gap: 3 }}>
@@ -383,7 +389,9 @@ const UltimasConsultas = () => {
                               color: Color.sportsVioleta
                             }}
                           >
-                            {event.event.dateInscription}
+                            {`${event.event.dateInscription.slice(8,10)}-${event.event.dateInscription.slice(5,7)}-${event.event.dateInscription.slice(0,4)}`}
+
+                            {/* {event.event.dateInscription} */}
                           </Text>
                         </View>
                       </View>

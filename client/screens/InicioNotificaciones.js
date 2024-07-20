@@ -87,7 +87,7 @@ const InicioNotificaciones = () => {
   }
 
   return (
-    <ScrollView style={styles.frameParent1}>
+    <ScrollView style={styles.frameParent1} contentContainerStyle={{paddingBottom:30}}>
       <View style={styles.materialSymbolsnotificationsParent}>
         <Image
           style={[
@@ -120,7 +120,7 @@ const InicioNotificaciones = () => {
             color: Color.sportsVioleta
           }}
         >
-          Aun no tienes notificaciones!
+       { t('nonotificaciones')}
         </Text>
       )}
 
