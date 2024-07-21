@@ -30,7 +30,20 @@
         "googleMaps": {
           "apiKey": "@env.GOOGLE_MAPS_API_KEY"
         }
-      }
+      },
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": [
+            {
+              "scheme": "https",
+              "host": "example.com",
+              "pathPrefix": "/"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -63,8 +76,6 @@
       "url": "https://u.expo.dev/ac124ba8-62c5-44ac-ab0e-8da7a8b8e646"
     },
     "owner": "azulschiaffino",
-    "scheme": [
-      "spotsport"
-    ]
+    "scheme": "spotsport"
   }
 }

@@ -33,6 +33,7 @@ import EscribirResea from '../../components/EscribirResea'
 import ModalSuscription from '../../components/ModalSuscription'
 import CardReview from './CardReview'
 import {
+  getEventByIdRedux,
   setShowGuestModal,
   setVisitedEvents
 } from '../../redux/slices/events.slices'
@@ -40,7 +41,8 @@ import {
   deleteEvent,
   getAllEvents,
   getAllEventsInscriptions,
-  getSuscribedEventsNotifications
+  getSuscribedEventsNotifications,
+  visitEvent
 } from '../../redux/actions/events'
 import { useTranslation } from 'react-i18next'
 import { setSport } from '../../redux/slices/sports.slices'
@@ -72,7 +74,20 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   // const [favorites, setFavorites] = useState()
   const [showModal, setShowModal] = useState(false)
   const [notificationEnable, setNotificationEnable] = useState(false)
+  // console.log('EVENTID', event.id)
 
+  useEffect(() => {
+    if (router?.params?.id) {
+      console.log('ID FROM PARAMS', router.params.id)
+      dispatch(
+        visitEvent({
+          eventId: router.params.id,
+          userId: user.id
+        })
+      )
+      dispatch(getEventByIdRedux(router.params.id))
+    }
+  }, [])
   const stateName =
     eventFavorites && eventFavorites?.some((fav) => fav?.id === event?.id)
   const isGuest = user?.email === 'guestUser@gmail.com'
@@ -174,8 +189,9 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       if (places === eventState?.suscribers?.length) {
         return `${places}/${places} : Full`
       } else if (places > eventState?.suscribers?.length) {
-        return `${places - eventState?.suscribers?.length
-          }/${places} -> ${t('disponible')}`
+        return `${places - eventState?.suscribers?.length}/${places} -> ${t(
+          'disponible'
+        )}`
       }
     } else {
       return `${places}/${places} -> ${t('disponible')}`
@@ -192,30 +208,55 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     setName(!name)
   }
 
-  const onShare = async (eventLink) => {
+  // const onShare = async (eventLink) => {
+  //   try {
+  //     const result = await Share.share(
+  //       {
+  //         message: `Disfruta de éste nuevo evento deportivo aquí: 👇🏻 \n${eventLink}`,
+  //         title: 'Mira éste evento increíble'
+  //       },
+  //       {
+  //         // Android only:
+  //         dialogTitle: 'Compartir este evento con',
+  //         // iOS only:
+  //         excludedActivityTypes: ['com.apple.UIKit.activity.PostToTwitter']
+  //       }
+  //     )
+
+  //     if (result.action === Share.sharedAction) {
+  //       if (result.activityType) {
+  //       } else {
+  //       }
+  //     } else if (result.action === Share.dismissedAction) {
+  //       // descartado
+  //     }
+  //   } catch (error) {
+  //     alert(error.message)
+  //   }
+  // }
+
+  const onShare = async (id) => {
     try {
-      const result = await Share.share(
-        {
-          message: `Disfruta de éste nuevo evento deportivo aquí: 👇🏻 \n${eventLink}`,
-          title: 'Mira éste evento increíble'
-        },
-        {
-          // Android only:
-          dialogTitle: 'Compartir este evento con',
-          // iOS only:
-          excludedActivityTypes: ['com.apple.UIKit.activity.PostToTwitter']
-        }
-      )
+      const url = `spotsport://PruebasEncontradasDetalle?id=${id}`
+      const message = `Echa un vistazo a éste nuevo evento deportivo si ya tienes la app: ${url}.
+      Si aun no la tienes instalada puedes descargala en Google Play https://play.google.com/store/apps/details?id=com.aythenapp.spotsport`
+
+      const result = await Share.share({
+        message,
+        url
+      })
 
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
+          console.log('Shared with activity type: ', result.activityType)
         } else {
+          console.log('Shared')
         }
       } else if (result.action === Share.dismissedAction) {
-        // descartado
+        console.log('Dismissed')
       }
     } catch (error) {
-      alert(error.message)
+      console.error('Error sharing', error)
     }
   }
 
@@ -232,13 +273,11 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       dispatch(getSuscribedEventsNotifications(user.id))
     }
   }
- const eventDateDay = eventState?.dateStart?.slice(8,10)
- const eventDateMonth = eventState?.dateStart?.slice(5,7)
- const eventDateYear = eventState?.dateStart?.slice(0,4)
+  const eventDateDay = eventState?.dateStart?.slice(8, 10)
+  const eventDateMonth = eventState?.dateStart?.slice(5, 7)
+  const eventDateYear = eventState?.dateStart?.slice(0, 4)
 
-
-
-  if (loading) {
+  if (loading || Object.keys(event).length === 0) {
     return (
       <View>
         <ActivityIndicator
@@ -254,7 +293,10 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     )
   } else {
     return (
-      <ScrollView style={styles.pruebasEncontradasDetalle}>
+      <ScrollView
+
+      // contentContainerStyle={{ paddingBottom: 110 }}
+      >
         {router?.params?.organizer && (
           <TouchableOpacity
             onPress={() => {
@@ -306,244 +348,18 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
             <Feather size={20} name="download" color={Color.sportsNaranja} />
           </TouchableOpacity>
         )}
-        <View style={[styles.unsplashon4qwhhjcemParent]}>
+        <View
+          style={{
+            marginTop: 0,
+            width: '100%'
+          }}
+        >
           <Image
             style={styles.unsplashon4qwhhjcemIcon}
             contentFit="cover"
             source={{ uri: eventState.image }}
           />
 
-          <View style={styles.frameParent}>
-            <View style={styles.frameGroup}>
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginBottom: 15
-                }}
-              >
-                <Text style={styles.reseasDeLaTypo}>{eventState.title}</Text>
-                <Text style={[styles.modalidadMontaa, styles.ciclismoTypo]}>
-                  {eventState.sport?.name?.slice(0, 1).toUpperCase()}
-                  {eventState.sport?.name?.slice(1)} {eventState.sport?.type}
-                </Text>
-              </View>
-              <View style={styles.alertParent}>
-                {eventState?.creator?.id === user?.id ? (
-                  <TouchableOpacity
-                    style={styles.editButton}
-                    onPress={() => {
-                      dispatch(
-                        setSport(
-                          sports.filter(
-                            (sport) => sport.id === eventState.sportId
-                          )[0]
-                        )
-                      )
-                      navigation.navigate('PublicarEvento', {
-                        eventState,
-                        onEdit: true
-                      })
-                    }}
-                  >
-                    <Text style={styles.modalText}>Editar</Text>
-                  </TouchableOpacity>
-                ) : (
-                  <TouchableOpacity
-                    style={{
-                      height: 30,
-                      width: 170,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      borderRadius: 50,
-                      marginRight: 10,
-                      backgroundColor: Color.sportsNaranja
-                    }}
-                    onPress={() => navigation.navigate('Inscripcion', eventState)
-                    }
-                  >
-                    <Text style={styles.modalText}>
-                      {isEventAlreadyAdded
-                        ? t('anularinscripcion')
-                        : t('inscribirse')}
-                    </Text>
-                  </TouchableOpacity>
-                )}
-
-                <TouchableOpacity
-                  onPress={() => {
-                    if (isGuest) {
-                      dispatch(setShowGuestModal(true))
-                      return
-                    }
-                    suscribeNotifications()
-                  }}
-                >
-                  <Image
-                    style={styles.alertIcon}
-                    contentFit="cover"
-                    source={
-                      notificationEnable
-                        ? require('../../assets/alert4.png')
-                        : require('../../assets/alert.png')
-                    }
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() =>
-                    onShare(
-                      `${eventState.title} en ${eventState.location}. Si aun no te bajaste la app descargala en Google Play https://play.google.com/store/apps/details?id=com.aythenapp.spotsport`
-                    )
-                  }
-                >
-                  <Image
-                    style={[
-                      styles.clarityshareSolidIcon,
-                      styles.containerLayout
-                    ]}
-                    contentFit="cover"
-                    source={require('../../assets/claritysharesolid.png')}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {
-                    if (isGuest) {
-                      dispatch(setShowGuestModal(true))
-                      return
-                    }
-                    handleFavorite()
-                  }}
-                >
-                  <MaterialCommunityIcons
-                    name={
-                      user?.eventFavorites?.includes(eventState.id)
-                        ? 'cards-heart'
-                        : 'cards-heart-outline'
-                    }
-                    color="#F25910"
-                    size={25}
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
-            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              <Text
-                style={{
-                  fontWeight: 700,
-                  color: Color.sportsVioleta,
-                  fontSize: 16
-                }}
-              >
-                {t('lugar')}
-
-              </Text>{' '}
-              {eventState?.location}
-            </Text>
-            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              <Text
-                style={{
-                  fontWeight: 700,
-                  color: Color.sportsVioleta,
-                  fontSize: 16
-                }}
-              >
-                {t('fecha')}:
-
-              </Text>{' '}
-              {`${eventDateDay}-${eventDateMonth}-${eventDateYear}`}
-            </Text>
-            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              <Text
-                style={{
-                  fontWeight: 700,
-                  color: Color.sportsVioleta,
-                  fontSize: 16
-                }}
-              >
-                {t('deporte2')}
-
-              </Text>{' '}
-              {sports &&
-                eventState?.sportId &&
-                sports.filter((e) => e.id === eventState.sportId)[0]?.name}
-            </Text>
-            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              <Text
-                style={{
-                  fontWeight: 700,
-                  color: Color.sportsVioleta,
-                  fontSize: 16
-                }}
-              >
-                {t('descripcion')}
-              </Text>{' '}
-              {eventState.description}
-            </Text>
-
-            <View style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout, { flexDirection: "row", alignItems: "center", gap: 10 }]}>
-              <Text
-                style={{
-                  fontWeight: 700,
-                  color: Color.sportsVioleta,
-                  fontSize: 16
-                }}
-              >
-                {t('archivos')}
-              </Text>
-              {eventState?.rules && (
-                <TouchableOpacity onPress={() => {
-                  Linking.openURL(eventState.rules)
-                }} style={{ paddingHorizontal: 20, paddingVertical: 5, backgroundColor: Color.sportsNaranja, alignItems: "center", borderRadius: 50 }}>
-                  <Text style={{ color: "white" }}>
-                    {t('abrirenlace')}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            </View>
-            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
-              <Text
-                style={{
-                  fontWeight: 700,
-                  color: Color.sportsVioleta,
-                  fontSize: 16
-                }}
-              >
-                {t('plazas')}
-              </Text>{' '}
-              {transformPlaces(eventState.places)}
-            </Text>
-            <Text style={[styles.reseasDeLa, styles.reseasDeLaTypo]}>
-              <Text
-                style={{
-                  fontWeight: 700,
-                  color: Color.sportsVioleta,
-                  fontSize: 20
-                }}
-              >
-                {t('reseñasprueba')}
-              </Text>{' '}
-            </Text>
-            {isEventAlreadyAdded && !isUserPostReview() && (
-              <TouchableOpacity
-                onPress={() => setShowModal(true)}
-                style={styles.review}
-              >
-                <Text style={styles.reviewText}>Dar mi reseña</Text>
-              </TouchableOpacity>
-            )}
-            {eventState.reviews &&
-              eventState.reviews?.length > 0 &&
-              eventState.reviews
-                .slice(0, 5)
-                .map((event) => (
-                  <CardReview
-                    key={event.id}
-                    title={event.title}
-                    description={event.description}
-                    qualification={event.qualification}
-                  />
-                ))}
-          </View>
           <Pressable
             style={[styles.cilarrowTopParent, styles.parentSpaceBlock]}
             onPress={() => navigation.goBack()}
@@ -558,6 +374,244 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
               {t('atras')}
             </Text>
           </Pressable>
+        </View>
+        <View style={styles.frameParent}>
+          <View style={styles.frameGroup}>
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginBottom: 15
+              }}
+            >
+              <Text style={styles.reseasDeLaTypo}>{eventState.title}</Text>
+              <Text style={[styles.modalidadMontaa, styles.ciclismoTypo]}>
+                {eventState.sport?.name?.slice(0, 1).toUpperCase()}
+                {eventState.sport?.name?.slice(1)} {eventState.sport?.type}
+              </Text>
+            </View>
+            <View style={styles.alertParent}>
+              {eventState?.creator?.id === user?.id ? (
+                <TouchableOpacity
+                  style={styles.editButton}
+                  onPress={() => {
+                    dispatch(
+                      setSport(
+                        sports.filter(
+                          (sport) => sport.id === eventState.sportId
+                        )[0]
+                      )
+                    )
+                    navigation.navigate('PublicarEvento', {
+                      eventState,
+                      onEdit: true
+                    })
+                  }}
+                >
+                  <Text style={styles.modalText}>Editar</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={{
+                    height: 30,
+                    width: 170,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 50,
+                    marginRight: 10,
+                    backgroundColor: Color.sportsNaranja
+                  }}
+                  onPress={() => navigation.navigate('Inscripcion', eventState)}
+                >
+                  <Text style={styles.modalText}>
+                    {isEventAlreadyAdded
+                      ? t('anularinscripcion')
+                      : t('inscribirse')}
+                  </Text>
+                </TouchableOpacity>
+              )}
+
+              <TouchableOpacity
+                onPress={() => {
+                  if (isGuest) {
+                    dispatch(setShowGuestModal(true))
+                    return
+                  }
+                  suscribeNotifications()
+                }}
+              >
+                <Image
+                  style={styles.alertIcon}
+                  contentFit="cover"
+                  source={
+                    notificationEnable
+                      ? require('../../assets/alert4.png')
+                      : require('../../assets/alert.png')
+                  }
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  // onShare(
+                  //   `${eventState.title} en ${eventState.location}. Si aun no te bajaste la app descargala en Google Play https://play.google.com/store/apps/details?id=com.aythenapp.spotsport`
+                  // )
+                  onShare(eventState.id)
+                }
+              >
+                <Image
+                  style={[styles.clarityshareSolidIcon, styles.containerLayout]}
+                  contentFit="cover"
+                  source={require('../../assets/claritysharesolid.png')}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  if (isGuest) {
+                    dispatch(setShowGuestModal(true))
+                    return
+                  }
+                  handleFavorite()
+                }}
+              >
+                <MaterialCommunityIcons
+                  name={
+                    user?.eventFavorites?.includes(eventState.id)
+                      ? 'cards-heart'
+                      : 'cards-heart-outline'
+                  }
+                  color="#F25910"
+                  size={25}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+            <Text
+              style={{
+                fontWeight: 700,
+                color: Color.sportsVioleta,
+                fontSize: 16
+              }}
+            >
+              {t('lugar')}
+            </Text>{' '}
+            {eventState?.location}
+          </Text>
+          <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+            <Text
+              style={{
+                fontWeight: 700,
+                color: Color.sportsVioleta,
+                fontSize: 16
+              }}
+            >
+              {t('fecha')}:
+            </Text>{' '}
+            {`${eventDateDay}-${eventDateMonth}-${eventDateYear}`}
+          </Text>
+          <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+            <Text
+              style={{
+                fontWeight: 700,
+                color: Color.sportsVioleta,
+                fontSize: 16
+              }}
+            >
+              {t('deporte2')}
+            </Text>{' '}
+            {sports &&
+              eventState?.sportId &&
+              sports.filter((e) => e.id === eventState.sportId)[0]?.name}
+          </Text>
+          <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+            <Text
+              style={{
+                fontWeight: 700,
+                color: Color.sportsVioleta,
+                fontSize: 16
+              }}
+            >
+              {t('descripcion')}
+            </Text>{' '}
+            {eventState.description}
+          </Text>
+
+          <View
+            style={[
+              styles.loremIpsumDolor,
+              styles.laInscripcinDeLayout,
+              { flexDirection: 'row', alignItems: 'center', gap: 10 }
+            ]}
+          >
+            <Text
+              style={{
+                fontWeight: 700,
+                color: Color.sportsVioleta,
+                fontSize: 16
+              }}
+            >
+              {t('archivos')}
+            </Text>
+            {eventState?.rules && (
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(eventState.rules)
+                }}
+                style={{
+                  paddingHorizontal: 20,
+                  paddingVertical: 5,
+                  backgroundColor: Color.sportsNaranja,
+                  alignItems: 'center',
+                  borderRadius: 50
+                }}
+              >
+                <Text style={{ color: 'white' }}>{t('abrirenlace')}</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+          <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+            <Text
+              style={{
+                fontWeight: 700,
+                color: Color.sportsVioleta,
+                fontSize: 16
+              }}
+            >
+              {t('plazas')}
+            </Text>{' '}
+            {transformPlaces(eventState.places)}
+          </Text>
+          <Text style={[styles.reseasDeLa, styles.reseasDeLaTypo]}>
+            <Text
+              style={{
+                fontWeight: 700,
+                color: Color.sportsVioleta,
+                fontSize: 20
+              }}
+            >
+              {t('reseñasprueba')}
+            </Text>{' '}
+          </Text>
+          {isEventAlreadyAdded && !isUserPostReview() && (
+            <TouchableOpacity
+              onPress={() => setShowModal(true)}
+              style={styles.review}
+            >
+              <Text style={styles.reviewText}>Dar mi reseña</Text>
+            </TouchableOpacity>
+          )}
+          {eventState.reviews &&
+            eventState.reviews?.length > 0 &&
+            eventState.reviews
+              .slice(0, 5)
+              .map((event) => (
+                <CardReview
+                  key={event.id}
+                  title={event.title}
+                  description={event.description}
+                  qualification={event.qualification}
+                />
+              ))}
         </View>
 
         <Modal animationType="slide" transparent={true} visible={showModal}>
@@ -727,7 +781,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.blanco
   },
   unsplashon4qwhhjcemParent: {
-    top: 0,
+    marginTop: 0,
     width: '100%'
   },
   pruebasEncontradasDetalle: {

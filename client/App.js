@@ -52,6 +52,7 @@ import Constants from 'expo-constants'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { setNotificationPush } from './redux/slices/users.slices'
 import Colaboradores from './screens/Perfil/Colaboradores'
+import * as Linking from 'expo-linking'
 // import { StripeProvider } from '@stripe/stripe-react-native'
 // import PaymentScreen from './screens/PaymentScreen'
 // import './shim'
@@ -373,6 +374,17 @@ export default function App() {
   const publicKey =
     'pk_test_51PBJ3MCArpM8BK01XJXHXCxHBJnGAH5JYBnMAhEdHkMB6dpwyQJj3O0KsPo9CGH5JC2tWsofNAD03nluCUOSk6I200RsyWloFq'
 
+  const linking = {
+    prefixes: ['spotsport://', 'https://example.com'],
+    config: {
+      screens: {
+        InicioDeportista: 'InicioDeportista',
+        TuPerfil: 'TuPerfil',
+        PruebasEncontradasDetalle: 'PruebasEncontradasDetalle'
+      }
+    }
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar
@@ -383,7 +395,7 @@ export default function App() {
       <I18nextProvider i18n={i18n}>
         <Provider store={store}>
           <StripeProvider publishableKey="pk_test_51OocYQGmE60O5ob7ydu8u1BLMhlWf9F5C6TCuSu75y47X5yBRO8wcbIssEjFc95AferGwyiHNkNGwT25ywIoZahB009vDgPuYd">
-            <NavigationContainer>
+            <NavigationContainer linking={linking}>
               <MyStackNavigator
                 isFooterShow={isFooterShow}
                 setIsFooterShow={setIsFooterShow}
