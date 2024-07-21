@@ -56,13 +56,15 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "d7893a40-5e4b-4559-8e1a-1afeb96df0e5"
+        "projectId": "3b77cef6-ebe6-4d36-b616-c391d890f0bb"
       }
     },
     "updates": {
       "url": "https://u.expo.dev/ac124ba8-62c5-44ac-ab0e-8da7a8b8e646"
     },
-    "owner": "kraa",
-    "scheme": ["spotsport"]
+    "owner": "azulschiaffino",
+    "scheme": [
+      "spotsport"
+    ]
   }
 }

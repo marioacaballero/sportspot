@@ -22,6 +22,30 @@ const VentajasSuscripciones = () => {
   const navigation = useNavigation()
   const { t, i18n } = useTranslation();
 
+
+  const handleStripe = async (plan) => {
+    // const priceId = prices[`${plan}PriceId`]
+    let priceId
+   
+
+    if (plan === 'month') return navigation.navigate('stripe',{amount: 5 ,cent:99})
+    if (plan === 'triMonth') return navigation.navigate('stripe',{amount: 15 ,cent:99})
+    if (plan === 'sixMonth') return navigation.navigate('stripe',{amount: 25 ,cent:99})
+    if (plan === 'year') return navigation.navigate('stripe',{amount: 45 ,cent:99})
+
+    // console.log(customer,"customer")
+    //  const res = await dispatch(createSubscription({ priceId, customerId: customer.id }))
+    // const { data } = await axiosInstance.post(
+    //   `stripe/subscription/${priceId}`,
+    //   { customerId: user.stripeId }
+    // )
+    // if (data) {
+    //   // console.log(data.latest_invoice.payment_intent.client_secret,"respuesta")
+    //   setClientSecret(data.latest_invoice.payment_intent.client_secret)
+    // }
+    // console.log(data,"resss")
+  }
+
   return (
     <ScrollView
       contentContainerStyle={{ paddingBottom: 50 }}
@@ -117,14 +141,14 @@ const VentajasSuscripciones = () => {
           </View>
         </View>
 
-        <Pressable style={styles.contentInner}>
+        <Pressable onPress={()=> handleStripe("month") } style={styles.contentInner}>
           <View style={styles.helloAshfakWrapper4}>
             <Text style={[styles.helloAshfak7, styles.helloTypo]}>
               {t("plan1")}
             </Text>
           </View>
         </Pressable>
-        <Pressable style={styles.contentInner}>
+        <Pressable onPress={()=> handleStripe("triMonth") } style={styles.contentInner}>
           <View style={styles.helloAshfakWrapper4}>
             <Text style={[styles.helloAshfak7, styles.helloTypo]}>
               {t("plan2")}
@@ -132,7 +156,7 @@ const VentajasSuscripciones = () => {
             </Text>
           </View>
         </Pressable>
-        <Pressable style={styles.contentInner}>
+        <Pressable  onPress={()=> handleStripe("sixMonth") } style={styles.contentInner}>
           <View style={styles.helloAshfakWrapper4}>
             <Text style={[styles.helloAshfak7, styles.helloTypo]}>
               {t("plan3")}
@@ -140,7 +164,7 @@ const VentajasSuscripciones = () => {
             </Text>
           </View>
         </Pressable>
-        <Pressable style={styles.contentInner}>
+        <Pressable onPress={()=> handleStripe("year") } style={styles.contentInner}>
           <View style={styles.helloAshfakWrapper4}>
             <Text style={[styles.helloAshfak7, styles.helloTypo]}>
               {t("plan4")}

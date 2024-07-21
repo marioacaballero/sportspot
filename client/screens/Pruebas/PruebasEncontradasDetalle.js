@@ -232,8 +232,11 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
       dispatch(getSuscribedEventsNotifications(user.id))
     }
   }
+ const eventDateDay = eventState?.dateStart?.slice(8,10)
+ const eventDateMonth = eventState?.dateStart?.slice(5,7)
+ const eventDateYear = eventState?.dateStart?.slice(0,4)
 
-  // console.log(eventState, 'esto es el starte')
+
 
   if (loading) {
     return (
@@ -435,6 +438,19 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
 
               </Text>{' '}
               {eventState?.location}
+            </Text>
+            <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
+              <Text
+                style={{
+                  fontWeight: 700,
+                  color: Color.sportsVioleta,
+                  fontSize: 16
+                }}
+              >
+                {t('fecha')}:
+
+              </Text>{' '}
+              {`${eventDateDay}-${eventDateMonth}-${eventDateYear}`}
             </Text>
             <Text style={[styles.loremIpsumDolor, styles.laInscripcinDeLayout]}>
               <Text

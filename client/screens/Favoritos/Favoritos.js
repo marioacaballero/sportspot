@@ -76,16 +76,18 @@ const Favoritos = ({ route }) => {
           >
             <View style={{ flexDirection: 'column' }}>
               <Text
+              numberOfLines={2}
                 style={{
                   fontSize: FontSize.size_5xl,
                   fontFamily: FontFamily.inputPlaceholder,
                   fontWeight: '700',
-                  color: Color.sportsVioleta
+                  color: Color.sportsVioleta,
+                  width:"80%"
                 }}
               >
-                TUS
+                {t('tusfavoritos')}
               </Text>
-              <Text style={styles.tusFavoritos}>FAVORITOS</Text>
+          
             </View>
           </View>
           <View style={styles.backParentSpaceBlock}>
@@ -207,7 +209,8 @@ const Favoritos = ({ route }) => {
                           maxWidth: '80%'
                         }}
                       >
-                        {prueba.dateStart}
+                        {`${prueba.dateStart.slice(8,10)}-${prueba.dateStart.slice(5,7)}-${prueba.dateStart.slice(0,4)}`}
+
                       </Text>
                     </View>
                     <View
@@ -230,7 +233,8 @@ const Favoritos = ({ route }) => {
                           maxWidth: '60%'
                         }}
                       >
-                        {prueba.dateInscription}
+                        {`${prueba.dateInscription.slice(8,10)}-${prueba.dateInscription.slice(5,7)}-${prueba.dateInscription.slice(0,4)}`}
+
                       </Text>
                     </View>
                   </View>
