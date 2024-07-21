@@ -31,15 +31,13 @@ import CustomAlert from './CustomAlert'
 import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native'
 import axiosInstance from '../utils/apiBackend'
 import { useTranslation } from 'react-i18next'
-import * as DocumentPicker from 'expo-document-picker';
-import * as FileSystem from 'expo-file-system';
-import * as WebBrowser from 'expo-web-browser';
+import * as DocumentPicker from 'expo-document-picker'
+import * as FileSystem from 'expo-file-system'
+import * as WebBrowser from 'expo-web-browser'
 import { Buffer } from 'buffer'
-import FileViewer from 'react-native-file-viewer';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import FileViewer from 'react-native-file-viewer'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { storage } from '../utils/config.google'
-
-
 
 const FomularioEventos = ({
   onEditMode,
@@ -54,7 +52,7 @@ const FomularioEventos = ({
   const { sport } = useSelector((state) => state.sports)
   const { user } = useSelector((state) => state.users)
   const { t } = useTranslation()
-  const [pdfUri, setPdfUri] = useState(null);
+  const [pdfUri, setPdfUri] = useState(null)
   const [calendar, setCalendar] = useState(null)
   const [calendarInscription, setCalendarInscription] = useState(null)
   const [selectedImage, setSelectedImage] = useState(null)
@@ -80,42 +78,37 @@ const FomularioEventos = ({
       phoneNumber: ''
     }
   )
-  const [pdfUrl, setPdfUrl] = React.useState('');
-
-
-
+  const [pdfUrl, setPdfUrl] = React.useState('')
 
   const handleUploadFile = async (fileprop) => {
     const fileeee = fileprop
-    if (!fileeee) return;
+    if (!fileeee) return
 
-    const file = await fetch(fileeee.uri).then((response) => response.blob());
-    const storageRef = ref(storage, `archivos/${fileeee.name.split('/').pop()}`); // Referencia con nombre del archivo
+    const file = await fetch(fileeee.uri).then((response) => response.blob())
+    const storageRef = ref(storage, `archivos/${fileeee.name.split('/').pop()}`) // Referencia con nombre del archivo
 
     try {
-      await uploadBytes(storageRef, file);
-      console.log('Archivo subido!');
+      await uploadBytes(storageRef, file)
+      console.log('Archivo subido!')
     } catch (error) {
-      console.error('Error al subir el archivo:', error);
+      console.error('Error al subir el archivo:', error)
     }
-  };
+  }
 
   const handleDownloadFile = async (fileprop) => {
-
     const fileeee = fileprop
-    const storageRef = ref(storage, `archivos/${fileeee.name.split('/').pop()}`); // Referencia al archivo
+    const storageRef = ref(storage, `archivos/${fileeee.name.split('/').pop()}`) // Referencia al archivo
 
     try {
-      const url = await getDownloadURL(storageRef);
-      console.log('URL de descarga:', url);
+      const url = await getDownloadURL(storageRef)
+      console.log('URL de descarga:', url)
       setFileUrl(url)
       return url
       // Puedes usar la URL para crear un enlace de descarga o mostrarla en un visor de PDF
     } catch (error) {
-      console.error('Error al obtener la URL de descarga:', error);
+      console.error('Error al obtener la URL de descarga:', error)
     }
-  };
-
+  }
 
   const handleImagePick = async () => {
     try {
@@ -123,8 +116,8 @@ const FomularioEventos = ({
         mediaTypes: ImagePicker.MediaTypeOptions.Images, // Solo imágenes
         allowsEditing: true, // Permite al usuario editar la imagen seleccionada
         aspect: [4, 3], // Aspect ratio para la imagen editada
-        quality: 1, // Calidad de la imagen (0 a 1)
-      });
+        quality: 1 // Calidad de la imagen (0 a 1)
+      })
 
       if (!result.canceled) {
         const profileImageData = {
@@ -149,34 +142,30 @@ const FomularioEventos = ({
           })
       }
     } catch (error) {
-      console.error('Error picking image:', error);
-      Alert.alert('Error', 'Failed to pick an image');
+      console.error('Error picking image:', error)
+      Alert.alert('Error', 'Failed to pick an image')
     }
-  };
-
-
+  }
 
   const handleFilePick = async () => {
     try {
       const file = await DocumentPicker.getDocumentAsync({
-        type: 'application/pdf', // Tipo de archivo que se permite seleccionar
-      });
+        type: 'application/pdf' // Tipo de archivo que se permite seleccionar
+      })
 
       if (file.assets) {
-        console.log(file.assets, "file")
-        handleUploadFile(file.assets[0]).then(() => handleDownloadFile(file.assets[0]))
+        console.log(file.assets, 'file')
+        handleUploadFile(file.assets[0]).then(() =>
+          handleDownloadFile(file.assets[0])
+        )
 
-        setSelectedFile(file);
+        setSelectedFile(file)
       }
     } catch (error) {
-      console.error('Error picking file:', error);
-      Alert.alert('Error', 'Failed to pick a file');
+      console.error('Error picking file:', error)
+      Alert.alert('Error', 'Failed to pick a file')
     }
-  };
-
-
-
-
+  }
 
   console.log('event: ', event)
   const [checked, setChecked] = useState(false)
@@ -190,13 +179,7 @@ const FomularioEventos = ({
 
   const { initPaymentSheet, presentPaymentSheet } = useStripe(null)
 
-
-
-  const [selectedFile, setSelectedFile] = useState(null);
-
-
-
-
+  const [selectedFile, setSelectedFile] = useState(null)
 
   React.useEffect(() => {
     const initializePaymentSheet = async () => {
@@ -361,8 +344,7 @@ const FomularioEventos = ({
       dateInscription: dateSuscription || event.dateEnd,
       timeStart: '00:00',
       image: selectedImage || event.image,
-      rules: fileUrl || selectedImageRule || ""
-
+      rules: fileUrl || selectedImageRule || ''
     }
     dispatch(updateEvent({ id: eventData.id, updateEventDto: data }))
     setEvent({
@@ -377,22 +359,14 @@ const FomularioEventos = ({
       mail: '',
       phoneNumber: '',
       image: null,
-      rules:  ""
-
+      rules: ''
     })
-    setSelectedFile("")
+    setSelectedFile('')
     clearRedux()
     navigation.goBack()
   }
 
   const onSubmit = () => {
-
-
-
-
-
-
-
     const data = {
       title: event.title,
       description: event.description,
@@ -408,7 +382,7 @@ const FomularioEventos = ({
       creator: user?.id,
       timeStart: '00:00',
       image: selectedImage,
-      rules: fileUrl || selectedImageRule || ""
+      rules: fileUrl || selectedImageRule || ''
     }
     // console.log('creating event with: ', data)
     dispatch(createEvent(data))
@@ -425,7 +399,7 @@ const FomularioEventos = ({
       phoneNumber: '',
       image: null
     })
-    setSelectedFile("")
+    setSelectedFile('')
 
     clearRedux()
     navigation.goBack()
@@ -602,35 +576,63 @@ const FomularioEventos = ({
             borderWidth: 1,
             borderColor: Color.sportsVioleta,
             borderRadius: 20,
-            height: '100%',
+            height: '100%'
           }}
         >
-          <Text style={{ ...styles.text, top: -10 }}>{t('linkDeLaInscripcion')}</Text>
+          <Text style={{ ...styles.text, top: -10 }}>
+            {t('linkDeLaInscripcion')}
+          </Text>
 
           {!fileUrl && !selectedImageRule ? (
-            <View style={{ width: "100%", justifyContent: "center", alignItems: "center", height: "100%", gap: 18 }}>
-              <TouchableOpacity onPress={handleFilePick} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
-                <Text style={{ color: "white" }}>Subir pdf</Text>
+            <View
+              style={{
+                width: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100%',
+                gap: 18
+              }}
+            >
+              <TouchableOpacity
+                onPress={handleFilePick}
+                style={{
+                  backgroundColor: Color.sportsNaranja,
+                  padding: 8,
+                  borderRadius: 50
+                }}
+              >
+                <Text style={{ color: 'white' }}>Subir pdf</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={handleImagePick} style={{ backgroundColor: Color.sportsNaranja, padding: 8, borderRadius: 50 }}>
-                <Text style={{ color: "white" }}>Subir imagen</Text>
+              <TouchableOpacity
+                onPress={handleImagePick}
+                style={{
+                  backgroundColor: Color.sportsNaranja,
+                  padding: 8,
+                  borderRadius: 50
+                }}
+              >
+                <Text style={{ color: 'white' }}>Subir imagen</Text>
               </TouchableOpacity>
-           
-
-
-
             </View>
-          ) : <View style={{ marginTop: 20,justifyContent:"center",alignItems:"center", }}>
-            {selectedImageRule && (
-              <Image source={{uri:selectedImageRule}} style={{width:200,height:200}}></Image>
-            )}
-            {fileUrl && (
-              <Text>{fileUrl}</Text>
-            )}
-            {/* <Button title="Upload File" onPress={handleUploadFile} /> */}
-          </View>}
+          ) : (
+            <View
+              style={{
+                marginTop: 20,
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+            >
+              {selectedImageRule && (
+                <Image
+                  source={{ uri: selectedImageRule }}
+                  style={{ width: "90%", height:"90%" }}
+                ></Image>
+              )}
+              {fileUrl && <Text style={{width:"100%",height:"90%",textAlign:"center",textAlignVertical:"center"}}>{fileUrl && (t('archivosubido')) }</Text>}
+              {/* <Button title="Upload File" onPress={handleUploadFile} /> */}
+            </View>
+          )}
         </View>
-
       </View>
 
       <Pressable
@@ -679,8 +681,8 @@ const FomularioEventos = ({
             {onEditMode
               ? event.dateStart
               : dateStart
-                ? dateStart
-                : t('fechaDeInicio')}
+              ? dateStart
+              : t('fechaDeInicio')}
           </Text>
         </View>
       </Pressable>
@@ -711,8 +713,8 @@ const FomularioEventos = ({
             {onEditMode
               ? event.dateEnd
               : dateSuscription
-                ? dateSuscription
-                : t('fechaLimiteDeInscripcion')}
+              ? dateSuscription
+              : t('fechaLimiteDeInscripcion')}
           </Text>
         </View>
       </Pressable>
@@ -750,7 +752,6 @@ const FomularioEventos = ({
         <View style={styles.items2Flex}>
           <Text style={styles.text2}>{t('subirCartelDelEvento')}</Text>
           <Pressable style={styles.items2} onPress={uploadImage}>
-
             <Text
               style={
                 selectedImage || event.image
