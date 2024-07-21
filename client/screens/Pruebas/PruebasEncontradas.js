@@ -404,8 +404,8 @@ const PruebasEncontradas = ({ route }) => {
                   ))}
                 </View>
               ) : (
-                <View style={styles.frameContainer}>
-                  <Text>No hay resultados para tu busqueda!</Text>
+                <View style={{ ...styles.frameContainer, marginTop: 30 }}>
+                  <Text>{t('searchNotFound')}</Text>
                 </View>
               )}
             </View>
