@@ -413,7 +413,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                     })
                   }}
                 >
-                  <Text style={styles.modalText}>Editar</Text>
+                  <Text style={styles.modalText}>Editar222</Text>
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity

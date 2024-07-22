@@ -574,33 +574,35 @@ const InicioDeportista = () => {
          </Text> */}
                               </View>
                             </View>
-                            <Pressable
-                              onPress={() => {
-                                if (isGuest) {
-                                  dispatch(setShowGuestModal(true))
-                                  return
-                                }
-                                navigation.navigate('Inscripcion', event)
-                              }}
-                              style={{
-                                backgroundColor: Color.sportsNaranja,
-                                position: 'absolute',
-                                top: 10,
-                                right: 10,
-                                paddingHorizontal: 6,
-                                borderRadius: 12
-                              }}
-                            >
-                              <Text
-                                style={{
-                                  fontWeight: 600,
-                                  color: 'white',
-                                  marginBottom: 2
-                                }}
-                              >
-                                +
-                              </Text>
-                            </Pressable>
+                           {event?.creator?.id !== user.id && (
+                             <Pressable
+                             onPress={() => {
+                               if (isGuest) {
+                                 dispatch(setShowGuestModal(true))
+                                 return
+                               }
+                               navigation.navigate('Inscripcion', event)
+                             }}
+                             style={{
+                               backgroundColor: Color.sportsNaranja,
+                               position: 'absolute',
+                               top: 10,
+                               right: 10,
+                               paddingHorizontal: 6,
+                               borderRadius: 12
+                             }}
+                           >
+                             <Text
+                               style={{
+                                 fontWeight: 600,
+                                 color: 'white',
+                                 marginBottom: 2
+                               }}
+                             >
+                               +
+                             </Text>
+                           </Pressable>
+                           )}
                           </Pressable>
                         ))}
                     </ScrollView>
@@ -685,33 +687,35 @@ const InicioDeportista = () => {
                                 </Text>
                               </View>
                             </View>
-                            <Pressable
-                              onPress={() => {
-                                if (isGuest) {
-                                  dispatch(setShowGuestModal(true))
-                                  return
-                                }
-                                navigation.navigate('Inscripcion', event)
-                              }}
-                              style={{
-                                backgroundColor: Color.sportsNaranja,
-                                position: 'absolute',
-                                top: 10,
-                                right: 10,
-                                paddingHorizontal: 6,
-                                borderRadius: 12
-                              }}
-                            >
-                              <Text
-                                style={{
-                                  fontWeight: 600,
-                                  color: 'white',
-                                  marginBottom: 2
-                                }}
-                              >
-                                +
-                              </Text>
-                            </Pressable>
+                            {event?.creator?.id !== user.id && (
+                             <Pressable
+                             onPress={() => {
+                               if (isGuest) {
+                                 dispatch(setShowGuestModal(true))
+                                 return
+                               }
+                               navigation.navigate('Inscripcion', event)
+                             }}
+                             style={{
+                               backgroundColor: Color.sportsNaranja,
+                               position: 'absolute',
+                               top: 10,
+                               right: 10,
+                               paddingHorizontal: 6,
+                               borderRadius: 12
+                             }}
+                           >
+                             <Text
+                               style={{
+                                 fontWeight: 600,
+                                 color: 'white',
+                                 marginBottom: 2
+                               }}
+                             >
+                               +
+                             </Text>
+                           </Pressable>
+                           )}
                           </Pressable>
                         ))}
                     </ScrollView>
@@ -790,33 +794,35 @@ const InicioDeportista = () => {
                            </Text> */}
                               </View>
                             </View>
-                            <Pressable
-                              onPress={() => {
-                                if (isGuest) {
-                                  dispatch(setShowGuestModal(true))
-                                  return
-                                }
-                                navigation.navigate('Inscripcion', event)
-                              }}
-                              style={{
-                                backgroundColor: Color.sportsNaranja,
-                                position: 'absolute',
-                                top: 10,
-                                right: 10,
-                                paddingHorizontal: 6,
-                                borderRadius: 12
-                              }}
-                            >
-                              <Text
-                                style={{
-                                  fontWeight: 600,
-                                  color: 'white',
-                                  marginBottom: 2
-                                }}
-                              >
-                                +
-                              </Text>
-                            </Pressable>
+                            {event?.creator?.id !== user.id && (
+                             <Pressable
+                             onPress={() => {
+                               if (isGuest) {
+                                 dispatch(setShowGuestModal(true))
+                                 return
+                               }
+                               navigation.navigate('Inscripcion', event)
+                             }}
+                             style={{
+                               backgroundColor: Color.sportsNaranja,
+                               position: 'absolute',
+                               top: 10,
+                               right: 10,
+                               paddingHorizontal: 6,
+                               borderRadius: 12
+                             }}
+                           >
+                             <Text
+                               style={{
+                                 fontWeight: 600,
+                                 color: 'white',
+                                 marginBottom: 2
+                               }}
+                             >
+                               +
+                             </Text>
+                           </Pressable>
+                           )}
                           </Pressable>
                         ))}
                     </ScrollView>
