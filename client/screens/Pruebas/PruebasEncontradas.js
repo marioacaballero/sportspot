@@ -204,7 +204,7 @@ const PruebasEncontradas = ({ route }) => {
     <ScrollView style={styles.pruebasEncontradas}>
       <View style={styles.pruebasEncontradasParent}>
         <Text style={[styles.pruebasEncontradas1, styles.ene2024Typo]}>
-          {'PRUEBAS ENCONTRADAS'}
+          {t('pruebasEncontradas')}
         </Text>
         <Pressable
           style={[styles.cilarrowTopParent, styles.parentSpaceBlock]}
@@ -275,7 +275,7 @@ const PruebasEncontradas = ({ route }) => {
                   </View>
                 </TouchableWithoutFeedback>
               </Modal>
-              <Text style={styles.filtrosTypo}>Filtros</Text>
+              <Text style={styles.filtrosTypo}>{t('filtros')}</Text>
               <Image
                 style={styles.frameChild}
                 contentFit="cover"
@@ -291,7 +291,7 @@ const PruebasEncontradas = ({ route }) => {
             </Modal>
             <View style={styles.filtrosParent}>
               <Pressable onPress={toggleModalOrder}>
-                <Text style={styles.filtrosTypo}>Ordenar por</Text>
+                <Text style={styles.filtrosTypo}>{t('ordenarPor')}</Text>
               </Pressable>
               <Image
                 style={styles.frameChild}
@@ -341,7 +341,15 @@ const PruebasEncontradas = ({ route }) => {
 
                       <View style={styles.frameView}>
                         <View style={styles.frameGroupFlexBox}>
-                          <Text style={[styles.senderismo, styles.textTypo]}>
+                          <Text
+                            numberOfLines={1}
+                            ellipsizeMode="tail"
+                            style={[
+                              styles.senderismo,
+                              styles.textTypo,
+                              { maxWidth: '90%' }
+                            ]}
+                          >
                             {event.title}
                           </Text>
                           <View style={styles.likeSpotsport}>
@@ -365,16 +373,29 @@ const PruebasEncontradas = ({ route }) => {
                             styles.goingContainerFlexBox
                           ]}
                         >
-                          <Text style={styles.modalidad}>
-                            -Modalidad: {event.modality}
+                          <Text
+                            numberOfLines={1}
+                            ellipsizeMode="tail"
+                            style={styles.modalidad}
+                          >
+                            -{t('modalidad')} {event.modality}
+                            {'\n'}
+                          </Text>
+                          <Text
+                            numberOfLines={1}
+                            ellipsizeMode="tail"
+                            style={{
+                              fontFamily: FontFamily.inputPlaceholder,
+                              marginLeft: 10,
+                              fontSize: 12,
+                              borderWidth: 2
+                            }}
+                          >
+                            -{t('localidad')}: {event.location}
                             {'\n'}
                           </Text>
                           <Text style={styles.modalidad}>
-                            -Localidad: {event.location}
-                            {'\n'}
-                          </Text>
-                          <Text style={styles.modalidad}>
-                            -Fecha de la prueba:
+                            -{t('fechaprueba')}
                           </Text>
                           <Text style={styles.ene2024Typo}>
                             {' '}
@@ -382,7 +403,7 @@ const PruebasEncontradas = ({ route }) => {
                           </Text>
 
                           <Text style={styles.modalidad}>
-                            -Plazo límite de inscripción:{' '}
+                            -{t('fechalimite')}{' '}
                           </Text>
                           <Text style={styles.ene2024Typo}>
                             {event?.dateInscription} {'\n'}
