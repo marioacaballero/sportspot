@@ -55,11 +55,11 @@ const UltimasConsultas = () => {
   useFocusEffect(
     useCallback(() => {
       if (visitedEvents?.length > 0) {
-        setIsFavorite(initializeFavorites());
+        setIsFavorite(initializeFavorites())
       }
-      console.log(visitedEvents,"visitt")
+      console.log(visitedEvents, 'visitt')
     }, [visitedEvents, eventFavorites])
-  );
+  )
 
   useEffect(() => {
     const body = {
@@ -74,7 +74,6 @@ const UltimasConsultas = () => {
     }
     dispatch(getAllVisitedEvents(body))
   }, [switchStates])
-
 
   const toggleSwitch = (index) => {
     const newSwitchStates = [false, false, false]
@@ -347,7 +346,7 @@ const UltimasConsultas = () => {
                             numberOfLines={1}
                             ellipsizeMode="tail"
                             style={{
-                              maxWidth: '80%',
+                              maxWidth: '75%',
                               color: Color.sportsVioleta,
                               fontSize: 12
                             }}
@@ -373,7 +372,13 @@ const UltimasConsultas = () => {
                               color: Color.sportsVioleta
                             }}
                           >
-                            {`${event.event.dateStart.slice(8,10)}-${event.event.dateStart.slice(5,7)}-${event.event.dateStart.slice(0,4)}`}
+                            {`${event.event.dateStart.slice(
+                              8,
+                              10
+                            )}-${event.event.dateStart.slice(
+                              5,
+                              7
+                            )}-${event.event.dateStart.slice(0, 4)}`}
                           </Text>
                         </View>
                         <View style={{ flexDirection: 'row', gap: 3 }}>
@@ -389,7 +394,13 @@ const UltimasConsultas = () => {
                               color: Color.sportsVioleta
                             }}
                           >
-                            {`${event.event.dateInscription.slice(8,10)}-${event.event.dateInscription.slice(5,7)}-${event.event.dateInscription.slice(0,4)}`}
+                            {`${event.event.dateInscription.slice(
+                              8,
+                              10
+                            )}-${event.event.dateInscription.slice(
+                              5,
+                              7
+                            )}-${event.event.dateInscription.slice(0, 4)}`}
 
                             {/* {event.event.dateInscription} */}
                           </Text>

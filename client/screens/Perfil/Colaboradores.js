@@ -276,7 +276,8 @@ const Colaboradores = () => {
                         style={{
                           color: Color.sportsVioleta,
                           fontSize: FontSize.size_sm,
-                          alignSelf: 'stretch'
+                          alignSelf: 'stretch',
+                          paddingBottom: 5
                         }}
                         onChangeText={(value) => setName(value)}
                         value={name}
@@ -312,7 +313,8 @@ const Colaboradores = () => {
                         style={{
                           color: Color.sportsVioleta,
                           fontSize: FontSize.size_sm,
-                          alignSelf: 'stretch'
+                          alignSelf: 'stretch',
+                          paddingBottom: 5
                         }}
                         onChangeText={(value) => setLink(value)}
                         value={link}
