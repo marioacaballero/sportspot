@@ -76,23 +76,22 @@ const Favoritos = ({ route }) => {
           >
             <View style={{ flexDirection: 'column' }}>
               <Text
-              numberOfLines={2}
+                numberOfLines={2}
                 style={{
                   fontSize: FontSize.size_5xl,
                   fontFamily: FontFamily.inputPlaceholder,
                   fontWeight: '700',
                   color: Color.sportsVioleta,
-                  width:"80%"
+                  width: '80%'
                 }}
               >
                 {t('tusfavoritos')}
               </Text>
-          
             </View>
           </View>
           <View style={styles.backParentSpaceBlock}>
             <Text style={[styles.pruebasDeCiclismo, styles.ciclismoTypo]}>
-              {`Pruebas de ${sport[0].title} (${sport.length})`}
+              {`${t('pruebasde')} ${sport[0].title} (${sport.length})`}
             </Text>
           </View>
           {sport.map((prueba, index) => (
@@ -209,8 +208,13 @@ const Favoritos = ({ route }) => {
                           maxWidth: '80%'
                         }}
                       >
-                        {`${prueba.dateStart.slice(8,10)}-${prueba.dateStart.slice(5,7)}-${prueba.dateStart.slice(0,4)}`}
-
+                        {`${prueba.dateStart.slice(
+                          8,
+                          10
+                        )}-${prueba.dateStart.slice(
+                          5,
+                          7
+                        )}-${prueba.dateStart.slice(0, 4)}`}
                       </Text>
                     </View>
                     <View
@@ -233,8 +237,13 @@ const Favoritos = ({ route }) => {
                           maxWidth: '60%'
                         }}
                       >
-                        {`${prueba.dateInscription.slice(8,10)}-${prueba.dateInscription.slice(5,7)}-${prueba.dateInscription.slice(0,4)}`}
-
+                        {`${prueba.dateInscription.slice(
+                          8,
+                          10
+                        )}-${prueba.dateInscription.slice(
+                          5,
+                          7
+                        )}-${prueba.dateInscription.slice(0, 4)}`}
                       </Text>
                     </View>
                   </View>

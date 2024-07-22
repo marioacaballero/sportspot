@@ -51,6 +51,7 @@ import { useRoute } from '@react-navigation/native'
 import XLSX from 'xlsx'
 import { writeDataAndDownloadExcelFile } from '../Pruebas/xlsxdownloader'
 import { Feather } from '@expo/vector-icons'
+import i18next from 'i18next'
 
 const PruebasEncontradasDetalle = ({ navigation }) => {
   const router = useRoute()
@@ -238,8 +239,12 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   const onShare = async (id) => {
     try {
       const url = `spotsport://PruebasEncontradasDetalle?id=${id}`
-      const message = `Echa un vistazo a éste nuevo evento deportivo si ya tienes la app: ${url}.
+      const message =
+        i18next.language === 'es'
+          ? `Echa un vistazo a éste nuevo evento deportivo si ya tienes la app: ${url}.
       Si aun no la tienes instalada puedes descargala en Google Play https://play.google.com/store/apps/details?id=com.aythenapp.spotsport`
+          : `Check out this new event if you already have the app: ${url}.
+      And if you don't have it installed yet, you can download it on Google Play https://play.google.com/store/apps/details?id=com.aythenapp.spotsport`
 
       const result = await Share.share({
         message,

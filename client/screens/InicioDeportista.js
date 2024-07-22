@@ -585,13 +585,19 @@ const InicioDeportista = () => {
                               style={{
                                 backgroundColor: Color.sportsNaranja,
                                 position: 'absolute',
-                                bottom: 10,
+                                top: 10,
                                 right: 10,
                                 paddingHorizontal: 6,
                                 borderRadius: 12
                               }}
                             >
-                              <Text style={{ fontWeight: 600, color: 'white' }}>
+                              <Text
+                                style={{
+                                  fontWeight: 600,
+                                  color: 'white',
+                                  marginBottom: 2
+                                }}
+                              >
                                 +
                               </Text>
                             </Pressable>
@@ -601,8 +607,19 @@ const InicioDeportista = () => {
                   </View>
                 )}
                 {latestEventsAdded.length > 0 && (
-                  <View style={{ alignItems: 'center' }}>
-                    <Text style={styles.helloTypoScroll}>
+                  <View style={{ alignItems: 'flex-start' }}>
+                    <Text
+                      style={{
+                        fontSize: FontSize.inputPlaceholder_size,
+                        textAlign: 'center',
+                        fontFamily: FontFamily.inputPlaceholder,
+                        fontWeight: '700',
+                        color: Color.sportsVioleta,
+                        marginTop: 10,
+                        marginBottom: 20,
+                        alignSelf: 'center'
+                      }}
+                    >
                       {t('ultimaspruebas')}
                     </Text>
                     <ScrollView
@@ -679,13 +696,19 @@ const InicioDeportista = () => {
                               style={{
                                 backgroundColor: Color.sportsNaranja,
                                 position: 'absolute',
-                                bottom: 10,
+                                top: 10,
                                 right: 10,
                                 paddingHorizontal: 6,
                                 borderRadius: 12
                               }}
                             >
-                              <Text style={{ fontWeight: 600, color: 'white' }}>
+                              <Text
+                                style={{
+                                  fontWeight: 600,
+                                  color: 'white',
+                                  marginBottom: 2
+                                }}
+                              >
                                 +
                               </Text>
                             </Pressable>
@@ -695,8 +718,10 @@ const InicioDeportista = () => {
                   </View>
                 )}
                 {eventsExpired.length > 0 && (
-                  <View style={{ alignItems: 'center' }}>
-                    <Text style={styles.helloTypoScroll}>
+                  <View style={{ alignItems: 'flex-start' }}>
+                    <Text
+                      style={{ ...styles.helloTypoScroll, alignSelf: 'center' }}
+                    >
                       {t('resultadoultimaspruebas')}
                     </Text>
                     <ScrollView
@@ -776,13 +801,19 @@ const InicioDeportista = () => {
                               style={{
                                 backgroundColor: Color.sportsNaranja,
                                 position: 'absolute',
-                                bottom: 10,
+                                top: 10,
                                 right: 10,
                                 paddingHorizontal: 6,
                                 borderRadius: 12
                               }}
                             >
-                              <Text style={{ fontWeight: 600, color: 'white' }}>
+                              <Text
+                                style={{
+                                  fontWeight: 600,
+                                  color: 'white',
+                                  marginBottom: 2
+                                }}
+                              >
                                 +
                               </Text>
                             </Pressable>
