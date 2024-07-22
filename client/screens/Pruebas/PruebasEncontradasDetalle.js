@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   Image,
   Modal,
@@ -47,21 +47,23 @@ import {
 import { useTranslation } from 'react-i18next'
 import { setSport } from '../../redux/slices/sports.slices'
 import axiosInstance from '../../utils/apiBackend'
-import { useRoute } from '@react-navigation/native'
+import { useFocusEffect, useRoute } from '@react-navigation/native'
 import XLSX from 'xlsx'
 import { writeDataAndDownloadExcelFile } from '../Pruebas/xlsxdownloader'
 import { Feather } from '@expo/vector-icons'
 import i18next from 'i18next'
 
-const PruebasEncontradasDetalle = ({ navigation }) => {
+const PruebasEncontradasDetalle = ({ navigation  }) => {
   const router = useRoute()
   // console.log('router.params', router.params)
   const dispatch = useDispatch()
   const { t, i18n } = useTranslation()
 
   const { user, eventFavorites, users } = useSelector((state) => state.users)
+  const { event } = useSelector((state) => state.events)
+
   const {
-    event,
+    // event,
     loading,
     events,
     suscribedEventsNotifications,
@@ -77,18 +79,20 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   const [notificationEnable, setNotificationEnable] = useState(false)
   // console.log('EVENTID', event.id)
 
-  useEffect(() => {
-    if (router?.params?.id) {
-      console.log('ID FROM PARAMS', router.params.id)
-      dispatch(
-        visitEvent({
-          eventId: router.params.id,
-          userId: user.id
-        })
-      )
-      dispatch(getEventByIdRedux(router.params.id))
-    }
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      console.log('ID FROM PARAMS', router.params);
+      if (router?.params?.id) {
+        dispatch(
+          visitEvent({
+            eventId: router.params.id,
+            userId: user.id
+          })
+        );
+        dispatch(getEventByIdRedux(router.params.id));
+      }
+    }, [router?.params?.id])
+  );
   const stateName =
     eventFavorites && eventFavorites?.some((fav) => fav?.id === event?.id)
   const isGuest = user?.email === 'guestUser@gmail.com'
@@ -362,7 +366,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
           <Image
             style={styles.unsplashon4qwhhjcemIcon}
             contentFit="cover"
-            source={{ uri: eventState.image }}
+            source={eventState.image ? { uri: eventState.image } : require(' ../../../assets/spotsportadaptative.png')  }
+           
           />
 
           <Pressable

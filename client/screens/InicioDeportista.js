@@ -532,7 +532,7 @@ const InicioDeportista = () => {
                                 })
                               )
                               dispatch(getEventByIdRedux(event.id))
-                              navigation.navigate('PruebasEncontradasDetalle')
+                              navigation.navigate('PruebasEncontradasDetalle',{id:event.id})
                             }}
                           >
                             {event.image && event.image !== '' ? (
@@ -648,7 +648,7 @@ const InicioDeportista = () => {
                                 })
                               )
                               dispatch(getEventByIdRedux(event.id))
-                              navigation.navigate('PruebasEncontradasDetalle')
+                              navigation.navigate('PruebasEncontradasDetalle',{id:event.id})
                             }}
                           >
                             {event.image && event.image !== '' ? (
@@ -752,7 +752,7 @@ const InicioDeportista = () => {
                                 })
                               )
                               dispatch(getEventByIdRedux(event.id))
-                              navigation.navigate('PruebasEncontradasDetalle')
+                              navigation.navigate('PruebasEncontradasDetalle',{id:event.id})
                             }}
                           >
                             {event.image && event.image !== '' ? (

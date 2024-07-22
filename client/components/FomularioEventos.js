@@ -1,6 +1,7 @@
 import * as ImagePicker from 'expo-image-picker'
 import React, { useEffect, useState, useCallback } from 'react'
 import {
+  ActivityIndicator,
   Alert,
   Button,
   Image,
@@ -57,6 +58,8 @@ const FomularioEventos = ({
   const [calendarInscription, setCalendarInscription] = useState(null)
   const [selectedImage, setSelectedImage] = useState(null)
   const [selectedImageRule, setSelectedImageRule] = useState(null)
+  const [loading, setLoading] = useState(false)
+
 
   const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
   const [sportsModal, setSportsModal] = useState(false)
@@ -330,6 +333,7 @@ const FomularioEventos = ({
   }, [])
 
   const onEdit = () => {
+    setLoading(true)
     const data = {
       title: event.title,
       description: event.description,
@@ -346,26 +350,30 @@ const FomularioEventos = ({
       image: selectedImage || event.image,
       rules: fileUrl || selectedImageRule || ''
     }
-    dispatch(updateEvent({ id: eventData.id, updateEventDto: data }))
-    setEvent({
-      title: '',
-      description: '',
-      price: '',
-      location: '',
-      timeStart: '',
-      eventLink: '',
-      inscriptionLink: '',
-      places: '',
-      mail: '',
-      phoneNumber: '',
-      image: null,
-      rules: ''
+    
+    dispatch(updateEvent({ id: eventData.id, updateEventDto: data })).then(()=> dispatch(getAllEvents()) ).then(()=> {
+      setEvent({
+        title: '',
+        description: '',
+        price: '',
+        location: '',
+        timeStart: '',
+        eventLink: '',
+        inscriptionLink: '',
+        places: '',
+        mail: '',
+        phoneNumber: '',
+        image: null,
+        rules: ''
+      })
+      setSelectedFile('')
+      clearRedux()
+      setLoading(false)
+      navigation.goBack()
     })
-    setSelectedFile('')
-    clearRedux()
-    dispatch(getAllEvents())
 
-    navigation.goBack()
+
+
   }
 
   const onSubmit = () => {
@@ -827,6 +835,7 @@ const FomularioEventos = ({
       </View>
       <TouchableOpacity
         style={styles.submit}
+        disabled={loading}
         onPress={() => {
           if (onEditMode) {
             onEdit()
@@ -845,7 +854,7 @@ const FomularioEventos = ({
         }}
       >
         <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>
-          {onEditMode ? t('editar') : t('enviar')}
+          {(onEditMode && !loading) ? t('editar') : loading ? <ActivityIndicator color="#ffff"></ActivityIndicator>:t('enviar')}
         </Text>
       </TouchableOpacity>
 
