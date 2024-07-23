@@ -102,34 +102,35 @@ const CalendarOneDay = ({
     currentDate.setHours(0, 0, 0, 0); // Establecer la hora a medianoche para comparar solo las fechas
     const startDate = new Date(dateStart);
     const suscriptionDate = new Date(dateSuscription);
-  
-    
- 
+
     if (inscription) {
       setEvent((prevState) => ({
         ...prevState,
         ['nacimiento']: day?.dateString
       }));
     }
-  
+
     if (start && !suscription) {
- 
       if (!dateSuscription || newDate >= suscriptionDate) {
         setSelected(day?.dateString);
         setValuesUser && setValuesUser({ ...valuesUser, ['birthDate']: day?.dateString });
         dispatch(setDateStart(day?.dateString));
   
-      } else {
-        console.error('La fecha de inicio debe ser mayor o igual a la fecha de suscripción');
+      }
+ 
+      
+      else {
+        setSelected(day?.dateString);
+     
+
+  
       }
     } else {
-      
       if (!dateStart || newDate < startDate) {
-        
         setValuesUser && setValuesUser({ ...valuesUser, ['birthDate']: day?.dateString });
         setSelected(day?.dateString);
         dispatch(setDateSuscription(day?.dateString));
-      }
+      } 
     }
   };
 
