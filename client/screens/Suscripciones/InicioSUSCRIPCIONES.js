@@ -23,7 +23,7 @@ import SubscribeView from '../../components/SuscribeView'
 // import SubscribedPlan from '../../components/SubscribedPlan'
 import { prices } from '../../utils/prices.stripe'
 import { LinearGradient } from 'expo-linear-gradient'
-import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native'
+// import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native'
 import axiosInstance from '../../utils/apiBackend'
 import { useTranslation } from "react-i18next";
 
@@ -37,39 +37,39 @@ const InicioSUSCRIPCIONES = () => {
   const { user } = useSelector((state) => state.users)
   const { t, i18n } = useTranslation();
 
-  const { initPaymentSheet, presentPaymentSheet } = useStripe(null)
+  // const { initPaymentSheet, presentPaymentSheet } = useStripe(null)
 
-  React.useEffect(() => {
-    const initializePaymentSheet = async () => {
-      const { error } = await initPaymentSheet({
-        paymentIntentClientSecret: clientSecret,
-        merchantDisplayName: 'asdasda',
-        returnURL: 'stripe-example://payment-sheet',
+  // React.useEffect(() => {
+  //   const initializePaymentSheet = async () => {
+  //     const { error } = await initPaymentSheet({
+  //       paymentIntentClientSecret: clientSecret,
+  //       merchantDisplayName: 'asdasda',
+  //       returnURL: 'stripe-example://payment-sheet',
         
-        // Set `allowsDelayedPaymentMethods` to true if your business handles
-        // delayed notification payment methods like US bank accounts.
-      })
-      if (error) {
-        // Handle error
-        // console.log(error,"error")
-      } else {
-        const { error } = await presentPaymentSheet()
-        if (error) {
-          // console.log(error,"error")
-        } else {
-          // const updUser = await axiosInstance.patch(`user/${user.user.id}`,{
-          //   plan:planSelected
-          // })
-          // console.log(updUser, "upd")
-        }
-      }
-    }
+  //       // Set `allowsDelayedPaymentMethods` to true if your business handles
+  //       // delayed notification payment methods like US bank accounts.
+  //     })
+  //     if (error) {
+  //       // Handle error
+  //       // console.log(error,"error")
+  //     } else {
+  //       const { error } = await presentPaymentSheet()
+  //       if (error) {
+  //         // console.log(error,"error")
+  //       } else {
+  //         // const updUser = await axiosInstance.patch(`user/${user.user.id}`,{
+  //         //   plan:planSelected
+  //         // })
+  //         // console.log(updUser, "upd")
+  //       }
+  //     }
+  //   }
 
-    if (clientSecret) {
-      // console.log("entra a la hoja")
-      initializePaymentSheet()
-    }
-  }, [clientSecret, initPaymentSheet])
+  //   if (clientSecret) {
+  //     // console.log("entra a la hoja")
+  //     initializePaymentSheet()
+  //   }
+  // }, [clientSecret, initPaymentSheet])
 
   const [show, setShow] = useState(false)
   // console.log('clientSecret en inicio susc', user)
@@ -192,7 +192,7 @@ const InicioSUSCRIPCIONES = () => {
                       <Image
                         style={styles.imageIcon}
                         contentFit="cover"
-                        source={require('../../assets/reseña.png')}
+                        source={require('../../assets/resena.png')}
                       />
                       <Text style={styles.textos}>
                       {t("reseñavalor")}

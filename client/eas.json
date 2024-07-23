@@ -1,6 +1,7 @@
 {
   "cli": {
-    "version": ">= 7.6.0"
+    "version": ">= 7.6.0",
+    "promptToConfigurePushNotifications": false
   },
   "build": {
     "development": {
@@ -16,10 +17,8 @@
     "production": {
       "android": {
         "resourceClass": "medium"
-      },
-      "ios": {
-        "resourceClass": "medium"
       }
+
     }
   },
   "submit": {

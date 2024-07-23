@@ -177,13 +177,30 @@ const InicioDeportista = () => {
     return Math.floor(diferenciaMs / unDia)
   }
 
-  const isWithinLast48Hours = (date) => {
-    const currentDate = new Date()
-    const passedDate = date
-    const differenceInHours = (passedDate - currentDate) / (1000 * 60 * 60)
-    //  console.log('hour difference', differenceInHours)
-    return differenceInHours <= 48
-  }
+  const isWithinNext2Days = (date) => {
+    const currentDate = new Date();
+    const passedDate = new Date(date);
+  
+    // Obtener solo la fecha (sin la hora)
+    currentDate.setHours(0, 0, 0, 0);
+    passedDate.setHours(0, 0, 0, 0);
+  
+    // Calcular la diferencia en milisegundos y convertir a días
+    const differenceInDays = (passedDate - currentDate) / (1000 * 60 * 60 * 24);
+  
+    console.log('currentDate:', currentDate);
+    console.log('passedDate:', passedDate);
+    console.log('day difference', differenceInDays);
+  
+    // Verificar si la diferencia está dentro de los próximos dos días
+    return differenceInDays >= 0 && differenceInDays <= 2;
+  };
+  
+  // Filtro para los próximos 2 días de inscripción
+  const lastHours = eventos.filter((evento) => {
+    return isWithinNext2Days(evento.dateInscription);
+  });
+  
 
   const fechaActual = new Date()
 
@@ -192,13 +209,6 @@ const InicioDeportista = () => {
     const diferenciaDias = functionDate(fechaActual, fechaEvento)
 
     return diferenciaDias < 7
-  })
-
-  // Filtro para las ultimas 48hs de inscripcion
-  const lastHours = eventos.filter((evento) => {
-    const fechaEvento = new Date(evento.dateInscription)
-
-    return isWithinLast48Hours(fechaEvento)
   })
 
   const eventsExpired = eventos.filter((evento) => {
@@ -210,6 +220,14 @@ const InicioDeportista = () => {
   const isGuest = user?.email === 'guestUser@gmail.com'
 
   // console.log('userNotifications', userNotifications)
+
+  const isRegistrationOpen = (eventDate) => {
+    const currentDate = new Date();
+    const passedDate = new Date(eventDate);
+  
+    // Comparar las fechas directamente
+    return currentDate <= passedDate;
+  };
 
   if (loadingGet) {
     return (
@@ -513,98 +531,102 @@ const InicioDeportista = () => {
                       showsHorizontalScrollIndicator={false}
                     >
                       {lastHours &&
-                        sortByDate([...lastHours]).map((event, i) => (
-                          <Pressable
-                            key={i}
-                            style={
-                              i === 0
-                                ? styles.image94ParentShadowBox1
-                                : i === sortByDate([...lastHours]).length - 1
-                                ? styles.image94ParentShadowBoxr
-                                : styles.image94ParentShadowBox
-                            }
-                            onPress={() => {
-                              console.log('here')
-                              dispatch(
-                                visitEvent({
-                                  eventId: event.id,
-                                  userId: user.id
-                                })
-                              )
-                              dispatch(getEventByIdRedux(event.id))
-                              navigation.navigate('PruebasEncontradasDetalle',{id:event.id})
-                            }}
-                          >
-                            {event.image && event.image !== '' ? (
-                              <Image
-                                style={styles.image94Icon}
-                                contentFit="cover"
-                                source={{ uri: event.image }}
-                              />
-                            ) : (
-                              <Image
-                                style={styles.image94Icon}
-                                contentFit="cover"
-                                source={require('../assets/spotsportadaptative.png')}
-                              />
-                            )}
-                            <View
-                              style={[
-                                styles.imGoingToShakeYParent,
-                                styles.frameGroupSpaceBlock
-                              ]}
+                        sortByDate([...lastHours]).map((event, i) => {
+                            const available = isRegistrationOpen(event.dateInscription)
+                       return   (
+                            <Pressable
+                              key={i}
+                              style={
+                                i === 0
+                                  ? styles.image94ParentShadowBox1
+                                  : i === sortByDate([...lastHours]).length - 1
+                                  ? styles.image94ParentShadowBoxr
+                                  : styles.image94ParentShadowBox
+                              }
+                              onPress={() => {
+                                console.log('here')
+                                dispatch(
+                                  visitEvent({
+                                    eventId: event.id,
+                                    userId: user.id
+                                  })
+                                )
+                                dispatch(getEventByIdRedux(event.id))
+                                navigation.navigate('PruebasEncontradasDetalle',{id:event.id})
+                              }}
                             >
-                              <Text
-                                numberOfLines={1}
-                                ellipsizeMode="tail"
-                                style={[styles.imGoingTo, styles.goingTypo]}
+                              {event.image && event.image !== '' ? (
+                                <Image
+                                  style={styles.image94Icon}
+                                  contentFit="cover"
+                                  source={{ uri: event.image }}
+                                />
+                              ) : (
+                                <Image
+                                  style={styles.image94Icon}
+                                  contentFit="cover"
+                                  source={require('../assets/spotsportadaptative.png')}
+                                />
+                              )}
+                              <View
+                                style={[
+                                  styles.imGoingToShakeYParent,
+                                  styles.frameGroupSpaceBlock
+                                ]}
                               >
-                                {event?.title}
-                              </Text>
-                              <View style={styles.minParent}>
                                 <Text
                                   numberOfLines={1}
                                   ellipsizeMode="tail"
-                                  style={[styles.min, styles.minClr]}
+                                  style={[styles.imGoingTo, styles.goingTypo]}
                                 >
-                                  {event?.description}
+                                  {event?.title}
                                 </Text>
-                                {/* <Text style={[styles.min1, styles.minTypo1]}>
-           {event?.header}
-         </Text> */}
+                                <View style={styles.minParent}>
+                                  <Text
+                                    numberOfLines={1}
+                                    ellipsizeMode="tail"
+                                    style={[styles.min, styles.minClr]}
+                                  >
+                                    {event?.description}
+                                  </Text>
+                                  {/* <Text style={[styles.min1, styles.minTypo1]}>
+             {event?.header}
+           </Text> */}
+                                </View>
                               </View>
-                            </View>
-                           {event?.creator?.id !== user.id && (
-                             <Pressable
-                             onPress={() => {
-                               if (isGuest) {
-                                 dispatch(setShowGuestModal(true))
-                                 return
-                               }
-                               navigation.navigate('Inscripcion', event)
-                             }}
-                             style={{
-                               backgroundColor: Color.sportsNaranja,
-                               position: 'absolute',
-                               top: 10,
-                               right: 10,
-                               paddingHorizontal: 6,
-                               borderRadius: 12
-                             }}
-                           >
-                             <Text
+                             {(event?.creator?.id !== user.id && available) && (
+                               <Pressable
+                               onPress={() => {
+                                 if (isGuest) {
+                                   dispatch(setShowGuestModal(true))
+                                   return
+                                 }
+                                 navigation.navigate('Inscripcion', event)
+                               }}
                                style={{
-                                 fontWeight: 600,
-                                 color: 'white',
-                                 marginBottom: 2
+                                 backgroundColor: Color.sportsNaranja,
+                                 position: 'absolute',
+                                 top: 10,
+                                 right: 10,
+                                 paddingHorizontal: 6,
+                                 borderRadius: 12
                                }}
                              >
-                               +
-                             </Text>
-                           </Pressable>
-                           )}
-                          </Pressable>
-                        ))}
+                               <Text
+                                 style={{
+                                   fontWeight: 600,
+                                   color: 'white',
+                                   marginBottom: 2
+                                 }}
+                               >
+                                 +
+                               </Text>
+                             </Pressable>
+                             )}
+                            </Pressable>
+                          )
+
+                        })}
                     </ScrollView>
                   </View>
                 )}
@@ -629,95 +651,99 @@ const InicioDeportista = () => {
                       showsHorizontalScrollIndicator={false}
                     >
                       {latestEventsAdded &&
-                        sortByDate([...latestEventsAdded])?.map((event, i) => (
-                          <Pressable
-                            key={i}
-                            style={
-                              i === 0
-                                ? styles.image94ParentShadowBox1
-                                : i ===
-                                  sortByDate([...latestEventsAdded]).length - 1
-                                ? styles.image94ParentShadowBoxr
-                                : styles.image94ParentShadowBox
-                            }
-                            onPress={() => {
-                              dispatch(
-                                visitEvent({
-                                  eventId: event.id,
-                                  userId: user.id
-                                })
-                              )
-                              dispatch(getEventByIdRedux(event.id))
-                              navigation.navigate('PruebasEncontradasDetalle',{id:event.id})
-                            }}
-                          >
-                            {event.image && event.image !== '' ? (
-                              <Image
-                                style={styles.image94Icon}
-                                contentFit="cover"
-                                source={{ uri: event.image }}
-                              />
-                            ) : (
-                              <Image
-                                style={styles.image94Icon}
-                                contentFit="cover"
-                                source={require('../assets/spotsportadaptative.png')}
-                              />
-                            )}
-                            <View
-                              style={[
-                                styles.imGoingToShakeYParent,
-                                styles.frameGroupSpaceBlock
-                              ]}
+                        sortByDate([...latestEventsAdded])?.map((event, i) => {
+                          const available = isRegistrationOpen(event.dateInscription)
+
+                          return (
+                            <Pressable
+                              key={i}
+                              style={
+                                i === 0
+                                  ? styles.image94ParentShadowBox1
+                                  : i ===
+                                    sortByDate([...latestEventsAdded]).length - 1
+                                  ? styles.image94ParentShadowBoxr
+                                  : styles.image94ParentShadowBox
+                              }
+                              onPress={() => {
+                                dispatch(
+                                  visitEvent({
+                                    eventId: event.id,
+                                    userId: user.id
+                                  })
+                                )
+                                dispatch(getEventByIdRedux(event.id))
+                                navigation.navigate('PruebasEncontradasDetalle',{id:event.id})
+                              }}
                             >
-                              <Text
-                                style={[styles.imGoingTo, styles.goingTypo]}
-                                numberOfLines={1}
-                                ellipsizeMode="tail"
+                              {event.image && event.image !== '' ? (
+                                <Image
+                                  style={styles.image94Icon}
+                                  contentFit="cover"
+                                  source={{ uri: event.image }}
+                                />
+                              ) : (
+                                <Image
+                                  style={styles.image94Icon}
+                                  contentFit="cover"
+                                  source={require('../assets/spotsportadaptative.png')}
+                                />
+                              )}
+                              <View
+                                style={[
+                                  styles.imGoingToShakeYParent,
+                                  styles.frameGroupSpaceBlock
+                                ]}
                               >
-                                {event.title}
-                              </Text>
-                              <View style={styles.minParent}>
                                 <Text
+                                  style={[styles.imGoingTo, styles.goingTypo]}
                                   numberOfLines={1}
                                   ellipsizeMode="tail"
-                                  style={[styles.min, styles.minClr]}
                                 >
-                                  {event.description}
+                                  {event.title}
                                 </Text>
+                                <View style={styles.minParent}>
+                                  <Text
+                                    numberOfLines={1}
+                                    ellipsizeMode="tail"
+                                    style={[styles.min, styles.minClr]}
+                                  >
+                                    {event.description}
+                                  </Text>
+                                </View>
                               </View>
-                            </View>
-                            {event?.creator?.id !== user.id && (
-                             <Pressable
-                             onPress={() => {
-                               if (isGuest) {
-                                 dispatch(setShowGuestModal(true))
-                                 return
-                               }
-                               navigation.navigate('Inscripcion', event)
-                             }}
-                             style={{
-                               backgroundColor: Color.sportsNaranja,
-                               position: 'absolute',
-                               top: 10,
-                               right: 10,
-                               paddingHorizontal: 6,
-                               borderRadius: 12
-                             }}
-                           >
-                             <Text
+                              {(event?.creator?.id !== user.id && available) && (
+                               <Pressable
+                               onPress={() => {
+                                 if (isGuest) {
+                                   dispatch(setShowGuestModal(true))
+                                   return
+                                 }
+                                 navigation.navigate('Inscripcion', event)
+                               }}
                                style={{
-                                 fontWeight: 600,
-                                 color: 'white',
-                                 marginBottom: 2
+                                 backgroundColor: Color.sportsNaranja,
+                                 position: 'absolute',
+                                 top: 10,
+                                 right: 10,
+                                 paddingHorizontal: 6,
+                                 borderRadius: 12
                                }}
                              >
-                               +
-                             </Text>
-                           </Pressable>
-                           )}
-                          </Pressable>
-                        ))}
+                               <Text
+                                 style={{
+                                   fontWeight: 600,
+                                   color: 'white',
+                                   marginBottom: 2
+                                 }}
+                               >
+                                 +
+                               </Text>
+                             </Pressable>
+                             )}
+                            </Pressable>
+                          )
+                        })}
                     </ScrollView>
                   </View>
                 )}
@@ -733,98 +759,102 @@ const InicioDeportista = () => {
                       showsHorizontalScrollIndicator={false}
                     >
                       {eventsExpired &&
-                        sortByDate([...eventsExpired]).map((event, i) => (
-                          <Pressable
-                            key={i}
-                            style={
-                              i === 0
-                                ? styles.image94ParentShadowBox1
-                                : i ===
-                                  sortByDate([...eventsExpired]).length - 1
-                                ? styles.image94ParentShadowBoxr
-                                : styles.image94ParentShadowBox
-                            }
-                            onPress={() => {
-                              dispatch(
-                                visitEvent({
-                                  eventId: event.id,
-                                  userId: user.id
-                                })
-                              )
-                              dispatch(getEventByIdRedux(event.id))
-                              navigation.navigate('PruebasEncontradasDetalle',{id:event.id})
-                            }}
-                          >
-                            {event.image && event.image !== '' ? (
-                              <Image
-                                style={styles.image94Icon}
-                                contentFit="cover"
-                                source={{ uri: event.image }}
-                              />
-                            ) : (
-                              <Image
-                                style={styles.image94Icon}
-                                contentFit="cover"
-                                source={require('../assets/spotsportadaptative.png')}
-                              />
-                            )}
-                            <View
-                              style={[
-                                styles.imGoingToShakeYParent,
-                                styles.frameGroupSpaceBlock
-                              ]}
+                        sortByDate([...eventsExpired]).map((event, i) => {
+                          const available = isRegistrationOpen(event.dateInscription)
+
+                          return (
+                            <Pressable
+                              key={i}
+                              style={
+                                i === 0
+                                  ? styles.image94ParentShadowBox1
+                                  : i ===
+                                    sortByDate([...eventsExpired]).length - 1
+                                  ? styles.image94ParentShadowBoxr
+                                  : styles.image94ParentShadowBox
+                              }
+                              onPress={() => {
+                                dispatch(
+                                  visitEvent({
+                                    eventId: event.id,
+                                    userId: user.id
+                                  })
+                                )
+                                dispatch(getEventByIdRedux(event.id))
+                                navigation.navigate('PruebasEncontradasDetalle',{id:event.id})
+                              }}
                             >
-                              <Text
-                                numberOfLines={1}
-                                ellipsizeMode="tail"
-                                style={[styles.imGoingTo, styles.goingTypo]}
+                              {event.image && event.image !== '' ? (
+                                <Image
+                                  style={styles.image94Icon}
+                                  contentFit="cover"
+                                  source={{ uri: event.image }}
+                                />
+                              ) : (
+                                <Image
+                                  style={styles.image94Icon}
+                                  contentFit="cover"
+                                  source={require('../assets/spotsportadaptative.png')}
+                                />
+                              )}
+                              <View
+                                style={[
+                                  styles.imGoingToShakeYParent,
+                                  styles.frameGroupSpaceBlock
+                                ]}
                               >
-                                {event?.title}
-                              </Text>
-                              <View style={styles.minParent}>
                                 <Text
                                   numberOfLines={1}
                                   ellipsizeMode="tail"
-                                  style={[styles.min, styles.minClr]}
+                                  style={[styles.imGoingTo, styles.goingTypo]}
                                 >
-                                  {event?.description}
+                                  {event?.title}
                                 </Text>
-                                {/* <Text style={[styles.min1, styles.minTypo1]}>
-                           {event?.header}
-                           </Text> */}
+                                <View style={styles.minParent}>
+                                  <Text
+                                    numberOfLines={1}
+                                    ellipsizeMode="tail"
+                                    style={[styles.min, styles.minClr]}
+                                  >
+                                    {event?.description}
+                                  </Text>
+                                  {/* <Text style={[styles.min1, styles.minTypo1]}>
+                             {event?.header}
+                             </Text> */}
+                                </View>
                               </View>
-                            </View>
-                            {event?.creator?.id !== user.id && (
-                             <Pressable
-                             onPress={() => {
-                               if (isGuest) {
-                                 dispatch(setShowGuestModal(true))
-                                 return
-                               }
-                               navigation.navigate('Inscripcion', event)
-                             }}
-                             style={{
-                               backgroundColor: Color.sportsNaranja,
-                               position: 'absolute',
-                               top: 10,
-                               right: 10,
-                               paddingHorizontal: 6,
-                               borderRadius: 12
-                             }}
-                           >
-                             <Text
+                              {(event?.creator?.id !== user.id && available) && (
+                               <Pressable
+                               onPress={() => {
+                                 if (isGuest) {
+                                   dispatch(setShowGuestModal(true))
+                                   return
+                                 }
+                                 navigation.navigate('Inscripcion', event)
+                               }}
                                style={{
-                                 fontWeight: 600,
-                                 color: 'white',
-                                 marginBottom: 2
+                                 backgroundColor: Color.sportsNaranja,
+                                 position: 'absolute',
+                                 top: 10,
+                                 right: 10,
+                                 paddingHorizontal: 6,
+                                 borderRadius: 12
                                }}
                              >
-                               +
-                             </Text>
-                           </Pressable>
-                           )}
-                          </Pressable>
-                        ))}
+                               <Text
+                                 style={{
+                                   fontWeight: 600,
+                                   color: 'white',
+                                   marginBottom: 2
+                                 }}
+                               >
+                                 +
+                               </Text>
+                             </Pressable>
+                             )}
+                            </Pressable>
+                          )
+                        })}
                     </ScrollView>
                     {/* <ScrollView
                    // style={{ marginBottom: 10 }}

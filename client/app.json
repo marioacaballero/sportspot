@@ -16,7 +16,7 @@
     "platforms": ["ios", "android"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.aythenapp.spotsport"
+      "bundleIdentifier": "com.aythenapp.spotsportfinal"
     },
     "android": {
       "googleServicesFile": "./utils/google-services.json",
@@ -34,10 +34,11 @@
       "intentFilters": [
         {
           "action": "VIEW",
+          "autoVerify": true,
           "data": [
             {
               "scheme": "https",
-              "host": "example.com",
+              "host": "spotsport.com",
               "pathPrefix": "/"
             }
           ],
@@ -58,13 +59,7 @@
           }
         }
       ],
-      [
-        "@stripe/stripe-react-native",
-        {
-          "merchantIdentifier": "",
-          "enableGooglePay": true
-        }
-      ],
+      
       "expo-localization"
     ],
     "extra": {

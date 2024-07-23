@@ -98,17 +98,22 @@ const CalendarOneDay = ({
 
   const handleDayPress = (day) => {
     const newDate = new Date(day?.dateString);
+    const currentDate = new Date(); // Obtener la fecha actual
+    currentDate.setHours(0, 0, 0, 0); // Establecer la hora a medianoche para comparar solo las fechas
     const startDate = new Date(dateStart);
     const suscriptionDate = new Date(dateSuscription);
-
+  
+    
+ 
     if (inscription) {
       setEvent((prevState) => ({
         ...prevState,
         ['nacimiento']: day?.dateString
       }));
     }
-
+  
     if (start && !suscription) {
+ 
       if (!dateSuscription || newDate >= suscriptionDate) {
         setSelected(day?.dateString);
         setValuesUser && setValuesUser({ ...valuesUser, ['birthDate']: day?.dateString });
@@ -118,11 +123,13 @@ const CalendarOneDay = ({
         console.error('La fecha de inicio debe ser mayor o igual a la fecha de suscripción');
       }
     } else {
+      
       if (!dateStart || newDate < startDate) {
+        
         setValuesUser && setValuesUser({ ...valuesUser, ['birthDate']: day?.dateString });
         setSelected(day?.dateString);
         dispatch(setDateSuscription(day?.dateString));
-      } 
+      }
     }
   };
 

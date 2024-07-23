@@ -29,7 +29,7 @@ import { setSport } from '../redux/slices/sports.slices'
 import { createEvent, getAllEvents, updateEvent } from '../redux/actions/events'
 import { setDateStart, setDateSuscription } from '../redux/slices/events.slices'
 import CustomAlert from './CustomAlert'
-import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native'
+// import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native'
 import axiosInstance from '../utils/apiBackend'
 import { useTranslation } from 'react-i18next'
 import * as DocumentPicker from 'expo-document-picker'
@@ -180,50 +180,50 @@ const FomularioEventos = ({
     dispatch(getUser(user.id))
   }, [])
 
-  const { initPaymentSheet, presentPaymentSheet } = useStripe(null)
+  // const { initPaymentSheet, presentPaymentSheet } = useStripe(null)
 
   const [selectedFile, setSelectedFile] = useState(null)
 
-  React.useEffect(() => {
-    const initializePaymentSheet = async () => {
-      const { error } = await initPaymentSheet({
-        paymentIntentClientSecret: clientSecret,
-        merchantDisplayName: 'Promocionar evento',
-        returnURL: 'stripe-example://payment-sheet'
-        // Set `allowsDelayedPaymentMethods` to true if your business handles
-        // delayed notification payment methods like US bank accounts.
-      })
-      if (error) {
-        // Handle error
-        // console.log(error, 'error')
-      } else {
-        const { error } = await presentPaymentSheet()
-        if (error) {
-          // console.log(error, 'error')
-        } else {
-          // const updUser = await axiosInstance.patch(`user/${user.user.id}`,{
-          //   plan:planSelected
-          // })
-          setClientSecret(null)
-          onSubmit(
-            event,
-            sport,
-            user,
-            selectedImage,
-            dispatch,
-            dateSuscription,
-            dateStart,
-            setShowAlert
-          )
-        }
-      }
-    }
+  // React.useEffect(() => {
+  //   const initializePaymentSheet = async () => {
+  //     const { error } = await initPaymentSheet({
+  //       paymentIntentClientSecret: clientSecret,
+  //       merchantDisplayName: 'Promocionar evento',
+  //       returnURL: 'stripe-example://payment-sheet'
+  //       // Set `allowsDelayedPaymentMethods` to true if your business handles
+  //       // delayed notification payment methods like US bank accounts.
+  //     })
+  //     if (error) {
+  //       // Handle error
+  //       // console.log(error, 'error')
+  //     } else {
+  //       const { error } = await presentPaymentSheet()
+  //       if (error) {
+  //         // console.log(error, 'error')
+  //       } else {
+  //         // const updUser = await axiosInstance.patch(`user/${user.user.id}`,{
+  //         //   plan:planSelected
+  //         // })
+  //         setClientSecret(null)
+  //         onSubmit(
+  //           event,
+  //           sport,
+  //           user,
+  //           selectedImage,
+  //           dispatch,
+  //           dateSuscription,
+  //           dateStart,
+  //           setShowAlert
+  //         )
+  //       }
+  //     }
+  //   }
 
-    if (clientSecret) {
-      // console.log('entra a la hoja')
-      initializePaymentSheet()
-    }
-  }, [clientSecret, initPaymentSheet])
+  //   if (clientSecret) {
+  //     // console.log('entra a la hoja')
+  //     initializePaymentSheet()
+  //   }
+  // }, [clientSecret, initPaymentSheet])
 
   // const handleStripe = async () => {
   //   const { data } = await axiosInstance.post(
@@ -395,24 +395,27 @@ const FomularioEventos = ({
       rules: fileUrl || selectedImageRule || ''
     }
     // console.log('creating event with: ', data)
-    dispatch(createEvent(data))
-    setEvent({
-      title: '',
-      description: '',
-      price: '',
-      location: '',
-      timeStart: '',
-      eventLink: '',
-      inscriptionLink: '',
-      places: '',
-      mail: '',
-      phoneNumber: '',
-      image: null
+    dispatch(createEvent(data)).then(()=> {
+      dispatch(getAllEvents())
+      setEvent({
+        title: '',
+        description: '',
+        price: '',
+        location: '',
+        timeStart: '',
+        eventLink: '',
+        inscriptionLink: '',
+        places: '',
+        mail: '',
+        phoneNumber: '',
+        image: null
+      })
+      setSelectedFile('')
+  
+      clearRedux()
+    return  navigation.goBack()
     })
-    setSelectedFile('')
-
-    clearRedux()
-    navigation.goBack()
+  
     // setShowAlert(true)
   }
 
