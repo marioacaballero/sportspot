@@ -5,18 +5,28 @@
     "slug": "spotsport",
     "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/spotsport.png",
+    "icon": "./assets/spotsportadaptative.png",
     "userInterfaceStyle": "light",
+    
     "splash": {
       "image": "./assets/spotsport.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
-    "platforms": ["ios", "android"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.aythenapp.spotsportfinal"
+      "bundleIdentifier": "com.aythenapp.spotsportfinal",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/spotsportadaptative.png",
+        "backgroundColor": "#ffffff"
+      }
     },
     "android": {
       "googleServicesFile": "./utils/google-services.json",
@@ -42,7 +52,10 @@
               "pathPrefix": "/"
             }
           ],
-          "category": ["BROWSABLE", "DEFAULT"]
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
         }
       ]
     },
@@ -59,18 +72,17 @@
           }
         }
       ],
-      
       "expo-localization"
     ],
     "extra": {
       "eas": {
-        "projectId": "3b77cef6-ebe6-4d36-b616-c391d890f0bb"
+        "projectId": "4f6d3b77-0567-441d-8b63-8d0d9373c7dd"
       }
     },
     "updates": {
       "url": "https://u.expo.dev/ac124ba8-62c5-44ac-ab0e-8da7a8b8e646"
     },
-    "owner": "azulschiaffino",
+    "owner": "azulschiaffino2",
     "scheme": "spotsport"
   }
 }

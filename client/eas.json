@@ -22,6 +22,12 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios":{
+        "appleId":"spotsport@spotsport.eu",
+        "ascAppId":"6569227539",
+        "appleTeamId":"V3K39HHL99"
+      }
+    }
   }
 }
