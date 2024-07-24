@@ -310,7 +310,7 @@ export default function SignIn({ navigation }) {
                 <Text style={styles.buttonText}>{t('iniciarcongoogle')}</Text>
               </Pressable>
             </View>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={async () => {
                 const credential = {
                   identityToken:
@@ -357,7 +357,7 @@ export default function SignIn({ navigation }) {
               style={styles.button}
             >
               <Text style={styles.buttonText}>{t('iniciarconapple')}</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <AppleAuthentication.AppleAuthenticationButton
               buttonType={
                 AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
