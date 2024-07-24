@@ -21,6 +21,7 @@
       "android"
     ],
     "ios": {
+      "usesAppleSignIn": true,
       "supportsTablet": true,
       "bundleIdentifier": "com.aythenapp.spotsportfinal",
       "adaptiveIcon": {
@@ -62,6 +63,7 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
+      "expo-apple-authentication",
       "expo-font",
       [
         "expo-build-properties",

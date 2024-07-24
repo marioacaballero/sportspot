@@ -31,6 +31,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { AntDesign, Entypo } from '@expo/vector-icons'
 import { useTranslation } from 'react-i18next'
 import { useFocusEffect } from '@react-navigation/native'
+import * as AppleAuthentication from 'expo-apple-authentication'
+import axiosInstance from '../../utils/apiBackend'
 WebBrowser.maybeCompleteAuthSession()
 
 // credenciales ios:
@@ -308,10 +310,75 @@ export default function SignIn({ navigation }) {
                 <Text style={styles.buttonText}>{t('iniciarcongoogle')}</Text>
               </Pressable>
             </View>
-            <View style={styles.button}>
+            {/* <View style={styles.button}>
               <Text style={styles.buttonText}>{t('iniciarconapple')}</Text>
-            </View>
-
+            </View> */}
+            <AppleAuthentication.AppleAuthenticationButton
+              buttonType={
+                AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
+              }
+              buttonStyle={
+                AppleAuthentication.AppleAuthenticationButtonStyle.WHITE_OUTLINE
+              }
+              cornerRadius={50}
+              style={styles.button}
+              onPress={async () => {
+                try {
+                  const credential = await AppleAuthentication.signInAsync({
+                    requestedScopes: [
+                      AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+                      AppleAuthentication.AppleAuthenticationScope.EMAIL
+                    ]
+                  })
+                  // signed in
+                  if (credential) {
+                    const { user, identityToken, email, nickname } = credential
+                    const jsonValue = JSON.stringify({
+                      user,
+                      identityToken,
+                      email,
+                      nickname
+                    })
+                    await AsyncStorage.setItem('userCredentials', jsonValue)
+                    const res = await axiosInstance.get(
+                      `users/email?email=${user.slice(0, 12)}@icloud.com`
+                    )
+                    if (res.data.id) {
+                      dispatch(
+                        login({
+                          email: `${user.slice(0, 12)}@icloud.com`,
+                          password: identityToken.slice(0, 15)
+                        })
+                      )
+                    } else {
+                      dispatch(
+                        register({
+                          email: `${user.slice(0, 12)}@icloud.com`,
+                          password: `${identityToken.slice(0, 15)}`,
+                          name: nickname || 'Nuevo usuario'
+                        })
+                      ).then(async (data) => {
+                        if (data.payload.user) {
+                          const { email, password } = data.payload.user
+                          // console.log('login with: ', email, password, name, googleId)
+                          dispatch(login({ email, password }))
+                          await AsyncStorage.setItem(
+                            'userCredentials',
+                            JSON.stringify({ email, password})
+                          )
+                        }
+                      })
+                    }
+                  }
+                } catch (e) {
+                  if (e.code === 'ERR_REQUEST_CANCELED') {
+                    // handle that the user canceled the sign-in flow
+                  } else {
+                    // handle other errors
+                  }
+                }
+              }}
+            />
             <Pressable
               style={styles.button}
               onPress={() => navigation.navigate('IniciarSesin')}
