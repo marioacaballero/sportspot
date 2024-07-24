@@ -1,6 +1,8 @@
 {
   "cli": {
-    "version": ">= 7.6.0"
+    "version": ">= 7.6.0",
+    "promptToConfigurePushNotifications": false,
+    "appVersionSource":"remote"
   },
   "build": {
     "development": {
@@ -14,15 +16,20 @@
       }
     },
     "production": {
+      "autoIncrement":true,
       "android": {
         "resourceClass": "medium"
-      },
-      "ios": {
-        "resourceClass": "medium"
       }
+
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios":{
+        "appleId":"spotsport@spotsport.eu",
+        "ascAppId":"6569227539",
+        "appleTeamId":"V3K39HHL99"
+      }
+    }
   }
 }

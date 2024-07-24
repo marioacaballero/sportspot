@@ -24,7 +24,7 @@ import {
 import CustomAlert from '../../components/CustomAlert'
 import { useTranslation } from "react-i18next";
 
-const RecuperarContraseña = () => {
+export const RecuperarContrasena = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
@@ -314,4 +314,3 @@ const styles = StyleSheet.create({
   }
 })
 
-export default RecuperarContraseña

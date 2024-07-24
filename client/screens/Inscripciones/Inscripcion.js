@@ -31,7 +31,7 @@ import {
   setDateStart,
   setDateSuscription
 } from '../../redux/slices/events.slices'
-import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native'
+// import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native'
 import axiosInstance from '../../utils/apiBackend'
 import { t } from 'i18next'
 import Maps from '../../components/Maps'
@@ -74,48 +74,48 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
   const [genderModal, setGenderModal] = useState(false)
   const [gender, setGender] = useState()
 
-  const { initPaymentSheet, presentPaymentSheet } = useStripe(null)
+  // const { initPaymentSheet, presentPaymentSheet } = useStripe(null)
   const [loading, setLoading] = useState(false)
 
-  const fetchPaymentSheetParams = async () => {
-    const response = await axiosInstance.post(`/stripe/paymentEvent`, {
-      amount: parseInt(`${route.params.price}00`),
-      customerId: user.stripeId
-    })
-    console.log(response.data)
-    const { paymentIntent, ephemeralKey, customer } = response.data
+  // const fetchPaymentSheetParams = async () => {
+  //   const response = await axiosInstance.post(`/stripe/paymentEvent`, {
+  //     amount: parseInt(`${route.params.price}00`),
+  //     customerId: user.stripeId
+  //   })
+  //   console.log(response.data)
+  //   const { paymentIntent, ephemeralKey, customer } = response.data
 
-    return {
-      paymentIntent,
-      ephemeralKey,
-      customer
-    }
-  }
+  //   return {
+  //     paymentIntent,
+  //     ephemeralKey,
+  //     customer
+  //   }
+  // }
 
-  const initializePaymentSheet = async () => {
-    const { paymentIntent, ephemeralKey, customer, publishableKey } =
-      await fetchPaymentSheetParams()
+  // const initializePaymentSheet = async () => {
+  //   const { paymentIntent, ephemeralKey, customer, publishableKey } =
+  //     await fetchPaymentSheetParams()
 
-    const { error } = await initPaymentSheet({
-      merchantDisplayName: 'Example, Inc.',
-      customerId: customer,
-      customerEphemeralKeySecret: ephemeralKey,
-      paymentIntentClientSecret: paymentIntent,
+  //   const { error } = await initPaymentSheet({
+  //     merchantDisplayName: 'Example, Inc.',
+  //     customerId: customer,
+  //     customerEphemeralKeySecret: ephemeralKey,
+  //     paymentIntentClientSecret: paymentIntent,
 
-      defaultBillingDetails: {
-        name: 'Jane Doe'
-      }
-      // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
-      //methods that complete payment after a delay, like SEPA Debit and Sofort.
-      // allowsDelayedPaymentMethods: true,
-      // defaultBillingDetails: {
-      //   name: user.name,
-      // }
-    })
-    if (!error) {
-      setLoading(true)
-    }
-  }
+  //     defaultBillingDetails: {
+  //       name: 'Jane Doe'
+  //     }
+  //     // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
+  //     //methods that complete payment after a delay, like SEPA Debit and Sofort.
+  //     // allowsDelayedPaymentMethods: true,
+  //     // defaultBillingDetails: {
+  //     //   name: user.name,
+  //     // }
+  //   })
+  //   if (!error) {
+  //     setLoading(true)
+  //   }
+  // }
   const closeFrameContainer6 = useCallback(() => {
     setFrameContainer6Visible(false)
   }, [])
@@ -144,7 +144,7 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
 
   useEffect(() => {
     console.log(user, event, 'userevent')
-    initializePaymentSheet()
+    // initializePaymentSheet()
   }, [])
   const isGuest = user?.email === 'guestUser@gmail.com'
 

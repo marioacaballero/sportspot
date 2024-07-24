@@ -7,7 +7,7 @@ import { loadFonts } from './GlobalStyles'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Provider, useDispatch } from 'react-redux'
 import { store } from './redux/store'
-import { StripeProvider } from '@stripe/stripe-react-native'
+// import { StripeProvider } from '@stripe/stripe-react-native'
 
 import PruebasEncontradasDetalle from './screens/Pruebas/PruebasEncontradasDetalle'
 import EditarPerfil from './screens/Perfil/EditarPerfil'
@@ -36,7 +36,7 @@ import PopupAlerta from './components/PopupAlerta'
 import EscribirResea from './components/EscribirResea'
 import MenuInferior from './components/MenuInferior'
 import Contacta from './screens/Perfil/Contacta'
-import RecuperarContraseña from './screens/InicioSesion/RecuperarContraseña'
+import {RecuperarContrasena} from './screens/InicioSesion/RecuperarContrasena'
 import StripeComponent from './screens/StripeComponent'
 import VentajasSuscripciones from './screens/Suscripciones/VentajasSuscripciones'
 import PublicarEvento from './screens/Organizador/PublicarEvento'
@@ -71,7 +71,7 @@ function MyStackNavigator({ isFooterShow, setIsFooterShow }) {
           currentRouteName !== 'IniciarSesin' &&
           currentRouteName !== 'SignIn' &&
           currentRouteName !== 'Registrarse' &&
-          currentRouteName !== 'RecuperarContraseña'
+          currentRouteName !== 'RecuperarContrasena'
       )
     }
   }, [state])
@@ -237,8 +237,8 @@ function MyStackNavigator({ isFooterShow, setIsFooterShow }) {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="RecuperarContraseña"
-        component={RecuperarContraseña}
+        name="RecuperarContrasena"
+        component={RecuperarContrasena}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
@@ -332,6 +332,7 @@ export default function App() {
   const [notification, setNotification] = useState(undefined)
   const notificationListener = useRef()
   const responseListener = useRef()
+  const navigationRef = useRef()
 
   useEffect(() => {
     registerForPushNotificationsAsync()
@@ -364,7 +365,16 @@ export default function App() {
   }, [])
 
   const [isFooterShow, setIsFooterShow] = useState(null)
+
+
   useEffect(() => {
+    Linking.addEventListener('url', async (e) => {
+      const { hostname, path, queryParams } = Linking.parse(e.url)
+      console.log(queryParams,"parms")
+      // const re =await Linking.openURL("http://mytreeappoficial.com")
+      // console.log(re,"navsss")
+      navigationRef.current?.navigate('PruebasEncontradasDetalle', queryParams) // Usar
+    })
     loadFonts()
   }, [])
 
@@ -375,7 +385,7 @@ export default function App() {
     'pk_test_51PBJ3MCArpM8BK01XJXHXCxHBJnGAH5JYBnMAhEdHkMB6dpwyQJj3O0KsPo9CGH5JC2tWsofNAD03nluCUOSk6I200RsyWloFq'
 
   const linking = {
-    prefixes: ['spotsport://', 'https://example.com'],
+    prefixes: ['spotsport://', 'https://spotsport.com'],
     config: {
       screens: {
         InicioDeportista: 'InicioDeportista',
@@ -394,15 +404,13 @@ export default function App() {
       />
       <I18nextProvider i18n={i18n}>
         <Provider store={store}>
-          <StripeProvider publishableKey="pk_test_51OocYQGmE60O5ob7ydu8u1BLMhlWf9F5C6TCuSu75y47X5yBRO8wcbIssEjFc95AferGwyiHNkNGwT25ywIoZahB009vDgPuYd">
-            <NavigationContainer linking={linking}>
+            <NavigationContainer ref={navigationRef} linking={linking}>
               <MyStackNavigator
                 isFooterShow={isFooterShow}
                 setIsFooterShow={setIsFooterShow}
               />
               {isFooterShow && <MenuInferior />}
             </NavigationContainer>
-          </StripeProvider>
         </Provider>
       </I18nextProvider>
     </SafeAreaView>

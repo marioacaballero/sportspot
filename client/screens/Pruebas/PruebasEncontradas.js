@@ -554,7 +554,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_2xs
   },
   frameView: {
-    width: 251,
+    width: "64%",
     padding: Padding.p_3xs
   },
   frameContainer: {

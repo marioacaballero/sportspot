@@ -7,55 +7,55 @@ import { offSuscription } from '../redux/actions/suscriptions'
 import { suscriptionEventUser } from '../redux/actions/users'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { getAllEvents } from '../redux/actions/events'
-import { useStripe } from '@stripe/stripe-react-native'
+// import { useStripe } from '@stripe/stripe-react-native'
 import axiosInstance from '../utils/apiBackend'
 import { t } from 'i18next'
 
 const ModalSuscription = ({ user, event, onClose }) => {
-  const { initPaymentSheet, presentPaymentSheet } = useStripe(null)
+  // const { initPaymentSheet, presentPaymentSheet } = useStripe(null)
   const [loading, setLoading] = useState(false)
 
-  const fetchPaymentSheetParams = async () => {
-    const response = await axiosInstance.post(`/stripe/paymentEvent`, {
-      amount: parseInt(`${event.price}00`),
-      customerId: user.stripeId
-    })
-    console.log(response.data)
-    const { paymentIntent, ephemeralKey, customer } = response.data
+  // const fetchPaymentSheetParams = async () => {
+  //   const response = await axiosInstance.post(`/stripe/paymentEvent`, {
+  //     amount: parseInt(`${event.price}00`),
+  //     customerId: user.stripeId
+  //   })
+  //   console.log(response.data)
+  //   const { paymentIntent, ephemeralKey, customer } = response.data
 
-    return {
-      paymentIntent,
-      ephemeralKey,
-      customer
-    }
-  }
+  //   return {
+  //     paymentIntent,
+  //     ephemeralKey,
+  //     customer
+  //   }
+  // }
 
-  const initializePaymentSheet = async () => {
-    const { paymentIntent, ephemeralKey, customer, publishableKey } =
-      await fetchPaymentSheetParams()
+  // const initializePaymentSheet = async () => {
+  //   const { paymentIntent, ephemeralKey, customer, publishableKey } =
+  //     await fetchPaymentSheetParams()
 
-    const { error } = await initPaymentSheet({
-      merchantDisplayName: 'Example, Inc.',
-      customerId: customer,
-      customerEphemeralKeySecret: ephemeralKey,
-      paymentIntentClientSecret: paymentIntent,
+  //   const { error } = await initPaymentSheet({
+  //     merchantDisplayName: 'Example, Inc.',
+  //     customerId: customer,
+  //     customerEphemeralKeySecret: ephemeralKey,
+  //     paymentIntentClientSecret: paymentIntent,
 
-      defaultBillingDetails: {
-        name: 'Jane Doe'
-      }
+  //     defaultBillingDetails: {
+  //       name: 'Jane Doe'
+  //     }
 
-    })
-    if (!error) {
-      setLoading(true)
-    }
-  }
+  //   })
+  //   if (!error) {
+  //     setLoading(true)
+  //   }
+  // }
 
 
 
-  useEffect(() => {
-    console.log(user, event, 'userevent')
-    initializePaymentSheet()
-  }, [])
+  // useEffect(() => {
+  //   console.log(user, event, 'userevent')
+  //   initializePaymentSheet()
+  // }, [])
 
   const isGuest = user?.email === 'guestUser@gmail.com'
   const navigation = useNavigation()

@@ -3,20 +3,30 @@
     "runtimeVersion": "1.0.2",
     "name": "SpotSport",
     "slug": "spotsport",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
-    "icon": "./assets/spotsport.png",
+    "icon": "./assets/spotsportadaptative.png",
     "userInterfaceStyle": "light",
+    
     "splash": {
       "image": "./assets/spotsport.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
-    "platforms": ["ios", "android"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.aythenapp.spotsport"
+      "bundleIdentifier": "com.aythenapp.spotsportfinal",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/spotsportadaptative.png",
+        "backgroundColor": "#ffffff"
+      }
     },
     "android": {
       "googleServicesFile": "./utils/google-services.json",
@@ -25,7 +35,6 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.aythenapp.spotsport",
-      "versionCode": 3,
       "config": {
         "googleMaps": {
           "apiKey": "@env.GOOGLE_MAPS_API_KEY"
@@ -34,14 +43,18 @@
       "intentFilters": [
         {
           "action": "VIEW",
+          "autoVerify": true,
           "data": [
             {
               "scheme": "https",
-              "host": "example.com",
+              "host": "spotsport.com",
               "pathPrefix": "/"
             }
           ],
-          "category": ["BROWSABLE", "DEFAULT"]
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
         }
       ]
     },
@@ -58,24 +71,17 @@
           }
         }
       ],
-      [
-        "@stripe/stripe-react-native",
-        {
-          "merchantIdentifier": "",
-          "enableGooglePay": true
-        }
-      ],
       "expo-localization"
     ],
     "extra": {
       "eas": {
-        "projectId": "3b77cef6-ebe6-4d36-b616-c391d890f0bb"
+        "projectId": "4f6d3b77-0567-441d-8b63-8d0d9373c7dd"
       }
     },
     "updates": {
       "url": "https://u.expo.dev/ac124ba8-62c5-44ac-ab0e-8da7a8b8e646"
     },
-    "owner": "azulschiaffino",
+    "owner": "azulschiaffino2",
     "scheme": "spotsport"
   }
 }

@@ -98,6 +98,8 @@ const CalendarOneDay = ({
 
   const handleDayPress = (day) => {
     const newDate = new Date(day?.dateString);
+    const currentDate = new Date(); // Obtener la fecha actual
+    currentDate.setHours(0, 0, 0, 0); // Establecer la hora a medianoche para comparar solo las fechas
     const startDate = new Date(dateStart);
     const suscriptionDate = new Date(dateSuscription);
 
@@ -114,8 +116,14 @@ const CalendarOneDay = ({
         setValuesUser && setValuesUser({ ...valuesUser, ['birthDate']: day?.dateString });
         dispatch(setDateStart(day?.dateString));
   
-      } else {
-        console.error('La fecha de inicio debe ser mayor o igual a la fecha de suscripción');
+      }
+ 
+      
+      else {
+        setSelected(day?.dateString);
+     
+
+  
       }
     } else {
       if (!dateStart || newDate < startDate) {
