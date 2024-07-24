@@ -310,9 +310,54 @@ export default function SignIn({ navigation }) {
                 <Text style={styles.buttonText}>{t('iniciarcongoogle')}</Text>
               </Pressable>
             </View>
-            {/* <View style={styles.button}>
+            <TouchableOpacity
+              onPress={async () => {
+                const credential = {
+                  identityToken:
+                    'eyJraWQiOiJweWFSUXBBYm5ZIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwczovL2FwcGxlaWQuYXBwbGUuY29tIiwiYXVkIjoiaG9zdC5leHAuRXhwb25lbnQiLCJleHAiOjE3MjE5MzAzNjksImlhdCI6MTcyMTg0Mzk2OSwic3ViIjoiMDAxMTE2LjllOTRmMDViZWY5OTRmYTI4ZDYxMzlhNzVkYzIzNmI5LjE3MzMiLCJjX2hhc2giOiIwUEFpOU41SlRaSzJiLVhhSG01d1JnIiwiZW1haWwiOiJhenVsLnNjaGlhZmZpbm9AaWNsb3VkLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdXRoX3RpbWUiOjE3MjE4NDM5NjksIm5vbmNlX3N1cHBvcnRlZCI6dHJ1ZX0.gEkgidOZ0cIqNgVDY37dOQxFD0T2At0eWh-ijGxQKk7Rf2vU88K2T34cIgo27LcHWZvGZCTUJfqsh0UAqlzmFW5U08541Re-ch_F3nOZ9AlW1KSiznaroqtk78Soz0yCOJULZFT_9FhYW0-CN0jc_1c7uhn_dBTd4be2oZ_q_Jn4NwkumEnEI1COSFDOZabI_vGKoWC4JMyn-Mw8H5mtOpdl__KKjgdV28R_F4QyTDCPRG6m_Foczgw33aViFNxNm8EdkGTPl_o_E5d3VJjAQ1aKKiczBod5C8xh-btv0AyrGiDWsG72xJO9dbBWOi7fVfgh7AygxBr4P4kvoId-NA',
+                  realUserStatus: 1,
+                  state: null,
+                  user: '001116.9e94f05bef994fa28d6139a75dc236b9.1733'
+                }
+                if (credential) {
+                  const { user, identityToken, nickname } = credential
+
+                  const res = await axiosInstance.get(
+                    `users/email?email=${user.slice(0, 12)}@icloud.com`
+                  )
+                  if (res.data.id) {
+                    dispatch(
+                      login({
+                        email: `${user.slice(0, 12)}@icloud.com`,
+                        password: identityToken.slice(0, 15)
+                      })
+                    )
+                  } else {
+                    dispatch(
+                      register({
+                        email: `${user.slice(0, 12)}@icloud.com`,
+                        password: `${identityToken.slice(0, 15)}`,
+                        name: ""
+                      })
+                    ).then(async (data) => {
+                      console.log('login with: ',data.payload)
+                      if (data.payload.id) {
+                        const { email, password } = data.payload
+                        dispatch(login({ email, password:identityToken.slice(0, 15) }))
+                        await AsyncStorage.setItem(
+                          'userCredentials',
+                          JSON.stringify({ email, password:identityToken.slice(0, 15) })
+                        )
+                      }
+                    })
+                  }
+                }
+            
+              }}
+              style={styles.button}
+            >
               <Text style={styles.buttonText}>{t('iniciarconapple')}</Text>
-            </View> */}
+            </TouchableOpacity>
             <AppleAuthentication.AppleAuthenticationButton
               buttonType={
                 AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
@@ -333,7 +378,7 @@ export default function SignIn({ navigation }) {
                   // signed in
                   if (credential) {
                     const { user, identityToken, nickname } = credential
-                  
+  
                     const res = await axiosInstance.get(
                       `users/email?email=${user.slice(0, 12)}@icloud.com`
                     )
@@ -349,16 +394,16 @@ export default function SignIn({ navigation }) {
                         register({
                           email: `${user.slice(0, 12)}@icloud.com`,
                           password: `${identityToken.slice(0, 15)}`,
-                          name: nickname || 'Nuevo usuario'
+                          name: ""
                         })
                       ).then(async (data) => {
-                        if (data.payload.user) {
-                          const { email, password } = data.payload.user
-                          // console.log('login with: ', email, password, name, googleId)
-                          dispatch(login({ email, password }))
+                        console.log('login with: ',data.payload)
+                        if (data.payload.id) {
+                          const { email, password } = data.payload
+                          dispatch(login({ email, password:identityToken.slice(0, 15) }))
                           await AsyncStorage.setItem(
                             'userCredentials',
-                            JSON.stringify({ email, password})
+                            JSON.stringify({ email, password:identityToken.slice(0, 15) })
                           )
                         }
                       })
