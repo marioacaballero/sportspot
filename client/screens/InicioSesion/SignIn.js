@@ -332,14 +332,8 @@ export default function SignIn({ navigation }) {
                   })
                   // signed in
                   if (credential) {
-                    const { user, identityToken, email, nickname } = credential
-                    const jsonValue = JSON.stringify({
-                      user,
-                      identityToken,
-                      email,
-                      nickname
-                    })
-                    await AsyncStorage.setItem('userCredentials', jsonValue)
+                    const { user, identityToken, nickname } = credential
+                  
                     const res = await axiosInstance.get(
                       `users/email?email=${user.slice(0, 12)}@icloud.com`
                     )
