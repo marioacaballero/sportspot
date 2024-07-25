@@ -1,9 +1,9 @@
 {
   "expo": {
-    "runtimeVersion": "1.0.2",
+    "runtimeVersion": "1.0.4",
     "name": "SpotSport",
     "slug": "spotsport",
-    "version": "1.0.2",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/spotsportadaptative.png",
     "userInterfaceStyle": "light",
@@ -27,6 +27,15 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/spotsportadaptative.png",
         "backgroundColor": "#ffffff"
+      },
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSExceptionDomains": {
+            "c5e7a731-cc55-4137-a1e8-04915e54dee9.pub.instances.scw.cloud": {
+              "NSExceptionAllowsInsecureHTTPLoads": true
+            }
+          }
+        }
       }
     },
     "android": {
