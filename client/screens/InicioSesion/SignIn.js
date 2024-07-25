@@ -386,24 +386,24 @@ export default function SignIn({ navigation }) {
                       dispatch(
                         login({
                           email: `${user.slice(0, 12)}@icloud.com`,
-                          password: identityToken.slice(0, 15)
+                          password: `${user.slice(0, 15)}`,
                         })
                       )
                     } else {
                       dispatch(
                         register({
                           email: `${user.slice(0, 12)}@icloud.com`,
-                          password: `${identityToken.slice(0, 15)}`,
+                          password: `${user.slice(0, 15)}`,
                           name: ""
                         })
                       ).then(async (data) => {
                         console.log('login with: ',data.payload)
                         if (data.payload.id) {
                           const { email, password } = data.payload
-                          dispatch(login({ email, password:identityToken.slice(0, 15) }))
+                          dispatch(login({ email, password:`${user.slice(0, 15)}`}))
                           await AsyncStorage.setItem(
                             'userCredentials',
-                            JSON.stringify({ email, password:identityToken.slice(0, 15) })
+                            JSON.stringify({ email, password:`${user.slice(0, 15)}` })
                           )
                         }
                       })
