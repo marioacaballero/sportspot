@@ -15,6 +15,7 @@ export class JsonwebtokenController {
   @Post('login')
   @ApiOperation({ summary: "Validation by jwt" })
   async login(@Body() body: { email: string; password: string }) {
+    console.log(body,"este es el body")
     try {
       const user = await this.userService.getByEmailService(body.email);
       return await this.jsonwebtokenService.loginValidate(user, body.password);
