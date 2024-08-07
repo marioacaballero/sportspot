@@ -1092,7 +1092,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   image94Icon: {
-    borderWidth: 1,
     height: 95,
     width: '100%'
   },

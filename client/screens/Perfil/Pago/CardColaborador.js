@@ -3,7 +3,6 @@ import {
   Text,
   Image,
   Dimensions,
-  Pressable,
   Alert,
   ToastAndroid,
   TouchableOpacity
