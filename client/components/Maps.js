@@ -246,10 +246,9 @@ const Maps = ({
     dispatch(setNearbyLoading(true))
     const radius = 30000 // 37.5 km
     const query = 'locality' // Buscar localidades cercanas
-    const apiKey = 'AIzaSyBH0Ey-G2PbWkSCLyGG1A9TCg9LDPlzQpc'
+    const apiKey = 'AIzaSyAuGaC7C8LnvEhylguzWRcPsXBzJo8I6vo'
 
     let allResults = []
-    let nextPageToken = null
 
     const fetchResults = async (pageToken = '') => {
       const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&strictbounds=true&types=%28cities%29&location=${lat},${lng}&radius=${radius}&key=${apiKey}${
@@ -295,7 +294,7 @@ const Maps = ({
     <GooglePlacesAutocomplete
       placeholder={t('buscar')}
       query={{
-        key: 'AIzaSyBH0Ey-G2PbWkSCLyGG1A9TCg9LDPlzQpc',
+        key: 'AIzaSyAuGaC7C8LnvEhylguzWRcPsXBzJo8I6vo',
         language: i18n.language // language of the results
       }}
       enablePoweredByContainer={false}
