@@ -15,50 +15,57 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger'
 import { EventEntity } from './entities/event.entity'
 
 @Controller('events')
-@ApiTags("Events")
+@ApiTags('Events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
-  
-  
+
   @Post('/')
-  @ApiOperation({ summary: "Create event" })
+  @ApiOperation({ summary: 'Create event' })
   public async create(@Body() createEventDto: CreateEventDto) {
     return this.eventsService.createService(createEventDto)
   }
 
   @Post('/visit')
-    @ApiOperation({ summary: "Events visited by a user" })
-  public async visitEvent(@Body() { eventId, userId}) {
+  @ApiOperation({ summary: 'Events visited by a user' })
+  public async visitEvent(@Body() { eventId, userId }) {
     return this.eventsService.visitEvent(eventId, userId)
   }
 
   @Get()
-    @ApiOperation({ summary: "Get all events" })
+  @ApiOperation({ summary: 'Get all events' })
   public async findAll(@Query() query: any) {
     return this.eventsService.getAllService(query)
   }
 
+  @Get('all')
+  @ApiOperation({ summary: 'Get all events with relations' })
+  public async getAllEventsWithRelations() {
+    return this.eventsService.getAllEventsWithRelations()
+  }
+
   @Get('/visit-event')
-    @ApiOperation({ summary: "Events visited by a user by date (day, week, month)" })
+  @ApiOperation({
+    summary: 'Events visited by a user by date (day, week, month)'
+  })
   public async getVisitEvent(@Query() query: any) {
-    const {userId, filter} = query
+    const { userId, filter } = query
     return this.eventsService.getLastVisitedEvents(userId, filter)
   }
 
   @Get('/favorites/:id')
-    @ApiOperation({ summary: "Find all favorite events" })
+  @ApiOperation({ summary: 'Find all favorite events' })
   public async findAllFavorites(@Param('id') id: string) {
     return this.eventsService.getFavorites(id)
   }
 
   @Get(':id')
-    @ApiOperation({ summary: "Find one event by id" })
+  @ApiOperation({ summary: 'Find one event by id' })
   public async findOne(@Param('id') id: string) {
     return await this.eventsService.getOneService(id)
   }
 
   @Patch(':id')
-    @ApiOperation({ summary: "Patch one event by id" })
+  @ApiOperation({ summary: 'Patch one event by id' })
   public async update(
     @Param('id') id: string,
     @Body() updateEventDto: UpdateEventDto
@@ -67,7 +74,7 @@ export class EventsController {
   }
 
   @Delete(':id')
-    @ApiOperation({ summary: "Removeh one event by id" })    
+  @ApiOperation({ summary: 'Removeh one event by id' })
   public async remove(@Param('id') id: string) {
     return this.eventsService.deleteService(id)
   }
@@ -75,45 +82,51 @@ export class EventsController {
   @Get('subscribed/:userId')
   @ApiOperation({ summary: 'Get all subscribed events for a user' })
   public async getSubscribedEvents(@Param('userId') userId: string) {
-    return this.eventsService.getSubscribedEvents(userId);
+    return this.eventsService.getSubscribedEvents(userId)
   }
 
   @Get('subscribers/:eventId')
   @ApiOperation({ summary: 'Get all subscribers for an event' })
   public async getEventSubscribers(@Param('eventId') eventId: string) {
-    return this.eventsService.getEventSubscribers(eventId);
+    return this.eventsService.getEventSubscribers(eventId)
   }
 
   @Post('/finalize/:eventId')
   @ApiOperation({ summary: 'Finalize an event and notify subscribers' })
   public async finalizeEvent(@Param('eventId') eventId: string) {
-    await this.eventsService.finalizeEvent(eventId);
-    return { message: 'Event finalized and notifications sent' };
+    await this.eventsService.finalizeEvent(eventId)
+    return { message: 'Event finalized and notifications sent' }
   }
 
   @Post('/event-location')
   @ApiOperation({ summary: 'Create event' })
-  public async createNotificationsLocation(@Body() createEventDto: CreateEventDto) {
-    return this.eventsService.createServiceAprox(createEventDto);
+  public async createNotificationsLocation(
+    @Body() createEventDto: CreateEventDto
+  ) {
+    return this.eventsService.createServiceAprox(createEventDto)
   }
 
   @Post('subscribe/:userId/:eventId')
-  async subscribeToEvent(@Param('userId') userId: string, @Param('eventId') eventId: string): Promise<void> {
-    await this.eventsService.subscribeToEvent(userId, eventId);
+  async subscribeToEvent(
+    @Param('userId') userId: string,
+    @Param('eventId') eventId: string
+  ): Promise<void> {
+    await this.eventsService.subscribeToEvent(userId, eventId)
   }
 
   @Get('notifications/:userId')
-  async getSubscribedEventsNotification(@Param('userId') userId: string): Promise<EventEntity[]> {
-   return await this.eventsService.getSubscribedEventsNotification(userId);
+  async getSubscribedEventsNotification(
+    @Param('userId') userId: string
+  ): Promise<EventEntity[]> {
+    return await this.eventsService.getSubscribedEventsNotification(userId)
   }
 
   @Post('notify/:eventId')
   async notifyEventSubscribers(
     @Param('eventId') eventId: string,
     @Body('message') message: string,
-    @Body('title') title: string,
+    @Body('title') title: string
   ): Promise<void> {
-    await this.eventsService.notifyEventSubscribers(eventId, message,title);
+    await this.eventsService.notifyEventSubscribers(eventId, message, title)
   }
-
 }

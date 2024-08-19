@@ -10,7 +10,7 @@ import { UserEventHistoryEntity } from './entities/userEvent.entity'
 import { NotificationEntity } from 'src/notifications/entities/notification.entity'
 import { NotificationsService } from 'src/notifications/notifications.service'
 import { PushNotificationService } from 'src/notification-push/notification.service'
-import { scheduleJob } from "node-schedule"
+import { scheduleJob } from 'node-schedule'
 export class EventsService {
   constructor(
     @InjectRepository(EventEntity)
@@ -24,31 +24,35 @@ export class EventsService {
     private readonly notificationsRepository: Repository<NotificationEntity>,
     private readonly notificationsService: NotificationsService,
     private readonly notificationsPushService: PushNotificationService,
-    private readonly mailService: SendMailsService,
-
-
-  ) { }
+    private readonly mailService: SendMailsService
+  ) {}
 
   public async createService(createEventDto: CreateEventDto) {
+    const date = new Date(createEventDto.dateInscription)
 
-
-    const date = new Date(createEventDto.dateInscription);
-
-    const dateAfterOneDay = new Date(date);
-    dateAfterOneDay.setDate(date.getDate() + 1);
+    const dateAfterOneDay = new Date(date)
+    dateAfterOneDay.setDate(date.getDate() + 1)
 
     const event = await this.eventsRepository.save(createEventDto)
 
-    await this.notifyUsersByLocation(event);
+    await this.notifyUsersByLocation(event)
 
     await scheduleJob(dateAfterOneDay, async function () {
       await this.notifyEventSubscribersMail(event.id)
-      await this.notifySubscribers(event, "Los resultados de tu último evento ya están disponibles.", "RESULTADOS DISPONIBLES.")
-    });
+      await this.notifySubscribers(
+        event,
+        'Los resultados de tu último evento ya están disponibles.',
+        'RESULTADOS DISPONIBLES.'
+      )
+    })
 
     await scheduleJob(date, async function () {
-      await this.notifySubscribers(event, "Tu inscripción te ha generado puntos. Disfruta de tu próximo evento.", "¡ENHORABUENA!")
-    });
+      await this.notifySubscribers(
+        event,
+        'Tu inscripción te ha generado puntos. Disfruta de tu próximo evento.',
+        '¡ENHORABUENA!'
+      )
+    })
 
     return event
   }
@@ -98,6 +102,16 @@ export class EventsService {
     }
 
     return await queryBuilder.getMany()
+  }
+
+  public async getAllEventsWithRelations() {
+    return this.eventsRepository
+      .createQueryBuilder('event')
+      .leftJoinAndSelect('event.creator', 'creator')
+      .leftJoinAndSelect('event.suscribers', 'suscribers')
+      .leftJoinAndSelect('event.reviews', 'reviews')
+      .leftJoinAndSelect('event.sport', 'sport')
+      .getMany()
   }
 
   public async getOneService(id: string) {
@@ -150,14 +164,21 @@ export class EventsService {
           updateEventDto
         )
       }
-      const eventToNotificate = await this.eventsRepository.findOne({ where: { id }, relations: ['subscribersNotifications'] });
+      const eventToNotificate = await this.eventsRepository.findOne({
+        where: { id },
+        relations: ['subscribersNotifications']
+      })
       if (eventToNotificate) {
-        await this.notifySubscribers(eventToNotificate, "Se ha actualizado un evento al que te suscribiste", "EVENTO ACTUALIZADO.");
+        await this.notifySubscribers(
+          eventToNotificate,
+          'Se ha actualizado un evento al que te suscribiste',
+          'EVENTO ACTUALIZADO.'
+        )
       }
 
       return await this.eventsRepository.save(event)
     } catch (error) {
-      console.log(error, "error")
+      console.log(error, 'error')
     }
   }
 
@@ -261,79 +282,78 @@ export class EventsService {
     const user = await this.usersRepository.findOne({
       where: { id: userId },
       relations: ['events']
-    });
+    })
 
     if (!user) {
-      throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404);
+      throw new HttpException(`Usuario con ID ${userId} no encontrado`, 404)
     }
 
-    return user.events;
+    return user.events
   }
 
   public async getEventSubscribers(eventId: string): Promise<UserEntity[]> {
     const event = await this.eventsRepository.findOne({
       where: { id: eventId },
       relations: ['suscribers']
-    });
+    })
 
     if (!event) {
-      throw new HttpException(`Evento con ID ${eventId} no encontrado`, 404);
+      throw new HttpException(`Evento con ID ${eventId} no encontrado`, 404)
     }
 
-    return event.suscribers;
+    return event.suscribers
   }
-
-
 
   public async finalizeEvent(eventId: string): Promise<void> {
     const event = await this.eventsRepository.findOne({
       where: { id: eventId },
       relations: ['suscribers']
-    });
+    })
 
     if (!event) {
-      throw new HttpException(`Evento con ID ${eventId} no encontrado`, 404);
+      throw new HttpException(`Evento con ID ${eventId} no encontrado`, 404)
     }
 
     // Marcar el evento como finalizado (esto puede variar según tu modelo de datos)
-    event.isFinalized = true;
-    await this.eventsRepository.save(event);
+    event.isFinalized = true
+    await this.eventsRepository.save(event)
 
     // Crear una notificación para cada suscriptor
     const notifications: NotificationEntity[] = event.suscribers.map((user) => {
-      const notification = new NotificationEntity();
-      notification.title = `Evento finalizado: ${event.title}`;
-      notification.message = `El evento "${event.title}" ha finalizado. Gracias por participar.`;
-      notification.date = new Date();
-      notification.eventType = 'event_finalized';
-      notification.eventId = event.id;
-      notification.recipient = user;
-      notification.read = false;
-      return notification;
-    });
+      const notification = new NotificationEntity()
+      notification.title = `Evento finalizado: ${event.title}`
+      notification.message = `El evento "${event.title}" ha finalizado. Gracias por participar.`
+      notification.date = new Date()
+      notification.eventType = 'event_finalized'
+      notification.eventId = event.id
+      notification.recipient = user
+      notification.read = false
+      return notification
+    })
 
-    await this.notificationsRepository.save(notifications);
+    await this.notificationsRepository.save(notifications)
   }
 
-
-  async createServiceAprox(createEventDto: CreateEventDto): Promise<EventEntity> {
-    const event = this.eventsRepository.create(createEventDto);
-    const savedEvent = await this.eventsRepository.save(event);
+  async createServiceAprox(
+    createEventDto: CreateEventDto
+  ): Promise<EventEntity> {
+    const event = this.eventsRepository.create(createEventDto)
+    const savedEvent = await this.eventsRepository.save(event)
 
     // Enviar notificaciones a los usuarios con la misma ubicación
-    await this.notifyUsersByLocation(savedEvent);
+    await this.notifyUsersByLocation(savedEvent)
 
-    return savedEvent;
+    return savedEvent
   }
 
   private async notifyUsersByLocation(event: EventEntity) {
-    console.log(event, "creatoooor")
+    console.log(event, 'creatoooor')
     const creatorId = `${event.creator}`
-    const users = await this.usersRepository.find();
-    const usersToNotify = users.filter(user => {
-      if (!user.preferences || !user.preferences['location']) return false;
-      return user.preferences['location'] === event.location;
-    });
+    const users = await this.usersRepository.find()
+    const usersToNotify = users.filter((user) => {
+      if (!user.preferences || !user.preferences['location']) return false
+      return user.preferences['location'] === event.location
+    })
 
     for (const user of usersToNotify) {
       // Verificar si el usuario no es el creador del evento antes de enviar la notificación
@@ -346,18 +366,22 @@ export class EventsService {
           eventId: event.id,
           recipient: user,
           recipientId: user.id,
-          read: false,
-        });
+          read: false
+        })
 
         if (user?.NotificationPush) {
-          this.notificationsPushService.sendPushNotifications([user?.NotificationPush], "Un nuevo evento de tus deportes de práctica está disponible. Entra y conócelo.", "¡NUEVO EVENTO EN TU ZONA!")
+          this.notificationsPushService.sendPushNotifications(
+            [user?.NotificationPush],
+            'Un nuevo evento de tus deportes de práctica está disponible. Entra y conócelo.',
+            '¡NUEVO EVENTO EN TU ZONA!'
+          )
         }
       }
     }
 
     // Verificar si event.creator está definido antes de enviar la notificación al usuario creador del evento
     if (creatorId) {
-      console.log(event, "eventtt")
+      console.log(event, 'eventtt')
       await this.notificationsService.createService({
         title: 'Evento creado',
         message: `Tu evento "${event.title}" ha sido creado con éxito.`,
@@ -366,53 +390,84 @@ export class EventsService {
         eventId: event.id,
         recipientId: creatorId,
         recipient: event.creator,
-        read: false,
-      });
+        read: false
+      })
     }
   }
 
   async subscribeToEvent(userId: string, eventId: string): Promise<void> {
-    const user = await this.usersRepository.findOne({ where: { id: userId }, relations: ['subscribedEventsNotifications'] });
-    const event = await this.eventsRepository.findOne({ where: { id: eventId } });
+    const user = await this.usersRepository.findOne({
+      where: { id: userId },
+      relations: ['subscribedEventsNotifications']
+    })
+    const event = await this.eventsRepository.findOne({
+      where: { id: eventId }
+    })
 
     if (user && event) {
-      if (!user.subscribedEventsNotifications.some(e => e.id === eventId)) {
-        user.subscribedEventsNotifications.push(event);
-        this.notificationsPushService.sendPushNotifications([user.NotificationPush], "El precio de inscripción a este evento cambiará en las próximas horas. Apúntate antes de que suba de precio.", "¡CUIDADO!")
+      if (!user.subscribedEventsNotifications.some((e) => e.id === eventId)) {
+        user.subscribedEventsNotifications.push(event)
+        this.notificationsPushService.sendPushNotifications(
+          [user.NotificationPush],
+          'El precio de inscripción a este evento cambiará en las próximas horas. Apúntate antes de que suba de precio.',
+          '¡CUIDADO!'
+        )
 
-        await this.usersRepository.save(user);
+        await this.usersRepository.save(user)
       } else {
-        user.subscribedEventsNotifications = user.subscribedEventsNotifications.filter(e => e.id !== eventId);
-        await this.usersRepository.save(user);
+        user.subscribedEventsNotifications =
+          user.subscribedEventsNotifications.filter((e) => e.id !== eventId)
+        await this.usersRepository.save(user)
       }
     }
   }
 
-  async notifySubscribers(event: any, message: string, title: string): Promise<void> {
-    const subscribers = event.subscribersNotifications;
-    const pushTokens = subscribers.map(user => user.NotificationPush) || []; // Asumimos que los usuarios tienen un campo `pushToken`
-    await this.notificationsPushService.sendPushNotifications(pushTokens, message, title);
+  async notifySubscribers(
+    event: any,
+    message: string,
+    title: string
+  ): Promise<void> {
+    const subscribers = event.subscribersNotifications
+    const pushTokens = subscribers.map((user) => user.NotificationPush) || [] // Asumimos que los usuarios tienen un campo `pushToken`
+    await this.notificationsPushService.sendPushNotifications(
+      pushTokens,
+      message,
+      title
+    )
   }
-  async getSubscribedEventsNotification(userId: string): Promise<EventEntity[]> {
-    const user = await this.usersRepository.findOne({ where: { id: userId }, relations: ['subscribedEventsNotifications'] });
-    return user?.subscribedEventsNotifications || [];
+  async getSubscribedEventsNotification(
+    userId: string
+  ): Promise<EventEntity[]> {
+    const user = await this.usersRepository.findOne({
+      where: { id: userId },
+      relations: ['subscribedEventsNotifications']
+    })
+    return user?.subscribedEventsNotifications || []
   }
 
-  async notifyEventSubscribers(eventId: string, message: string, title: string): Promise<void> {
-    const event = await this.eventsRepository.findOne({ where: { id: eventId }, relations: ['subscribersNotifications'] });
+  async notifyEventSubscribers(
+    eventId: string,
+    message: string,
+    title: string
+  ): Promise<void> {
+    const event = await this.eventsRepository.findOne({
+      where: { id: eventId },
+      relations: ['subscribersNotifications']
+    })
     if (event) {
-      await this.notifySubscribers(event, message, title);
+      await this.notifySubscribers(event, message, title)
     }
   }
 
   async notifyEventSubscribersMail(eventId: string): Promise<void> {
-    const event = await this.eventsRepository.findOne({ where: { id: eventId }, relations: ['subscribersNotifications'] });
+    const event = await this.eventsRepository.findOne({
+      where: { id: eventId },
+      relations: ['subscribersNotifications']
+    })
     if (event) {
       for (let user in event.suscribers) {
-        await this.mailService.sendReviewMail(event.suscribers[user].email);
+        await this.mailService.sendReviewMail(event.suscribers[user].email)
       }
     }
   }
-
 }
-

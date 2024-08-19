@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: Color.blanco,
     padding: 10,
-    margin: 10,
+    marginVertical: 10,
     borderRadius: 8
   },
   cajitaFeliz2: {

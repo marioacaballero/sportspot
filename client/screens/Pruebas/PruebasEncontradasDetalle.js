@@ -83,37 +83,37 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   useFocusEffect(
     useCallback(() => {
       console.log('ID FROM PARAMS', router.params)
-      if (router?.params?.id ) {
-       if(user?.id){
-        dispatch(
-          visitEvent({
-            eventId: router.params.id,
-            userId: user.id
-          })
-        )
-        dispatch(getEventByIdRedux(router.params.id))
-       } else {
-        navigation.replace('IniciarSesin')
-       }
+      if (router?.params?.id) {
+        if (user?.id) {
+          dispatch(
+            visitEvent({
+              eventId: router.params.id,
+              userId: user.id
+            })
+          )
+          dispatch(getEventByIdRedux(router.params.id))
+        } else {
+          navigation.replace('IniciarSesin')
+        }
       }
     }, [router?.params?.id])
   )
 
-  useEffect(()=>{
+  useEffect(() => {
     const isRegistrationOpen = (eventDate) => {
-      const currentDate = new Date();
-      const passedDate = new Date(eventDate);
-    
+      const currentDate = new Date()
+      const passedDate = new Date(eventDate)
+
       // Comparar las fechas directamente
       setAvailable(currentDate <= passedDate)
-      return currentDate <= passedDate;
-    };
-    if(event){
-      console.log(event.dateInscription,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+      return currentDate <= passedDate
+    }
+    if (event) {
+      console.log(event.dateInscription, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
       isRegistrationOpen(event.dateInscription)
     }
-    
-  },[event])
+  }, [event])
+
   const stateName =
     eventFavorites && eventFavorites?.some((fav) => fav?.id === event?.id)
   const isGuest = user?.email === 'guestUser@gmail.com'
@@ -149,31 +149,6 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
     )
   }
 
-  // const initializeFavorites = () => {
-  //   const init = {}
-  //   events?.forEach((visited, index) => {
-  //     const isEventFavorite = eventFavorites?.some((e) => {
-  //       return e?.id === visited.id
-  //     })
-  //     init[index] = isEventFavorite
-  //   })
-  //   console.log('SETTING FAVORITES TO', init)
-  //   return init
-  // }
-
-  // useEffect(() => {
-  //   if (events?.length > 0) setIsFavorite(initializeFavorites())
-  // }, [events])
-
-  // useEffect(() => {
-  //   console.log('EVENT ID', eventState.id)
-  //   console.log('EVENT FAVORITES', eventFavorites)
-  //   console.log(
-  //     eventFavorites?.some((e) => {
-  //       return e?.id === eventState?.id
-  //     })
-  //   )
-  // }, [])
   const nameState = () => {
     if (stateName !== undefined) {
       return stateName
@@ -293,14 +268,14 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
   }, [])
 
   const suscribeNotifications = async () => {
-    if(available){
+    if (available) {
       setNotificationEnable(!notificationEnable)
-    const res = await axiosInstance.post(
-      `/events/subscribe/${user.id}/${event.id}`
-    )
-    if (res) {
-      dispatch(getSuscribedEventsNotifications(user.id))
-    }
+      const res = await axiosInstance.post(
+        `/events/subscribe/${user.id}/${event.id}`
+      )
+      if (res) {
+        dispatch(getSuscribedEventsNotifications(user.id))
+      }
     }
   }
   const eventDateDay = eventState?.dateStart?.slice(8, 10)
@@ -355,7 +330,8 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
         {router?.params?.organizer && (
           <TouchableOpacity
             onPress={() => {
-              if (eventInscriptions.length > 0 && eventState.title) {
+              console.log(eventInscriptions, 'dataaa')
+              if (eventState.title) {
                 writeDataAndDownloadExcelFile(
                   eventInscriptions,
                   eventState.title
@@ -444,25 +420,34 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
                 >
                   <Text style={styles.modalText}>{t('editar')}</Text>
                 </TouchableOpacity>
-              ) : available && (
-                <TouchableOpacity
-                  style={{
-                    height: 30,
-                    width: 170,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 50,
-                    marginRight: 10,
-                    backgroundColor: Color.sportsNaranja
-                  }}
-                  onPress={() => navigation.navigate('Inscripcion', eventState)}
-                >
-                  <Text style={styles.modalText}>
-                    {isEventAlreadyAdded
-                      ? t('anularinscripcion')
-                      : t('inscribirse')}
-                  </Text>
-                </TouchableOpacity>
+              ) : (
+                available && (
+                  <TouchableOpacity
+                    style={{
+                      height: 30,
+                      width: 170,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderRadius: 50,
+                      marginRight: 10,
+                      backgroundColor: Color.sportsNaranja
+                    }}
+                    onPress={() => {
+                      if (isEventAlreadyAdded) {
+                        setModalSuscription(true)
+                        return console.log('desuscribirse')
+                      } else {
+                        navigation.navigate('Inscripcion', eventState)
+                      }
+                    }}
+                  >
+                    <Text style={styles.modalText}>
+                      {isEventAlreadyAdded
+                        ? t('anularinscripcion')
+                        : t('inscribirse')}
+                    </Text>
+                  </TouchableOpacity>
+                )
               )}
 
               <TouchableOpacity
@@ -734,7 +719,7 @@ const styles = StyleSheet.create({
     height: 20
   },
   laInscripcinDeLayout: {
-    width: 320,
+    width: '100%',
     color: Color.violeta2,
     fontSize: FontSize.size_mid,
     marginTop: 20

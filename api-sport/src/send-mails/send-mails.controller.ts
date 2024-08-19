@@ -11,4 +11,13 @@ export class SendMailsController {
   public async sendRegistrationMail(@Body() body: { email: string }) {
     return this.sendMailsService.sendRegistrationNotification(body.email)
   }
+
+  @Post('suscribe')
+  async registerEvent(@Body() body: { email: string; name_event: string }) {
+    await this.sendMailsService.sendRegistrationNotificationSus(
+      body.email,
+      body.name_event
+    )
+    return { message: 'Registro exitoso' }
+  }
 }

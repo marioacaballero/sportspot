@@ -136,7 +136,8 @@ const Directorio = () => {
                   onPress={() => {
                     dispatch(getEventById(event?.id)).then((data) =>
                       navigation.navigate('PruebasEncontradasDetalle', {
-                        organizer: true
+                        organizer: true,
+                        id: event?.id
                       })
                     )
                   }}
