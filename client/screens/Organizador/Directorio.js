@@ -5,7 +5,9 @@ import {
   Pressable,
   TextInput,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  Image,
+  Modal
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
@@ -25,6 +27,7 @@ const Directorio = () => {
   const { user } = useSelector((state) => state.users)
 
   const [searchText, setSearchText] = useState('')
+  const [modalIban, setModalIban] = useState(false)
 
   useEffect(() => {
     dispatch(getAllEvents())
@@ -69,6 +72,17 @@ const Directorio = () => {
         >
           {t('directorio')}
         </Text>
+        {/* <Pressable onPress={() => navigation.navigate('SubirDocumentos')}> */}
+        <Pressable onPress={() => setModalIban(true)}>
+          <Image
+            style={{ width: 30, height: 30, objectFit: 'contain' }}
+            source={require('../../assets/solarsettingsbold.png')}
+          />
+          {/* <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
+            {t('configurarIban')}
+          </Text> */}
+        </Pressable>
+
         {/* <TouchableOpacity onPress={() => navigation.navigate('PublicarEvento')}>
           <Text
             style={{
@@ -136,7 +150,8 @@ const Directorio = () => {
                   onPress={() => {
                     dispatch(getEventById(event?.id)).then((data) =>
                       navigation.navigate('PruebasEncontradasDetalle', {
-                        organizer: true
+                        organizer: true,
+                        id: event?.id
                       })
                     )
                   }}
@@ -158,6 +173,82 @@ const Directorio = () => {
           </View>
         </ScrollView>
       </View>
+      <Modal
+        animationType="fade"
+        transparent
+        visible={modalIban}
+        onRequestClose={() => setModalIban(false)}
+      >
+        <TouchableOpacity
+          style={{ flex: 1 }}
+          activeOpacity={1}
+          onPressOut={() => setModalIban(false)}
+        >
+          <View
+            style={{
+              backgroundColor: 'white',
+              borderWidth: 1,
+              borderColor: Color.sportsNaranja,
+              borderRadius: 10,
+              width: 200,
+              right: 20,
+              top: 20,
+              alignSelf: 'flex-end',
+              gap: 10,
+              padding: 20
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                setModalIban(false)
+                navigation.navigate('SubirDocumentos')
+              }}
+              style={{
+                width: '100%',
+                backgroundColor: Color.sportsNaranja,
+                height: 40,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 40
+              }}
+            >
+              <Text
+                style={{
+                  color: 'white',
+                  textAlign: 'center',
+                  textAlignVertical: 'center'
+                }}
+              >
+                Configurar IBAN
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setModalIban(false)
+                navigation.navigate('DocumentosClientes')
+              }}
+              style={{
+                width: '100%',
+                backgroundColor: Color.sportsNaranja,
+                height: 40,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 40
+              }}
+            >
+              <Text
+                style={{
+                  color: 'white',
+                  textAlign: 'center',
+                  textAlignVertical: 'center'
+                }}
+              >
+                Documentos
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+      </Modal>
     </View>
   )
 }

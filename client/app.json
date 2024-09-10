@@ -2,12 +2,11 @@
   "expo": {
     "runtimeVersion": "1.0.4",
     "name": "SpotSport",
-    "slug": "spotsport",
+    "slug": "nuevappp",
     "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/spotsportadaptative.png",
     "userInterfaceStyle": "light",
-    
     "splash": {
       "image": "./assets/spotsport.png",
       "resizeMode": "contain",
@@ -57,7 +56,7 @@
           "data": [
             {
               "scheme": "https",
-              "host": "spotsport.com",
+              "host": "spotsport.eu",
               "pathPrefix": "/"
             }
           ],
@@ -86,13 +85,13 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "4f6d3b77-0567-441d-8b63-8d0d9373c7dd"
+        "projectId": "9120196b-3c17-4afd-a7f1-26a9758f23ae"
       }
     },
     "updates": {
       "url": "https://u.expo.dev/ac124ba8-62c5-44ac-ab0e-8da7a8b8e646"
     },
-    "owner": "azulschiaffino2",
+    "owner": "azschiaffino",
     "scheme": "spotsport"
   }
 }

@@ -25,11 +25,11 @@ import { Inscription } from 'src/inscriptions/entities/inscription.entity'
   imports: [
     MailerModule.forRoot({
       transport: {
-        host: 'smtp-mail.outlook.com',
+        host: 'smtp.gmail.com',
         port: 587,
         auth: {
-          user: 'aythenmensajeria@hotmail.com',
-          pass: 'aythen4321'
+          user: 'spotsport.app@gmail.com',
+          pass: 'wodi jwlj znes rbef'
         }
       },
       defaults: {

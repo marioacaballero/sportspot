@@ -4,7 +4,7 @@ import { Color, FontFamily } from '../GlobalStyles'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 
-const CustomAlert = ({ visible, message, onClose, type }) => {
+const CustomAlert2 = ({ visible, message, onClose, type, action }) => {
   const navigation = useNavigation()
   const { t, i18n } = useTranslation()
 
@@ -36,22 +36,13 @@ const CustomAlert = ({ visible, message, onClose, type }) => {
             {type === 'pass' ? passAlert : accountAlert}
           </Text>
           <Text style={styles.text}>{message}</Text>
-          <TouchableOpacity
-            onPress={() => onClose('aceptar')}
-            style={styles.touchable}
-          >
+          <TouchableOpacity onPress={() => action()} style={styles.touchable}>
             <Text style={styles.closeText}>Aceptar</Text>
           </TouchableOpacity>
-          {type === 'account' ? (
-            <TouchableOpacity
-              onPress={() => onClose('cancelar')}
-              style={styles.touchable}
-            >
-              <Text style={styles.closeText}>Cancelar</Text>
-            </TouchableOpacity>
-          ) : (
-            <></>
-          )}
+
+          <TouchableOpacity onPress={() => onClose()} style={styles.touchable}>
+            <Text style={styles.closeText}>Cancelar</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </Modal>
@@ -104,4 +95,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default CustomAlert
+export default CustomAlert2

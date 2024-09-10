@@ -324,6 +324,22 @@ const TuPerfil = () => {
                   {t('userpref')}
                 </Text>
               </Pressable>
+              {/* <Pressable
+                style={[
+                  styles.solarsettingsBoldGroup,
+                  styles.solarsettingsSpaceBlock
+                ]}
+                onPress={() => navigation.navigate('SubirDocumentos')}
+              >
+                <Image
+                  style={styles.solarsettingsBoldIcon}
+                  contentFit="cover"
+                  source={require('../../assets/solarsettingsbold.png')}
+                />
+                <Text style={[styles.gestionaTuCuenta, styles.cerrarSesinTypo]}>
+                  {t('configurarIban')}
+                </Text>
+              </Pressable> */}
 
               <Pressable
                 style={[

@@ -178,29 +178,28 @@ const InicioDeportista = () => {
   }
 
   const isWithinNext2Days = (date) => {
-    const currentDate = new Date();
-    const passedDate = new Date(date);
-  
+    const currentDate = new Date()
+    const passedDate = new Date(date)
+
     // Obtener solo la fecha (sin la hora)
-    currentDate.setHours(0, 0, 0, 0);
-    passedDate.setHours(0, 0, 0, 0);
-  
+    currentDate.setHours(0, 0, 0, 0)
+    passedDate.setHours(0, 0, 0, 0)
+
     // Calcular la diferencia en milisegundos y convertir a días
-    const differenceInDays = (passedDate - currentDate) / (1000 * 60 * 60 * 24);
-  
-    console.log('currentDate:', currentDate);
-    console.log('passedDate:', passedDate);
-    console.log('day difference', differenceInDays);
-  
+    const differenceInDays = (passedDate - currentDate) / (1000 * 60 * 60 * 24)
+
+    console.log('currentDate:', currentDate)
+    console.log('passedDate:', passedDate)
+    console.log('day difference', differenceInDays)
+
     // Verificar si la diferencia está dentro de los próximos dos días
-    return differenceInDays >= 0 && differenceInDays <= 2;
-  };
-  
+    return differenceInDays >= 0 && differenceInDays <= 2
+  }
+
   // Filtro para los próximos 2 días de inscripción
   const lastHours = eventos.filter((evento) => {
-    return isWithinNext2Days(evento.dateInscription);
-  });
-  
+    return isWithinNext2Days(evento.dateInscription)
+  })
 
   const fechaActual = new Date()
 
@@ -212,7 +211,7 @@ const InicioDeportista = () => {
   })
 
   const eventsExpired = eventos.filter((evento) => {
-    const fechaEvento = new Date(evento.dateInscription) // 2024/04/24
+    const fechaEvento = new Date(evento.dateStart) // 2024/04/24
     return fechaEvento < new Date()
   })
 
@@ -222,12 +221,12 @@ const InicioDeportista = () => {
   // console.log('userNotifications', userNotifications)
 
   const isRegistrationOpen = (eventDate) => {
-    const currentDate = new Date();
-    const passedDate = new Date(eventDate);
-  
+    const currentDate = new Date()
+    const passedDate = new Date(eventDate)
+
     // Comparar las fechas directamente
-    return currentDate <= passedDate;
-  };
+    return currentDate <= passedDate
+  }
 
   if (loadingGet) {
     return (
@@ -532,16 +531,18 @@ const InicioDeportista = () => {
                     >
                       {lastHours &&
                         sortByDate([...lastHours]).map((event, i) => {
-                            const available = isRegistrationOpen(event.dateInscription)
-                       return   (
+                          const available = isRegistrationOpen(
+                            event.dateInscription
+                          )
+                          return (
                             <Pressable
                               key={i}
                               style={
                                 i === 0
                                   ? styles.image94ParentShadowBox1
                                   : i === sortByDate([...lastHours]).length - 1
-                                  ? styles.image94ParentShadowBoxr
-                                  : styles.image94ParentShadowBox
+                                    ? styles.image94ParentShadowBoxr
+                                    : styles.image94ParentShadowBox
                               }
                               onPress={() => {
                                 console.log('here')
@@ -552,7 +553,9 @@ const InicioDeportista = () => {
                                   })
                                 )
                                 dispatch(getEventByIdRedux(event.id))
-                                navigation.navigate('PruebasEncontradasDetalle',{id:event.id})
+                                navigation.push('PruebasEncontradasDetalle', {
+                                  id: event.id
+                                })
                               }}
                             >
                               {event.image && event.image !== '' ? (
@@ -594,38 +597,37 @@ const InicioDeportista = () => {
            </Text> */}
                                 </View>
                               </View>
-                             {(event?.creator?.id !== user.id && available) && (
-                               <Pressable
-                               onPress={() => {
-                                 if (isGuest) {
-                                   dispatch(setShowGuestModal(true))
-                                   return
-                                 }
-                                 navigation.navigate('Inscripcion', event)
-                               }}
-                               style={{
-                                 backgroundColor: Color.sportsNaranja,
-                                 position: 'absolute',
-                                 top: 10,
-                                 right: 10,
-                                 paddingHorizontal: 6,
-                                 borderRadius: 12
-                               }}
-                             >
-                               <Text
-                                 style={{
-                                   fontWeight: 600,
-                                   color: 'white',
-                                   marginBottom: 2
-                                 }}
-                               >
-                                 +
-                               </Text>
-                             </Pressable>
-                             )}
+                              {event?.creator?.id !== user.id && available && (
+                                <Pressable
+                                  onPress={() => {
+                                    if (isGuest) {
+                                      dispatch(setShowGuestModal(true))
+                                      return
+                                    }
+                                    navigation.push('Inscripcion', event)
+                                  }}
+                                  style={{
+                                    backgroundColor: Color.sportsNaranja,
+                                    position: 'absolute',
+                                    top: 10,
+                                    right: 10,
+                                    paddingHorizontal: 6,
+                                    borderRadius: 12
+                                  }}
+                                >
+                                  <Text
+                                    style={{
+                                      fontWeight: 600,
+                                      color: 'white',
+                                      marginBottom: 2
+                                    }}
+                                  >
+                                    +
+                                  </Text>
+                                </Pressable>
+                              )}
                             </Pressable>
                           )
-
                         })}
                     </ScrollView>
                   </View>
@@ -652,7 +654,9 @@ const InicioDeportista = () => {
                     >
                       {latestEventsAdded &&
                         sortByDate([...latestEventsAdded])?.map((event, i) => {
-                          const available = isRegistrationOpen(event.dateInscription)
+                          const available = isRegistrationOpen(
+                            event.dateInscription
+                          )
 
                           return (
                             <Pressable
@@ -661,9 +665,11 @@ const InicioDeportista = () => {
                                 i === 0
                                   ? styles.image94ParentShadowBox1
                                   : i ===
-                                    sortByDate([...latestEventsAdded]).length - 1
-                                  ? styles.image94ParentShadowBoxr
-                                  : styles.image94ParentShadowBox
+                                      sortByDate([...latestEventsAdded])
+                                        .length -
+                                        1
+                                    ? styles.image94ParentShadowBoxr
+                                    : styles.image94ParentShadowBox
                               }
                               onPress={() => {
                                 dispatch(
@@ -673,7 +679,9 @@ const InicioDeportista = () => {
                                   })
                                 )
                                 dispatch(getEventByIdRedux(event.id))
-                                navigation.navigate('PruebasEncontradasDetalle',{id:event.id})
+                                navigation.push('PruebasEncontradasDetalle', {
+                                  id: event.id
+                                })
                               }}
                             >
                               {event.image && event.image !== '' ? (
@@ -712,35 +720,35 @@ const InicioDeportista = () => {
                                   </Text>
                                 </View>
                               </View>
-                              {(event?.creator?.id !== user.id && available) && (
-                               <Pressable
-                               onPress={() => {
-                                 if (isGuest) {
-                                   dispatch(setShowGuestModal(true))
-                                   return
-                                 }
-                                 navigation.navigate('Inscripcion', event)
-                               }}
-                               style={{
-                                 backgroundColor: Color.sportsNaranja,
-                                 position: 'absolute',
-                                 top: 10,
-                                 right: 10,
-                                 paddingHorizontal: 6,
-                                 borderRadius: 12
-                               }}
-                             >
-                               <Text
-                                 style={{
-                                   fontWeight: 600,
-                                   color: 'white',
-                                   marginBottom: 2
-                                 }}
-                               >
-                                 +
-                               </Text>
-                             </Pressable>
-                             )}
+                              {event?.creator?.id !== user.id && available && (
+                                <Pressable
+                                  onPress={() => {
+                                    if (isGuest) {
+                                      dispatch(setShowGuestModal(true))
+                                      return
+                                    }
+                                    navigation.push('Inscripcion', event)
+                                  }}
+                                  style={{
+                                    backgroundColor: Color.sportsNaranja,
+                                    position: 'absolute',
+                                    top: 10,
+                                    right: 10,
+                                    paddingHorizontal: 6,
+                                    borderRadius: 12
+                                  }}
+                                >
+                                  <Text
+                                    style={{
+                                      fontWeight: 600,
+                                      color: 'white',
+                                      marginBottom: 2
+                                    }}
+                                  >
+                                    +
+                                  </Text>
+                                </Pressable>
+                              )}
                             </Pressable>
                           )
                         })}
@@ -760,7 +768,9 @@ const InicioDeportista = () => {
                     >
                       {eventsExpired &&
                         sortByDate([...eventsExpired]).map((event, i) => {
-                          const available = isRegistrationOpen(event.dateInscription)
+                          const available = isRegistrationOpen(
+                            event.dateInscription
+                          )
 
                           return (
                             <Pressable
@@ -769,9 +779,9 @@ const InicioDeportista = () => {
                                 i === 0
                                   ? styles.image94ParentShadowBox1
                                   : i ===
-                                    sortByDate([...eventsExpired]).length - 1
-                                  ? styles.image94ParentShadowBoxr
-                                  : styles.image94ParentShadowBox
+                                      sortByDate([...eventsExpired]).length - 1
+                                    ? styles.image94ParentShadowBoxr
+                                    : styles.image94ParentShadowBox
                               }
                               onPress={() => {
                                 dispatch(
@@ -781,7 +791,9 @@ const InicioDeportista = () => {
                                   })
                                 )
                                 dispatch(getEventByIdRedux(event.id))
-                                navigation.navigate('PruebasEncontradasDetalle',{id:event.id})
+                                navigation.push('PruebasEncontradasDetalle', {
+                                  id: event.id
+                                })
                               }}
                             >
                               {event.image && event.image !== '' ? (
@@ -823,35 +835,35 @@ const InicioDeportista = () => {
                              </Text> */}
                                 </View>
                               </View>
-                              {(event?.creator?.id !== user.id && available) && (
-                               <Pressable
-                               onPress={() => {
-                                 if (isGuest) {
-                                   dispatch(setShowGuestModal(true))
-                                   return
-                                 }
-                                 navigation.navigate('Inscripcion', event)
-                               }}
-                               style={{
-                                 backgroundColor: Color.sportsNaranja,
-                                 position: 'absolute',
-                                 top: 10,
-                                 right: 10,
-                                 paddingHorizontal: 6,
-                                 borderRadius: 12
-                               }}
-                             >
-                               <Text
-                                 style={{
-                                   fontWeight: 600,
-                                   color: 'white',
-                                   marginBottom: 2
-                                 }}
-                               >
-                                 +
-                               </Text>
-                             </Pressable>
-                             )}
+                              {event?.creator?.id !== user.id && available && (
+                                <Pressable
+                                  onPress={() => {
+                                    if (isGuest) {
+                                      dispatch(setShowGuestModal(true))
+                                      return
+                                    }
+                                    navigation.push('Inscripcion', event)
+                                  }}
+                                  style={{
+                                    backgroundColor: Color.sportsNaranja,
+                                    position: 'absolute',
+                                    top: 10,
+                                    right: 10,
+                                    paddingHorizontal: 6,
+                                    borderRadius: 12
+                                  }}
+                                >
+                                  <Text
+                                    style={{
+                                      fontWeight: 600,
+                                      color: 'white',
+                                      marginBottom: 2
+                                    }}
+                                  >
+                                    +
+                                  </Text>
+                                </Pressable>
+                              )}
                             </Pressable>
                           )
                         })}

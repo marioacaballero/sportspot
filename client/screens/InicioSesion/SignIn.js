@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react'
 import {
   BackHandler,
   Image,
+  Platform,
   Pressable,
   // SafeAreaView,
   ScrollView,
@@ -125,12 +126,14 @@ export default function SignIn({ navigation }) {
           if (res && res?.payload?.user?.name) {
             console.log('to home')
             navigation.navigate('InicioDeportista')
+            return
           }
           if (res && !res?.payload?.user?.name) {
             console.log('to edit profile')
             navigation.navigate('EditarPerfil')
+            return
           }
-          navigation.navigate('InicioDeportista')
+          // navigation.navigate('InicioDeportista')
         }
         return
       }
@@ -358,66 +361,74 @@ export default function SignIn({ navigation }) {
             >
               <Text style={styles.buttonText}>{t('iniciarconapple')}</Text>
             </TouchableOpacity> */}
-            <AppleAuthentication.AppleAuthenticationButton
-              buttonType={
-                AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
-              }
-              buttonStyle={
-                AppleAuthentication.AppleAuthenticationButtonStyle.WHITE_OUTLINE
-              }
-              cornerRadius={50}
-              style={styles.button}
-              onPress={async () => {
-                try {
-                  const credential = await AppleAuthentication.signInAsync({
-                    requestedScopes: [
-                      AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-                      AppleAuthentication.AppleAuthenticationScope.EMAIL
-                    ]
-                  })
-                  // signed in
-                  if (credential) {
-                    const { user, identityToken, nickname } = credential
-  
-                    const res = await axiosInstance.get(
-                      `users/email?email=${user.slice(0, 12)}@icloud.com`
-                    )
-                    if (res.data.id) {
-                      dispatch(
-                        login({
-                          email: `${user.slice(0, 12)}@icloud.com`,
-                          password: `${user.slice(0, 15)}`,
-                        })
+            {Platform.OS === 'ios' && (
+              <AppleAuthentication.AppleAuthenticationButton
+                buttonType={
+                  AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
+                }
+                buttonStyle={
+                  AppleAuthentication.AppleAuthenticationButtonStyle
+                    .WHITE_OUTLINE
+                }
+                cornerRadius={50}
+                style={styles.button}
+                onPress={async () => {
+                  try {
+                    const credential = await AppleAuthentication.signInAsync({
+                      requestedScopes: [
+                        AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+                        AppleAuthentication.AppleAuthenticationScope.EMAIL
+                      ]
+                    })
+                    // signed in
+                    if (credential) {
+                      const { user, identityToken, nickname } = credential
+
+                      const res = await axiosInstance.get(
+                        `users/email?email=${user.slice(0, 12)}@icloud.com`
                       )
-                    } else {
-                      dispatch(
-                        register({
-                          email: `${user.slice(0, 12)}@icloud.com`,
-                          password: `${user.slice(0, 15)}`,
-                          name: ""
+                      if (res.data.id) {
+                        dispatch(
+                          login({
+                            email: `${user.slice(0, 12)}@icloud.com`,
+                            password: `${user.slice(0, 15)}`
+                          })
+                        )
+                      } else {
+                        dispatch(
+                          register({
+                            email: `${user.slice(0, 12)}@icloud.com`,
+                            password: `${user.slice(0, 15)}`,
+                            name: ''
+                          })
+                        ).then(async (data) => {
+                          console.log('login with: ', data.payload)
+                          if (data.payload.id) {
+                            const { email, password } = data.payload
+                            dispatch(
+                              login({ email, password: `${user.slice(0, 15)}` })
+                            )
+                            await AsyncStorage.setItem(
+                              'userCredentials',
+                              JSON.stringify({
+                                email,
+                                password: `${user.slice(0, 15)}`
+                              })
+                            )
+                          }
                         })
-                      ).then(async (data) => {
-                        console.log('login with: ',data.payload)
-                        if (data.payload.id) {
-                          const { email, password } = data.payload
-                          dispatch(login({ email, password:`${user.slice(0, 15)}`}))
-                          await AsyncStorage.setItem(
-                            'userCredentials',
-                            JSON.stringify({ email, password:`${user.slice(0, 15)}` })
-                          )
-                        }
-                      })
+                      }
+                    }
+                  } catch (e) {
+                    if (e.code === 'ERR_REQUEST_CANCELED') {
+                      // handle that the user canceled the sign-in flow
+                    } else {
+                      // handle other errors
                     }
                   }
-                } catch (e) {
-                  if (e.code === 'ERR_REQUEST_CANCELED') {
-                    // handle that the user canceled the sign-in flow
-                  } else {
-                    // handle other errors
-                  }
-                }
-              }}
-            />
+                }}
+              />
+            )}
             <Pressable
               style={styles.button}
               onPress={() => navigation.navigate('IniciarSesin')}

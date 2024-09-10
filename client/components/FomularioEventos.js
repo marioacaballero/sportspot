@@ -60,7 +60,6 @@ const FomularioEventos = ({
   const [selectedImageRule, setSelectedImageRule] = useState(null)
   const [loading, setLoading] = useState(false)
 
-
   const [frameContainer6Visible, setFrameContainer6Visible] = useState(false)
   const [sportsModal, setSportsModal] = useState(false)
   const [category, setCategory] = useState('')
@@ -173,7 +172,6 @@ const FomularioEventos = ({
   console.log('event: ', event)
   const [checked, setChecked] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
-  const [clientSecret, setClientSecret] = useState(null)
 
   useEffect(() => {
     dispatch(getAllSports())
@@ -350,30 +348,29 @@ const FomularioEventos = ({
       image: selectedImage || event.image,
       rules: fileUrl || selectedImageRule || ''
     }
-    
-    dispatch(updateEvent({ id: eventData.id, updateEventDto: data })).then(()=> dispatch(getAllEvents()) ).then(()=> {
-      setEvent({
-        title: '',
-        description: '',
-        price: '',
-        location: '',
-        timeStart: '',
-        eventLink: '',
-        inscriptionLink: '',
-        places: '',
-        mail: '',
-        phoneNumber: '',
-        image: null,
-        rules: ''
+
+    dispatch(updateEvent({ id: eventData.id, updateEventDto: data }))
+      .then(() => dispatch(getAllEvents()))
+      .then(() => {
+        setEvent({
+          title: '',
+          description: '',
+          price: '',
+          location: '',
+          timeStart: '',
+          eventLink: '',
+          inscriptionLink: '',
+          places: '',
+          mail: '',
+          phoneNumber: '',
+          image: null,
+          rules: ''
+        })
+        setSelectedFile('')
+        clearRedux()
+        setLoading(false)
+        navigation.goBack()
       })
-      setSelectedFile('')
-      clearRedux()
-      setLoading(false)
-      navigation.goBack()
-    })
-
-
-
   }
 
   const onSubmit = () => {
@@ -395,7 +392,7 @@ const FomularioEventos = ({
       rules: fileUrl || selectedImageRule || ''
     }
     // console.log('creating event with: ', data)
-    dispatch(createEvent(data)).then(()=> {
+    dispatch(createEvent(data)).then(() => {
       dispatch(getAllEvents())
       setEvent({
         title: '',
@@ -411,11 +408,11 @@ const FomularioEventos = ({
         image: null
       })
       setSelectedFile('')
-  
+
       clearRedux()
-    return  navigation.goBack()
+      return navigation.goBack()
     })
-  
+
     // setShowAlert(true)
   }
 
@@ -638,10 +635,21 @@ const FomularioEventos = ({
               {selectedImageRule && (
                 <Image
                   source={{ uri: selectedImageRule }}
-                  style={{ width: "90%", height:"90%" }}
+                  style={{ width: '90%', height: '90%' }}
                 ></Image>
               )}
-              {fileUrl && <Text style={{width:"100%",height:"90%",textAlign:"center",textAlignVertical:"center"}}>{fileUrl && (t('archivosubido')) }</Text>}
+              {fileUrl && (
+                <Text
+                  style={{
+                    width: '100%',
+                    height: '90%',
+                    textAlign: 'center',
+                    textAlignVertical: 'center'
+                  }}
+                >
+                  {fileUrl && t('archivosubido')}
+                </Text>
+              )}
               {/* <Button title="Upload File" onPress={handleUploadFile} /> */}
             </View>
           )}
@@ -694,8 +702,8 @@ const FomularioEventos = ({
             {onEditMode
               ? event.dateStart
               : dateStart
-              ? dateStart
-              : t('fechaDeInicio')}
+                ? dateStart
+                : t('fechaDeInicio')}
           </Text>
         </View>
       </Pressable>
@@ -726,8 +734,8 @@ const FomularioEventos = ({
             {onEditMode
               ? event.dateEnd
               : dateSuscription
-              ? dateSuscription
-              : t('fechaLimiteDeInscripcion')}
+                ? dateSuscription
+                : t('fechaLimiteDeInscripcion')}
           </Text>
         </View>
       </Pressable>
@@ -857,7 +865,13 @@ const FomularioEventos = ({
         }}
       >
         <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>
-          {(onEditMode && !loading) ? t('editar') : loading ? <ActivityIndicator color="#ffff"></ActivityIndicator>:t('enviar')}
+          {onEditMode && !loading ? (
+            t('editar')
+          ) : loading ? (
+            <ActivityIndicator color="#ffff"></ActivityIndicator>
+          ) : (
+            t('enviar')
+          )}
         </Text>
       </TouchableOpacity>
 

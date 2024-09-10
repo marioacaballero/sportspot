@@ -5,13 +5,11 @@ import { UserEntity } from 'src/users/entities/users.entity'
 import {
   Column,
   Entity,
-  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
   NumericType,
-  OneToMany,
-  OneToOne
+  OneToMany
 } from 'typeorm'
 import { UserEventHistoryEntity } from './userEvent.entity'
 import { ReviewEntity } from 'src/reviews/entities/reviews.entity'
@@ -87,9 +85,8 @@ export class EventEntity extends BaseEntity {
   @JoinTable()
   suscribers: UserEntity[]
 
-
-  @ManyToMany(() => UserEntity, user => user.subscribedEventsNotifications)
-  subscribersNotifications: UserEntity[];
+  @ManyToMany(() => UserEntity, (user) => user.subscribedEventsNotifications)
+  subscribersNotifications: UserEntity[]
 
   @OneToMany(() => NotificationEntity, (notification) => notification.event)
   notifications: NotificationEntity[]
@@ -99,7 +96,4 @@ export class EventEntity extends BaseEntity {
 
   @OneToMany(() => ReviewEntity, (review) => review.eventReview)
   reviews: ReviewEntity
-
-  @OneToMany(() => DocumentEntity, document => document.event)
-  documents: DocumentEntity[];
 }

@@ -37,6 +37,8 @@ import { t } from 'i18next'
 import Maps from '../../components/Maps'
 import CalendarOneDay from '../../components/CalendarOneDay'
 import GenderModal from './GenderModal'
+import { offSuscription } from '../../redux/actions/suscriptions'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Inscrpcion = ({ route, onEditMode, eventData }) => {
   const dispatch = useDispatch()
@@ -186,6 +188,7 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
     }
     dispatch(offSuscription(data)).then((data) => dispatch(getAllEvents()))
   }
+
   const onSuscribed = async () => {
     if (isGuest) {
       const actualSuscriptions =
@@ -691,7 +694,10 @@ const Inscrpcion = ({ route, onEditMode, eventData }) => {
                 console.log(route.params.price, 'priceee')
 
                 return navigation.navigate('stripe', {
-                  amount: route.params.price
+                  title: route.params.title,
+                  amount: route.params.price,
+                  event,
+                  id: route.params.id
                 })
               } else {
                 onSuscribed()
