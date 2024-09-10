@@ -238,7 +238,7 @@ const IniciarSesin = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
 
-          <Pressable onPress={() => navigation.navigate('RecuperarContraseña')}>
+          <Pressable onPress={() => navigation.navigate('RecuperarContrasena')}>
             <Text style={[styles.hasOlvidadoTu, styles.entrarTypo]}>
               {t('olvidastelacontra')}
             </Text>

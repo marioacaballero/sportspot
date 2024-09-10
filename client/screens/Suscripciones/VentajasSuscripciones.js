@@ -16,22 +16,40 @@ import {
 } from '../../GlobalStyles'
 import { useNavigation } from '@react-navigation/native'
 import BackArrowSVG from '../../components/SVG/BackArrowSVG'
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next'
 
 const VentajasSuscripciones = () => {
   const navigation = useNavigation()
-  const { t, i18n } = useTranslation();
-
+  const { t, i18n } = useTranslation()
 
   const handleStripe = async (plan) => {
     // const priceId = prices[`${plan}PriceId`]
     let priceId
-   
 
-    if (plan === 'month') return navigation.navigate('stripe',{amount: 5 ,cent:99})
-    if (plan === 'triMonth') return navigation.navigate('stripe',{amount: 15 ,cent:99})
-    if (plan === 'sixMonth') return navigation.navigate('stripe',{amount: 25 ,cent:99})
-    if (plan === 'year') return navigation.navigate('stripe',{amount: 45 ,cent:99})
+    if (plan === 'month')
+      return navigation.navigate('stripe', {
+        amount: 5,
+        cent: 99,
+        isSuscription: true
+      })
+    if (plan === 'triMonth')
+      return navigation.navigate('stripe', {
+        amount: 15,
+        cent: 99,
+        isSuscription: true
+      })
+    if (plan === 'sixMonth')
+      return navigation.navigate('stripe', {
+        amount: 25,
+        cent: 99,
+        isSuscription: true
+      })
+    if (plan === 'year')
+      return navigation.navigate('stripe', {
+        amount: 45,
+        cent: 99,
+        isSuscription: true
+      })
 
     // console.log(customer,"customer")
     //  const res = await dispatch(createSubscription({ priceId, customerId: customer.id }))
@@ -52,7 +70,7 @@ const VentajasSuscripciones = () => {
       style={styles.container}
     >
       <View style={styles.helloAshfakParent}>
-        <Text style={styles.helloAshfak2}>{t("planessuscripcion")}</Text>
+        <Text style={styles.helloAshfak2}>{t('planessuscripcion')}</Text>
         {/* <Pressable onPress={() => navigation.goBack()}>
           <BackArrowSVG />
         </Pressable> */}
@@ -64,15 +82,17 @@ const VentajasSuscripciones = () => {
             contentFit="cover"
             source={require('../../assets/alerta.png')}
           />
-          {i18n.language == "es" ? (
+          {i18n.language == 'es' ? (
             <Text style={styles.boxText}>
               Sistema de alertas. Nos preocupamos porque esstés bien informado,
-              por eso te enviaremos alertas de las pruebas sobre apertura, cambio
-              o finalización de plazo de inscripción.
+              por eso te enviaremos alertas de las pruebas sobre apertura,
+              cambio o finalización de plazo de inscripción.
             </Text>
           ) : (
             <Text style={styles.boxText}>
-              Alert system. We care about keeping you well informed, so we will send you alerts regarding the opening, changes, or deadline of registration periods for events.
+              Alert system. We care about keeping you well informed, so we will
+              send you alerts regarding the opening, changes, or deadline of
+              registration periods for events.
             </Text>
           )}
         </View>
@@ -83,14 +103,15 @@ const VentajasSuscripciones = () => {
             contentFit="cover"
             source={require('../../assets/cancelacion.png')}
           />
-          {i18n.language == "es" ? (
+          {i18n.language == 'es' ? (
             <Text style={styles.boxText}>
               Cancelación gratuita. Podrás cancelar tu inscripción hasta 20 días
               antes de la celebración de tu prueba sin ningún coste adicional.
             </Text>
           ) : (
             <Text style={styles.boxText}>
-              Free cancellation. You can cancel your registration up to 20 days before the date of your event at no additional cost.
+              Free cancellation. You can cancel your registration up to 20 days
+              before the date of your event at no additional cost.
             </Text>
           )}
         </View>
@@ -101,7 +122,7 @@ const VentajasSuscripciones = () => {
             contentFit="cover"
             source={require('../../assets/descuentos.png')}
           />
-          {i18n.language == "es" ? (
+          {i18n.language == 'es' ? (
             <Text style={styles.boxText}>
               Descuentos y ofertas exclusivas. Nuestro sistema de puntos te
               recompensa facilitando que alcances mejores premios al ser un
@@ -109,7 +130,9 @@ const VentajasSuscripciones = () => {
             </Text>
           ) : (
             <Text style={styles.boxText}>
-              Discounts and exclusive offers. Our points system rewards you by making it easier for you to reach better rewards as a subscribing user.
+              Discounts and exclusive offers. Our points system rewards you by
+              making it easier for you to reach better rewards as a subscribing
+              user.
             </Text>
           )}
         </View>
@@ -120,55 +143,66 @@ const VentajasSuscripciones = () => {
             contentFit="cover"
             source={require('../../assets/experiencia.png')}
           />
-          {i18n.language == "es" ? (
+          {i18n.language == 'es' ? (
             <Text style={styles.boxText}>
-            Nos preocupamos por la autenticidad de tu experiencia y la de los
-            demás deportistas de SpotSport. Contarás con la capacidad de crear
-            reseñass, asegurando la calidad de la información y obteniendo
-            puntos en nuestro sistema de gamificación
-          </Text>
+              Nos preocupamos por la autenticidad de tu experiencia y la de los
+              demás deportistas de SpotSport. Contarás con la capacidad de crear
+              reseñass, asegurando la calidad de la información y obteniendo
+              puntos en nuestro sistema de gamificación
+            </Text>
           ) : (
             <Text style={styles.boxText}>
-           We care about the authenticity of your experience and that of other SpotSport athletes. You will have the ability to create reviews, ensuring the quality of information and earning points in our gamification system.
-          </Text>
+              We care about the authenticity of your experience and that of
+              other SpotSport athletes. You will have the ability to create
+              reviews, ensuring the quality of information and earning points in
+              our gamification system.
+            </Text>
           )}
         </View>
 
         <View style={styles.contentInner}>
           <View style={styles.helloAshfakWrapper1}>
-            <Text style={styles.helloAshfak}>{t("adquiereplan")}
-            </Text>
+            <Text style={styles.helloAshfak}>{t('adquiereplan')}</Text>
           </View>
         </View>
 
-        <Pressable onPress={()=> handleStripe("month") } style={styles.contentInner}>
+        <Pressable
+          onPress={() => handleStripe('month')}
+          style={styles.contentInner}
+        >
           <View style={styles.helloAshfakWrapper4}>
             <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-              {t("plan1")}
+              {t('plan1')}
             </Text>
           </View>
         </Pressable>
-        <Pressable onPress={()=> handleStripe("triMonth") } style={styles.contentInner}>
+        <Pressable
+          onPress={() => handleStripe('triMonth')}
+          style={styles.contentInner}
+        >
           <View style={styles.helloAshfakWrapper4}>
             <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-              {t("plan2")}
-
+              {t('plan2')}
             </Text>
           </View>
         </Pressable>
-        <Pressable  onPress={()=> handleStripe("sixMonth") } style={styles.contentInner}>
+        <Pressable
+          onPress={() => handleStripe('sixMonth')}
+          style={styles.contentInner}
+        >
           <View style={styles.helloAshfakWrapper4}>
             <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-              {t("plan3")}
-
+              {t('plan3')}
             </Text>
           </View>
         </Pressable>
-        <Pressable onPress={()=> handleStripe("year") } style={styles.contentInner}>
+        <Pressable
+          onPress={() => handleStripe('year')}
+          style={styles.contentInner}
+        >
           <View style={styles.helloAshfakWrapper4}>
             <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-              {t("plan4")}
-
+              {t('plan4')}
             </Text>
           </View>
         </Pressable>
@@ -212,7 +246,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 20,
-    height: "auto",
+    height: 'auto',
     paddingBottom: 30,
     width: '100%'
   },
@@ -220,12 +254,12 @@ const styles = StyleSheet.create({
     color: Color.sportsVioleta,
     fontSize: 13,
     width: '83%',
-    fontWeight: "500"
+    fontWeight: '500'
   },
   imageIcon: {
     width: 25,
     height: 25,
-    alignSelf: "center"
+    alignSelf: 'center'
   },
   contentInner: {
     marginTop: 16,
@@ -234,7 +268,7 @@ const styles = StyleSheet.create({
   helloAshfak7: {
     fontSize: FontSize.inputPlaceholder_size,
     color: Color.blanco,
-    fontWeight: "bold"
+    fontWeight: 'bold'
   },
   helloAshfakWrapper1: {
     borderRadius: Border.br_31xl,
@@ -247,7 +281,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.inputPlaceholder_size,
     color: Color.sportsVioleta,
     fontFamily: FontFamily.inputPlaceholder,
-    fontWeight: "bold"
+    fontWeight: 'bold'
   },
   helloAshfakWrapper4: {
     borderRadius: Border.br_31xl,

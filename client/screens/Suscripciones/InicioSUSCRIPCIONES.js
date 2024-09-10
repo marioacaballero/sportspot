@@ -25,7 +25,7 @@ import { prices } from '../../utils/prices.stripe'
 import { LinearGradient } from 'expo-linear-gradient'
 // import { useStripe, PaymentSheetError } from '@stripe/stripe-react-native'
 import axiosInstance from '../../utils/apiBackend'
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next'
 
 const InicioSUSCRIPCIONES = () => {
   const navigation = useNavigation()
@@ -35,7 +35,7 @@ const InicioSUSCRIPCIONES = () => {
     (state) => state.stripe
   )
   const { user } = useSelector((state) => state.users)
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation()
 
   // const { initPaymentSheet, presentPaymentSheet } = useStripe(null)
 
@@ -45,7 +45,7 @@ const InicioSUSCRIPCIONES = () => {
   //       paymentIntentClientSecret: clientSecret,
   //       merchantDisplayName: 'asdasda',
   //       returnURL: 'stripe-example://payment-sheet',
-        
+
   //       // Set `allowsDelayedPaymentMethods` to true if your business handles
   //       // delayed notification payment methods like US bank accounts.
   //     })
@@ -78,12 +78,31 @@ const InicioSUSCRIPCIONES = () => {
   const handleStripe = async (plan) => {
     // const priceId = prices[`${plan}PriceId`]
     let priceId
-   
 
-    if (plan === 'month') return navigation.navigate('stripe',{amount: 5 ,cent:99})
-    if (plan === 'triMonth') return navigation.navigate('stripe',{amount: 15 ,cent:99})
-    if (plan === 'sixMonth') return navigation.navigate('stripe',{amount: 25 ,cent:99})
-    if (plan === 'year') return navigation.navigate('stripe',{amount: 45 ,cent:99})
+    if (plan === 'month')
+      return navigation.navigate('stripe', {
+        amount: 5,
+        cent: 99,
+        isSuscription: true
+      })
+    if (plan === 'triMonth')
+      return navigation.navigate('stripe', {
+        amount: 15,
+        cent: 99,
+        isSuscription: true
+      })
+    if (plan === 'sixMonth')
+      return navigation.navigate('stripe', {
+        amount: 25,
+        cent: 99,
+        isSuscription: true
+      })
+    if (plan === 'year')
+      return navigation.navigate('stripe', {
+        amount: 45,
+        cent: 99,
+        isSuscription: true
+      })
 
     // console.log(customer,"customer")
     //  const res = await dispatch(createSubscription({ priceId, customerId: customer.id }))
@@ -138,7 +157,7 @@ const InicioSUSCRIPCIONES = () => {
       >
         <View style={styles.helloAshfakParent}>
           <Text style={[styles.helloAshfak2, styles.helloClr]}>
-            {t("planessuscripcion")}
+            {t('planessuscripcion')}
           </Text>
           {/* <Pressable
             style={styles.groupParent}
@@ -155,8 +174,7 @@ const InicioSUSCRIPCIONES = () => {
                   <Text style={[styles.estasSonLasContainer, styles.helloClr]}>
                     <Text style={styles.estasSonLasVentajasQueObt}>
                       <Text style={styles.helloTypo}>
-                        {t("algunasventajas")}
-
+                        {t('algunasventajas')}
                       </Text>
                     </Text>
                   </Text>
@@ -170,10 +188,7 @@ const InicioSUSCRIPCIONES = () => {
                         contentFit="cover"
                         source={require('../../assets/nuevo.png')}
                       />
-                      <Text style={styles.textos}>
-                        {t("sistemaalertas")}
-
-                      </Text>
+                      <Text style={styles.textos}>{t('sistemaalertas')}</Text>
                     </View>
                     <View style={styles.container}>
                       <Image
@@ -181,10 +196,7 @@ const InicioSUSCRIPCIONES = () => {
                         contentFit="cover"
                         source={require('../../assets/reembolso.png')}
                       />
-                      <Text style={styles.textos}>
-                      {t("reembolso")}
-
-                      </Text>
+                      <Text style={styles.textos}>{t('reembolso')}</Text>
                     </View>
                   </View>
                   <View style={styles.groupContainer}>
@@ -194,10 +206,7 @@ const InicioSUSCRIPCIONES = () => {
                         contentFit="cover"
                         source={require('../../assets/resena.png')}
                       />
-                      <Text style={styles.textos}>
-                      {t("reseñavalor")}
-
-                      </Text>
+                      <Text style={styles.textos}>{t('reseñavalor')}</Text>
                     </View>
                     <View style={styles.container}>
                       <Image
@@ -205,10 +214,7 @@ const InicioSUSCRIPCIONES = () => {
                         contentFit="cover"
                         source={require('../../assets/descuento.png')}
                       />
-                      <Text style={styles.textos}>
-                      {t("descuentos")}
-                        
-                      </Text>
+                      <Text style={styles.textos}>{t('descuentos')}</Text>
                     </View>
                   </View>
                 </View>
@@ -219,18 +225,14 @@ const InicioSUSCRIPCIONES = () => {
                 >
                   <View style={styles.helloAshfakWrapper}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-                    {t("consultaventajas")}
-
+                      {t('consultaventajas')}
                     </Text>
                   </View>
                 </Pressable>
 
                 <View style={styles.contentInner}>
                   <View style={styles.helloAshfakWrapper1}>
-                    <Text style={styles.helloAshfak}>
-                    {t("adquiereplan")}
-
-                    </Text>
+                    <Text style={styles.helloAshfak}>{t('adquiereplan')}</Text>
                   </View>
                 </View>
 
@@ -240,8 +242,7 @@ const InicioSUSCRIPCIONES = () => {
                 >
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-                    {t("plan1")}
-
+                      {t('plan1')}
                     </Text>
                   </View>
                 </Pressable>
@@ -251,8 +252,7 @@ const InicioSUSCRIPCIONES = () => {
                 >
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-                    {t("plan2")}
-
+                      {t('plan2')}
                     </Text>
                   </View>
                 </Pressable>
@@ -262,8 +262,7 @@ const InicioSUSCRIPCIONES = () => {
                 >
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-                    {t("plan3")}
-
+                      {t('plan3')}
                     </Text>
                   </View>
                 </Pressable>
@@ -273,8 +272,7 @@ const InicioSUSCRIPCIONES = () => {
                 >
                   <View style={styles.helloAshfakWrapper4}>
                     <Text style={[styles.helloAshfak7, styles.helloTypo]}>
-                    {t("plan4")}
-
+                      {t('plan4')}
                     </Text>
                   </View>
                 </Pressable>

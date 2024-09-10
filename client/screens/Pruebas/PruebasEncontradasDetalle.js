@@ -136,8 +136,9 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
         {
           text: t('eliminar'),
           onPress: async () => {
+            console.log('me tocaron')
             navigation.navigate('Directorio')
-            await dispatch(setVisitedEvents(id))
+            // await dispatch(setVisitedEvents(id))
             await dispatch(deleteEvent(id))
 
             ToastAndroid.show(t('eventoborradoconexito'), ToastAndroid.SHORT)
@@ -238,7 +239,7 @@ const PruebasEncontradasDetalle = ({ navigation }) => {
 
   const onShare = async (id, title) => {
     try {
-      const url = `https://spotsport.com/?id=${id}`
+      const url = `https://spotsport.eu/?id=${id}`
       const message =
         i18next.language === 'es'
           ? `Echa un vistazo a éste nuevo evento deportivo: ${title} Link: ${url}. Si aun no la tienes instalada puedes descargala en Google Play https://play.google.com/store/apps/details?id=com.aythenapp.spotsport`

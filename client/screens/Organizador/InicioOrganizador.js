@@ -196,7 +196,7 @@ const InicioOrganizador = () => {
             <Text style={styles.buttonsText}>organizadores@spotsport.eu</Text>
           </Pressable>
           <Pressable
-            onPress={() => Linking.openURL('tel:organizadores@spotsport.eu')}
+            onPress={() => Linking.openURL('tel:600014747')}
             style={styles.helloAshfakWrapper}
           >
             <ContactoSVG />

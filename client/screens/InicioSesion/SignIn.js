@@ -126,12 +126,14 @@ export default function SignIn({ navigation }) {
           if (res && res?.payload?.user?.name) {
             console.log('to home')
             navigation.navigate('InicioDeportista')
+            return
           }
           if (res && !res?.payload?.user?.name) {
             console.log('to edit profile')
             navigation.navigate('EditarPerfil')
+            return
           }
-          navigation.navigate('InicioDeportista')
+          // navigation.navigate('InicioDeportista')
         }
         return
       }

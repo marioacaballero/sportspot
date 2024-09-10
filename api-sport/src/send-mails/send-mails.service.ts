@@ -1003,9 +1003,8 @@ export class SendMailsService {
         display: flex;
         gap: 10px;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
-        margin-left: 30%;
       }
       .iconImg {
         width: 40px;

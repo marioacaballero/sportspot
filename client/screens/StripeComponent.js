@@ -8,13 +8,20 @@ import { submitInscription, suscriptionEventUser } from '../redux/actions/users'
 import { getAllEvents } from '../redux/actions/events'
 function StripeComponent({ route }) {
   const [url, setUrl] = useState('')
-  const { amount, cent, title } = route.params
+  const { amount, cent, title, isSuscription } = route.params
 
   function generarOrder() {
     const prefijo = 'PAY'
     const numeros = Math.floor(Math.random() * 9000000000) + 1000000000 // Genera un número aleatorio de 10 dígitos
     return prefijo + numeros.toString()
   }
+
+  function generarIdDocument() {
+    const prefijo = 'USER'
+    const numeros = Math.floor(Math.random() * 9000000000) + 1000000000 // Genera un número aleatorio de 10 dígitos
+    return prefijo + numeros.toString()
+  }
+
   const navigation = useNavigation()
   const { user } = useSelector((state) => state.users)
 
@@ -23,7 +30,7 @@ function StripeComponent({ route }) {
       'https://rest.paycomet.com/v1/form',
       {
         operationType: '1',
-        terminal: '73081',
+        terminal: isSuscription ? '73080' : '73081',
         // terminal: '71101',
 
         productDescription: 'Descripcion del producto',
@@ -32,7 +39,7 @@ function StripeComponent({ route }) {
           currency: 'EUR',
           order: generarOrder(),
           // terminal: '71101',
-          terminal: '73081',
+          terminal: isSuscription ? '73080' : '73081',
 
           secure: '1'
         }
@@ -61,6 +68,29 @@ function StripeComponent({ route }) {
       id: user.id,
       eventId: route.params.id
     }
+    // try {
+    //   await await axiosInstance
+    //     .post(
+    //       'https://rest.paycomet.com/v1/sepa/add-document',
+    //       {
+    //         documentType: '12',
+    //         merchantCode: generarIdDocument(),
+    //         merchantCustomerIban: 'ES0123456789012345678901',
+    //         merchantCustomerId: '12341234',
+    //         sepaProviderId: '973',
+    //         terminal: '73081'
+    //       },
+    //       {
+    //         headers: {
+    //           // 'PAYCOMET-API-TOKEN': '5fadd9b95cb3a11e5a2cffd585d702e458c29da0'
+    //           'PAYCOMET-API-TOKEN': 'bb518dc868eee45c1071761ce374572c4e7d952e'
+    //         }
+    //       }
+    //     )
+    //     .then((ressss) => console.log(ressss, 'esto me da al final de todo'))
+    // } catch (error) {
+    //   console.log(error)
+    // }
 
     const dataToSend = { ...route.params.event }
     dataToSend.eventId = route.params.id
@@ -72,10 +102,12 @@ function StripeComponent({ route }) {
     console.log('sending suscription request to ============: ', data)
 
     dispatch(suscriptionEventUser(data)).then(async (data) => {
-      await axiosInstance.post('send-mails/suscribe', {
-        email: route.params.event.email,
-        name_event: title
-      })
+      await axiosInstance
+        .post('send-mails/suscribe', {
+          email: route.params.event.email,
+          name_event: title
+        })
+        .then((rez) => console.log(rez, 'rez'))
       dispatch(getAllEvents()).then(() => {
         navigation.goBack()
         navigation.goBack()

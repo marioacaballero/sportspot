@@ -36,7 +36,7 @@ import PopupAlerta from './components/PopupAlerta'
 import EscribirResea from './components/EscribirResea'
 import MenuInferior from './components/MenuInferior'
 import Contacta from './screens/Perfil/Contacta'
-import {RecuperarContrasena} from './screens/InicioSesion/RecuperarContrasena'
+import { RecuperarContrasena } from './screens/InicioSesion/RecuperarContrasena'
 import StripeComponent from './screens/StripeComponent'
 import VentajasSuscripciones from './screens/Suscripciones/VentajasSuscripciones'
 import PublicarEvento from './screens/Organizador/PublicarEvento'
@@ -52,6 +52,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { setNotificationPush } from './redux/slices/users.slices'
 import Colaboradores from './screens/Perfil/Colaboradores'
 import * as Linking from 'expo-linking'
+import SubirDocumentos from './screens/Perfil/SubirDocumentos'
+import DocumentosClientes from './screens/Perfil/DocumentosClientes'
 // import { StripeProvider } from '@stripe/stripe-react-native'
 // import PaymentScreen from './screens/PaymentScreen'
 // import './shim'
@@ -240,6 +242,16 @@ function MyStackNavigator({ isFooterShow, setIsFooterShow }) {
         component={RecuperarContrasena}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name="SubirDocumentos"
+        component={SubirDocumentos}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="DocumentosClientes"
+        component={DocumentosClientes}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   )
 }
@@ -365,11 +377,10 @@ export default function App() {
 
   const [isFooterShow, setIsFooterShow] = useState(null)
 
-
   useEffect(() => {
     Linking.addEventListener('url', async (e) => {
       const { hostname, path, queryParams } = Linking.parse(e.url)
-      console.log(queryParams,"parms")
+      console.log(queryParams, 'parms')
       // const re =await Linking.openURL("http://mytreeappoficial.com")
       // console.log(re,"navsss")
       navigationRef.current?.navigate('PruebasEncontradasDetalle', queryParams) // Usar
@@ -384,7 +395,7 @@ export default function App() {
     'pk_test_51PBJ3MCArpM8BK01XJXHXCxHBJnGAH5JYBnMAhEdHkMB6dpwyQJj3O0KsPo9CGH5JC2tWsofNAD03nluCUOSk6I200RsyWloFq'
 
   const linking = {
-    prefixes: ['spotsport://', 'https://spotsport.com'],
+    prefixes: ['https://spotsport.eu/', 'spotsport://'],
     config: {
       screens: {
         InicioDeportista: 'InicioDeportista',
@@ -403,13 +414,13 @@ export default function App() {
       />
       <I18nextProvider i18n={i18n}>
         <Provider store={store}>
-            <NavigationContainer ref={navigationRef} linking={linking}>
-              <MyStackNavigator
-                isFooterShow={isFooterShow}
-                setIsFooterShow={setIsFooterShow}
-              />
-              {isFooterShow && <MenuInferior />}
-            </NavigationContainer>
+          <NavigationContainer ref={navigationRef} linking={linking}>
+            <MyStackNavigator
+              isFooterShow={isFooterShow}
+              setIsFooterShow={setIsFooterShow}
+            />
+            {isFooterShow && <MenuInferior />}
+          </NavigationContainer>
         </Provider>
       </I18nextProvider>
     </SafeAreaView>
